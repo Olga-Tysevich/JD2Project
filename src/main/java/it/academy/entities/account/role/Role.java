@@ -1,6 +1,5 @@
-package it.academy.entities.device.components;
+package it.academy.entities.account.role;
 
-import it.academy.entities.service_center.ServiceCenter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +11,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "brands")
-public class Brand {
+@Table(name = "company_roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -25,7 +24,9 @@ public class Brand {
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany(mappedBy = "brands", fetch = FetchType.LAZY)
-    private Set<ServiceCenter> services = new HashSet<>();
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "roles_permissions",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "permission_id")})
+    private Set<Permission> permissions = new HashSet<>();
 }

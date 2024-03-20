@@ -21,6 +21,15 @@
         <class>it.academy.entities.repair.decommissioning.DecommissioningCertificate</class>
         <class>it.academy.entities.repair.decommissioning.DecommissioningCause</class>
         <class>it.academy.entities.repair.Repair</class>
+        <class>it.academy.entities.account.Account</class>
+        <class>it.academy.entities.account.ServiceAccount</class>
+        <class>it.academy.entities.account.role.Role</class>
+        <class>it.academy.entities.account.role.Permission</class>
+        <class>it.academy.entities.service_center.ServiceCenter</class>
+        <class>it.academy.entities.service_center.components.Requisites</class>
+        <class>it.academy.entities.service_center.components.BankAccount</class>
+        <class>it.academy.entities.service_center.components.Country</class>
+        <class>it.academy.entities.service_center.components.City</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mySql.cj.jdbc.Driver"/>
