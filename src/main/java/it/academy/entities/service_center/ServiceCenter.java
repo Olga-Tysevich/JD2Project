@@ -1,11 +1,15 @@
 package it.academy.entities.service_center;
 
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.components.BankAccount;
 import it.academy.entities.service_center.components.Country;
 import it.academy.entities.service_center.components.Requisites;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +17,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "service_centers")
-public class ServiceCenter {
+public class ServiceCenter implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -28,7 +32,7 @@ public class ServiceCenter {
     @AttributeOverrides({
             @AttributeOverride(name = "fullName", column = @Column(name = "full_name")),
             @AttributeOverride(name = "actualAddress", column = @Column(name = "actual_address")),
-            @AttributeOverride(name = "legalAddress", column = @Column(name = "actual_address")),
+            @AttributeOverride(name = "legalAddress", column = @Column(name = "legal_address")),
             @AttributeOverride(name = "taxpayerNumber", column = @Column(name = "taxpayer_number")),
             @AttributeOverride(name = "registrationNumber", column = @Column(name = "registration_number"))
     })
@@ -48,4 +52,14 @@ public class ServiceCenter {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
     private Country country;
+
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "service_centers_brands",
+            joinColumns = {@JoinColumn(name = "service_center_id")},
+            inverseJoinColumns = {@JoinColumn(name = "brand_id")})
+    private Set<Brand> brands = new HashSet<>();
+
 }

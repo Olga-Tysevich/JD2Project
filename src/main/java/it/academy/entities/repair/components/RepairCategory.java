@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "repair_categories")
-public class RepairCategory {
+public class RepairCategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

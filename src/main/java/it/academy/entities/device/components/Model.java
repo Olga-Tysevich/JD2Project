@@ -3,6 +3,7 @@ package it.academy.entities.device.components;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "models")
-public class Model {
+public class Model implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

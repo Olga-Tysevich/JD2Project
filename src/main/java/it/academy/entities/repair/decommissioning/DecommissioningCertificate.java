@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "decommissioning_certificates")
-public class DecommissioningCertificate {
+public class DecommissioningCertificate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

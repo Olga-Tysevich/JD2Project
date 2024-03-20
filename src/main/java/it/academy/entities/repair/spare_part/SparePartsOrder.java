@@ -6,6 +6,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "spare_parts_orders")
-public class SparePartsOrder {
+@Table(name = "orders")
+public class SparePartsOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -26,7 +27,7 @@ public class SparePartsOrder {
     @JoinColumn(name = "repair_id")
     private Repair repair;
 
-    @Column(name = "order_date",updatable = false)
+    @Column(name = "order_date", updatable = false)
     @Generated(GenerationTime.INSERT)
     private Date orderDate;
 
@@ -41,7 +42,7 @@ public class SparePartsOrder {
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "spare_parts_orders",
-    joinColumns = {@JoinColumn(name = "order_id")},
-    inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
     private Set<SparePart> spareParts = new HashSet<>();
 }

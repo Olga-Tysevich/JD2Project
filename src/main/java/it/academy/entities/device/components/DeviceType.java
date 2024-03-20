@@ -5,6 +5,7 @@ import it.academy.entities.repair.spare_part.SparePart;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "device_types")
-public class DeviceType {
+public class DeviceType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

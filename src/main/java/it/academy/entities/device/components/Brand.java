@@ -4,6 +4,7 @@ import it.academy.entities.service_center.ServiceCenter;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "brands")
-public class Brand {
+public class Brand implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

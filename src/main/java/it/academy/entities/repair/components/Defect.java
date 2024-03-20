@@ -4,6 +4,7 @@ import it.academy.entities.device.components.DeviceType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "defects")
-public class Defect {
+public class Defect implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

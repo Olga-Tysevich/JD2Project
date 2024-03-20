@@ -4,6 +4,7 @@ import it.academy.entities.device.components.DeviceType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "spare_parts")
-public class SparePart {
+public class SparePart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -27,4 +28,10 @@ public class SparePart {
     @ToString.Exclude
     @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY)
     private Set<DeviceType> typeSet = new HashSet<>();
+
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY)
+    private Set<SparePartsOrder> orders = new HashSet<>();
 }

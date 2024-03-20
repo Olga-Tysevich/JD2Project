@@ -1,15 +1,11 @@
 package it.academy.entities.account;
 
 import it.academy.entities.service_center.ServiceCenter;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.*;
 
-@SuperBuilder
+
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

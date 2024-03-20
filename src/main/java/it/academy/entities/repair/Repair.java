@@ -14,6 +14,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
@@ -22,7 +23,7 @@ import java.sql.Date;
 @Builder
 @Entity
 @Table(name = "repairs")
-public class Repair {
+public class Repair implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

@@ -2,20 +2,22 @@ package it.academy.entities.account;
 
 import it.academy.entities.account.role.Role;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "accounts")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "account_type",
         discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("C")
-public class Account {
+public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

@@ -6,6 +6,7 @@ import it.academy.entities.device.components.Salesman;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
@@ -14,7 +15,7 @@ import java.sql.Date;
 @Builder
 @Entity
 @Table(name = "devices")
-public class Device {
+public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
