@@ -12,15 +12,11 @@ public class ParameterManager {
     private ParameterManager() {
     }
 
-    public static List<ParameterContainer> getQueryParameters(String parameters) {
+    public static List<ParameterContainer> getQueryParameters(List<String> filters, String parameters) {
         List<String> parameterList = getParameters(parameters);
         List<ParameterContainer> result = new ArrayList<>();
-        parameterList.forEach(p -> {
-            if (getNumber(p) == null) {
-                result.add(new ParameterContainer(String.class, String.format(LIKE_QUERY_PATTERN,p)));
-            } else {
-                result.add(getNumber(p));
-            }
+        filters.forEach(f -> {
+            parameterList.forEach(p -> result.add(new ParameterContainer(f, getParameter(p))));
         });
         return result;
     }
@@ -29,31 +25,7 @@ public class ParameterManager {
         return Arrays.asList(parameters.split(PUNCTUATION_MARKS_PATTERN));
     }
 
-    private static ParameterContainer getNumber(String parameter) {
-        if (isIntNumber(parameter)) {
-            return new ParameterContainer(Integer.class, Integer.parseInt(parameter));
-        } else if (isDoubleNumber(parameter)) {
-            return new ParameterContainer(Double.class, Double.parseDouble(parameter));
-        }
-        return null;
-    }
-
-
-    private static boolean isIntNumber(String parameter) {
-        try {
-            Integer.parseInt(parameter);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private static boolean isDoubleNumber(String parameter) {
-        try {
-            Double.parseDouble(parameter);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    private static String getParameter(String parameter) {
+        return String.format(LIKE_QUERY_PATTERN, parameter);
     }
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ParameterContainer {
-    private Class<?> parameterType;
-    private Object parameterValue;
+    private String parameterName;
+    private String parameterValue;
 }

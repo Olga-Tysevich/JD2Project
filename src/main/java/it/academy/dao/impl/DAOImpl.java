@@ -1,16 +1,18 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
+import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
 import java.util.List;
 
-import static it.academy.utils.Constants.OBJECT_ID;
+import static it.academy.utils.Constants.*;
 
 public class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger = TransactionManger.getInstance();
@@ -38,6 +40,16 @@ public class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
+    public <S> T findByUniqueParameter(String filter, S parameter) {
+        CriteriaQuery<T> findByParameter = criteriaBuilder().createQuery(clazz);
+        Root<T> root = findByParameter.from(clazz);
+        findByParameter.select(root)
+                .where(criteriaBuilder().equal(root.get(filter), parameter));
+        return entityManager().createQuery(findByParameter).getSingleResult();
+    }
+
+
+    @Override
     public boolean delete(R id) {
         T object = entityManager().find(clazz, id);
         if (object != null) {
@@ -55,6 +67,12 @@ public class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
+    public List<T> findAllByParameters(List<ParameterContainer> parameters) {
+        CriteriaQuery<T> findByParameter = createQuery(parameters);
+        return entityManager().createQuery(findByParameter).getResultList();
+    }
+
+    @Override
     public List<T> findForPage(int pageNumber, int listSize) {
         CriteriaQuery<T> findList = criteriaBuilder().createQuery(clazz);
         Root<T> root = findList.from(clazz);
@@ -66,6 +84,16 @@ public class DAOImpl<T, R> implements DAO<T, R> {
                 .setMaxResults(listSize)
                 .getResultList();
     }
+
+    @Override
+    public List<T> findForPageByParameters(int pageNumber, int listSize, List<ParameterContainer> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
+        return entityManager().createQuery(findByParameters)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
 
     @Override
     public BigInteger getNumberOfEntries() {
@@ -81,5 +109,20 @@ public class DAOImpl<T, R> implements DAO<T, R> {
 
     protected CriteriaBuilder criteriaBuilder() {
         return manger.criteriaBuilder();
+    }
+
+    private CriteriaQuery<T> createQuery(List<ParameterContainer> parameters) {
+        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
+        Root<T> root = findByParameters.from(clazz);
+
+        Predicate likeName = criteriaBuilder().disjunction();
+        //TODO Проверить как отработает
+        parameters.forEach(p ->
+                likeName.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(p.getParameterName()), p.getParameterValue())))
+        );
+
+        findByParameters.select(root)
+                .where(likeName);
+        return findByParameters;
     }
 }
