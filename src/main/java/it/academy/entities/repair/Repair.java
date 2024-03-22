@@ -74,4 +74,7 @@ public class Repair implements Serializable {
     @JoinColumn(name = "device_id")
     private Device device;
 
+    @Column(name = "deleted")
+    private boolean isDeleted;
+
 }

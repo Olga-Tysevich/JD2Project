@@ -1,4 +1,4 @@
-package it.academy.utils;
+package it.academy.utils.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

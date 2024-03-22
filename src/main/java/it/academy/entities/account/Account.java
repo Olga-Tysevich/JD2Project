@@ -12,7 +12,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"email"})
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "account_type",
         discriminatorType = DiscriminatorType.CHAR)
@@ -23,11 +25,17 @@ public class Account implements Serializable {
     @Column
     private Long id;
 
+    @Column(name = "active")
+    private Boolean isActive;
+
     @Column
     private String email;
 
     @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "user_surname")
+    private String userSurname;
 
     @Column
     private String password;

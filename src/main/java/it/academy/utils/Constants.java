@@ -11,6 +11,17 @@ public class Constants {
     //parameters
     public static final String OBJECT_ID = "id";
 
+    //Account parameters
+    public static final String EMAIL = "email";
+    public static final String USER_NAME = "userName";
+    public static final String USER_SURNAME = "userSurname";
+
+    //DAO
+    public static final String LIKE_QUERY_PATTERN = "%% %s %%";
+
+    //QueryManager
+    public static final String PUNCTUATION_MARKS_PATTERN = "\\s*\\p{P}\\s*||\\s+";
+
     private Constants() {
     }
 }

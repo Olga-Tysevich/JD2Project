@@ -1,4 +1,4 @@
-package it.academy.dao.manager;
+package it.academy.utils.dao;
 
 import it.academy.utils.HibernateUtil;
 
@@ -52,6 +52,7 @@ public class TransactionManger {
     }
 
     public <T> T execute(Supplier<T> method) {
+        lock.lock();
         beginTransaction();
         T result = null;
         try {
@@ -61,6 +62,7 @@ public class TransactionManger {
             rollback();
         }
         entityManager().close();
+        lock.unlock();
         return result;
     }
 

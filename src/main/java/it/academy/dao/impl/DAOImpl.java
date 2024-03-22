@@ -1,7 +1,7 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
-import it.academy.dao.manager.TransactionManger;
+import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
