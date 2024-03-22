@@ -1,6 +1,7 @@
-package it.academy.dao.impl;
+package it.academy.dao.account.impl;
 
-import it.academy.dao.AccountDAO;
+import it.academy.dao.account.AccountDAO;
+import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.account.Account;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
@@ -14,10 +15,10 @@ import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.*;
 
-public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO {
+public class AccountDAOImpl <T extends Account> extends DAOImpl<T, Long> implements AccountDAO<T> {
 
-    public AccountDAOImpl(Class<Account> clazz) {
-        super(Account.class);
+    public AccountDAOImpl(Class<T> clazz) {
+        super(clazz);
     }
 
     @Override

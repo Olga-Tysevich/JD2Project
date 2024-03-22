@@ -1,6 +1,8 @@
 package it.academy;
 
-import it.academy.utils.HibernateUtil;
+
+import it.academy.dao.account.impl.AccountDAOImpl;
+import it.academy.entities.account.ServiceAccount;
 
 public class Test {
     public static void main(String[] args) {
@@ -8,6 +10,8 @@ public class Test {
 
         String d ="1.2";
 
-        Integer.parseInt(d);
+
+        AccountDAOImpl<ServiceAccount> s = new AccountDAOImpl<>(ServiceAccount.class);
+        System.out.println(s);
     }
 }

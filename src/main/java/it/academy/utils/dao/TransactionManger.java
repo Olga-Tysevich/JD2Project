@@ -1,7 +1,5 @@
 package it.academy.utils.dao;
 
-import it.academy.utils.HibernateUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.concurrent.locks.ReentrantLock;
