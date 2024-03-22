@@ -8,6 +8,9 @@ public class Constants {
     //resources
     public static final String REPAIR_STATUSES_BUNDLE = "src/repair";
 
+    //parameters
+    public static final String OBJECT_ID = "id";
+
     private Constants() {
     }
 }
