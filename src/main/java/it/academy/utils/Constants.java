@@ -19,6 +19,9 @@ public class Constants {
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%% %s %%";
 
+    //DAO names
+    public static final String ACCOUNT = "account";
+
     //QueryManager
     public static final String PUNCTUATION_MARKS_PATTERN = "\\s*\\p{P}\\s*||\\s+";
 

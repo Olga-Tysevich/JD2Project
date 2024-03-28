@@ -2,6 +2,7 @@ package it.academy.entities.service_center;
 
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.components.BankAccount;
+import it.academy.entities.service_center.components.City;
 import it.academy.entities.service_center.components.Country;
 import it.academy.entities.service_center.components.Requisites;
 import lombok.*;
@@ -26,7 +27,7 @@ public class ServiceCenter implements Serializable {
     @Column(name = "service_name")
     private String serviceName;
 
-    @EqualsAndHashCode.Exclude
+//    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Embedded
     @AttributeOverrides({
@@ -49,9 +50,14 @@ public class ServiceCenter implements Serializable {
     })
     private BankAccount bankAccount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "country_id")
-    private Country country;
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "service_centes_cities",
+    joinColumns = {@JoinColumn(name = "service_id")},
+    inverseJoinColumns = {@JoinColumn(name = "city_id")})
+    private Set<City> cities = new HashSet<>();
 
     @Builder.Default
     @EqualsAndHashCode.Exclude

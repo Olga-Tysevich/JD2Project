@@ -14,7 +14,7 @@ import java.util.List;
 
 import static it.academy.utils.Constants.*;
 
-public class DAOImpl<T, R> implements DAO<T, R> {
+public abstract class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger = TransactionManger.getInstance();
     private Class<T> clazz;
 

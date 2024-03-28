@@ -26,4 +26,5 @@ public class City implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
     private Country country;
+
 }
