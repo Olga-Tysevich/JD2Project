@@ -1,9 +1,9 @@
 package it.academy.services;
 
-import it.academy.dto.req.AccountDTOReq;
+import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.resp.DTOResp;
 
-public interface CompanyOwnerService {
+public interface CompanyOwnerService extends CompanyAdminService {
 
     DTOResp addAdminAccount(AccountDTOReq req);
 

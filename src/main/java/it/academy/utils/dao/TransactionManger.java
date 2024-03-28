@@ -52,12 +52,13 @@ public class TransactionManger {
     public <T> T execute(Supplier<T> method) {
         lock.lock();
         beginTransaction();
-        T result = null;
+        T result;
         try {
             result = method.get();
             commit();
         } catch (Exception e) {
             rollback();
+            throw e;
         }
         entityManager().close();
         lock.unlock();

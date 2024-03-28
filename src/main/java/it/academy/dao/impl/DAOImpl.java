@@ -11,6 +11,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 import static it.academy.utils.Constants.*;
 
@@ -45,9 +46,12 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         Root<T> root = findByParameter.from(clazz);
         findByParameter.select(root)
                 .where(criteriaBuilder().equal(root.get(filter), parameter));
-        return entityManager().createQuery(findByParameter).getSingleResult();
+        return entityManager().createQuery(findByParameter)
+                .getResultStream()
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
     }
-
 
     @Override
     public boolean delete(R id) {
@@ -68,8 +72,8 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     @Override
     public List<T> findAllByParameters(List<ParameterContainer> parameters) {
-        CriteriaQuery<T> findByParameter = createQuery(parameters);
-        return entityManager().createQuery(findByParameter).getResultList();
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
+        return entityManager().createQuery(findByParameters).getResultList();
     }
 
     @Override
@@ -115,14 +119,17 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
-        Predicate likeName = criteriaBuilder().disjunction();
+        Predicate likeParameters = criteriaBuilder().disjunction();
         //TODO Проверить как отработает
         parameters.forEach(p ->
-                likeName.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(p.getParameterName()), p.getParameterValue())))
+                likeParameters.getExpressions()
+                        .add(criteriaBuilder()
+                                .or(criteriaBuilder()
+                                        .like(root.get(p.getParameterName()).as(String.class), p.getParameterValue())))
         );
 
         findByParameters.select(root)
-                .where(likeName);
+                .where(likeParameters);
         return findByParameters;
     }
 }

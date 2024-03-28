@@ -12,7 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "company_roles")
+@Table(name = "company_roles",
+        uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

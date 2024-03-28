@@ -7,9 +7,19 @@ public class Constants {
 
     //resources
     public static final String REPAIR_STATUSES_BUNDLE = "src/repair";
+    public static final String MESSAGES = "src/messages";
+    //message keys
+    public static final String SAVED_SUCCESSFULLY = "message.save.successfully";
 
     //parameters
     public static final String OBJECT_ID = "id";
+
+    //Permission parameters
+    public static final String PERMISSION_TYPE = "type";
+    public static final String PERMISSION_CATEGORY = "category";
+
+    //Role parameters
+    public static final String ROLE_NAME = "name";
 
     //Account parameters
     public static final String EMAIL = "email";

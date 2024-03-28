@@ -1,4 +1,4 @@
-package it.academy.dto.req;
+package it.academy.dto.req.account;
 
 import it.academy.entities.account.role.Role;
 import lombok.Builder;

@@ -1,20 +1,51 @@
 package it.academy;
 
 
-import it.academy.dao.account.impl.AccountDAOImpl;
-import it.academy.entities.account.ServiceAccount;
-import it.academy.utils.dao.HibernateUtil;
+import it.academy.dao.account.RoleDAO;
+import it.academy.dao.account.impl.RoleDAOImpl;
+import it.academy.dto.req.account.AccountDTOReq;
+import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.entities.account.role.Permission;
+import it.academy.entities.account.role.PermissionCategory;
+import it.academy.entities.account.role.PermissionType;
+import it.academy.entities.account.role.Role;
+import it.academy.services.CompanyAdminService;
+import it.academy.services.CompanyOwnerService;
+import it.academy.services.impl.CompanyAdminServiceImpl;
+import it.academy.services.impl.CompanyOwnerServiceImpl;
+import it.academy.utils.dao.TransactionManger;
 
-import javax.persistence.EntityManager;
+import java.util.Set;
 
 public class Test {
     public static void main(String[] args) {
-        EntityManager manager = HibernateUtil.getEntityManager();
+        TransactionManger manger = TransactionManger.getInstance();
 
-        String d ="1.2";
+        CompanyAdminService adminService = new CompanyAdminServiceImpl();
+        Permission permission = Permission.builder()
+                .type(PermissionType.CREATE)
+                .category(PermissionCategory.ROLE)
+                .build();
+
+        RoleDTOReq role = RoleDTOReq.builder()
+                .name("admin")
+                .permissions(Set.of(permission))
+                .build();
+
+        adminService.createRole(role);
 
 
-        AccountDAOImpl<ServiceAccount> s = new AccountDAOImpl<>(ServiceAccount.class);
-        System.out.println(s);
+        CompanyOwnerService service = new CompanyOwnerServiceImpl();
+
+        AccountDTOReq req = AccountDTOReq.builder()
+                .email("admin@mail.ru")
+                .isActive(true)
+                .password("123")
+                .confirmPassword("123")
+                .userName("Olga")
+                .userSurname("Tysevich")
+                .role(new Role())
+                .build();
+
     }
 }
