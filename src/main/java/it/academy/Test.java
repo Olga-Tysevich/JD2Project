@@ -1,10 +1,7 @@
 package it.academy;
 
 
-import it.academy.dao.account.RoleDAO;
-import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dto.req.account.AccountDTOReq;
-import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.PermissionCategory;
 import it.academy.entities.account.role.PermissionType;
@@ -26,13 +23,15 @@ public class Test {
                 .type(PermissionType.CREATE)
                 .category(PermissionCategory.ROLE)
                 .build();
+        permission.setId(1L);
 
-        RoleDTOReq role = RoleDTOReq.builder()
+        Role role = Role.builder()
                 .name("admin")
                 .permissions(Set.of(permission))
                 .build();
+        role.setId(1L);
 
-        adminService.createRole(role);
+//        adminService.createRole(role);
 
 
         CompanyOwnerService service = new CompanyOwnerServiceImpl();
@@ -44,8 +43,12 @@ public class Test {
                 .confirmPassword("123")
                 .userName("Olga")
                 .userSurname("Tysevich")
-                .role(new Role())
+                .role(role)
                 .build();
+
+//        service.addAdminAccount(req);
+        System.out.println(service.findAllBlockedAccounts());
+
 
     }
 }

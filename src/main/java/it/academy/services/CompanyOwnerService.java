@@ -8,7 +8,4 @@ public interface CompanyOwnerService extends CompanyAdminService {
     DTOResp addAdminAccount(AccountDTOReq req);
 
     DTOResp changeAdminAccount(AccountDTOReq req);
-
-    DTOResp deactivateAdminAccount(AccountDTOReq req);
-
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ParameterContainer {
+public class ParameterContainer<T> {
     private String parameterName;
-    private String parameterValue;
+    private T parameterValue;
 }

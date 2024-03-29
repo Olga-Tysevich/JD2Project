@@ -20,10 +20,10 @@ public class Permission implements Serializable {
     @Column
     private Long id;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private PermissionType type;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private PermissionCategory category;
 
 }

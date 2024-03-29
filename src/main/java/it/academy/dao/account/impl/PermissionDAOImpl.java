@@ -18,21 +18,21 @@ public class PermissionDAOImpl extends DAOImpl<Permission, Long> implements Perm
     }
 
 
-    @Override
-    public List<Permission> findAllByParameters(List<ParameterContainer> parameters) {
-        CriteriaQuery<Permission> findByParameters = criteriaBuilder().createQuery(Permission.class);
-        Root<Permission> root = findByParameters.from(Permission.class);
-
-        Predicate equalParameters = criteriaBuilder().conjunction();
-        parameters.forEach(p ->
-                equalParameters.getExpressions()
-                        .add(criteriaBuilder()
-                                .and(criteriaBuilder()
-                                        .equal(root.get(p.getParameterName()).as(String.class), p.getParameterValue())))
-        );
-
-        findByParameters.select(root)
-                .where(equalParameters);
-        return entityManager().createQuery(findByParameters).getResultList();
-    }
+//    @Override
+//    public List<Permission> findAllByParameters(List<ParameterContainer> parameters) {
+//        CriteriaQuery<Permission> findByParameters = criteriaBuilder().createQuery(Permission.class);
+//        Root<Permission> root = findByParameters.from(Permission.class);
+//
+//        Predicate equalParameters = criteriaBuilder().conjunction();
+//        parameters.forEach(p ->
+//                equalParameters.getExpressions()
+//                        .add(criteriaBuilder()
+//                                .and(criteriaBuilder()
+//                                        .equal(root.get(p.getParameterName()).as(String.class), p.getParameterValue())))
+//        );
+//
+//        findByParameters.select(root)
+//                .where(equalParameters);
+//        return entityManager().createQuery(findByParameters).getResultList();
+//    }
 }
