@@ -11,7 +11,11 @@ public class MessageManager {
     private final static ResourceBundle resourceBundle =
             ResourceBundle.getBundle(MESSAGES);
 
-    public static String getProperty(String key) {
+    public static String getMessage(String key) {
         return resourceBundle.getString(key);
+    }
+
+    public static<T> String getFormattedMessage(String key, T parameter) {
+        return String.format(resourceBundle.getString(key), parameter);
     }
 }

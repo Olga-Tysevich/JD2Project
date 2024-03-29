@@ -16,7 +16,7 @@ public class ParameterManager {
         List<String> parameterList = getParameters(parameters);
         List<ParameterContainer> result = new ArrayList<>();
         filters.forEach(f -> {
-            parameterList.forEach(p -> result.add(new ParameterContainer(f, getParameter(p))));
+            parameterList.forEach(p -> result.add(new ParameterContainer(f, getParameter(p), true)));
         });
         return result;
     }

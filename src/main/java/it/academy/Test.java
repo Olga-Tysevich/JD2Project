@@ -2,6 +2,7 @@ package it.academy;
 
 
 import it.academy.dto.req.account.AccountDTOReq;
+import it.academy.entities.account.Account;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.PermissionCategory;
 import it.academy.entities.account.role.PermissionType;
@@ -48,6 +49,7 @@ public class Test {
 
 //        service.addAdminAccount(req);
         System.out.println(service.findAllBlockedAccounts());
+        System.out.println(Account.class.getSimpleName());
 
 
     }

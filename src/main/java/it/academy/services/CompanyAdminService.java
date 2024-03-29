@@ -10,9 +10,9 @@ public interface CompanyAdminService {
 
     DTOResp createRole(RoleDTOReq req);
 
-    DTORespList<Role> findAllRoles();
+    DTORespList<RoleDTOReq> findAllRoles();
 
-    DTORespList<Role> findAllRolesForPage(int pageNumber, int listSize);
+    DTORespList<RoleDTOReq> findAllRolesForPage(int pageNumber, int listSize);
 
     DTORespList<AccountDTOReq> findAllAccounts();
 

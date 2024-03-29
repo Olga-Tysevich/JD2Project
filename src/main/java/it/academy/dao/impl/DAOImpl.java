@@ -71,8 +71,8 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public <S> List<T> findAllByParameters(boolean isEqualsQuery, List<ParameterContainer<S>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(isEqualsQuery, parameters);
+    public <S> List<T> findAllByParameters(List<ParameterContainer<S>> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters).getResultList();
     }
 
@@ -90,8 +90,8 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public <S> List<T> findForPageByParameters(boolean isEqualsQuery, int pageNumber, int listSize, List<ParameterContainer<S>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(isEqualsQuery, parameters);
+    public <S> List<T> findForPageByParameters(int pageNumber, int listSize, List<ParameterContainer<S>> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters)
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
@@ -115,46 +115,36 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return manger.criteriaBuilder();
     }
 
-    private<S> CriteriaQuery<T> createQuery(boolean isEqualsQuery, List<ParameterContainer<S>> parameters) {
+    private <S> CriteriaQuery<T> createQuery(List<ParameterContainer<S>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
-        Predicate predicate = isEqualsQuery ? createEqualsPredicate(root, parameters) : createLikePredicate(root, parameters);
-
-
-//                criteriaBuilder().disjunction();
-//        //TODO Проверить как отработает
-//        parameters.forEach(p ->
-//                predicate.getExpressions()
-//                        .add(criteriaBuilder()
-//                                .or(criteriaBuilder()
-//                                        .like(root.get(p.getParameterName()).as(String.class), p.getParameterValue())))
-//        );
+        Predicate predicate = criteriaBuilder().disjunction();
+        parameters.forEach(p -> {
+            if (p.getIsEqualsQuery()) {
+                addEqualsCondition(predicate, root, p);
+            } else {
+                addLikeCondition(predicate, root, p);
+            }
+        });
+//                = isEqualsQuery ? createEqualsPredicate(root, parameters) : createLikePredicate(root, parameters);
 
         findByParameters.select(root)
                 .where(predicate);
         return findByParameters;
     }
 
-    private <S> Predicate createLikePredicate(Root<T> root, List<ParameterContainer<S>> parameters) {
-        Predicate predicate = criteriaBuilder().disjunction();
-        parameters.forEach(p ->
-                predicate.getExpressions()
-                        .add(criteriaBuilder()
-                                .or(criteriaBuilder()
-                                        .like(root.get(p.getParameterName()).as(String.class), p.getParameterValue().toString())))
-        );
-        return predicate;
+    private <S> void addLikeCondition(Predicate predicate, Root<T> root, ParameterContainer<S> parameter) {
+        predicate.getExpressions()
+                .add(criteriaBuilder()
+                        .or(criteriaBuilder()
+                                .like(root.get(parameter.getParameterName()).as(String.class), parameter.getParameterValue().toString())));
     }
 
-    private <S> Predicate createEqualsPredicate(Root<T> root, List<ParameterContainer<S>> parameters) {
-        Predicate predicate = criteriaBuilder().conjunction();
-        parameters.forEach(p ->
-                predicate.getExpressions()
+    private <S> void addEqualsCondition(Predicate predicate, Root<T> root, ParameterContainer<S> parameter) {
+        predicate.getExpressions()
                         .add(criteriaBuilder()
                                 .or(criteriaBuilder()
-                                        .equal(root.get(p.getParameterName()), p.getParameterValue())))
-        );
-        return predicate;
+                                        .equal(root.get(parameter.getParameterName()), parameter.getParameterValue())));
     }
 }

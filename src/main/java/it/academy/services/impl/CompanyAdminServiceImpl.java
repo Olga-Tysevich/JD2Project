@@ -14,18 +14,16 @@ import it.academy.entities.account.Account;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.services.CompanyAdminService;
-import it.academy.utils.Converter;
-import it.academy.utils.ExceptionManager;
-import it.academy.utils.MessageManager;
+import it.academy.utils.services.Converter;
+import it.academy.utils.services.ExceptionManager;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
-import static javax.servlet.http.HttpServletResponse.*;
 
 public class CompanyAdminServiceImpl implements CompanyAdminService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
@@ -37,9 +35,9 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public DTOResp createRole(RoleDTOReq req) {
 
         Set<Permission> permissionSet = req.getPermissions();
-        permissionSet.forEach(p -> permissionDAO.findAllByParameters(true,
-                List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType().name()),
-                        new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory().name())))
+        permissionSet.forEach(p -> permissionDAO.findAllByParameters(
+                List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType().name(), true),
+                        new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory().name(), true)))
                 .stream()
                 .findFirst()
                 .ifPresentOrElse(
@@ -64,78 +62,49 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
             return result;
         };
 
-        try {
-            transactionManger.execute(find);
-        } catch (Exception e) {
-            DTOResp resp = ExceptionManager.getResp(e);
-            resp.setHttpStatus(SC_INTERNAL_SERVER_ERROR);
-            return resp;
-        }
-
-        return DTOResp.builder()
-                .httpStatus(SC_CREATED)
-                .message(String.format(MessageManager.getProperty(SAVED_SUCCESSFULLY), role.getName()))
-                .build();
+        return ExceptionManager.getObjectSaveResult(() -> transactionManger.execute(find));
     }
 
     @Override
-    public DTORespList<Role> findAllRoles() {
+    public DTORespList<RoleDTOReq> findAllRoles() {
         List<Role> result = transactionManger.execute(roleDAO::findAll);
-        return getDTORespList(result);
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, RoleDTOReq.class));
     }
 
     @Override
-    public DTORespList<Role> findAllRolesForPage(int pageNumber, int listSize) {
+    public DTORespList<RoleDTOReq> findAllRolesForPage(int pageNumber, int listSize) {
         List<Role> result = transactionManger.execute(() -> roleDAO.findForPage(pageNumber, listSize));
-        return getDTORespList(result);
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, RoleDTOReq.class));
     }
 
     @Override
     public DTORespList<AccountDTOReq> findAllAccounts() {
         List<Account> result = transactionManger.execute(accountDAO::findAll);
-        return getDTORespList(result);
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
     }
 
     @Override
     public DTORespList<AccountDTOReq> findAllAccounts(int pageNumber, int listSize) {
         List<Account> result = transactionManger.execute(() -> accountDAO.findForPage(pageNumber, listSize));
-        return getDTORespList(result);
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
     }
 
     @Override
     public DTORespList<AccountDTOReq> findAllBlockedAccounts() {
         Supplier<List<Account>> findBlockedAccounts = () ->
-                accountDAO.findAllByParameters(true, List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false)));
+                accountDAO.findAllByParameters(List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true)));
         List<Account> result = transactionManger.execute(findBlockedAccounts);
-        return getDTORespList(result);
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
     }
 
     @Override
     public DTORespList<AccountDTOReq> findAllBlockedAccounts(int pageNumber, int listSize) {
         Supplier<List<Account>> findBlockedAccounts = () ->
-                accountDAO.findForPageByParameters(true, pageNumber, listSize,
-                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false)));
-        List<Account> result = transactionManger.execute(findBlockedAccounts);
-        return getDTORespList(result);
-    }
+                accountDAO.findForPageByParameters(pageNumber, listSize,
+                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true)));
 
-    private <T, R> DTORespList<T> getDTORespList(List<R> resultList) {
-        try {
-            List<T> result = new ArrayList<>();
-            for (R t : resultList) {
-                T convertToDTO = Converter.convertToDTO(t);
-                result.add(convertToDTO);
-            }
-            return DTORespList.<T>builder()
-                    .httpStatus(SC_OK)
-                    .message(String.format(MessageManager.getProperty(OBJECT_FOUND), result.size()))
-                    .list(result)
-                    .build();
-        } catch (Exception e) {
-            DTORespList<T> resp = ExceptionManager.getRespList(e);
-            resp.setHttpStatus(SC_INTERNAL_SERVER_ERROR);
-            return resp;
-        }
+        List<Account> result = transactionManger.execute(findBlockedAccounts);
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
     }
 
 }

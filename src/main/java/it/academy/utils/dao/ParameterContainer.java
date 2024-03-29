@@ -8,4 +8,5 @@ import lombok.Data;
 public class ParameterContainer<T> {
     private String parameterName;
     private T parameterValue;
+    private Boolean isEqualsQuery;
 }
