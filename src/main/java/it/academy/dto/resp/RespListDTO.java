@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class DTORespList<T> {
+public class RespListDTO<T> {
 
     private Integer httpStatus;
 

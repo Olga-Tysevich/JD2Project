@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DTOResp {
+public class RespDTO {
 
     private Integer httpStatus;
 

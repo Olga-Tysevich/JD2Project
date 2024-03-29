@@ -71,7 +71,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public <S> List<T> findAllByParameters(List<ParameterContainer<S>> parameters) {
+    public List<T> findAllByParameters(List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters).getResultList();
     }
@@ -90,7 +90,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public <S> List<T> findForPageByParameters(int pageNumber, int listSize, List<ParameterContainer<S>> parameters) {
+    public List<T> findAllByParameters(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters)
                 .setFirstResult((pageNumber - 1) * listSize)
@@ -115,7 +115,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return manger.criteriaBuilder();
     }
 
-    private <S> CriteriaQuery<T> createQuery(List<ParameterContainer<S>> parameters) {
+    private CriteriaQuery<T> createQuery(List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
@@ -127,21 +127,20 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                 addLikeCondition(predicate, root, p);
             }
         });
-//                = isEqualsQuery ? createEqualsPredicate(root, parameters) : createLikePredicate(root, parameters);
 
         findByParameters.select(root)
                 .where(predicate);
         return findByParameters;
     }
 
-    private <S> void addLikeCondition(Predicate predicate, Root<T> root, ParameterContainer<S> parameter) {
+    private void addLikeCondition(Predicate predicate, Root<T> root, ParameterContainer<?> parameter) {
         predicate.getExpressions()
                 .add(criteriaBuilder()
                         .or(criteriaBuilder()
                                 .like(root.get(parameter.getParameterName()).as(String.class), parameter.getParameterValue().toString())));
     }
 
-    private <S> void addEqualsCondition(Predicate predicate, Root<T> root, ParameterContainer<S> parameter) {
+    private void addEqualsCondition(Predicate predicate, Root<T> root, ParameterContainer<?> parameter) {
         predicate.getExpressions()
                         .add(criteriaBuilder()
                                 .or(criteriaBuilder()

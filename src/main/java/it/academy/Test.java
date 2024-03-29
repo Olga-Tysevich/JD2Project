@@ -35,7 +35,7 @@ public class Test {
 //        adminService.createRole(role);
 
 
-        CompanyOwnerService service = new CompanyOwnerServiceImpl();
+        CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
 
         AccountDTOReq req = AccountDTOReq.builder()
                 .email("admin@mail.ru")
@@ -48,8 +48,10 @@ public class Test {
                 .build();
 
 //        service.addAdminAccount(req);
-        System.out.println(service.findAllBlockedAccounts());
+        System.out.println(ownerService.findAllBlockedAccounts());
         System.out.println(Account.class.getSimpleName());
+
+//        Account account = ownerService.f
 
 
     }

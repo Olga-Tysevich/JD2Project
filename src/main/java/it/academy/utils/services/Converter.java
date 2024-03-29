@@ -1,9 +1,7 @@
 package it.academy.utils.services;
 
-import it.academy.dto.common.EmailDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
-import it.academy.dto.resp.DTORespList;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.role.Role;
 import it.academy.exceptions.ConversionError;

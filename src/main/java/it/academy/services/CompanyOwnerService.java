@@ -1,11 +1,11 @@
 package it.academy.services;
 
 import it.academy.dto.req.account.AccountDTOReq;
-import it.academy.dto.resp.DTOResp;
+import it.academy.dto.resp.RespDTO;
 
 public interface CompanyOwnerService extends CompanyAdminService {
 
-    DTOResp addAdminAccount(AccountDTOReq req);
+    RespDTO addAdminAccount(AccountDTOReq req);
 
-    DTOResp changeAdminAccount(AccountDTOReq req);
+    RespDTO changeAdminAccount(AccountDTOReq req);
 }
