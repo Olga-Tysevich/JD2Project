@@ -48,7 +48,7 @@ public class Test {
                 .build();
 
 //        service.addAdminAccount(req);
-        System.out.println(ownerService.findAllBlockedAccounts());
+        System.out.println(ownerService.findBlockedAccounts());
         System.out.println(Account.class.getSimpleName());
 
 //        Account account = ownerService.f

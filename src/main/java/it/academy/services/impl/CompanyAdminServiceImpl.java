@@ -7,6 +7,7 @@ import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.PermissionDAOImpl;
 import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
+import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.dto.resp.RespDTO;
@@ -16,10 +17,11 @@ import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.services.CompanyAdminService;
 import it.academy.utils.dao.ParameterManager;
-import it.academy.utils.services.Converter;
+import it.academy.utils.services.converters.AccountConverter;
 import it.academy.utils.services.ExceptionManager;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.services.converters.RoleConverter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,86 +72,91 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     }
 
     @Override
-    public RespListDTO<RoleDTOReq> findAllRoles() {
+    public RespListDTO<RoleDTOReq> findRoles() {
         List<Role> result = transactionManger.execute(roleDAO::findAll);
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, RoleDTOReq.class));
+        return ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
     }
 
     @Override
-    public RespListDTO<RoleDTOReq> findAllRoles(ParametersForSearchDTO parameters) {
+    public RespListDTO<RoleDTOReq> findRoles(ParametersForSearchDTO parameters) {
         Map<String, Boolean> filtersMap = new HashMap<>();
         parameters.getFilters()
                 .forEach(f -> filtersMap.put(f, true));
-        return findAllForPage(filtersMap, parameters, RoleDTOReq.class);
+
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
+        List<Role> result = transactionManger.execute(() ->
+                roleDAO.findByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        return ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
     }
 
     @Override
-    public RespListDTO<RoleDTOReq> findAllRoles(int pageNumber, int listSize) {
+    public RespListDTO<RoleDTOReq> findRoles(int pageNumber, int listSize) {
         List<Role> result = transactionManger.execute(() -> roleDAO.findForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, RoleDTOReq.class));
+        return ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
     }
 
     @Override
-    public RespListDTO<AccountDTOReq> findAllAccounts() {
+    public RespListDTO<AccountDTO> findAccounts() {
         List<Account> result = transactionManger.execute(accountDAO::findAll);
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
+        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
     }
 
     @Override
-    public RespListDTO<AccountDTOReq> findAllAccounts(int pageNumber, int listSize) {
+    public RespListDTO<AccountDTO> findAccounts(int pageNumber, int listSize) {
         List<Account> result = transactionManger.execute(() -> accountDAO.findForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
+        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
     }
 
     @Override
-    public RespListDTO<AccountDTOReq> findAllAccounts(ParametersForSearchDTO parameters) {
+    public RespListDTO<AccountDTO> findAccounts(ParametersForSearchDTO parameters) {
         Map<String, Boolean> filtersMap = new HashMap<>();
         parameters.getFilters()
                 .forEach(f -> filtersMap.put(f, true));
-        return findAllForPage(filtersMap, parameters, AccountDTOReq.class);
+
+        return findAllForPage(filtersMap, parameters);
     }
 
     @Override
-    public RespListDTO<AccountDTOReq> findAllBlockedAccounts() {
+    public RespListDTO<AccountDTO> findBlockedAccounts() {
         Supplier<List<Account>> findBlockedAccounts = () ->
                 accountDAO.findByAnyMatch(
                         List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true))
                 );
         List<Account> result = transactionManger.execute(findBlockedAccounts);
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
+        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
     }
 
     @Override
-    public RespListDTO<AccountDTOReq> findAllBlockedAccounts(int pageNumber, int listSize) {
+    public RespListDTO<AccountDTO> findBlockedAccounts(int pageNumber, int listSize) {
         Supplier<List<Account>> findBlockedAccounts = () ->
                 accountDAO.findByAllParameters(pageNumber, listSize,
                         List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true))
                 );
 
         List<Account> result = transactionManger.execute(findBlockedAccounts);
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
+        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
     }
 
     @Override
-    public RespListDTO<AccountDTOReq> findAllBlockedAccounts(ParametersForSearchDTO parameters) {
+    public RespListDTO<AccountDTO> findBlockedAccounts(ParametersForSearchDTO parameters) {
         Map<String, Boolean> filtersMap = new HashMap<>();
         parameters.getFilters()
                 .forEach(f -> filtersMap.put(f, true));
         filtersMap.put(IS_ACTIVE_ACCOUNT, true);
 
         parameters.setUserInput(parameters.getUserInput() + false);
-        return findAllForPage(filtersMap, parameters, AccountDTOReq.class);
+        return findAllForPage(filtersMap, parameters);
     }
 
-    private <T> RespListDTO<T> findAllForPage(Map<String, Boolean> filtersMap,
-                                              ParametersForSearchDTO parameters,
-                                              Class<T> resultClass) {
+    private RespListDTO<AccountDTO> findAllForPage(Map<String, Boolean> filtersMap,
+                                                   ParametersForSearchDTO parameters) {
 
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
         List<Account> result = transactionManger.execute(() ->
                 accountDAO.findByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, resultClass));
+        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
     }
 
 }
