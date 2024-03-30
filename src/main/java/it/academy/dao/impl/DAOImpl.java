@@ -73,7 +73,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     @Override
     public List<T> findByAnyMatch(List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(parameters, false);
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters).getResultList();
     }
 
@@ -92,7 +92,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     @Override
     public List<T> findByAnyMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(parameters, false);
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters)
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
@@ -101,13 +101,13 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     @Override
     public List<T> findByAllParameters(List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(parameters, true);
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters).getResultList();
     }
 
     @Override
     public List<T> findByAllParameters(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(parameters, true);
+        CriteriaQuery<T> findByParameters = createQuery(parameters);
         return entityManager().createQuery(findByParameters)
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
@@ -130,13 +130,13 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return manger.criteriaBuilder();
     }
 
-    private CriteriaQuery<T> createQuery(List<ParameterContainer<?>> parameters, boolean isAndQuery) {
+    private CriteriaQuery<T> createQuery(List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
         Predicate predicate = criteriaBuilder().disjunction();
         parameters.forEach(p -> {
-            if (isAndQuery) {
+            if (p.getIsRequiredParameter()) {
                 createAndQuery(predicate, root, p);
             } else {
                 createOrQuery(predicate, root, p);

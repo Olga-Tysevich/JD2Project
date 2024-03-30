@@ -42,15 +42,15 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
         Set<Permission> permissionSet = req.getPermissions();
         permissionSet.forEach(p -> permissionDAO.findByAllParameters(
-                List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType(), true),
-                        new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory(), true)))
+                List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType(), true, true),
+                        new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory(), true, true)))
                 .stream()
                 .findFirst()
                 .ifPresentOrElse(
                         (permission) -> p.setId(permission.getId()),
                         () -> {
                             Supplier<Permission> create = () -> permissionDAO.create(p);
-                            transactionManger.execute(create);
+                            ExceptionManager.tryExecute(() -> transactionManger.execute(create));
                         }
                 )
         );
@@ -79,9 +79,9 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public RespListDTO<RoleDTOReq> findRoles(ParametersForSearchDTO parameters) {
-        Map<String, Boolean> filtersMap = new HashMap<>();
+        Map<String, Boolean[]> filtersMap = new HashMap<>();
         parameters.getFilters()
-                .forEach(f -> filtersMap.put(f, true));
+                .forEach(f -> filtersMap.put(f, new Boolean[]{false, false}));
 
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
         List<Role> result = transactionManger.execute(() ->
@@ -110,9 +110,9 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public RespListDTO<AccountDTO> findAccounts(ParametersForSearchDTO parameters) {
-        Map<String, Boolean> filtersMap = new HashMap<>();
+        Map<String, Boolean[]> filtersMap = new HashMap<>();
         parameters.getFilters()
-                .forEach(f -> filtersMap.put(f, true));
+                .forEach(f -> filtersMap.put(f, new Boolean[]{false, false}));
 
         return findAllForPage(filtersMap, parameters);
     }
@@ -121,7 +121,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public RespListDTO<AccountDTO> findBlockedAccounts() {
         Supplier<List<Account>> findBlockedAccounts = () ->
                 accountDAO.findByAnyMatch(
-                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true))
+                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true, true))
                 );
         List<Account> result = transactionManger.execute(findBlockedAccounts);
         return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
@@ -131,7 +131,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public RespListDTO<AccountDTO> findBlockedAccounts(int pageNumber, int listSize) {
         Supplier<List<Account>> findBlockedAccounts = () ->
                 accountDAO.findByAllParameters(pageNumber, listSize,
-                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true))
+                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true, true))
                 );
 
         List<Account> result = transactionManger.execute(findBlockedAccounts);
@@ -140,16 +140,16 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public RespListDTO<AccountDTO> findBlockedAccounts(ParametersForSearchDTO parameters) {
-        Map<String, Boolean> filtersMap = new HashMap<>();
+        Map<String, Boolean[]> filtersMap = new HashMap<>();
         parameters.getFilters()
-                .forEach(f -> filtersMap.put(f, true));
-        filtersMap.put(IS_ACTIVE_ACCOUNT, true);
+                .forEach(f -> filtersMap.put(f, new Boolean[]{false, false}));
+        filtersMap.put(IS_ACTIVE_ACCOUNT, new Boolean[]{true, true});
 
         parameters.setUserInput(parameters.getUserInput() + false);
         return findAllForPage(filtersMap, parameters);
     }
 
-    private RespListDTO<AccountDTO> findAllForPage(Map<String, Boolean> filtersMap,
+    private RespListDTO<AccountDTO> findAllForPage(Map<String, Boolean[]> filtersMap,
                                                    ParametersForSearchDTO parameters) {
 
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());

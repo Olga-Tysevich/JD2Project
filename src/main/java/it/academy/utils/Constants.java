@@ -45,14 +45,4 @@ public class Constants {
     //QueryManager
     public static final String PUNCTUATION_MARKS_PATTERN = "\\s*\\p{P}\\s*||\\s+";
 
-    //ERRORS
-    public static final String CONVERSION_ERROR = "Conversion error! Unknown class: %s";
-
-    //Converter
-    public static final String ROLE_DTO_REQ_CLASS = "RoleDTOReq";
-    public static final String ACCOUNT_DTO_REQ_CLASS = "AccountDTOReq";
-    public static final String ROLE_CLASS = "Role";
-    public static final String ACCOUNT_CLASS = "Account";
-    public static final String EMAIL_DTO_CLASS = "EmailDTO";
-
 }
