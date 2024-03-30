@@ -186,4 +186,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return predicate;
     }
 
+    protected Class<T> getClazz() {
+        return clazz;
+    }
 }

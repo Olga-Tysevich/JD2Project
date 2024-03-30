@@ -51,12 +51,10 @@ public class Test {
 //            ownerService.addAdminAccount(accountDTOReq);
 //        }
 
-        AccountDAO accountDAO = new AccountDAOImpl();
         ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
         List<ServiceAccount> a = serviceAccountDAO.findAll();
 
-        List<Account> accounts = accountDAO.findAll();
-        RespListDTO<AccountDTO> accounts1 =adminService.findAccounts();
+        RespListDTO<AccountDTO> accounts1 = adminService.findAccounts();
         RespListDTO<AccountDTO>  accounts2 = adminService.findAccounts(1, 2);
         RespListDTO<AccountDTO>  accounts3 = adminService.findAccounts(1, 2);
 

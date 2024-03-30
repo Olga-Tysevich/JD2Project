@@ -14,7 +14,6 @@ import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.Account;
-import it.academy.entities.account.ServiceAccount;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.services.CompanyAdminService;
@@ -34,7 +33,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private PermissionDAO permissionDAO = new PermissionDAOImpl();
     private RoleDAO roleDAO = new RoleDAOImpl();
-    private AccountDAO accountDAO = new AccountDAOImpl();
+    private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
     private ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
 
     @Override
@@ -146,17 +145,5 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public RespListDTO<AccountDTO> findServiceAccounts(ParametersForSearchDTO parameters) {
         return null;
     }
-
-
-//    private RespListDTO<AccountDTO> findAllForPage(List<String> filters,
-//                                                   ParametersForSearchDTO parameters,
-//                                                   ) {
-//
-//        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filters, parameters.getUserInput());
-//        List<Account> result = transactionManger.execute(() ->
-//                accountDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
-//
-//        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
-//    }
 
 }
