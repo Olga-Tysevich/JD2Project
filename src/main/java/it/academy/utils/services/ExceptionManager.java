@@ -14,7 +14,7 @@ import static javax.servlet.http.HttpServletResponse.*;
 @UtilityClass
 public class ExceptionManager {
 
-    public static <T> T getObjectConvertResult(ThrowingSupplier<T> method) {
+    public static <T> T tryExecute(ThrowingSupplier<T> method) {
         try {
             return method.get();
         } catch (Exception e) {

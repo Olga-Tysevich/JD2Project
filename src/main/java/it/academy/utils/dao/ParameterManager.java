@@ -32,7 +32,7 @@ public class ParameterManager {
         return Arrays.asList(parameters.split(PUNCTUATION_MARKS_PATTERN));
     }
 
-    private static String getParameter(String parameter) {
+    public static<T> String getParameterForLikeQuery(T parameter) {
         return String.format(LIKE_QUERY_PATTERN, parameter);
     }
 

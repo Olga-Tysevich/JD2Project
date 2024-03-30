@@ -18,44 +18,42 @@ public class Converter {
     public static <T, R> List<T> convertListToDTO(List<R> resultList, Class<T> resultClazz) throws ConversionError {
         List<T> result = new ArrayList<>();
         for (R t : resultList) {
-            T dto = tryConvertToDTO(t, resultClazz);
+            T dto = convertToDTO(t, resultClazz);
             result.add(dto);
         }
         return result;
     }
 
-    public static <T, R> T tryConvertToEntity(R req, Class<T> toClass) throws ConversionError {
+    public static <T, R> T convertToEntity(R req, Class<T> toClass) throws ConversionError {
         switch (req.getClass().getSimpleName()) {
             case ROLE_DTO_REQ_CLASS:
-                return toClass.cast(convertToEntity((RoleDTOReq) req));
+                return toClass.cast(convertDTOToEntity((RoleDTOReq) req));
             case ACCOUNT_DTO_REQ_CLASS:
-                return toClass.cast(convertToEntity((AccountDTOReq) req));
+                return toClass.cast(convertDTOToEntity((AccountDTOReq) req));
             default:
                 throw new ConversionError(String.format(CONVERSION_ERROR, req.getClass()));
         }
     }
 
-    public static <T, R> T tryConvertToDTO(R object, Class<T> toClass) throws ConversionError {
+    public static <T, R> T convertToDTO(R object, Class<T> toClass) throws ConversionError {
         switch (object.getClass().getSimpleName()) {
             case ROLE_CLASS:
-                return toClass.cast(convertToDTO((Role) object));
+                return toClass.cast(convertEntityToDTO((Role) object));
             case ACCOUNT_CLASS:
-                return toClass.cast(convertToDTO((Account) object));
-            case EMAIL_DTO_CLASS:
-                return toClass.cast(convertAccountToEmailDTO((Account) object));
+                return toClass.cast(convertEntityToDTO((Account) object));
             default:
                 throw new ConversionError(String.format(CONVERSION_ERROR, object.getClass()));
         }
     }
 
-    private static Role convertToEntity(RoleDTOReq req) {
+    private static Role convertDTOToEntity(RoleDTOReq req) {
         return Role.builder()
                 .name(req.getName())
                 .permissions(req.getPermissions())
                 .build();
     }
 
-    private static Account convertToEntity(AccountDTOReq req) {
+    private static Account convertDTOToEntity(AccountDTOReq req) {
         return Account.builder()
                 .isActive(req.getIsActive())
                 .email(req.getEmail())
@@ -66,7 +64,7 @@ public class Converter {
                 .build();
     }
 
-    private static AccountDTOReq convertToDTO(Account account) {
+    private static AccountDTOReq convertEntityToDTO(Account account) {
         return AccountDTOReq.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
@@ -78,7 +76,7 @@ public class Converter {
                 .build();
     }
 
-    private static RoleDTOReq convertToDTO(Role req) {
+    private static RoleDTOReq convertEntityToDTO(Role req) {
         return RoleDTOReq.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -86,9 +84,4 @@ public class Converter {
                 .build();
     }
 
-    private static<T extends Account> EmailDTO convertAccountToEmailDTO(T account) {
-        return EmailDTO.builder()
-                .email(account.getEmail())
-                .build();
-    }
 }

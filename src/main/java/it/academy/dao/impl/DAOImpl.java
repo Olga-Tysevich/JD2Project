@@ -2,6 +2,7 @@ package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
 import it.academy.utils.dao.ParameterContainer;
+import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.EntityManager;
@@ -71,8 +72,8 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findAllByParameters(List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(parameters);
+    public List<T> findByAnyMatch(List<ParameterContainer<?>> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters, false);
         return entityManager().createQuery(findByParameters).getResultList();
     }
 
@@ -90,14 +91,28 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findAllByParameters(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = createQuery(parameters);
+    public List<T> findByAnyMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters, false);
         return entityManager().createQuery(findByParameters)
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
                 .getResultList();
     }
 
+    @Override
+    public List<T> findByAllParameters(List<ParameterContainer<?>> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters, true);
+        return entityManager().createQuery(findByParameters).getResultList();
+    }
+
+    @Override
+    public List<T> findByAllParameters(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
+        CriteriaQuery<T> findByParameters = createQuery(parameters, true);
+        return entityManager().createQuery(findByParameters)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
 
     @Override
     public BigInteger getNumberOfEntries() {
@@ -115,16 +130,16 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return manger.criteriaBuilder();
     }
 
-    private CriteriaQuery<T> createQuery(List<ParameterContainer<?>> parameters) {
+    private CriteriaQuery<T> createQuery(List<ParameterContainer<?>> parameters, boolean isAndQuery) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
         Predicate predicate = criteriaBuilder().disjunction();
         parameters.forEach(p -> {
-            if (p.getIsEqualsQuery()) {
-                addEqualsCondition(predicate, root, p);
+            if (isAndQuery) {
+                createAndQuery(predicate, root, p);
             } else {
-                addLikeCondition(predicate, root, p);
+                createOrQuery(predicate, root, p);
             }
         });
 
@@ -133,17 +148,39 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return findByParameters;
     }
 
-    private void addLikeCondition(Predicate predicate, Root<T> root, ParameterContainer<?> parameter) {
-        predicate.getExpressions()
-                .add(criteriaBuilder()
-                        .or(criteriaBuilder()
-                                .like(root.get(parameter.getParameterName()).as(String.class), parameter.getParameterValue().toString())));
+    private void createAndQuery(Predicate predicate, Root<T> root, ParameterContainer<?> parameter) {
+        if (parameter.getIsEqualsQuery()) {
+            predicate.getExpressions()
+                    .add(criteriaBuilder()
+                            .and(getEqualsCondition(root, parameter)));
+        } else {
+            predicate.getExpressions()
+                    .add(criteriaBuilder()
+                            .and(getLikeCondition(root, parameter)));
+        }
     }
 
-    private void addEqualsCondition(Predicate predicate, Root<T> root, ParameterContainer<?> parameter) {
-        predicate.getExpressions()
-                        .add(criteriaBuilder()
-                                .or(criteriaBuilder()
-                                        .equal(root.get(parameter.getParameterName()), parameter.getParameterValue())));
+    private void createOrQuery(Predicate predicate, Root<T> root, ParameterContainer<?> container) {
+        if (container.getIsEqualsQuery()) {
+            predicate.getExpressions()
+                    .add(criteriaBuilder()
+                            .or(getEqualsCondition(root, container)));
+        } else {
+            predicate.getExpressions()
+                    .add(criteriaBuilder()
+                            .or(getLikeCondition(root, container)));
+        }
+    }
+
+    private Predicate getLikeCondition(Root<T> root, ParameterContainer<?> container) {
+        return criteriaBuilder()
+                .like(root.get(container.getParameterName()).as(String.class),
+                        ParameterManager.getParameterForLikeQuery(container.getParameterValue())
+                );
+    }
+
+    private Predicate getEqualsCondition(Root<T> root, ParameterContainer<?> container) {
+        return criteriaBuilder()
+                .equal(root.get(container.getParameterName()), container.getParameterValue());
     }
 }

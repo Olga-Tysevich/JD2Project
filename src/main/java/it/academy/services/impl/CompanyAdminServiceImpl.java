@@ -39,9 +39,9 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public RespDTO createRole(RoleDTOReq req) {
 
         Set<Permission> permissionSet = req.getPermissions();
-        permissionSet.forEach(p -> permissionDAO.findAllByParameters(
-                List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType().name(), true),
-                        new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory().name(), true)))
+        permissionSet.forEach(p -> permissionDAO.findByAllParameters(
+                List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType(), true),
+                        new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory(), true)))
                 .stream()
                 .findFirst()
                 .ifPresentOrElse(
@@ -80,9 +80,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         Map<String, Boolean> filtersMap = new HashMap<>();
         parameters.getFilters()
                 .forEach(f -> filtersMap.put(f, true));
-        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
-        List<Role> result = transactionManger.execute(() -> roleDAO.findAllByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, RoleDTOReq.class));
+        return findAllForPage(filtersMap, parameters, RoleDTOReq.class);
     }
 
     @Override
@@ -108,15 +106,15 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         Map<String, Boolean> filtersMap = new HashMap<>();
         parameters.getFilters()
                 .forEach(f -> filtersMap.put(f, true));
-        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
-        List<Account> result = transactionManger.execute(() -> accountDAO.findAllByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
+        return findAllForPage(filtersMap, parameters, AccountDTOReq.class);
     }
 
     @Override
     public RespListDTO<AccountDTOReq> findAllBlockedAccounts() {
         Supplier<List<Account>> findBlockedAccounts = () ->
-                accountDAO.findAllByParameters(List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true)));
+                accountDAO.findByAnyMatch(
+                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true))
+                );
         List<Account> result = transactionManger.execute(findBlockedAccounts);
         return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
     }
@@ -124,8 +122,9 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public RespListDTO<AccountDTOReq> findAllBlockedAccounts(int pageNumber, int listSize) {
         Supplier<List<Account>> findBlockedAccounts = () ->
-                accountDAO.findAllByParameters(pageNumber, listSize,
-                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true)));
+                accountDAO.findByAllParameters(pageNumber, listSize,
+                        List.of(new ParameterContainer<>(IS_ACTIVE_ACCOUNT, false, true))
+                );
 
         List<Account> result = transactionManger.execute(findBlockedAccounts);
         return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
@@ -137,11 +136,20 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         parameters.getFilters()
                 .forEach(f -> filtersMap.put(f, true));
         filtersMap.put(IS_ACTIVE_ACCOUNT, true);
+
         parameters.setUserInput(parameters.getUserInput() + false);
-        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
-        List<Account> result = transactionManger.execute(() -> accountDAO.findAllByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
-        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, AccountDTOReq.class));
+        return findAllForPage(filtersMap, parameters, AccountDTOReq.class);
     }
 
+    private <T> RespListDTO<T> findAllForPage(Map<String, Boolean> filtersMap,
+                                              ParametersForSearchDTO parameters,
+                                              Class<T> resultClass) {
+
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(filtersMap, parameters.getUserInput());
+        List<Account> result = transactionManger.execute(() ->
+                accountDAO.findByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        return ExceptionManager.getListSearchResult(() -> Converter.convertListToDTO(result, resultClass));
+    }
 
 }

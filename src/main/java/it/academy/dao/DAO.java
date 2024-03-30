@@ -19,11 +19,15 @@ public interface DAO<T, R> {
 
     List<T> findAll();
 
-    List<T> findAllByParameters(List<ParameterContainer<?>> parameters);
+    List<T> findByAnyMatch(List<ParameterContainer<?>> parameters);
+
+    List<T> findByAllParameters(List<ParameterContainer<?>> parameters);
 
     List<T> findForPage(int pageNumber, int listSize);
 
-    List<T> findAllByParameters(int pageNumber, int listSize, List<ParameterContainer<?>> parameters);
+    List<T> findByAnyMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters);
+
+    List<T> findByAllParameters(int pageNumber, int listSize, List<ParameterContainer<?>> parameters);
 
     BigInteger getNumberOfEntries();
 
