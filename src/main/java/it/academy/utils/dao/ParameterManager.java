@@ -13,18 +13,17 @@ public class ParameterManager {
     private ParameterManager() {
     }
 
-    public static List<ParameterContainer<?>> getQueryParameters(Map<String, Boolean[]> filters, String parameters) {
+    public static List<ParameterContainer<?>> getQueryParameters(List<String> filters, String parameters) {
         List<String> parameterList = getParameters(parameters);
         List<ParameterContainer<?>> result = new ArrayList<>();
-        filters.keySet().forEach(f -> {
-            parameterList.forEach(p -> {
+
+        filters.forEach(f -> parameterList.forEach(p -> {
                 if (isIntNumber(p) || isDoubleNumber(p)) {
-                    result.add(getNumber(f, p, filters.get(f)[0], filters.get(f)[1]));
+                    result.add(getNumber(f, p));
                 } else {
-                    result.add(new ParameterContainer<>(f, p, filters.get(f)[0], filters.get(f)[1]));
+                    result.add(new ParameterContainer<>(f, p));
                 }
-            });
-        });
+        }));
         return result;
     }
 
@@ -37,11 +36,11 @@ public class ParameterManager {
     }
 
 
-    private static ParameterContainer<? extends Number> getNumber(String filter, Object parameter, Boolean isRequiredParameter, Boolean isEqualsQuery) {
+    private static ParameterContainer<? extends Number> getNumber(String filter, Object parameter) {
         if (isIntNumber(parameter.toString())) {
-            return new ParameterContainer<>(filter, Integer.parseInt(parameter.toString()), isRequiredParameter, isEqualsQuery);
+            return new ParameterContainer<>(filter, Integer.parseInt(parameter.toString()));
         } else if (isDoubleNumber(parameter.toString())) {
-            return new ParameterContainer<>(filter, Double.parseDouble(parameter.toString()), isRequiredParameter, isEqualsQuery);
+            return new ParameterContainer<>(filter, Double.parseDouble(parameter.toString()));
         }
         return null;
     }

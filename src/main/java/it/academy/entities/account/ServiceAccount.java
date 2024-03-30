@@ -2,6 +2,8 @@ package it.academy.entities.account;
 
 import it.academy.entities.service_center.ServiceCenter;
 import lombok.*;
+import org.hibernate.annotations.Polymorphism;
+import org.hibernate.annotations.PolymorphismType;
 
 import javax.persistence.*;
 

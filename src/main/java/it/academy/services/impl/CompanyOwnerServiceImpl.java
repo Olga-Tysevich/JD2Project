@@ -18,7 +18,7 @@ import static it.academy.utils.Constants.UPDATED_SUCCESSFULLY;
 
 public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements CompanyOwnerService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
-    private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
+    private AccountDAO accountDAO = new AccountDAOImpl();
 
     @Override
     public RespDTO addAdminAccount(AccountDTOReq req) {

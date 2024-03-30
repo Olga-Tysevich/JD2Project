@@ -28,4 +28,11 @@ public interface CompanyAdminService {
 
     RespListDTO<AccountDTO> findBlockedAccounts(ParametersForSearchDTO parameters);
 
+    RespListDTO<AccountDTO> findServiceAccounts();
+
+    RespListDTO<AccountDTO> findServiceAccounts(int pageNumber, int listSize);
+
+    RespListDTO<AccountDTO> findServiceAccounts(ParametersForSearchDTO parameters);
+
+
 }

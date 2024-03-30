@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Objects;
 
 public class PermissionDAOImpl extends DAOImpl<Permission, Long> implements PermissionDAO {
 
@@ -18,21 +19,25 @@ public class PermissionDAOImpl extends DAOImpl<Permission, Long> implements Perm
     }
 
 
-//    @Override
-//    public List<Permission> findAllByParameters(List<ParameterContainer> parameters) {
-//        CriteriaQuery<Permission> findByParameters = criteriaBuilder().createQuery(Permission.class);
-//        Root<Permission> root = findByParameters.from(Permission.class);
-//
-//        Predicate equalParameters = criteriaBuilder().conjunction();
-//        parameters.forEach(p ->
-//                equalParameters.getExpressions()
-//                        .add(criteriaBuilder()
-//                                .and(criteriaBuilder()
-//                                        .equal(root.get(p.getParameterName()).as(String.class), p.getParameterValue())))
-//        );
-//
-//        findByParameters.select(root)
-//                .where(equalParameters);
-//        return entityManager().createQuery(findByParameters).getResultList();
-//    }
+    @Override
+    public Permission findByCategoryAndType(List<ParameterContainer<?>> parameters) {
+        CriteriaQuery<Permission> findByParameters = criteriaBuilder().createQuery(Permission.class);
+        Root<Permission> root = findByParameters.from(Permission.class);
+
+        Predicate equalParameters = criteriaBuilder().conjunction();
+        parameters.forEach(p ->
+                equalParameters.getExpressions()
+                        .add(criteriaBuilder()
+                                .and(criteriaBuilder()
+                                        .equal(root.get(p.getParameterName()), p.getParameterValue())))
+        );
+
+        findByParameters.select(root)
+                .where(equalParameters);
+        return entityManager().createQuery(findByParameters)
+                .getResultStream()
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
 }

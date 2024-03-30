@@ -36,11 +36,12 @@ public class Constants {
     public static final String USER_SURNAME = "userSurname";
     public static final String IS_ACTIVE_ACCOUNT = "isActive";
 
+    //ServiceAccount parameters
+    public static final String SERVICE_CENTER = "serviceCenter";
+
+
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%% %s %%";
-
-    //DAO names
-    public static final String ACCOUNT = "account";
 
     //QueryManager
     public static final String PUNCTUATION_MARKS_PATTERN = "\\s*\\p{P}\\s*||\\s+";

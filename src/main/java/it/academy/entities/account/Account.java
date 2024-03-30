@@ -3,6 +3,9 @@ package it.academy.entities.account;
 import it.academy.entities.account.role.Role;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DiscriminatorOptions;
+import org.hibernate.annotations.Polymorphism;
+import org.hibernate.annotations.PolymorphismType;
 
 import javax.persistence.*;
 import java.io.Serializable;
