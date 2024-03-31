@@ -44,7 +44,7 @@ public class Generator {
         return Role.builder()
                 .name(isOwner ? roles.get(0) : roles.get(RANDOM.nextInt(roles.size() - 1) + 1))
                 .permissions(
-                        IntStream.range(0, RANDOM.nextInt(5))
+                        IntStream.range(0, RANDOM.nextInt(5) + 1)
                                 .mapToObj(i -> generatePermission())
                                 .collect(Collectors.toSet())
                 )
@@ -66,11 +66,13 @@ public class Generator {
     }
 
     public static ServiceCenter generateServiceCenter() {
+        String name = serviceCenters.get(RANDOM.nextInt(serviceCenters.size())) + RANDOM.nextInt(100);
         return ServiceCenter.builder()
-                .serviceName(serviceCenters.get(RANDOM.nextInt(serviceCenters.size())) + RANDOM.nextInt(100))
+                .serviceName(name)
                 .requisites(Requisites.builder()
-                        .fullName(serviceCenters.get(RANDOM.nextInt(serviceCenters.size())))
+                        .fullName(name + RANDOM.nextInt(serviceCenters.size()))
                         .actualAddress(addresses.get(RANDOM.nextInt(addresses.size())))
+                        .legalAddress(addresses.get(RANDOM.nextInt(addresses.size())))
                         .phone(phones.get(RANDOM.nextInt(phones.size())))
                         .email(String.format(serviceEmail, RANDOM.nextInt(1000)))
                         .taxpayerNumber(String.valueOf(RANDOM.nextInt(100000000) + RANDOM.nextInt(100000000)))

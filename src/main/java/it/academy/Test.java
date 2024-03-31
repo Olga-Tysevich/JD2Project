@@ -1,12 +1,16 @@
 package it.academy;
 
 
+import it.academy.dao.service_center.ServiceCenterDAO;
+import it.academy.dao.service_center.impl.ServiceCenterDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.role.Permission;
+import it.academy.entities.account.role.Role;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.CompanyAdminService;
 import it.academy.services.CompanyOwnerService;
@@ -31,6 +35,7 @@ public class Test {
     private static CompanyAdminService adminService = new CompanyAdminServiceImpl();
     private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
     private static UserService userService = new UserServiceImp();
+    private static ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     public static void main(String[] args) {
 
@@ -52,13 +57,17 @@ public class Test {
         RoleDTOReq roleReq = RoleConverter.convertToDTOReq(Generator.generateRole(false));
         RoleDTOReq roleReq2 = RoleConverter.convertToDTOReq(Generator.generateRole(true));
 
-        adminService.createRole(roleReq);
-        adminService.createRole(roleReq2);
+        RespDTO<Role> role1 = adminService.createRole(roleReq);
+        RespDTO<Role> role2 =adminService.createRole(roleReq2);
 
         List<ServiceCenter> centers = IntStream.range(0, 15)
-                .mapToObj(i -> Generator.generateServiceCenter())
-                .peek(s -> adminService.addServiceCenter(ServiceCenterConverter.convertToDTOReq(s)))
+                .mapToObj(i -> {
+                    ServiceCenter serviceCenter = Generator.generateServiceCenter();
+                    adminService.addServiceCenter(ServiceCenterConverter.convertToDTOReq(serviceCenter));
+                    return serviceCenter;
+                })
                 .collect(Collectors.toList());
+        List<ServiceCenter> centers2 = serviceCenterDAO.findAll();
 
         List<AccountDTOReq> accountDTOReqs = IntStream.range(0, 20)
                 .mapToObj(i -> Generator.generateAccountDTOReq(false, i % 2 == 0))
@@ -66,7 +75,7 @@ public class Test {
 
         List<AccountDTOReq> accountDTOReqs2 =accountDTOReqs.subList(0, RANDOM.nextInt(accountDTOReqs.size()));
 
-        accountDTOReqs2.forEach(a -> a.setServiceCenter(centers.get(RANDOM.nextInt(centers.size()))));
+        accountDTOReqs2.forEach(a -> a.setServiceCenter(centers2.get(RANDOM.nextInt(centers2.size()))));
 
 
 

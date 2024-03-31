@@ -30,6 +30,7 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
         assert account != null;
         resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, account.getEmail()));
 
+        transactionManger.closeManager();
         return resp;
     }
 
@@ -41,6 +42,7 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
         assert account != null;
         resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, account.getEmail()));
 
+        transactionManger.closeManager();
         return resp;
     }
 

@@ -42,5 +42,7 @@ public interface CompanyAdminService extends UserService {
 
     RespDTO<ServiceCenterDTOReq> addServiceCenter(ServiceCenterDTOReq req);
 
+    RespListDTO<ServiceCenterDTOReq> findServiceCenters();
+
 
 }

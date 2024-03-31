@@ -49,20 +49,21 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
     @Override
     public RespDTO<Role> createRole(RoleDTOReq req) {
 
-        Set<Permission> permissionSet = req.getPermissions();
-        permissionSet.forEach(p -> {
+        Set<Permission> permissionSet = new HashSet<>();
+        req.getPermissions().forEach(p -> {
                     Permission permission = permissionDAO.findByCategoryAndType(
                             List.of(new ParameterContainer<>(PERMISSION_TYPE, p.getType()),
                                     new ParameterContainer<>(PERMISSION_CATEGORY, p.getCategory())));
                     if (permission == null) {
                         ExceptionManager.tryExecute(() -> transactionManger.execute(() -> permissionDAO.create(p)));
                     }
+                    permissionSet.add(permission);
                 }
         );
 
         Role role = Role.builder()
                 .name(req.getName())
-                .permissions(req.getPermissions())
+                .permissions(permissionSet)
                 .build();
 
         Supplier<Role> find = () -> {
@@ -73,7 +74,9 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
             return result;
         };
 
-        return ExceptionManager.getObjectSaveResult(() -> transactionManger.execute(find));
+        RespDTO<Role> resp = ExceptionManager.getObjectSaveResult(() -> transactionManger.execute(find));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
@@ -88,25 +91,36 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         List<Role> result = transactionManger.execute(() ->
                 roleDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        return ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
+        RespListDTO<RoleDTOReq> resp = ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<RoleDTOReq> findRoles(int pageNumber, int listSize) {
         List<Role> result = transactionManger.execute(() -> roleDAO.findForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
+
+        RespListDTO<RoleDTOReq> resp = ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<AccountDTO> findAccounts() {
         List<Account> result = transactionManger.execute(accountDAO::findAll);
-        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<AccountDTO> findAccounts(int pageNumber, int listSize) {
         List<Account> result = transactionManger.execute(() -> accountDAO.findForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
@@ -115,19 +129,27 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         List<Account> result = transactionManger.execute(() ->
                 accountDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<AccountDTO> findBlockedAccounts() {
         List<Account> result = transactionManger.execute(() -> accountDAO.findBlockedAccounts());
-        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<AccountDTO> findBlockedAccounts(int pageNumber, int listSize) {
         List<Account> result = transactionManger.execute(() -> accountDAO.findBlockedAccountsForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
@@ -136,19 +158,27 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         List<Account> result = transactionManger.execute(() ->
                 accountDAO.findBlockedAccountsByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        return ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> AccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts() {
         List<ServiceAccount> result = transactionManger.execute(serviceAccountDAO::findAll);
-        return ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
+
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts(int pageNumber, int listSize) {
         List<ServiceAccount> result = transactionManger.execute(() -> serviceAccountDAO.findForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
+
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
@@ -157,7 +187,9 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         List<ServiceAccount> result = transactionManger.execute(() ->
                 serviceAccountDAO.findBlockedAccountsByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        return ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
+        RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
@@ -169,6 +201,7 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         assert account != null;
         resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, account.getEmail()));
 
+        transactionManger.closeManager();
         return resp;
     }
 
@@ -181,7 +214,13 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         assert center != null;
         resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, center.getServiceName()));
 
+        transactionManger.closeManager();
         return resp;
+    }
+
+    @Override
+    public RespListDTO<ServiceCenterDTOReq> findServiceCenters() {
+        return null;
     }
 
 }
