@@ -1,14 +1,18 @@
 package it.academy.services;
 
+import it.academy.dao.account.ServiceAccountDAO;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTO;
+import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.req.service_center.ServiceCenterDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
+import it.academy.entities.account.role.Role;
 
-public interface CompanyAdminService {
+public interface CompanyAdminService extends UserService {
 
-    RespDTO createRole(RoleDTOReq req);
+    RespDTO<Role> createRole(RoleDTOReq req);
 
     RespListDTO<RoleDTOReq> findRoles();
 
@@ -33,6 +37,10 @@ public interface CompanyAdminService {
     RespListDTO<AccountDTO> findServiceAccounts(int pageNumber, int listSize);
 
     RespListDTO<AccountDTO> findServiceAccounts(ParametersForSearchDTO parameters);
+
+    RespDTO<AccountDTO> addServiceAccount(AccountDTOReq req);
+
+    RespDTO<ServiceCenterDTOReq> addServiceCenter(ServiceCenterDTOReq req);
 
 
 }

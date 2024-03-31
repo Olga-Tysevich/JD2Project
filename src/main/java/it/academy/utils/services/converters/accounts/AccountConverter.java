@@ -1,4 +1,4 @@
-package it.academy.utils.services.converters;
+package it.academy.utils.services.converters.accounts;
 
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;

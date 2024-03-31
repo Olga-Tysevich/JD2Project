@@ -1,8 +1,9 @@
-package it.academy.utils.services.converters;
+package it.academy.utils.services.converters.accounts;
 
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.entities.account.ServiceAccount;
+import it.academy.utils.services.converters.accounts.AccountConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;

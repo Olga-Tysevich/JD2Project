@@ -2,12 +2,13 @@ package it.academy.services.impl;
 
 import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.impl.AccountDAOImpl;
+import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.entities.account.Account;
 import it.academy.services.CompanyOwnerService;
 import it.academy.utils.MessageManager;
-import it.academy.utils.services.converters.AccountConverter;
+import it.academy.utils.services.converters.accounts.AccountConverter;
 import it.academy.utils.services.ExceptionManager;
 import it.academy.utils.dao.TransactionManger;
 
@@ -21,11 +22,11 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
     private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
 
     @Override
-    public RespDTO addAdminAccount(AccountDTOReq req) {
+    public RespDTO<AccountDTO> addAdminAccount(AccountDTOReq req) {
         req.setId(0L);
         Account account = ExceptionManager.tryExecute(() -> AccountConverter.convertAccountDTOReqToEntity(req));
         Supplier<Account> save = () -> accountDAO.create(account);
-        RespDTO resp = ExceptionManager.getObjectSaveResult(() -> transactionManger.execute(save));
+        RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverter.convertToDTO(transactionManger.execute(save)));
         assert account != null;
         resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, account.getEmail()));
 
@@ -33,10 +34,10 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
     }
 
     @Override
-    public RespDTO changeAdminAccount(AccountDTOReq req) {
+    public RespDTO<AccountDTO> changeAdminAccount(AccountDTOReq req) {
         Account account = ExceptionManager.tryExecute(() -> AccountConverter.convertAccountDTOReqToEntity(req));
         Supplier<Account> update = () -> accountDAO.update(account);
-        RespDTO resp = ExceptionManager.getObjectUpdateResult(() -> transactionManger.execute(update));
+        RespDTO<AccountDTO> resp = ExceptionManager.getObjectUpdateResult(() -> AccountConverter.convertToDTO(transactionManger.execute(update)));
         assert account != null;
         resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, account.getEmail()));
 

@@ -8,10 +8,11 @@ import java.util.List;
 @UtilityClass
 public class ResponseManager {
 
-    public static<T> RespDTO getDTOResp(int httpStatus, String message) {
-        return RespDTO.builder()
+    public static<T> RespDTO<T> getDTOResp(int httpStatus, String message, T object) {
+        return RespDTO.<T>builder()
                 .httpStatus(httpStatus)
                 .message(message)
+                .parameter(object)
                 .build();
     }
 

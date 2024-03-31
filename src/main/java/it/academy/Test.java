@@ -1,52 +1,74 @@
 package it.academy;
 
 
-import it.academy.dao.account.AccountDAO;
-import it.academy.dao.account.ServiceAccountDAO;
-import it.academy.dao.account.impl.AccountDAOImpl;
-import it.academy.dao.account.impl.ServiceAccountDAOImpl;
-import it.academy.dto.req.account.AccountDTO;
+import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTOReq;
+import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.dto.resp.RespListDTO;
-import it.academy.entities.account.Account;
-import it.academy.entities.account.ServiceAccount;
 import it.academy.entities.account.role.Permission;
-import it.academy.entities.account.role.PermissionCategory;
-import it.academy.entities.account.role.PermissionType;
-import it.academy.entities.account.role.Role;
+import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.CompanyAdminService;
 import it.academy.services.CompanyOwnerService;
+import it.academy.services.UserService;
 import it.academy.services.impl.CompanyAdminServiceImpl;
 import it.academy.services.impl.CompanyOwnerServiceImpl;
+import it.academy.services.impl.UserServiceImp;
 import it.academy.utils.Generator;
-import it.academy.utils.dao.ParameterContainer;
-import it.academy.utils.dao.ParameterManager;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.services.converters.accounts.PermissionConverter;
+import it.academy.utils.services.converters.accounts.RoleConverter;
+import it.academy.utils.services.converters.service_center.ServiceCenterConverter;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static it.academy.utils.Constants.PERMISSION_TYPE;
+import static it.academy.utils.Constants.RANDOM;
 
 
 public class Test {
+    private static CompanyAdminService adminService = new CompanyAdminServiceImpl();
+    private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
+    private static UserService userService = new UserServiceImp();
+
     public static void main(String[] args) {
-        TransactionManger manger = TransactionManger.getInstance();
-        CompanyAdminService adminService = new CompanyAdminServiceImpl();
-        CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
 
-        Permission permission = Permission.builder()
-                .type(PermissionType.CREATE)
-                .category(PermissionCategory.ROLE)
-                .build();
-        permission.setId(1L);
+        List<Permission> permissions = userService.findPermissions().getList().stream()
+                .map(PermissionConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        RespListDTO<PermissionDTOReq> permissions1 = userService.findPermissions();
+        RespListDTO<PermissionDTOReq> permissions2 = userService.findPermissions(1, 5);
+        RespListDTO<PermissionDTOReq> permissions3 = userService.findPermissions(2, 5);
+        RespListDTO<PermissionDTOReq> permissions4 = userService.findPermissions(ParametersForSearchDTO.builder()
+                .pageNumber(3)
+                .listSize(3)
+                .filters(List.of(PERMISSION_TYPE))
+                .userInput("REJECT DELETE")
+                .build());
 
 
-        Role role = Role.builder()
-                .name("admin")
-                .permissions(Set.of(permission))
-                .build();
-        role.setId(1L);
+        RoleDTOReq roleReq = RoleConverter.convertToDTOReq(Generator.generateRole(false));
+        RoleDTOReq roleReq2 = RoleConverter.convertToDTOReq(Generator.generateRole(true));
+
+        adminService.createRole(roleReq);
+        adminService.createRole(roleReq2);
+
+        List<ServiceCenter> centers = IntStream.range(0, 15)
+                .mapToObj(i -> Generator.generateServiceCenter())
+                .peek(s -> adminService.addServiceCenter(ServiceCenterConverter.convertToDTOReq(s)))
+                .collect(Collectors.toList());
+
+        List<AccountDTOReq> accountDTOReqs = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateAccountDTOReq(false, i % 2 == 0))
+                .collect(Collectors.toList());
+
+        List<AccountDTOReq> accountDTOReqs2 =accountDTOReqs.subList(0, RANDOM.nextInt(accountDTOReqs.size()));
+
+        accountDTOReqs2.forEach(a -> a.setServiceCenter(centers.get(RANDOM.nextInt(centers.size()))));
+
+
 
 //        for (int i = 0; i < 20; i++) {
 //            AccountDTOReq accountDTOReq = Generator.generateAccountDTOReq(false, i % 10 == 0);
@@ -54,40 +76,27 @@ public class Test {
 //            ownerService.addAdminAccount(accountDTOReq);
 //        }
 
-        ServiceAccount account = new ServiceAccount();
-
-        ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
-//        List<ServiceAccount> a = serviceAccountDAO.findAll();
-        AccountDAOImpl<Account> accountAccountDAO = new AccountDAOImpl<>(Account.class);
-
-
-        RespListDTO<AccountDTO> accounts1 = adminService.findAccounts();
-        List<Account>  accounts2 = accountAccountDAO.findForPageByAnyMatch(1, 2, List.of(new ParameterContainer<>("userName", "Мария")));
-        List<Account>  accounts4 = accountAccountDAO.findBlockedAccounts();
-
-
-        RoleDTOReq roleReq = RoleDTOReq.builder()
-                .name("admin")
-                .permissions(Set.of(permission))
-                .build();
-        role.setId(1L);
-
-        adminService.createRole(roleReq);
-
-
-        AccountDTOReq req = AccountDTOReq.builder()
-                .email("admin@mail.ru")
-                .isActive(true)
-                .password("123")
-                .confirmPassword("123")
-                .userName("Olga")
-                .userSurname("Tysevich")
-                .role(role)
-                .build();
-
-//        service.addAdminAccount(req);
-        System.out.println(ownerService.findBlockedAccounts());
-        System.out.println(Account.class.getSimpleName());
+//
+//        RespListDTO<AccountDTO> accounts1 = adminService.findAccounts();
+//        List<Account> accounts2 = accountAccountDAO.findForPageByAnyMatch(1, 2, List.of(new ParameterContainer<>("userName", "Мария")));
+//        List<Account> accounts4 = accountAccountDAO.findBlockedAccounts();
+//
+//
+//
+//
+//        AccountDTOReq req = AccountDTOReq.builder()
+//                .email("admin@mail.ru")
+//                .isActive(true)
+//                .password("123")
+//                .confirmPassword("123")
+//                .userName("Olga")
+//                .userSurname("Tysevich")
+//                .role(role)
+//                .build();
+//
+////        service.addAdminAccount(req);
+//        System.out.println(ownerService.findBlockedAccounts());
+//        System.out.println(Account.class.getSimpleName());
 
 
 //        Account account = ownerService.f

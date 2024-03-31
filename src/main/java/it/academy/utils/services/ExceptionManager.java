@@ -31,20 +31,24 @@ public class ExceptionManager {
         }
     }
 
-    public static <T> RespDTO getObjectSaveResult(ThrowingSupplier<T> method) {
+    public static <T> RespDTO<T> getObjectFindResult(ThrowingSupplier<T> method) {
+        return getObjectResult(method, SC_OK, OBJECT_FOUND, SC_INTERNAL_SERVER_ERROR);
+    }
+
+    public static <T> RespDTO<T> getObjectSaveResult(ThrowingSupplier<T> method) {
         return getObjectResult(method, SC_CREATED, SAVED_SUCCESSFULLY, SC_INTERNAL_SERVER_ERROR);
     }
 
-    public static <T> RespDTO getObjectUpdateResult(ThrowingSupplier<T> method) {
+    public static <T> RespDTO<T> getObjectUpdateResult(ThrowingSupplier<T> method) {
         return getObjectResult(method, SC_OK, UPDATED_SUCCESSFULLY, SC_INTERNAL_SERVER_ERROR);
     }
 
-    private static <T> RespDTO getObjectResult(ThrowingSupplier<T> method, int httpSuccessStatus, String message, int httpErrorStatus) {
+    private static <T> RespDTO<T> getObjectResult(ThrowingSupplier<T> method, int httpSuccessStatus, String message, int httpErrorStatus) {
         try {
             T result = method.get();
-            return ResponseManager.getDTOResp(httpSuccessStatus, MessageManager.getFormattedMessage(message, result));
+            return ResponseManager.getDTOResp(httpSuccessStatus, MessageManager.getFormattedMessage(message, result), result);
         } catch (Exception e) {
-            return ResponseManager.getDTOResp(httpErrorStatus, e.getMessage());
+            return ResponseManager.getDTOResp(httpErrorStatus, e.getMessage(), null);
         }
     }
 }
