@@ -219,8 +219,44 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
     }
 
     @Override
+    public RespDTO<ServiceCenterDTOReq> changeServiceCenter(ServiceCenterDTOReq req) {
+        ServiceCenter center = ExceptionManager.tryExecute(() -> ServiceCenterConverter.convertToEntity(req));
+        Supplier<ServiceCenter> update = () -> serviceCenterDAO.update(center);
+        RespDTO<ServiceCenterDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> ServiceCenterConverter.convertToDTOReq(transactionManger.execute(update)));
+        assert center != null;
+        resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, center.getServiceName()));
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
     public RespListDTO<ServiceCenterDTOReq> findServiceCenters() {
-        return null;
+        List<ServiceCenter> result = transactionManger.execute(serviceCenterDAO::findAll);
+
+        RespListDTO<ServiceCenterDTOReq> resp = ExceptionManager.getListSearchResult(() -> ServiceCenterConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<ServiceCenterDTOReq> findServiceCenters(int pageNumber, int listSize) {
+        List<ServiceCenter> result = transactionManger.execute(() -> serviceCenterDAO.findForPage(pageNumber, listSize));
+
+        RespListDTO<ServiceCenterDTOReq> resp = ExceptionManager.getListSearchResult(() -> ServiceCenterConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<ServiceCenterDTOReq> findServiceCenters(ParametersForSearchDTO parameters) {
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
+        List<ServiceCenter> result = transactionManger.execute(() ->
+                serviceCenterDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        RespListDTO<ServiceCenterDTOReq> resp = ExceptionManager.getListSearchResult(() -> ServiceCenterConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
 }

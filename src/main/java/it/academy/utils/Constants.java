@@ -39,6 +39,9 @@ public class Constants {
     //ServiceAccount parameters
     public static final String SERVICE_CENTER = "serviceCenter";
 
+    //Service center parameters
+    public static final String SERVICE_NAME = "serviceName";
+
 
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
