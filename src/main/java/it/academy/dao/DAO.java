@@ -1,6 +1,5 @@
 package it.academy.dao;
 
-import it.academy.entities.account.role.Role;
 import it.academy.utils.dao.ParameterContainer;
 
 import java.math.BigInteger;

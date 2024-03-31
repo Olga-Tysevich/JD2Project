@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static it.academy.utils.Constants.LIKE_QUERY_PATTERN;
 
 public class Test {
     public static void main(String[] args) {
@@ -54,6 +53,8 @@ public class Test {
 //            accountDTOReq.setRole(role);
 //            ownerService.addAdminAccount(accountDTOReq);
 //        }
+
+        ServiceAccount account = new ServiceAccount();
 
         ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
 //        List<ServiceAccount> a = serviceAccountDAO.findAll();

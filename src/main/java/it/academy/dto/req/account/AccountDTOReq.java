@@ -1,6 +1,7 @@
 package it.academy.dto.req.account;
 
 import it.academy.entities.account.role.Role;
+import it.academy.entities.service_center.ServiceCenter;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,5 +24,7 @@ public class AccountDTOReq {
     private String confirmPassword;
 
     private Role role;
+
+    private ServiceCenter serviceCenter;
 
 }

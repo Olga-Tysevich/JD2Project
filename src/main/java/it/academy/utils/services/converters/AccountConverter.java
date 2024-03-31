@@ -3,6 +3,7 @@ package it.academy.utils.services.converters;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.entities.account.Account;
+import it.academy.entities.account.ServiceAccount;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,10 +11,8 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class AccountConverter {
 
-
-
-    public static List<AccountDTO> convertListToDTO(List<Account> roles) {
-        return roles.stream()
+    public static List<AccountDTO> convertListToDTO(List<Account> accounts) {
+        return accounts.stream()
                 .map(AccountConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -48,6 +47,7 @@ public class AccountConverter {
                 .build();
     }
 
+
     public static AccountDTO convertToDTO(Account account) {
         return AccountDTO.builder()
                 .id(account.getId())
@@ -55,6 +55,17 @@ public class AccountConverter {
                 .email(account.getEmail())
                 .userName(account.getUserName())
                 .userSurname(account.getUserSurname())
+                .build();
+    }
+
+    public static AccountDTO convertToDTO(ServiceAccount account) {
+        return AccountDTO.builder()
+                .id(account.getId())
+                .isActive(account.getIsActive())
+                .email(account.getEmail())
+                .userName(account.getUserName())
+                .userSurname(account.getUserSurname())
+                .serviceCenter(account.getServiceCenter())
                 .build();
     }
 

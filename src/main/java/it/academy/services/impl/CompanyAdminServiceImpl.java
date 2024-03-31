@@ -14,6 +14,7 @@ import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.Account;
+import it.academy.entities.account.ServiceAccount;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.services.CompanyAdminService;
@@ -23,6 +24,7 @@ import it.academy.utils.services.ExceptionManager;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.services.converters.RoleConverter;
+import it.academy.utils.services.converters.ServiceAccountConverter;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -133,17 +135,23 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts() {
-        return null;
+        List<ServiceAccount> result = transactionManger.execute(serviceAccountDAO::findAll);
+        return ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
     }
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts(int pageNumber, int listSize) {
-        return null;
+        List<ServiceAccount> result = transactionManger.execute(() -> serviceAccountDAO.findForPage(pageNumber, listSize));
+        return ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
     }
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts(ParametersForSearchDTO parameters) {
-        return null;
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
+        List<ServiceAccount> result = transactionManger.execute(() ->
+                serviceAccountDAO.findBlockedAccountsByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        return ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
     }
 
 }

@@ -119,7 +119,7 @@ public class AccountDAOImpl<T extends Account> extends DAOImpl<T, Long> implemen
         return createFindForPageQuery(findByParameters, root, pageNumber, listSize, account, blockedAccount, anyMatch);
     }
 
-    private Predicate createFindAccountPredicate(Root<T> root) {
+    protected Predicate createFindAccountPredicate(Root<T> root) {
         Predicate findAccount = criteriaBuilder().conjunction();
         findAccount.getExpressions().add(root.type().in(getClazz()));
         return findAccount;
