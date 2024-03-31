@@ -45,13 +45,9 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public <S> T findByUniqueParameter(String filter, S parameter) {
         CriteriaQuery<T> findByParameter = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameter.from(clazz);
-        findByParameter.select(root)
-                .where(criteriaBuilder().equal(root.get(filter), parameter));
-        return entityManager().createQuery(findByParameter)
-                .getResultStream()
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
+
+        return createFindUniqueResultQuery(findByParameter, root,
+                criteriaBuilder().equal(root.get(filter), parameter));
     }
 
     @Override
@@ -60,6 +56,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         if (object != null) {
             entityManager().remove(object);
         }
+
         return entityManager().find(clazz, id) == null;
     }
 
@@ -67,8 +64,8 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public List<T> findAll() {
         CriteriaQuery<T> findAll = criteriaBuilder().createQuery(clazz);
         Root<T> root = findAll.from(clazz);
-        findAll.select(root);
-        return entityManager().createQuery(findAll).getResultList();
+
+        return createFindAllQuery(findAll, root);
     }
 
 
@@ -76,71 +73,44 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public List<T> findForPage(int pageNumber, int listSize) {
         CriteriaQuery<T> findList = criteriaBuilder().createQuery(clazz);
         Root<T> root = findList.from(clazz);
-        findList.select(root)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
 
-        return entityManager().createQuery(findList)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
+        return createFindForPageQuery(findList, root, pageNumber, listSize);
     }
 
     @Override
     public List<T> findByAnyMatch(List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
-
         Predicate anyMatch = createFindByAnyMatchPredicate(root, parameters);
 
-        findByParameters.select(root)
-                .where(anyMatch);
-        return entityManager().createQuery(findByParameters)
-                .getResultList();
+        return createFindAllQuery(findByParameters, root, anyMatch);
     }
 
     @Override
     public List<T> findForPageByAnyMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
-
         Predicate anyMatch = createFindByAnyMatchPredicate(root, parameters);
 
-        findByParameters.select(root)
-                .where(anyMatch);
-        return entityManager().createQuery(findByParameters)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
+        return createFindForPageQuery(findByParameters, root, pageNumber, listSize, anyMatch);
     }
 
     @Override
     public List<T> findByExactMatch(List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
-
         Predicate exactMatch = createFindByExactMatchQuery(root, parameters);
 
-        findByParameters.select(root)
-                .where(exactMatch);
-
-        return entityManager().createQuery(findByParameters)
-                .getResultList();
+        return createFindAllQuery(findByParameters, root, exactMatch);
     }
 
     @Override
     public List<T> findForPageByExactMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
-
         Predicate exactMatch = createFindByExactMatchQuery(root, parameters);
 
-        findByParameters.select(root)
-                .where(exactMatch);
-
-        return entityManager().createQuery(findByParameters)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
+        return createFindForPageQuery(findByParameters, root, pageNumber, listSize, exactMatch);
     }
 
     @Override
@@ -170,7 +140,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                                         ParameterManager.getParameterForLikeQuery(c.getParameterValue())
                                 )))
         );
-
         return predicate;
     }
 
@@ -184,6 +153,36 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                         ))
         );
         return predicate;
+    }
+
+    protected T createFindUniqueResultQuery(CriteriaQuery<T> query, Root<T> root, Predicate... predicates) {
+        query.select(root)
+                .where(predicates)
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+        return entityManager().createQuery(query)
+                .getResultStream()
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
+
+    protected List<T> createFindAllQuery(CriteriaQuery<T> query, Root<T> root, Predicate... predicates) {
+        query.select(root)
+                .where(predicates)
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+        return entityManager().createQuery(query)
+                .getResultList();
+    }
+
+    protected List<T> createFindForPageQuery(CriteriaQuery<T> query, Root<T> root, int pageNumber, int listSize, Predicate... predicates) {
+        query.select(root)
+                .where(predicates)
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+        return entityManager()
+                .createQuery(query)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
     }
 
     protected Class<T> getClazz() {

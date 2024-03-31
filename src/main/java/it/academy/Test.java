@@ -20,11 +20,15 @@ import it.academy.services.CompanyOwnerService;
 import it.academy.services.impl.CompanyAdminServiceImpl;
 import it.academy.services.impl.CompanyOwnerServiceImpl;
 import it.academy.utils.Generator;
+import it.academy.utils.dao.ParameterContainer;
+import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static it.academy.utils.Constants.LIKE_QUERY_PATTERN;
 
 public class Test {
     public static void main(String[] args) {
@@ -52,11 +56,13 @@ public class Test {
 //        }
 
         ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
-        List<ServiceAccount> a = serviceAccountDAO.findAll();
+//        List<ServiceAccount> a = serviceAccountDAO.findAll();
+        AccountDAOImpl<Account> accountAccountDAO = new AccountDAOImpl<>(Account.class);
+
 
         RespListDTO<AccountDTO> accounts1 = adminService.findAccounts();
-        RespListDTO<AccountDTO>  accounts2 = adminService.findAccounts(1, 2);
-        RespListDTO<AccountDTO>  accounts3 = adminService.findAccounts(1, 2);
+        List<Account>  accounts2 = accountAccountDAO.findForPageByAnyMatch(1, 2, List.of(new ParameterContainer<>("userName", "Мария")));
+        List<Account>  accounts4 = accountAccountDAO.findBlockedAccounts();
 
 
         RoleDTOReq roleReq = RoleDTOReq.builder()
