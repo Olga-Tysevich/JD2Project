@@ -49,6 +49,8 @@ public class Test {
 
     public static void main(String[] args) {
 
+
+
         List<Permission> permissions = userService.findPermissions().getList().stream()
                 .map(PermissionConverter::convertToEntity)
                 .collect(Collectors.toList());
@@ -63,7 +65,6 @@ public class Test {
                         .filters(List.of(PERMISSION_TYPE))
                         .userInput("REJECT DELETE")
                         .build());
-
 
         RoleDTOReq roleReq = RoleConverter.convertToDTOReq(Generator.generateRole(false));
         RoleDTOReq roleReq2 = RoleConverter.convertToDTOReq(Generator.generateRole(true));
@@ -111,15 +112,23 @@ public class Test {
                 .collect(Collectors.toList());
 
         brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
-//        centers2.forEach(c -> c.s);
-
         List<Brand> brands2 = brandDAO.findAll();
 
-        centers2.forEach(s -> {
-            List<Brand> brands1 = brands2.subList(0, RANDOM.nextInt(brands2.size()));
-            brands1.forEach(s::addBrand);
-            adminService.changeServiceCenter(ServiceCenterConverter.convertToDTOReq(s));
-        });
+//        centers2.forEach(s -> {
+//            List<Brand> brands1 = brands2.subList(0, RANDOM.nextInt(brands2.size()));
+//            brands1.forEach(s::addBrand);
+//            adminService.changeServiceCenter(ServiceCenterConverter.convertToDTOReq(s));
+//        });
+
+
+        ParametersForSearchDTO p = ParametersForSearchDTO.builder()
+                .pageNumber(1)
+                .listSize(3)
+                .filters(List.of("name"))
+                .userInput(brands2.get(0).getName())
+                .build();
+
+        deviceService.findBrands(p);
 
     }
 }

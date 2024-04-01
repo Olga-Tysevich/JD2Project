@@ -14,14 +14,12 @@ import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
-import it.academy.dto.req.service_center.ServiceCenterDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceAccount;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
-import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.CompanyAdminService;
 import it.academy.utils.MessageManager;
 import it.academy.utils.dao.ParameterManager;
@@ -31,7 +29,6 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.services.converters.accounts.RoleConverter;
 import it.academy.utils.services.converters.accounts.ServiceAccountConverter;
-import it.academy.utils.services.converters.service_center.ServiceCenterConverter;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -43,7 +40,6 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
     private RoleDAO roleDAO = new RoleDAOImpl();
     private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
     private ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     @Override
     public RespDTO<RoleDTOReq> createRole(RoleDTOReq req) {
@@ -196,62 +192,11 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         ServiceAccount account = ExceptionManager.tryExecute(() -> ServiceAccountConverter.convertAccountDTOReqToEntity(req));
         Supplier<ServiceAccount> save = () -> serviceAccountDAO.create(account);
         RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverter.convertToDTO(transactionManger.execute(save)));
-        assert account != null;
-        resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, account.getEmail()));
 
-        transactionManger.closeManager();
-        return resp;
-    }
+        if (account != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, account.getEmail()));
+        }
 
-    @Override
-    public RespDTO<ServiceCenterDTOReq> addServiceCenter(ServiceCenterDTOReq req) {
-        ServiceCenter center = ExceptionManager.tryExecute(() -> ServiceCenterConverter.convertToEntity(req));
-        Supplier<ServiceCenter> save = () -> serviceCenterDAO.create(center);
-        RespDTO<ServiceCenterDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> ServiceCenterConverter.convertToDTOReq(transactionManger.execute(save)));
-        assert center != null;
-        resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, center.getServiceName()));
-
-        transactionManger.closeManager();
-        return resp;
-    }
-
-    @Override
-    public RespDTO<ServiceCenterDTOReq> changeServiceCenter(ServiceCenterDTOReq req) {
-        ServiceCenter center = ExceptionManager.tryExecute(() -> ServiceCenterConverter.convertToEntity(req));
-        Supplier<ServiceCenter> update = () -> serviceCenterDAO.update(center);
-        RespDTO<ServiceCenterDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> ServiceCenterConverter.convertToDTOReq(transactionManger.execute(update)));
-        assert center != null;
-        resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, center.getServiceName()));
-
-        transactionManger.closeManager();
-        return resp;
-    }
-
-    @Override
-    public RespListDTO<ServiceCenterDTOReq> findServiceCenters() {
-        List<ServiceCenter> result = transactionManger.execute(serviceCenterDAO::findAll);
-
-        RespListDTO<ServiceCenterDTOReq> resp = ExceptionManager.getListSearchResult(() -> ServiceCenterConverter.convertListToDTOReq(result));
-        transactionManger.closeManager();
-        return resp;
-    }
-
-    @Override
-    public RespListDTO<ServiceCenterDTOReq> findServiceCenters(int pageNumber, int listSize) {
-        List<ServiceCenter> result = transactionManger.execute(() -> serviceCenterDAO.findForPage(pageNumber, listSize));
-
-        RespListDTO<ServiceCenterDTOReq> resp = ExceptionManager.getListSearchResult(() -> ServiceCenterConverter.convertListToDTOReq(result));
-        transactionManger.closeManager();
-        return resp;
-    }
-
-    @Override
-    public RespListDTO<ServiceCenterDTOReq> findServiceCenters(ParametersForSearchDTO parameters) {
-        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
-        List<ServiceCenter> result = transactionManger.execute(() ->
-                serviceCenterDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
-
-        RespListDTO<ServiceCenterDTOReq> resp = ExceptionManager.getListSearchResult(() -> ServiceCenterConverter.convertListToDTOReq(result));
         transactionManger.closeManager();
         return resp;
     }

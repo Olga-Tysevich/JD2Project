@@ -30,7 +30,7 @@ public class ModelConverter {
                 .collect(Collectors.toList());
     }
 
-    public static Model convertToEntity(RoleDTOReq req) {
+    public static Model convertToEntity(ModelDTOReq req) {
         return Model.builder()
                 .id(req.getId())
                 .name(req.getName())

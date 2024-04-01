@@ -4,7 +4,6 @@ import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
-import it.academy.dto.req.service_center.ServiceCenterDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 
@@ -37,14 +36,4 @@ public interface CompanyAdminService extends UserService {
     RespListDTO<AccountDTO> findServiceAccounts(ParametersForSearchDTO parameters);
 
     RespDTO<AccountDTO> addServiceAccount(AccountDTOReq req);
-
-    RespDTO<ServiceCenterDTOReq> addServiceCenter(ServiceCenterDTOReq req);
-
-    RespDTO<ServiceCenterDTOReq> changeServiceCenter(ServiceCenterDTOReq req);
-
-    RespListDTO<ServiceCenterDTOReq> findServiceCenters();
-
-    RespListDTO<ServiceCenterDTOReq> findServiceCenters(int pageNumber, int listSize);
-
-    RespListDTO<ServiceCenterDTOReq> findServiceCenters(ParametersForSearchDTO parameters);
 }
