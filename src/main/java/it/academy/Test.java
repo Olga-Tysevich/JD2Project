@@ -20,19 +20,18 @@ import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.CompanyAdminService;
 import it.academy.services.CompanyOwnerService;
+import it.academy.services.DeviceService;
 import it.academy.services.UserService;
 import it.academy.services.impl.CompanyAdminServiceImpl;
 import it.academy.services.impl.CompanyOwnerServiceImpl;
+import it.academy.services.impl.DeviceServiceImpl;
 import it.academy.services.impl.UserServiceImp;
 import it.academy.utils.Generator;
 import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
 import it.academy.utils.services.converters.device.BrandConverter;
 import it.academy.utils.services.converters.service_center.ServiceCenterConverter;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -43,6 +42,7 @@ public class Test {
     private static CompanyAdminService adminService = new CompanyAdminServiceImpl();
     private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
     private static UserService userService = new UserServiceImp();
+    private static DeviceService deviceService = new DeviceServiceImpl();
     private static ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
     private static BrandDAO brandDAO = new BrandDAOImpl();
@@ -110,7 +110,7 @@ public class Test {
                 .mapToObj(i -> Generator.generateBrand())
                 .collect(Collectors.toList());
 
-        brands.forEach(b -> adminService.addBrand(BrandConverter.convertToDTOReq(b)));
+        brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
 //        centers2.forEach(c -> c.s);
 
         List<Brand> brands2 = brandDAO.findAll();

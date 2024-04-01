@@ -24,6 +24,9 @@ public class DeviceType implements Serializable {
     @Column
     private String name;
 
+    @Column(name = "active")
+    private Boolean isActive;
+
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
