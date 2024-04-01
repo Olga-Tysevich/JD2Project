@@ -1,17 +1,21 @@
 package it.academy.services.impl;
 
 import it.academy.dao.device.BrandDAO;
+import it.academy.dao.device.DeviceDAO;
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
+import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.device.BrandDTOReq;
+import it.academy.dto.req.device.DeviceDTOReq;
 import it.academy.dto.req.device.DeviceTypeDTOReq;
 import it.academy.dto.req.device.ModelDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
+import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
@@ -22,6 +26,7 @@ import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.services.ExceptionManager;
 import it.academy.utils.services.converters.device.BrandConverter;
+import it.academy.utils.services.converters.device.DeviceConverter;
 import it.academy.utils.services.converters.device.DeviceTypeConverter;
 import it.academy.utils.services.converters.device.ModelConverter;
 import java.util.List;
@@ -35,6 +40,7 @@ public class DeviceServiceImpl implements DeviceService {
     private BrandDAO brandDAO = new BrandDAOImpl();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
     private ModelDAO modelDAO = new ModelDAOImpl();
+    private DeviceDAO deviceDAO = new DeviceDAOImpl();
 
     @Override
     public RespDTO<BrandDTOReq> addBrand(BrandDTOReq req) {
@@ -182,13 +188,19 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public RespListDTO<ModelDTOReq> findModels() {
         List<Model> result = transactionManger.execute(() -> modelDAO.findAll());
-        return ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+
+        RespListDTO<ModelDTOReq> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
     public RespListDTO<ModelDTOReq> findModels(int pageNumber, int listSize) {
         List<Model> result = transactionManger.execute(() -> modelDAO.findForPage(pageNumber, listSize));
-        return ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+
+        RespListDTO<ModelDTOReq> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override
@@ -197,7 +209,51 @@ public class DeviceServiceImpl implements DeviceService {
         List<Model> result = transactionManger.execute(() ->
                 modelDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        return ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        RespListDTO<ModelDTOReq> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
+    @Override
+    public RespDTO<DeviceDTOReq> addDevice(DeviceDTOReq req) {
+        Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertToEntity(req));
+        Supplier<Device> save = () -> deviceDAO.create(device);
+        RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
+
+        if (device != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, device));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<DeviceDTOReq> findDevices() {
+        List<Device> result = transactionManger.execute(() -> deviceDAO.findAll());
+
+        RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<DeviceDTOReq> findDevices(int pageNumber, int listSize) {
+        List<Device> result = transactionManger.execute(() -> deviceDAO.findForPage(pageNumber, listSize));
+
+        RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<DeviceDTOReq> findDevices(ParametersForSearchDTO parameters) {
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
+        List<Device> result = transactionManger.execute(() ->
+                deviceDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
 }

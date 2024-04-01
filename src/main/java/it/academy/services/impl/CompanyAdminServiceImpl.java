@@ -77,7 +77,9 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
     @Override
     public RespListDTO<RoleDTOReq> findRoles() {
         List<Role> result = transactionManger.execute(roleDAO::findAll);
-        return ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
+        RespListDTO<RoleDTOReq> resp = ExceptionManager.getListSearchResult(() -> RoleConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
     }
 
     @Override

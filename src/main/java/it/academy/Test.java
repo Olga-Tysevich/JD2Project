@@ -18,14 +18,8 @@ import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
-import it.academy.services.CompanyAdminService;
-import it.academy.services.CompanyOwnerService;
-import it.academy.services.DeviceService;
-import it.academy.services.UserService;
-import it.academy.services.impl.CompanyAdminServiceImpl;
-import it.academy.services.impl.CompanyOwnerServiceImpl;
-import it.academy.services.impl.DeviceServiceImpl;
-import it.academy.services.impl.UserServiceImp;
+import it.academy.services.*;
+import it.academy.services.impl.*;
 import it.academy.utils.Generator;
 import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
@@ -43,6 +37,7 @@ public class Test {
     private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
     private static UserService userService = new UserServiceImp();
     private static DeviceService deviceService = new DeviceServiceImpl();
+    private static ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private static ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
     private static BrandDAO brandDAO = new BrandDAOImpl();
@@ -76,14 +71,14 @@ public class Test {
         List<ServiceCenter> centers = IntStream.range(0, 15)
                 .mapToObj(i -> {
                     ServiceCenter serviceCenter = Generator.generateServiceCenter();
-                    adminService.addServiceCenter(ServiceCenterConverter.convertToDTOReq(serviceCenter));
+                    serviceCenterService.addServiceCenter(ServiceCenterConverter.convertToDTOReq(serviceCenter));
                     return serviceCenter;
                 })
                 .collect(Collectors.toList());
         List<ServiceCenter> centers2 = serviceCenterDAO.findAll();
-        RespListDTO<ServiceCenterDTOReq> services1 = adminService.findServiceCenters();
-        RespListDTO<ServiceCenterDTOReq> services2 = adminService.findServiceCenters(1, 5);
-        RespListDTO<ServiceCenterDTOReq> services3 = adminService.findServiceCenters(
+        RespListDTO<ServiceCenterDTOReq> services1 = serviceCenterService.findServiceCenters();
+        RespListDTO<ServiceCenterDTOReq> services2 = serviceCenterService.findServiceCenters(1, 5);
+        RespListDTO<ServiceCenterDTOReq> services3 = serviceCenterService.findServiceCenters(
                 ParametersForSearchDTO.builder()
                         .pageNumber(1)
                         .listSize(10)
@@ -114,11 +109,12 @@ public class Test {
         brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
         List<Brand> brands2 = brandDAO.findAll();
 
-//        centers2.forEach(s -> {
-//            List<Brand> brands1 = brands2.subList(0, RANDOM.nextInt(brands2.size()));
-//            brands1.forEach(s::addBrand);
-//            adminService.changeServiceCenter(ServiceCenterConverter.convertToDTOReq(s));
-//        });
+        IntStream.range(0, centers2.size()).forEach(i -> {
+            ServiceCenter serviceCenter = centers2.get(i);
+            Brand brand = brands2.get(i);
+            serviceCenter.addBrand(brand);
+            serviceCenterService.changeServiceCenter(ServiceCenterConverter.convertToDTOReq(serviceCenter));
+        });
 
 
         ParametersForSearchDTO p = ParametersForSearchDTO.builder()
