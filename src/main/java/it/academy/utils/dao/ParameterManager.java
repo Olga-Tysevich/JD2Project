@@ -3,7 +3,6 @@ package it.academy.utils.dao;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static it.academy.utils.Constants.LIKE_QUERY_PATTERN;
 import static it.academy.utils.Constants.PUNCTUATION_MARKS_PATTERN;
@@ -32,6 +31,7 @@ public class ParameterManager {
     }
 
     public static<T> String getParameterForLikeQuery(T parameter) {
+        String s = String.format(LIKE_QUERY_PATTERN, parameter);
         return String.format(LIKE_QUERY_PATTERN, parameter);
     }
 

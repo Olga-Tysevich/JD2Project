@@ -24,6 +24,7 @@ public class RoleConverter {
 
     public static Role convertToEntity(RoleDTOReq req) {
         return Role.builder()
+                .id(req.getId())
                 .name(req.getName())
                 .permissions(req.getPermissions())
                 .build();

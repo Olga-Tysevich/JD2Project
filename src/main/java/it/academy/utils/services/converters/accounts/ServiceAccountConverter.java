@@ -18,6 +18,7 @@ public class ServiceAccountConverter {
 
     public static ServiceAccount convertAccountDTOReqToEntity(AccountDTOReq req) {
         return ServiceAccount.builder()
+                .id(req.getId())
                 .isActive(req.getIsActive())
                 .email(req.getEmail())
                 .userName(req.getUserName())

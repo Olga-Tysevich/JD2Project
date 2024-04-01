@@ -26,6 +26,7 @@ public class AccountConverter {
 
     public static Account convertAccountDTOReqToEntity(AccountDTOReq req) {
         return Account.builder()
+                .id(req.getId())
                 .isActive(req.getIsActive())
                 .email(req.getEmail())
                 .userName(req.getUserName())

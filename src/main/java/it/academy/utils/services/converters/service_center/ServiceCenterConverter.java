@@ -34,6 +34,7 @@ public class ServiceCenterConverter {
 
     public static ServiceCenter convertToEntity(ServiceCenterDTOReq req) {
         return ServiceCenter.builder()
+                .id(req.getId())
                 .serviceName(req.getServiceName())
                 .requisites(Requisites.builder()
                         .fullName(req.getFullName())
