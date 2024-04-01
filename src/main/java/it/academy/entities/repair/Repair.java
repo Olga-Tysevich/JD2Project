@@ -1,7 +1,7 @@
 package it.academy.entities.repair;
 
 import it.academy.entities.device.Device;
-import it.academy.entities.repair.components.Defect;
+import it.academy.entities.device.components.Defect;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;

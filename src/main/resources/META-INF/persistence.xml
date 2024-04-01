@@ -15,7 +15,7 @@
         <class>it.academy.entities.repair.components.RepairStatus</class>
         <class>it.academy.entities.repair.components.RepairCategory</class>
         <class>it.academy.entities.repair.components.RepairType</class>
-        <class>it.academy.entities.repair.components.Defect</class>
+        <class>it.academy.entities.device.components.Defect</class>
         <class>it.academy.entities.repair.spare_part.SparePart</class>
         <class>it.academy.entities.repair.spare_part.SparePartsOrder</class>
         <class>it.academy.entities.repair.decommissioning.DecommissioningCertificate</class>

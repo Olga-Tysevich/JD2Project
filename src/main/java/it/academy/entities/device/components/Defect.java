@@ -1,4 +1,4 @@
-package it.academy.entities.repair.components;
+package it.academy.entities.device.components;
 
 import it.academy.entities.device.components.DeviceType;
 import lombok.*;
@@ -26,9 +26,20 @@ public class Defect implements Serializable {
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Setter(AccessLevel.PROTECTED)
     @ManyToMany(mappedBy = "defects", fetch = FetchType.LAZY)
     private Set<DeviceType> typeSet = new HashSet<>();
 
+    public void addDeviceType(DeviceType deviceType) {
+        if (deviceType != null) {
+            typeSet.add(deviceType);
+        }
+    }
 
+    public void removeDeviceType(DeviceType deviceType) {
+        if (deviceType != null) {
+            typeSet.remove(deviceType);
+        }
+    }
 
 }

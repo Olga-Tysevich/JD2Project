@@ -1,22 +1,14 @@
 package it.academy.services.impl;
 
-import it.academy.dao.device.BrandDAO;
-import it.academy.dao.device.DeviceDAO;
-import it.academy.dao.device.DeviceTypeDAO;
-import it.academy.dao.device.ModelDAO;
-import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dao.device.impl.DeviceDAOImpl;
-import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dao.device.impl.ModelDAOImpl;
+import it.academy.dao.device.*;
+import it.academy.dao.device.impl.*;
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.device.BrandDTOReq;
-import it.academy.dto.req.device.DeviceDTOReq;
-import it.academy.dto.req.device.DeviceTypeDTOReq;
-import it.academy.dto.req.device.ModelDTOReq;
+import it.academy.dto.req.device.*;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Brand;
+import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
 import it.academy.services.DeviceService;
@@ -25,10 +17,8 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.services.ExceptionManager;
-import it.academy.utils.services.converters.device.BrandConverter;
-import it.academy.utils.services.converters.device.DeviceConverter;
-import it.academy.utils.services.converters.device.DeviceTypeConverter;
-import it.academy.utils.services.converters.device.ModelConverter;
+import it.academy.utils.services.converters.device.*;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -41,6 +31,7 @@ public class DeviceServiceImpl implements DeviceService {
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
     private ModelDAO modelDAO = new ModelDAOImpl();
     private DeviceDAO deviceDAO = new DeviceDAOImpl();
+    private DefectDAO defectDAO = new DefectDAOImpl();
 
     @Override
     public RespDTO<BrandDTOReq> addBrand(BrandDTOReq req) {
@@ -229,6 +220,20 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    public RespDTO<DeviceDTOReq> changeDevice(DeviceDTOReq req) {
+        Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertToEntity(req));
+        Supplier<Device> save = () -> deviceDAO.update(device);
+        RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
+
+        if (device != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, device));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
     public RespListDTO<DeviceDTOReq> findDevices() {
         List<Device> result = transactionManger.execute(() -> deviceDAO.findAll());
 
@@ -253,6 +258,63 @@ public class DeviceServiceImpl implements DeviceService {
                 deviceDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
         RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespDTO<DefectDTOReq> addDefect(DefectDTOReq req) {
+        Defect defect = ExceptionManager.tryExecute(() -> DefectConverter.convertToEntity(req));
+        Supplier<Defect> save = () -> defectDAO.create(defect);
+        RespDTO<DefectDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DefectConverter.convertToDTOReq(transactionManger.execute(save)));
+
+        if (defect != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, defect));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespDTO<DefectDTOReq> changeDefect(DefectDTOReq req) {
+        Defect defect = ExceptionManager.tryExecute(() -> DefectConverter.convertToEntity(req));
+        Supplier<Defect> save = () -> defectDAO.update(defect);
+        RespDTO<DefectDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DefectConverter.convertToDTOReq(transactionManger.execute(save)));
+
+        if (defect != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, defect));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<DefectDTOReq> findDefect() {
+        List<Defect> result = transactionManger.execute(() -> defectDAO.findAll());
+
+        RespListDTO<DefectDTOReq> resp = ExceptionManager.getListSearchResult(() -> DefectConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<DefectDTOReq> findDefect(int pageNumber, int listSize) {
+        List<Defect> result = transactionManger.execute(() -> defectDAO.findForPage(pageNumber, listSize));
+
+        RespListDTO<DefectDTOReq> resp = ExceptionManager.getListSearchResult(() -> DefectConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<DefectDTOReq> findDefect(ParametersForSearchDTO parameters) {
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
+        List<Defect> result = transactionManger.execute(() ->
+                defectDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        RespListDTO<DefectDTOReq> resp = ExceptionManager.getListSearchResult(() -> DefectConverter.convertListToDTOReq(result));
         transactionManger.closeManager();
         return resp;
     }
