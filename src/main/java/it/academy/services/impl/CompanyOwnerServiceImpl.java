@@ -23,7 +23,6 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
 
     @Override
     public RespDTO<AccountDTO> addAdminAccount(AccountDTOReq req) {
-        req.setId(0L);
         Account account = ExceptionManager.tryExecute(() -> AccountConverter.convertAccountDTOReqToEntity(req));
         Supplier<Account> save = () -> accountDAO.create(account);
         RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverter.convertToDTO(transactionManger.execute(save)));

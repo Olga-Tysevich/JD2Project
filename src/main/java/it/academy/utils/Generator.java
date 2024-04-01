@@ -5,6 +5,7 @@ import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.PermissionCategory;
 import it.academy.entities.account.role.PermissionType;
 import it.academy.entities.account.role.Role;
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.entities.service_center.components.BankAccount;
 import it.academy.entities.service_center.components.Requisites;
@@ -32,6 +33,7 @@ public class Generator {
     private String bankAccount = "BA%d";
     private String bankCode = "BK%d";
     private List<String> banks = Arrays.asList("Созвездие Банк", "Яшма Капитал", "Арктика Финанс", "Золотой Бриллиант Банк", "Вершина Успеха");
+    private List<String> brands = Arrays.asList("Ritmix", "Texet", "LG", "Brayer", "First");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -86,6 +88,13 @@ public class Generator {
                         .build())
                 .build();
 
+    }
+
+    public static Brand generateBrand() {
+        return Brand.builder()
+                .name(brands.get(RANDOM.nextInt(brands.size())) + RANDOM.nextInt(10000))
+                .isActive(true)
+                .build();
     }
 
     private static String generateValidPasswords() {

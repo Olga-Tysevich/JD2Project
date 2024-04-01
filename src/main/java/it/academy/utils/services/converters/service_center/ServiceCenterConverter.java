@@ -1,8 +1,11 @@
 package it.academy.utils.services.converters.service_center;
+
 import it.academy.dto.req.service_center.ServiceCenterDTOReq;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.entities.service_center.components.BankAccount;
 import it.academy.entities.service_center.components.Requisites;
+import it.academy.utils.services.converters.device.BrandConverter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,9 @@ public class ServiceCenterConverter {
                 .bankCode(serviceCenter.getBankAccount().getBankCode())
                 .bankName(serviceCenter.getBankAccount().getBankName())
                 .bankAddress(serviceCenter.getBankAccount().getBankAddress())
+                .brands(serviceCenter.getBrands().stream()
+                        .map(BrandConverter::convertToDTOReq)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 
@@ -50,6 +56,9 @@ public class ServiceCenterConverter {
                         .bankAddress(req.getBankAddress())
                         .bankCode(req.getBankCode())
                         .build())
+                .brands(req.getBrands().stream()
+                        .map(BrandConverter::convertToEntity)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 }

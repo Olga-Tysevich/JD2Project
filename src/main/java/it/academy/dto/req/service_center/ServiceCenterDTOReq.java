@@ -1,7 +1,11 @@
 package it.academy.dto.req.service_center;
 
+import it.academy.dto.req.device.BrandDTOReq;
+import it.academy.entities.device.components.Brand;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -32,5 +36,7 @@ public class ServiceCenterDTOReq {
     private String bankName;
 
     private String bankAddress;
+
+    private Set<BrandDTOReq> brands;
 
 }

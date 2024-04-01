@@ -8,12 +8,15 @@ import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.PermissionDAOImpl;
 import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dao.account.impl.ServiceAccountDAOImpl;
+import it.academy.dao.device.BrandDAO;
+import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.service_center.ServiceCenterDAO;
 import it.academy.dao.service_center.impl.ServiceCenterDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.dto.req.service_center.ServiceCenterDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
@@ -21,6 +24,7 @@ import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceAccount;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.CompanyAdminService;
 import it.academy.utils.MessageManager;
@@ -31,6 +35,7 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.services.converters.accounts.RoleConverter;
 import it.academy.utils.services.converters.accounts.ServiceAccountConverter;
+import it.academy.utils.services.converters.device.BrandConverter;
 import it.academy.utils.services.converters.service_center.ServiceCenterConverter;
 
 import java.util.*;
@@ -45,9 +50,10 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
     private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
     private ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
     private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override
-    public RespDTO<Role> createRole(RoleDTOReq req) {
+    public RespDTO<RoleDTOReq> createRole(RoleDTOReq req) {
 
         Set<Permission> permissionSet = new HashSet<>();
         req.getPermissions().forEach(p -> {
@@ -74,7 +80,7 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
             return result;
         };
 
-        RespDTO<Role> resp = ExceptionManager.getObjectSaveResult(() -> transactionManger.execute(find));
+        RespDTO<RoleDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> RoleConverter.convertToDTOReq(transactionManger.execute(find)));
         transactionManger.closeManager();
         return resp;
     }
@@ -206,7 +212,6 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
 
     @Override
     public RespDTO<ServiceCenterDTOReq> addServiceCenter(ServiceCenterDTOReq req) {
-        req.setId(0L);
         ServiceCenter center = ExceptionManager.tryExecute(() -> ServiceCenterConverter.convertToEntity(req));
         Supplier<ServiceCenter> save = () -> serviceCenterDAO.create(center);
         RespDTO<ServiceCenterDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> ServiceCenterConverter.convertToDTOReq(transactionManger.execute(save)));
@@ -258,4 +263,27 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
         return resp;
     }
 
+    @Override
+    public RespDTO<BrandDTOReq> addBrand(BrandDTOReq req) {
+        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertToEntity(req));
+        Supplier<Brand> save = () -> brandDAO.create(brand);
+        RespDTO<BrandDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> BrandConverter.convertToDTOReq(transactionManger.execute(save)));
+        assert brand != null;
+        resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, brand.getName()));
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespDTO<BrandDTOReq> changeBrand(BrandDTOReq req) {
+        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertToEntity(req));
+        Supplier<Brand> update = () -> brandDAO.update(brand);
+        RespDTO<BrandDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> BrandConverter.convertToDTOReq(transactionManger.execute(update)));
+        assert brand != null;
+        resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, brand.getName()));
+
+        transactionManger.closeManager();
+        return resp;
+    }
 }

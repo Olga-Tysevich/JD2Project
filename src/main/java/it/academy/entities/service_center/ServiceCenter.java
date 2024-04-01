@@ -62,10 +62,25 @@ public class ServiceCenter implements Serializable {
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Setter(AccessLevel.PROTECTED)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "service_centers_brands",
             joinColumns = {@JoinColumn(name = "service_center_id")},
             inverseJoinColumns = {@JoinColumn(name = "brand_id")})
     private Set<Brand> brands = new HashSet<>();
+
+    public void addBrand(Brand brand) {
+        if (brand != null) {
+            brands.add(brand);
+            brand.addServiceCenter(this);
+        }
+    }
+
+    public void removeBrand(Brand brand) {
+        if (brand != null) {
+            brands.remove(brand);
+            brand.removeServiceCenter(this);
+        }
+    }
 
 }

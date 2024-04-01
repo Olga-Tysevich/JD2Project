@@ -3,6 +3,8 @@ package it.academy;
 
 import it.academy.dao.account.RoleDAO;
 import it.academy.dao.account.impl.RoleDAOImpl;
+import it.academy.dao.device.BrandDAO;
+import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.service_center.ServiceCenterDAO;
 import it.academy.dao.service_center.impl.ServiceCenterDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
@@ -14,6 +16,7 @@ import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.CompanyAdminService;
 import it.academy.services.CompanyOwnerService;
@@ -24,9 +27,12 @@ import it.academy.services.impl.UserServiceImp;
 import it.academy.utils.Generator;
 import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
+import it.academy.utils.services.converters.device.BrandConverter;
 import it.academy.utils.services.converters.service_center.ServiceCenterConverter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -39,6 +45,7 @@ public class Test {
     private static UserService userService = new UserServiceImp();
     private static ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
+    private static BrandDAO brandDAO = new BrandDAOImpl();
 
     public static void main(String[] args) {
 
@@ -51,18 +58,18 @@ public class Test {
         RespListDTO<PermissionDTOReq> permissions3 = userService.findPermissions(2, 5);
         RespListDTO<PermissionDTOReq> permissions4 = userService.findPermissions(
                 ParametersForSearchDTO.builder()
-                .pageNumber(3)
-                .listSize(3)
-                .filters(List.of(PERMISSION_TYPE))
-                .userInput("REJECT DELETE")
-                .build());
+                        .pageNumber(3)
+                        .listSize(3)
+                        .filters(List.of(PERMISSION_TYPE))
+                        .userInput("REJECT DELETE")
+                        .build());
 
 
         RoleDTOReq roleReq = RoleConverter.convertToDTOReq(Generator.generateRole(false));
         RoleDTOReq roleReq2 = RoleConverter.convertToDTOReq(Generator.generateRole(true));
 
-        RespDTO<Role> role1 = adminService.createRole(roleReq);
-        RespDTO<Role> role2 =adminService.createRole(roleReq2);
+        RespDTO<RoleDTOReq> role1 = adminService.createRole(roleReq);
+        RespDTO<RoleDTOReq> role2 = adminService.createRole(roleReq2);
         List<Role> roleList = roleDAO.findAll();
 
         List<ServiceCenter> centers = IntStream.range(0, 15)
@@ -96,40 +103,23 @@ public class Test {
                                 services1.getList().get(RANDOM.nextInt(services1.getList().size()))
                         )));
 
-       accountDTOReqs.forEach(ownerService::addAdminAccount);
-       accountDTOReqs2.forEach(adminService::addServiceAccount);
+        accountDTOReqs.forEach(ownerService::addAdminAccount);
+        accountDTOReqs2.forEach(adminService::addServiceAccount);
 
-//        for (int i = 0; i < 20; i++) {
-//            AccountDTOReq accountDTOReq = Generator.generateAccountDTOReq(false, i % 10 == 0);
-//            accountDTOReq.setRole(role);
-//            ownerService.addAdminAccount(accountDTOReq);
-//        }
+        List<Brand> brands = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateBrand())
+                .collect(Collectors.toList());
 
-//
-//        RespListDTO<AccountDTO> accounts1 = adminService.findAccounts();
-//        List<Account> accounts2 = accountAccountDAO.findForPageByAnyMatch(1, 2, List.of(new ParameterContainer<>("userName", "Мария")));
-//        List<Account> accounts4 = accountAccountDAO.findBlockedAccounts();
-//
-//
-//
-//
-//        AccountDTOReq req = AccountDTOReq.builder()
-//                .email("admin@mail.ru")
-//                .isActive(true)
-//                .password("123")
-//                .confirmPassword("123")
-//                .userName("Olga")
-//                .userSurname("Tysevich")
-//                .role(role)
-//                .build();
-//
-////        service.addAdminAccount(req);
-//        System.out.println(ownerService.findBlockedAccounts());
-//        System.out.println(Account.class.getSimpleName());
+        brands.forEach(b -> adminService.addBrand(BrandConverter.convertToDTOReq(b)));
+//        centers2.forEach(c -> c.s);
 
+        List<Brand> brands2 = brandDAO.findAll();
 
-//        Account account = ownerService.f
-
+        centers2.forEach(s -> {
+            List<Brand> brands1 = brands2.subList(0, RANDOM.nextInt(brands2.size()));
+            brands1.forEach(s::addBrand);
+            adminService.changeServiceCenter(ServiceCenterConverter.convertToDTOReq(s));
+        });
 
     }
 }

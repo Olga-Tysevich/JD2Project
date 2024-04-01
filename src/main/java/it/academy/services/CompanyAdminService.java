@@ -1,18 +1,17 @@
 package it.academy.services;
 
-import it.academy.dao.account.ServiceAccountDAO;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.dto.req.service_center.ServiceCenterDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
-import it.academy.entities.account.role.Role;
 
 public interface CompanyAdminService extends UserService {
 
-    RespDTO<Role> createRole(RoleDTOReq req);
+    RespDTO<RoleDTOReq> createRole(RoleDTOReq req);
 
     RespListDTO<RoleDTOReq> findRoles();
 
@@ -50,5 +49,7 @@ public interface CompanyAdminService extends UserService {
 
     RespListDTO<ServiceCenterDTOReq> findServiceCenters(ParametersForSearchDTO parameters);
 
+    RespDTO<BrandDTOReq> addBrand(BrandDTOReq req);
 
+    RespDTO<BrandDTOReq> changeBrand(BrandDTOReq req);
 }

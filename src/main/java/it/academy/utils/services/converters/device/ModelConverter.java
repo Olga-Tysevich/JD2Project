@@ -5,10 +5,12 @@ import it.academy.dto.req.device.ModelDTOReq;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class ModelConverter {
 
     public static ModelDTOReq convertToDTOReq(Model model) {

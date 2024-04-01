@@ -13,7 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "brands")
+@Table(name = "brands", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
 public class Brand implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +25,27 @@ public class Brand implements Serializable {
     @Column
     private String name;
 
+    @Column(name = "active")
+    private Boolean isActive;
+
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Setter(AccessLevel.PROTECTED)
     @ManyToMany(mappedBy = "brands", fetch = FetchType.LAZY)
     private Set<ServiceCenter> services = new HashSet<>();
+
+
+    public void addServiceCenter(ServiceCenter serviceCenter) {
+        if (serviceCenter != null) {
+            services.add(serviceCenter);
+        }
+    }
+
+    public void removeServiceCenter(ServiceCenter serviceCenter) {
+        if (serviceCenter != null) {
+            services.remove(serviceCenter);
+        }
+    }
 
 }
