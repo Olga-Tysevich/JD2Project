@@ -4,27 +4,34 @@ package it.academy;
 import it.academy.dao.account.RoleDAO;
 import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dao.device.BrandDAO;
+import it.academy.dao.device.DeviceDAO;
+import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dao.service_center.ServiceCenterDAO;
-import it.academy.dao.service_center.impl.ServiceCenterDAOImpl;
+import it.academy.dao.device.impl.DeviceDAOImpl;
+import it.academy.dao.device.impl.DeviceTypeDAOImpl;
+import it.academy.dao.repair_workshop.RepairWorkshopDAO;
+import it.academy.dao.repair_workshop.impl.RepairWorkshopDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
-import it.academy.dto.req.service_center.ServiceCenterDTOReq;
+import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.device.components.DeviceType;
+import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
 import it.academy.services.impl.*;
 import it.academy.utils.Generator;
 import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
 import it.academy.utils.services.converters.device.BrandConverter;
-import it.academy.utils.services.converters.service_center.ServiceCenterConverter;
+import it.academy.utils.services.converters.device.DeviceTypeConverter;
+import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,13 +44,14 @@ public class Test {
     private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
     private static UserService userService = new UserServiceImp();
     private static DeviceService deviceService = new DeviceServiceImpl();
-    private static ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
-    private static ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private static RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
+    private static RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
     private static BrandDAO brandDAO = new BrandDAOImpl();
+    private static DeviceTypeDAO devicdeviceTypeDAO = new DeviceTypeDAOImpl();
+    private static DeviceDAO deviceDAO = new DeviceDAOImpl();
 
     public static void main(String[] args) {
-
 
 
         List<Permission> permissions = userService.findPermissions().getList().stream()
@@ -68,17 +76,17 @@ public class Test {
         RespDTO<RoleDTOReq> role2 = adminService.createRole(roleReq2);
         List<Role> roleList = roleDAO.findAll();
 
-        List<ServiceCenter> centers = IntStream.range(0, 15)
+        List<RepairWorkshop> repairWorkshops = IntStream.range(0, 15)
                 .mapToObj(i -> {
-                    ServiceCenter serviceCenter = Generator.generateServiceCenter();
-                    serviceCenterService.addServiceCenter(ServiceCenterConverter.convertToDTOReq(serviceCenter));
-                    return serviceCenter;
+                    RepairWorkshop repairWorkshop = Generator.generateRepairWorkshop();
+                    repairWorkshopService.addRepairWorkshop(RepairWorkshopConverter.convertToDTOReq(repairWorkshop));
+                    return repairWorkshop;
                 })
                 .collect(Collectors.toList());
-        List<ServiceCenter> centers2 = serviceCenterDAO.findAll();
-        RespListDTO<ServiceCenterDTOReq> services1 = serviceCenterService.findServiceCenters();
-        RespListDTO<ServiceCenterDTOReq> services2 = serviceCenterService.findServiceCenters(1, 5);
-        RespListDTO<ServiceCenterDTOReq> services3 = serviceCenterService.findServiceCenters(
+        List<RepairWorkshop> workshopList = repairWorkshopDAO.findAll();
+        RespListDTO<RepairWorkshopDTOReq> repairWorkshops1 = repairWorkshopService.findRepairWorkshop();
+        RespListDTO<RepairWorkshopDTOReq> repairWorkshops2 = repairWorkshopService.findRepairWorkshop(1, 5);
+        RespListDTO<RepairWorkshopDTOReq> repairWorkshops3 = repairWorkshopService.findRepairWorkshop(
                 ParametersForSearchDTO.builder()
                         .pageNumber(1)
                         .listSize(10)
@@ -94,9 +102,9 @@ public class Test {
         List<AccountDTOReq> accountDTOReqs2 = accountDTOReqs.subList(0, RANDOM.nextInt(accountDTOReqs.size()));
 
         accountDTOReqs2.forEach(a ->
-                a.setServiceCenter(
-                        ServiceCenterConverter.convertToEntity(
-                                services1.getList().get(RANDOM.nextInt(services1.getList().size()))
+                a.setRepairWorkshop(
+                        RepairWorkshopConverter.convertToEntity(
+                                repairWorkshops1.getList().get(RANDOM.nextInt(repairWorkshops1.getList().size()))
                         )));
 
         accountDTOReqs.forEach(ownerService::addAdminAccount);
@@ -109,11 +117,11 @@ public class Test {
         brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
         List<Brand> brands2 = brandDAO.findAll();
 
-        IntStream.range(0, centers2.size()).forEach(i -> {
-            ServiceCenter serviceCenter = centers2.get(i);
+        IntStream.range(0, workshopList.size()).forEach(i -> {
+            RepairWorkshop repairWorkshop = workshopList.get(i);
             Brand brand = brands2.get(i);
-            serviceCenter.addBrand(brand);
-            serviceCenterService.changeServiceCenter(ServiceCenterConverter.convertToDTOReq(serviceCenter));
+            repairWorkshop.addBrand(brand);
+            repairWorkshopService.changeRepairWorkshop(RepairWorkshopConverter.convertToDTOReq(repairWorkshop));
         });
 
 
@@ -125,6 +133,15 @@ public class Test {
                 .build();
 
         deviceService.findBrands(p);
+
+        List<DeviceType> deviceTypes = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateDeviceType())
+                .collect(Collectors.toList());
+
+        deviceTypes.forEach(dt -> deviceService.addDeviceType(DeviceTypeConverter.convertToDTOReq(dt)));
+        List<DeviceType> deviceTypes2 = devicdeviceTypeDAO.findAll();
+
+
 
     }
 }

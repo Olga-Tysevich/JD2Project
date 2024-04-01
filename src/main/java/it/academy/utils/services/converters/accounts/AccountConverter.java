@@ -3,7 +3,7 @@ package it.academy.utils.services.converters.accounts;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.entities.account.Account;
-import it.academy.entities.account.ServiceAccount;
+import it.academy.entities.account.RepairWorkshopAccount;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,14 +59,14 @@ public class AccountConverter {
                 .build();
     }
 
-    public static AccountDTO convertToDTO(ServiceAccount account) {
+    public static AccountDTO convertToDTO(RepairWorkshopAccount account) {
         return AccountDTO.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
                 .email(account.getEmail())
                 .userName(account.getUserName())
                 .userSurname(account.getUserSurname())
-                .serviceCenter(account.getServiceCenter())
+                .repairWorkshop(account.getRepairWorkshop())
                 .build();
     }
 

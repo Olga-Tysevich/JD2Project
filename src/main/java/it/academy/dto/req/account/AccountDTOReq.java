@@ -1,7 +1,7 @@
 package it.academy.dto.req.account;
 
 import it.academy.entities.account.role.Role;
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.repair_workshop.RepairWorkshop;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,6 +25,6 @@ public class AccountDTOReq {
 
     private Role role;
 
-    private ServiceCenter serviceCenter;
+    private RepairWorkshop repairWorkshop;
 
 }

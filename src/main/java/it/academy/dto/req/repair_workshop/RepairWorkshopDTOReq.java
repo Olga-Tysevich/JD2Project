@@ -1,7 +1,6 @@
-package it.academy.dto.req.service_center;
+package it.academy.dto.req.repair_workshop;
 
 import it.academy.dto.req.device.BrandDTOReq;
-import it.academy.entities.device.components.Brand;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,7 +8,7 @@ import java.util.Set;
 
 @Data
 @Builder
-public class ServiceCenterDTOReq {
+public class RepairWorkshopDTOReq {
 
     private Long id;
 

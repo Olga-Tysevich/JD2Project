@@ -1,8 +1,8 @@
-package it.academy.dao.service_center.impl;
+package it.academy.dao.repair_workshop.impl;
 
 import it.academy.dao.impl.DAOImpl;
-import it.academy.dao.service_center.CountryDAO;
-import it.academy.entities.service_center.components.Country;
+import it.academy.dao.repair_workshop.CountryDAO;
+import it.academy.entities.repair_workshop.components.Country;
 
 public class CountryDAOImpl extends DAOImpl<Country, Long> implements CountryDAO {
 

@@ -1,10 +1,9 @@
-package it.academy.entities.service_center;
+package it.academy.entities.repair_workshop;
 
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.service_center.components.BankAccount;
-import it.academy.entities.service_center.components.City;
-import it.academy.entities.service_center.components.Country;
-import it.academy.entities.service_center.components.Requisites;
+import it.academy.entities.repair_workshop.components.BankAccount;
+import it.academy.entities.repair_workshop.components.City;
+import it.academy.entities.repair_workshop.components.Requisites;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,8 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "service_centers")
-public class ServiceCenter implements Serializable {
+@Table(name = "repair_workshops")
+public class RepairWorkshop implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -54,8 +53,8 @@ public class ServiceCenter implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "service_centes_cities",
-    joinColumns = {@JoinColumn(name = "service_id")},
+    @JoinTable(name = "repair_workshops_cities",
+    joinColumns = {@JoinColumn(name = "repair_workshop_id")},
     inverseJoinColumns = {@JoinColumn(name = "city_id")})
     private Set<City> cities = new HashSet<>();
 
@@ -64,8 +63,8 @@ public class ServiceCenter implements Serializable {
     @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "service_centers_brands",
-            joinColumns = {@JoinColumn(name = "service_center_id")},
+    @JoinTable(name = "repair_workshops_brands",
+            joinColumns = {@JoinColumn(name = "repair_workshops_id")},
             inverseJoinColumns = {@JoinColumn(name = "brand_id")})
     private Set<Brand> brands = new HashSet<>();
 

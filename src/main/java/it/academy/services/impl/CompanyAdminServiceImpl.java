@@ -8,8 +8,6 @@ import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.PermissionDAOImpl;
 import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dao.account.impl.ServiceAccountDAOImpl;
-import it.academy.dao.service_center.ServiceCenterDAO;
-import it.academy.dao.service_center.impl.ServiceCenterDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
@@ -17,7 +15,7 @@ import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.Account;
-import it.academy.entities.account.ServiceAccount;
+import it.academy.entities.account.RepairWorkshopAccount;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.services.CompanyAdminService;
@@ -162,7 +160,7 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts() {
-        List<ServiceAccount> result = transactionManger.execute(serviceAccountDAO::findAll);
+        List<RepairWorkshopAccount> result = transactionManger.execute(serviceAccountDAO::findAll);
 
         RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
         transactionManger.closeManager();
@@ -171,7 +169,7 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
 
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts(int pageNumber, int listSize) {
-        List<ServiceAccount> result = transactionManger.execute(() -> serviceAccountDAO.findForPage(pageNumber, listSize));
+        List<RepairWorkshopAccount> result = transactionManger.execute(() -> serviceAccountDAO.findForPage(pageNumber, listSize));
 
         RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
         transactionManger.closeManager();
@@ -181,7 +179,7 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
     @Override
     public RespListDTO<AccountDTO> findServiceAccounts(ParametersForSearchDTO parameters) {
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
-        List<ServiceAccount> result = transactionManger.execute(() ->
+        List<RepairWorkshopAccount> result = transactionManger.execute(() ->
                 serviceAccountDAO.findBlockedAccountsByParameters(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
         RespListDTO<AccountDTO> resp = ExceptionManager.getListSearchResult(() -> ServiceAccountConverter.convertListToDTO(result));
@@ -191,8 +189,8 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
 
     @Override
     public RespDTO<AccountDTO> addServiceAccount(AccountDTOReq req) {
-        ServiceAccount account = ExceptionManager.tryExecute(() -> ServiceAccountConverter.convertAccountDTOReqToEntity(req));
-        Supplier<ServiceAccount> save = () -> serviceAccountDAO.create(account);
+        RepairWorkshopAccount account = ExceptionManager.tryExecute(() -> ServiceAccountConverter.convertAccountDTOReqToEntity(req));
+        Supplier<RepairWorkshopAccount> save = () -> serviceAccountDAO.create(account);
         RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverter.convertToDTO(transactionManger.execute(save)));
 
         if (account != null) {

@@ -6,13 +6,14 @@ import it.academy.entities.account.role.PermissionCategory;
 import it.academy.entities.account.role.PermissionType;
 import it.academy.entities.account.role.Role;
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.service_center.ServiceCenter;
-import it.academy.entities.service_center.components.BankAccount;
-import it.academy.entities.service_center.components.Requisites;
+import it.academy.entities.device.components.DeviceType;
+import it.academy.entities.device.components.Model;
+import it.academy.entities.repair_workshop.RepairWorkshop;
+import it.academy.entities.repair_workshop.components.BankAccount;
+import it.academy.entities.repair_workshop.components.Requisites;
 import lombok.experimental.UtilityClass;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,7 +21,7 @@ import static it.academy.utils.Constants.RANDOM;
 
 @UtilityClass
 public class Generator {
-    private List<String> serviceCenters = Arrays.asList("Дрималай", "Кенфорд", "МастерПин", "Патио", "Электросервис");
+    private List<String> repairWorkshops = Arrays.asList("Дрималай", "Кенфорд", "МастерПин", "Патио", "Электросервис");
     private List<String> emails = Arrays.asList("owner%s@mail.ru", "admin%s@mail.ru", "user%s@gmail.com", "user%s@yahoo.com", "user%s@outlook.com");
     private List<String> names = Arrays.asList("Александр", "Иван", "Екатерина", "Ольга", "Дмитрий", "Михаил", "Татьяна", "Светлана", "Николай", "Мария");
     private List<String> surnames = Arrays.asList("Иванович", "Петрович", "Сидорович", "Васильевич", "Попович", "Соколович", "Михайлович");
@@ -34,6 +35,8 @@ public class Generator {
     private String bankCode = "BK%d";
     private List<String> banks = Arrays.asList("Созвездие Банк", "Яшма Капитал", "Арктика Финанс", "Золотой Бриллиант Банк", "Вершина Успеха");
     private List<String> brands = Arrays.asList("Ritmix", "Texet", "LG", "Brayer", "First");
+    private List<String> deviceTypes = Arrays.asList("Наушники", "Мобильный телефон", "Акустика", "Ноутбук", "Диктофон");
+    private List<String> models = Arrays.asList("S-FIT", "IPC-240B-Tuya", "Q3", "RDM-169", "DK2001");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -67,12 +70,12 @@ public class Generator {
                 .build();
     }
 
-    public static ServiceCenter generateServiceCenter() {
-        String name = serviceCenters.get(RANDOM.nextInt(serviceCenters.size())) + RANDOM.nextInt(100);
-        return ServiceCenter.builder()
+    public static RepairWorkshop generateRepairWorkshop() {
+        String name = repairWorkshops.get(RANDOM.nextInt(repairWorkshops.size())) + RANDOM.nextInt(100);
+        return RepairWorkshop.builder()
                 .serviceName(name)
                 .requisites(Requisites.builder()
-                        .fullName(name + RANDOM.nextInt(serviceCenters.size()))
+                        .fullName(name + RANDOM.nextInt(repairWorkshops.size()))
                         .actualAddress(addresses.get(RANDOM.nextInt(addresses.size())))
                         .legalAddress(addresses.get(RANDOM.nextInt(addresses.size())))
                         .phone(phones.get(RANDOM.nextInt(phones.size())))
@@ -94,6 +97,19 @@ public class Generator {
         return Brand.builder()
                 .name(brands.get(RANDOM.nextInt(brands.size())) + RANDOM.nextInt(10000))
                 .isActive(true)
+                .build();
+    }
+
+    public static DeviceType generateDeviceType() {
+        return DeviceType.builder()
+                .name(deviceTypes.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(10000))
+                .isActive(true)
+                .build();
+    }
+
+    public static Model generateModel() {
+        return Model.builder()
+                .name(models.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(10000))
                 .build();
     }
 

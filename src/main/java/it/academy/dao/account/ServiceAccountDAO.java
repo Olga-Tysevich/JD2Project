@@ -1,8 +1,7 @@
 package it.academy.dao.account;
 
-import it.academy.dao.DAO;
-import it.academy.entities.account.ServiceAccount;
+import it.academy.entities.account.RepairWorkshopAccount;
 
-public interface ServiceAccountDAO extends AccountDAO<ServiceAccount> {
+public interface ServiceAccountDAO extends AccountDAO<RepairWorkshopAccount> {
 
 }

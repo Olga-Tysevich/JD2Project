@@ -2,21 +2,21 @@ package it.academy.utils.services.converters.accounts;
 
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
-import it.academy.entities.account.ServiceAccount;
+import it.academy.entities.account.RepairWorkshopAccount;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ServiceAccountConverter {
 
-    public static List<AccountDTO> convertListToDTO(List<ServiceAccount> serviceAccounts) {
-        return serviceAccounts.stream()
+    public static List<AccountDTO> convertListToDTO(List<RepairWorkshopAccount> repairWorkshopAccounts) {
+        return repairWorkshopAccounts.stream()
                 .map(AccountConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static ServiceAccount convertAccountDTOReqToEntity(AccountDTOReq req) {
-        return ServiceAccount.builder()
+    public static RepairWorkshopAccount convertAccountDTOReqToEntity(AccountDTOReq req) {
+        return RepairWorkshopAccount.builder()
                 .id(req.getId())
                 .isActive(req.getIsActive())
                 .email(req.getEmail())
@@ -24,11 +24,11 @@ public class ServiceAccountConverter {
                 .userSurname(req.getUserSurname())
                 .password(req.getPassword())
                 .role(req.getRole())
-                .serviceCenter(req.getServiceCenter())
+                .repairWorkshop(req.getRepairWorkshop())
                 .build();
     }
 
-    public static AccountDTOReq convertToDTOReq(ServiceAccount account) {
+    public static AccountDTOReq convertToDTOReq(RepairWorkshopAccount account) {
         return AccountDTOReq.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
@@ -37,7 +37,7 @@ public class ServiceAccountConverter {
                 .userSurname(account.getUserSurname())
                 .password(account.getPassword())
                 .role(account.getRole())
-                .serviceCenter(account.getServiceCenter())
+                .repairWorkshop(account.getRepairWorkshop())
                 .build();
     }
 }

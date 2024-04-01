@@ -14,7 +14,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "device_types")
+@Table(name = "device_types", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name"})
+})
 public class DeviceType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

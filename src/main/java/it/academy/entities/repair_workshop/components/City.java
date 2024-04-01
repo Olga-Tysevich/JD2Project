@@ -1,4 +1,4 @@
-package it.academy.entities.service_center.components;
+package it.academy.entities.repair_workshop.components;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "countries")
-public class Country implements Serializable {
+@Table(name = "cities")
+public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -22,4 +22,9 @@ public class Country implements Serializable {
 
     @Column
     private String name;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id")
+    private Country country;
+
 }

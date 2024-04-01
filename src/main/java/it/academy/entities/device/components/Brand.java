@@ -1,6 +1,6 @@
 package it.academy.entities.device.components;
 
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.repair_workshop.RepairWorkshop;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,18 +33,18 @@ public class Brand implements Serializable {
     @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
     @ManyToMany(mappedBy = "brands", fetch = FetchType.LAZY)
-    private Set<ServiceCenter> services = new HashSet<>();
+    private Set<RepairWorkshop> repairWorkshops = new HashSet<>();
 
 
-    public void addServiceCenter(ServiceCenter serviceCenter) {
-        if (serviceCenter != null) {
-            services.add(serviceCenter);
+    public void addServiceCenter(RepairWorkshop repairWorkshop) {
+        if (repairWorkshop != null) {
+            repairWorkshops.add(repairWorkshop);
         }
     }
 
-    public void removeServiceCenter(ServiceCenter serviceCenter) {
-        if (serviceCenter != null) {
-            services.remove(serviceCenter);
+    public void removeServiceCenter(RepairWorkshop repairWorkshop) {
+        if (repairWorkshop != null) {
+            repairWorkshops.remove(repairWorkshop);
         }
     }
 

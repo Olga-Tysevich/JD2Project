@@ -5,7 +5,7 @@ import it.academy.entities.repair.components.Defect;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.repair_workshop.RepairWorkshop;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +36,7 @@ public class Repair implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_center_id")
-    private ServiceCenter serviceCenter;
+    private RepairWorkshop repairWorkshop;
 
     @Column
     private String serviceRepairNumber;
