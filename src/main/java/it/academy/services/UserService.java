@@ -11,11 +11,4 @@ public interface UserService {
 
     RespDTO<BigInteger> getNumberOfEntries();
 
-    RespListDTO<PermissionDTOReq> findPermissions();
-
-    RespListDTO<PermissionDTOReq> findPermissions(int pageNumber, int listSize);
-
-    RespListDTO<PermissionDTOReq> findPermissions(ParametersForSearchDTO parameters);
-
-
 }

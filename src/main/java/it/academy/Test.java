@@ -1,6 +1,5 @@
 package it.academy;
 
-
 import it.academy.dao.account.RoleDAO;
 import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dao.device.BrandDAO;
@@ -22,6 +21,7 @@ import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Brand;
+import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
 import it.academy.entities.repair_workshop.RepairWorkshop;
@@ -30,12 +30,9 @@ import it.academy.services.impl.*;
 import it.academy.utils.Generator;
 import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
-import it.academy.utils.services.converters.device.BrandConverter;
-import it.academy.utils.services.converters.device.DeviceConverter;
-import it.academy.utils.services.converters.device.DeviceTypeConverter;
-import it.academy.utils.services.converters.device.ModelConverter;
+import it.academy.utils.services.converters.device.*;
 import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -44,6 +41,7 @@ import static it.academy.utils.Constants.*;
 
 
 public class Test {
+    private static RoleService roleService = new RoleServiceImpl();
     private static CompanyAdminService adminService = new CompanyAdminServiceImpl();
     private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
     private static UserService userService = new UserServiceImp();
@@ -57,14 +55,14 @@ public class Test {
 
     public static void main(String[] args) {
 
-        List<Permission> permissions = userService.findPermissions().getList().stream()
+        List<Permission> permissions = roleService.findPermissions().getList().stream()
                 .map(PermissionConverter::convertToEntity)
                 .collect(Collectors.toList());
 
-        RespListDTO<PermissionDTOReq> permissions1 = userService.findPermissions();
-        RespListDTO<PermissionDTOReq> permissions2 = userService.findPermissions(1, 5);
-        RespListDTO<PermissionDTOReq> permissions3 = userService.findPermissions(2, 5);
-        RespListDTO<PermissionDTOReq> permissions4 = userService.findPermissions(
+        RespListDTO<PermissionDTOReq> permissions1 = roleService.findPermissions();
+        RespListDTO<PermissionDTOReq> permissions2 = roleService.findPermissions(1, 5);
+        RespListDTO<PermissionDTOReq> permissions3 = roleService.findPermissions(2, 5);
+        RespListDTO<PermissionDTOReq> permissions4 = roleService.findPermissions(
                 ParametersForSearchDTO.builder()
                         .pageNumber(3)
                         .listSize(3)
@@ -75,8 +73,8 @@ public class Test {
         RoleDTOReq roleReq = RoleConverter.convertToDTOReq(Generator.generateRole(false));
         RoleDTOReq roleReq2 = RoleConverter.convertToDTOReq(Generator.generateRole(true));
 
-        RespDTO<RoleDTOReq> role1 = adminService.createRole(roleReq);
-        RespDTO<RoleDTOReq> role2 = adminService.createRole(roleReq2);
+        RespDTO<RoleDTOReq> role1 = roleService.createRole(roleReq);
+        RespDTO<RoleDTOReq> role2 = roleService.createRole(roleReq2);
         List<Role> roleList = roleDAO.findAll();
 
         List<RepairWorkshop> repairWorkshops = IntStream.range(0, 15)
@@ -118,7 +116,7 @@ public class Test {
                 .collect(Collectors.toList());
 
         brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
-        List<Brand> brands2 =deviceService.findBrands().getList().stream()
+        List<Brand> brands2 = deviceService.findBrands().getList().stream()
                 .map(BrandConverter::convertToEntity)
                 .collect(Collectors.toList());
 
@@ -144,7 +142,9 @@ public class Test {
                 .collect(Collectors.toList());
 
         deviceTypes.forEach(dt -> deviceService.addDeviceType(DeviceTypeConverter.convertToDTOReq(dt)));
-        List<DeviceType> deviceTypes2 = devicdeviceTypeDAO.findAll();
+        List<DeviceType> deviceTypes2 = deviceService.findDeviceType().getList().stream()
+                .map(DeviceTypeConverter::convertToEntity)
+                .collect(Collectors.toList());
 
         List<Model> models = IntStream.range(0, 20)
                 .mapToObj(i -> Generator.generateModel())
@@ -152,10 +152,10 @@ public class Test {
 
         IntStream.range(0, models.size())
                 .forEach(i -> {
-                        Model model = models.get(i);
-                        model.setBrand(brands2.get(i));
-                        model.setType(deviceTypes2.get(i));
-                        deviceService.addModel(ModelConverter.convertToDTOReq(model));
+                    Model model = models.get(i);
+                    model.setBrand(brands2.get(i));
+                    model.setType(deviceTypes2.get(i));
+                    deviceService.addModel(ModelConverter.convertToDTOReq(model));
                 });
         List<Model> models2 = deviceService.findModels().getList().stream()
                 .map(ModelConverter::convertToEntity)
@@ -169,7 +169,23 @@ public class Test {
             deviceService.addDevice(DeviceConverter.convertToDTOReq(d));
         });
 
+        List<Defect> defects = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateDefect())
+                .collect(Collectors.toList());
+        defects.forEach(d -> {
+            deviceService.addDefect(DefectConverter.convertToDTOReq(d));
 
+        });
+
+        List<Defect> defects2 = deviceService.findDefect().getList().stream()
+                .map(DefectConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        deviceTypes2.forEach(dt -> {
+            new HashSet<>(defects2.subList(0, RANDOM.nextInt(defects2.size())))
+                    .forEach(dt::addDefect);
+            deviceService.changeDeviceType(DeviceTypeConverter.convertToDTOReq(dt));
+        });
 
 
     }

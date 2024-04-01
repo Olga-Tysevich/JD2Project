@@ -1,9 +1,7 @@
 package it.academy.utils.services.converters.device;
 
 import it.academy.dto.req.device.BrandDTOReq;
-import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
 import lombok.experimental.UtilityClass;
 

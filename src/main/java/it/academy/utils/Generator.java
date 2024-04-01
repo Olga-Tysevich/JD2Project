@@ -40,6 +40,8 @@ public class Generator {
     private List<String> deviceTypes = Arrays.asList("Наушники", "Мобильный телефон", "Акустика", "Ноутбук", "Диктофон");
     private List<String> models = Arrays.asList("S-FIT", "IPC-240B-Tuya", "Q3", "RDM-169", "DK2001");
     private String serialNumber = "SN%d";
+    private List<String> defects = Arrays.asList("Неисправен трансформатор", "Неисправность не обнаружена", "Неисправна плата",
+            "Не гарантийный случай", "Неисправен динамик");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -129,6 +131,12 @@ public class Generator {
                 .name(salesmen.get(RANDOM.nextInt(salesmen.size())))
                 .phone(phones.get(RANDOM.nextInt(phones.size())))
                 .build())
+                .build();
+    }
+
+    public static Defect generateDefect() {
+        return Defect.builder()
+                .description(defects.get(RANDOM.nextInt(defects.size())))
                 .build();
     }
 

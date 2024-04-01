@@ -18,10 +18,8 @@ import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.services.ExceptionManager;
 import it.academy.utils.services.converters.device.*;
-
 import java.util.List;
 import java.util.function.Supplier;
-
 import static it.academy.utils.Constants.SAVED_SUCCESSFULLY;
 import static it.academy.utils.Constants.UPDATED_SUCCESSFULLY;
 
