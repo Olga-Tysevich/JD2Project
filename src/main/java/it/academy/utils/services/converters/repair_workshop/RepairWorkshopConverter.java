@@ -1,11 +1,11 @@
 package it.academy.utils.services.converters.repair_workshop;
 
+import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
-import it.academy.utils.services.converters.device.BrandConverter;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +27,10 @@ public class RepairWorkshopConverter {
                 .bankName(repairWorkshop.getBankAccount().getBankName())
                 .bankAddress(repairWorkshop.getBankAccount().getBankAddress())
                 .brands(repairWorkshop.getBrands().stream()
-                        .map(BrandConverter::convertToDTOReq)
+                        .map(b -> BrandDTOReq.builder()
+                        .name(b.getName())
+                        .isActive(b.getIsActive())
+                        .build())
                         .collect(Collectors.toSet()))
                 .build();
     }
@@ -57,7 +60,10 @@ public class RepairWorkshopConverter {
                         .bankCode(req.getBankCode())
                         .build())
                 .brands(req.getBrands().stream()
-                        .map(BrandConverter::convertToEntity)
+                        .map(b -> Brand.builder()
+                                .name(b.getName())
+                                .isActive(b.getIsActive())
+                                .build())
                         .collect(Collectors.toSet()))
                 .build();
     }

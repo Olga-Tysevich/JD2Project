@@ -17,8 +17,8 @@ public class ModelConverter {
         return ModelDTOReq.builder()
                 .id(model.getId())
                 .name(model.getName())
-                .brandId(model.getId())
-                .brandName(model.getName())
+                .brandId(model.getBrand().getId())
+                .brandName(model.getBrand().getName())
                 .deviceTypeId(model.getType().getId())
                 .deviceTypeName(model.getType().getName())
                 .build();
@@ -35,12 +35,12 @@ public class ModelConverter {
                 .id(req.getId())
                 .name(req.getName())
                 .brand(Brand.builder()
-                        .id(req.getId())
-                        .name(req.getName())
+                        .id(req.getBrandId())
+                        .name(req.getBrandName())
                         .build())
                 .type(DeviceType.builder()
-                        .id(req.getId())
-                        .name(req.getName())
+                        .id(req.getDeviceTypeId())
+                        .name(req.getDeviceTypeName())
                         .build())
                 .build();
     }

@@ -20,8 +20,10 @@ import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.Role;
+import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
+import it.academy.entities.device.components.Model;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
 import it.academy.services.impl.*;
@@ -29,7 +31,9 @@ import it.academy.utils.Generator;
 import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
 import it.academy.utils.services.converters.device.BrandConverter;
+import it.academy.utils.services.converters.device.DeviceConverter;
 import it.academy.utils.services.converters.device.DeviceTypeConverter;
+import it.academy.utils.services.converters.device.ModelConverter;
 import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
 
 import java.util.List;
@@ -52,7 +56,6 @@ public class Test {
     private static DeviceDAO deviceDAO = new DeviceDAOImpl();
 
     public static void main(String[] args) {
-
 
         List<Permission> permissions = userService.findPermissions().getList().stream()
                 .map(PermissionConverter::convertToEntity)
@@ -115,7 +118,9 @@ public class Test {
                 .collect(Collectors.toList());
 
         brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
-        List<Brand> brands2 = brandDAO.findAll();
+        List<Brand> brands2 =deviceService.findBrands().getList().stream()
+                .map(BrandConverter::convertToEntity)
+                .collect(Collectors.toList());
 
         IntStream.range(0, workshopList.size()).forEach(i -> {
             RepairWorkshop repairWorkshop = workshopList.get(i);
@@ -140,6 +145,30 @@ public class Test {
 
         deviceTypes.forEach(dt -> deviceService.addDeviceType(DeviceTypeConverter.convertToDTOReq(dt)));
         List<DeviceType> deviceTypes2 = devicdeviceTypeDAO.findAll();
+
+        List<Model> models = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateModel())
+                .collect(Collectors.toList());
+
+        IntStream.range(0, models.size())
+                .forEach(i -> {
+                        Model model = models.get(i);
+                        model.setBrand(brands2.get(i));
+                        model.setType(deviceTypes2.get(i));
+                        deviceService.addModel(ModelConverter.convertToDTOReq(model));
+                });
+        List<Model> models2 = deviceService.findModels().getList().stream()
+                .map(ModelConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        List<Device> devices = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateDevice())
+                .collect(Collectors.toList());
+        devices.forEach(d -> {
+            d.setModel(models2.get(RANDOM.nextInt(models2.size())));
+            deviceService.addDevice(DeviceConverter.convertToDTOReq(d));
+        });
+
 
 
 

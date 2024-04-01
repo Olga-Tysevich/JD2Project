@@ -5,13 +5,14 @@ import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.PermissionCategory;
 import it.academy.entities.account.role.PermissionType;
 import it.academy.entities.account.role.Role;
-import it.academy.entities.device.components.Brand;
-import it.academy.entities.device.components.DeviceType;
-import it.academy.entities.device.components.Model;
+import it.academy.entities.device.Device;
+import it.academy.entities.device.components.*;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
 import lombok.experimental.UtilityClass;
+
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,9 +35,11 @@ public class Generator {
     private String bankAccount = "BA%d";
     private String bankCode = "BK%d";
     private List<String> banks = Arrays.asList("Созвездие Банк", "Яшма Капитал", "Арктика Финанс", "Золотой Бриллиант Банк", "Вершина Успеха");
+    private List<String> salesmen = Arrays.asList("Центральный", "Алми", "Пятый элемент", "Электросила", "Скала");
     private List<String> brands = Arrays.asList("Ritmix", "Texet", "LG", "Brayer", "First");
     private List<String> deviceTypes = Arrays.asList("Наушники", "Мобильный телефон", "Акустика", "Ноутбук", "Диктофон");
     private List<String> models = Arrays.asList("S-FIT", "IPC-240B-Tuya", "Q3", "RDM-169", "DK2001");
+    private String serialNumber = "SN%d";
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -63,7 +66,7 @@ public class Generator {
                         String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(100)))
                 .isActive(true)
                 .password(password)
-                .confirmPassword(isValidAccount? password : password + RANDOM.nextInt())
+                .confirmPassword(isValidAccount ? password : password + RANDOM.nextInt())
                 .userName(names.get(RANDOM.nextInt(names.size())))
                 .userSurname(surnames.get(RANDOM.nextInt(surnames.size())))
                 .role(generateRole(isOwner))
@@ -110,6 +113,22 @@ public class Generator {
     public static Model generateModel() {
         return Model.builder()
                 .name(models.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(10000))
+                .build();
+    }
+
+    public static Device generateDevice() {
+        return Device.builder()
+                .serialNumber(String.format(serialNumber, RANDOM.nextInt(100000000)))
+                .dateOfSale(Date.valueOf("2022-01-12"))
+                .buyer(Buyer.builder()
+                        .name(names.get(RANDOM.nextInt(names.size())))
+                        .surname(surnames.get(RANDOM.nextInt(surnames.size())))
+                        .phone(phones.get(RANDOM.nextInt(phones.size())))
+                        .build())
+                .salesman(Salesman.builder()
+                .name(salesmen.get(RANDOM.nextInt(salesmen.size())))
+                .phone(phones.get(RANDOM.nextInt(phones.size())))
+                .build())
                 .build();
     }
 

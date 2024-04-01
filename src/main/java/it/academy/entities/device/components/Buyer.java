@@ -12,20 +12,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "buyers")
+@Embeddable
 public class Buyer implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private String surname;
 
-    @Column
     private String phone;
 }

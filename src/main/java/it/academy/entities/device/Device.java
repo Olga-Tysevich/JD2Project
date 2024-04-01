@@ -31,15 +31,18 @@ public class Device implements Serializable {
     @Column(name = "date_of_sale")
     private Date dateOfSale;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_id")
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "name", column = @Column(name = "buyer_name")),
+            @AttributeOverride(name = "surname", column = @Column(name = "buyer_surname")),
+            @AttributeOverride(name = "phone", column = @Column(name = "buyer_phone"))
+    })
     private Buyer buyer;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "salesman_id")
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "name", column = @Column(name = "saleman_name")),
+            @AttributeOverride(name = "phone", column = @Column(name = "saleman_phone"))
+    })
     private Salesman salesman;
 }
