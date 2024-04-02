@@ -1,5 +1,6 @@
-package it.academy.entities.repair.spare_part;
+package it.academy.entities.repair.spare_parts_order;
 
+import it.academy.entities.device.components.SparePart;
 import it.academy.entities.repair.Repair;
 import lombok.*;
 import org.hibernate.annotations.Generated;
@@ -8,8 +9,8 @@ import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -40,9 +41,16 @@ public class SparePartsOrder implements Serializable {
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "spare_parts_orders",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
-    private Set<SparePart> spareParts = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "spare_parts_orders",
+//            joinColumns = {@JoinColumn(name = "order_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
+//    private Set<SparePart> spareParts = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "spare_parts_orders",
+            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "spare_part_id")
+    @Column(name = "quantity")
+    private Map<SparePart, Integer> spareParts2 = new HashMap<>();
 }

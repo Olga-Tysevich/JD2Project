@@ -1,6 +1,5 @@
 package it.academy.entities.device.components;
 
-import it.academy.entities.repair.spare_part.SparePart;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +30,7 @@ public class DeviceType implements Serializable {
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Setter(AccessLevel.PROTECTED)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "device_types_spare_parts",
             joinColumns = {@JoinColumn(name = "device_type_id")},
@@ -46,6 +46,20 @@ public class DeviceType implements Serializable {
             joinColumns = {@JoinColumn(name = "device_tye_id")},
             inverseJoinColumns = {@JoinColumn(name = "defect_id")})
     private Set<Defect> defects = new HashSet<>();
+
+    public void addSpareParts(SparePart sparePart) {
+        if (sparePart != null) {
+            spareParts.add(sparePart);
+            sparePart.addDeviceType(this);
+        }
+    }
+
+    public void removeSpareParts(SparePart sparePart) {
+        if (sparePart != null) {
+            spareParts.remove(sparePart);
+            sparePart.removeDeviceType(this);
+        }
+    }
 
     public void addDefect(Defect defect) {
         if (defect != null) {

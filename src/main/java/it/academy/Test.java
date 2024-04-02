@@ -26,6 +26,7 @@ import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
+import it.academy.entities.device.components.SparePart;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
 import it.academy.services.impl.*;
@@ -52,6 +53,7 @@ public class Test {
     private static UserService userService = new UserServiceImp();
     private static DeviceService deviceService = new DeviceServiceImpl();
     private static RepairService repairService = new RepairServiceImpl();
+    private static SparePartService sparePartService = new SparePartServiceImpl();
     private static RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
     private static RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
@@ -200,5 +202,20 @@ public class Test {
                 .mapToObj(i -> Generator.generateCategory())
                 .collect(Collectors.toList());
         categories.forEach(t -> repairService.addRepairCategory(RepairCategoryConverter.convertToDTOReq(t)));
+
+
+        List<SparePart> spareParts = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateSparePart())
+                .collect(Collectors.toList());
+        spareParts.forEach(sp -> sparePartService.addSparePart(SparePartConverter.convertToDTOReq(sp)));
+        List<SparePart> spareParts2 = sparePartService.findSparePart().getList().stream()
+                .map(SparePartConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        deviceTypes2.forEach(dt -> {
+            List<SparePart> spareParts3 = spareParts2.subList(0, RANDOM.nextInt(spareParts2.size()));
+            spareParts3.forEach(dt::addSpareParts);
+            deviceService.changeDeviceType(DeviceTypeConverter.convertToDTOReq(dt));
+        });
     }
 }

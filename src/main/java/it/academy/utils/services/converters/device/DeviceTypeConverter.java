@@ -2,8 +2,10 @@ package it.academy.utils.services.converters.device;
 
 import it.academy.dto.req.device.DefectDTOReq;
 import it.academy.dto.req.device.DeviceTypeDTOReq;
+import it.academy.dto.req.repair.SparePartDTOReq;
 import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
+import it.academy.entities.device.components.SparePart;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -17,6 +19,12 @@ public class DeviceTypeConverter {
                 .id(deviceType.getId())
                 .name(deviceType.getName())
                 .isActive(deviceType.getIsActive())
+                .spareParts(deviceType.getSpareParts().stream()
+                        .map(sp -> SparePartDTOReq.builder()
+                                .id(sp.getId())
+                                .name(sp.getName())
+                                .build())
+                        .collect(Collectors.toSet()))
                 .defects(deviceType.getDefects().stream()
                         .map(d -> DefectDTOReq.builder()
                                 .id(d.getId())
@@ -36,6 +44,12 @@ public class DeviceTypeConverter {
                 .id(req.getId())
                 .name(req.getName())
                 .isActive(req.getIsActive())
+                .spareParts(req.getSpareParts().stream()
+                        .map(sp -> SparePart.builder()
+                                .id(sp.getId())
+                                .name(sp.getName())
+                                .build())
+                        .collect(Collectors.toSet()))
                 .defects(req.getDefects().stream()
                         .map(d -> Defect.builder()
                                 .id(d.getId())

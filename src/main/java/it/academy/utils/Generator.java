@@ -9,6 +9,7 @@ import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
+import it.academy.entities.device.components.SparePart;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
@@ -46,6 +47,7 @@ public class Generator {
             "Не гарантийный случай", "Неисправен динамик");
     private List<String> repairCategories = Arrays.asList("Гарантийный", "Предпродажный", "Платный");
     private List<String> repairTypes = Arrays.asList("Замена динамика", "Без ремонта", "Замена платы", "Проверка качества", "Замена мотора");
+    private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -155,6 +157,12 @@ public class Generator {
     public static RepairCategory generateCategory() {
         return RepairCategory.builder()
                 .name(repairCategories.get(RANDOM.nextInt(repairCategories.size())) + RANDOM.nextInt(10000))
+                .build();
+    }
+
+    public static SparePart generateSparePart() {
+        return SparePart.builder()
+                .name(spareParts.get(RANDOM.nextInt(spareParts.size()))+ RANDOM.nextInt(10000))
                 .build();
     }
 

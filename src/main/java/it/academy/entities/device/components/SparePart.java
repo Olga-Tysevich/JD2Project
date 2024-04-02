@@ -1,8 +1,6 @@
-package it.academy.entities.repair.spare_part;
+package it.academy.entities.device.components;
 
-import it.academy.entities.device.components.DeviceType;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,12 +24,20 @@ public class SparePart implements Serializable {
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Setter(AccessLevel.PROTECTED)
     @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY)
     private Set<DeviceType> typeSet = new HashSet<>();
 
-    @Builder.Default
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY)
-    private Set<SparePartsOrder> orders = new HashSet<>();
+    public void addDeviceType(DeviceType deviceType) {
+        if (deviceType != null) {
+            typeSet.add(deviceType);
+        }
+    }
+
+    public void removeDeviceType(DeviceType deviceType) {
+        if (deviceType != null) {
+            typeSet.remove(deviceType);
+        }
+    }
+
 }

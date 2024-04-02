@@ -1,5 +1,6 @@
 package it.academy.dto.req.device;
 
+import it.academy.dto.req.repair.SparePartDTOReq;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +15,8 @@ public class DeviceTypeDTOReq {
     private String name;
 
     private Boolean isActive;
+
+    private Set<SparePartDTOReq> spareParts;
 
     private Set<DefectDTOReq> defects;
 
