@@ -41,8 +41,7 @@ public class Repair implements Serializable {
     @Column
     private String serviceRepairNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_id")
+    @Enumerated(EnumType.STRING)
     private RepairStatus status;
 
     @ManyToOne(fetch = FetchType.EAGER)

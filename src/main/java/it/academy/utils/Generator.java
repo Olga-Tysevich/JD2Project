@@ -8,6 +8,7 @@ import it.academy.entities.account.role.Role;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.components.RepairCategory;
+import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
@@ -44,7 +45,7 @@ public class Generator {
     private List<String> defects = Arrays.asList("Неисправен трансформатор", "Неисправность не обнаружена", "Неисправна плата",
             "Не гарантийный случай", "Неисправен динамик");
     private List<String> repairCategories = Arrays.asList("Гарантийный", "Предпродажный", "Платный");
-    private List<String> repairStatuses = Arrays.asList("Заявка", "Текущий", "Ожидает запчасти", "Завершенный");
+    private List<String> repairTypes = Arrays.asList("Замена динамика", "Без ремонта", "Замена платы", "Проверка качества", "Замена мотора");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -143,9 +144,17 @@ public class Generator {
                 .build();
     }
 
+    public static RepairType generateType() {
+        return RepairType.builder()
+                .name(repairTypes.get(RANDOM.nextInt(repairTypes.size())) + RANDOM.nextInt(10000))
+                .code("C" + RANDOM.nextInt(100))
+                .level("L" + RANDOM.nextInt(100))
+                .build();
+    }
+
     public static RepairCategory generateCategory() {
         return RepairCategory.builder()
-                .name(repairCategories.get(RANDOM.nextInt(repairCategories.size())))
+                .name(repairCategories.get(RANDOM.nextInt(repairCategories.size())) + RANDOM.nextInt(10000))
                 .build();
     }
 
