@@ -1,4 +1,4 @@
-package it.academy.utils.services.converters.device;
+package it.academy.utils.converters.device;
 
 import it.academy.dto.req.device.DeviceDTOReq;
 import it.academy.entities.device.Device;

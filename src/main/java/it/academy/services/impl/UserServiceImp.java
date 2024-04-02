@@ -5,7 +5,7 @@ import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.resp.RespDTO;
 import it.academy.services.UserService;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.services.ExceptionManager;
+import it.academy.utils.ExceptionManager;
 import java.math.BigInteger;
 
 public class UserServiceImp implements UserService {

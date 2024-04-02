@@ -1,8 +1,8 @@
-package it.academy.utils.services.converters.device;
+package it.academy.utils.converters.device;
 
 import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.entities.device.components.Brand;
-import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

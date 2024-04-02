@@ -14,11 +14,11 @@ import it.academy.entities.account.RepairWorkshopAccount;
 import it.academy.services.CompanyAdminService;
 import it.academy.utils.MessageManager;
 import it.academy.utils.dao.ParameterManager;
-import it.academy.utils.services.converters.accounts.AccountConverter;
-import it.academy.utils.services.ExceptionManager;
+import it.academy.utils.converters.accounts.AccountConverter;
+import it.academy.utils.ExceptionManager;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.services.converters.accounts.ServiceAccountConverter;
+import it.academy.utils.converters.accounts.ServiceAccountConverter;
 import java.util.*;
 import java.util.function.Supplier;
 

@@ -2,24 +2,29 @@ package it.academy.services.impl;
 
 
 import it.academy.dao.repair.RepairCategoryDAO;
+import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairCategoryImpl;
+import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.repair.RepairCategoryDTOReq;
+import it.academy.dto.req.repair.RepairDTOReq;
 import it.academy.dto.req.repair.RepairTypeDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
+import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.services.RepairService;
 import it.academy.utils.MessageManager;
+import it.academy.utils.converters.repair.RepairConverter;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.services.ExceptionManager;
-import it.academy.utils.services.converters.repair.RepairCategoryConverter;
-import it.academy.utils.services.converters.repair.RepairTypeConverter;
+import it.academy.utils.ExceptionManager;
+import it.academy.utils.converters.repair.RepairCategoryConverter;
+import it.academy.utils.converters.repair.RepairTypeConverter;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -31,8 +36,7 @@ public class RepairServiceImpl implements RepairService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
     private RepairCategoryDAO repairCategoryDAO = new RepairCategoryImpl();
-
-
+    private RepairDAO repairDAO = new RepairDAOImpl();
 
     @Override
     public RespDTO<RepairTypeDTOReq> addRepairType(RepairTypeDTOReq req) {
@@ -145,6 +149,63 @@ public class RepairServiceImpl implements RepairService {
                 repairCategoryDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
         RespListDTO<RepairCategoryDTOReq> resp = ExceptionManager.getListSearchResult(() -> RepairCategoryConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespDTO<RepairDTOReq> addRepair(RepairDTOReq req) {
+        Repair repair = ExceptionManager.tryExecute(() -> RepairConverter.convertToEntity(req));
+        Supplier<Repair> save = () -> repairDAO.create(repair);
+        RespDTO<RepairDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> RepairConverter.convertToDTOReq(transactionManger.execute(save)));
+
+        if (repair != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, repair));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespDTO<RepairDTOReq> changeRepair(RepairDTOReq req) {
+        Repair repair = ExceptionManager.tryExecute(() -> RepairConverter.convertToEntity(req));
+        Supplier<Repair> update = () -> repairDAO.update(repair);
+        RespDTO<RepairDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> RepairConverter.convertToDTOReq(transactionManger.execute(update)));
+
+        if (repair != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, repair));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<RepairDTOReq> findRepairs() {
+        List<Repair> result = transactionManger.execute(repairDAO::findAll);
+
+        RespListDTO<RepairDTOReq> resp = ExceptionManager.getListSearchResult(() -> RepairConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<RepairDTOReq> findRepairs(int pageNumber, int listSize) {
+        List<Repair> result = transactionManger.execute(() -> repairDAO.findForPage(pageNumber, listSize));
+
+        RespListDTO<RepairDTOReq> resp = ExceptionManager.getListSearchResult(() -> RepairConverter.convertListToDTOReq(result));
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<RepairDTOReq> findRepairs(ParametersForSearchDTO parameters) {
+        List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
+        List<Repair> result = transactionManger.execute(() ->
+                repairDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
+
+        RespListDTO<RepairDTOReq> resp = ExceptionManager.getListSearchResult(() -> RepairConverter.convertListToDTOReq(result));
         transactionManger.closeManager();
         return resp;
     }

@@ -12,8 +12,8 @@ import it.academy.utils.MessageManager;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.services.ExceptionManager;
-import it.academy.utils.services.converters.device.SparePartConverter;
+import it.academy.utils.ExceptionManager;
+import it.academy.utils.converters.device.SparePartConverter;
 import java.util.List;
 import java.util.function.Supplier;
 

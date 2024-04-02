@@ -1,4 +1,4 @@
-package it.academy.utils.services.converters.repair;
+package it.academy.utils.converters.repair;
 
 import it.academy.dto.req.repair.RepairTypeDTOReq;
 import it.academy.entities.repair.components.RepairType;

@@ -8,8 +8,8 @@ import it.academy.dto.resp.RespDTO;
 import it.academy.entities.account.Account;
 import it.academy.services.CompanyOwnerService;
 import it.academy.utils.MessageManager;
-import it.academy.utils.services.converters.accounts.AccountConverter;
-import it.academy.utils.services.ExceptionManager;
+import it.academy.utils.converters.accounts.AccountConverter;
+import it.academy.utils.ExceptionManager;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.function.Supplier;

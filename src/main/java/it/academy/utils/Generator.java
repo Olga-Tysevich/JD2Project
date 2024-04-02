@@ -7,6 +7,7 @@ import it.academy.entities.account.role.PermissionType;
 import it.academy.entities.account.role.Role;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
+import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.device.components.SparePart;
@@ -174,6 +175,17 @@ public class Generator {
                 .orderDate(date)
                 .departureDate(date)
                 .deliveryDate(date)
+                .build();
+    }
+
+    public static Repair generateRepair(boolean isDeleted) {
+        return Repair.builder()
+                .number(RANDOM.nextLong())
+                .serviceRepairNumber("SRN" + RANDOM.nextInt(10000))
+                .endDate(Date.valueOf(dates.get(RANDOM.nextInt(dates.size()))))
+                .defectDescription(defects.get(RANDOM.nextInt(dates.size())))
+                .deliveryDate(Date.valueOf(dates.get(RANDOM.nextInt(dates.size()))))
+                .isDeleted(isDeleted)
                 .build();
     }
 

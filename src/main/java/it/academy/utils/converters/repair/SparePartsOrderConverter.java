@@ -1,10 +1,10 @@
-package it.academy.utils.services.converters.repair;
+package it.academy.utils.converters.repair;
 
 import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.dto.req.repair.SparePartsOrderDTOReq;
 import it.academy.entities.device.components.SparePart;
 import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
-import it.academy.utils.services.converters.device.SparePartConverter;
+import it.academy.utils.converters.device.SparePartConverter;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package it.academy.utils.services.converters.repair_workshop;
+package it.academy.utils.converters.repair_workshop;
 
 import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;

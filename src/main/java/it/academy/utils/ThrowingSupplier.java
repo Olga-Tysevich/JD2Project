@@ -1,4 +1,4 @@
-package it.academy.utils.services;
+package it.academy.utils;
 
 public interface ThrowingSupplier<T> {
 

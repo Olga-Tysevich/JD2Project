@@ -10,8 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -53,7 +55,7 @@ public class Repair implements Serializable {
     private RepairType type;
 
     @Column(name = "start_date", updatable = false)
-    @Generated(GenerationTime.INSERT)
+    @CreationTimestamp
     private Date startDate;
 
     @Column(name = "end_date")

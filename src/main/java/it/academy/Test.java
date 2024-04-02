@@ -3,11 +3,17 @@ package it.academy;
 import it.academy.dao.account.RoleDAO;
 import it.academy.dao.account.impl.RoleDAOImpl;
 import it.academy.dao.device.BrandDAO;
+import it.academy.dao.device.DefectDAO;
 import it.academy.dao.device.DeviceDAO;
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
+import it.academy.dao.device.impl.DefectDAOImpl;
 import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
+import it.academy.dao.repair.RepairCategoryDAO;
+import it.academy.dao.repair.RepairTypeDAO;
+import it.academy.dao.repair.impl.RepairCategoryImpl;
+import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dao.repair_workshop.RepairWorkshopDAO;
 import it.academy.dao.repair_workshop.impl.RepairWorkshopDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
@@ -24,7 +30,9 @@ import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
+import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairCategory;
+import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.device.components.SparePart;
 import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
@@ -32,15 +40,18 @@ import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
 import it.academy.services.impl.*;
 import it.academy.utils.Generator;
-import it.academy.utils.services.converters.accounts.PermissionConverter;
-import it.academy.utils.services.converters.accounts.RoleConverter;
-import it.academy.utils.services.converters.device.*;
-import it.academy.utils.services.converters.repair.RepairCategoryConverter;
-import it.academy.utils.services.converters.repair.RepairTypeConverter;
-import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.converters.accounts.PermissionConverter;
+import it.academy.utils.converters.accounts.RoleConverter;
+import it.academy.utils.converters.device.*;
+import it.academy.utils.converters.repair.RepairCategoryConverter;
+import it.academy.utils.converters.repair.RepairConverter;
+import it.academy.utils.converters.repair.RepairTypeConverter;
+import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.dao.TransactionManger;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -57,9 +68,12 @@ public class Test {
     private static SparePartService sparePartService = new SparePartServiceImpl();
     private static RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
     private static RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
+    private static DefectDAO defectDAO = new DefectDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
     private static BrandDAO brandDAO = new BrandDAOImpl();
-    private static DeviceTypeDAO devicdeviceTypeDAO = new DeviceTypeDAOImpl();
+    public static RepairCategoryDAO repairCategoryDAO = new RepairCategoryImpl();
+    public static RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
+    private static DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
     private static DeviceDAO deviceDAO = new DeviceDAOImpl();
 
     public static void main(String[] args) {
@@ -217,6 +231,36 @@ public class Test {
             List<SparePart> spareParts3 = spareParts2.subList(0, RANDOM.nextInt(spareParts2.size()));
             spareParts3.forEach(dt::addSpareParts);
             deviceService.changeDeviceType(DeviceTypeConverter.convertToDTOReq(dt));
+        });
+
+        List<RepairWorkshop> workshops = repairWorkshops1.getList().stream()
+                .map(RepairWorkshopConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        List<RepairCategory> categoryList = repairService.findRepairCategories().getList().stream()
+                .map(RepairCategoryConverter::convertToEntity)
+                .collect(Collectors.toList());
+        List<RepairType> typeList = repairService.findRepairTypes().getList().stream()
+                .map(RepairTypeConverter::convertToEntity)
+                .collect(Collectors.toList());
+        List<Defect> defectList = deviceService.findDefect().getList().stream()
+                .map(DefectConverter::convertToEntity)
+                .collect(Collectors.toList());
+        List<Device> deviceList = deviceService.findDevices().getList().stream()
+                .map(DeviceConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        List<Repair> repairs = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateRepair(i % 3 == 0))
+                .collect(Collectors.toList());
+        repairs.forEach(r -> {
+            r.setRepairWorkshop(workshops.get(RANDOM.nextInt(workshops.size())));
+            r.setStatus(RepairStatus.values()[RANDOM.nextInt(RepairStatus.values().length)]);
+            r.setCategory(categoryList.get(RANDOM.nextInt(categoryList.size())));
+            r.setType(typeList.get(RANDOM.nextInt(typeList.size())));
+            r.setIdentifiedDefect(defectList.get(RANDOM.nextInt(defectList.size())));
+            r.setDevice(deviceList.get(RANDOM.nextInt(deviceList.size())));
+            repairService.addRepair(RepairConverter.convertToDTOReq(r));
         });
 
         List<SparePartsOrder> orders = IntStream.range(0, 20)

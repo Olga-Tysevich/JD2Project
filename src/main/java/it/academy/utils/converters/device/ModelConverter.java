@@ -1,6 +1,5 @@
-package it.academy.utils.services.converters.device;
+package it.academy.utils.converters.device;
 
-import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.dto.req.device.ModelDTOReq;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;

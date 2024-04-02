@@ -1,8 +1,7 @@
-package it.academy.utils.services;
+package it.academy.utils;
 
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
-import it.academy.utils.MessageManager;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;

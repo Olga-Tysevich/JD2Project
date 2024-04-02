@@ -1,4 +1,4 @@
-package it.academy.utils.services.converters.device;
+package it.academy.utils.converters.device;
 
 import it.academy.dto.req.device.DefectDTOReq;
 import it.academy.dto.req.device.DeviceTypeDTOReq;
@@ -29,7 +29,8 @@ public class DeviceTypeConverter {
                         .map(d -> DefectDTOReq.builder()
                                 .id(d.getId())
                                 .description(d.getDescription())
-                                .build()).collect(Collectors.toSet()))
+                                .build())
+                        .collect(Collectors.toSet()))
                 .build();
     }
 
