@@ -39,7 +39,7 @@ public class SparePartsOrderConverter {
         return SparePartsOrder.builder()
                 .id(req.getId())
                 .repair(RepairConverter.convertToEntity(req.getRepair()))
-                .orderDate(req.getOrderDate())
+//                .orderDate(req.getOrderDate())
                 .departureDate(req.getDepartureDate())
                 .deliveryDate(req.getDeliveryDate())
                 .spareParts(req.getSpareParts().entrySet().stream()

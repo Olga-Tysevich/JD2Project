@@ -11,10 +11,14 @@ import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.device.components.SparePart;
+import it.academy.entities.repair.decommissioning.LiquidationCause;
+import it.academy.entities.repair.decommissioning.LiquidationCertificate;
 import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
+import it.academy.utils.converters.repair.LiquidationCauseConverter;
+import it.academy.utils.converters.repair.RepairConverter;
 import lombok.experimental.UtilityClass;
 
 import java.sql.Date;
@@ -51,6 +55,7 @@ public class Generator {
     private List<String> repairTypes = Arrays.asList("Замена динамика", "Без ремонта", "Замена платы", "Проверка качества", "Замена мотора");
     private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
     private List<String> dates = Arrays.asList("2024-04-01", "2024-04-15", "2024-04-24", "2024-04-12", "2024-04-07");
+    private List<String> liquidationCauses = Arrays.asList("Непоставка запчастей", "Отказ от ремонта", "Неремонтопригоден");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -186,6 +191,18 @@ public class Generator {
                 .defectDescription(defects.get(RANDOM.nextInt(dates.size())))
                 .deliveryDate(Date.valueOf(dates.get(RANDOM.nextInt(dates.size()))))
                 .isDeleted(isDeleted)
+                .build();
+    }
+
+    public static LiquidationCause generateCause() {
+        return LiquidationCause.builder()
+                .name(liquidationCauses.get(RANDOM.nextInt(liquidationCauses.size())))
+                .build();
+    }
+
+    public static LiquidationCertificate generateCertificate() {
+        return LiquidationCertificate.builder()
+                .number("LCNo." + RANDOM.nextInt(10000))
                 .build();
     }
 

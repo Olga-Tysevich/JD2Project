@@ -1,10 +1,7 @@
 package it.academy.entities.repair.decommissioning;
 
 import it.academy.entities.repair.Repair;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "decommissioning_certificates")
-public class DecommissioningCertificate implements Serializable {
+public class LiquidationCertificate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -31,6 +28,6 @@ public class DecommissioningCertificate implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "decommissioning_cause_id")
-    private DecommissioningCause cause;
+    private LiquidationCause cause;
 
 }

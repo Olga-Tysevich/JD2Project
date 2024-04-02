@@ -14,12 +14,12 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "decommissioning_causes")
-public class DecommissioningCause implements Serializable {
+public class LiquidationCause implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
     @Column
-    private String description;
+    private String name;
 }

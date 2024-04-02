@@ -18,8 +18,8 @@
         <class>it.academy.entities.device.components.Defect</class>
         <class>it.academy.entities.device.components.SparePart</class>
         <class>it.academy.entities.repair.spare_parts_order.SparePartsOrder</class>
-        <class>it.academy.entities.repair.decommissioning.DecommissioningCertificate</class>
-        <class>it.academy.entities.repair.decommissioning.DecommissioningCause</class>
+        <class>it.academy.entities.repair.decommissioning.LiquidationCertificate</class>
+        <class>it.academy.entities.repair.decommissioning.LiquidationCause</class>
         <class>it.academy.entities.repair.Repair</class>
         <class>it.academy.entities.account.Account</class>
         <class>it.academy.entities.account.RepairWorkshopAccount</class>

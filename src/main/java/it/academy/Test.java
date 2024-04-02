@@ -20,6 +20,7 @@ import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.req.repair.SparePartsOrderDTOReq;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
@@ -35,6 +36,8 @@ import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.device.components.SparePart;
+import it.academy.entities.repair.decommissioning.LiquidationCause;
+import it.academy.entities.repair.decommissioning.LiquidationCertificate;
 import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
@@ -43,15 +46,12 @@ import it.academy.utils.Generator;
 import it.academy.utils.converters.accounts.PermissionConverter;
 import it.academy.utils.converters.accounts.RoleConverter;
 import it.academy.utils.converters.device.*;
-import it.academy.utils.converters.repair.RepairCategoryConverter;
-import it.academy.utils.converters.repair.RepairConverter;
-import it.academy.utils.converters.repair.RepairTypeConverter;
+import it.academy.utils.converters.repair.*;
 import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
-import it.academy.utils.dao.TransactionManger;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -66,7 +66,9 @@ public class Test {
     private static DeviceService deviceService = new DeviceServiceImpl();
     private static RepairService repairService = new RepairServiceImpl();
     private static SparePartService sparePartService = new SparePartServiceImpl();
+    private static SparePartsOrderService sparePartOrderService = new SparePartsOrderServiceImpl();
     private static RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
+    private static LiquidationCertificateService liquidationCertificateService = new LiquidationCertificateServiceImpl();
     private static RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
     private static DefectDAO defectDAO = new DefectDAOImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
@@ -263,11 +265,39 @@ public class Test {
             repairService.addRepair(RepairConverter.convertToDTOReq(r));
         });
 
+        List<Repair> repairList = repairService.findRepairs().getList().stream()
+                .map(RepairConverter::convertToEntity)
+                .collect(Collectors.toList());
+
         List<SparePartsOrder> orders = IntStream.range(0, 20)
                 .mapToObj(i -> Generator.generateOrder())
                 .collect(Collectors.toList());
         orders.forEach(o -> {
-
+            o.setRepair(repairList.get(RANDOM.nextInt(repairList.size())));
+            Set<SparePart> sparePartSet = new HashSet<>(spareParts2.subList(0, RANDOM.nextInt(10)));
+            sparePartSet.forEach(sp -> o.addSparePart(sp, RANDOM.nextInt(10)));
+            SparePartsOrderDTOReq t = SparePartsOrderConverter.convertToDTOReq(o);
+            sparePartOrderService.addSparePartsOrder(SparePartsOrderConverter.convertToDTOReq(o));
         });
+
+        List<LiquidationCause> causes = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateCause())
+                .collect(Collectors.toList());
+        causes.forEach(c -> liquidationCertificateService.addLiquidationCause(LiquidationCauseConverter.convertToDTOReq(c)));
+
+        List<LiquidationCause> causes2 = liquidationCertificateService.findLiquidationCause().getList().stream()
+                .map(LiquidationCauseConverter::convertToEntity)
+                .collect(Collectors.toList());
+
+        List<LiquidationCertificate> certificates = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateCertificate())
+                .collect(Collectors.toList());
+        certificates.forEach(c -> {
+            c.setRepair(repairList.get(RANDOM.nextInt(repairList.size())));
+            c.setCause(causes2.get(RANDOM.nextInt(causes2.size())));
+            liquidationCertificateService.addLiquidationCertificate(LiquidationCertificateConverter.convertToDTOReq(c));
+        });
+
+
     }
 }
