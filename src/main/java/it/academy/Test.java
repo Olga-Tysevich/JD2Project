@@ -32,6 +32,7 @@ import it.academy.utils.services.converters.accounts.PermissionConverter;
 import it.academy.utils.services.converters.accounts.RoleConverter;
 import it.academy.utils.services.converters.device.*;
 import it.academy.utils.services.converters.repair_workshop.RepairWorkshopConverter;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,16 +101,17 @@ public class Test {
                 .collect(Collectors.toList());
         accountDTOReqs.forEach(a -> a.setRole(roleList.get(RANDOM.nextInt(roleList.size()))));
 
-        List<AccountDTOReq> accountDTOReqs2 = accountDTOReqs.subList(0, RANDOM.nextInt(accountDTOReqs.size()));
+        List<AccountDTOReq> accountDTOReqs2 = accountDTOReqs.subList(0, accountDTOReqs.size() / 2);
+        List<AccountDTOReq> accountDTOReqs3 = accountDTOReqs.subList(accountDTOReqs.size() / 2 + 1, accountDTOReqs.size() - 1);
 
-        accountDTOReqs2.forEach(a ->
+        accountDTOReqs3.forEach(a ->
                 a.setRepairWorkshop(
                         RepairWorkshopConverter.convertToEntity(
                                 repairWorkshops1.getList().get(RANDOM.nextInt(repairWorkshops1.getList().size()))
                         )));
 
-        accountDTOReqs.forEach(ownerService::addAdminAccount);
-        accountDTOReqs2.forEach(adminService::addServiceAccount);
+        accountDTOReqs2.forEach(ownerService::addAdminAccount);
+        accountDTOReqs3.forEach(adminService::addServiceAccount);
 
         List<Brand> brands = IntStream.range(0, 20)
                 .mapToObj(i -> Generator.generateBrand())

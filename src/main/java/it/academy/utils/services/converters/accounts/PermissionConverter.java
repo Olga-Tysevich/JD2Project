@@ -31,5 +31,4 @@ public class PermissionConverter {
                 .type(PermissionType.valueOf(req.getType()))
                 .build();
     }
-
 }

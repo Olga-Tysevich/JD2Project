@@ -7,6 +7,7 @@ import it.academy.entities.account.role.PermissionType;
 import it.academy.entities.account.role.Role;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
+import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
@@ -42,6 +43,8 @@ public class Generator {
     private String serialNumber = "SN%d";
     private List<String> defects = Arrays.asList("Неисправен трансформатор", "Неисправность не обнаружена", "Неисправна плата",
             "Не гарантийный случай", "Неисправен динамик");
+    private List<String> repairCategories = Arrays.asList("Гарантийный", "Предпродажный", "Платный");
+    private List<String> repairStatuses = Arrays.asList("Заявка", "Текущий", "Ожидает запчасти", "Завершенный");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -137,6 +140,12 @@ public class Generator {
     public static Defect generateDefect() {
         return Defect.builder()
                 .description(defects.get(RANDOM.nextInt(defects.size())))
+                .build();
+    }
+
+    public static RepairCategory generateCategory() {
+        return RepairCategory.builder()
+                .name(repairCategories.get(RANDOM.nextInt(repairCategories.size())))
                 .build();
     }
 

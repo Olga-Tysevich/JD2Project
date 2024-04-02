@@ -12,7 +12,6 @@ public class UserServiceImp implements UserService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private ModelDAO modelDAO = new ModelDAOImpl();
 
-
     @Override
     public RespDTO<BigInteger> getNumberOfEntries() {
         RespDTO<BigInteger> resp = ExceptionManager.getObjectFindResult(() -> transactionManger.execute(() -> modelDAO.getNumberOfEntries()));

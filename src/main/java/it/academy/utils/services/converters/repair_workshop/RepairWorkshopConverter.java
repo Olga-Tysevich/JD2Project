@@ -6,9 +6,12 @@ import it.academy.entities.device.components.Brand;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
+import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class RepairWorkshopConverter {
 
     public static RepairWorkshopDTOReq convertToDTOReq(RepairWorkshop repairWorkshop) {

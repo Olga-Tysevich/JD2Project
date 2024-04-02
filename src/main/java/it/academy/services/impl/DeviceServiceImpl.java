@@ -224,7 +224,7 @@ public class DeviceServiceImpl implements DeviceService {
         RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
 
         if (device != null) {
-            resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, device));
+            resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, device));
         }
 
         transactionManger.closeManager();

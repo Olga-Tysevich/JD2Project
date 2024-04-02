@@ -30,7 +30,6 @@ public class RoleServiceImpl implements RoleService {
     private PermissionDAO permissionDAO = new PermissionDAOImpl();
     private RoleDAO roleDAO = new RoleDAOImpl();
 
-
     @Override
     public RespDTO<RoleDTOReq> createRole(RoleDTOReq req) {
 
