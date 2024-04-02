@@ -3,7 +3,7 @@ package it.academy.services.impl;
 import it.academy.dao.repair.SparePartDAO;
 import it.academy.dao.repair.impl.SparePartDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.repair.SparePartDTOReq;
+import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.device.components.SparePart;

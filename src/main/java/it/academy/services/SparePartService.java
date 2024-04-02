@@ -1,7 +1,7 @@
 package it.academy.services;
 
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.repair.SparePartDTOReq;
+import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 

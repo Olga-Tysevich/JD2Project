@@ -10,6 +10,7 @@ import it.academy.entities.device.components.*;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.device.components.SparePart;
+import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
@@ -48,6 +49,7 @@ public class Generator {
     private List<String> repairCategories = Arrays.asList("Гарантийный", "Предпродажный", "Платный");
     private List<String> repairTypes = Arrays.asList("Замена динамика", "Без ремонта", "Замена платы", "Проверка качества", "Замена мотора");
     private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
+    private List<String> dates = Arrays.asList("2024-04-01", "2024-04-15", "2024-04-24", "2024-04-12", "2024-04-07");
 
     public static Permission generatePermission() {
         return Permission.builder()
@@ -127,7 +129,7 @@ public class Generator {
     public static Device generateDevice() {
         return Device.builder()
                 .serialNumber(String.format(serialNumber, RANDOM.nextInt(100000000)))
-                .dateOfSale(Date.valueOf("2022-01-12"))
+                .dateOfSale(Date.valueOf(dates.get(RANDOM.nextInt(dates.size()))))
                 .buyer(Buyer.builder()
                         .name(names.get(RANDOM.nextInt(names.size())))
                         .surname(surnames.get(RANDOM.nextInt(surnames.size())))
@@ -163,6 +165,15 @@ public class Generator {
     public static SparePart generateSparePart() {
         return SparePart.builder()
                 .name(spareParts.get(RANDOM.nextInt(spareParts.size()))+ RANDOM.nextInt(10000))
+                .build();
+    }
+
+    public static SparePartsOrder generateOrder() {
+        Date date = Date.valueOf(dates.get(RANDOM.nextInt(dates.size())));
+        return SparePartsOrder.builder()
+                .orderDate(date)
+                .departureDate(date)
+                .deliveryDate(date)
                 .build();
     }
 

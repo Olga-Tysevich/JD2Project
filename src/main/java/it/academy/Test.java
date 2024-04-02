@@ -27,6 +27,7 @@ import it.academy.entities.device.components.Model;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.device.components.SparePart;
+import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
 import it.academy.services.impl.*;
@@ -216,6 +217,13 @@ public class Test {
             List<SparePart> spareParts3 = spareParts2.subList(0, RANDOM.nextInt(spareParts2.size()));
             spareParts3.forEach(dt::addSpareParts);
             deviceService.changeDeviceType(DeviceTypeConverter.convertToDTOReq(dt));
+        });
+
+        List<SparePartsOrder> orders = IntStream.range(0, 20)
+                .mapToObj(i -> Generator.generateOrder())
+                .collect(Collectors.toList());
+        orders.forEach(o -> {
+
         });
     }
 }

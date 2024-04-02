@@ -46,11 +46,31 @@ public class SparePartsOrder implements Serializable {
 //            joinColumns = {@JoinColumn(name = "order_id")},
 //            inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
 //    private Set<SparePart> spareParts = new HashSet<>();
-
+    @Setter(AccessLevel.PROTECTED)
     @ElementCollection
     @CollectionTable(name = "spare_parts_orders",
             joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
     @MapKeyColumn(name = "spare_part_id")
     @Column(name = "quantity")
-    private Map<SparePart, Integer> spareParts2 = new HashMap<>();
+    private Map<SparePart, Integer> spareParts = new HashMap<>();
+
+    public void addSparePart(SparePart sparePart, int quantity) {
+        if (sparePart != null && spareParts.containsKey(sparePart) && quantity != 0) {
+            int newQuantity = spareParts.get(sparePart) + quantity;
+            spareParts.put(sparePart, newQuantity);
+        }
+    }
+
+    public void removeSparePart(SparePart sparePart, int quantity) {
+        if (sparePart != null && spareParts.containsKey(sparePart) && quantity != 0) {
+            int newQuantity = spareParts.get(sparePart) - quantity;
+
+            if (newQuantity != 0) {
+                spareParts.put(sparePart, newQuantity);
+            } else {
+                spareParts.remove(sparePart);
+            }
+
+        }
+    }
 }

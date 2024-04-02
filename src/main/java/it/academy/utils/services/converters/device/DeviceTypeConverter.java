@@ -2,7 +2,7 @@ package it.academy.utils.services.converters.device;
 
 import it.academy.dto.req.device.DefectDTOReq;
 import it.academy.dto.req.device.DeviceTypeDTOReq;
-import it.academy.dto.req.repair.SparePartDTOReq;
+import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.SparePart;

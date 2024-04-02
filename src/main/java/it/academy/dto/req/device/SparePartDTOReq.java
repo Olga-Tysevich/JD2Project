@@ -1,6 +1,5 @@
-package it.academy.dto.req.repair;
+package it.academy.dto.req.device;
 
-import it.academy.dto.req.device.DeviceTypeDTOReq;
 import lombok.Builder;
 import lombok.Data;
 

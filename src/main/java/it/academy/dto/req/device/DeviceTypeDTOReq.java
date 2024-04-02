@@ -1,6 +1,5 @@
 package it.academy.dto.req.device;
 
-import it.academy.dto.req.repair.SparePartDTOReq;
 import lombok.Builder;
 import lombok.Data;
 

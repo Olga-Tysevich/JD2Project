@@ -1,6 +1,6 @@
 package it.academy.utils.services.converters.device;
 
-import it.academy.dto.req.repair.SparePartDTOReq;
+import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.entities.device.components.SparePart;
 import lombok.experimental.UtilityClass;
 
