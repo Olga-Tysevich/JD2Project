@@ -1,15 +1,16 @@
-package it.academy.converters.repair;
+package it.academy.utils.converters.repair;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.repair.RepairTypeDTOReq;
 import it.academy.entities.repair.components.RepairType;
+import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepairTypeConverter implements Converter<RepairType, RepairTypeDTOReq> {
+@UtilityClass
+public class RepairTypeConverter {
 
-    @Override
-    public RepairTypeDTOReq convertToDTOReq(RepairType type) {
+    public static RepairTypeDTOReq convertToDTOReq(RepairType type) {
         return RepairTypeDTOReq.builder()
                 .id(type.getId())
                 .name(type.getName())
@@ -18,8 +19,7 @@ public class RepairTypeConverter implements Converter<RepairType, RepairTypeDTOR
                 .build();
     }
 
-    @Override
-    public RepairType convertDTOReqToEntity(RepairTypeDTOReq req) {
+    public static RepairType convertDTOReqToEntity(RepairTypeDTOReq req) {
         return RepairType.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -28,17 +28,15 @@ public class RepairTypeConverter implements Converter<RepairType, RepairTypeDTOR
                 .build();
     }
 
-    @Override
-    public List<RepairTypeDTOReq> convertListToDTOReq(List<RepairType> repairTypes) {
+    public static List<RepairTypeDTOReq> convertListToDTOReq(List<RepairType> repairTypes) {
         return repairTypes.stream()
-                .map(this::convertToDTOReq)
+                .map(RepairTypeConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<RepairType> convertDTOReqListToEntityList(List<RepairTypeDTOReq> repairTypes) {
+    public static List<RepairType> convertDTOReqListToEntityList(List<RepairTypeDTOReq> repairTypes) {
         return repairTypes.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(RepairTypeConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

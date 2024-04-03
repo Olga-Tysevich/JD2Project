@@ -1,16 +1,16 @@
-package it.academy.converters.accounts;
+package it.academy.utils.converters.accounts;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.account.RoleDTOReq;
 import it.academy.entities.account.role.Role;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RoleConverter implements Converter<Role, RoleDTOReq> {
+@UtilityClass
+public class RoleConverter {
 
-    @Override
-    public RoleDTOReq convertToDTOReq(Role req) {
+    public static RoleDTOReq convertToDTOReq(Role req) {
         return RoleDTOReq.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -18,8 +18,7 @@ public class RoleConverter implements Converter<Role, RoleDTOReq> {
                 .build();
     }
 
-    @Override
-    public Role convertDTOReqToEntity(RoleDTOReq req) {
+    public static Role convertDTOReqToEntity(RoleDTOReq req) {
         return Role.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -27,17 +26,15 @@ public class RoleConverter implements Converter<Role, RoleDTOReq> {
                 .build();
     }
 
-    @Override
-    public List<RoleDTOReq> convertListToDTOReq(List<Role> roles) {
+    public static List<RoleDTOReq> convertListToDTOReq(List<Role> roles) {
         return roles.stream()
-                .map(this::convertToDTOReq)
+                .map(RoleConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Role> convertDTOReqListToEntityList(List<RoleDTOReq> roles) {
+    public static List<Role> convertDTOReqListToEntityList(List<RoleDTOReq> roles) {
         return roles.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(RoleConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

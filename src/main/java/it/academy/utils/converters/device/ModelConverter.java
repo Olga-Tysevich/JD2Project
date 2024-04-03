@@ -1,18 +1,18 @@
-package it.academy.converters.device;
+package it.academy.utils.converters.device;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.device.ModelDTOReq;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModelConverter implements Converter<Model,ModelDTOReq > {
+@UtilityClass
+public class ModelConverter {
 
-    @Override
-    public ModelDTOReq convertToDTOReq(Model model) {
+    public static ModelDTOReq convertToDTOReq(Model model) {
         return ModelDTOReq.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -23,8 +23,7 @@ public class ModelConverter implements Converter<Model,ModelDTOReq > {
                 .build();
     }
 
-    @Override
-    public Model convertDTOReqToEntity(ModelDTOReq req) {
+    public static Model convertDTOReqToEntity(ModelDTOReq req) {
         return Model.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -39,17 +38,15 @@ public class ModelConverter implements Converter<Model,ModelDTOReq > {
                 .build();
     }
 
-    @Override
-    public List<ModelDTOReq> convertListToDTOReq(List<Model> models) {
+    public static List<ModelDTOReq> convertListToDTOReq(List<Model> models) {
         return models.stream()
-                .map(this::convertToDTOReq)
+                .map(ModelConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Model> convertDTOReqListToEntityList(List<ModelDTOReq> models) {
+    public static List<Model> convertDTOReqListToEntityList(List<ModelDTOReq> models) {
         return models.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(ModelConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

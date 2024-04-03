@@ -1,16 +1,16 @@
-package it.academy.converters.device;
+package it.academy.utils.converters.device;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.device.DeviceDTOReq;
 import it.academy.entities.device.Device;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DeviceConverter implements Converter<Device, DeviceDTOReq> {
+@UtilityClass
+public class DeviceConverter {
 
-    @Override
-    public DeviceDTOReq convertToDTOReq(Device device) {
+    public static DeviceDTOReq convertToDTOReq(Device device) {
         return DeviceDTOReq.builder()
                 .id(device.getId())
                 .model(device.getModel())
@@ -21,8 +21,7 @@ public class DeviceConverter implements Converter<Device, DeviceDTOReq> {
                 .build();
     }
 
-    @Override
-    public Device convertDTOReqToEntity(DeviceDTOReq req) {
+    public static Device convertDTOReqToEntity(DeviceDTOReq req) {
         return Device.builder()
                 .id(req.getId())
                 .model(req.getModel())
@@ -33,17 +32,15 @@ public class DeviceConverter implements Converter<Device, DeviceDTOReq> {
                 .build();
     }
 
-    @Override
-    public List<DeviceDTOReq> convertListToDTOReq(List<Device> devices) {
+    public static List<DeviceDTOReq> convertListToDTOReq(List<Device> devices) {
         return devices.stream()
-                .map(this::convertToDTOReq)
+                .map(DeviceConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Device> convertDTOReqListToEntityList(List<DeviceDTOReq> devices) {
+    public static List<Device> convertDTOReqListToEntityList(List<DeviceDTOReq> devices) {
         return devices.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(DeviceConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

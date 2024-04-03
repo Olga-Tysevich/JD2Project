@@ -14,17 +14,17 @@ import it.academy.entities.account.RepairWorkshopAccount;
 import it.academy.services.CompanyAdminService;
 import it.academy.utils.MessageManager;
 import it.academy.utils.dao.ParameterManager;
-import it.academy.converters.accounts.AccountConverterImpl;
+import it.academy.utils.converters.accounts.AccountConverterImpl;
 import it.academy.utils.ExceptionManager;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.converters.accounts.ServiceAccountConverter;
+import it.academy.utils.converters.accounts.ServiceAccountConverter;
 import java.util.*;
 import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
 
-public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAdminService {
+public class CompanyAdminServiceManagerImpl extends UserServiceImp implements CompanyAdminService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
     private ServiceAccountDAO serviceAccountDAO = new ServiceAccountDAOImpl();
@@ -119,7 +119,7 @@ public class CompanyAdminServiceImpl extends UserServiceImp implements CompanyAd
 
     @Override
     public RespDTO<AccountDTO> addServiceAccount(AccountDTOReq req) {
-        RepairWorkshopAccount account = ExceptionManager.tryExecute(() -> ServiceAccountConverter.convertAccountDTOReqToEntity(req));
+        RepairWorkshopAccount account = ExceptionManager.tryExecute(() -> ServiceAccountConverter.convertDTOReqToEntity(req));
         Supplier<RepairWorkshopAccount> save = () -> serviceAccountDAO.create(account);
         RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverterImpl.convertToDTO(transactionManger.execute(save)));
 

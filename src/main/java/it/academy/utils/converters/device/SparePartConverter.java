@@ -1,48 +1,44 @@
-package it.academy.converters.device;
+package it.academy.utils.converters.device;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.entities.device.components.SparePart;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SparePartConverter implements Converter<SparePart, SparePartDTOReq> {
-    private DeviceTypeConverter deviceTypeConverter = new DeviceTypeConverter();
+@UtilityClass
+public class SparePartConverter {
 
-    @Override
-    public SparePartDTOReq convertToDTOReq(SparePart sparePart) {
+    public static SparePartDTOReq convertToDTOReq(SparePart sparePart) {
         return SparePartDTOReq.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
                 .typeSet(sparePart.getTypeSet().stream()
-                        .map(deviceTypeConverter::convertToDTOReq)
+                        .map(DeviceTypeConverter::convertToDTOReq)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    @Override
-    public SparePart convertDTOReqToEntity(SparePartDTOReq req) {
+    public static SparePart convertDTOReqToEntity(SparePartDTOReq req) {
         return SparePart.builder()
                 .id(req.getId())
                 .name(req.getName())
                 .typeSet(req.getTypeSet().stream()
-                        .map(deviceTypeConverter::convertDTOReqToEntity)
+                        .map(DeviceTypeConverter::convertDTOReqToEntity)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    @Override
-    public List<SparePartDTOReq> convertListToDTOReq(List<SparePart> spareParts) {
+    public static List<SparePartDTOReq> convertListToDTOReq(List<SparePart> spareParts) {
         return spareParts.stream()
-                .map(this::convertToDTOReq)
+                .map(SparePartConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<SparePart> convertDTOReqListToEntityList(List<SparePartDTOReq> spareParts) {
+    public static List<SparePart> convertDTOReqListToEntityList(List<SparePartDTOReq> spareParts) {
         return spareParts.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(SparePartConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

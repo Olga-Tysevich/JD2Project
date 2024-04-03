@@ -1,51 +1,47 @@
-package it.academy.converters.device;
+package it.academy.utils.converters.device;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.entities.device.components.Brand;
-import it.academy.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BrandConverter implements Converter<Brand, BrandDTOReq> {
-    private RepairWorkshopConverter repairWorkshopConverter = new RepairWorkshopConverter();
+@UtilityClass
+public class BrandConverter {
 
-    @Override
-    public BrandDTOReq convertToDTOReq(Brand brand) {
+    public static BrandDTOReq convertToDTOReq(Brand brand) {
         return BrandDTOReq.builder()
                 .id(brand.getId())
                 .name(brand.getName())
                 .isActive(brand.getIsActive())
                 .repairWorkshops(brand.getRepairWorkshops().stream()
-                        .map(repairWorkshopConverter::convertToDTOReq)
+                        .map(RepairWorkshopConverter::convertToDTOReq)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    @Override
-    public Brand convertDTOReqToEntity(BrandDTOReq req) {
+    public static Brand convertDTOReqToEntity(BrandDTOReq req) {
         return Brand.builder()
                 .id(req.getId())
                 .name(req.getName())
                 .isActive(req.getIsActive())
                 .repairWorkshops(req.getRepairWorkshops().stream()
-                        .map(repairWorkshopConverter::convertDTOReqToEntity)
+                        .map(RepairWorkshopConverter::convertDTOReqToEntity)
                         .collect(Collectors.toSet()))
                 .build();
     }
 
-    @Override
-    public List<BrandDTOReq> convertListToDTOReq(List<Brand> brands) {
+    public static List<BrandDTOReq> convertListToDTOReq(List<Brand> brands) {
         return brands.stream()
-                .map(this::convertToDTOReq)
+                .map(BrandConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Brand> convertDTOReqListToEntityList(List<BrandDTOReq> brands) {
+    public static List<Brand> convertDTOReqListToEntityList(List<BrandDTOReq> brands) {
         return brands.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(BrandConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

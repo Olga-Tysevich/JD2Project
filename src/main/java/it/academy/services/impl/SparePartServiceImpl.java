@@ -13,7 +13,7 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.ExceptionManager;
-import it.academy.converters.device.SparePartConverter;
+import it.academy.utils.converters.device.SparePartConverter;
 import java.util.List;
 import java.util.function.Supplier;
 

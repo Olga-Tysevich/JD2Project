@@ -1,20 +1,20 @@
-package it.academy.converters.device;
+package it.academy.utils.converters.device;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.device.DefectDTOReq;
 import it.academy.dto.req.device.DeviceTypeDTOReq;
 import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.SparePart;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DeviceTypeConverter implements Converter<DeviceType, DeviceTypeDTOReq> {
+@UtilityClass
+public class DeviceTypeConverter {
 
-    @Override
-    public DeviceTypeDTOReq convertToDTOReq(DeviceType deviceType) {
+    public static DeviceTypeDTOReq convertToDTOReq(DeviceType deviceType) {
         return DeviceTypeDTOReq.builder()
                 .id(deviceType.getId())
                 .name(deviceType.getName())
@@ -34,8 +34,7 @@ public class DeviceTypeConverter implements Converter<DeviceType, DeviceTypeDTOR
                 .build();
     }
 
-    @Override
-    public DeviceType convertDTOReqToEntity(DeviceTypeDTOReq req) {
+    public static DeviceType convertDTOReqToEntity(DeviceTypeDTOReq req) {
         return DeviceType.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -54,17 +53,15 @@ public class DeviceTypeConverter implements Converter<DeviceType, DeviceTypeDTOR
                 .build();
     }
 
-    @Override
     public List<DeviceTypeDTOReq> convertListToDTOReq(List<DeviceType> deviceTypes) {
         return deviceTypes.stream()
-                .map(this::convertToDTOReq)
+                .map(DeviceTypeConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<DeviceType> convertDTOReqListToEntityList(List<DeviceTypeDTOReq> deviceTypes) {
+    public static List<DeviceType> convertDTOReqListToEntityList(List<DeviceTypeDTOReq> deviceTypes) {
         return deviceTypes.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(DeviceTypeConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

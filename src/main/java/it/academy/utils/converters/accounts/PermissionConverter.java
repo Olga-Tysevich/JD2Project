@@ -1,18 +1,18 @@
-package it.academy.converters.accounts;
+package it.academy.utils.converters.accounts;
 
-import it.academy.converters.Converter;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.entities.account.role.Permission;
 import it.academy.entities.account.role.PermissionCategory;
 import it.academy.entities.account.role.PermissionType;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PermissionConverter implements Converter<Permission, PermissionDTOReq> {
+@UtilityClass
+public class PermissionConverter  {
 
-    @Override
-    public PermissionDTOReq convertToDTOReq(Permission req) {
+    public static PermissionDTOReq convertToDTOReq(Permission req) {
         return PermissionDTOReq.builder()
                 .id(req.getId())
                 .category(req.getCategory().name())
@@ -20,8 +20,7 @@ public class PermissionConverter implements Converter<Permission, PermissionDTOR
                 .build();
     }
 
-    @Override
-    public Permission convertDTOReqToEntity(PermissionDTOReq req) {
+    public static Permission convertDTOReqToEntity(PermissionDTOReq req) {
         return Permission.builder()
                 .id(req.getId())
                 .category(PermissionCategory.valueOf(req.getCategory()))
@@ -29,17 +28,15 @@ public class PermissionConverter implements Converter<Permission, PermissionDTOR
                 .build();
     }
 
-    @Override
-    public List<PermissionDTOReq> convertListToDTOReq(List<Permission> permissions) {
+    public static List<PermissionDTOReq> convertListToDTOReq(List<Permission> permissions) {
         return permissions.stream()
-                .map(this::convertToDTOReq)
+                .map(PermissionConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Permission> convertDTOReqListToEntityList(List<PermissionDTOReq> permissions) {
+    public static List<Permission> convertDTOReqListToEntityList(List<PermissionDTOReq> permissions) {
         return permissions.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(PermissionConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 

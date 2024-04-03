@@ -17,7 +17,7 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.ExceptionManager;
-import it.academy.converters.device.*;
+import it.academy.utils.converters.device.*;
 import java.util.List;
 import java.util.function.Supplier;
 import static it.academy.utils.Constants.SAVED_SUCCESSFULLY;
@@ -33,7 +33,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<BrandDTOReq> addBrand(BrandDTOReq req) {
-        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertToEntity(req));
+        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertDTOReqToEntity(req));
         Supplier<Brand> save = () -> brandDAO.create(brand);
         RespDTO<BrandDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> BrandConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -47,7 +47,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<BrandDTOReq> changeBrand(BrandDTOReq req) {
-        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertToEntity(req));
+        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertDTOReqToEntity(req));
         Supplier<Brand> update = () -> brandDAO.update(brand);
         RespDTO<BrandDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> BrandConverter.convertToDTOReq(transactionManger.execute(update)));
 
@@ -91,7 +91,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<DeviceTypeDTOReq> addDeviceType(DeviceTypeDTOReq req) {
-        DeviceType deviceType = ExceptionManager.tryExecute(() -> DeviceTypeConverter.convertToEntity(req));
+        DeviceType deviceType = ExceptionManager.tryExecute(() -> DeviceTypeConverter.convertDTOReqToEntity(req));
         Supplier<DeviceType> save = () -> deviceTypeDAO.create(deviceType);
         RespDTO<DeviceTypeDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceTypeConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -105,7 +105,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<DeviceTypeDTOReq> changeDeviceType(DeviceTypeDTOReq req) {
-        DeviceType deviceType = ExceptionManager.tryExecute(() -> DeviceTypeConverter.convertToEntity(req));
+        DeviceType deviceType = ExceptionManager.tryExecute(() -> DeviceTypeConverter.convertDTOReqToEntity(req));
         Supplier<DeviceType> update = () -> deviceTypeDAO.update(deviceType);
         RespDTO<DeviceTypeDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> DeviceTypeConverter.convertToDTOReq(transactionManger.execute(update)));
 
@@ -148,7 +148,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<ModelDTOReq> addModel(ModelDTOReq req) {
-        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertToEntity(req));
+        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertDTOReqToEntity(req));
         Supplier<Model> save = () -> modelDAO.create(model);
         RespDTO<ModelDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> ModelConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -162,7 +162,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<ModelDTOReq> changeModel(ModelDTOReq req) {
-        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertToEntity(req));
+        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertDTOReqToEntity(req));
         Supplier<Model> update = () -> modelDAO.update(model);
         RespDTO<ModelDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> ModelConverter.convertToDTOReq(transactionManger.execute(update)));
 
@@ -205,7 +205,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<DeviceDTOReq> addDevice(DeviceDTOReq req) {
-        Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertToEntity(req));
+        Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertDTOReqToEntity(req));
         Supplier<Device> save = () -> deviceDAO.create(device);
         RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -219,7 +219,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<DeviceDTOReq> changeDevice(DeviceDTOReq req) {
-        Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertToEntity(req));
+        Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertDTOReqToEntity(req));
         Supplier<Device> save = () -> deviceDAO.update(device);
         RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -262,7 +262,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<DefectDTOReq> addDefect(DefectDTOReq req) {
-        Defect defect = ExceptionManager.tryExecute(() -> DefectConverter.convertToEntity(req));
+        Defect defect = ExceptionManager.tryExecute(() -> DefectConverter.convertDTOReqToEntity(req));
         Supplier<Defect> save = () -> defectDAO.create(defect);
         RespDTO<DefectDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DefectConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -276,7 +276,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public RespDTO<DefectDTOReq> changeDefect(DefectDTOReq req) {
-        Defect defect = ExceptionManager.tryExecute(() -> DefectConverter.convertToEntity(req));
+        Defect defect = ExceptionManager.tryExecute(() -> DefectConverter.convertDTOReqToEntity(req));
         Supplier<Defect> save = () -> defectDAO.update(defect);
         RespDTO<DefectDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DefectConverter.convertToDTOReq(transactionManger.execute(save)));
 

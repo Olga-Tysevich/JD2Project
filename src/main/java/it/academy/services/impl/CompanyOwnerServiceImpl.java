@@ -8,7 +8,7 @@ import it.academy.dto.resp.RespDTO;
 import it.academy.entities.account.Account;
 import it.academy.services.CompanyOwnerService;
 import it.academy.utils.MessageManager;
-import it.academy.converters.accounts.AccountConverterImpl;
+import it.academy.utils.converters.accounts.AccountConverterImpl;
 import it.academy.utils.ExceptionManager;
 import it.academy.utils.dao.TransactionManger;
 
@@ -17,13 +17,13 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.SAVED_SUCCESSFULLY;
 import static it.academy.utils.Constants.UPDATED_SUCCESSFULLY;
 
-public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements CompanyOwnerService {
+public class CompanyOwnerServiceImpl extends CompanyAdminServiceManagerImpl implements CompanyOwnerService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private AccountDAO<Account> accountDAO = new AccountDAOImpl<>(Account.class);
 
     @Override
     public RespDTO<AccountDTO> addAdminAccount(AccountDTOReq req) {
-        Account account = ExceptionManager.tryExecute(() -> AccountConverterImpl.convertAccountDTOReqToEntity(req));
+        Account account = ExceptionManager.tryExecute(() -> AccountConverterImpl.convertDTOReqToEntity(req));
         Supplier<Account> save = () -> accountDAO.create(account);
         RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverterImpl.convertToDTO(transactionManger.execute(save)));
 
@@ -37,7 +37,7 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
 
     @Override
     public RespDTO<AccountDTO> changeAdminAccount(AccountDTOReq req) {
-        Account account = ExceptionManager.tryExecute(() -> AccountConverterImpl.convertAccountDTOReqToEntity(req));
+        Account account = ExceptionManager.tryExecute(() -> AccountConverterImpl.convertDTOReqToEntity(req));
         Supplier<Account> update = () -> accountDAO.update(account);
         RespDTO<AccountDTO> resp = ExceptionManager.getObjectUpdateResult(() -> AccountConverterImpl.convertToDTO(transactionManger.execute(update)));
 

@@ -13,7 +13,7 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.ExceptionManager;
-import it.academy.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -27,7 +27,7 @@ public class RepairWorkshopServiceImpl implements RepairWorkshopService {
 
     @Override
     public RespDTO<RepairWorkshopDTOReq> addRepairWorkshop(RepairWorkshopDTOReq req) {
-        RepairWorkshop center = ExceptionManager.tryExecute(() -> RepairWorkshopConverter.convertToEntity(req));
+        RepairWorkshop center = ExceptionManager.tryExecute(() -> RepairWorkshopConverter.convertDTOReqToEntity(req));
         Supplier<RepairWorkshop> save = () -> repairWorkshopDAO.create(center);
         RespDTO<RepairWorkshopDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> RepairWorkshopConverter.convertToDTOReq(transactionManger.execute(save)));
 
@@ -40,7 +40,7 @@ public class RepairWorkshopServiceImpl implements RepairWorkshopService {
 
     @Override
     public RespDTO<RepairWorkshopDTOReq> changeRepairWorkshop(RepairWorkshopDTOReq req) {
-        RepairWorkshop center = ExceptionManager.tryExecute(() -> RepairWorkshopConverter.convertToEntity(req));
+        RepairWorkshop center = ExceptionManager.tryExecute(() -> RepairWorkshopConverter.convertDTOReqToEntity(req));
         Supplier<RepairWorkshop> update = () -> repairWorkshopDAO.update(center);
         RespDTO<RepairWorkshopDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> RepairWorkshopConverter.convertToDTOReq(transactionManger.execute(update)));
 

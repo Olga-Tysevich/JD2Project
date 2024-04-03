@@ -1,4 +1,4 @@
-package it.academy.converters.repair_workshop;
+package it.academy.utils.converters.repair_workshop;
 
 import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
@@ -6,14 +6,15 @@ import it.academy.entities.device.components.Brand;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
-import it.academy.converters.Converter;
+import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepairWorkshopConverter implements Converter<RepairWorkshop, RepairWorkshopDTOReq> {
+@UtilityClass
+public class RepairWorkshopConverter  {
 
-    @Override
-    public RepairWorkshopDTOReq convertToDTOReq(RepairWorkshop repairWorkshop) {
+    public static RepairWorkshopDTOReq convertToDTOReq(RepairWorkshop repairWorkshop) {
         return RepairWorkshopDTOReq.builder()
                 .id(repairWorkshop.getId())
                 .serviceName(repairWorkshop.getServiceName())
@@ -37,8 +38,7 @@ public class RepairWorkshopConverter implements Converter<RepairWorkshop, Repair
                 .build();
     }
 
-    @Override
-    public RepairWorkshop convertDTOReqToEntity(RepairWorkshopDTOReq req) {
+    public static RepairWorkshop convertDTOReqToEntity(RepairWorkshopDTOReq req) {
         return RepairWorkshop.builder()
                 .id(req.getId())
                 .serviceName(req.getServiceName())
@@ -65,17 +65,15 @@ public class RepairWorkshopConverter implements Converter<RepairWorkshop, Repair
                 .build();
     }
 
-    @Override
-    public List<RepairWorkshopDTOReq> convertListToDTOReq(List<RepairWorkshop> repairWorkshops) {
+    public static List<RepairWorkshopDTOReq> convertListToDTOReq(List<RepairWorkshop> repairWorkshops) {
         return repairWorkshops.stream()
-                .map(this::convertToDTOReq)
+                .map(RepairWorkshopConverter::convertToDTOReq)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<RepairWorkshop> convertDTOReqListToEntityList(List<RepairWorkshopDTOReq> reqList) {
+    public static List<RepairWorkshop> convertDTOReqListToEntityList(List<RepairWorkshopDTOReq> reqList) {
         return reqList.stream()
-                .map(this::convertDTOReqToEntity)
+                .map(RepairWorkshopConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
     }
 
