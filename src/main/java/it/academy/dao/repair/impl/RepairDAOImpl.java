@@ -1,7 +1,7 @@
 package it.academy.dao.repair.impl;
 
 
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.entities.repair.Repair;
 

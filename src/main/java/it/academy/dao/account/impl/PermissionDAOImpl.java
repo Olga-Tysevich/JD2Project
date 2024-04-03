@@ -1,9 +1,8 @@
 package it.academy.dao.account.impl;
 
 import it.academy.dao.account.PermissionDAO;
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.entities.account.role.Permission;
-import it.academy.entities.account.role.Role;
 import it.academy.utils.dao.ParameterContainer;
 
 import javax.persistence.criteria.CriteriaQuery;

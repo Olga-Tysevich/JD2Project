@@ -2,8 +2,8 @@ package it.academy.utils.converters.repair;
 
 import it.academy.dto.req.device.SparePartDTOReq;
 import it.academy.dto.req.repair.SparePartsOrderDTOReq;
-import it.academy.entities.device.components.SparePart;
-import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
+import it.academy.entities.spare_parts_order.SparePart;
+import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.utils.converters.device.SparePartConverter;
 import lombok.experimental.UtilityClass;
 

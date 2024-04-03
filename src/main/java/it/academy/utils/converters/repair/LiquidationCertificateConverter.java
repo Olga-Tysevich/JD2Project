@@ -1,7 +1,7 @@
 package it.academy.utils.converters.repair;
 
 import it.academy.dto.req.repair.LiquidationCertificateDTOReq;
-import it.academy.entities.repair.decommissioning.LiquidationCertificate;
+import it.academy.entities.liquidation.LiquidationCertificate;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

@@ -16,22 +16,27 @@ public class ParameterManager {
         List<String> parameterList = getParameters(parameters);
         List<ParameterContainer<?>> result = new ArrayList<>();
 
-        filters.forEach(f -> parameterList.forEach(p -> {
+        if (filters != null && !parameters.isEmpty()) {
+            filters.forEach(f -> parameterList.forEach(p -> {
                 if (isIntNumber(p) || isDoubleNumber(p)) {
                     result.add(getNumber(f, p));
                 } else {
                     result.add(new ParameterContainer<>(f, p));
                 }
-        }));
+            }));
+        }
+
         return result;
     }
 
     private static List<String> getParameters(String parameters) {
-        return Arrays.asList(parameters.split(PUNCTUATION_MARKS_PATTERN));
+        if (parameters != null) {
+            return Arrays.asList(parameters.split(PUNCTUATION_MARKS_PATTERN));
+        }
+        return new ArrayList<>();
     }
 
     public static<T> String getParameterForLikeQuery(T parameter) {
-        String s = String.format(LIKE_QUERY_PATTERN, parameter);
         return String.format(LIKE_QUERY_PATTERN, parameter);
     }
 

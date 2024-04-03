@@ -1,7 +1,7 @@
 package it.academy.utils.converters.device;
 
 import it.academy.dto.req.device.SparePartDTOReq;
-import it.academy.entities.device.components.SparePart;
+import it.academy.entities.spare_parts_order.SparePart;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

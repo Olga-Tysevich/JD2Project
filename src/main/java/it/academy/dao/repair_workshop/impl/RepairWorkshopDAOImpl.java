@@ -1,6 +1,6 @@
 package it.academy.dao.repair_workshop.impl;
 
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.dao.repair_workshop.RepairWorkshopDAO;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 

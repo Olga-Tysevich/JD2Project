@@ -1,7 +1,7 @@
 package it.academy.dao.account.impl;
 
 import it.academy.dao.account.AccountDAO;
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.entities.account.Account;
 import it.academy.utils.dao.ParameterContainer;
 

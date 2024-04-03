@@ -1,5 +1,6 @@
 package it.academy.entities.device.components;
 
+import it.academy.entities.spare_parts_order.SparePart;
 import lombok.*;
 
 import javax.persistence.*;
