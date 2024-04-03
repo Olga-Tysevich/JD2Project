@@ -17,7 +17,7 @@ import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.ExceptionManager;
-import it.academy.utils.converters.device.*;
+import it.academy.converters.device.*;
 import java.util.List;
 import java.util.function.Supplier;
 import static it.academy.utils.Constants.SAVED_SUCCESSFULLY;

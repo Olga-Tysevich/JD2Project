@@ -43,11 +43,11 @@ import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.*;
 import it.academy.services.impl.*;
 import it.academy.utils.Generator;
-import it.academy.utils.converters.accounts.PermissionConverter;
-import it.academy.utils.converters.accounts.RoleConverter;
-import it.academy.utils.converters.device.*;
-import it.academy.utils.converters.repair.*;
-import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.converters.accounts.PermissionConverter;
+import it.academy.converters.accounts.RoleConverter;
+import it.academy.converters.device.*;
+import it.academy.converters.repair.*;
+import it.academy.converters.repair_workshop.RepairWorkshopConverter;
 
 import java.util.HashSet;
 import java.util.List;

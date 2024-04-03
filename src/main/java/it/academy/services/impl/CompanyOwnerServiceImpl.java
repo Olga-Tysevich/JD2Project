@@ -8,7 +8,7 @@ import it.academy.dto.resp.RespDTO;
 import it.academy.entities.account.Account;
 import it.academy.services.CompanyOwnerService;
 import it.academy.utils.MessageManager;
-import it.academy.utils.converters.accounts.AccountConverter;
+import it.academy.converters.accounts.AccountConverterImpl;
 import it.academy.utils.ExceptionManager;
 import it.academy.utils.dao.TransactionManger;
 
@@ -23,9 +23,9 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
 
     @Override
     public RespDTO<AccountDTO> addAdminAccount(AccountDTOReq req) {
-        Account account = ExceptionManager.tryExecute(() -> AccountConverter.convertAccountDTOReqToEntity(req));
+        Account account = ExceptionManager.tryExecute(() -> AccountConverterImpl.convertAccountDTOReqToEntity(req));
         Supplier<Account> save = () -> accountDAO.create(account);
-        RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverter.convertToDTO(transactionManger.execute(save)));
+        RespDTO<AccountDTO> resp = ExceptionManager.getObjectSaveResult(() -> AccountConverterImpl.convertToDTO(transactionManger.execute(save)));
 
         if (account != null) {
             resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, account.getEmail()));
@@ -37,9 +37,9 @@ public class CompanyOwnerServiceImpl extends CompanyAdminServiceImpl implements 
 
     @Override
     public RespDTO<AccountDTO> changeAdminAccount(AccountDTOReq req) {
-        Account account = ExceptionManager.tryExecute(() -> AccountConverter.convertAccountDTOReqToEntity(req));
+        Account account = ExceptionManager.tryExecute(() -> AccountConverterImpl.convertAccountDTOReqToEntity(req));
         Supplier<Account> update = () -> accountDAO.update(account);
-        RespDTO<AccountDTO> resp = ExceptionManager.getObjectUpdateResult(() -> AccountConverter.convertToDTO(transactionManger.execute(update)));
+        RespDTO<AccountDTO> resp = ExceptionManager.getObjectUpdateResult(() -> AccountConverterImpl.convertToDTO(transactionManger.execute(update)));
 
         if (account != null) {
             resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, account.getEmail()));

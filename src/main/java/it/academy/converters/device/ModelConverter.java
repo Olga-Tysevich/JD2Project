@@ -1,18 +1,18 @@
-package it.academy.utils.converters.device;
+package it.academy.converters.device;
 
+import it.academy.converters.Converter;
 import it.academy.dto.req.device.ModelDTOReq;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
-import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UtilityClass
-public class ModelConverter {
+public class ModelConverter implements Converter<Model,ModelDTOReq > {
 
-    public static ModelDTOReq convertToDTOReq(Model model) {
+    @Override
+    public ModelDTOReq convertToDTOReq(Model model) {
         return ModelDTOReq.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -23,13 +23,8 @@ public class ModelConverter {
                 .build();
     }
 
-    public static List<ModelDTOReq> convertListToDTOReq(List<Model> models) {
-        return models.stream()
-                .map(ModelConverter::convertToDTOReq)
-                .collect(Collectors.toList());
-    }
-
-    public static Model convertToEntity(ModelDTOReq req) {
+    @Override
+    public Model convertDTOReqToEntity(ModelDTOReq req) {
         return Model.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -43,4 +38,19 @@ public class ModelConverter {
                         .build())
                 .build();
     }
+
+    @Override
+    public List<ModelDTOReq> convertListToDTOReq(List<Model> models) {
+        return models.stream()
+                .map(this::convertToDTOReq)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Model> convertDTOReqListToEntityList(List<ModelDTOReq> models) {
+        return models.stream()
+                .map(this::convertDTOReqToEntity)
+                .collect(Collectors.toList());
+    }
+
 }

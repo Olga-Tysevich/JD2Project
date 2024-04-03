@@ -18,13 +18,13 @@ import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.services.RepairService;
 import it.academy.utils.MessageManager;
-import it.academy.utils.converters.repair.RepairConverter;
+import it.academy.converters.repair.RepairConverter;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.ExceptionManager;
-import it.academy.utils.converters.repair.RepairCategoryConverter;
-import it.academy.utils.converters.repair.RepairTypeConverter;
+import it.academy.converters.repair.RepairCategoryConverter;
+import it.academy.converters.repair.RepairTypeConverter;
 
 import java.util.List;
 import java.util.function.Supplier;

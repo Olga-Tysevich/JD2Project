@@ -17,8 +17,6 @@ import it.academy.entities.repair.spare_parts_order.SparePartsOrder;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.entities.repair_workshop.components.BankAccount;
 import it.academy.entities.repair_workshop.components.Requisites;
-import it.academy.utils.converters.repair.LiquidationCauseConverter;
-import it.academy.utils.converters.repair.RepairConverter;
 import lombok.experimental.UtilityClass;
 
 import java.sql.Date;
