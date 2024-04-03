@@ -59,6 +59,20 @@ public class AdminServiceImpl extends UserServiceImp implements AdminService {
     }
 
     @Override
+    public RespDTO<AccountDTO> findAdminAccountByEmail(AccountDTOReq req) {
+        Account account = ExceptionManager.tryExecute(() -> RepairWorkshopAccountConverter.convertDTOReqToEntity(req));
+        Supplier<Account> find = () -> accountDAO.findByUniqueParameter(EMAIL, req.getEmail());
+        RespDTO<AccountDTO> resp = ExceptionManager.getObjectUpdateResult(() -> AccountConverterImpl.convertToDTO(transactionManger.execute(find)));
+
+        if (account != null) {
+            resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, account.getEmail()));
+        }
+
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
     public RespDTO<AccountDTO> addAdminAccount(AccountDTOReq req) {
         return getAccountDTORespDTO(req, accountDAO, transactionManger);
     }

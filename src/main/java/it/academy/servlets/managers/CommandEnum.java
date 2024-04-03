@@ -1,10 +1,12 @@
 package it.academy.servlets.managers;
 
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.TempCommand;
+import it.academy.servlets.commands.ShowPageCommand;
+
+import static it.academy.utils.Constants.MAIN_PAGE_PATH;
 
 public enum CommandEnum {
-    OPEN_LOGIN_FORM(new TempCommand());
+    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH));
 //    OPEN_LOGIN_FORM(new ShowPageCommand(Constants.LOGIN_PAGE_PATH)),
 //    OPEN_REGISTRATION_FORM(new ShowPageCommand(Constants.REGISTRATION_PAGE_PATH)),
 //    REGISTRATION(new RegistrationCommand()),

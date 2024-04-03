@@ -2,13 +2,12 @@
 <%@ page import="it.academy.dto.req.account.AccountDTO" %>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Список студентов</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <title>Сервисный центр</title>
 </head>
 <body>
 <section>
@@ -21,6 +20,7 @@
                             : "Компания";
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
                     int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
+                    String pageForDisplay = (String) request.getAttribute(TABLE_FOR_PAGE);
                 %>
 
         <div class="header-container">
@@ -104,27 +104,14 @@
 
         </div>
 
-        <div class="table-container"></div>
+        <div class="table-container">
+            <%if (pageForDisplay != null) {
+                pageContext.include(pageForDisplay);
+            }
+            %>
+        </div>
 
     </div>
 
-    <div class="button-container">
-        <form action="list" method="post">
-            <input type="hidden" name="command" value="show_students">
-            <%int prevPage = pageNumber - 1;%>
-            <input type="hidden" name="page" value="<%=Math.max(prevPage, FIRST_PAGE)%>">
-            <input class="button light" type="submit" name="button" value="Предыдущая">
-        </form>
-
-        <p><%=pageNumber%>
-        </p>
-
-        <form action="list" method="post">
-            <input type="hidden" name="command" value="show_students">
-            <%int nextPage = pageNumber + 1;%>
-            <input type="hidden" name="page" value="<%=Math.min(nextPage, maxPageNumber)%>">
-            <input class="button light" type="submit" name="button" value="Следующая">
-        </form>
-    </div>
 </section>
 </body>

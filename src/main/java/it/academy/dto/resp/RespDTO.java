@@ -11,6 +11,6 @@ public class RespDTO<T> {
 
     private String message;
 
-//    private T parameter;
+    private T parameter;
 
 }

@@ -45,9 +45,9 @@ public class ExceptionManager {
     private static <T> RespDTO<T> getObjectResult(ThrowingSupplier<T> method, int httpSuccessStatus, String message, int httpErrorStatus) {
         try {
             T result = method.get();
-            return ResponseManager.getDTOResp(httpSuccessStatus, MessageManager.getFormattedMessage(message, result));
+            return ResponseManager.getDTOResp(httpSuccessStatus, MessageManager.getFormattedMessage(message, result), result);
         } catch (Exception e) {
-            return ResponseManager.getDTOResp(httpErrorStatus, e.getMessage());
+            return ResponseManager.getDTOResp(httpErrorStatus, e.getMessage(), null);
         }
     }
 }

@@ -17,6 +17,7 @@ import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dao.repair_workshop.RepairWorkshopDAO;
 import it.academy.dao.repair_workshop.impl.RepairWorkshopDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
+import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
@@ -44,9 +45,15 @@ import it.academy.services.*;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.RoleService;
 import it.academy.services.admin.impl.AdminServiceImpl;
+import it.academy.services.admin.impl.DefectsServiceImpl;
 import it.academy.services.admin.impl.RoleServiceImpl;
+import it.academy.services.device.BrandService;
+import it.academy.services.device.DefectService;
 import it.academy.services.device.DeviceService;
+import it.academy.services.device.ModelService;
+import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.services.device.impl.DeviceServiceImpl;
+import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.services.impl.*;
 import it.academy.services.liquidation.LiquidationCertificateService;
 import it.academy.services.liquidation.impl.LiquidationCertificateServiceImpl;
@@ -77,7 +84,6 @@ import static it.academy.utils.Constants.*;
 public class Test {
     private static RoleService roleService = new RoleServiceImpl();
     private static AdminService adminService = new AdminServiceImpl();
-//    private static CompanyOwnerService ownerService = new CompanyOwnerServiceImpl();
     private static UserService userService = new UserServiceImp();
     private static DeviceService deviceService = new DeviceServiceImpl();
     private static RepairService repairService = new RepairServiceImpl();
@@ -86,15 +92,22 @@ public class Test {
     private static RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
     private static LiquidationCertificateService liquidationCertificateService = new LiquidationCertificateServiceImpl();
     private static RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
-    private static DefectDAO defectDAO = new DefectDAOImpl();
+    private static DefectService defectService = new DefectsServiceImpl();
+    private static ModelService modelService = new ModelServiceImpl();
     private static RoleDAO roleDAO = new RoleDAOImpl();
-    private static BrandDAO brandDAO = new BrandDAOImpl();
+    private static BrandService brandService = new BrandServiceImpl();
     public static RepairCategoryDAO repairCategoryDAO = new RepairCategoryImpl();
     public static RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
     private static DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
     private static DeviceDAO deviceDAO = new DeviceDAOImpl();
 
     public static void main(String[] args) {
+
+        AccountDTOReq account = AccountDTOReq.builder()
+                .email("user40@yahoo.com")
+                .build();
+
+        RespDTO<AccountDTO> response = adminService.findAdminAccountByEmail(account);
 
         List<Permission> permissions = roleService.findPermissions().getList().stream()
                 .map(PermissionConverter::convertDTOReqToEntity)
@@ -157,8 +170,8 @@ public class Test {
                 .mapToObj(i -> Generator.generateBrand())
                 .collect(Collectors.toList());
 
-        brands.forEach(b -> deviceService.addBrand(BrandConverter.convertToDTOReq(b)));
-        List<Brand> brands2 = deviceService.findBrands().getList().stream()
+        brands.forEach(b -> brandService.addBrand(BrandConverter.convertToDTOReq(b)));
+        List<Brand> brands2 = brandService.findBrands().getList().stream()
                 .map(BrandConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
 
@@ -177,7 +190,7 @@ public class Test {
                 .userInput(brands2.get(0).getName())
                 .build();
 
-        deviceService.findBrands(p);
+        brandService.findBrands(p);
 
         List<DeviceType> deviceTypes = IntStream.range(0, 20)
                 .mapToObj(i -> Generator.generateDeviceType())
@@ -197,9 +210,9 @@ public class Test {
                     Model model = models.get(i);
                     model.setBrand(brands2.get(i));
                     model.setType(deviceTypes2.get(i));
-                    deviceService.addModel(ModelConverter.convertToDTOReq(model));
+                    modelService.addModel(ModelConverter.convertToDTOReq(model));
                 });
-        List<Model> models2 = deviceService.findModels().getList().stream()
+        List<Model> models2 = modelService.findModels().getList().stream()
                 .map(ModelConverter::convertDTOReqToEntity)
                 .collect(Collectors.toList());
 
@@ -214,9 +227,9 @@ public class Test {
         List<Defect> defects = IntStream.range(0, 20)
                 .mapToObj(i -> Generator.generateDefect())
                 .collect(Collectors.toList());
-        defects.forEach(d -> deviceService.addDefect(DefectConverter.convertToDTOReq(d)));
+        defects.forEach(d -> defectService.addDefect(DefectConverter.convertToDTOReq(d)));
 
-        List<Defect> defects2 = DefectConverter.convertDTOReqListToEntityList(deviceService.findDefect().getList());
+        List<Defect> defects2 = DefectConverter.convertDTOReqListToEntityList(defectService.findDefect().getList());
 
         deviceTypes2.forEach(dt -> {
             new HashSet<>(defects2.subList(0, RANDOM.nextInt(defects2.size())))
@@ -251,7 +264,7 @@ public class Test {
 
         List<RepairCategory> categoryList = RepairCategoryConverter.convertDTOReqListToEntityList(repairService.findRepairCategories().getList());
         List<RepairType> typeList = RepairTypeConverter.convertDTOReqListToEntityList(repairService.findRepairTypes().getList());
-        List<Defect> defectList = DefectConverter.convertDTOReqListToEntityList(deviceService.findDefect().getList());
+        List<Defect> defectList = DefectConverter.convertDTOReqListToEntityList(defectService.findDefect().getList());
         List<Device> deviceList = DeviceConverter.convertDTOReqListToEntityList(deviceService.findDevices().getList());
 
         List<Repair> repairs = IntStream.range(0, 20)

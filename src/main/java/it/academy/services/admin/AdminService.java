@@ -17,6 +17,8 @@ public interface AdminService extends UserService {
 
     RespDTO<AccountDTO> changeRepairWorkshopAccount(AccountDTOReq req);
 
+    RespDTO<AccountDTO> findAdminAccountByEmail(AccountDTOReq req);
+
     RespListDTO<AccountDTO> findAccounts();
 
     RespListDTO<AccountDTO> findAccounts(int pageNumber, int listSize);

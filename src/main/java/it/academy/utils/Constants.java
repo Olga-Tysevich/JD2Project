@@ -56,6 +56,7 @@ public class Constants {
 
     //Paths
     public static final String ERROR_PAGE_PATH = "path.page.error";
+    public static final String MAIN_PAGE_PATH = "path.page.main";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -63,5 +64,9 @@ public class Constants {
     public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String LIST_FOR_PAGE = "list";
+    public static final String TABLE_FOR_PAGE = "table";
+
+    //temp
+    public static final String START_PAGE_PATH = "main?command=open_page&&page=1";
 
 }

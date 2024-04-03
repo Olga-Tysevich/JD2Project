@@ -60,5 +60,24 @@
           </form>
       </div>
 
+        <div class="button-container">
+            <form action="list" method="post">
+                <input type="hidden" name="command" value="show_students">
+                <%int prevPage = pageNumber - 1;%>
+                <input type="hidden" name="page" value="<%=Math.max(prevPage, FIRST_PAGE)%>">
+                <input class="button light" type="submit" name="button" value="Предыдущая">
+            </form>
+
+            <p><%=pageNumber%>
+            </p>
+
+            <form action="list" method="post">
+                <input type="hidden" name="command" value="show_students">
+                <%int nextPage = pageNumber + 1;%>
+                <input type="hidden" name="page" value="<%=Math.min(nextPage, maxPageNumber)%>">
+                <input class="button light" type="submit" name="button" value="Следующая">
+            </form>
+        </div>
+
     </div>
 </section>
