@@ -21,6 +21,7 @@ import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.req.repair.RepairDTOReq;
 import it.academy.dto.req.repair.SparePartsOrderDTOReq;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
 import it.academy.dto.resp.RespDTO;
@@ -102,6 +103,8 @@ public class Test {
     private static DeviceDAO deviceDAO = new DeviceDAOImpl();
 
     public static void main(String[] args) {
+
+        RespListDTO<RepairDTOReq> repairResp = repairService.findRepairs(1, LIST_SIZE);
 
         AccountDTOReq account = AccountDTOReq.builder()
                 .email("user40@yahoo.com")

@@ -20,7 +20,7 @@
                             : "Компания";
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
                     int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
-                    String pageForDisplay = (String) request.getAttribute(TABLE_FOR_PAGE);
+                    String pageForDisplay = (String) request.getAttribute(TABLE_PAGE_PATH);
                 %>
 
         <div class="header-container">
@@ -90,7 +90,7 @@
                 <legend>Заявки</legend>
                 <button class="button button-fieldset"> Создание новой заявки </button>
                 <button class="button button-fieldset"> Оформленные заявки </button>
-                <button class="button button-fieldset"> Текущие заявки </button>
+                <button class="button button-fieldset" onclick="location.href='<%=REPAIR_PAGE_PATH%>>'"> Текущие заявки </button>
                 <button class="button button-fieldset"> Ожидание запчастей</button>
                 <button class="button button-fieldset"> Выполненные заявки</button>
                 <button class="button button-fieldset"> Оплаченные заявки </button>

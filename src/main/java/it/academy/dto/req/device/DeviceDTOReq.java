@@ -14,7 +14,11 @@ public class DeviceDTOReq {
 
     private Long id;
 
-    private Model model;
+    private Long modelId;
+
+    private String modelDescription;
+
+    private ModelDTOReq model;
 
     private String serialNumber;
 

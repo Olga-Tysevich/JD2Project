@@ -25,7 +25,7 @@ public class TransactionManger {
         }
     }
 
-    public EntityManager entityManager() {
+    public synchronized EntityManager entityManager() {
         if (entityManager != null && entityManager.isOpen()) {
             return entityManager;
         }
@@ -37,11 +37,11 @@ public class TransactionManger {
         return entityManager;
     }
 
-    public CriteriaBuilder criteriaBuilder() {
+    public synchronized CriteriaBuilder criteriaBuilder() {
         return entityManager().getCriteriaBuilder();
     }
 
-    public void closeManager() {
+    public synchronized void closeManager() {
         lock.lock();
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close();
@@ -49,7 +49,7 @@ public class TransactionManger {
         lock.unlock();
     }
 
-    public <T> T execute(Supplier<T> method) {
+    public synchronized <T> T execute(Supplier<T> method) {
         lock.lock();
         beginTransaction();
         T result;

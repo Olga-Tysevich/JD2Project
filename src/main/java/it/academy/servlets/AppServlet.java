@@ -38,7 +38,7 @@ public class AppServlet extends HttpServlet {
             dispatcher.forward(req, resp);
         } else {
             page = ConfigurationManager.getProperty(ERROR_PAGE_PATH);
-//            req.getSession().setAttribute(PAGE_NUMBER, FIRST_PAGE);
+            req.getSession().setAttribute(PAGE_NUMBER, FIRST_PAGE);
             resp.sendRedirect(req.getContextPath() + page);
         }
     }
