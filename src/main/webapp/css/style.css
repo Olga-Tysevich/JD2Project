@@ -18,6 +18,45 @@ section {
     padding: 0 20px 0 20px;
 }
 
+.forms-container{
+    width: 50%;
+    background: #f9eaf9;
+    border: 1px solid lightgray;
+    padding: 10px;
+    box-shadow: 6px 2px 5px #473f3fa6;
+    margin: auto;
+}
+
+.r-form{
+    align-items: center;
+}
+
+.f-form{
+    width: 70%;
+    border-radius: 12px;
+    color: black;
+    background-color: white;
+    height: 30px;
+    margin: 15px 0 15px 0;
+    text-align: center;
+}
+
+.f-input{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.f-el{
+    width: 70%;
+    margin: 5px 0 5px 10px;
+    border-radius: 12px;
+}
+
+.f-input-container{
+    width: 80%;
+}
+
 table {
     margin-top: 30px;
     border: 1px;

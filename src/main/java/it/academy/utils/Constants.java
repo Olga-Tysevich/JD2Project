@@ -57,6 +57,7 @@ public class Constants {
     //Paths
     public static final String ERROR_PAGE_PATH = "path.page.error";
     public static final String MAIN_PAGE_PATH = "path.page.main";
+    public static final String REPAIR_PAGE_PATH = "path.page.repair";
     public static final String REPAIR_TABLE_PATH = "path.page.repair.table";
 
     //jsp
@@ -66,11 +67,14 @@ public class Constants {
     public static final String MAX_PAGE = "maxPage";
     public static final String TABLE_PAGE_PATH = "list";
     public static final String TABLE_FOR_PAGE = "table";
-    public static final String TABLE_CLASS = "table class";
+    public static final String REPAIR_CATEGORIES = "repair categories";
+    public static final String BRANDS = "brands";
+    public static final String MODELS = "models";
+    public static final String DEFECTS = "defects";
 
-    //temp
-    public static final String START_PAGE_PATH =  "main?command=show_repair_table&&page=1";
-//    public static final String START_PAGE_PATH = "main?command=open_page&&page=1";
-    public static final String REPAIR_PAGE_PATH = "main?command=show_repair_table&&page=1";
+    //open commands
+    public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
+    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&page=%d";
+    public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d";
 
 }

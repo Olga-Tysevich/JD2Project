@@ -21,6 +21,7 @@ import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
 import it.academy.dto.req.account.PermissionDTOReq;
 import it.academy.dto.req.account.RoleDTOReq;
+import it.academy.dto.req.device.DeviceDTOReq;
 import it.academy.dto.req.repair.RepairDTOReq;
 import it.academy.dto.req.repair.SparePartsOrderDTOReq;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
@@ -104,13 +105,11 @@ public class Test {
 
     public static void main(String[] args) {
 
-        RespListDTO<RepairDTOReq> repairResp = repairService.findRepairs(1, LIST_SIZE);
+        List<RepairDTOReq> repairList2 = repairService.findRepairs().getList();
 
         AccountDTOReq account = AccountDTOReq.builder()
                 .email("user40@yahoo.com")
                 .build();
-
-        RespDTO<AccountDTO> response = adminService.findAdminAccountByEmail(account);
 
         List<Permission> permissions = roleService.findPermissions().getList().stream()
                 .map(PermissionConverter::convertDTOReqToEntity)

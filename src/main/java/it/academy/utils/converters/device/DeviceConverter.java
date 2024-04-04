@@ -18,8 +18,8 @@ public class DeviceConverter {
                 .model(ModelConverter.convertToDTOReq(device.getModel()))
                 .modelDescription(
                         String.format(MODEL_DESCRIPTION,
-                                device.getModel().getType(),
-                                device.getModel().getBrand(),
+                                device.getModel().getType().getName(),
+                                device.getModel().getBrand().getName(),
                                 device.getModel().getName()))
                 .serialNumber(device.getSerialNumber())
                 .dateOfSale(device.getDateOfSale())
@@ -31,9 +31,7 @@ public class DeviceConverter {
     public static Device convertDTOReqToEntity(DeviceDTOReq req) {
         return Device.builder()
                 .id(req.getId())
-                .model(Model.builder()
-                        .id(req.getModelId())
-                        .build())
+                .model(ModelConverter.convertDTOReqToEntity(req.getModel()))
                 .serialNumber(req.getSerialNumber())
                 .dateOfSale(req.getDateOfSale())
                 .buyer(req.getBuyer())

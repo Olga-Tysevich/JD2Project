@@ -14,8 +14,6 @@ public class DeviceDTOReq {
 
     private Long id;
 
-    private Long modelId;
-
     private String modelDescription;
 
     private ModelDTOReq model;

@@ -1,8 +1,9 @@
 package it.academy.dto.req.repair;
 
-import it.academy.dto.req.device.DefectDTOReq;
+import it.academy.dto.req.account.AccountDTOReq;
+import it.academy.dto.req.device.BrandDTOReq;
 import it.academy.dto.req.device.DeviceDTOReq;
-import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
+import it.academy.dto.req.device.ModelDTOReq;
 import it.academy.entities.repair.components.RepairStatus;
 import lombok.Builder;
 import lombok.Data;
@@ -17,11 +18,15 @@ public class RepairDTOReq {
 
     private Long number;
 
-    private RepairWorkshopDTOReq repairWorkshop;
+    private Long repairWorkshopId;
+
+    private String repairWorkshopName;
 
     private String serviceRepairNumber;
 
     private RepairStatus status;
+
+    private String statusDescription;
 
     private RepairCategoryDTOReq category;
 
@@ -33,7 +38,9 @@ public class RepairDTOReq {
 
     private String defectDescription;
 
-    private DefectDTOReq identifiedDefect;
+    private Long identifiedDefectId;
+
+    private String identifiedDefectDescription;
 
     private Date deliveryDate;
 

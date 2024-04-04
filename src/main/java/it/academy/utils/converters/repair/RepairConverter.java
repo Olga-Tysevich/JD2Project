@@ -1,7 +1,10 @@
 package it.academy.utils.converters.repair;
 
 import it.academy.dto.req.repair.RepairDTOReq;
+import it.academy.entities.device.components.Defect;
 import it.academy.entities.repair.Repair;
+import it.academy.entities.repair_workshop.RepairWorkshop;
+import it.academy.utils.MessageManager;
 import it.academy.utils.converters.device.DefectConverter;
 import it.academy.utils.converters.device.DeviceConverter;
 import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
@@ -17,10 +20,11 @@ public class RepairConverter {
         return RepairDTOReq.builder()
                 .id(repair.getId())
                 .number(repair.getNumber())
-                .repairWorkshop(RepairWorkshopConverter
-                        .convertToDTOReq(repair.getRepairWorkshop()))
+                .repairWorkshopId(repair.getRepairWorkshop().getId())
+                .repairWorkshopName(repair.getRepairWorkshop().getServiceName())
                 .serviceRepairNumber(repair.getServiceRepairNumber())
                 .status(repair.getStatus())
+                .statusDescription(MessageManager.getMessage(repair.getStatus().name().toLowerCase()))
                 .category(RepairCategoryConverter
                         .convertToDTOReq(repair.getCategory()))
                 .type(RepairTypeConverter
@@ -28,8 +32,8 @@ public class RepairConverter {
                 .startDate(repair.getStartDate())
                 .endDate(repair.getEndDate())
                 .defectDescription(repair.getDefectDescription())
-                .identifiedDefect(DefectConverter
-                        .convertToDTOReq(repair.getIdentifiedDefect()))
+                .identifiedDefectId(repair.getIdentifiedDefect().getId())
+                .identifiedDefectDescription(repair.getIdentifiedDefect().getDescription())
                 .deliveryDate(repair.getDeliveryDate())
                 .device(DeviceConverter
                         .convertToDTOReq(repair.getDevice()))
@@ -41,8 +45,9 @@ public class RepairConverter {
         return Repair.builder()
                 .id(req.getId())
                 .number(req.getNumber())
-                .repairWorkshop(RepairWorkshopConverter
-                        .convertDTOReqToEntity(req.getRepairWorkshop()))
+                .repairWorkshop(RepairWorkshop.builder()
+                        .id(req.getRepairWorkshopId())
+                        .build())
                 .serviceRepairNumber(req.getServiceRepairNumber())
                 .status(req.getStatus())
                 .category(RepairCategoryConverter
@@ -51,8 +56,10 @@ public class RepairConverter {
                         .convertDTOReqToEntity(req.getType()))
                 .endDate(req.getEndDate())
                 .defectDescription(req.getDefectDescription())
-                .identifiedDefect(DefectConverter
-                        .convertDTOReqToEntity(req.getIdentifiedDefect()))
+                .identifiedDefect(Defect.builder()
+                        .id(req.getIdentifiedDefectId())
+                        .description(req.getDefectDescription())
+                        .build())
                 .deliveryDate(req.getDeliveryDate())
                 .device(DeviceConverter
                         .convertDTOReqToEntity(req.getDevice()))

@@ -1,4 +1,3 @@
-<%@ page import="static it.academy.utils.Constants.TABLE_CLASS" %>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.req.repair.RepairDTOReq" %>
@@ -36,8 +35,8 @@
                     <td class="number"><%=repair.getDevice().getModelDescription()%></td>
                     <td><%=repair.getDevice().getSerialNumber()%></td>
                     <td><%=repair.getDefectDescription()%></td>
-                    <td><%=repair.getIdentifiedDefect()%></td>
-                    <td><%=repair.getStatus()%></td>
+                    <td><%=repair.getIdentifiedDefectDescription()%></td>
+                    <td><%=repair.getStatusDescription()%></td>
                     <td>
                         <div class="button-container">
                             <form action="list" method="post">
@@ -53,21 +52,22 @@
                                 <input class="button" type="submit" value="Удалить">
                             </form>
                         </div>
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
                 <% } %>
             </table>
 
-      <div class="footer">
-          <form action="list" method="post">
-              <input type="hidden" name="command" value="change_student">
-              <input type="hidden" name="id" value="0">
-              <input type="hidden" name="addressId" value="0">
-              <input type="hidden" name="page" value="<%=pageNumber%>">
-              <input class="button add" type="submit" value="Добавить">
-          </form>
-      </div>
+<%--      <div class="footer">--%>
+<%--          <form action="list" method="post">--%>
+<%--              <input type="hidden" name="command" value="change_student">--%>
+<%--              <input type="hidden" name="id" value="0">--%>
+<%--              <input type="hidden" name="addressId" value="0">--%>
+<%--              <input type="hidden" name="page" value="<%=pageNumber%>">--%>
+<%--              <input class="button add" type="submit" value="Добавить">--%>
+<%--          </form>--%>
+<%--      </div>--%>
 
+        <div class="footer">
         <div class="button-container">
             <form action="list" method="post">
                 <input type="hidden" name="command" value="show_students">
@@ -85,6 +85,7 @@
                 <input type="hidden" name="page" value="<%=Math.min(nextPage, maxPageNumber)%>">
                 <input class="button light" type="submit" name="button" value="Следующая">
             </form>
+        </div>
         </div>
 
     </div>
