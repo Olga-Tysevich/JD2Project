@@ -1,8 +1,4 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.req.repair.RepairCategoryDTO" %>
-<%@ page import="it.academy.dto.req.device.BrandDTO" %>
-<%@ page import="it.academy.dto.req.device.ModelDTO" %>
-<%@ page import="it.academy.dto.repair_page_N.RepairPageDataDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

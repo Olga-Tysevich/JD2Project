@@ -1,5 +1,5 @@
 <%@ page import="static it.academy.utils.Constants.USER" %>
-<%@ page import="it.academy.dto.req.account.AccountDTO" %>
+<%--<%@ page import="it.academy.dto.req.account.AccountDTO" %>--%>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -87,18 +87,8 @@
 
             <fieldset class="f1">
                 <legend>Заявки</legend>
-                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_PAGE, pageNumber)%>'"> Создание новой заявки </button>
-                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REQUEST_TABLE_PAGE, pageNumber)%>'"> Оформленные заявки </button>
-                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, pageNumber)%>'"> Текущие заявки </button>
-                <button class="button button-fieldset"> Ожидание запчастей</button>
-                <button class="button button-fieldset"> Выполненные заявки</button>
-                <button class="button button-fieldset"> Оплаченные заявки </button>
-                <button class="button button-fieldset"> Выданные аппараты </button>
-                <button class="button button-fieldset"> Заявки с запчатями</button>
-                <button class="button button-fieldset"> Предторг </button>
-                <button class="button button-fieldset"> Платные заявки </button>
-                <button class="button button-fieldset"> Списанные аппараты</button>
-                <button class="button button-fieldset"> Отклонённые завки</button>
+                <button class="button button-fieldset" onclick="location.href='<%=OPEN_BRAND_LIST_PAGE%>'"> Создание новой заявки </button>
+                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REQUEST_TABLE_PAGE, pageNumber)%>'"> Список заявок </button>
             </fieldset>
 
         </div>
