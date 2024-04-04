@@ -1,7 +1,6 @@
 package it.academy.entities.repair;
 
 import it.academy.entities.device.Device;
-import it.academy.entities.device.components.Defect;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
@@ -11,9 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,11 +27,6 @@ public class Repair implements Serializable {
     @Column
     private Long id;
 
-    //TODO Подумать как генерировать внутренний номер
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long number;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_center_id")
     private RepairWorkshop repairWorkshop;
@@ -46,8 +37,7 @@ public class Repair implements Serializable {
     @Enumerated(EnumType.STRING)
     private RepairStatus status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
+    @Enumerated(EnumType.STRING)
     private RepairCategory category;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -63,10 +53,6 @@ public class Repair implements Serializable {
 
     @Column(name = "defct_description")
     private String defectDescription;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "defect_id")
-    private Defect identifiedDefect;
 
     @Column(name = "delivery_date")
     private Date deliveryDate;

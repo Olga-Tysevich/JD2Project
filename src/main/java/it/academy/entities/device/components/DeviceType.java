@@ -38,16 +38,6 @@ public class DeviceType implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
     private Set<SparePart> spareParts = new HashSet<>();
 
-    @Builder.Default
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @Setter(AccessLevel.PROTECTED)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "device_types_defects",
-            joinColumns = {@JoinColumn(name = "device_tye_id")},
-            inverseJoinColumns = {@JoinColumn(name = "defect_id")})
-    private Set<Defect> defects = new HashSet<>();
-
     public void addSpareParts(SparePart sparePart) {
         if (sparePart != null) {
             spareParts.add(sparePart);
@@ -59,20 +49,6 @@ public class DeviceType implements Serializable {
         if (sparePart != null) {
             spareParts.remove(sparePart);
             sparePart.removeDeviceType(this);
-        }
-    }
-
-    public void addDefect(Defect defect) {
-        if (defect != null) {
-            defects.add(defect);
-            defect.addDeviceType(this);
-        }
-    }
-
-    public void removeDefect(Defect defect) {
-        if (defect != null) {
-            defects.remove(defect);
-            defect.removeDeviceType(this);
         }
     }
 

@@ -1,25 +1,10 @@
 package it.academy.entities.repair.components;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public enum RepairCategory {
+    WARRANTY,
+    PRE_SALE,
+    PAID,
+    REPEATED
 
-import javax.persistence.*;
-import java.io.Serializable;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "repair_categories")
-public class RepairCategory implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
-
-    @Column
-    private String name;
 }
+

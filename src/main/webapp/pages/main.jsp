@@ -14,10 +14,10 @@
     <div class=" container">
 
                 <%
-                    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(USER));
-                    String userEmail = accountDTO.getEmail();
-                    String userName = accountDTO.getRepairWorkshop() != null? accountDTO.getRepairWorkshop().getServiceName()
-                            : "Компания";
+//                    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(USER));
+//                    String userEmail = accountDTO.getEmail();
+//                    String userName = accountDTO.getRepairWorkshop() != null? accountDTO.getRepairWorkshop().getServiceName()
+//                            : "Компания";
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
                     int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
                     String pageForDisplay = (String) request.getAttribute(TABLE_PAGE_PATH);
@@ -25,10 +25,10 @@
 
         <div class="header-container">
             <div class="header-el">
-                <h1><%=userName%></h1>
+<%--                <h1><%=userName%></h1>--%>
             </div>
             <div class="header-el">
-                <h2><%=userEmail%></h2>
+<%--                <h2><%=userEmail%></h2>--%>
             </div>
         </div>
 
@@ -54,7 +54,6 @@
             <fieldset class="f1">
                 <legend>Компания</legend>
                 <button class="button button-fieldset"> Добавить аккаунт </button>
-                <button class="button button-fieldset"> Список ролей </button>
                 <button class="button button-fieldset"> Список текущих администраторов </button>
                 <button class="button button-fieldset"> Список заблокированных администраторов </button>
             </fieldset>

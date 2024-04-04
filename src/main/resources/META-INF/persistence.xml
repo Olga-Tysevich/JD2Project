@@ -15,21 +15,14 @@
         <class>it.academy.entities.repair.components.RepairStatus</class>
         <class>it.academy.entities.repair.components.RepairCategory</class>
         <class>it.academy.entities.repair.components.RepairType</class>
-        <class>it.academy.entities.device.components.Defect</class>
         <class>it.academy.entities.spare_parts_order.SparePart</class>
         <class>it.academy.entities.spare_parts_order.SparePartsOrder</class>
         <class>it.academy.entities.liquidation.LiquidationCertificate</class>
-        <class>it.academy.entities.liquidation.LiquidationCause</class>
         <class>it.academy.entities.repair.Repair</class>
-        <class>it.academy.entities.account.Account</class>
-        <class>it.academy.entities.account.RepairWorkshopAccount</class>
-        <class>it.academy.entities.account.role.Role</class>
-        <class>it.academy.entities.account.role.Permission</class>
+        <class>it.academy.entities.Account</class>
         <class>it.academy.entities.repair_workshop.RepairWorkshop</class>
-        <class>it.academy.entities.repair_workshop.components.Requisites</class>
-        <class>it.academy.entities.repair_workshop.components.BankAccount</class>
-        <class>it.academy.entities.repair_workshop.components.Country</class>
-        <class>it.academy.entities.repair_workshop.components.City</class>
+        <class>it.academy.entities.repair_workshop.Requisites</class>
+        <class>it.academy.entities.repair_workshop.BankAccount</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
@@ -38,7 +31,7 @@
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="Helga8707!"/>
             <property name="hibernate.dialect.storage_engine" value="innodb"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.connection.pool_size" value="10"/>

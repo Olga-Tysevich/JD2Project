@@ -1,9 +1,6 @@
 package it.academy.entities.repair_workshop;
 
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.repair_workshop.components.BankAccount;
-import it.academy.entities.repair_workshop.components.City;
-import it.academy.entities.repair_workshop.components.Requisites;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,7 +23,7 @@ public class RepairWorkshop implements Serializable {
     @Column(name = "service_name")
     private String serviceName;
 
-//    @EqualsAndHashCode.Exclude
+    //    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Embedded
     @AttributeOverrides({
@@ -48,38 +45,5 @@ public class RepairWorkshop implements Serializable {
             @AttributeOverride(name = "bankAddress", column = @Column(name = "bank_address"))
     })
     private BankAccount bankAccount;
-
-    @Builder.Default
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "repair_workshops_cities",
-    joinColumns = {@JoinColumn(name = "repair_workshop_id")},
-    inverseJoinColumns = {@JoinColumn(name = "city_id")})
-    private Set<City> cities = new HashSet<>();
-
-    @Builder.Default
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @Setter(AccessLevel.PROTECTED)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "repair_workshops_brands",
-            joinColumns = {@JoinColumn(name = "repair_workshops_id")},
-            inverseJoinColumns = {@JoinColumn(name = "brand_id")})
-    private Set<Brand> brands = new HashSet<>();
-
-    public void addBrand(Brand brand) {
-        if (brand != null) {
-            brands.add(brand);
-            brand.addServiceCenter(this);
-        }
-    }
-
-    public void removeBrand(Brand brand) {
-        if (brand != null) {
-            brands.remove(brand);
-            brand.removeServiceCenter(this);
-        }
-    }
 
 }

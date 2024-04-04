@@ -26,8 +26,4 @@ public class LiquidationCertificate implements Serializable {
     @JoinColumn(name = "repair_id")
     private Repair repair;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "decommissioning_cause_id")
-    private LiquidationCause cause;
-
 }

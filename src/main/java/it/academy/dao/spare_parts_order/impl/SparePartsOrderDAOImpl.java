@@ -1,6 +1,6 @@
 package it.academy.dao.spare_parts_order.impl;
 
-import it.academy.dao.DAOImpl;
+import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.spare_parts_order.SparePartsOrderDAO;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 
