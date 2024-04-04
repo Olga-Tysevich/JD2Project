@@ -89,7 +89,7 @@
             <fieldset class="f1">
                 <legend>Заявки</legend>
                 <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_PAGE, pageNumber)%>'"> Создание новой заявки </button>
-                <button class="button button-fieldset"> Оформленные заявки </button>
+                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REQUEST_TABLE_PAGE, pageNumber)%>'"> Оформленные заявки </button>
                 <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, pageNumber)%>'"> Текущие заявки </button>
                 <button class="button button-fieldset"> Ожидание запчастей</button>
                 <button class="button button-fieldset"> Выполненные заявки</button>

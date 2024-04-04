@@ -59,6 +59,7 @@ public class Constants {
     public static final String MAIN_PAGE_PATH = "path.page.main";
     public static final String REPAIR_PAGE_PATH = "path.page.repair";
     public static final String REPAIR_TABLE_PATH = "path.page.repair.table";
+    public static final String WAITING_SPARE_PARTS_TABLE_PATH = "path.page.repair.waiting";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -79,7 +80,8 @@ public class Constants {
 
     //open commands
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
-    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&page=%d";
+    public static final String OPEN_REQUEST_TABLE_PAGE = "main?command=show_request_repair_table&&page=%d";
+    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_current_repair_table&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1";
 
 }

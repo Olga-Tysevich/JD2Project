@@ -22,6 +22,8 @@
                     <th>Модель</th>
                     <th>Серийный номер</th>
                     <th>Заявленный дефект</th>
+                    <th>Запасные части</th>
+                    <th>Планируемая дата отправки</th>
 <%--                    <th>Выявленный дефект</th>--%>
                     <th>Статус ремонта</th>
                     <th class="menu">Управление</th>
@@ -35,6 +37,8 @@
                     <td class="number"><%=repair.getServiceRepairNumber()%></td>
                     <td class="number"><%=repair.getDevice().getModelDescription()%></td>
                     <td><%=repair.getDevice().getSerialNumber()%></td>
+                    <td><%=repair.getDefectDescription()%></td>
+                    <td><%=repair.get%></td>
                     <td><%=repair.getDefectDescription()%></td>
 <%--                    <td><%=repair.getIdentifiedDefectDescription()%></td>--%>
                     <td><%=repair.getStatusDescription()%></td>

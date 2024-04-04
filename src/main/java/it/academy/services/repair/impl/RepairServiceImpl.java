@@ -17,10 +17,7 @@ import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.repair_page_N.RepairPageDataDTO;
 import it.academy.dto.req.device.BrandDTO;
 import it.academy.dto.req.device.ModelDTO;
-import it.academy.dto.req.repair.CreateRepairDTO;
-import it.academy.dto.req.repair.RepairCategoryDTO;
-import it.academy.dto.req.repair.RepairDTO;
-import it.academy.dto.req.repair.RepairTypeDTOReq;
+import it.academy.dto.req.repair.*;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.device.Device;
@@ -29,11 +26,13 @@ import it.academy.entities.device.components.Model;
 import it.academy.entities.device.components.Salesman;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairCategory;
+import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.services.repair.RepairService;
 import it.academy.utils.MessageManager;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.ModelConverter;
+import it.academy.utils.converters.repair.CurrentRepairConverter;
 import it.academy.utils.converters.repair.RepairConverter;
 import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
@@ -118,6 +117,15 @@ public class RepairServiceImpl implements RepairService {
 //        RepairDTO result = RepairConverter.convertToDTO(r);
         transactionManger.closeManager();
         return null;
+    }
+
+    @Override
+    public List<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber, int listSize) {
+        List<Repair> result = transactionManger.execute(() -> repairDAO.findRepairsByStatus(status, pageNumber, listSize));
+
+        List<RepairDTO> resp = RepairConverter.convertListToDTO(result);
+        transactionManger.closeManager();
+        return resp;
     }
 
 

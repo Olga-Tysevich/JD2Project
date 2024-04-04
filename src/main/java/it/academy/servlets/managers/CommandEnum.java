@@ -1,12 +1,15 @@
 package it.academy.servlets.managers;
 
+import it.academy.entities.repair.components.RepairStatus;
 import it.academy.servlets.commands.*;
 
-import static it.academy.utils.Constants.MAIN_PAGE_PATH;
+import static it.academy.utils.Constants.*;
 
 public enum CommandEnum {
     OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
-    SHOW_REPAIR_TABLE(new ShowRepairTable()),
+    SHOW_REQUEST_REPAIR_TABLE(new ShowRepairTable(RepairStatus.REQUEST, REPAIR_TABLE_PATH)),
+    SHOW_CURRENT_REPAIR_TABLE(new ShowRepairTable(RepairStatus.CURRENT, WAITING_SPARE_PARTS_TABLE_PATH)),
+//    SHOW_CURRENT_REPAIR_TABLE(new ShowRepairTable(RepairStatus.CURRENT)),
     SHOW_REPAIR(new ShowRepair()),
     ADD_REPAIR(new AddRepair());
 //    OPEN_LOGIN_FORM(new ShowPageCommand(Constants.LOGIN_PAGE_PATH)),

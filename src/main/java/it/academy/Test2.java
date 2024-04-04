@@ -3,6 +3,7 @@ package it.academy;
 import it.academy.dto.repair_page_N.RepairPageDataDTO;
 import it.academy.dto.req.device.ModelDTO;
 import it.academy.dto.req.repair.CreateRepairDTO;
+import it.academy.dto.req.repair.CurrentRepairDTO;
 import it.academy.dto.req.repair.RepairDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.repair.components.RepairStatus;
@@ -46,7 +47,8 @@ public class Test2 {
 
 //        repairService.addRepair(repairDTOReq);
 
-        RespListDTO<RepairDTO> repairResp = repairService.findRepairs(1, LIST_SIZE);
+        List<RepairDTO> repairResp = repairService.findRepairsByStatus(RepairStatus.REQUEST, 1, LIST_SIZE);
+        List<RepairDTO> repairResp2 = repairService.findRepairsByStatus(RepairStatus.CURRENT, 1, LIST_SIZE);
         System.out.println();
     }
 

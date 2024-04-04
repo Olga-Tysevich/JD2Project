@@ -2,12 +2,10 @@ package it.academy.services.repair;
 
 import it.academy.dto.common.ParametersForSearchDTO;
 import it.academy.dto.repair_page_N.RepairPageDataDTO;
-import it.academy.dto.req.repair.CreateRepairDTO;
-import it.academy.dto.req.repair.RepairCategoryDTO;
-import it.academy.dto.req.repair.RepairDTO;
-import it.academy.dto.req.repair.RepairTypeDTOReq;
+import it.academy.dto.req.repair.*;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
+import it.academy.entities.repair.components.RepairStatus;
 
 import java.util.List;
 
@@ -17,6 +15,7 @@ public interface RepairService {
 
     RepairDTO addRepair(CreateRepairDTO req);
 
+    List<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber, int listSize);
 
 
     RespDTO<RepairTypeDTOReq> addRepairType(RepairTypeDTOReq req);

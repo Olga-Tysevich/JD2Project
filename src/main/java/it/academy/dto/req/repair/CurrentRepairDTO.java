@@ -14,35 +14,23 @@ public class CurrentRepairDTO {
 
     private Long id;
 
-    private Long number;
+//    private Long number;
 
-    private Long repairWorkshopId;
+//    private Long repairWorkshopId;
 
-    private String repairWorkshopName;
+//    private String repairWorkshopName;
 
     private String serviceRepairNumber;
 
-    @Builder.Default
-    private RepairStatus status = RepairStatus.REQUEST;
+    private RepairStatus status;
 
-    @Builder.Default
-    private String statusDescription = MessageManager.getMessage(RepairStatus.REQUEST.name().toLowerCase());
+    private String statusDescription;
 
     private RepairCategoryDTO category;
 
-    private RepairTypeDTOReq type;
-
     private Date startDate;
 
-    private Date endDate;
-
     private String defectDescription;
-
-    private Long identifiedDefectId;
-
-    private String identifiedDefectDescription;
-
-    private Date deliveryDate;
 
     private DeviceDTO device;
 

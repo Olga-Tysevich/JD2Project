@@ -1,13 +1,16 @@
 package it.academy.utils.converters.repair;
 
 import it.academy.dto.req.repair.RepairDTO;
+import it.academy.dto.req.repair.RepairTypeDTOReq;
 import it.academy.entities.device.components.Defect;
 import it.academy.entities.repair.Repair;
+import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.utils.MessageManager;
 import it.academy.utils.converters.device.DeviceConverter;
 import lombok.experimental.UtilityClass;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,23 +18,26 @@ import java.util.stream.Collectors;
 public class RepairConverter {
 
     public static RepairDTO convertToDTO(Repair repair) {
+        RepairWorkshop repairWorkshop = repair.getRepairWorkshop();
+        Defect defect = repair.getIdentifiedDefect();
+        RepairType repairType = repair.getType();
         return RepairDTO.builder()
                 .id(repair.getId())
-                .number(repair.getNumber())
-                .repairWorkshopId(repair.getRepairWorkshop().getId())
-                .repairWorkshopName(repair.getRepairWorkshop().getServiceName())
+//                .number(repair.getNumber())
+                .repairWorkshopId(repairWorkshop != null ? repairWorkshop.getId() : null)
+                .repairWorkshopName(repairWorkshop != null ? repairWorkshop.getServiceName() : null)
                 .serviceRepairNumber(repair.getServiceRepairNumber())
                 .status(repair.getStatus())
                 .statusDescription(MessageManager.getMessage(repair.getStatus().name().toLowerCase()))
                 .category(RepairCategoryConverter
                         .convertToDTO(repair.getCategory()))
-                .type(RepairTypeConverter
-                        .convertToDTOReq(repair.getType()))
+                .type(repairType != null ? RepairTypeConverter
+                        .convertToDTOReq(repair.getType()) : null)
                 .startDate(repair.getStartDate())
                 .endDate(repair.getEndDate())
                 .defectDescription(repair.getDefectDescription())
-                .identifiedDefectId(repair.getIdentifiedDefect().getId())
-                .identifiedDefectDescription(repair.getIdentifiedDefect().getDescription())
+                .identifiedDefectId(defect != null ? defect.getId() : null)
+                .identifiedDefectDescription(defect != null ? defect.getDescription() : null)
                 .deliveryDate(repair.getDeliveryDate())
                 .device(DeviceConverter
                         .convertToDTOReq(repair.getDevice()))
@@ -40,9 +46,10 @@ public class RepairConverter {
     }
 
     public static Repair convertDTOToEntity(RepairDTO req) {
+        RepairTypeDTOReq repairType = req.getType();
         return Repair.builder()
                 .id(req.getId())
-                .number(req.getNumber())
+//                .number(req.getNumber())
                 .repairWorkshop(RepairWorkshop.builder()
                         .id(req.getRepairWorkshopId())
                         .build())
@@ -50,8 +57,8 @@ public class RepairConverter {
                 .status(req.getStatus())
                 .category(RepairCategoryConverter
                         .convertDTOToEntity(req.getCategory()))
-                .type(RepairTypeConverter
-                        .convertDTOReqToEntity(req.getType()))
+                .type(repairType != null? RepairTypeConverter
+                        .convertDTOReqToEntity(req.getType()) : null)
                 .endDate(req.getEndDate())
                 .defectDescription(req.getDefectDescription())
                 .identifiedDefect(Defect.builder()
