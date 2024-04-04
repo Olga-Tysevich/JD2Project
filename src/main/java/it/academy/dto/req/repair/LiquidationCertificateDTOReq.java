@@ -11,7 +11,7 @@ public class LiquidationCertificateDTOReq {
 
     private String number;
 
-    private RepairDTOReq repair;
+    private RepairDTO repair;
 
     private LiquidationCauseDTOReq cause;
 

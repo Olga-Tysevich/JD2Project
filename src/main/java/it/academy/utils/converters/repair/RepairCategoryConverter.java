@@ -1,6 +1,6 @@
 package it.academy.utils.converters.repair;
 
-import it.academy.dto.req.repair.RepairCategoryDTOReq;
+import it.academy.dto.req.repair.RepairCategoryDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import lombok.experimental.UtilityClass;
 
@@ -10,29 +10,29 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class RepairCategoryConverter {
 
-    public static RepairCategoryDTOReq convertToDTOReq(RepairCategory category) {
-        return RepairCategoryDTOReq.builder()
+    public static RepairCategoryDTO convertToDTO(RepairCategory category) {
+        return RepairCategoryDTO.builder()
                 .id(category.getId())
                 .name(category.getName())
                 .build();
     }
 
-    public static RepairCategory convertDTOReqToEntity(RepairCategoryDTOReq req) {
+    public static RepairCategory convertDTOToEntity(RepairCategoryDTO req) {
         return RepairCategory.builder()
                 .id(req.getId())
                 .name(req.getName())
                 .build();
     }
 
-    public static List<RepairCategoryDTOReq> convertListToDTOReq(List<RepairCategory> repairCategories) {
+    public static List<RepairCategoryDTO> convertListToDTO(List<RepairCategory> repairCategories) {
         return repairCategories.stream()
-                .map(RepairCategoryConverter::convertToDTOReq)
+                .map(RepairCategoryConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<RepairCategory> convertDTOReqListToEntityList(List<RepairCategoryDTOReq> repairCategories) {
+    public static List<RepairCategory> convertDTOListToEntityList(List<RepairCategoryDTO> repairCategories) {
         return repairCategories.stream()
-                .map(RepairCategoryConverter::convertDTOReqToEntity)
+                .map(RepairCategoryConverter::convertDTOToEntity)
                 .collect(Collectors.toList());
     }
 

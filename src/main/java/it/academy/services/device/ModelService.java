@@ -1,20 +1,24 @@
 package it.academy.services.device;
 
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.device.ModelDTOReq;
+import it.academy.dto.req.device.ModelDTO;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 
+import java.util.List;
+
 public interface ModelService {
 
-    RespDTO<ModelDTOReq> addModel(ModelDTOReq req);
+    RespDTO<ModelDTO> addModel(ModelDTO req);
 
-    RespDTO<ModelDTOReq> changeModel(ModelDTOReq req);
+    RespDTO<ModelDTO> changeModel(ModelDTO req);
 
-    RespListDTO<ModelDTOReq> findModels();
+    RespListDTO<ModelDTO> findModels();
 
-    RespListDTO<ModelDTOReq> findModels(int pageNumber, int listSize);
+    List<ModelDTO> findModelsByBrandId(long brandId);
 
-    RespListDTO<ModelDTOReq> findModels(ParametersForSearchDTO parameters);
+    RespListDTO<ModelDTO> findModels(int pageNumber, int listSize);
+
+    RespListDTO<ModelDTO> findModels(ParametersForSearchDTO parameters);
 
 }

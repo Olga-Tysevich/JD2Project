@@ -1,13 +1,23 @@
 package it.academy.services.repair;
 
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.repair.RepairCategoryDTOReq;
-import it.academy.dto.req.repair.RepairDTOReq;
+import it.academy.dto.repair_page_N.RepairPageDataDTO;
+import it.academy.dto.req.repair.CreateRepairDTO;
+import it.academy.dto.req.repair.RepairCategoryDTO;
+import it.academy.dto.req.repair.RepairDTO;
 import it.academy.dto.req.repair.RepairTypeDTOReq;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 
+import java.util.List;
+
 public interface RepairService {
+
+    RepairPageDataDTO getDataForPage(long currentBrand);
+
+    RepairDTO addRepair(CreateRepairDTO req);
+
+
 
     RespDTO<RepairTypeDTOReq> addRepairType(RepairTypeDTOReq req);
 
@@ -19,24 +29,22 @@ public interface RepairService {
 
     RespListDTO<RepairTypeDTOReq> findRepairTypes(ParametersForSearchDTO parameters);
 
-    RespDTO<RepairCategoryDTOReq> addRepairCategory(RepairCategoryDTOReq req);
+    RespDTO<RepairCategoryDTO> addRepairCategory(RepairCategoryDTO req);
 
-    RespDTO<RepairCategoryDTOReq> changeRepairCategory(RepairCategoryDTOReq req);
+    RespDTO<RepairCategoryDTO> changeRepairCategory(RepairCategoryDTO req);
 
-    RespListDTO<RepairCategoryDTOReq> findRepairCategories();
+    List<RepairCategoryDTO> findRepairCategories();
 
-    RespListDTO<RepairCategoryDTOReq> findRepairCategories(int pageNumber, int listSize);
+    RespListDTO<RepairCategoryDTO> findRepairCategories(int pageNumber, int listSize);
 
-    RespListDTO<RepairCategoryDTOReq> findRepairCategories(ParametersForSearchDTO parameters);
+    RespListDTO<RepairCategoryDTO> findRepairCategories(ParametersForSearchDTO parameters);
 
-    RespDTO<RepairDTOReq> addRepair(RepairDTOReq req);
+    RespDTO<RepairDTO> changeRepair(RepairDTO req);
 
-    RespDTO<RepairDTOReq> changeRepair(RepairDTOReq req);
+    RespListDTO<RepairDTO> findRepairs();
 
-    RespListDTO<RepairDTOReq> findRepairs();
+    RespListDTO<RepairDTO> findRepairs(int pageNumber, int listSize);
 
-    RespListDTO<RepairDTOReq> findRepairs(int pageNumber, int listSize);
-
-    RespListDTO<RepairDTOReq> findRepairs(ParametersForSearchDTO parameters);
+    RespListDTO<RepairDTO> findRepairs(ParametersForSearchDTO parameters);
 
 }

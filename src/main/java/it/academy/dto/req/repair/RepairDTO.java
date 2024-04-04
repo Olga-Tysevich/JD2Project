@@ -1,10 +1,8 @@
 package it.academy.dto.req.repair;
 
-import it.academy.dto.req.account.AccountDTOReq;
-import it.academy.dto.req.device.BrandDTOReq;
-import it.academy.dto.req.device.DeviceDTOReq;
-import it.academy.dto.req.device.ModelDTOReq;
+import it.academy.dto.req.device.DeviceDTO;
 import it.academy.entities.repair.components.RepairStatus;
+import it.academy.utils.MessageManager;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,7 +10,7 @@ import java.sql.Date;
 
 @Data
 @Builder
-public class RepairDTOReq {
+public class RepairDTO {
 
     private Long id;
 
@@ -24,11 +22,13 @@ public class RepairDTOReq {
 
     private String serviceRepairNumber;
 
-    private RepairStatus status;
+    @Builder.Default
+    private RepairStatus status = RepairStatus.REQUEST;
 
-    private String statusDescription;
+    @Builder.Default
+    private String statusDescription = MessageManager.getMessage(RepairStatus.REQUEST.name().toLowerCase());
 
-    private RepairCategoryDTOReq category;
+    private RepairCategoryDTO category;
 
     private RepairTypeDTOReq type;
 
@@ -44,7 +44,7 @@ public class RepairDTOReq {
 
     private Date deliveryDate;
 
-    private DeviceDTOReq device;
+    private DeviceDTO device;
 
     private boolean isDeleted;
 

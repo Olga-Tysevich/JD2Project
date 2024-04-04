@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.device.BrandDTOReq;
+import it.academy.dto.req.device.BrandDTO;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.device.components.Brand;
@@ -25,11 +25,25 @@ public class BrandServiceImpl implements BrandService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private BrandDAO brandDAO = new BrandDAOImpl();
 
+
+
     @Override
-    public RespDTO<BrandDTOReq> addBrand(BrandDTOReq req) {
-        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertDTOReqToEntity(req));
+    public List<BrandDTO> findBrands() {
+        List<Brand> result = transactionManger.execute(brandDAO::findAll);
+
+        List<BrandDTO> resp = BrandConverter.convertListToDTO(result);
+        transactionManger.closeManager();
+        return resp;
+    }
+
+
+
+
+    @Override
+    public RespDTO<BrandDTO> addBrand(BrandDTO req) {
+        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertDTOToEntity(req));
         Supplier<Brand> save = () -> brandDAO.create(brand);
-        RespDTO<BrandDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> BrandConverter.convertToDTOReq(transactionManger.execute(save)));
+        RespDTO<BrandDTO> resp = ExceptionManager.getObjectSaveResult(() -> BrandConverter.convertToDTO(transactionManger.execute(save)));
 
         if (brand != null) {
             resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, brand.getName()));
@@ -40,10 +54,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public RespDTO<BrandDTOReq> changeBrand(BrandDTOReq req) {
-        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertDTOReqToEntity(req));
+    public RespDTO<BrandDTO> changeBrand(BrandDTO req) {
+        Brand brand = ExceptionManager.tryExecute(() -> BrandConverter.convertDTOToEntity(req));
         Supplier<Brand> update = () -> brandDAO.update(brand);
-        RespDTO<BrandDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> BrandConverter.convertToDTOReq(transactionManger.execute(update)));
+        RespDTO<BrandDTO> resp = ExceptionManager.getObjectUpdateResult(() -> BrandConverter.convertToDTO(transactionManger.execute(update)));
 
         if (brand != null) {
             resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, brand.getName()));
@@ -54,30 +68,35 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public RespListDTO<BrandDTOReq> findBrands() {
-        List<Brand> result = transactionManger.execute(brandDAO::findAll);
+    public BrandDTO findBrand(long id) {
 
-        RespListDTO<BrandDTOReq> resp = ExceptionManager.getListSearchResult(() -> BrandConverter.convertListToDTOReq(result));
+        Brand brand = transactionManger.execute(() -> brandDAO.find(id));
+        BrandDTO brandDTO = null;
+
+        if (brand != null) {
+            brandDTO = BrandConverter.convertToDTO(brand);
+        }
         transactionManger.closeManager();
-        return resp;
+
+        return brandDTO;
     }
 
     @Override
-    public RespListDTO<BrandDTOReq> findBrands(int pageNumber, int listSize) {
+    public RespListDTO<BrandDTO> findBrands(int pageNumber, int listSize) {
         List<Brand> result = transactionManger.execute(() -> brandDAO.findForPage(pageNumber, listSize));
 
-        RespListDTO<BrandDTOReq> resp = ExceptionManager.getListSearchResult(() -> BrandConverter.convertListToDTOReq(result));
+        RespListDTO<BrandDTO> resp = ExceptionManager.getListSearchResult(() -> BrandConverter.convertListToDTO(result));
         transactionManger.closeManager();
         return resp;
     }
 
     @Override
-    public RespListDTO<BrandDTOReq> findBrands(ParametersForSearchDTO parameters) {
+    public RespListDTO<BrandDTO> findBrands(ParametersForSearchDTO parameters) {
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
         List<Brand> result = transactionManger.execute(() ->
                 brandDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        RespListDTO<BrandDTOReq> resp = ExceptionManager.getListSearchResult(() -> BrandConverter.convertListToDTOReq(result));
+        RespListDTO<BrandDTO> resp = ExceptionManager.getListSearchResult(() -> BrandConverter.convertListToDTO(result));
         transactionManger.closeManager();
         return resp;
     }

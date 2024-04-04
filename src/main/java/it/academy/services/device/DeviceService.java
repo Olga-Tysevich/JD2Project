@@ -17,14 +17,14 @@ public interface DeviceService {
 
     RespListDTO<DeviceTypeDTOReq> findDeviceType(ParametersForSearchDTO parameters);
 
-    RespDTO<DeviceDTOReq> addDevice(DeviceDTOReq req);
+    RespDTO<DeviceDTO> addDevice(DeviceDTO req);
 
-    RespDTO<DeviceDTOReq> changeDevice(DeviceDTOReq req);
+    RespDTO<DeviceDTO> changeDevice(DeviceDTO req);
 
-    RespListDTO<DeviceDTOReq> findDevices();
+    RespListDTO<DeviceDTO> findDevices();
 
-    RespListDTO<DeviceDTOReq> findDevices(int pageNumber, int listSize);
+    RespListDTO<DeviceDTO> findDevices(int pageNumber, int listSize);
 
-    RespListDTO<DeviceDTOReq> findDevices(ParametersForSearchDTO parameters);
+    RespListDTO<DeviceDTO> findDevices(ParametersForSearchDTO parameters);
 
 }

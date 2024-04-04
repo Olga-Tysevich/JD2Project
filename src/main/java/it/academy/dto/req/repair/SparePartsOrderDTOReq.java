@@ -12,7 +12,7 @@ public class SparePartsOrderDTOReq {
 
     private Long id;
 
-    private RepairDTOReq repair;
+    private RepairDTO repair;
 
     private Date orderDate;
 

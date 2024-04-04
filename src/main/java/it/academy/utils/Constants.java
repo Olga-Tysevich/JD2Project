@@ -69,12 +69,17 @@ public class Constants {
     public static final String TABLE_FOR_PAGE = "table";
     public static final String REPAIR_CATEGORIES = "repair categories";
     public static final String BRANDS = "brands";
+    public static final String BRAND = "brand";
     public static final String MODELS = "models";
     public static final String DEFECTS = "defects";
+
+    public static final String REPAIR_PAGE_DATA = "repair page data";
+    public static final long BRAND_DEFAULT_ID = 1L;
+    public static final String BRAND_ID = "brand_id";
 
     //open commands
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&page=%d";
-    public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d";
+    public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1";
 
 }

@@ -14,7 +14,7 @@ public class LiquidationCertificateConverter {
         return LiquidationCertificateDTOReq.builder()
                 .id(certificate.getId())
                 .number(certificate.getNumber())
-                .repair(RepairConverter.convertToDTOReq(certificate.getRepair()))
+                .repair(RepairConverter.convertToDTO(certificate.getRepair()))
                 .cause(LiquidationCauseConverter.convertToDTOReq(certificate.getCause()))
                 .build();
     }
@@ -23,7 +23,7 @@ public class LiquidationCertificateConverter {
         return LiquidationCertificate.builder()
                 .id(req.getId())
                 .number(req.getNumber())
-                .repair(RepairConverter.convertDTOReqToEntity(req.getRepair()))
+                .repair(RepairConverter.convertDTOToEntity(req.getRepair()))
                 .cause(LiquidationCauseConverter.convertDTOReqToEntity(req.getCause()))
                 .build();
     }

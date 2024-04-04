@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Data
 @Builder
-public class BrandDTOReq {
+public class BrandDTO {
 
     private Long id;
 

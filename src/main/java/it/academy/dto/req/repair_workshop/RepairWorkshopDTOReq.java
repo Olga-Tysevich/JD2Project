@@ -1,6 +1,6 @@
 package it.academy.dto.req.repair_workshop;
 
-import it.academy.dto.req.device.BrandDTOReq;
+import it.academy.dto.req.device.BrandDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -36,6 +36,6 @@ public class RepairWorkshopDTOReq {
 
     private String bankAddress;
 
-    private Set<BrandDTOReq> brands;
+    private Set<BrandDTO> brands;
 
 }

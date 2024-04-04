@@ -1,6 +1,6 @@
 package it.academy.utils.converters.repair_workshop;
 
-import it.academy.dto.req.device.BrandDTOReq;
+import it.academy.dto.req.device.BrandDTO;
 import it.academy.dto.req.repair_workshop.RepairWorkshopDTOReq;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.repair_workshop.RepairWorkshop;
@@ -30,7 +30,7 @@ public class RepairWorkshopConverter  {
                 .bankName(repairWorkshop.getBankAccount().getBankName())
                 .bankAddress(repairWorkshop.getBankAccount().getBankAddress())
                 .brands(repairWorkshop.getBrands().stream()
-                        .map(b -> BrandDTOReq.builder()
+                        .map(b -> BrandDTO.builder()
                         .name(b.getName())
                         .isActive(b.getIsActive())
                         .build())

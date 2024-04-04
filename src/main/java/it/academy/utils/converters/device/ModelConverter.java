@@ -1,6 +1,6 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.req.device.ModelDTOReq;
+import it.academy.dto.req.device.ModelDTO;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ModelConverter {
 
-    public static ModelDTOReq convertToDTOReq(Model model) {
-        return ModelDTOReq.builder()
+    public static ModelDTO convertToDTO(Model model) {
+        return ModelDTO.builder()
                 .id(model.getId())
                 .name(model.getName())
                 .brandId(model.getBrand().getId())
@@ -23,7 +23,7 @@ public class ModelConverter {
                 .build();
     }
 
-    public static Model convertDTOReqToEntity(ModelDTOReq req) {
+    public static Model convertDTOToEntity(ModelDTO req) {
         return Model.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -38,15 +38,15 @@ public class ModelConverter {
                 .build();
     }
 
-    public static List<ModelDTOReq> convertListToDTOReq(List<Model> models) {
+    public static List<ModelDTO> convertListToDTO(List<Model> models) {
         return models.stream()
-                .map(ModelConverter::convertToDTOReq)
+                .map(ModelConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<Model> convertDTOReqListToEntityList(List<ModelDTOReq> models) {
+    public static List<Model> convertDTOListToEntityList(List<ModelDTO> models) {
         return models.stream()
-                .map(ModelConverter::convertDTOReqToEntity)
+                .map(ModelConverter::convertDTOToEntity)
                 .collect(Collectors.toList());
     }
 

@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.device.ModelDTOReq;
+import it.academy.dto.req.device.ModelDTO;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.device.components.Model;
@@ -26,10 +26,10 @@ public class ModelServiceImpl implements ModelService {
     private ModelDAO modelDAO = new ModelDAOImpl();
 
     @Override
-    public RespDTO<ModelDTOReq> addModel(ModelDTOReq req) {
-        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertDTOReqToEntity(req));
+    public RespDTO<ModelDTO> addModel(ModelDTO req) {
+        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertDTOToEntity(req));
         Supplier<Model> save = () -> modelDAO.create(model);
-        RespDTO<ModelDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> ModelConverter.convertToDTOReq(transactionManger.execute(save)));
+        RespDTO<ModelDTO> resp = ExceptionManager.getObjectSaveResult(() -> ModelConverter.convertToDTO(transactionManger.execute(save)));
 
         if (model != null) {
             resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, model.getName()));
@@ -40,10 +40,10 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public RespDTO<ModelDTOReq> changeModel(ModelDTOReq req) {
-        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertDTOReqToEntity(req));
+    public RespDTO<ModelDTO> changeModel(ModelDTO req) {
+        Model model = ExceptionManager.tryExecute(() -> ModelConverter.convertDTOToEntity(req));
         Supplier<Model> update = () -> modelDAO.update(model);
-        RespDTO<ModelDTOReq> resp = ExceptionManager.getObjectUpdateResult(() -> ModelConverter.convertToDTOReq(transactionManger.execute(update)));
+        RespDTO<ModelDTO> resp = ExceptionManager.getObjectUpdateResult(() -> ModelConverter.convertToDTO(transactionManger.execute(update)));
 
         if (model != null) {
             resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, model.getName()));
@@ -54,30 +54,38 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public RespListDTO<ModelDTOReq> findModels() {
+    public RespListDTO<ModelDTO> findModels() {
         List<Model> result = transactionManger.execute(() -> modelDAO.findAll());
 
-        RespListDTO<ModelDTOReq> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        RespListDTO<ModelDTO> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTO(result));
         transactionManger.closeManager();
         return resp;
     }
 
     @Override
-    public RespListDTO<ModelDTOReq> findModels(int pageNumber, int listSize) {
+    public List<ModelDTO> findModelsByBrandId(long brandId) {
+        List<Model> models = transactionManger.execute(() -> modelDAO.findAllByBrandId(brandId));
+        List<ModelDTO> resp = ModelConverter.convertListToDTO(models);
+        transactionManger.closeManager();
+        return resp;
+    }
+
+    @Override
+    public RespListDTO<ModelDTO> findModels(int pageNumber, int listSize) {
         List<Model> result = transactionManger.execute(() -> modelDAO.findForPage(pageNumber, listSize));
 
-        RespListDTO<ModelDTOReq> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        RespListDTO<ModelDTO> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTO(result));
         transactionManger.closeManager();
         return resp;
     }
 
     @Override
-    public RespListDTO<ModelDTOReq> findModels(ParametersForSearchDTO parameters) {
+    public RespListDTO<ModelDTO> findModels(ParametersForSearchDTO parameters) {
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
         List<Model> result = transactionManger.execute(() ->
                 modelDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        RespListDTO<ModelDTOReq> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTOReq(result));
+        RespListDTO<ModelDTO> resp = ExceptionManager.getListSearchResult(() -> ModelConverter.convertListToDTO(result));
         transactionManger.closeManager();
         return resp;
     }

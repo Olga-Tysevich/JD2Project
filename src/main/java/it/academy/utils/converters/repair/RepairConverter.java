@@ -1,13 +1,11 @@
 package it.academy.utils.converters.repair;
 
-import it.academy.dto.req.repair.RepairDTOReq;
+import it.academy.dto.req.repair.RepairDTO;
 import it.academy.entities.device.components.Defect;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.utils.MessageManager;
-import it.academy.utils.converters.device.DefectConverter;
 import it.academy.utils.converters.device.DeviceConverter;
-import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -16,8 +14,8 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class RepairConverter {
 
-    public static RepairDTOReq convertToDTOReq(Repair repair) {
-        return RepairDTOReq.builder()
+    public static RepairDTO convertToDTO(Repair repair) {
+        return RepairDTO.builder()
                 .id(repair.getId())
                 .number(repair.getNumber())
                 .repairWorkshopId(repair.getRepairWorkshop().getId())
@@ -26,7 +24,7 @@ public class RepairConverter {
                 .status(repair.getStatus())
                 .statusDescription(MessageManager.getMessage(repair.getStatus().name().toLowerCase()))
                 .category(RepairCategoryConverter
-                        .convertToDTOReq(repair.getCategory()))
+                        .convertToDTO(repair.getCategory()))
                 .type(RepairTypeConverter
                         .convertToDTOReq(repair.getType()))
                 .startDate(repair.getStartDate())
@@ -41,7 +39,7 @@ public class RepairConverter {
                 .build();
     }
 
-    public static Repair convertDTOReqToEntity(RepairDTOReq req) {
+    public static Repair convertDTOToEntity(RepairDTO req) {
         return Repair.builder()
                 .id(req.getId())
                 .number(req.getNumber())
@@ -51,7 +49,7 @@ public class RepairConverter {
                 .serviceRepairNumber(req.getServiceRepairNumber())
                 .status(req.getStatus())
                 .category(RepairCategoryConverter
-                        .convertDTOReqToEntity(req.getCategory()))
+                        .convertDTOToEntity(req.getCategory()))
                 .type(RepairTypeConverter
                         .convertDTOReqToEntity(req.getType()))
                 .endDate(req.getEndDate())
@@ -67,15 +65,15 @@ public class RepairConverter {
                 .build();
     }
 
-    public static List<RepairDTOReq> convertListToDTOReq(List<Repair> repairs) {
+    public static List<RepairDTO> convertListToDTO(List<Repair> repairs) {
         return repairs.stream()
-                .map(RepairConverter::convertToDTOReq)
+                .map(RepairConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<Repair> convertDTOReqListToEntityList(List<RepairDTOReq> repairs) {
+    public static List<Repair> convertDTOListToEntityList(List<RepairDTO> repairs) {
         return repairs.stream()
-                .map(RepairConverter::convertDTOReqToEntity)
+                .map(RepairConverter::convertDTOToEntity)
                 .collect(Collectors.toList());
     }
 

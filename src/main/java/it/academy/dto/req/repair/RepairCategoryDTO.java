@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RepairCategoryDTOReq {
+public class RepairCategoryDTO {
 
     private Long id;
 

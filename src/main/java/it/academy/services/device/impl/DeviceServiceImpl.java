@@ -7,7 +7,6 @@ import it.academy.dto.req.device.*;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.entities.device.Device;
-import it.academy.entities.device.components.Defect;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.services.device.DeviceService;
 import it.academy.utils.MessageManager;
@@ -87,10 +86,10 @@ public class DeviceServiceImpl implements DeviceService {
 
 
     @Override
-    public RespDTO<DeviceDTOReq> addDevice(DeviceDTOReq req) {
+    public RespDTO<DeviceDTO> addDevice(DeviceDTO req) {
         Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertDTOReqToEntity(req));
         Supplier<Device> save = () -> deviceDAO.create(device);
-        RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
+        RespDTO<DeviceDTO> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
 
         if (device != null) {
             resp.setMessage(MessageManager.getFormattedMessage(SAVED_SUCCESSFULLY, device));
@@ -101,10 +100,10 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public RespDTO<DeviceDTOReq> changeDevice(DeviceDTOReq req) {
+    public RespDTO<DeviceDTO> changeDevice(DeviceDTO req) {
         Device device = ExceptionManager.tryExecute(() -> DeviceConverter.convertDTOReqToEntity(req));
         Supplier<Device> save = () -> deviceDAO.update(device);
-        RespDTO<DeviceDTOReq> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
+        RespDTO<DeviceDTO> resp = ExceptionManager.getObjectSaveResult(() -> DeviceConverter.convertToDTOReq(transactionManger.execute(save)));
 
         if (device != null) {
             resp.setMessage(MessageManager.getFormattedMessage(UPDATED_SUCCESSFULLY, device));
@@ -115,30 +114,30 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public RespListDTO<DeviceDTOReq> findDevices() {
+    public RespListDTO<DeviceDTO> findDevices() {
         List<Device> result = transactionManger.execute(() -> deviceDAO.findAll());
 
-        RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        RespListDTO<DeviceDTO> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
         transactionManger.closeManager();
         return resp;
     }
 
     @Override
-    public RespListDTO<DeviceDTOReq> findDevices(int pageNumber, int listSize) {
+    public RespListDTO<DeviceDTO> findDevices(int pageNumber, int listSize) {
         List<Device> result = transactionManger.execute(() -> deviceDAO.findForPage(pageNumber, listSize));
 
-        RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        RespListDTO<DeviceDTO> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
         transactionManger.closeManager();
         return resp;
     }
 
     @Override
-    public RespListDTO<DeviceDTOReq> findDevices(ParametersForSearchDTO parameters) {
+    public RespListDTO<DeviceDTO> findDevices(ParametersForSearchDTO parameters) {
         List<ParameterContainer<?>> parametersList = ParameterManager.getQueryParameters(parameters.getFilters(), parameters.getUserInput());
         List<Device> result = transactionManger.execute(() ->
                 deviceDAO.findForPageByAnyMatch(parameters.getPageNumber(), parameters.getListSize(), parametersList));
 
-        RespListDTO<DeviceDTOReq> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
+        RespListDTO<DeviceDTO> resp = ExceptionManager.getListSearchResult(() -> DeviceConverter.convertListToDTOReq(result));
         transactionManger.closeManager();
         return resp;
     }

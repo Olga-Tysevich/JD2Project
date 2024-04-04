@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ModelDTOReq {
+public class ModelDTO {
 
     private Long id;
 

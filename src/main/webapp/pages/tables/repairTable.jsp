@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.req.repair.RepairDTOReq" %>
+<%@ page import="it.academy.dto.req.repair.RepairDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <section>
@@ -9,7 +9,7 @@
         <%
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
-            List<RepairDTOReq> list = (List<RepairDTOReq>) request.getAttribute(TABLE_FOR_PAGE);
+            List<RepairDTO> list = (List<RepairDTO>) request.getAttribute(TABLE_FOR_PAGE);
 
         %>
 
@@ -26,7 +26,7 @@
                     <th class="menu">Управление</th>
                 </tr>
 
-            <% for (RepairDTOReq repair : list) { %>
+            <% for (RepairDTO repair : list) { %>
 
                 <tr>
                     <td><%=repair.getNumber()%></td>

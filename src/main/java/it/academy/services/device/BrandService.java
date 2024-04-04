@@ -1,20 +1,24 @@
 package it.academy.services.device;
 
 import it.academy.dto.common.ParametersForSearchDTO;
-import it.academy.dto.req.device.BrandDTOReq;
+import it.academy.dto.req.device.BrandDTO;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 
+import java.util.List;
+
 public interface BrandService {
 
-    RespDTO<BrandDTOReq> addBrand(BrandDTOReq req);
+    RespDTO<BrandDTO> addBrand(BrandDTO req);
 
-    RespDTO<BrandDTOReq> changeBrand(BrandDTOReq req);
+    RespDTO<BrandDTO> changeBrand(BrandDTO req);
 
-    RespListDTO<BrandDTOReq> findBrands();
+    BrandDTO findBrand(long id);
 
-    RespListDTO<BrandDTOReq> findBrands(int pageNumber, int listSize);
+    List<BrandDTO> findBrands();
 
-    RespListDTO<BrandDTOReq> findBrands(ParametersForSearchDTO parameters);
+    RespListDTO<BrandDTO> findBrands(int pageNumber, int listSize);
+
+    RespListDTO<BrandDTO> findBrands(ParametersForSearchDTO parameters);
 
 }

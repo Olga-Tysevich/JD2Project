@@ -17,7 +17,7 @@ public class SparePartsOrderConverter {
     public static SparePartsOrderDTOReq convertToDTOReq(SparePartsOrder partsOrder) {
         return SparePartsOrderDTOReq.builder()
                 .id(partsOrder.getId())
-                .repair(RepairConverter.convertToDTOReq(partsOrder.getRepair()))
+                .repair(RepairConverter.convertToDTO(partsOrder.getRepair()))
                 .orderDate(partsOrder.getOrderDate())
                 .departureDate(partsOrder.getDepartureDate())
                 .deliveryDate(partsOrder.getDeliveryDate())
@@ -33,7 +33,7 @@ public class SparePartsOrderConverter {
     public static SparePartsOrder convertDTOReqToEntity(SparePartsOrderDTOReq req) {
         return SparePartsOrder.builder()
                 .id(req.getId())
-                .repair(RepairConverter.convertDTOReqToEntity(req.getRepair()))
+                .repair(RepairConverter.convertDTOToEntity(req.getRepair()))
                 .departureDate(req.getDepartureDate())
                 .deliveryDate(req.getDeliveryDate())
                 .spareParts(req.getSpareParts().entrySet().stream()

@@ -2,7 +2,7 @@ package it.academy.servlets.commands;
 
 import it.academy.dto.req.account.AccountDTO;
 import it.academy.dto.req.account.AccountDTOReq;
-import it.academy.dto.req.repair.RepairDTOReq;
+import it.academy.dto.req.repair.RepairDTO;
 import it.academy.dto.resp.RespDTO;
 import it.academy.dto.resp.RespListDTO;
 import it.academy.services.admin.AdminService;
@@ -35,7 +35,7 @@ public class ShowRepairTable implements ActionCommand {
 
         int pageNumber = req.getParameter(PAGE_NUMBER) != null? Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
 
-        RespListDTO<RepairDTOReq> repairResp = repairService.findRepairs(pageNumber, LIST_SIZE);
+        RespListDTO<RepairDTO> repairResp = repairService.findRepairs(pageNumber, LIST_SIZE);
 
 
         resp.setStatus(repairResp.getHttpStatus());

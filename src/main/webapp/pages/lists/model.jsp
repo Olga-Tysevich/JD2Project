@@ -2,9 +2,9 @@
 <%@ page import="static it.academy.utils.Constants.FIRST_PAGE" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.req.repair.RepairCategoryDTOReq" %>
-<%@ page import="it.academy.dto.req.device.BrandDTOReq" %>
-<%@ page import="it.academy.dto.req.device.ModelDTOReq" %>
+<%@ page import="it.academy.dto.req.repair.RepairCategoryDTO" %>
+<%@ page import="it.academy.dto.req.device.BrandDTO" %>
+<%@ page import="it.academy.dto.req.device.ModelDTO" %>
 <%@ page import="it.academy.dto.req.device.DefectDTOReq" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
@@ -20,9 +20,9 @@
         <%
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
-            List<RepairCategoryDTOReq> categories = (List<RepairCategoryDTOReq>) request.getAttribute(REPAIR_CATEGORIES);
-            List<BrandDTOReq> brands = (List<BrandDTOReq>) request.getAttribute(BRANDS);
-            List<ModelDTOReq> models = (List<ModelDTOReq>) request.getAttribute(MODELS);
+            List<RepairCategoryDTO> categories = (List<RepairCategoryDTO>) request.getAttribute(REPAIR_CATEGORIES);
+            List<BrandDTO> brands = (List<BrandDTO>) request.getAttribute(BRANDS);
+            List<ModelDTO> models = (List<ModelDTO>) request.getAttribute(MODELS);
 //            List<DefectDTOReq> defects = (List<DefectDTOReq>) request.getAttribute(DEFECTS);
 
         %>
@@ -41,7 +41,7 @@
                     <div class="f-input">
                         <label class="form-el">Брэнд:</label>
                         <select class="f-form " name="brand" size="0">
-                            <%for (BrandDTOReq brand : brands) { %>
+                            <%for (BrandDTO brand : brands) { %>
                             <option selected value="<%=brand.getId()%>"><%=brand.getName()%></option>
                             <% } %>
                         </select>
@@ -50,7 +50,7 @@
                     <div class="f-input">
                         <label class="form-el">Модель:</label>
                         <select class="f-form " name="model" size="0" form="findModels">
-                            <%for (ModelDTOReq model : models) { %>
+                            <%for (ModelDTO model : models) { %>
                             <option selected value="<%=model.getId()%>"><%=model.getName()%></option>
                             <% } %>
                         </select>
