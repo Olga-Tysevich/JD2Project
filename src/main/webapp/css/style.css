@@ -30,7 +30,12 @@ section {
 .radio-container{
     text-align: center;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+}
+
+.status-form{
+    width: 100%;
 }
 
 .choose-button{
@@ -94,7 +99,12 @@ td, th {
 }
 
 .number {
-    width: 5%;
+    width: 25%;
+}
+
+.date, .defect {
+    width: 15%;
+    text-align: center;
 }
 
 .button-container {
@@ -103,6 +113,13 @@ td, th {
     justify-content: space-between;
     width: 60%;
     margin: auto auto auto auto;
+}
+
+.button-table-container{
+    text-align: center;
+}
+.btn-table{
+    margin: 0 10px 10px 10px;
 }
 
 .button, .filter {
@@ -232,4 +249,5 @@ fieldset.f1 {
 
 .table-container {
     overflow: hidden;
+    min-width: 1525px;
 }

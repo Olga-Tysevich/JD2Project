@@ -29,16 +29,19 @@ public class Test2 {
 //        ModelService modelService = new ModelServiceImpl();
 //        List<ModelDTO> models = modelService.findModelsByBrandId(1L);
 //        ModelDTO model = modelService.findModel(2L);
+
+
         RepairService repairService = new RepairServiceImpl();
         RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
         RepairDAO repairDAO = new RepairDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
-        ListForPage<RepairDTO> r = repairService.findRepairs(1);
+//        ListForPage<RepairDTO> r = repairService.findRepairs(1);
+        ListForPage<RepairDTO> r2 = repairService.findRepairsByStatus(RepairStatus.REQUEST, 1);
 
         System.out.println();
 
-//        for (int i = 0; i < 30; i++) {
+//        for (int i = 0; i < 100; i++) {
 //            long modelId = 1L;
 //            ModelDTO modelDTO = repairService.findModel(modelId);
 //            Date dateOfSale = Date.valueOf("2022-11-01");
@@ -59,7 +62,7 @@ public class Test2 {
 //            RepairDTO repairDTO = RepairDTO.builder()
 //                    .device(deviceDTO)
 //                    .category(RepairCategory.WARRANTY)
-//                    .status(RepairStatus.REQUEST)
+//                    .status(RepairStatus.values()[RANDOM.nextInt(RepairStatus.values().length)])
 //                    .defectDescription(DEFECT_DESCRIPTION + i)
 //                    .repairWorkshopRepairNumber(REPAIR_WORKSHOP_REPAIR_NUMBER + i)
 //                    .isDeleted(false)
@@ -67,9 +70,9 @@ public class Test2 {
 //
 //            repairService.addRepair(repairDTO);
 //        }
-
-
-        System.out.println();
+//
+//
+//        System.out.println();
     }
 
 }

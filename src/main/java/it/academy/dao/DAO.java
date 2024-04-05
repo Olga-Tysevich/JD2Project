@@ -4,6 +4,7 @@ import it.academy.utils.dao.ParameterContainer;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 public interface DAO<T, R> {
 

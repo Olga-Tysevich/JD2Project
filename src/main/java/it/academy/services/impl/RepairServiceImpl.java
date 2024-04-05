@@ -28,7 +28,10 @@ import it.academy.utils.converters.repair.RepairConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Supplier;
+
 import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.SERIAL_NUMBER;
 
@@ -90,29 +93,34 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public ListForPage<RepairDTO> findRepairs(int pageNumber) {
-        List<Repair> repairs = transactionManger.execute(() -> repairDAO.findForPage(pageNumber, LIST_SIZE));
+        ListForPage<RepairDTO> result;
 
-        List<RepairDTO> list = RepairConverter.convertListToDTO(repairs);
-        int maxPageNumber = calculateMaxPageNumber();
+        Supplier<ListForPage<RepairDTO>> find = () -> {
+            List<Repair> repairs = repairDAO.findForPage(pageNumber, LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) repairDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            List<RepairDTO> list = RepairConverter.convertListToDTO(repairs);
+            return Builder.buildListForPage(list, pageNumber, maxPageNumber, new ArrayList<>());
+        };
 
+        result = transactionManger.execute(find);
         transactionManger.closeManager();
-        return Builder.buildListForPage(list, pageNumber, maxPageNumber, new ArrayList<>());
+        return result;
     }
 
     @Override
     public ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
-        List<Repair> repairs = transactionManger.execute(() -> repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE));
+        ListForPage<RepairDTO> result;
 
-        List<RepairDTO> list = RepairConverter.convertListToDTO(repairs);
-        int maxPageNumber = calculateMaxPageNumber();
+        Supplier<ListForPage<RepairDTO>> find = () -> {
+            List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) repairDAO.getNumberOfEntriesByStatus(status).intValue()) / LIST_SIZE);
+            List<RepairDTO> list = RepairConverter.convertListToDTO(repairs);
+            return Builder.buildListForPage(list, pageNumber, maxPageNumber, new ArrayList<>());
+        };
 
+        result = transactionManger.execute(find);
         transactionManger.closeManager();
-        return Builder.buildListForPage(list, pageNumber, maxPageNumber, new ArrayList<>());
-    }
-
-    private int calculateMaxPageNumber() {
-        return (int) Math.ceil(((double) transactionManger.execute(() ->
-                repairDAO.getNumberOfEntries().intValue()) / LIST_SIZE));
+        return result;
     }
 
 }
