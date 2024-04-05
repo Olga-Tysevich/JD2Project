@@ -1,4 +1,4 @@
-package it.academy.dto;
+package it.academy.dto.device;
 
 import lombok.Builder;
 import lombok.Data;

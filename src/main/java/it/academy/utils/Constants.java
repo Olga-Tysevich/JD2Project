@@ -23,6 +23,22 @@ public class Constants {
 
     //parameters
     public static final String OBJECT_ID = "id";
+    //repair workshop
+    public static final String REPAIR_WORKSHOP_NAME = "serviceName";
+    //repair
+    public static final String REPAIR_WORKSHOP = "RepairWorkshop";
+    public static final String REPAIR_WORKSHOP_REPAIR_NUMBER = "repairWorkshopRepairNumber";
+    public static final String REPAIR_CATEGORY = "category";
+    public static final String DEFECT_DESCRIPTION = "defectDescription";
+    //model
+    public static final String MODEL_ID = "model_id";
+    public static final String SERIAL_NUMBER = "serialNumber";
+    public static final String DATE_OF_SALE = "dateOfSale";
+    public static final String SALESMAN_NAME = "salesmanName";
+    public static final String SALESMAN_PHONE = "salesmanPhone";
+    public static final String BUYER_NAME = "buyerName";
+    public static final String BUYER_SURNAME = "buyerSurname";
+    public static final String BUYER_PHONE = "buyerPhone";
 
     //Permission parameters
     public static final String PERMISSION_TYPE = "type";

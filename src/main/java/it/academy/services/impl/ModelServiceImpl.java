@@ -1,11 +1,11 @@
 package it.academy.services.impl;
 
-import it.academy.dao.ModelDAO;
-import it.academy.dao.impl.ModelDAOImpl;
-import it.academy.dto.ModelDTO;
+import it.academy.dao.device.ModelDAO;
+import it.academy.dao.device.impl.ModelDAOImpl;
+import it.academy.dto.device.ModelDTO;
 import it.academy.entities.device.components.Model;
 import it.academy.services.ModelService;
-import it.academy.utils.converters.ModelConverter;
+import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.List;

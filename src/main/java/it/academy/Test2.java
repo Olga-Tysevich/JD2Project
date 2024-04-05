@@ -1,13 +1,8 @@
 package it.academy;
 
-import it.academy.dto.BrandDTO;
-import it.academy.dto.ModelDTO;
-import it.academy.services.BrandService;
+import it.academy.dto.device.ModelDTO;
 import it.academy.services.ModelService;
-import it.academy.services.impl.BrandServiceImpl;
 import it.academy.services.impl.ModelServiceImpl;
-
-import java.util.List;
 
 public class Test2 {
 

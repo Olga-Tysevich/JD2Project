@@ -1,6 +1,6 @@
-package it.academy.utils.converters;
+package it.academy.utils.converters.device;
 
-import it.academy.dto.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.entities.device.components.Brand;
 import lombok.experimental.UtilityClass;
 

@@ -1,6 +1,7 @@
-package it.academy.dao.impl;
+package it.academy.dao.device.impl;
 
-import it.academy.dao.DeviceTypeDAO;
+import it.academy.dao.device.DeviceTypeDAO;
+import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.device.components.DeviceType;
 
 public class DeviceTypeDAOImpl extends DAOImpl<DeviceType, Long> implements DeviceTypeDAO {

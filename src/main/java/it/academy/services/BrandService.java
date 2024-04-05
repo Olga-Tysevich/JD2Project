@@ -1,6 +1,6 @@
 package it.academy.services;
 
-import it.academy.dto.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 
 import java.util.List;
 

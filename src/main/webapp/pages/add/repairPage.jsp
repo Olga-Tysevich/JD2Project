@@ -1,8 +1,9 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.ModelDTO" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -23,6 +24,7 @@
 
             <div class="f-input-container">
                   <input type="hidden" name="command" value="add_repair">
+                  <input type="hidden" name="<%=MODEL_ID%>" value="<%=model.getId()%>">
 
                 <div class="f-input">
                     <p>Устройство: <%=String.format(DEVICE_DESCRIPTION_PATTERN, model.getDeviceTypeName(),
@@ -32,8 +34,8 @@
                     <div class="f-input">
                          <label class="form-el">Категория ремонта:</label>
 
-                            <select class="f-form " name="category" size="0">
-                                <option value=»» selected>Выберите вариант</option>
+                            <select class="f-form " name="<%=REPAIR_CATEGORY%>" size="0">
+                                <option value="" selected>Выберите вариант</option>
                                 <%for (RepairCategory category : categoryList) { %>
                                 <option value="<%=category.name()%>"><%=category.name()%></option>
                                 <% } %>
@@ -43,49 +45,51 @@
 
                     <div class="f-input">
                         <label class="form-el" for="sn">Серийный номер:</label>
-                        <input class="f-form" required type="text" name="sn" placeholder="Введите серийный номер" value="" id="sn">
+                        <input class="f-form" required type="text" name="<%=SERIAL_NUMBER%>" placeholder="Введите серийный номер" value="" id="sn">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="defectDescription">Причина обращения:</label>
-                        <input class="f-form" required type="text" name="defectDescription" placeholder="Введите дефект со слов клиента" value="" id="defectDescription">
+                        <input class="f-form" required type="text" name="<%=DEFECT_DESCRIPTION%>"
+                               placeholder="Введите дефект со слов клиента" value="" id="defectDescription">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="serviceNumber">Номер заказ-наряда:</label>
-                        <input class="f-form" required type="text" name="serviceNumber" placeholder="Введите номер ремонта АСЦ" value="" id="serviceNumber">
+                        <input class="f-form" required type="text" name="<%=REPAIR_WORKSHOP_REPAIR_NUMBER%>"
+                               placeholder="Введите номер ремонта АСЦ" value="" id="serviceNumber">
                     </div>
 
                     <div class="f-input">
                         <p>
                             <label for="saleDate">Дата продажи: </label>
-                            <input type="date" id="saleDate" name="saleDate"/>
+                            <input type="date" id="saleDate" name="<%=DATE_OF_SALE%>"/>
                         </p>
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="salesman">Продавец:</label>
-                        <input class="f-form" required type="text" name="salesman" placeholder="Введите название продавца" value="" id="salesman">
+                        <input class="f-form" required type="text" name="<%=SALESMAN_NAME%>" placeholder="Введите название продавца" value="" id="salesman">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="salesmanPhone">Телефон продавца:</label>
-                        <input class="f-form" required type="tel" name="salesmanPhone" placeholder="Введите телефон продавца" value="" id="salesmanPhone">
+                        <input class="f-form" required type="tel" name="<%=SALESMAN_PHONE%>" placeholder="Введите телефон продавца" value="" id="salesmanPhone">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="buyerName">Имя владельца:</label>
-                        <input class="f-form" required type="text" name="buyerName" placeholder="Введите имя покупателя" value="" id="buyerName">
+                        <input class="f-form" required type="text" name="<%=BUYER_NAME%>" placeholder="Введите имя покупателя" value="" id="buyerName">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="buyerSurname">Фамилия владельца:</label>
-                        <input class="f-form" required type="text" name="buyerSurname" placeholder="Введите фамилию покупателя" value="" id="buyerSurname">
+                        <input class="f-form" required type="text" name="<%=BUYER_SURNAME%>" placeholder="Введите фамилию покупателя" value="" id="buyerSurname">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="buyerPhone">Телефон владельца:</label>
-                        <input class="f-form" required type="tel" name="buyerPhone" placeholder="Введите телефон покупателя" value="" id="buyerPhone">
+                        <input class="f-form" required type="tel" name="<%=BUYER_PHONE%>" placeholder="Введите телефон покупателя" value="" id="buyerPhone">
                     </div>
 
                 </div>

@@ -1,6 +1,7 @@
-package it.academy.dao.impl;
+package it.academy.dao.device.impl;
 
-import it.academy.dao.ModelDAO;
+import it.academy.dao.device.ModelDAO;
+import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.device.components.Model;
 
 import javax.persistence.criteria.CriteriaQuery;

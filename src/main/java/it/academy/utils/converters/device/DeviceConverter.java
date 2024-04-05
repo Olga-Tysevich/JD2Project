@@ -1,6 +1,6 @@
-package it.academy.utils.converters;
+package it.academy.utils.converters.device;
 
-import it.academy.dto.DeviceDTO;
+import it.academy.dto.device.DeviceDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Buyer;
 import it.academy.entities.device.components.Model;

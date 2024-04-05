@@ -2,14 +2,14 @@
 //
 //import it.academy.dao.account.RoleDAO;
 //import it.academy.dao.account.impl.RoleDAOImpl;
-//import it.academy.dao.BrandDAO;
+//import it.academy.dao.device.BrandDAO;
 //import it.academy.dao.device.DefectDAO;
-//import it.academy.dao.DeviceDAO;
-//import it.academy.dao.DeviceTypeDAO;
-//import it.academy.dao.impl.BrandDAOImpl;
+//import it.academy.dao.device.DeviceDAO;
+//import it.academy.dao.device.DeviceTypeDAO;
+//import it.academy.dao.device.impl.BrandDAOImpl;
 //import it.academy.dao.device.impl.DefectDAOImpl;
-//import it.academy.dao.impl.DeviceDAOImpl;
-//import it.academy.dao.impl.DeviceTypeDAOImpl;
+//import it.academy.dao.device.impl.DeviceDAOImpl;
+//import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 //import it.academy.dao.repair.RepairCategoryDAO;
 //import it.academy.dao.repair.RepairTypeDAO;
 //import it.academy.dao.repair.impl.RepairCategoryImpl;

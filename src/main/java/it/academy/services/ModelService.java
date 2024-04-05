@@ -1,6 +1,6 @@
 package it.academy.services;
 
-import it.academy.dto.ModelDTO;
+import it.academy.dto.device.ModelDTO;
 
 import java.util.List;
 

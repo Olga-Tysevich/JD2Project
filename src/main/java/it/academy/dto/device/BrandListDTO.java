@@ -1,5 +1,6 @@
-package it.academy.dto;
+package it.academy.dto.device;
 
+import it.academy.dto.device.BrandDTO;
 import lombok.Builder;
 import lombok.Data;
 

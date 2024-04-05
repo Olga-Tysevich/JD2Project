@@ -1,7 +1,8 @@
-package it.academy.utils.converters;
+package it.academy.utils.converters.repair;
 
-import it.academy.dto.RepairDTO;
+import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.Repair;
+import it.academy.utils.converters.device.DeviceConverter;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;

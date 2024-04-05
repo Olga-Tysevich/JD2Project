@@ -1,6 +1,6 @@
-package it.academy.utils.converters;
+package it.academy.utils.converters.repair;
 
-import it.academy.dto.RepairTypeDTO;
+import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairType;
 import lombok.experimental.UtilityClass;
 
