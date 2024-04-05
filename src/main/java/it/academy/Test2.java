@@ -5,18 +5,11 @@ import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.services.DeviceService;
-import it.academy.services.ModelService;
 import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
-import it.academy.services.impl.DeviceServiceImpl;
-import it.academy.services.impl.ModelServiceImpl;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.services.impl.RepairWorkshopImpl;
-import it.academy.utils.dao.HibernateUtil;
 
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 
 import static it.academy.utils.Constants.*;
@@ -32,13 +25,11 @@ public class Test2 {
 //        ModelService modelService = new ModelServiceImpl();
 //        List<ModelDTO> models = modelService.findModelsByBrandId(1L);
 //        ModelDTO model = modelService.findModel(2L);
-         DeviceService deviceService = new DeviceServiceImpl();
-         ModelService modelService = new ModelServiceImpl();
          RepairService repairService = new RepairServiceImpl();
          RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
 
             long modelId = 1L;
-            ModelDTO modelDTO = modelService.findModel(modelId);
+            ModelDTO modelDTO = repairService.findModel(modelId);
             Date dateOfSale = Date.valueOf("2022-11-01");
 
             DeviceDTO deviceDTO = DeviceDTO.builder()
@@ -52,7 +43,7 @@ public class Test2 {
                     .buyerPhone(BUYER_PHONE)
                     .build();
 
-            deviceDTO = deviceService.addDevice(deviceDTO);
+            deviceDTO = repairService.addDevice(deviceDTO);
 
             RepairDTO repairDTO = RepairDTO.builder()
                     .device(deviceDTO)

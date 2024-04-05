@@ -3,15 +3,10 @@ package it.academy.servlets.extractors.impl;
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.services.DeviceService;
-import it.academy.services.ModelService;
 import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
-import it.academy.services.impl.DeviceServiceImpl;
-import it.academy.services.impl.ModelServiceImpl;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.services.impl.RepairWorkshopImpl;
 import it.academy.servlets.extractors.Extractor;
@@ -21,8 +16,6 @@ import java.sql.Date;
 import static it.academy.utils.Constants.*;
 
 public class RepairExtractor implements Extractor {
-    private DeviceService deviceService = new DeviceServiceImpl();
-    private ModelService modelService = new ModelServiceImpl();
     private RepairService repairService = new RepairServiceImpl();
     private RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
 
@@ -34,7 +27,7 @@ public class RepairExtractor implements Extractor {
 
 
         long modelId = Long.parseLong(req.getParameter(MODEL_ID));
-        ModelDTO modelDTO = modelService.findModel(modelId);
+        ModelDTO modelDTO = repairService.findModel(modelId);
         String serialNumber = req.getParameter(SERIAL_NUMBER);
         Date dateOfSale = Date.valueOf(req.getParameter(DATE_OF_SALE));
         String salesmanName = req.getParameter(SALESMAN_NAME);
@@ -54,7 +47,7 @@ public class RepairExtractor implements Extractor {
                 .buyerPhone(buyerPhone)
                 .build();
 
-        deviceDTO = deviceService.addDevice(deviceDTO);
+        deviceDTO = repairService.addDevice(deviceDTO);
 
         String repairWorkshopRepairNumber = req.getParameter(REPAIR_WORKSHOP_REPAIR_NUMBER);
         RepairCategory category = RepairCategory.valueOf(req.getParameter(REPAIR_CATEGORY));
