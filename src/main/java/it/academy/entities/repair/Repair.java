@@ -31,14 +31,21 @@ public class Repair implements Serializable {
     @JoinColumn(name = "service_center_id")
     private RepairWorkshop repairWorkshop;
 
-    @Column
-    private String repairWorkshopRepairNumber;
-
     @Enumerated(EnumType.STRING)
     private RepairStatus status;
 
     @Enumerated(EnumType.STRING)
     private RepairCategory category;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "device_id")
+    private Device device;
+
+    @Column(name = "defct_description")
+    private String defectDescription;
+
+    @Column
+    private String repairWorkshopRepairNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
@@ -51,15 +58,9 @@ public class Repair implements Serializable {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "defct_description")
-    private String defectDescription;
 
     @Column(name = "delivery_date")
     private Date deliveryDate;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "device_id")
-    private Device device;
 
     @Column(name = "deleted")
     private boolean isDeleted;

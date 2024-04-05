@@ -8,27 +8,31 @@ import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.repair.RepairDAO;
+import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
+import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
+import it.academy.entities.repair.components.RepairType;
 import it.academy.services.RepairService;
 import it.academy.utils.Builder;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.DeviceConverter;
 import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.converters.repair.RepairConverter;
+import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -38,6 +42,7 @@ import static it.academy.utils.Constants.SERIAL_NUMBER;
 public class RepairServiceImpl implements RepairService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private RepairDAO repairDAO = new RepairDAOImpl();
+    private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
     private BrandDAO brandDAO = new BrandDAOImpl();
     private DeviceDAO deviceDAO = new DeviceDAOImpl();
     private ModelDAO modelDAO = new ModelDAOImpl();
@@ -45,8 +50,17 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public void addRepair(RepairDTO repairDTO) {
         Repair repair = RepairConverter.convertDTOToEntity(repairDTO);
-
         transactionManger.execute(() -> repairDAO.create(repair));
+
+        transactionManger.closeManager();
+    }
+
+    @Override
+    public void changeRepair(RepairDTO repairDTO) {
+        Repair repair = RepairConverter.convertDTOToEntity(repairDTO);
+        transactionManger.execute(() -> repairDAO.update(repair));
+
+        transactionManger.closeManager();
     }
 
 
@@ -74,12 +88,30 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
+    public DeviceDTO findDevice(long id) {
+        Device device = transactionManger.execute(() -> deviceDAO.find(id));
+        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(device);
+
+        transactionManger.closeManager();
+        return deviceDTO;
+    }
+
+    @Override
     public ModelDTO findModel(long id) {
         Model model = transactionManger.execute(() -> modelDAO.find(id));
         ModelDTO modelDTO = ModelConverter.convertToDTO(model);
 
         transactionManger.closeManager();
         return modelDTO;
+    }
+
+    @Override
+    public RepairTypeDTO findRepairType(long id) {
+        RepairType type = transactionManger.execute(() -> repairTypeDAO.find(id));
+        RepairTypeDTO repairTypeDTO = RepairTypeConverter.convertToDTO(type);
+
+        transactionManger.closeManager();
+        return repairTypeDTO;
     }
 
     @Override

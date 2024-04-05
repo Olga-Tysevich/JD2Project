@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
+<%@ page import="it.academy.entities.repair.components.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -22,6 +22,18 @@
             <div class="f-input-container">
                   <input type="hidden" name="command" value="change_repair">
                   <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+<%--                  <input type="hidden" name="<%=REPAIR_WORKSHOP_ID%>" value="<%=repairDTO.getId()%>">--%>
+                  <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repairDTO.getStatus()%>">
+                  <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDevice().getId()%>">
+                  <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairDTO.getType().getId()%>">
+
+                    <div class="f-input">
+                        <p>
+                            <label for="isDeleted">Дата завершения: </label>
+                            <input type="checkbox" id="isDeleted" name="<%=IS_DELETED%>"  value="<%=repairDTO.isDeleted()%>"/>
+                        </p>
+                    </div>
+
 
                     <div class="f-input">
                         <label class="form-el" for="category">Категория ремонта:</label>
@@ -32,13 +44,14 @@
 
                     <div class="f-input">
                         <label class="form-el" for="brand">Бренд:</label>
+
                         <input class="f-form" required type="text" name="<%=BRAND_NAME%>"
                                value="<%=repairDTO.getDevice().getModel().getBrandName()%>" id="brand">
                     </div>
 
                     <div class="f-input">
                         <label class="form-el" for="model">Модель:</label>
-                        <input class="f-form" required type="text" name="<%=REPAIR_CATEGORY%>"
+                        <input class="f-form" required type="text" name="<%=REPAIR_MODEL_NAME%>"
                                value="<%=repairDTO.getDevice().getModel().getName()%>" id="model">
                     </div>
 
@@ -77,17 +90,32 @@
                         <div class="f-input">
                             <p>
                                 <label for="endDate">Дата завершения: </label>
-                                <input type="date" id="endDate" name="<%=START_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                                <input type="date" id="endDate" name="<%=END_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
                             </p>
                         </div>
 
                     <div class="f-input">
                         <p>
                             Выполненный ремонт:
-                            <label for="repairType">Код:</label>
-                            <input type="text" id="repairType" name="<%=REPAIR_TYPE%>"  value="<%=repairDTO.getType().%>"/>
+                            <label for="repairCode">Код:</label>
+                            <input type="text" id="repairCode" name="<%=REPAIR_TYPE_CODE%>"  value="<%=repairDTO.getType().getCode()%>"/>
+                            <label for="repairLevel">Уровень:</label>
+                            <input type="text" id="repairLevel" name="<%=REPAIR_TYPE_LEVEL%>"  value="<%=repairDTO.getType().getLevel()%>"/>
+                            <label for="repairName">Описание:</label>
+                            <input type="text" id="repairName" name="<%=REPAIR_TYPE_NAME%>"  value="<%=repairDTO.getType().getName()%>"/>
                         </p>
                     </div>
+
+                        <%if (RepairStatus.DELIVERED.equals(repairDTO.getStatus())) { %>
+
+                            <div class="f-input">
+                                <p>
+                                    <label for="deliveryDate">Дата завершения: </label>
+                                    <input type="date" id="deliveryDate" name="<%=DELIVERY_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                                </p>
+                            </div>
+                        <% } %>
+
                     <% } %>
 
                     <div class="f-input">

@@ -32,7 +32,10 @@ public class Constants {
     public static final String DEFECT_DESCRIPTION = "defectDescription";
     public static final String REPAIR_STATUS = "status";
     public static final String START_DATE = "startDate";
-    public static final String REPAIR_TYPE = "type";
+    public static final String END_DATE = "endDate";
+    public static final String DELIVERY_DATE = "deliveryDate";
+    public static final String REPAIR_TYPE_LEVEL = "level";
+    public static final String REPAIR_TYPE_CODE = "code";
     //repair statuses description
     public static final String REQUEST_DESCRIPTION = "Заявка";
     public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
@@ -58,6 +61,9 @@ public class Constants {
     //Device
     public static final String DATE_OF_SALE = "dateOfSale";
 
+    //Common parameters
+    public static final String IS_DELETED = "isDeleted";
+
     //Role parameters
     public static final String ROLE_NAME = "name";
 
@@ -77,6 +83,13 @@ public class Constants {
 
     //Repair parameters
     public static final String REPAIR_ID = "repair_id";
+    public static final String REPAIR_WORKSHOP_ID = "repair_workshop_id";
+    public static final String REPAIR_TYPE_ID = "type_id";
+    public static final String REPAIR_TYPE_NAME = "type_name";
+    public static final String REPAIR_MODEL_NAME = "model_name";
+
+    //Device parameters
+    public static final String DEVICE_ID = "device_id";
 
 
     //DAO
