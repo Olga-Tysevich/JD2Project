@@ -31,6 +31,8 @@ public class Constants {
     public static final String REPAIR_CATEGORY = "category";
     public static final String DEFECT_DESCRIPTION = "defectDescription";
     public static final String REPAIR_STATUS = "status";
+    public static final String START_DATE = "startDate";
+    public static final String REPAIR_TYPE = "type";
     //repair statuses description
     public static final String REQUEST_DESCRIPTION = "Заявка";
     public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
@@ -41,20 +43,20 @@ public class Constants {
     public static final String DELIVERED_DESCRIPTION = "Выдан";
     public static final String REJECTED_DESCRIPTION = "Отклонен";
     public static final String ALL_DESCRIPTION = "Все ремонты";
-
+    //repair categories description
+    public static final String WARRANTY_DESCRIPTION = "Гарантийный";
+    public static final String PRE_SALE_DESCRIPTION = "Предпродажный";
+    public static final String PAID_CATEGORY_DESCRIPTION = "Платный";
+    public static final String REPEATED_DESCRIPTION = "Повторный";
     //model
-    public static final String MODEL_ID = "model_id";
     public static final String SERIAL_NUMBER = "serialNumber";
-    public static final String DATE_OF_SALE = "dateOfSale";
     public static final String SALESMAN_NAME = "salesmanName";
     public static final String SALESMAN_PHONE = "salesmanPhone";
     public static final String BUYER_NAME = "buyerName";
     public static final String BUYER_SURNAME = "buyerSurname";
     public static final String BUYER_PHONE = "buyerPhone";
-
-    //Permission parameters
-    public static final String PERMISSION_TYPE = "type";
-    public static final String PERMISSION_CATEGORY = "category";
+    //Device
+    public static final String DATE_OF_SALE = "dateOfSale";
 
     //Role parameters
     public static final String ROLE_NAME = "name";
@@ -66,11 +68,15 @@ public class Constants {
     public static final String USER_SURNAME = "userSurname";
     public static final String IS_ACTIVE_ACCOUNT = "isActive";
 
-    //ServiceAccount parameters
-    public static final String SERVICE_CENTER = "serviceCenter";
+    //Model parameters
+    public static final String MODEL_ID = "model_id";
 
-    //Service center parameters
-    public static final String SERVICE_NAME = "serviceName";
+    //Brand parameters
+    public static final String BRAND_ID = "brand_id";
+    public static final String BRAND_NAME = "brand_name";
+
+    //Repair parameters
+    public static final String REPAIR_ID = "repair_id";
 
 
     //DAO
@@ -108,11 +114,11 @@ public class Constants {
     public static final String BRAND = "brand";
     public static final String MODELS = "models";
     public static final String MODEL = "model";
+    public static final String REPAIR = "repair";
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
 
     public static final String REPAIR_PAGE_DATA = "repair page data";
     public static final long DEFAULT_ID = 1L;
-    public static final String BRAND_ID = "brand_id";
 
     //open commands
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_request_repair_table&&" + REPAIR_STATUS + "=ALL&&page=%d";
