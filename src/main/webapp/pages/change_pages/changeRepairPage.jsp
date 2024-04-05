@@ -19,11 +19,12 @@
 
         %>
 
-        <form class="rc-form" action="repair" method="post" id="repair">
+        <form class="rc-form" action="main" method="post" id="repair">
 
             <div class="f-input-container">
                   <input type="hidden" name="command" value="change_repair">
                   <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+                <input class="f-form" required type="hidden" name="<%=MODEL_ID%>" value="<%=repairDTO.getDevice().getModel().getId()%>" />
 <%--                  <input type="hidden" name="<%=REPAIR_WORKSHOP_ID%>" value="<%=repairDTO.getId()%>">--%>
                   <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repairDTO.getStatus()%>">
                   <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDevice().getId()%>">
@@ -33,7 +34,7 @@
                     <div class="f-input">
                         <p>
                             <label for="isDeleted">Ремонт удален: </label>
-                            <input type="checkbox" id="isDeleted" name="<%=IS_DELETED%>"  value="<%=repairDTO.isDeleted()%>"/>
+                            <input type="radio" id="isDeleted" name="<%=IS_DELETED%>"  value="<%=repairDTO.isDeleted()%>"/>
                         </p>
                     </div>
 
@@ -66,7 +67,7 @@
                     <div class="f-input">
                         <label class="form-el" for="defectDescription">Причина обращения:</label>
                         <input class="f-form" required type="text" name="<%=DEFECT_DESCRIPTION%>"
-                               value="<%=repairDTO.getDefectDescription()%>" id="defectDescription" disabled>
+                               value="<%=repairDTO.getDefectDescription()%>" id="defectDescription">
                     </div>
 
                     <div class="f-input">

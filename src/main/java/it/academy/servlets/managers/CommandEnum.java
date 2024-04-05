@@ -2,6 +2,7 @@ package it.academy.servlets.managers;
 
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.add.AddRepair;
+import it.academy.servlets.commands.change.ChangeRepair;
 import it.academy.servlets.commands.forms.ShowConfirmedRepair;
 import it.academy.servlets.commands.forms.ShowRepair;
 import it.academy.servlets.commands.lists.ShowBrandList;
@@ -16,8 +17,9 @@ public enum CommandEnum {
     SHOW_MODEL_LIST(new ShowModelList()),
     SHOW_REPAIR(new ShowRepair()),
     ADD_REPAIR(new AddRepair()),
+    CHANGE_REPAIR(new ChangeRepair()),
     SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),
-    SHOW_REQUEST_REPAIR_TABLE(new ShowRepairTable());
+    SHOW_REPAIR_TABLE(new ShowRepairTable());
 
     private ActionCommand command;
 

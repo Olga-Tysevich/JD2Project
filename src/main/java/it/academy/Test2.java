@@ -38,8 +38,10 @@ public class Test2 {
 
 //        ListForPage<RepairDTO> r = repairService.findRepairs(1);
 //        ListForPage<RepairDTO> r2 = repairService.findRepairsByStatus(RepairStatus.REQUEST, 1);
-        RepairDTO r = repairService.findRepair(133);
-        System.out.println();
+//        RepairDTO r = repairService.findRepair(1);
+//        r.setDeleted(true);
+//        repairService.changeRepair(r);
+        System.out.println(Boolean.parseBoolean("true"));
 
 //        for (int i = 0; i < 100; i++) {
 //            long modelId = 1L;

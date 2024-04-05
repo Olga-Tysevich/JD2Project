@@ -60,6 +60,9 @@ public class RepairExtractor implements Extractor {
         RepairTypeDTO repairType = repairTypeId == null ? null : repairService.findRepairType(repairTypeId);
         Date endDate = req.getParameter(END_DATE) == null ? null : Date.valueOf(req.getParameter(END_DATE));
         Date deliveryDate = req.getParameter(DELIVERY_DATE) == null ? null : Date.valueOf(req.getParameter(DELIVERY_DATE));
+        boolean isDeleted = req.getParameter(IS_DELETED) != null;
+        System.out.println(req.getParameter(IS_DELETED));
+        System.out.println(isDeleted);
 
         Long repairId = req.getParameter(REPAIR_ID) == null ? null : Long.parseLong(req.getParameter(REPAIR_ID));
         RepairDTO repairDTO = RepairDTO.builder()
@@ -72,7 +75,7 @@ public class RepairExtractor implements Extractor {
                 .endDate(endDate)
                 .deliveryDate(deliveryDate)
                 .type(repairType)
-                .isDeleted(false)
+                .isDeleted(isDeleted)
                 .build();
 
         if (deviceId == null) {

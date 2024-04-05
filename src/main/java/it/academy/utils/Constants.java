@@ -135,7 +135,7 @@ public class Constants {
     public static final long DEFAULT_ID = 1L;
 
     //open commands
-    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_request_repair_table&&" + REPAIR_STATUS + "=ALL&&page=%d";
+    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&" + REPAIR_STATUS + "=ALL&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1";
 
 
