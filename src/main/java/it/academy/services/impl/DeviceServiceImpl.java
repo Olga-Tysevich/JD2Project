@@ -17,9 +17,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public DeviceDTO addDevice(DeviceDTO deviceDTO) {
         Device device = DeviceConverter.convertDTOToEntity(deviceDTO);
-        device.setSerialNumber(device.getSerialNumber().toLowerCase());
-        Device result = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, deviceDTO.getSerialNumber().toLowerCase());
-        if (result != null) {
+        device.setSerialNumber(device.getSerialNumber().toUpperCase());
+        Device result = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, device.getSerialNumber());
+        if (result == null) {
             result = transactionManger.execute(() -> deviceDAO.create(device));
         }
 

@@ -1,21 +1,28 @@
 package it.academy.utils.converters.repair;
 
 import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.Repair;
+import it.academy.entities.repair.components.RepairType;
 import it.academy.utils.converters.device.DeviceConverter;
 import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @UtilityClass
 public class RepairConverter {
 
     //TODO добавить срвисный центр
     public static RepairDTO convertToDTO(Repair repair) {
+        RepairTypeDTO type = repair.getType() == null ?
+                null : RepairTypeConverter.convertToDTO(repair.getType());
+
         return RepairDTO.builder()
                 .id(repair.getId())
                 .device(DeviceConverter.convertToDTO(repair.getDevice()))
-                .type(RepairTypeConverter.convertToDTO(repair.getType()))
+                .type(type)
                 .category(repair.getCategory())
                 .status(repair.getStatus())
                 .defectDescription(repair.getDefectDescription())
@@ -28,10 +35,13 @@ public class RepairConverter {
     }
 
     public static Repair convertDTOToEntity(RepairDTO repairDTO) {
+        RepairType type = repairDTO.getType() == null ?
+                null : RepairTypeConverter.convertDTOToEntity(repairDTO.getType());
+        
         return Repair.builder()
                 .id(repairDTO.getId())
                 .device(DeviceConverter.convertDTOToEntity(repairDTO.getDevice()))
-                .type(RepairTypeConverter.convertDTOToEntity(repairDTO.getType()))
+                .type(type)
                 .category(repairDTO.getCategory())
                 .status(repairDTO.getStatus())
                 .defectDescription(repairDTO.getDefectDescription())
@@ -54,5 +64,4 @@ public class RepairConverter {
                 .map(RepairConverter::convertDTOToEntity)
                 .collect(Collectors.toList());
     }
-
 }
