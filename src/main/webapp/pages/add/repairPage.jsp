@@ -1,4 +1,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="it.academy.dto.ModelDTO" %>
+<%@ page import="it.academy.entities.repair.components.RepairCategory" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -11,55 +14,33 @@
     <div class=" forms-container">
 
         <%
-
-            RepairPageDataDTO data = (RepairPageDataDTO) request.getAttribute(REPAIR_PAGE_DATA);
-            BrandDTO currentBrand = data.getCurrentBrand();
+            ModelDTO model = (ModelDTO) request.getAttribute(MODEL);
+            List<RepairCategory> categoryList = List.of(RepairCategory.values());
 
         %>
 
-            <div class="form-container r-form">
-                    <form class="rc-form" action="models" method="post" id="findModels">
-                        <input type="hidden" name="command" value="show_repair">
-<%--                        <input type="hidden" name="page" value="<%=pageNumber%>">--%>
-                        <div class="f-input">
-                        <label class="form-el">Бренд:</label>
-                        <select class="f-form " name="brand_id" size="0">
-                            <option value="<%=currentBrand.getId()%>" selected><%=currentBrand.getName()%></option>
-                            <%for (BrandDTO brand : data.getBrands()) { %>
-                            <option value="<%=brand.getId()%>"><%=brand.getName()%></option>
-                            <% } %>
-                        </select>
-                        <input class="button light" type="submit"  value="Найти модели" form="findModels">
-                        </div>
-                    </form>
+        <form class="rc-form" action="repair" method="post" id="repair">
 
-                <form class="rc-form" action="repair" method="post" id="repair">
-                <div class="f-input-container">
-                        <input type="hidden" name="command" value="add_repair">
+            <div class="f-input-container">
+                  <input type="hidden" name="command" value="add_repair">
+
+                <div class="f-input">
+                    <p>Устройство: <%=String.format(DEVICE_DESCRIPTION_PATTERN, model.getDeviceTypeName(),
+                            model.getBrandName(), model.getName())%></p>
+                </div>
 
                     <div class="f-input">
-                        <label class="form-el">Модель:</label>
-                        <select class="f-form " name="model" size="0">
-                            <option value="" selected>Выберите вариант</option>
-                            <%for (ModelDTO model : data.getModels()) { %>
-                            <option value="<%=model.getId()%>"><%=model.getName()%></option>
-                            <% }%>
-                        </select>
-                    </div>
+                         <label class="form-el">Категория ремонта:</label>
 
-                        <div class="f-input">
-                            <label class="form-el">Категория ремонта:</label>
                             <select class="f-form " name="category" size="0">
                                 <option value=»» selected>Выберите вариант</option>
-                                <%for (RepairCategoryDTO category : data.getCategories()) { %>
-                                <option value="<%=category.getId()%>"><%=category.getName()%></option>
+                                <%for (RepairCategory category : categoryList) { %>
+                                <option value="<%=category.name()%>"><%=category.name()%></option>
                                 <% } %>
                             </select>
-                        </div>
-                    </div>
 
+                     </div>
 
-                <div class="f-input-container">
                     <div class="f-input">
                         <label class="form-el" for="sn">Серийный номер:</label>
                         <input class="f-form" required type="text" name="sn" placeholder="Введите серийный номер" value="" id="sn">
@@ -109,16 +90,10 @@
 
                 </div>
 
-<%--                <select class="f-form " name="identifiedDefect" size="0">--%>
-<%--                    <%for (DefectDTOReq defect : defects) { %>--%>
-<%--                    <option selected value="<%=defect.getId()%>"><%=defect.getDescription()%></option>--%>
-<%--                    <% } %>--%>
-<%--                </select>--%>
-
-            </div>
-
             <div class="button-container">
                 <input class="button" type="submit" value="Сохранить" form="repair"/>
+                <input class="button" type="button" value="Вернуться к выбору бренда"
+                       onclick="location.href='<%=String.format(OPEN_MODEL_LIST_PAGE, model.getBrandId())%>'"/>
                 <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
             </div>
 
@@ -127,4 +102,3 @@
     </div>
 </section>
 </body>
-<%--<script rel="script" src="${pageContext.request.contextPath}/js/formBehavior.js"></script>--%>

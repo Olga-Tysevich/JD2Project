@@ -57,13 +57,14 @@ public class Constants {
     //Paths
     public static final String ERROR_PAGE_PATH = "path.page.error";
 //    public static final String MAIN_PAGE_PATH = "path.page.main";
-    public static final String REPAIR_PAGE_PATH = "path.page.repair";
+//    public static final String REPAIR_PAGE_PATH = "path.page.repair";
     public static final String REPAIR_TABLE_PATH = "path.page.repair.table";
     public static final String WAITING_SPARE_PARTS_TABLE_PATH = "path.page.repair.waiting";
 
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     public static final String BRAND_LIST_PAGE_PATH = "/pages/lists/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/lists/modelList.jsp";
+    public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -72,16 +73,18 @@ public class Constants {
     public static final String MAX_PAGE = "maxPage";
     public static final String TABLE_PAGE_PATH = "list";
     public static final String TABLE_FOR_PAGE = "table";
-    public static final String REPAIR_CATEGORIES = "repair categories";
     public static final String DEFECTS = "defects";
+    public static final String REPAIR_CATEGORIES = "repair categories";
 
 
     public static final String BRANDS = "brands";
     public static final String BRAND = "brand";
     public static final String MODELS = "models";
+    public static final String MODEL = "model";
+    public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
 
     public static final String REPAIR_PAGE_DATA = "repair page data";
-    public static final long BRAND_DEFAULT_ID = 1L;
+    public static final long DEFAULT_ID = 1L;
     public static final String BRAND_ID = "brand_id";
 
     //open commands
@@ -92,7 +95,7 @@ public class Constants {
 
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     public static final String OPEN_BRAND_LIST_PAGE = "brands?command=show_brand_list";
-    public static final String OPEN_MODEL_LIST_PAGE = "models?command=show_model_list";
+    public static final String OPEN_MODEL_LIST_PAGE = "brands?command=show_model_list&&id=%s";
 
 
 

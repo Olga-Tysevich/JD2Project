@@ -16,7 +16,10 @@ public class Test2 {
 //        List<BrandDTO> brandDTOList = brandService.findBrands();
 //        System.out.println();
         ModelService modelService = new ModelServiceImpl();
-        List<ModelDTO> models = modelService.findModelsByBrandId(1L);
+//        List<ModelDTO> models = modelService.findModelsByBrandId(1L);
+        ModelDTO model = modelService.findModel(2L);
+
+
         System.out.println();
     }
 

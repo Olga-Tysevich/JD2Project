@@ -32,7 +32,7 @@ public class Repair implements Serializable {
     private RepairWorkshop repairWorkshop;
 
     @Column
-    private String serviceRepairNumber;
+    private String repairWorkshopRepairNumber;
 
     @Enumerated(EnumType.STRING)
     private RepairStatus status;

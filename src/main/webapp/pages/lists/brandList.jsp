@@ -1,5 +1,4 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.BrandListDTO" %>
 <%@ page import="it.academy.dto.BrandDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -23,7 +22,7 @@
         <div class="form-container r-form">
             <form class="rc-form" action="models" method="post" id="findModels">
                 <input type="hidden" name="command" value="show_model_list">
-                <%--                        <input type="hidden" name="page" value="<%=pageNumber%>">--%>
+                <%--<input type="hidden" name="page" value="<%=pageNumber%>">--%>
                 <div class="f-input">
                     <label class="form-el">Бренд:</label>
                     <select class="f-form " name="id" size="0">
@@ -45,4 +44,3 @@
     </div>
 </section>
 </body>
-<%--<script rel="script" src="${pageContext.request.contextPath}/js/formBehavior.js"></script>--%>

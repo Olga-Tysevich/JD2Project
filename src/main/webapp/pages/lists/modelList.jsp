@@ -1,6 +1,4 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.BrandListDTO" %>
-<%@ page import="it.academy.dto.BrandDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.ModelDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -22,12 +20,12 @@
             %>
 
             <div class="form-container r-form">
-                <form class="rc-form" action="models" method="post" id="findModels">
+                <form class="rc-form" action="repair" method="post" id="showRepair">
                     <input type="hidden" name="command" value="show_repair">
-                    <%--                        <input type="hidden" name="page" value="<%=pageNumber%>">--%>
+                    <%--<input type="hidden" name="page" value="<%=pageNumber%>">--%>
                     <div class="f-input">
                         <label class="form-el">Модель:</label>
-                        <select class="f-form " name="brand_id" size="0">
+                        <select class="f-form " name="id" size="0">
                             <%for (ModelDTO model : models) { %>
                             <option value="<%=model.getId()%>"><%=model.getName()%></option>
                             <% } %>
@@ -37,7 +35,8 @@
             </div>
 
             <div class="button-container">
-                <input class="button" type="submit" value="Подтвердить" form="findModels"/>
+                <input class="button" type="submit" value="Подтвердить" form="showRepair"/>
+                <input class="button" type="button" value="Вернуться к выбору бренда" onclick="location.href='<%=OPEN_BRAND_LIST_PAGE%>'"/>
                 <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
             </div>
 
@@ -46,4 +45,3 @@
     </div>
 </section>
 </body>
-<%--<script rel="script" src="${pageContext.request.contextPath}/js/formBehavior.js"></script>--%>

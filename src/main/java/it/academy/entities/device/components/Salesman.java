@@ -18,4 +18,5 @@ public class Salesman implements Serializable {
     private String name;
 
     private String phone;
+
 }
