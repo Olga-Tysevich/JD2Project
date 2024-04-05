@@ -61,7 +61,9 @@ public class RepairExtractor implements Extractor {
         Date endDate = req.getParameter(END_DATE) == null ? null : Date.valueOf(req.getParameter(END_DATE));
         Date deliveryDate = req.getParameter(DELIVERY_DATE) == null ? null : Date.valueOf(req.getParameter(DELIVERY_DATE));
 
+        Long repairId = req.getParameter(REPAIR_ID) == null ? null : Long.parseLong(req.getParameter(REPAIR_ID));
         RepairDTO repairDTO = RepairDTO.builder()
+                .id(repairId)
                 .device(deviceDTO)
                 .category(category)
                 .status(RepairStatus.REQUEST)
@@ -78,9 +80,6 @@ public class RepairExtractor implements Extractor {
         } else {
             repairService.changeRepair(repairDTO);
         }
-
-        req.setAttribute(REPAIR, repairDTO);
-        req.setAttribute(REPAIR, repairDTO);
     }
 
 }

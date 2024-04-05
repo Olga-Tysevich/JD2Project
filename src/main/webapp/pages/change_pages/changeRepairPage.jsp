@@ -1,6 +1,8 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.entities.repair.components.RepairStatus" %>
+<%@ page import="it.academy.entities.repair.components.RepairType" %>
+<%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -25,11 +27,12 @@
 <%--                  <input type="hidden" name="<%=REPAIR_WORKSHOP_ID%>" value="<%=repairDTO.getId()%>">--%>
                   <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repairDTO.getStatus()%>">
                   <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDevice().getId()%>">
-                  <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairDTO.getType().getId()%>">
-
+                   <%if (repairDTO.getType() != null) {%>
+                        <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairDTO.getType().getId()%>">
+                   <% } %>
                     <div class="f-input">
                         <p>
-                            <label for="isDeleted">Дата завершения: </label>
+                            <label for="isDeleted">Ремонт удален: </label>
                             <input type="checkbox" id="isDeleted" name="<%=IS_DELETED%>"  value="<%=repairDTO.isDeleted()%>"/>
                         </p>
                     </div>
@@ -86,7 +89,7 @@
                         </p>
                     </div>
 
-                    <% if(!repairDTO.getStatus().isFinishedStatus()) {%>
+                    <% if(repairDTO.getStatus().isFinishedStatus()) {%>
                         <div class="f-input">
                             <p>
                                 <label for="endDate">Дата завершения: </label>

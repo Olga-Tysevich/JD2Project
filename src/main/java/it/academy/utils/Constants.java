@@ -112,6 +112,7 @@ public class Constants {
     public static final String BRAND_LIST_PAGE_PATH = "/pages/lists/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/lists/modelList.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
+    public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
 
     //jsp
@@ -141,6 +142,8 @@ public class Constants {
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     public static final String OPEN_BRAND_LIST_PAGE = "brands?command=show_brand_list";
     public static final String OPEN_MODEL_LIST_PAGE = "brands?command=show_model_list&&id=%s";
+
+
 
 
 }

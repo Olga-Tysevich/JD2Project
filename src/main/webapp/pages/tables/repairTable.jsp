@@ -57,16 +57,9 @@
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="post">
-                                <input type="hidden" name="command" value="change_repair">
-                                <input type="hidden" name="id" value="<%=repair.getId()%>">
-                                 <input type="hidden" name="page" value="<%=pageNumber%>">
+                                <input type="hidden" name="command" value="show_confirmed_repair">
+                                <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repair.getId()%>">
                                 <input class="choose-button btn-table" type="submit" value="Изменить">
-                            </form>
-                            <form action="list" method="post">
-                                <input type="hidden" name="command" value="delete_student">
-                                <input type="hidden" name="id" value="<%=repair.getId()%>">
-                                <input type="hidden" name="page" value="<%=pageNumber%>">
-                                <input class="choose-button btn-table" type="submit" value="Удалить">
                             </form>
                         </div>
                     </td>

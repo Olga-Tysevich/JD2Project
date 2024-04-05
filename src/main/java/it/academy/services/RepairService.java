@@ -21,13 +21,13 @@ public interface RepairService {
 
     DeviceDTO addDevice(DeviceDTO deviceDTO);
 
-    DeviceDTO findDevice(long id);
-
     ModelDTO findModel(long id);
 
     RepairTypeDTO findRepairType(long id);
 
     List<ModelDTO> findModelsByBrandId(long brandId);
+
+    RepairDTO findRepair(long id);
 
     ListForPage<RepairDTO> findRepairs(int pageNumber);
 

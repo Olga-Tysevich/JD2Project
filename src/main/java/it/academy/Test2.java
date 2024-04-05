@@ -37,8 +37,8 @@ public class Test2 {
         TransactionManger transactionManger = TransactionManger.getInstance();
 
 //        ListForPage<RepairDTO> r = repairService.findRepairs(1);
-        ListForPage<RepairDTO> r2 = repairService.findRepairsByStatus(RepairStatus.REQUEST, 1);
-
+//        ListForPage<RepairDTO> r2 = repairService.findRepairsByStatus(RepairStatus.REQUEST, 1);
+        RepairDTO r = repairService.findRepair(133);
         System.out.println();
 
 //        for (int i = 0; i < 100; i++) {

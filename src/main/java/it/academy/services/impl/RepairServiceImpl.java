@@ -88,15 +88,6 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public DeviceDTO findDevice(long id) {
-        Device device = transactionManger.execute(() -> deviceDAO.find(id));
-        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(device);
-
-        transactionManger.closeManager();
-        return deviceDTO;
-    }
-
-    @Override
     public ModelDTO findModel(long id) {
         Model model = transactionManger.execute(() -> modelDAO.find(id));
         ModelDTO modelDTO = ModelConverter.convertToDTO(model);
@@ -121,6 +112,15 @@ public class RepairServiceImpl implements RepairService {
 
         transactionManger.closeManager();
         return modelDTOList;
+    }
+
+    @Override
+    public RepairDTO findRepair(long id) {
+        Repair repair = transactionManger.execute(() -> repairDAO.find(id));
+        RepairDTO repairDTO = RepairConverter.convertToDTO(repair);
+
+        transactionManger.closeManager();
+        return repairDTO;
     }
 
     @Override
@@ -153,6 +153,16 @@ public class RepairServiceImpl implements RepairService {
         result = transactionManger.execute(find);
         transactionManger.closeManager();
         return result;
+    }
+
+
+
+    public DeviceDTO findDevice(long id) {
+        Device device = transactionManger.execute(() -> deviceDAO.find(id));
+        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(device);
+
+        transactionManger.closeManager();
+        return deviceDTO;
     }
 
 }
