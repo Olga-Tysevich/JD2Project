@@ -1,5 +1,7 @@
 package it.academy.utils.converters.repair;
 
+import it.academy.dto.device.DeviceDTO;
+import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.Repair;
@@ -10,6 +12,8 @@ import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static it.academy.utils.Constants.DEVICE_DESCRIPTION_PATTERN;
+
 
 @UtilityClass
 public class RepairConverter {
@@ -18,10 +22,12 @@ public class RepairConverter {
     public static RepairDTO convertToDTO(Repair repair) {
         RepairTypeDTO type = repair.getType() == null ?
                 null : RepairTypeConverter.convertToDTO(repair.getType());
+        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(repair.getDevice());
+        ModelDTO modelDTO = deviceDTO.getModel();
 
         return RepairDTO.builder()
                 .id(repair.getId())
-                .device(DeviceConverter.convertToDTO(repair.getDevice()))
+                .device(deviceDTO)
                 .type(type)
                 .category(repair.getCategory())
                 .status(repair.getStatus())
@@ -31,13 +37,15 @@ public class RepairConverter {
                 .endDate(repair.getEndDate())
                 .deliveryDate(repair.getDeliveryDate())
                 .isDeleted(repair.isDeleted())
+                .modelDescription(String.format(DEVICE_DESCRIPTION_PATTERN, modelDTO.getDeviceTypeName(),
+                        modelDTO.getBrandName(), modelDTO.getName()))
                 .build();
     }
 
     public static Repair convertDTOToEntity(RepairDTO repairDTO) {
         RepairType type = repairDTO.getType() == null ?
                 null : RepairTypeConverter.convertDTOToEntity(repairDTO.getType());
-        
+
         return Repair.builder()
                 .id(repairDTO.getId())
                 .device(DeviceConverter.convertDTOToEntity(repairDTO.getDevice()))

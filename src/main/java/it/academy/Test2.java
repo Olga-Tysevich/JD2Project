@@ -1,5 +1,8 @@
 package it.academy;
 
+import it.academy.dao.repair.RepairDAO;
+import it.academy.dao.repair.impl.RepairDAOImpl;
+import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
@@ -9,6 +12,7 @@ import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.services.impl.RepairWorkshopImpl;
+import it.academy.utils.dao.TransactionManger;
 
 import java.sql.Date;
 
@@ -25,36 +29,44 @@ public class Test2 {
 //        ModelService modelService = new ModelServiceImpl();
 //        List<ModelDTO> models = modelService.findModelsByBrandId(1L);
 //        ModelDTO model = modelService.findModel(2L);
-         RepairService repairService = new RepairServiceImpl();
-         RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
+        RepairService repairService = new RepairServiceImpl();
+        RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
+        RepairDAO repairDAO = new RepairDAOImpl();
+        TransactionManger transactionManger = TransactionManger.getInstance();
 
-            long modelId = 1L;
-            ModelDTO modelDTO = repairService.findModel(modelId);
-            Date dateOfSale = Date.valueOf("2022-11-01");
+        ListForPage<RepairDTO> r = repairService.findRepairs(1);
 
-            DeviceDTO deviceDTO = DeviceDTO.builder()
-                    .model(modelDTO)
-                    .serialNumber(SERIAL_NUMBER)
-                    .dateOfSale(dateOfSale)
-                    .salesmanName(SALESMAN_NAME)
-                    .salesmanPhone(SALESMAN_PHONE)
-                    .buyerName(BUYER_NAME)
-                    .buyerSurname(BUYER_SURNAME)
-                    .buyerPhone(BUYER_PHONE)
-                    .build();
+        System.out.println();
 
-            deviceDTO = repairService.addDevice(deviceDTO);
-
-            RepairDTO repairDTO = RepairDTO.builder()
-                    .device(deviceDTO)
-                    .category(RepairCategory.WARRANTY)
-                    .status(RepairStatus.REQUEST)
-                    .defectDescription(DEFECT_DESCRIPTION)
-                    .repairWorkshopRepairNumber(REPAIR_WORKSHOP_REPAIR_NUMBER)
-                    .isDeleted(false)
-                    .build();
-
-            repairService.addRepair(repairDTO);
+//        for (int i = 0; i < 30; i++) {
+//            long modelId = 1L;
+//            ModelDTO modelDTO = repairService.findModel(modelId);
+//            Date dateOfSale = Date.valueOf("2022-11-01");
+//
+//            DeviceDTO deviceDTO = DeviceDTO.builder()
+//                    .model(modelDTO)
+//                    .serialNumber(SERIAL_NUMBER + i)
+//                    .dateOfSale(dateOfSale)
+//                    .salesmanName(SALESMAN_NAME + i)
+//                    .salesmanPhone(SALESMAN_PHONE + i)
+//                    .buyerName(BUYER_NAME + i)
+//                    .buyerSurname(BUYER_SURNAME + i)
+//                    .buyerPhone(BUYER_PHONE + i)
+//                    .build();
+//
+//            deviceDTO = repairService.addDevice(deviceDTO);
+//
+//            RepairDTO repairDTO = RepairDTO.builder()
+//                    .device(deviceDTO)
+//                    .category(RepairCategory.WARRANTY)
+//                    .status(RepairStatus.REQUEST)
+//                    .defectDescription(DEFECT_DESCRIPTION + i)
+//                    .repairWorkshopRepairNumber(REPAIR_WORKSHOP_REPAIR_NUMBER + i)
+//                    .isDeleted(false)
+//                    .build();
+//
+//            repairService.addRepair(repairDTO);
+//        }
 
 
         System.out.println();

@@ -5,6 +5,7 @@ import it.academy.servlets.managers.add.AddRepair;
 import it.academy.servlets.managers.forms.ShowRepair;
 import it.academy.servlets.managers.lists.ShowBrandList;
 import it.academy.servlets.managers.lists.ShowModelList;
+import it.academy.servlets.managers.tables.ShowRepairTable;
 
 import static it.academy.utils.Constants.*;
 
@@ -13,7 +14,8 @@ public enum CommandEnum {
     SHOW_BRAND_LIST(new ShowBrandList()),
     SHOW_MODEL_LIST(new ShowModelList()),
     SHOW_REPAIR(new ShowRepair()),
-    ADD_REPAIR(new AddRepair());
+    ADD_REPAIR(new AddRepair()),
+    SHOW_REQUEST_REPAIR_TABLE(new ShowRepairTable());
 
     private ActionCommand command;
 

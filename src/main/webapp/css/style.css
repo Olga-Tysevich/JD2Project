@@ -27,6 +27,20 @@ section {
     margin: auto;
 }
 
+.radio-container{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.choose-button{
+    border-radius: 12px;
+    width: 100px;
+    background: #f9eaf9;
+    border: 1px solid #a38383;
+    box-shadow: 4px 1px 5px #473f3fa6;
+}
+
 .r-form{
     align-items: center;
 }

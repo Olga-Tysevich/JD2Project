@@ -10,7 +10,7 @@
         <%
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
-            List<CurrentRepairDTO> list = (List<CurrentRepairDTO>) request.getAttribute(TABLE_FOR_PAGE);
+            List<CurrentRepairDTO> list = (List<CurrentRepairDTO>) request.getAttribute(LIST_FOR_PAGE);
 
         %>
 

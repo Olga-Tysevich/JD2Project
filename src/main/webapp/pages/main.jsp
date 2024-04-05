@@ -14,13 +14,14 @@
     <div class=" container">
 
                 <%
+
 //                    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(USER));
 //                    String userEmail = accountDTO.getEmail();
 //                    String userName = accountDTO.getRepairWorkshop() != null? accountDTO.getRepairWorkshop().getServiceName()
 //                            : "Компания";
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-                    int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
-                    String pageForDisplay = (String) request.getAttribute(TABLE_PAGE_PATH);
+                    int maxPage = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
+                    String pageForDisplay = (String) request.getAttribute(PAGE);
                 %>
 
         <div class="header-container">
@@ -31,6 +32,7 @@
 <%--                <h2><%=userEmail%></h2>--%>
             </div>
         </div>
+
 
         <form action="list" method="post">
             <input type="hidden" name="command" value="find_students">
@@ -87,8 +89,8 @@
 
             <fieldset class="f1">
                 <legend>Заявки</legend>
-                <button class="button button-fieldset" onclick="location.href='<%=OPEN_BRAND_LIST_PAGE%>'"> Создание новой заявки </button>
-                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REQUEST_TABLE_PAGE, pageNumber)%>'"> Список заявок </button>
+                <button class="button button-fieldset" onclick="location.href='<%=OPEN_BRAND_LIST_PAGE%>'"> Создание нового ремонта </button>
+                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, FIRST_PAGE)%>'"> Список ремонтов </button>
             </fieldset>
 
         </div>

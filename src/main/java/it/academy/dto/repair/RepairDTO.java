@@ -35,4 +35,6 @@ public class RepairDTO {
 
     private boolean isDeleted;
 
+    private String modelDescription;
+
 }
