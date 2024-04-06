@@ -3,16 +3,21 @@ package it.academy.services.impl;
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.spare_parts_order.SparePartDAO;
+import it.academy.dao.spare_parts_order.SparePartsOrderDAO;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
+import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
+import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.SparePartService;
 import it.academy.utils.Builder;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
+import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import static it.academy.utils.Constants.LIST_SIZE;
 public class SparePartServiceImpl implements SparePartService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private SparePartDAO sparePartDAO = new SparePartDAOImpl();
+    private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
 
     @Override
@@ -70,7 +76,6 @@ public class SparePartServiceImpl implements SparePartService {
 
     @Override
     public ListForPage<SparePartDTO> findSpareParts(int pageNumber) {
-
         Supplier<ListForPage<SparePartDTO>> find = () -> {
             List<SparePart> repairs = sparePartDAO.findForPage(pageNumber, LIST_SIZE);
             int maxPageNumber = (int) Math.ceil(((double) sparePartDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
@@ -81,5 +86,27 @@ public class SparePartServiceImpl implements SparePartService {
         return transactionManger.execute(find);
     }
 
+    @Override
+    public void addSparePartOrder(SparePartOrderDTO partOrderDTO) {
+        SparePartsOrder order = SparePartOrderConverter.convertDTOToEntity(partOrderDTO);
+        transactionManger.execute(() ->  sparePartsOrderDAO.create(order));
+    }
 
+    @Override
+    public List<SparePartOrderDTO> findSparePartOrdersByRepairId(long id) {
+        Supplier<List<SparePartOrderDTO>> find = () -> {
+            List<SparePartsOrder> sparePart = sparePartsOrderDAO.findSparePartOrdersByRepairId(id);
+            return SparePartOrderConverter.convertListToDTO(sparePart);
+        };
+        return transactionManger.execute(find);
+    }
+
+    @Override
+    public List<SparePartDTO> findSparePartsByDeviceTypeId(long id) {
+        Supplier<List<SparePartDTO>> find = () -> {
+            List<SparePart> sparePart = sparePartDAO.findByDeviceTypeId(id);
+            return SparePartConverter.convertListToDTO(sparePart);
+        };
+        return transactionManger.execute(find);
+    }
 }

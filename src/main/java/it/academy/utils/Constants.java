@@ -62,6 +62,9 @@ public class Constants {
     public static final String DATE_OF_SALE = "dateOfSale";
     //Device types
     public static final String SPARE_PARTS = "spareParts";
+    public static final String ORDERED_SPARE_PARTS = "ordered_spareParts";
+    //Spare Parts
+    public static final String DEVICE_TYPES = "typeSet";
 
     //Common parameters
     public static final String IS_DELETED = "isDeleted";
@@ -94,6 +97,14 @@ public class Constants {
     //Device parameters
     public static final String DEVICE_ID = "device_id";
 
+    //DeviceType parameters
+    public static final String DEVICE_TYPE_ID = "device_type_id";
+
+    //Spare part order
+    public static final String ORDER_ID = "order_id";
+    public static final String REPAIR_NUMBER = "repair_number";
+    public static final String SPARE_PART_QUANTITY = "quantity";
+    public static final String SPARE_PART_NAME = "spare_part_name";
 
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
@@ -117,6 +128,7 @@ public class Constants {
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
+    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/lists/sparePartsOrder.jsp";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -145,8 +157,6 @@ public class Constants {
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     public static final String OPEN_BRAND_LIST_PAGE = "brands?command=show_brand_list";
     public static final String OPEN_MODEL_LIST_PAGE = "brands?command=show_model_list&&id=%s";
-
-
 
 
 }

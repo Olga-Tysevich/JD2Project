@@ -42,6 +42,9 @@ public class Test2 {
 
         SparePartDTO s = sparePartService.findSparePart(2L);
 
+        List<SparePartDTO> sparePartDTOS = sparePartService.findSparePartsByDeviceTypeId(1L);
+        System.out.println();
+
 //        SparePartDTO sparePart = sparePartService.findSparePart(1L);
 //
 //        List<DeviceTypeDTO> all = DeviceTypeConverter.convertListToDTO(transactionManger.execute(deviceTypeDAO::findAll));

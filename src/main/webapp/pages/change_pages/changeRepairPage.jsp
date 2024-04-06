@@ -189,17 +189,24 @@
                     </div>
 
                     <div class="lf-button-container">
-                        <input class="choose-button btn-table lf-button" type="submit" value="Заказать запчасти" form="repair"/>
+                        <input class="choose-button btn-table lf-button" type="submit" value="Заказать запчасти" form="order"/>
                         <input class="choose-button btn-table lf-button" type="submit" value="Сообщить о выполнении" form="repair"/>
                     </div>
 
                 </div>
 
             <div class="button-container">
-                <input class="button" type="submit" value="Сохранить" form="repair"/>
+                <input class="button" type="button" value="Сохранить" form="repair"/>
                 <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
             </div>
 
+        </form>
+
+        <form action="repair" method="post" id="order">
+            <input type="hidden" name="command" value="show_order_spare_part">
+            <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+            <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairWorkshopRepairNumber()%>">
+            <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=repairDTO.getDevice().getModel().getDeviceTypeId()%>">
         </form>
 
     </div>
