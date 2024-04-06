@@ -65,7 +65,8 @@
                             <% for (SparePartDTO partDTO : orderedSpareParts.keySet()) { %>
                             <tr id="data_id" class="spare_part_input">
                                 <td><%=partDTO.getName()%></td>
-                                <input  type="text" name="<%=SPARE_PART_NAME%>" value="<%=partDTO.getName()%>" disabled>
+                                    <input  type="hidden" name="<%=OBJECT_ID%>" value="<%=partDTO.getId()%>">
+                                    <input  type="text" name="<%=SPARE_PART_NAME%>" value="<%=partDTO.getName()%>" disabled>
                                 <td>
                                     <input class="quantity" type="number" name="<%=SPARE_PART_QUANTITY%>" value="<%=orderedSpareParts.get(partDTO)%>">
                                 </td>
@@ -87,5 +88,5 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/formBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/orderFormBehavior.js"></script>
 </body>

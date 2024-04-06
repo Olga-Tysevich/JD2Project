@@ -212,6 +212,6 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/formBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/orderFormBehavior.js"></script>
 
 </body>

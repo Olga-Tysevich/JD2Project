@@ -105,6 +105,7 @@ public class Constants {
     public static final String REPAIR_NUMBER = "repair_number";
     public static final String SPARE_PART_QUANTITY = "quantity";
     public static final String SPARE_PART_NAME = "spare_part_name";
+    public static final String ORDER_DATA = "order_data";
 
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
