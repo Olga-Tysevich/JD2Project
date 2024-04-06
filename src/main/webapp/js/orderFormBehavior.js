@@ -4,8 +4,7 @@ function addRowToTable() {
     let quantity = document.getElementById("quantity_id").value;
 
     let orderTable = document.getElementById("order_table");
-    let existingRow = orderTable.getElementsByClassName('spare_part_input')[0]; // предполагаем, что у нас уже есть один ряд для запчастей
-
+    let existingRow = orderTable.getElementsByClassName('spare_part_input')[0];
     if (!existingRow) {
         existingRow = orderTable.insertRow();
         existingRow.className = 'spare_part_input';
@@ -33,7 +32,6 @@ function addRowToTable() {
         sparePartQuantity.value = quantity;
         cell2.appendChild(sparePartQuantity);
     } else {
-        // Если ряд уже существует, обновляем его значения
         let sparePart = existingRow.querySelector('input[type="text"]');
         let id = existingRow.querySelector('input[type="hidden"]');
         let sparePartQuantity = existingRow.querySelector('input[type="number"]');
@@ -55,10 +53,6 @@ function send() {
         const idInput = element.querySelector('input[type="hidden"]');
         const nameInput = element.querySelector('input[type="text"]');
         const quantityInput = element.querySelector('input[type="number"]');
-
-        // console.log("idInput:", idInput.value);
-        // console.log("nameInput:", nameInput.value);
-        // console.log("quantityInput:", quantityInput.value);
 
         if (idInput && nameInput && quantityInput) {
             const id = idInput.value;
