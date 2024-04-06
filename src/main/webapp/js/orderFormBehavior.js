@@ -1,72 +1,78 @@
-function addRowToTable(qualifiedName, value) {
+function addRowToTable() {
     let selectedSparePart = document.querySelector('select[name="id"]');
-    let sparePartId = document.querySelector('select[name="id"]').value;
+    let selectedOption = selectedSparePart.options[selectedSparePart.selectedIndex];
     let quantity = document.getElementById("quantity_id").value;
 
-    let selectedOption = selectedSparePart.options[selectedSparePart.selectedIndex];
-
     let orderTable = document.getElementById("order_table");
-    let newRow = orderTable.insertRow();
-    newRow.setAttribute('class', 'spare_part_input');
+    let existingRow = orderTable.getElementsByClassName('spare_part_input')[0]; // предполагаем, что у нас уже есть один ряд для запчастей
 
-    let cell1 = newRow.insertCell(0);
-    cell1.setAttribute('name', 'spare_part_name')
+    if (!existingRow) {
+        existingRow = orderTable.insertRow();
+        existingRow.className = 'spare_part_input';
 
-    let cell2 = newRow.insertCell(1);
+        let cell1 = existingRow.insertCell(0);
 
-    let sparePart = document.createElement('input');
-    let spName = selectedOption.textContent;
-    sparePart.setAttribute('type', 'text');
-    sparePart.setAttribute('name', 'spare_part_name');
-    sparePart.setAttribute('value', spName);
-    sparePart.setAttribute('disabled', value);
+        let sparePart = document.createElement('input');
+        sparePart.type = 'text';
+        sparePart.name = 'spare_part_name';
+        sparePart.value = selectedOption.textContent;
+        sparePart.disabled = true;
 
-    let sparePartQuantity = document.createElement('input');
-    sparePartQuantity.setAttribute('type', 'number');
-    sparePartQuantity.setAttribute('name', 'quantity');
-    sparePartQuantity.setAttribute('value', quantity);
+        let id = document.createElement('input');
+        id.type = 'hidden';
+        id.name = 'spare_part_id';
+        id.value = selectedSparePart.value;
 
-    let id = document.createElement('input');
-    id.setAttribute('type', 'hidden');
-    id.setAttribute('name', 'spare_part_id');
-    id.setAttribute('value', sparePartId);
+        cell1.appendChild(sparePart);
+        cell1.appendChild(id);
 
-
-    cell1.appendChild(sparePart);
-    cell1.appendChild(id);
-    cell2.appendChild(sparePartQuantity);
+        let cell2 = existingRow.insertCell(1);
+        let sparePartQuantity = document.createElement('input');
+        sparePartQuantity.type = 'number';
+        sparePartQuantity.name = 'quantity';
+        sparePartQuantity.value = quantity;
+        cell2.appendChild(sparePartQuantity);
+    } else {
+        // Если ряд уже существует, обновляем его значения
+        let sparePart = existingRow.querySelector('input[type="text"]');
+        let id = existingRow.querySelector('input[type="hidden"]');
+        let sparePartQuantity = existingRow.querySelector('input[type="number"]');
+        sparePart.value = selectedOption.textContent;
+        id.value = selectedSparePart.value;
+        sparePartQuantity.value = quantity;
+    }
 }
 
-document.getElementById('add_id').onclick = function() {
-    addRowToTable();
-};
+document.getElementById('add_id').onclick = addRowToTable;
 
 function send() {
-
-    let orderTable = document.getElementById("addSparePartOrder");
-    console.log("table " +orderTable);
-    let sparePartInputs = document.getElementsByClassName('spare_part_input');
-    console.log("input  " +sparePartInputs);
-    console.log("input  " +sparePartInputs.length);
-    console.log("input  " +sparePartInputs.item(0));
-    let keyValueMap = [];
+    const orderTable = document.getElementById("addSparePartOrder");
+    const sparePartInputs = document.querySelectorAll('.spare_part_input');
+    const keyValueMap = [];
 
     for (let i = 0; i < sparePartInputs.length; i++) {
-        let element = sparePartInputs[i];
-        let map = {};
-        let id = element.querySelector('input[type="hidden"]').value;
-        let nameInput = element.querySelector('input[type="text"]').value;
-        let quantityInput = element.querySelector('input[type="number"]').value;
-        map['id'] = id;
-        map['name'] = nameInput;
-        map['quantity'] = quantityInput;
-        keyValueMap.push(map);
+        const element = sparePartInputs[i];
+        const idInput = element.querySelector('input[type="hidden"]');
+        const nameInput = element.querySelector('input[type="text"]');
+        const quantityInput = element.querySelector('input[type="number"]');
+
+        // console.log("idInput:", idInput.value);
+        // console.log("nameInput:", nameInput.value);
+        // console.log("quantityInput:", quantityInput.value);
+
+        if (idInput && nameInput && quantityInput) {
+            const id = idInput.value;
+            const name = nameInput.value;
+            const quantity = quantityInput.value;
+
+            keyValueMap.push({ id, name, quantity });
+        }
     }
 
-    let hiddenField = document.createElement('input');
+    const hiddenField = document.createElement('input');
     hiddenField.type = 'hidden';
     hiddenField.name = 'order_data';
     hiddenField.value = JSON.stringify(keyValueMap);
     orderTable.appendChild(hiddenField);
-    orderTable.submit()
+    orderTable.submit();
 }
