@@ -52,7 +52,11 @@ public class RepairExtractor implements Extractor {
                 .buyerPhone(buyerPhone)
                 .build();
 
-        deviceDTO = repairService.addDevice(deviceDTO);
+        if (deviceId == null) {
+            deviceDTO = repairService.addDevice(deviceDTO);
+        } else {
+            deviceDTO = repairService.updateDevice(deviceDTO);
+        }
 
         String repairWorkshopRepairNumber = req.getParameter(REPAIR_WORKSHOP_REPAIR_NUMBER);
         RepairCategory category = RepairCategory.valueOf(req.getParameter(REPAIR_CATEGORY));

@@ -78,16 +78,27 @@ public class RepairServiceImpl implements RepairService {
         Device device = DeviceConverter.convertDTOToEntity(deviceDTO);
         device.setSerialNumber(device.getSerialNumber().toUpperCase());
         Device result = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, device.getSerialNumber());
-        if (result == null && deviceDAO.find(device.getId()) == null) {
+
+        if (result == null) {
             result = transactionManger.execute(() -> deviceDAO.create(device));
-        } else {
-            result = transactionManger.execute(() -> deviceDAO.update(device));
         }
 
         transactionManger.closeManager();
-        assert result != null;
         return DeviceConverter.convertToDTO(result);
     }
+
+    @Override
+    public DeviceDTO updateDevice(DeviceDTO deviceDTO) {
+        Device device = DeviceConverter.convertDTOToEntity(deviceDTO);
+        device.setSerialNumber(device.getSerialNumber().toUpperCase());
+
+        Device result = transactionManger.execute(() -> deviceDAO.update(device));
+        transactionManger.closeManager();
+
+        return DeviceConverter.convertToDTO(result);
+    }
+
+
 
     @Override
     public ModelDTO findModel(long id) {
@@ -166,8 +177,7 @@ public class RepairServiceImpl implements RepairService {
         return result;
     }
 
-
-
+    @Override
     public DeviceDTO findDevice(long id) {
         Device device = transactionManger.execute(() -> deviceDAO.find(id));
         DeviceDTO deviceDTO = DeviceConverter.convertToDTO(device);

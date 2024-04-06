@@ -29,8 +29,6 @@
                   <input type="hidden" name="command" value="change_repair">
                   <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
                   <input type="hidden" name="<%=BRAND_ID%>" value="<%=repairDTO.getDevice().getModel().getBrandId()%>">
-<%--                  <input type="hidden" name="<%=REPAIR_WORKSHOP_ID%>" value="<%=repairDTO.getId()%>">--%>
-<%--                  <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repairDTO.getStatus()%>">--%>
                   <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDevice().getId()%>">
 
                    <%if (repairDTO.getType() != null) {%>
@@ -75,8 +73,6 @@
 
                     <div class="f-input">
                         <label class="form-el">Модель:</label>
-
-<%--                        <input type="hidden" name="<%=MODEL_ID%>" value="<%=repairDTO.getDevice().getModel().getId()%>" />--%>
                             <select class="f-form " name="<%=MODEL_ID%>" size="1">
                                 <%for (ModelDTO modelDTO : modelDTOList) {%>
                                 <option value="<%=modelDTO.getId()%>"
@@ -107,7 +103,7 @@
                         <p>
                             <label class="date-label" for="saleDate">Дата продажи: </label>
                             <div class="date-container">
-                                <input class="f-form" type="date" id="saleDate" name="<%=DATE_OF_SALE%>" value="<%=repairDTO.getDevice().getDateOfSale()%>"/>
+                                <input class="f-form" required type="date" id="saleDate" name="<%=DATE_OF_SALE%>" value="<%=repairDTO.getDevice().getDateOfSale()%>"/>
                             </div>
                         </p>
                     </div>
@@ -116,7 +112,7 @@
                         <p>
                             <label class="date-label" for="startDate">Дата обращения: </label>
                             <div class="date-container">
-                                <input class="f-form" type="date" id="startDate" name="<%=START_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                                <input class="f-form" type="date" id="startDate" name="<%=START_DATE%>"  value="<%=repairDTO.getStartDate()%>" disabled/>
                             </div>
                         </p>
                     </div>
@@ -126,7 +122,7 @@
                             <p>
                                 <label class="date-label" for="endDate">Дата завершения: </label>
                                 <div class="date-container">
-                                    <input class="f-form" type="date" id="endDate" name="<%=END_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                                    <input class="f-form" required type="date" id="endDate" name="<%=END_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
                                 </div>
                             </p>
                         </div>
@@ -151,7 +147,7 @@
                             <div class="f-input">
                                 <p>
                                     <label for="deliveryDate">Дата завершения: </label>
-                                    <input type="date" id="deliveryDate" name="<%=DELIVERY_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                                    <input type="date" required id="deliveryDate" name="<%=DELIVERY_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
                                 </p>
                             </div>
                         <% } %>
