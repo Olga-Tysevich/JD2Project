@@ -40,12 +40,14 @@ public class Test2 {
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
-        SparePartDTO sparePart = sparePartService.findSparePart(1L);
+        SparePartDTO s = sparePartService.findSparePart(2L);
 
-        List<DeviceTypeDTO> all = DeviceTypeConverter.convertListToDTO(transactionManger.execute(deviceTypeDAO::findAll));
-
-        sparePart.setRelatedDeviceTypes(all);
-        sparePartService.changeSparePart(sparePart);
+//        SparePartDTO sparePart = sparePartService.findSparePart(1L);
+//
+//        List<DeviceTypeDTO> all = DeviceTypeConverter.convertListToDTO(transactionManger.execute(deviceTypeDAO::findAll));
+//
+//        sparePart.setRelatedDeviceTypes(all);
+//        sparePartService.changeSparePart(sparePart);
 
 //        SparePartDTO sparePart = SparePartDTO.builder()
 //                .name("new sp")
