@@ -1,4 +1,4 @@
-package it.academy.servlets.managers;
+package it.academy.servlets.commands.impl;
 
 import it.academy.servlets.commands.ActionCommand;
 

@@ -79,6 +79,7 @@ public class Constants {
 
     //Brand parameters
     public static final String BRAND_ID = "brand_id";
+    public static final String CURRENT_BRAND_ID = "current_brand_id";
     public static final String BRAND_NAME = "brand_name";
 
     //Repair parameters
@@ -117,7 +118,7 @@ public class Constants {
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
-    public static final int LIST_SIZE = 12;
+    public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";
@@ -135,7 +136,7 @@ public class Constants {
     public static final long DEFAULT_ID = 1L;
 
     //open commands
-    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&" + REPAIR_STATUS + "=ALL&&page=%d";
+    public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&status=ALL&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1";
 
 

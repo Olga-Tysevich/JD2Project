@@ -1,27 +1,27 @@
-package it.academy.servlets.commands.lists;
+package it.academy.servlets.commands.impl.forms;
 
 import it.academy.dto.device.ModelDTO;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 import static it.academy.utils.Constants.*;
 
-public class ShowModelList implements ActionCommand {
+public class ShowRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
-
+    
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        long brandId = req.getParameter(OBJECT_ID) != null? Long.parseLong(req.getParameter(OBJECT_ID)) : DEFAULT_ID;
-        List<ModelDTO> models = repairService.findModelsByBrandId(brandId);
+        long modelId = req.getParameter(OBJECT_ID) != null? Long.parseLong(req.getParameter(OBJECT_ID)) : DEFAULT_ID;
+        ModelDTO model = repairService.findModel(modelId);
 
-        req.setAttribute(MODELS, models);
+        req.setAttribute(MODEL, model);
 
-        return MODEL_LIST_PAGE_PATH;
+        return REPAIR_PAGE_PATH;
+
     }
+    
 }

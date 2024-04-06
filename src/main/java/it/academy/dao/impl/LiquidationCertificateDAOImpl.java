@@ -1,6 +1,5 @@
 package it.academy.dao.impl;
 
-import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.LiquidationCertificateDAO;
 import it.academy.entities.liquidation.LiquidationCertificate;
 

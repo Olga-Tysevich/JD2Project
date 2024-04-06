@@ -20,7 +20,7 @@
 //                    String userName = accountDTO.getRepairWorkshop() != null? accountDTO.getRepairWorkshop().getServiceName()
 //                            : "Компания";
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-                    int maxPage = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
+//                    int maxPage = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
                     String pageForDisplay = (String) request.getAttribute(PAGE);
                 %>
 

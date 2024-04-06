@@ -1,5 +1,7 @@
 package it.academy;
 
+import it.academy.dao.device.DeviceDAO;
+import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dto.ListForPage;
@@ -12,6 +14,7 @@ import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.services.impl.RepairWorkshopImpl;
+import it.academy.utils.converters.device.DeviceConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.sql.Date;
@@ -34,14 +37,22 @@ public class Test2 {
         RepairService repairService = new RepairServiceImpl();
         RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
         RepairDAO repairDAO = new RepairDAOImpl();
+        DeviceDAO deviceDAO = new DeviceDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
+
+        RepairDTO repairDTO = repairService.findRepair(1L);
+        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(transactionManger.execute(() -> deviceDAO.find(2L)));
+        ModelDTO modelDTO = repairService.findModel(1L);
+        deviceDTO.setModel(modelDTO);
+
+        repairService.addDevice(deviceDTO);
+
 
 //        ListForPage<RepairDTO> r = repairService.findRepairs(1);
 //        ListForPage<RepairDTO> r2 = repairService.findRepairsByStatus(RepairStatus.REQUEST, 1);
 //        RepairDTO r = repairService.findRepair(1);
 //        r.setDeleted(true);
 //        repairService.changeRepair(r);
-        System.out.println(Boolean.parseBoolean("true"));
 
 //        for (int i = 0; i < 100; i++) {
 //            long modelId = 1L;

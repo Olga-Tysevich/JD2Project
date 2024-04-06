@@ -20,6 +20,7 @@ import static it.academy.utils.Constants.*;
 public class RepairExtractor implements Extractor {
     private RepairService repairService = new RepairServiceImpl();
     private RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
+    private RepairDTO repairDTO;
 
     @Override
     public void extractValues(HttpServletRequest req) {
@@ -29,6 +30,7 @@ public class RepairExtractor implements Extractor {
 
         long modelId = Long.parseLong(req.getParameter(MODEL_ID));
         ModelDTO modelDTO = repairService.findModel(modelId);
+        System.out.println("model from extractor " + modelDTO);
         String serialNumber = req.getParameter(SERIAL_NUMBER);
         Date dateOfSale = Date.valueOf(req.getParameter(DATE_OF_SALE));
         String salesmanName = req.getParameter(SALESMAN_NAME);
@@ -54,10 +56,12 @@ public class RepairExtractor implements Extractor {
 
         String repairWorkshopRepairNumber = req.getParameter(REPAIR_WORKSHOP_REPAIR_NUMBER);
         RepairCategory category = RepairCategory.valueOf(req.getParameter(REPAIR_CATEGORY));
+        RepairStatus status = RepairStatus.valueOf(req.getParameter(REPAIR_STATUS));
         String defectDescription = req.getParameter(DEFECT_DESCRIPTION);
 
         Long repairTypeId = req.getParameter(REPAIR_TYPE_ID) == null ? null : Long.parseLong(req.getParameter(REPAIR_TYPE_ID));
         RepairTypeDTO repairType = repairTypeId == null ? null : repairService.findRepairType(repairTypeId);
+        Date startDate = req.getParameter(START_DATE) == null ? null : Date.valueOf(req.getParameter(START_DATE));
         Date endDate = req.getParameter(END_DATE) == null ? null : Date.valueOf(req.getParameter(END_DATE));
         Date deliveryDate = req.getParameter(DELIVERY_DATE) == null ? null : Date.valueOf(req.getParameter(DELIVERY_DATE));
         boolean isDeleted = req.getParameter(IS_DELETED) != null;
@@ -65,24 +69,23 @@ public class RepairExtractor implements Extractor {
         System.out.println(isDeleted);
 
         Long repairId = req.getParameter(REPAIR_ID) == null ? null : Long.parseLong(req.getParameter(REPAIR_ID));
-        RepairDTO repairDTO = RepairDTO.builder()
+
+        this.repairDTO = RepairDTO.builder()
                 .id(repairId)
                 .device(deviceDTO)
                 .category(category)
-                .status(RepairStatus.REQUEST)
+                .status(status)
                 .defectDescription(defectDescription)
+                .startDate(startDate)
                 .repairWorkshopRepairNumber(repairWorkshopRepairNumber)
                 .endDate(endDate)
                 .deliveryDate(deliveryDate)
                 .type(repairType)
                 .isDeleted(isDeleted)
                 .build();
-
-        if (deviceId == null) {
-            repairService.addRepair(repairDTO);
-        } else {
-            repairService.changeRepair(repairDTO);
-        }
     }
 
+    public RepairDTO getRepairDTO() {
+        return repairDTO;
+    }
 }

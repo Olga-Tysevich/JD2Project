@@ -7,6 +7,7 @@ import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.repair.components.RepairStatus;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public interface RepairService {
     DeviceDTO addDevice(DeviceDTO deviceDTO);
 
     ModelDTO findModel(long id);
+
+    BrandDTO findBrand(long id);
 
     RepairTypeDTO findRepairType(long id);
 

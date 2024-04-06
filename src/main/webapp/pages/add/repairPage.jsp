@@ -2,6 +2,7 @@
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
 <%@ page import="java.util.List" %>
+<%@ page import="it.academy.entities.repair.components.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
@@ -17,18 +18,18 @@
         <%
             ModelDTO model = (ModelDTO) request.getAttribute(MODEL);
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
-
         %>
 
         <form class="rc-form" action="repair" method="post" id="repair">
 
             <div class="f-input-container">
                   <input type="hidden" name="command" value="add_repair">
+                  <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=RepairStatus.REQUEST%>">
                   <input type="hidden" name="<%=MODEL_ID%>" value="<%=model.getId()%>">
 
                 <div class="f-input">
-                    <p>Устройство: <%=String.format(DEVICE_DESCRIPTION_PATTERN, model.getDeviceTypeName(),
-                            model.getBrandName(), model.getName())%></p>
+                    <div class="device-container">Устройство: <%=String.format(DEVICE_DESCRIPTION_PATTERN, model.getDeviceTypeName(),
+                            model.getBrandName(), model.getName())%></div>
                 </div>
 
                     <div class="f-input">
@@ -61,10 +62,10 @@
                     </div>
 
                     <div class="f-input">
-                        <p>
-                            <label for="saleDate">Дата продажи: </label>
-                            <input type="date" id="saleDate" name="<%=DATE_OF_SALE%>"/>
-                        </p>
+                            <label class="date-label" for="saleDate">Дата продажи: </label>
+                        <div class="date-container">
+                            <input class="f-form" type="date" id="saleDate" name="<%=DATE_OF_SALE%>"/>
+                        </div>
                     </div>
 
                     <div class="f-input">

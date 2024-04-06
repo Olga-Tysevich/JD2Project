@@ -1,22 +1,22 @@
-package it.academy.servlets.extractors.impl;
+package it.academy.servlets.commands.impl.tables;
 
 import it.academy.dto.ListForPage;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
-import it.academy.servlets.extractors.Extractor;
-
+import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 
-public class RepairTableExtractor implements Extractor {
+public class ShowRepairTable implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
     private RepairStatus lastStatus;
 
     @Override
-    public void extractValues(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         int pageNumber = req.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
         RepairStatus lastStatus = RepairStatus.valueOf(req.getParameter(REPAIR_STATUS));
@@ -36,6 +36,7 @@ public class RepairTableExtractor implements Extractor {
         req.setAttribute(MAX_PAGE, repairs.getMaxPageNumber());
         req.setAttribute(REPAIR_STATUS, lastStatus);
 
+        return MAIN_PAGE_PATH;
     }
 
 }

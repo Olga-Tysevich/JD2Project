@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.lists;
+package it.academy.servlets.commands.impl.lists;
 
 import it.academy.dto.device.BrandDTO;
 import it.academy.services.RepairService;
