@@ -51,26 +51,23 @@ public class RepairServiceImpl implements RepairService {
     public void addRepair(RepairDTO repairDTO) {
         Repair repair = RepairConverter.convertDTOToEntity(repairDTO);
         transactionManger.execute(() -> repairDAO.create(repair));
-
-        transactionManger.closeManager();
     }
 
     @Override
     public void changeRepair(RepairDTO repairDTO) {
         Repair repair = RepairConverter.convertDTOToEntity(repairDTO);
         transactionManger.execute(() -> repairDAO.update(repair));
-
-        transactionManger.closeManager();
     }
 
 
     @Override
     public List<BrandDTO> findBrands() {
-        List<Brand> result = transactionManger.execute(brandDAO::findAll);
-        List<BrandDTO> resp = BrandConverter.convertListToDTO(result);
+        Supplier<List<BrandDTO>> find = () -> {
+            List<Brand> result = brandDAO.findAll();
+            return BrandConverter.convertListToDTO(result);
+        };
 
-        transactionManger.closeManager();
-        return resp;
+        return transactionManger.execute(find);
     }
 
     @Override

@@ -60,6 +60,8 @@ public class Constants {
     public static final String BUYER_PHONE = "buyerPhone";
     //Device
     public static final String DATE_OF_SALE = "dateOfSale";
+    //Device types
+    public static final String SPARE_PARTS = "spareParts";
 
     //Common parameters
     public static final String IS_DELETED = "isDeleted";

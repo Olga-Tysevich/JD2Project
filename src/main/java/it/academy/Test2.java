@@ -1,25 +1,24 @@
 package it.academy;
 
 import it.academy.dao.device.DeviceDAO;
+import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceDAOImpl;
+import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
-import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.device.ModelDTO;
-import it.academy.dto.repair.RepairDTO;
-import it.academy.entities.repair.components.RepairCategory;
-import it.academy.entities.repair.components.RepairStatus;
+import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
+import it.academy.services.SparePartService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.services.impl.RepairWorkshopImpl;
-import it.academy.utils.converters.device.DeviceConverter;
+import it.academy.services.impl.SparePartServiceImpl;
+import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 
-import java.sql.Date;
-
-import static it.academy.utils.Constants.*;
+import java.util.List;
 
 public class Test2 {
 
@@ -33,19 +32,50 @@ public class Test2 {
 //        List<ModelDTO> models = modelService.findModelsByBrandId(1L);
 //        ModelDTO model = modelService.findModel(2L);
 
-
+        SparePartService sparePartService = new SparePartServiceImpl();
         RepairService repairService = new RepairServiceImpl();
         RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
         RepairDAO repairDAO = new RepairDAOImpl();
         DeviceDAO deviceDAO = new DeviceDAOImpl();
+        DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
-        RepairDTO repairDTO = repairService.findRepair(1L);
-        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(transactionManger.execute(() -> deviceDAO.find(2L)));
-        ModelDTO modelDTO = repairService.findModel(1L);
-        deviceDTO.setModel(modelDTO);
+        SparePartDTO sparePart = sparePartService.findSparePart(1L);
 
-        repairService.addDevice(deviceDTO);
+        List<DeviceTypeDTO> all = DeviceTypeConverter.convertListToDTO(transactionManger.execute(deviceTypeDAO::findAll));
+
+        sparePart.setRelatedDeviceTypes(all);
+        sparePartService.changeSparePart(sparePart);
+
+//        SparePartDTO sparePart = SparePartDTO.builder()
+//                .name("new sp")
+//                .relatedDeviceTypes(all)
+//                .build();
+//        sparePartService.addSparePart(sparePart);
+//
+//
+//        List<DeviceType> types = transactionManger.execute(() -> deviceTypeDAO.findBySparePartId(1L));
+
+//        RepairDTO repairDTO = repairService.findRepair(1L);
+//        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(transactionManger.execute(() -> deviceDAO.find(2L)));
+//        ModelDTO modelDTO = repairService.findModel(1L);
+//        deviceDTO.setModel(modelDTO);
+//
+//        repairService.addDevice(deviceDTO);
+//
+//        SparePart sparePart = SparePart.builder()
+//                .name("test")
+//                .build();
+//        SparePart sparePart2 = SparePart.builder()
+//                .name("test2")
+//                .build();
+//
+//        DeviceType dt = DeviceType.builder()
+//                .name("device type")
+//                .isActive(true)
+//                .spareParts(Set.of(sparePart, sparePart2))
+//                .build();
+
 
 
 //        ListForPage<RepairDTO> r = repairService.findRepairs(1);

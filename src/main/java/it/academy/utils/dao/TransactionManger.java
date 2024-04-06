@@ -60,7 +60,7 @@ public class TransactionManger {
             rollback();
             throw e;
         }
-//        entityManager().close();
+        entityManager().close();
         lock.unlock();
         return result;
     }
