@@ -1,11 +1,9 @@
 package it.academy.utils.converters.spare_parst;
 
 import it.academy.dto.spare_parts.SparePartOrderDTO;
-import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import lombok.experimental.UtilityClass;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +13,7 @@ public class SparePartOrderConverter {
     public static SparePartOrderDTO convertToDTO(SparePartsOrder sparePartsOrder) {
         return SparePartOrderDTO.builder()
                 .id(sparePartsOrder.getId())
-                .repairId(sparePartsOrder.getId())
+                .repairId(sparePartsOrder.getRepair().getId())
                 .orderDate(sparePartsOrder.getOrderDate())
                 .departureDate(sparePartsOrder.getDepartureDate())
                 .deliveryDate(sparePartsOrder.getDeliveryDate())
@@ -23,15 +21,15 @@ public class SparePartOrderConverter {
     }
 
     public static SparePartsOrder convertDTOToEntity(SparePartOrderDTO partOrderDTO) {
-        return SparePartsOrder.builder()
+        SparePartsOrder order = SparePartsOrder.builder()
                 .id(partOrderDTO.getId())
-                .repair(Repair.builder()
-                        .id(partOrderDTO.getId())
-                        .build())
                 .orderDate(partOrderDTO.getOrderDate())
                 .departureDate(partOrderDTO.getDepartureDate())
                 .deliveryDate(partOrderDTO.getDeliveryDate())
                 .build();
+        partOrderDTO.getSpareParts().forEach((key, value) ->
+                order.addSparePart(SparePartConverter.convertDTOToEntity(key), value));
+        return order;
     }
 
     public static List<SparePartOrderDTO> convertListToDTO(List<SparePartsOrder> partsOrders) {
@@ -45,4 +43,5 @@ public class SparePartOrderConverter {
                 .map(SparePartOrderConverter::convertDTOToEntity)
                 .collect(Collectors.toList());
     }
+
 }

@@ -48,6 +48,7 @@ section {
 
 .r-form{
     align-items: center;
+    margin: 20px 0 20px 0;
 }
 
 .f-form{
@@ -306,4 +307,8 @@ fieldset.f1 {
     font-size: x-large;
     display: flex;
     width: 100%;
+}
+
+.spare_part_input{
+    text-align: center;
 }

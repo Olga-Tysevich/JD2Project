@@ -25,7 +25,7 @@ public class ShowConfirmedRepair implements ActionCommand {
         req.setAttribute(REPAIR, repairDTO);
 
         List<BrandDTO> brandDTOList = repairService.findBrands();
-        long brandId = repairDTO.getDevice().getModel().getBrandId();
+        long brandId = repairDTO.getBrandId();
         List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(brandId);
         req.setAttribute(BRANDS, brandDTOList);
         req.setAttribute(MODELS, modelDTOList);

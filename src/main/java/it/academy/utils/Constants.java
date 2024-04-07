@@ -62,9 +62,11 @@ public class Constants {
     public static final String DATE_OF_SALE = "dateOfSale";
     //Device types
     public static final String SPARE_PARTS = "spareParts";
-    public static final String ORDERED_SPARE_PARTS = "ordered_spareParts";
+//    public static final String ORDERED_SPARE_PARTS = "ordered_spareParts";
     //Spare Parts
     public static final String DEVICE_TYPES = "typeSet";
+    //Spare Part order
+    public static final String SPARE_PART_ORDER = "sp_order";
 
     //Common parameters
     public static final String IS_DELETED = "isDeleted";
@@ -106,6 +108,8 @@ public class Constants {
     public static final String SPARE_PART_QUANTITY = "quantity";
     public static final String SPARE_PART_NAME = "spare_part_name";
     public static final String ORDER_DATA = "order_data";
+    public static final String ORDER_DATE = "order_date";
+    public static final String DEPARTURE_DATE = "departure_date";
 
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
@@ -149,14 +153,14 @@ public class Constants {
 
     public static final String REPAIR_PAGE_DATA = "repair page data";
     public static final long DEFAULT_ID = 1L;
+    public static final String DEFAULT_VALUE = "";
 
     //open commands
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&status=ALL&&page=%d";
-    public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1";
+    public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1&&current_brand_id=1";
 
 
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
-    public static final String OPEN_BRAND_LIST_PAGE = "brands?command=show_brand_list";
     public static final String OPEN_MODEL_LIST_PAGE = "brands?command=show_model_list&&id=%s";
 
 

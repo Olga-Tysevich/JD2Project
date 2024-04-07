@@ -1,6 +1,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.utils.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -36,7 +37,7 @@
 
             <div class="button-container">
                 <input class="button" type="submit" value="Подтвердить" form="showRepair"/>
-                <input class="button" type="button" value="Вернуться к выбору бренда" onclick="location.href='<%=OPEN_BRAND_LIST_PAGE%>'"/>
+                <input class="button" type="button" value="Вернуться к выбору бренда" onclick="location.href='<%=Constants.OPEN_REPAIR_PAGE%>'"/>
                 <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
             </div>
 

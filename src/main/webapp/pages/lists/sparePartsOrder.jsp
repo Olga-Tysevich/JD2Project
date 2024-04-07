@@ -17,7 +17,6 @@
 
             <%
                 List<SparePartDTO> spareParts = (List<SparePartDTO>) request.getAttribute(SPARE_PARTS);
-                Map<SparePartDTO, Integer> orderedSpareParts = (Map<SparePartDTO, Integer>) request.getAttribute(ORDERED_SPARE_PARTS);
 //                Long orderId = request.getAttribute(ORDER_ID) == null? null : (long) request.getAttribute(ORDER_ID);
             %>
 
@@ -25,14 +24,15 @@
             <div class="form-container r-form">
                 <form class="rc-form" action="repair" method="post" id="addSparePartOrder">
                     <input type="hidden" name="command" value="add_spare_part_order">
-<%--                    <input type="hidden" name="<%=ORDER_ID%>" value="<%=orderId%>">--%>
+                    <input type="hidden" name="<%=REPAIR_ID%>" value="<%=request.getAttribute(REPAIR_ID)%>">
+                    <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=request.getAttribute(DEVICE_TYPE_ID)%>">
                     <%--<input type="hidden" name="page" value="<%=pageNumber%>">--%>
                     <div class="f-input">
                         <div class="form-el">Заказ запчастей для ремонта No.<%=REPAIR_NUMBER%></div>
                     </div>
 
                     <div class="f-input">
-                        <label class="form-el">Модель:</label>
+                        <label class="form-el">Запчасть:</label>
                         <select class="f-form " name="id" size="0">
                             <%for (SparePartDTO sparePartDTO : spareParts) { %>
                             <option id="spare_part_id" value="<%=sparePartDTO.getId()%>"><%=sparePartDTO.getName()%></option>
@@ -50,7 +50,6 @@
                         <input id="add_id" class="choose-button btn-table" type="button" value="Добавить" />
                     </div>
 
-
                     <div class="f-input">
 
                         <table id="order_table">
@@ -58,21 +57,19 @@
                                 <th>Наименование</th>
                                 <th>Количество</th>
                             </tr>
-
-
-
-                            <% if (orderedSpareParts != null) { %>
-                            <% for (SparePartDTO partDTO : orderedSpareParts.keySet()) { %>
-                            <tr id="data_id" class="spare_part_input">
-                                <td><%=partDTO.getName()%></td>
-                                    <input  type="hidden" name="<%=OBJECT_ID%>" value="<%=partDTO.getId()%>">
-                                    <input  type="text" name="<%=SPARE_PART_NAME%>" value="<%=partDTO.getName()%>" disabled>
-                                <td>
-                                    <input class="quantity" type="number" name="<%=SPARE_PART_QUANTITY%>" value="<%=orderedSpareParts.get(partDTO)%>">
-                                </td>
-                            </tr>
-                            <% }
-                            }%>
+<%--                            <% if (orderedSpareParts != null) { %>--%>
+<%--                            <% for (SparePartDTO partDTO : orderedSpareParts.keySet()) { %>--%>
+<%--                            <tr id="data_id" class="spare_part_input">--%>
+<%--                                <td class="order-td"><%=partDTO.getName()%></td>--%>
+<%--                                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=partDTO.getId()%>">--%>
+<%--                                    <input type="text" name="<%=SPARE_PART_NAME%>" value="<%=partDTO.getName()%>" disabled>--%>
+<%--                                <td class="order-td">--%>
+<%--                                    <input class="quantity " type="number" name="<%=SPARE_PART_QUANTITY%>" value="<%=orderedSpareParts.get(partDTO)%>">--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <% }--%>
+<%--                            }%>--%>
+                        </table>
                     </div>
 
                 </form>

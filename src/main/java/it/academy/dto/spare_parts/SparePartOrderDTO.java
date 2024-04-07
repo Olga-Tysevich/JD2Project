@@ -1,6 +1,5 @@
 package it.academy.dto.spare_parts;
 
-import it.academy.entities.spare_parts_order.SparePart;
 import lombok.Builder;
 import lombok.Data;
 import java.sql.Date;
@@ -20,6 +19,6 @@ public class SparePartOrderDTO {
 
     private Date deliveryDate;
 
-    private Map<SparePart, Integer> spareParts;
+    private Map<SparePartDTO, Integer> spareParts;
 
 }

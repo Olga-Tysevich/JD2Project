@@ -2,15 +2,20 @@ package it.academy.services.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
+import it.academy.dao.repair.RepairDAO;
+import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_parts_order.SparePartDAO;
 import it.academy.dao.spare_parts_order.SparePartsOrderDAO;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.device.components.DeviceType;
+import it.academy.entities.repair.Repair;
+import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.SparePartService;
@@ -31,6 +36,7 @@ public class SparePartServiceImpl implements SparePartService {
     private SparePartDAO sparePartDAO = new SparePartDAOImpl();
     private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private RepairDAO repairDAO = new RepairDAOImpl();
 
     @Override
     public void addSparePart(SparePartDTO partDTO) {
@@ -89,7 +95,13 @@ public class SparePartServiceImpl implements SparePartService {
     @Override
     public void addSparePartOrder(SparePartOrderDTO partOrderDTO) {
         SparePartsOrder order = SparePartOrderConverter.convertDTOToEntity(partOrderDTO);
-        transactionManger.execute(() ->  sparePartsOrderDAO.create(order));
+        transactionManger.execute(() -> {
+            Repair repair = repairDAO.find(partOrderDTO.getRepairId());
+            repair.setStatus(RepairStatus.WAITING_FOR_SPARE_PARTS);
+            order.setRepair(repair);
+            sparePartsOrderDAO.create(order);
+            return repairDAO.update(repair);
+        });
     }
 
     @Override

@@ -1,6 +1,5 @@
 package it.academy.dto.repair;
 
-import it.academy.dto.device.DeviceDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import lombok.Builder;
@@ -15,7 +14,33 @@ public class RepairDTO {
 
     private Long id;
 
-    private DeviceDTO device;
+    private Long deviceId;
+
+    private Long modelId;
+
+    private String modelName;
+
+    private Long brandId;
+
+    private String brandName;
+
+    private Long deviceTypeId;
+
+    private String deviceTypeName;
+
+    private String serialNumber;
+
+    private Date dateOfSale;
+
+    private String salesmanName;
+
+    private String salesmanPhone;
+
+    private String buyerName;
+
+    private String buyerSurname;
+
+    private String buyerPhone;
 
     private RepairCategory category;
 
@@ -31,7 +56,13 @@ public class RepairDTO {
 
     private Date deliveryDate;
 
-    private RepairTypeDTO type;
+    private Long repairTypeId;
+
+    private String repairTypeName;
+
+    private String repairTypeCode;
+
+    private String repairTypeLevel;
 
     private boolean isDeleted;
 

@@ -51,7 +51,7 @@
                     <td class="date"><%=repair.getStartDate()%></td>
                     <td class="number"><%=repair.getRepairWorkshopRepairNumber()%></td>
                     <td class="number"><%=repair.getModelDescription()%></td>
-                    <td><%=repair.getDevice().getSerialNumber()%></td>
+                    <td><%=repair.getSerialNumber()%></td>
                     <td class="defect"><%=repair.getDefectDescription()%></td>
                     <td><%=repair.getStatus().getDescription()%></td>
                     <td>

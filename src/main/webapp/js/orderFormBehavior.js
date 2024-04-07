@@ -4,13 +4,19 @@ function addRowToTable() {
     let quantity = document.getElementById("quantity_id").value;
 
     let orderTable = document.getElementById("order_table");
-    let existingRow = orderTable.getElementsByClassName('spare_part_input')[0];
+    let existingRow = Array.from(orderTable.getElementsByClassName('spare_part_input')).find(row => {
+        let input = row.querySelector('input[type="text"]');
+        console.log(input.value)
+        console.log(input.value === selectedOption.textContent)
+        return input && input.value === selectedOption.textContent;
+    });
+
+    console.log(existingRow)
     if (!existingRow) {
-        existingRow = orderTable.insertRow();
-        existingRow.className = 'spare_part_input';
+        let newRow = orderTable.insertRow();
+        newRow.className = 'spare_part_input';
 
-        let cell1 = existingRow.insertCell(0);
-
+        let cell1 = newRow.insertCell(0);
         let sparePart = document.createElement('input');
         sparePart.type = 'text';
         sparePart.name = 'spare_part_name';
@@ -25,7 +31,7 @@ function addRowToTable() {
         cell1.appendChild(sparePart);
         cell1.appendChild(id);
 
-        let cell2 = existingRow.insertCell(1);
+        let cell2 = newRow.insertCell(1);
         let sparePartQuantity = document.createElement('input');
         sparePartQuantity.type = 'number';
         sparePartQuantity.name = 'quantity';

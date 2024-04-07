@@ -2,6 +2,7 @@
 <%--<%@ page import="it.academy.dto.req.account.AccountDTO" %>--%>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="it.academy.utils.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -89,7 +90,10 @@
 
             <fieldset class="f1">
                 <legend>Заявки</legend>
-                <button class="button button-fieldset" onclick="location.href='<%=OPEN_BRAND_LIST_PAGE%>'"> Создание нового ремонта </button>
+                <form action="repair" method="post">
+                    <input type="hidden" name="command" value="show_repair">
+                    <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
+                </form>
                 <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, FIRST_PAGE)%>'"> Список ремонтов </button>
             </fieldset>
 
