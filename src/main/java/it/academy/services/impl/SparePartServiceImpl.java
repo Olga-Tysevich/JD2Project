@@ -133,10 +133,14 @@ public class SparePartServiceImpl implements SparePartService {
         SparePartsOrder order = SparePartOrderConverter.convertDTOToEntity(partDTO);
         transactionManger.execute(() -> {
             Repair repair = repairDAO.find(partDTO.getRepairId());
-            repair.setStatus(RepairStatus.WAITING_FOR_SPARE_PARTS);
             order.setRepair(repair);
             sparePartsOrderDAO.update(order);
             return repairDAO.update(repair);
         });
+    }
+
+    @Override
+    public void removeSparePartOrder(long id) {
+        transactionManger.execute(() -> sparePartsOrderDAO.delete(id));
     }
 }

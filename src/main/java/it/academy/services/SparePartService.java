@@ -22,6 +22,8 @@ public interface SparePartService {
 
     void changeSparePartOrder(SparePartOrderDTO partDTO);
 
+    void removeSparePartOrder(long id);
+
     SparePartOrderDTO findSparePartOrder(long id);
 
     List<SparePartOrderDTO> findSparePartOrdersByRepairId(long id);

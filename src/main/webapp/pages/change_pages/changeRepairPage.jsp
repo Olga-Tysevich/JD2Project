@@ -211,7 +211,7 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/repairFrom.js"></script>
-<script rel="script" src="${pageContext.request.contextPath}/js/orderFormBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/RepairFrom.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/OrderFormBehavior.js"></script>
 
 </body>

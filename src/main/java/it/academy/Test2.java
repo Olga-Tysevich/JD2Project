@@ -47,26 +47,6 @@ public class Test2 {
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
-        long orderId = 13L;
-        String departureDateString = "2022-11-05";
-        String deliveryDateString = null;
-        SparePartOrderDTO order = sparePartService.findSparePartOrder(orderId);
-
-        if (deliveryDateString != null && !deliveryDateString.isEmpty()) {
-            order.setDeliveryDate(Date.valueOf(deliveryDateString));
-        }
-
-        if (departureDateString != null && !departureDateString.isEmpty()) {
-            order.setDepartureDate(Date.valueOf(departureDateString));
-        }
-        System.out.println(order);
-
-        sparePartService.changeSparePartOrder(order);
-        RepairDTO repair = repairService.findRepair(order.getRepairId());
-        List<BrandDTO> brandDTOList = repairService.findBrands();
-        List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(repair.getBrandId());
-        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repair.getId());
-        orders.forEach(System.out::println);
 
 //        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(135L);
 //

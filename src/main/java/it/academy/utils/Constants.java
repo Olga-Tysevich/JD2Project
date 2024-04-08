@@ -160,7 +160,8 @@ public class Constants {
 
     //open commands
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&status=ALL&&page=%d";
-    public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1&&current_brand_id=1";
+    public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
+//    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
 
 

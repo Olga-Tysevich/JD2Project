@@ -13,9 +13,6 @@ import it.academy.servlets.extractors.impl.RepairExtractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
 
 import static it.academy.utils.Constants.*;

@@ -71,5 +71,5 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/orderFormBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/OrderFormBehavior.js"></script>
 </body>
