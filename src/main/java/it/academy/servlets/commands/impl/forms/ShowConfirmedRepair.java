@@ -30,7 +30,7 @@ public class ShowConfirmedRepair implements ActionCommand {
         req.setAttribute(REPAIR, repairDTO);
 
         List<BrandDTO> brandDTOList = repairService.findBrands();
-        long brandId = repairDTO.getBrandId();
+        long brandId = repairDTO.getDevice().getModel().getBrandId();
         List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(brandId);
 
         if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {

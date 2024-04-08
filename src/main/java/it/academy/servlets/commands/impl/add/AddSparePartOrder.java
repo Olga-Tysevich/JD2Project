@@ -34,15 +34,16 @@ public class AddSparePartOrder extends ShowOrderSparePart {
 
         long repairId = (long) extractor.getParameter(REPAIR_ID);
         RepairDTO repairDTO = repairService.findRepair(repairId);
-        List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(repairDTO.getBrandId());
+        long brandId = repairDTO.getDevice().getModel().getBrandId();
+        List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(brandId);
         List<BrandDTO> brandDTOList = repairService.findBrands();
         List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repairId);
 
         req.setAttribute(REPAIR, repairDTO);
         req.setAttribute(BRANDS, brandDTOList);
         req.setAttribute(MODELS, modelDTOList);
-        req.setAttribute(BRAND_ID, repairDTO.getBrandId());
-        req.setAttribute(CURRENT_BRAND_ID, repairDTO.getBrandId());
+        req.setAttribute(BRAND_ID, brandId);
+        req.setAttribute(CURRENT_BRAND_ID, brandId);
         req.setAttribute(ORDERS, orders);
 
         return CHANGE_REPAIR_PAGE_PATH;

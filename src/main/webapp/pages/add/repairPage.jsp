@@ -5,6 +5,8 @@
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
 <%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="java.sql.Date" %>
+<%@ page import="it.academy.dto.device.DeviceDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -18,6 +20,9 @@
 
         <%
             RepairDTO repairDTO = (RepairDTO) request.getAttribute(REPAIR);
+            long brandId = repairDTO.getDevice().getModel().getBrandId();
+            Long deviceId = repairDTO.getDevice().getId();
+            DeviceDTO device = repairDTO.getDevice();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             List<BrandDTO> brandDTOList = (List<BrandDTO>) request.getAttribute(BRANDS);
@@ -27,8 +32,8 @@
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="repair">
                 <input type="hidden" name="command" value="add_repair">
-                <input type="hidden" name="<%=BRAND_ID%>" value="<%=repairDTO.getBrandId()%>">
-                <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
+                <input type="hidden" name="<%=BRAND_ID%>" value="<%=brandId%>">
+                <input type="hidden" name="<%=DEVICE_ID%>" value="<%=deviceId%>">
 
                 <div class="f-input">
                     <label class="form-el">Статус ремонта:</label>
@@ -54,7 +59,7 @@
                     <select class="f-form " name="<%=CURRENT_BRAND_ID%>" size="1" id="select_send">
                         <%for (BrandDTO brandDTO : brandDTOList) {%>
                         <option value="<%=brandDTO.getId()%>"
-                                <%if(brandDTO.getId().equals(repairDTO.getBrandId())) {%>selected<%}%> >
+                                <%if(brandDTO.getId().equals(brandId)) {%>selected<%}%> >
                             <%=brandDTO.getName()%></option>
                         <%}%>
                     </select>
@@ -65,7 +70,7 @@
                     <select class="f-form " name="<%=MODEL_ID%>" size="1">
                         <%for (ModelDTO modelDTO : modelDTOList) {%>
                         <option value="<%=modelDTO.getId()%>"
-                                <%if(modelDTO.getId().equals(repairDTO.getDeviceId())) {%>selected<%}%> >
+                                <%if(modelDTO.getId().equals(deviceId)) {%>selected<%}%> >
                             <%=modelDTO.getName()%></option>
                         <%}%>
                     </select>
@@ -73,7 +78,7 @@
 
                 <div class="f-input">
                     <label class="form-el" for="sn">Серийный номер:</label>
-                    <input class="f-form" required type="text" name="<%=SERIAL_NUMBER%>" value="<%=repairDTO.getSerialNumber()%>" id="sn">
+                    <input class="f-form" required type="text" name="<%=SERIAL_NUMBER%>" value="<%=device.getSerialNumber()%>" id="sn">
                 </div>
 
                 <div class="f-input">
@@ -92,7 +97,7 @@
                     <p>
                         <label class="date-label" for="saleDate">Дата продажи: </label>
                     <div class="date-container">
-                        <input class="f-form" required type="date" id="saleDate" name="<%=DATE_OF_SALE%>" value="<%=repairDTO.getDateOfSale()%>"/>
+                        <input class="f-form" required type="date" id="saleDate" name="<%=DATE_OF_SALE%>" value="<%=device.getDateOfSale()%>"/>
                     </div>
                     </p>
                 </div>
@@ -101,31 +106,31 @@
                 <div class="f-input">
                     <label class="form-el" for="salesman">Продавец:</label>
                     <input class="f-form" required type="text" name="<%=SALESMAN_NAME%>"
-                           value="<%=repairDTO.getSalesmanName()%>" id="salesman">
+                           value="<%=device.getSalesmanName()%>" id="salesman">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el" for="salesmanPhone">Телефон продавца:</label>
                     <input class="f-form" required type="tel" name="<%=SALESMAN_PHONE%>"
-                           value="<%=repairDTO.getSalesmanPhone()%>" id="salesmanPhone">
+                           value="<%=device.getSalesmanPhone()%>" id="salesmanPhone">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el" for="buyerName">Имя владельца:</label>
                     <input class="f-form" required type="text" name="<%=BUYER_NAME%>"
-                           value="<%=repairDTO.getBuyerName()%>" id="buyerName">
+                           value="<%=device.getBuyerName()%>" id="buyerName">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el" for="buyerSurname">Фамилия владельца:</label>
                     <input class="f-form" required type="text" name="<%=BUYER_SURNAME%>"
-                           value="<%=repairDTO.getBuyerSurname()%>" id="buyerSurname">
+                           value="<%=device.getBuyerSurname()%>" id="buyerSurname">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el" for="buyerPhone">Телефон владельца:</label>
                     <input class="f-form" required type="tel" name="<%=BUYER_PHONE%>"
-                           value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
+                           value="<%=device.getBuyerPhone()%>" id="buyerPhone">
                 </div>
 
         <div class="button-container">

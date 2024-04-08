@@ -7,6 +7,7 @@ import it.academy.entities.device.components.*;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.utils.Builder;
+import it.academy.utils.converters.device.DeviceConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -27,21 +28,7 @@ public class RepairConverter {
 
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repair.getId())
-                .deviceId(repair.getDevice().getId())
-                .modelId(repair.getDevice().getModel().getId())
-                .modelName(repair.getDevice().getModel().getName())
-                .brandId(repair.getDevice().getModel().getBrand().getId())
-                .brandName(repair.getDevice().getModel().getBrand().getName())
-                .deviceTypeId(repair.getDevice().getModel().getType().getId())
-                .deviceTypeName(repair.getDevice().getModel().getType().getName())
-                .serialNumber(repair.getDevice().getSerialNumber())
-                .dateOfSale(repair.getDevice().getDateOfSale())
-                .salesmanName(repair.getDevice().getSalesman().getName())
-                .salesmanPhone(repair.getDevice().getSalesman().getPhone())
-                .buyerName(repair.getDevice().getBuyer().getName())
-                .buyerSurname(repair.getDevice().getBuyer().getSurname())
-                .buyerPhone(repair.getDevice().getBuyer().getPhone())
-                .buyerPhone(repair.getDevice().getBuyer().getPhone())
+                .device(DeviceConverter.convertToDTO(repair.getDevice()))
                 .category(repair.getCategory())
                 .status(repair.getStatus())
                 .defectDescription(repair.getDefectDescription())
@@ -54,7 +41,7 @@ public class RepairConverter {
                         brand, model.getName()))
                 .build();
 
-        if (repair.getStatus().isFinishedStatus()) {
+        if (repair.getStatus().isFinishedStatus() && repair.getRepairType() != null) {
             RepairTypeDTO repairType = RepairTypeDTO.builder()
                     .id(repair.getRepairType().getId())
                     .code(repair.getRepairType().getCode())
@@ -69,19 +56,13 @@ public class RepairConverter {
     }
 
     public static Repair convertDTOToEntity(RepairDTO repairDTO) {
-        Salesman salesman = Builder.buildSalesman(repairDTO.getSalesmanName(), repairDTO.getSalesmanPhone());
-        Buyer buyer = Builder.buildBuyer(repairDTO.getBuyerName(), repairDTO.getBuyerSurname(), repairDTO.getBuyerPhone());
-        Brand brand = Builder.buildBrand(repairDTO.getBrandId(), repairDTO.getBrandName(), true);
-        DeviceType type = Builder.buildDeviceType(repairDTO.getDeviceTypeId(), repairDTO.getDeviceTypeName(), true);
-        Model model = Builder.buildModel(repairDTO.getModelId(), repairDTO.getModelName(), brand, type);
-        Device device = Builder.buildDevice(repairDTO.getDeviceId(), model, repairDTO.getSerialNumber(), repairDTO.getDateOfSale(), buyer, salesman);
 
         Repair repair = Repair.builder()
                 .id(repairDTO.getId())
 //                .repairWorkshop()
                 .status(repairDTO.getStatus())
                 .category(repairDTO.getCategory())
-                .device(device)
+                .device(DeviceConverter.convertDTOToEntity(repairDTO.getDevice()))
                 .defectDescription(repairDTO.getDefectDescription())
                 .repairWorkshopRepairNumber(repairDTO.getRepairWorkshopRepairNumber())
                 .startDate(repairDTO.getStartDate())

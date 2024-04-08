@@ -40,7 +40,7 @@ public class Constants {
     public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
     public static final String WAITING_SP_DESCRIPTION = "Заказаны запчасти";
     public static final String COMPLETED_DESCRIPTION = "Завершен";
-    public static final String DECOMMISSIONED_DESCRIPTION = "Завершен";
+    public static final String DECOMMISSIONED_DESCRIPTION = "Списан";
     public static final String PAID_DESCRIPTION = "Оплачен";
     public static final String DELIVERED_DESCRIPTION = "Выдан";
     public static final String REJECTED_DESCRIPTION = "Отклонен";
@@ -91,6 +91,7 @@ public class Constants {
     //Repair parameters
     public static final String REPAIR_ID = "repair_id";
     public static final String REPAIR_WORKSHOP_ID = "repair_workshop_id";
+    public static final String REPAIR_TYPE = "type";
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";
     public static final String REPAIR_MODEL_NAME = "model_name";
@@ -131,14 +132,22 @@ public class Constants {
     public static final String WAITING_SPARE_PARTS_TABLE_PATH = "path.page.repair.waiting";
 
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
+    public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
+    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/add/repairTypePage.jsp";
+    public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
+    public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
+
     public static final String BRAND_LIST_PAGE_PATH = "/pages/lists/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/lists/modelList.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/lists/repairTypeList.jsp";
-    public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
-    public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
-    public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/lists/sparePartsOrder.jsp";
-    public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
+
+    public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
+    public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
+
+    public static final String REPAIR_TYPE_FORM_BODY = "/pages/for_include/repairTypeForm.jsp";
+
+
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -163,6 +172,7 @@ public class Constants {
 
     //open commands
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&status=ALL&&page=%d";
+    public static final String OPEN_REPAIR_TYPE_TABLE_PAGE = "main?command=show_repair_type_table&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
 //    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";

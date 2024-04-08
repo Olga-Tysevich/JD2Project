@@ -1,8 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.USER" %>
-<%--<%@ page import="it.academy.dto.req.account.AccountDTO" %>--%>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.utils.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -85,7 +83,8 @@
                 <legend>Ремонты</legend>
                 <button class="button button-fieldset"> Список статусов</button>
                 <button class="button button-fieldset"> Список категорий</button>
-                <button class="button button-fieldset"> Список типов</button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_TYPE_TABLE_PAGE, FIRST_PAGE)%>'"> Список типов</button>
             </fieldset>
 
             <fieldset class="f1">

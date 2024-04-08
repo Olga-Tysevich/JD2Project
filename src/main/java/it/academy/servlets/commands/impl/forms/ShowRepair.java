@@ -7,6 +7,7 @@ import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.utils.Builder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,18 +21,12 @@ public class ShowRepair implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        ModelDTO modelDTO = repairService.findModel(DEFAULT_ID);
         RepairDTO repairDTO = RepairDTO.builder()
-                .brandId(DEFAULT_ID)
-                .deviceId(DEFAULT_ID)
+                .device(Builder.buildEmptyDevice(modelDTO))
                 .status(RepairStatus.REQUEST)
-                .serialNumber(DEFAULT_VALUE)
                 .defectDescription(DEFAULT_VALUE)
                 .repairWorkshopRepairNumber(DEFAULT_VALUE)
-                .salesmanName(DEFAULT_VALUE)
-                .salesmanPhone(DEFAULT_VALUE)
-                .buyerName(DEFAULT_VALUE)
-                .buyerSurname(DEFAULT_VALUE)
-                .buyerPhone(DEFAULT_VALUE)
                 .build();
         List<BrandDTO> brandDTOList = repairService.findBrands();
         List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(DEFAULT_ID);
