@@ -20,6 +20,10 @@ public interface SparePartService {
 
     void addSparePartOrder(SparePartOrderDTO partDTO);
 
+    void changeSparePartOrder(SparePartOrderDTO partDTO);
+
+    SparePartOrderDTO findSparePartOrder(long id);
+
     List<SparePartOrderDTO> findSparePartOrdersByRepairId(long id);
 
 //    ListForPage<SparePartDTO> findSparePart(ParametersForSearchDTO parameters);

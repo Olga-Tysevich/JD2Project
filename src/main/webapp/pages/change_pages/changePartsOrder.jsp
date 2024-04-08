@@ -13,15 +13,15 @@
          for (SparePartOrderDTO orderDTO : orders) {
         Map<SparePartDTO, Integer> spareParts = orderDTO.getSpareParts();%>
 
-<form class="lr-form" action="main" method="post" id="repair">
-    <input type="hidden" name="command" value="change_order">
-    <input type="hidden" name="<%=ORDER_ID%>" value="<%=orderDTO.getId()%>" disabled>
+<form class="lr-form" action="repair" method="post" id="repair">
+    <input type="hidden" name="command" value="change_spare_part_order">
+    <input type="hidden" name="<%=ORDER_ID%>" value="<%=orderDTO.getId()%>">
     <%     for (SparePartDTO sparePartDTO: spareParts.keySet()) {
     %>
     <div class="order-container">
 
         <div class="f-input change-order">
-                <input id="change_id" class="choose-button btn-table" type="submit" value="Изменить" />
+                <input id="change_id" class="choose-button btn-table" type="submit" value="Изменить"/>
         </div>
 
         <div class="f-input">

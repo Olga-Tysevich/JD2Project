@@ -183,11 +183,6 @@
                         <input class="f-form" required type="tel" name="<%=BUYER_PHONE%>"
                                value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
                     </div>
-
-                <% if (orders != null && !orders.isEmpty()) {
-                    pageContext.include(CHANGE_SPARE_PART_ORDER_PAGE_PATH);
-                }%>
-
                     <div class="lf-button-container">
                         <input class="choose-button btn-table lf-button" type="submit" value="Заказать запчасти" form="order"/>
                         <input class="choose-button btn-table lf-button" type="submit" value="Сообщить о выполнении" form="repair"/>
@@ -201,7 +196,12 @@
 
         </form>
 
-        <form action="repair" method="post" id="order">
+            <% if (orders != null && !orders.isEmpty()) {
+                pageContext.include(CHANGE_SPARE_PART_ORDER_PAGE_PATH);
+            }%>
+
+
+            <form action="repair" method="post" id="order">
             <input type="hidden" name="command" value="show_order_spare_part">
             <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
             <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairWorkshopRepairNumber()%>">

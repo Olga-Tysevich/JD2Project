@@ -33,7 +33,6 @@ public class Constants {
     public static final String REPAIR_STATUS = "status";
     public static final String START_DATE = "startDate";
     public static final String END_DATE = "endDate";
-    public static final String DELIVERY_DATE = "deliveryDate";
     public static final String REPAIR_TYPE_LEVEL = "level";
     public static final String REPAIR_TYPE_CODE = "code";
     //repair statuses description
@@ -112,6 +111,7 @@ public class Constants {
     public static final String ORDER_DATA = "order_data";
     public static final String ORDER_DATE = "order_date";
     public static final String DEPARTURE_DATE = "departure_date";
+    public static final String DELIVERY_DATE = "delivery_date";
 
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
@@ -161,6 +161,7 @@ public class Constants {
     //open commands
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&status=ALL&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "main?command=show_repair&&page=%d&&brand_id=1&&current_brand_id=1";
+    public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
 
 
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";

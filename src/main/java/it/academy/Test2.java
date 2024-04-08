@@ -6,7 +6,10 @@ import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
+import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.ModelDTO;
+import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.spare_parts_order.SparePart;
@@ -19,7 +22,10 @@ import it.academy.services.impl.SparePartServiceImpl;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 
+import java.sql.Date;
 import java.util.List;
+
+import static it.academy.utils.Constants.*;
 
 public class Test2 {
 
@@ -41,13 +47,34 @@ public class Test2 {
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
-        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(135L);
+        long orderId = 13L;
+        String departureDateString = "2022-11-05";
+        String deliveryDateString = null;
+        SparePartOrderDTO order = sparePartService.findSparePartOrder(orderId);
 
+        if (deliveryDateString != null && !deliveryDateString.isEmpty()) {
+            order.setDeliveryDate(Date.valueOf(deliveryDateString));
+        }
 
-        SparePartDTO s = sparePartService.findSparePart(2L);
+        if (departureDateString != null && !departureDateString.isEmpty()) {
+            order.setDepartureDate(Date.valueOf(departureDateString));
+        }
+        System.out.println(order);
 
-        List<SparePartDTO> sparePartDTOS = sparePartService.findSparePartsByDeviceTypeId(1L);
-        System.out.println();
+        sparePartService.changeSparePartOrder(order);
+        RepairDTO repair = repairService.findRepair(order.getRepairId());
+        List<BrandDTO> brandDTOList = repairService.findBrands();
+        List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(repair.getBrandId());
+        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repair.getId());
+        orders.forEach(System.out::println);
+
+//        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(135L);
+//
+//
+//        SparePartDTO s = sparePartService.findSparePart(2L);
+//
+//        List<SparePartDTO> sparePartDTOS = sparePartService.findSparePartsByDeviceTypeId(1L);
+//        System.out.println();
 
 //        SparePartDTO sparePart = sparePartService.findSparePart(1L);
 //

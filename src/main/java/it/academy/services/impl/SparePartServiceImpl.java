@@ -121,4 +121,22 @@ public class SparePartServiceImpl implements SparePartService {
         };
         return transactionManger.execute(find);
     }
+
+    @Override
+    public SparePartOrderDTO findSparePartOrder(long id) {
+        return transactionManger.execute(() ->
+                SparePartOrderConverter.convertToDTO(sparePartsOrderDAO.find(id)));
+    }
+
+    @Override
+    public void changeSparePartOrder(SparePartOrderDTO partDTO) {
+        SparePartsOrder order = SparePartOrderConverter.convertDTOToEntity(partDTO);
+        transactionManger.execute(() -> {
+            Repair repair = repairDAO.find(partDTO.getRepairId());
+            repair.setStatus(RepairStatus.WAITING_FOR_SPARE_PARTS);
+            order.setRepair(repair);
+            sparePartsOrderDAO.update(order);
+            return repairDAO.update(repair);
+        });
+    }
 }
