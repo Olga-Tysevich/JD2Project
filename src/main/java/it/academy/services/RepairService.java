@@ -8,6 +8,7 @@ import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairStatus;
+import it.academy.entities.repair.components.RepairType;
 
 import java.util.List;
 
@@ -38,5 +39,7 @@ public interface RepairService {
     ListForPage<RepairDTO> findRepairs(int pageNumber);
 
     ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber);
+
+    List<RepairTypeDTO> findRepairTypes();
 
 }

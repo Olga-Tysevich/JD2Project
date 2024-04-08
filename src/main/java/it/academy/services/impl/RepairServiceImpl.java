@@ -183,4 +183,9 @@ public class RepairServiceImpl implements RepairService {
         return deviceDTO;
     }
 
+    @Override
+    public List<RepairTypeDTO> findRepairTypes() {
+        return transactionManger.execute(() ->
+                RepairTypeConverter.convertListToDTO(repairTypeDAO.findAll()));
+    }
 }

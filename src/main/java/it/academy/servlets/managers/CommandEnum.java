@@ -12,6 +12,7 @@ import it.academy.servlets.commands.impl.forms.ShowRepair;
 import it.academy.servlets.commands.impl.lists.ShowBrandList;
 import it.academy.servlets.commands.impl.lists.ShowModelList;
 import it.academy.servlets.commands.impl.ShowPageCommand;
+import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 import it.academy.servlets.commands.impl.tables.ShowRepairTable;
 
 import static it.academy.utils.Constants.*;
@@ -28,7 +29,8 @@ public enum CommandEnum {
     SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
     ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
-    DELETE_SPARE_PART_ORDER(new DeleteSparePartOrder());
+    DELETE_SPARE_PART_ORDER(new DeleteSparePartOrder()),
+    SHOW_REPAIR_TYPE_LIST(new ShowRepairTypeList());
 
     private ActionCommand command;
 

@@ -132,6 +132,7 @@ public class Constants {
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     public static final String BRAND_LIST_PAGE_PATH = "/pages/lists/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/lists/modelList.jsp";
+    public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/lists/repairTypeList.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
@@ -152,6 +153,7 @@ public class Constants {
     public static final String MODELS = "models";
     public static final String MODEL = "model";
     public static final String REPAIR = "repair";
+    public static final String REPAIR_TYPES = "repair_types";
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
 
     public static final String REPAIR_PAGE_DATA = "repair page data";

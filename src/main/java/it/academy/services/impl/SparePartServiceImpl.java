@@ -10,7 +10,6 @@ import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.device.components.DeviceType;

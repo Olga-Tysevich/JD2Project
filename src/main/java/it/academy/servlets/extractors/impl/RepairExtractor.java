@@ -87,7 +87,6 @@ public class RepairExtractor implements Extractor {
             repairDTO.setRepairTypeName(repairTypeDTO.getName());
             repairDTO.setRepairTypeCode(repairTypeDTO.getCode());
             repairDTO.setRepairTypeLevel(repairTypeDTO.getLevel());
-
         }
 
         if (status.isDeliveredStatus()) {

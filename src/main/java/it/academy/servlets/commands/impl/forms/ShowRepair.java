@@ -7,12 +7,9 @@ import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.Extractor;
-import it.academy.servlets.extractors.impl.RepairExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.List;
 
 import static it.academy.utils.Constants.*;

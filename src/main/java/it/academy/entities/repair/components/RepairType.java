@@ -28,4 +28,5 @@ public class RepairType implements Serializable {
 
     @Column
     private String level;
+
 }
