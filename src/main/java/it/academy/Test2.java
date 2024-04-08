@@ -8,6 +8,7 @@ import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
@@ -39,6 +40,9 @@ public class Test2 {
         DeviceDAO deviceDAO = new DeviceDAOImpl();
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
+
+        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(135L);
+
 
         SparePartDTO s = sparePartService.findSparePart(2L);
 

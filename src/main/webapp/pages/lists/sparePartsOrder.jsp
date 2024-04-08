@@ -1,7 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.spare_parts.SparePartDTO" %>
-<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -17,7 +16,6 @@
 
             <%
                 List<SparePartDTO> spareParts = (List<SparePartDTO>) request.getAttribute(SPARE_PARTS);
-//                Long orderId = request.getAttribute(ORDER_ID) == null? null : (long) request.getAttribute(ORDER_ID);
             %>
 
 
@@ -46,9 +44,9 @@
                     </div>
 
                     <div class="f-input">
-<%--                        <input class="choose-button btn-table" type="submit" value="Добавить" form="addSparePartOrder"/>--%>
                         <input id="add_id" class="choose-button btn-table" type="button" value="Добавить" />
                     </div>
+
 
                     <div class="f-input">
 
@@ -57,18 +55,6 @@
                                 <th>Наименование</th>
                                 <th>Количество</th>
                             </tr>
-<%--                            <% if (orderedSpareParts != null) { %>--%>
-<%--                            <% for (SparePartDTO partDTO : orderedSpareParts.keySet()) { %>--%>
-<%--                            <tr id="data_id" class="spare_part_input">--%>
-<%--                                <td class="order-td"><%=partDTO.getName()%></td>--%>
-<%--                                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=partDTO.getId()%>">--%>
-<%--                                    <input type="text" name="<%=SPARE_PART_NAME%>" value="<%=partDTO.getName()%>" disabled>--%>
-<%--                                <td class="order-td">--%>
-<%--                                    <input class="quantity " type="number" name="<%=SPARE_PART_QUANTITY%>" value="<%=orderedSpareParts.get(partDTO)%>">--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <% }--%>
-<%--                            }%>--%>
                         </table>
                     </div>
 

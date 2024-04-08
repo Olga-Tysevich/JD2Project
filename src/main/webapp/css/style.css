@@ -1,6 +1,5 @@
 body {
     color: #333333;
-    background-image: url(../img/background.jpg);
     margin: 0;
     font-family: serif;
 }
@@ -291,7 +290,6 @@ fieldset.f1 {
 
 .lf-button-container{
     margin: 20px 10px 20px 10px;
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -311,4 +309,17 @@ fieldset.f1 {
 
 .spare_part_input{
     text-align: center;
+}
+
+.order-container{
+    display: flex;
+    flex-direction: column;
+    background: thistle;
+    padding: 20px;
+    border: ridge;
+    box-shadow: 3px 2px 5px #473f3fa6;
+}
+
+.change-order{
+    display: none;
 }

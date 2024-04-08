@@ -1,11 +1,13 @@
 package it.academy.dto.repair;
 
+import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.Map;
 
 @Data
 @Builder

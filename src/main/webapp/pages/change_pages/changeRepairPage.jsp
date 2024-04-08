@@ -5,6 +5,7 @@
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
 <%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.spare_parts.SparePartOrderDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -22,6 +23,7 @@
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             List<BrandDTO> brandDTOList = (List<BrandDTO>) request.getAttribute(BRANDS);
             List<ModelDTO> modelDTOList = (List<ModelDTO>) request.getAttribute(MODELS);
+            List<SparePartOrderDTO> orders = (List<SparePartOrderDTO>) request.getAttribute(ORDERS);
         %>
 
         <div class="lr-container">
@@ -149,7 +151,8 @@
                             </div>
                         <% } %>
 
-                    <% } %>
+             <% } %>
+
 
                     <div class="f-input">
                         <label class="form-el" for="salesman">Продавец:</label>
@@ -181,19 +184,18 @@
                                value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
                     </div>
 
-                    <div class="f-input">
-<%--                        for spare parts--%>
-                    </div>
+                <% if (orders != null && !orders.isEmpty()) {
+                    pageContext.include(CHANGE_SPARE_PART_ORDER_PAGE_PATH);
+                }%>
 
                     <div class="lf-button-container">
                         <input class="choose-button btn-table lf-button" type="submit" value="Заказать запчасти" form="order"/>
                         <input class="choose-button btn-table lf-button" type="submit" value="Сообщить о выполнении" form="repair"/>
                     </div>
 
-                </div>
 
             <div class="button-container">
-                <input class="button" type="button" value="Сохранить" form="repair"/>
+                <input class="button" type="submit" value="Сохранить" form="repair"/>
                 <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
             </div>
 

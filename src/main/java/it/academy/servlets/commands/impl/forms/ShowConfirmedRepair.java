@@ -3,8 +3,12 @@ package it.academy.servlets.commands.impl.forms;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.spare_parts.SparePartOrderDTO;
+import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
+import it.academy.services.SparePartService;
 import it.academy.services.impl.RepairServiceImpl;
+import it.academy.services.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +20,7 @@ import static it.academy.utils.Constants.*;
 
 public class ShowConfirmedRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
+    private SparePartService sparePartService = new SparePartServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -27,6 +32,12 @@ public class ShowConfirmedRepair implements ActionCommand {
         List<BrandDTO> brandDTOList = repairService.findBrands();
         long brandId = repairDTO.getBrandId();
         List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(brandId);
+
+        if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {
+            List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repairId);
+            req.setAttribute(ORDERS, orders);
+        }
+
         req.setAttribute(BRANDS, brandDTOList);
         req.setAttribute(MODELS, modelDTOList);
 

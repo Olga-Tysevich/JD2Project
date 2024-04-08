@@ -107,6 +107,8 @@ public class Constants {
     public static final String REPAIR_NUMBER = "repair_number";
     public static final String SPARE_PART_QUANTITY = "quantity";
     public static final String SPARE_PART_NAME = "spare_part_name";
+    public static final String SPARE_PART_ID = "spare_part_id";
+    public static final String ORDERS = "orders";
     public static final String ORDER_DATA = "order_data";
     public static final String ORDER_DATE = "order_date";
     public static final String DEPARTURE_DATE = "departure_date";
@@ -134,10 +136,11 @@ public class Constants {
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/lists/sparePartsOrder.jsp";
+    public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
-    public static final int LIST_SIZE = 20;
+    public static final int LIST_SIZE = 25;
     public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";

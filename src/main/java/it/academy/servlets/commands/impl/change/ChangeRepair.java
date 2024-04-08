@@ -3,10 +3,13 @@ package it.academy.servlets.commands.impl.change;
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
+import it.academy.services.SparePartService;
 import it.academy.services.impl.RepairServiceImpl;
+import it.academy.services.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairExtractor;
@@ -15,10 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import java.util.List;
+
 import static it.academy.utils.Constants.*;
 
 public class ChangeRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
+    private SparePartService sparePartService = new SparePartServiceImpl();
     private Extractor extractor = new RepairExtractor();
 
     @Override
@@ -26,10 +32,16 @@ public class ChangeRepair implements ActionCommand {
 
         extractor.extractValues(req);
 
+        RepairDTO repair = (RepairDTO) extractor.getParameter(REPAIR);
         long lastBrandId = (long) extractor.getParameter(BRAND_ID);
         long currentBrandId = (long) extractor.getParameter(CURRENT_BRAND_ID);
 
         extractor.insertAttributes(req);
+
+        if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())) {
+            List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repair.getId());
+            req.setAttribute(ORDERS, orders);
+        }
 
         if (!(currentBrandId == lastBrandId)) {
             return CHANGE_REPAIR_PAGE_PATH;
