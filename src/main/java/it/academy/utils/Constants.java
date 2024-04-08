@@ -100,6 +100,7 @@ public class Constants {
 
     //DeviceType parameters
     public static final String DEVICE_TYPE_ID = "device_type_id";
+    public static final String DEVICE_TYPE_NAME = "device_type_name";
 
     //Spare part order
     public static final String ORDER_ID = "order_id";

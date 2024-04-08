@@ -29,7 +29,6 @@
                 <input type="hidden" name="command" value="add_repair">
                 <input type="hidden" name="<%=BRAND_ID%>" value="<%=repairDTO.getBrandId()%>">
                 <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
-                <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairDTO.getRepairTypeId()%>">
 
                 <div class="f-input">
                     <label class="form-el">Статус ремонта:</label>

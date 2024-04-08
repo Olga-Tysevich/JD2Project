@@ -20,6 +20,7 @@
 
         <%
             RepairDTO repairDTO = (RepairDTO) request.getAttribute(REPAIR);
+            RepairTypeDTO repairTypeDTO = repairDTO.getRepairType();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             List<BrandDTO> brandDTOList = (List<BrandDTO>) request.getAttribute(BRANDS);
@@ -33,7 +34,6 @@
                   <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
                   <input type="hidden" name="<%=BRAND_ID%>" value="<%=repairDTO.getBrandId()%>">
                   <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
-                  <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairDTO.getRepairTypeId()%>">
                     <div class="f-input">
                         <div class="radio-container-rp">
                             <label for="isDeleted">Ремонт удален: </label>
@@ -161,17 +161,17 @@
                         <p>
                             Выполненный ремонт:
                             <label for="repairCode">Код:</label>
+                            <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairTypeDTO.getId()%>">
                             <input type="text" id="repairCode" name="<%=REPAIR_TYPE_CODE%>"
-                                   value="<%=repairDTO.getRepairTypeCode() == null? "" : repairDTO.getRepairTypeCode()%>"/>
+                                   value="<%=repairTypeDTO.getCode() == null? "" : repairTypeDTO.getCode()%>"/>
                             <label for="repairLevel">Уровень:</label>
                             <input type="text" id="repairLevel" name="<%=REPAIR_TYPE_LEVEL%>"
-                                   value="<%=repairDTO.getRepairTypeLevel() == null? "" : repairDTO.getRepairTypeLevel()%>"/>
+                                   value="<%=repairTypeDTO.getLevel() == null? "" : repairTypeDTO.getLevel()%>"/>
                             <label for="repairName">Описание:</label>
                             <input type="text" id="repairName" name="<%=REPAIR_TYPE_NAME%>"
-                                   value="<%=repairDTO.getRepairTypeName() == null? "" : repairDTO.getRepairTypeName()%>"/>
+                                   value="<%=repairTypeDTO.getName() == null? "" : repairTypeDTO.getName()%>"/>
                         </p>
                     </div>
-
                     <%if (RepairStatus.DELIVERED.equals(repairDTO.getStatus())) { %>
 
                     <div class="f-input">
@@ -180,16 +180,13 @@
                             <input type="date" required id="deliveryDate" name="<%=DELIVERY_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
                         </p>
                     </div>
-                    <% } %>
-
-                    <% } %>
-
+                    <% } } %>
+<%--                    <% } else { %>--%>
                     <div class="lf-button-container">
                         <input class="choose-button btn-table lf-button" type="submit" value="Заказать запчасти" form="order"/>
                         <input class="choose-button btn-table lf-button" type="submit" value="Сообщить о выполнении" form="completed"/>
                     </div>
-
-
+<%--                    <% }  %>--%>
             <div class="button-container">
                 <input class="button" type="submit" value="Сохранить" form="repair"/>
                 <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
@@ -200,7 +197,6 @@
             <% if (orders != null && !orders.isEmpty()) {
                 pageContext.include(CHANGE_SPARE_PART_ORDER_PAGE_PATH);
             }%>
-
 
             <form action="repair" method="post" id="order">
             <input type="hidden" name="command" value="show_order_spare_part">
@@ -219,6 +215,5 @@
 </section>
 
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>
-<script rel="script" src="${pageContext.request.contextPath}/js/OrderFormBehavior.js"></script>
 
 </body>

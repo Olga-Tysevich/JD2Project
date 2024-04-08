@@ -1,6 +1,7 @@
 package it.academy.utils.converters.repair;
 
 import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.Repair;
@@ -8,7 +9,6 @@ import it.academy.entities.repair.components.RepairType;
 import it.academy.utils.Builder;
 import lombok.experimental.UtilityClass;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,48 +55,54 @@ public class RepairConverter {
                 .build();
 
         if (repair.getStatus().isFinishedStatus()) {
-            RepairType repairType = RepairType.builder()
-                    .id(1L)
-                    .code("Code1")
-                    .level("Level1")
-                    .name("Замена платы")
+            RepairTypeDTO repairType = RepairTypeDTO.builder()
+                    .id(repair.getRepairType().getId())
+                    .code(repair.getRepairType().getCode())
+                    .level(repair.getRepairType().getLevel())
+                    .name(repair.getRepairType().getName())
                     .build();
-            repair.setType(repairType);
-            repair.setEndDate(Date.valueOf("2024-04-07"));
 
+            repairDTO.setRepairType(repairType);
             repairDTO.setEndDate(repair.getEndDate());
-            repairDTO.setRepairTypeId(repair.getType().getId());
-            repairDTO.setRepairTypeName(repair.getType().getName());
-            repairDTO.setRepairTypeCode(repair.getType().getCode());
-            repairDTO.setRepairTypeLevel(repair.getType().getLevel());
         }
         return repairDTO;
     }
 
-    public static Repair convertDTOToEntity(RepairDTO dto) {
-        Salesman salesman = Builder.buildSalesman(dto.getSalesmanName(), dto.getSalesmanPhone());
-        Buyer buyer = Builder.buildBuyer(dto.getBuyerName(), dto.getBuyerSurname(), dto.getBuyerPhone());
-        Brand brand = Builder.buildBrand(dto.getBrandId(), dto.getBrandName(), true);
-        DeviceType type = Builder.buildDeviceType(dto.getDeviceTypeId(), dto.getDeviceTypeName(), true);
-        Model model = Builder.buildModel(dto.getModelId(), dto.getModelName(), brand, type);
-        Device device = Builder.buildDevice(dto.getDeviceId(), model, dto.getSerialNumber(), dto.getDateOfSale(), buyer, salesman);
-        RepairType repairType = dto.getRepairTypeId() != null?
-                Builder.buildRepairType(dto.getRepairTypeId(), dto.getRepairTypeName(),
-                        dto.getRepairTypeCode(), dto.getRepairTypeLevel()) : null;
-        return Repair.builder()
-                .id(dto.getId())
+    public static Repair convertDTOToEntity(RepairDTO repairDTO) {
+        Salesman salesman = Builder.buildSalesman(repairDTO.getSalesmanName(), repairDTO.getSalesmanPhone());
+        Buyer buyer = Builder.buildBuyer(repairDTO.getBuyerName(), repairDTO.getBuyerSurname(), repairDTO.getBuyerPhone());
+        Brand brand = Builder.buildBrand(repairDTO.getBrandId(), repairDTO.getBrandName(), true);
+        DeviceType type = Builder.buildDeviceType(repairDTO.getDeviceTypeId(), repairDTO.getDeviceTypeName(), true);
+        Model model = Builder.buildModel(repairDTO.getModelId(), repairDTO.getModelName(), brand, type);
+        Device device = Builder.buildDevice(repairDTO.getDeviceId(), model, repairDTO.getSerialNumber(), repairDTO.getDateOfSale(), buyer, salesman);
+
+        Repair repair = Repair.builder()
+                .id(repairDTO.getId())
 //                .repairWorkshop()
-                .status(dto.getStatus())
-                .category(dto.getCategory())
+                .status(repairDTO.getStatus())
+                .category(repairDTO.getCategory())
                 .device(device)
-                .defectDescription(dto.getDefectDescription())
-                .repairWorkshopRepairNumber(dto.getRepairWorkshopRepairNumber())
-                .type(repairType)
-                .startDate(dto.getStartDate())
-                .endDate(dto.getEndDate())
-                .deliveryDate(dto.getDeliveryDate())
-                .isDeleted(dto.isDeleted())
+                .defectDescription(repairDTO.getDefectDescription())
+                .repairWorkshopRepairNumber(repairDTO.getRepairWorkshopRepairNumber())
+                .startDate(repairDTO.getStartDate())
+                .endDate(repairDTO.getEndDate())
+                .deliveryDate(repairDTO.getDeliveryDate())
+                .isDeleted(repairDTO.isDeleted())
                 .build();
+
+
+        if (repairDTO.getStatus().isFinishedStatus()) {
+            RepairType repairType = RepairType.builder()
+                    .id(repairDTO.getRepairType().getId())
+                    .code(repairDTO.getRepairType().getCode())
+                    .level(repairDTO.getRepairType().getLevel())
+                    .name(repairDTO.getRepairType().getName())
+                    .build();
+
+            repair.setRepairType(repairType);
+            repairDTO.setEndDate(repairDTO.getEndDate());
+        }
+        return repair;
     }
 
     public static List<RepairDTO> convertListToDTO(List<Repair> repairs) {

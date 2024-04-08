@@ -49,7 +49,7 @@ public class Repair implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
-    private RepairType type;
+    private RepairType repairType;
 
     @Column(name = "start_date", updatable = false)
     @CreationTimestamp

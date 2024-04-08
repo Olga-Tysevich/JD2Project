@@ -16,7 +16,7 @@ public interface RepairService {
 
     void addRepair(RepairDTO repairDTO);
 
-    void changeRepair(RepairDTO repairDTO);
+    void updateRepair(RepairDTO repairDTO);
 
     List<BrandDTO> findBrands();
 

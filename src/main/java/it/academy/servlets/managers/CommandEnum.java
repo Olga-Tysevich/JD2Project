@@ -5,6 +5,7 @@ import it.academy.servlets.commands.impl.add.AddRepair;
 import it.academy.servlets.commands.impl.change.ChangeRepair;
 import it.academy.servlets.commands.impl.add.AddSparePartOrder;
 import it.academy.servlets.commands.impl.change.ChangeSparePartOrder;
+import it.academy.servlets.commands.impl.change.CompleteRepair;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
 import it.academy.servlets.commands.impl.forms.ShowConfirmedRepair;
 import it.academy.servlets.commands.impl.forms.ShowOrderSparePart;
@@ -30,7 +31,8 @@ public enum CommandEnum {
     ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
     DELETE_SPARE_PART_ORDER(new DeleteSparePartOrder()),
-    SHOW_REPAIR_TYPE_LIST(new ShowRepairTypeList());
+    SHOW_REPAIR_TYPE_LIST(new ShowRepairTypeList()),
+    COMPLETE_REPAIR(new CompleteRepair());
 
     private ActionCommand command;
 

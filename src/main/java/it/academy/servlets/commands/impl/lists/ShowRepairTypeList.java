@@ -17,11 +17,9 @@ public class ShowRepairTypeList implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
-        String repairNumber = req.getParameter(REPAIR_ID);
         List<RepairTypeDTO> repairTypes = repairService.findRepairTypes();
 
         req.setAttribute(REPAIR_ID, repairId);
-        req.setAttribute(REPAIR_NUMBER, repairNumber);
         req.setAttribute(REPAIR_TYPES, repairTypes);
 
         return REPAIR_TYPE_LIST_PAGE_PATH;

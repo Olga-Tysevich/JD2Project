@@ -54,7 +54,7 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public void changeRepair(RepairDTO repairDTO) {
+    public void updateRepair(RepairDTO repairDTO) {
         Repair repair = RepairConverter.convertDTOToEntity(repairDTO);
         transactionManger.execute(() -> repairDAO.update(repair));
     }
@@ -188,4 +188,5 @@ public class RepairServiceImpl implements RepairService {
         return transactionManger.execute(() ->
                 RepairTypeConverter.convertListToDTO(repairTypeDAO.findAll()));
     }
+
 }

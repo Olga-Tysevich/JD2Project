@@ -1,10 +1,7 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
-import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.SparePartService;
@@ -49,7 +46,7 @@ public class ChangeRepair implements ActionCommand {
 
         RepairDTO repairDTO = (RepairDTO) extractor.getParameter(REPAIR);
 
-        repairService.changeRepair(repairDTO);
+        repairService.updateRepair(repairDTO);
 
         return MAIN_PAGE_PATH;
     }

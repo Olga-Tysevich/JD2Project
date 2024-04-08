@@ -83,10 +83,9 @@ public class RepairExtractor implements Extractor {
             RepairTypeDTO repairTypeDTO = repairService.findRepairType(repairTypeId);
 
             repairDTO.setEndDate(endDate);
-            repairDTO.setRepairTypeId(repairTypeDTO.getId());
-            repairDTO.setRepairTypeName(repairTypeDTO.getName());
-            repairDTO.setRepairTypeCode(repairTypeDTO.getCode());
-            repairDTO.setRepairTypeLevel(repairTypeDTO.getLevel());
+
+
+            repairDTO.setRepairType(repairTypeDTO);
         }
 
         if (status.isDeliveredStatus()) {
