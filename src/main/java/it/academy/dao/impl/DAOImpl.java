@@ -12,10 +12,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.Constants.OBJECT_ID;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger = TransactionManger.getInstance();
@@ -88,12 +87,14 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findForPageByAnyMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
+    public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
-        Predicate anyMatch = createFindByAnyMatchPredicate(root, parameters);
+        Predicate predicate = criteriaBuilder()
+                .like(root.get(filter).as(String.class),
+                        ParameterManager.getParameterForLikeQuery(value));
 
-        return createFindForPageQuery(findByParameters, root, pageNumber, listSize, anyMatch);
+        return createFindForPageQuery(findByParameters, root, pageNumber, listSize, predicate);
     }
 
     @Override

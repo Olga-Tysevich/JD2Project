@@ -18,8 +18,10 @@ public class ShowRepairTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        RepairStatus lastStatus = RepairStatus.valueOf(req.getParameter(REPAIR_STATUS));
+        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
+                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        RepairStatus lastStatus = req.getParameter(REPAIR_STATUS) != null?
+                RepairStatus.valueOf(req.getParameter(REPAIR_STATUS)) : RepairStatus.ALL;
         ListForPage<RepairDTO> repairs;
 
         if (RepairStatus.ALL.equals(lastStatus)) {

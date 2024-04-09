@@ -11,7 +11,7 @@ import static it.academy.utils.Constants.*;
 @UtilityClass
 public class Builder {
 
-    public static <T> ListForPage<T> buildListForPage(List<T> list, int pageNumber, int maxPageNumber, List<String> filters) {
+    public static <T> ListForPage<T> buildListForPage(List<T> list, int pageNumber, int maxPageNumber, List<EntityFilter> filters) {
         return ListForPage.<T>builder()
                 .pageNumber(pageNumber)
                 .list(list)

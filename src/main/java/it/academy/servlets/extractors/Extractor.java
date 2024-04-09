@@ -2,7 +2,7 @@ package it.academy.servlets.extractors;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface Extractor {
+public interface Extractor<T> {
 
     void extractValues(HttpServletRequest req);
 
@@ -11,5 +11,7 @@ public interface Extractor {
     void addParameter(String parameterName, Object parameter);
 
     Object getParameter(String parameterName);
+
+    T getResult();
 
 }

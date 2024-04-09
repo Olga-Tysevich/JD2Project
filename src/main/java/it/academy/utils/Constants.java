@@ -23,6 +23,8 @@ public class Constants {
 
     //parameters
     public static final String OBJECT_ID = "id";
+    public static final String IS_DELETED = "isDeleted";
+    public static final String OBJECT_NAME = "name";
     //repair workshop
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
@@ -61,18 +63,10 @@ public class Constants {
     public static final String DATE_OF_SALE = "dateOfSale";
     //Device types
     public static final String SPARE_PARTS = "spareParts";
-//    public static final String ORDERED_SPARE_PARTS = "ordered_spareParts";
     //Spare Parts
     public static final String DEVICE_TYPES = "typeSet";
     //Spare Part order
     public static final String SPARE_PART_ORDER = "sp_order";
-
-    //Common parameters
-    public static final String IS_DELETED = "isDeleted";
-
-    //Role parameters
-    public static final String ROLE_NAME = "name";
-
     //Account parameters
     public static final String USER = "user";
     public static final String EMAIL = "email";
@@ -82,12 +76,10 @@ public class Constants {
 
     //Model parameters
     public static final String MODEL_ID = "model_id";
-
     //Brand parameters
     public static final String BRAND_ID = "brand_id";
     public static final String CURRENT_BRAND_ID = "current_brand_id";
     public static final String BRAND_NAME = "brand_name";
-
     //Repair parameters
     public static final String REPAIR_ID = "repair_id";
     public static final String REPAIR_WORKSHOP_ID = "repair_workshop_id";
@@ -146,6 +138,7 @@ public class Constants {
     public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
 
     public static final String REPAIR_TYPE_FORM_BODY = "/pages/for_include/repairTypeForm.jsp";
+    public static final String REPAIR_TYPE_FORM_BODY2 = "/for_include/repairTypeForm.jsp";
 
 
 
@@ -155,7 +148,13 @@ public class Constants {
     public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";
+    public static final String SHOW_COMMAND = "show_command";
     public static final String LIST_FOR_PAGE = "table";
+    public static final String FILTER = "filter";
+    public static final String USER_INPUT = "user_input";
+
+    //show_command
+    public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
 
 
     public static final String BRANDS = "brands";
@@ -181,5 +180,11 @@ public class Constants {
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     public static final String OPEN_MODEL_LIST_PAGE = "brands?command=show_model_list&&id=%s";
 
+    //filters
+    public static final String FILTERS = "filters";
+    //repairType filters
+    public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";
+    public static final String REPAIR_TYPE_LEVEL_FILTER = "Уровень ремонта";
+    public static final String REPAIR_TYPE_DESCRIPTION_FILTER = "Описание ремонта";
 
 }

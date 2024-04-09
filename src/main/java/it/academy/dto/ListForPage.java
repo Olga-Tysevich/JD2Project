@@ -1,5 +1,6 @@
 package it.academy.dto;
 
+import it.academy.utils.EntityFilter;
 import lombok.Builder;
 import lombok.Data;
 import java.util.List;
@@ -14,6 +15,6 @@ public class ListForPage<T> {
 
     private List<T> list;
 
-    private List<String> filtersForPage;
+    private List<EntityFilter> filtersForPage;
 
 }

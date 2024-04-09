@@ -1,6 +1,8 @@
 <%@ page import="static it.academy.utils.Constants.USER" %>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="it.academy.utils.EntityFilter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -19,8 +21,9 @@
 //                    String userName = accountDTO.getRepairWorkshop() != null? accountDTO.getRepairWorkshop().getServiceName()
 //                            : "Компания";
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-//                    int maxPage = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
+                    List<EntityFilter> filters = (List<EntityFilter>) request.getAttribute(FILTERS);
                     String pageForDisplay = (String) request.getAttribute(PAGE);
+                    String showCommand = (String) request.getAttribute(SHOW_COMMAND);
                 %>
 
         <div class="header-container">
@@ -33,18 +36,19 @@
         </div>
 
 
-        <form action="list" method="post">
-            <input type="hidden" name="command" value="find_students">
-            <input type="hidden" name="page" value="<%=pageNumber%>">
-            <input class="search" type="search" name="param" placeholder="Поиск">
+        <form action="main" method="post" id="search">
+            <input type="hidden" name="command" value="<%=showCommand%>">
+            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
+            <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
             <select class="filter" name="filter" size="1">
-<%--                <option selected value="<%=NAME%>">Имя</option>--%>
-<%--                <option selected value="<%=STUDENT_SURNAME%>">Фамилия</option>--%>
-<%--                <option selected value="<%=STUDENT_AGE%>">Возраст</option>--%>
-<%--                <option selected value="<%=STUDENT_MARK%>">Оценка</option>--%>
-<%--                <option selected value="<%=STUDENT_ADDRESS%>">Адрес</option>--%>
+                <% if (filters != null) {
+                    for (EntityFilter filter: filters) { %>
+                <option selected value="<%=filter.getFieldName()%>"><%=filter.getDescription()%></option>
+                <% }
+                } %>
             </select>
-            <input class="button light" type="submit" value="Найти">
+            <input class="button light" type="submit" value="Найти" form="search">
         </form>
 
     </div>

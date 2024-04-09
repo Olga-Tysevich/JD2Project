@@ -21,7 +21,7 @@ import java.util.Map;
 
 import static it.academy.utils.Constants.*;
 
-public class RepairExtractor implements Extractor {
+public class RepairExtractor implements Extractor<RepairDTO> {
     private RepairService repairService = new RepairServiceImpl();
     private RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
     private Map<String, Object> reqParameters = new HashMap<>();
@@ -121,5 +121,11 @@ public class RepairExtractor implements Extractor {
     public Object getParameter(String parameterName) {
         return reqParameters.get(parameterName);
     }
+
+    @Override
+    public RepairDTO getResult() {
+        return null;
+    }
+
 
 }

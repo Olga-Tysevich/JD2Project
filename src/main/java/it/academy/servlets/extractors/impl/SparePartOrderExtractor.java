@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.*;
 
-public class SparePartOrderExtractor implements Extractor {
+public class SparePartOrderExtractor implements Extractor<SparePartDTO> {
     private SparePartService sparePartService = new SparePartServiceImpl();
     private Map<String, Object> reqParameters = new HashMap<>();
     private Gson gson = new Gson();
@@ -92,6 +92,11 @@ public class SparePartOrderExtractor implements Extractor {
     @Override
     public Object getParameter(String parameterName) {
         return reqParameters.get(parameterName);
+    }
+
+    @Override
+    public SparePartDTO getResult() {
+        return null;
     }
 
 

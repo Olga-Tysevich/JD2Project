@@ -7,6 +7,8 @@ public interface AdminService {
 
     ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber);
 
+    ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input);
+
     RepairTypeDTO findRepairType(long id);
 
     void addRepairType(RepairTypeDTO repairType);

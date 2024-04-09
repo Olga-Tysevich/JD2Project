@@ -5,7 +5,7 @@
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <section>
-    <div class=" container">
+    <div class="container t-container">
 
         <%
             ListForPage<RepairTypeDTO> data = (ListForPage<RepairTypeDTO>) request.getAttribute(LIST_FOR_PAGE);
@@ -14,12 +14,14 @@
             List<RepairTypeDTO> list = data.getList();
         %>
 
+
         <div class="radio-container">
             <form class="status-form" action="main" method="post" id="find_repairs">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="command" value="show_repair_table">
             </form>
         </div>
+
 
             <table>
                 <tr>
@@ -31,7 +33,7 @@
 
             <% for (RepairTypeDTO repairType : list) { %>
 
-                <tr>
+                <tr class="t-tr">
                     <td class="code"><%=repairType.getCode()%></td>
                     <td class="level"><%=repairType.getLevel()%></td>
                     <td class="name"><%=repairType.getName()%></td>
@@ -78,6 +80,32 @@
         </div>
         </div>
         <% } %>
+
+        <div class="add-form">
+            <form action="main" method="post" id="addRepairType">
+                <input type="hidden" name="command" value="add_repair_type">
+                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+
+            <div class="f-input">
+                <label class="form-el">Код ремонта</label>
+                <input class="f-form" type="text" name="<%=REPAIR_TYPE_CODE%>" value="">
+            </div>
+
+            <div class="f-input">
+                <label class="form-el">Уровень ремонта</label>
+                <input class="f-form" type="text" name="<%=REPAIR_TYPE_LEVEL%>" value="">
+            </div>
+
+            <div class="f-input">
+                <label class="form-el">Описание</label>
+                <input class="f-form" type="text" name="<%=REPAIR_TYPE_NAME%>" value="">
+            </div>
+
+            <div class="button-container">
+                <input class="button" type="submit" value="Добавить" form="addRepairType"/>
+            </div>
+        </form>
+        </div>
 
     </div>
 </section>

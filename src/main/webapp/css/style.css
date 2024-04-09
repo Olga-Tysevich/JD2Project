@@ -323,3 +323,21 @@ fieldset.f1 {
 .change-order{
     display: none;
 }
+
+.t-container{
+    justify-content: space-between;
+    display: flex;
+}
+
+.add-form{
+    width: 1000px;
+    margin: 0 0 0 250px;
+    background: #f9eaf9;
+    border: 1px solid lightgray;
+    padding: 10px;
+    box-shadow: 9px -4px 5px #473f3fa6;
+}
+
+.t-tr{
+    text-align: center;
+}

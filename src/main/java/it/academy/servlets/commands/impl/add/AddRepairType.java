@@ -14,15 +14,17 @@ import static it.academy.utils.Constants.*;
 
 public class AddRepairType implements ActionCommand {
     private AdminService adminService = new AdminServiceImpl();
-    private Extractor extractor = new RepairTypeExtractor();
+    private Extractor<RepairTypeDTO> extractor = new RepairTypeExtractor();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.extractValues(req);
 
-        RepairTypeDTO repairTypeDTO = (RepairTypeDTO) extractor.getParameter(REPAIR_TYPE);
+        RepairTypeDTO repairTypeDTO = extractor.getResult();
         adminService.addRepairType(repairTypeDTO);
+
+        extractor.insertAttributes(req);
 
         return MAIN_PAGE_PATH;
     }

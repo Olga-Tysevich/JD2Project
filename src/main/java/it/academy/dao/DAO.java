@@ -24,7 +24,7 @@ public interface DAO<T, R> {
 
     List<T> findByAnyMatch(List<ParameterContainer<?>> parameters);
 
-    List<T> findForPageByAnyMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters);
+    List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value);
 
     List<T> findByExactMatch(List<ParameterContainer<?>> parameters);
 
