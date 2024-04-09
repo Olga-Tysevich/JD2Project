@@ -46,9 +46,11 @@
 
             <div class="button-container">
                 <input class="button" type="submit" value="Сохранить" form="repair_type"/>
-                <input class="button" type="button" value="Отмена" form="repair_table"/>
+                <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
             </div>
         </div>
+
+
 
     </div>
 </section>

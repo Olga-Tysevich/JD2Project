@@ -74,7 +74,6 @@
                 <button class="button button-fieldset"> Список моделей </button>
                 <button class="button button-fieldset"> Список брэндов </button>
                 <button class="button button-fieldset"> Список типов </button>
-                <button class="button button-fieldset"> Список дефектов</button>
             </fieldset>
 
             <fieldset class="f1">

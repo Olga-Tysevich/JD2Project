@@ -35,7 +35,8 @@
                     <th class="menu">Управление</th>
                 </tr>
 
-            <% for (SparePartOrderDTO sparePartOrder : list) {
+            <%
+                for (SparePartOrderDTO sparePartOrder : list) {
                 Map<SparePartDTO, Integer> spareParts = sparePartOrder.getSpareParts();
                 for (SparePartDTO sparePart : spareParts.keySet()) {
             %>
@@ -56,7 +57,7 @@
                         </div>
                     </td>
                 </tr>
-                <% } }%>
+                <% } } %>
             </table>
 
         <%if (data.getMaxPageNumber() != 1) {%>
