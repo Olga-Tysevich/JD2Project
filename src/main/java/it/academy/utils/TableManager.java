@@ -14,7 +14,6 @@ public class TableManager {
 
     public static<T> void insertAttributesForTable(HttpServletRequest req, ListForPage<T> list, String pagePath) {
         List<EntityFilter> filters = list.getFiltersForPage();
-
         req.setAttribute(PAGE, pagePath);
         req.setAttribute(FILTERS, filters);
         req.setAttribute(LIST_FOR_PAGE, list);

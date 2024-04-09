@@ -58,7 +58,7 @@
                 <th>Количество</th>
             </tr>
 
-            <%     for (SparePartDTO sparePartDTO: spareParts.keySet()) {
+            <%     for (SparePartDTO sparePartDTO : spareParts.keySet()) {
             %>
 
             <tr id="data_id" class="spare_part_input">

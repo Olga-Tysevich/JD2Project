@@ -2,6 +2,7 @@ package it.academy.utils.converters.spare_parst;
 
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;

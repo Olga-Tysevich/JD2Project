@@ -71,10 +71,13 @@ public class Constants {
     public static final String SPARE_PARTS = "spareParts";
     //SparePart
     public static final String DEVICE_TYPES = "typeSet";
+    //SparePartOrder
+    public static final String ORDER_DATE_PARAMETER = "orderDate";
+    public static final String DEPARTURE_DATE_PARAMETER = "departureDate";
+    public static final String DELIVERY_DATE_PARAMETER = "deliveryDate";
 
 
-    //Spare Part order
-    public static final String SPARE_PART_ORDER = "sp_order";
+    //jsp
     //Model parameters
     public static final String MODEL_ID = "model_id";
     //Brand parameters
@@ -88,18 +91,13 @@ public class Constants {
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";
     public static final String REPAIR_MODEL_NAME = "model_name";
-    //SparePart order
-    public static final String ORDER_DATE_PARAMETER = "orderDate";
-    public static final String DEPARTURE_DATE_PARAMETER = "departureDate";
-    public static final String DELIVERY_DATE_PARAMETER = "deliveryDate";
-
+    //SparePartOrder parameters
+    public static final String SPARE_PART_ORDER = "sp_order";
     //Device parameters
     public static final String DEVICE_ID = "device_id";
-
     //DeviceType parameters
     public static final String DEVICE_TYPE_ID = "device_type_id";
     public static final String DEVICE_TYPE_NAME = "device_type_name";
-
     //Spare part order
     public static final String ORDER_ID = "order_id";
     public static final String REPAIR_NUMBER = "repair_number";
@@ -111,6 +109,11 @@ public class Constants {
     public static final String ORDER_DATE = "order_date";
     public static final String DEPARTURE_DATE = "departure_date";
     public static final String DELIVERY_DATE = "delivery_date";
+    //RepairType parameters
+
+    //SparePart parameters
+    public static final String CURRENT_SPARE_PART = "current_spare_part";
+    public static final String CURRENT_SPARE_PART_ID = "current_spare_part_id";
 
     //DAO
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
@@ -133,6 +136,7 @@ public class Constants {
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
+    public static final String SPARE_PART_PAGE_PATH = "/pages/change_pages/changeSparePart.jsp";
 
     public static final String BRAND_LIST_PAGE_PATH = "/pages/lists/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/lists/modelList.jsp";

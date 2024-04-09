@@ -4,16 +4,10 @@ import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.add.AddRepair;
 import it.academy.servlets.commands.impl.add.AddRepairType;
 import it.academy.servlets.commands.impl.add.AddSparePart;
-import it.academy.servlets.commands.impl.change.ChangeRepair;
+import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.add.AddSparePartOrder;
-import it.academy.servlets.commands.impl.change.ChangeRepairType;
-import it.academy.servlets.commands.impl.change.ChangeSparePartOrder;
-import it.academy.servlets.commands.impl.change.CompleteRepair;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
-import it.academy.servlets.commands.impl.forms.ShowConfirmedRepair;
-import it.academy.servlets.commands.impl.forms.ShowOrderSparePart;
-import it.academy.servlets.commands.impl.forms.ShowRepair;
-import it.academy.servlets.commands.impl.forms.ShowRepairType;
+import it.academy.servlets.commands.impl.forms.*;
 import it.academy.servlets.commands.impl.lists.ShowBrandList;
 import it.academy.servlets.commands.impl.lists.ShowModelList;
 import it.academy.servlets.commands.impl.ShowPageCommand;
@@ -46,7 +40,9 @@ public enum CommandEnum {
     SHOW_REPAIR_TYPE(new ShowRepairType()),
     SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
-    ADD_SPARE_PART(new AddSparePart());
+    ADD_SPARE_PART(new AddSparePart()),
+    SHOW_SPARE_PART_FORM(new ShowSparePartForm()),
+    CHANGE_SPARE_PART(new ChangeSparePart());
 
     private ActionCommand command;
 

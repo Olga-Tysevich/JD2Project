@@ -41,7 +41,8 @@
                 <td>
                     <div class="button-table-container">
                         <form action="repair" method="post">
-                            <input type="hidden" name="command" value="show_confirmed_repair">
+                            <input type="hidden" name="command" value="show_spare_part_form">
+                            <input type="hidden" name="<%=CURRENT_SPARE_PART_ID%>" value="<%=sparePart.getId()%>">
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                             <input class="choose-button order-btn" type="submit" value="Изменить">
                         </form>
@@ -58,7 +59,7 @@
             <div class="button-container">
                 <%if (pageNumber != FIRST_PAGE) { %>
                 <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_spare_part_orders_table">
+                    <input type="hidden" name="command" value="show_spare_part_table">
                     <%int prevPage = pageNumber - 1;%>
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
                     <input class="button light" type="submit" name="button" value="Предыдущая">
@@ -73,7 +74,7 @@
 
                 <%if (pageNumber != maxPageNumber) { %>
                 <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_spare_part_orders_table">
+                    <input type="hidden" name="command" value="show_spare_part_table">
                     <%int nextPage = pageNumber + 1;%>
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
                     <input class="button light" type="submit" name="button" value="Следующая">

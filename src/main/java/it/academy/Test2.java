@@ -36,6 +36,8 @@ public class Test2 {
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
+        List<DeviceType> t = deviceTypeDAO.findAll();
+
 
         System.out.println();
     }

@@ -23,4 +23,6 @@ public interface AdminService {
 
     void addSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId);
 
+    void updateSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId);
+
 }

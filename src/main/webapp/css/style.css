@@ -349,3 +349,13 @@ fieldset.f1 {
     margin: 0 10px 10px 10px;
     width: 150px;
 }
+
+.select-sp{
+    width: 70%;
+    color: black;
+    background-color: white;
+    height: 30px;
+    margin: 15px 0 15px 0;
+    text-align: center;
+    min-height: 500px;
+}

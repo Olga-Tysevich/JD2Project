@@ -20,10 +20,10 @@ import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.*;
 
@@ -100,6 +100,37 @@ public class AdminServiceImpl implements AdminService {
         };
 
         transactionManger.execute(create);
+    }
+
+    @Override
+    public void updateSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId) {
+        SparePart sparePart = SparePartConverter.convertDTOToEntity(sparePartDTO);
+        Supplier<SparePartDTO> update = () -> {
+            removeDeviceTypeFromSparePart(sparePart, deviceTypesId);
+            addDeviceTypeToSparePart(sparePart, deviceTypesId);
+            return SparePartConverter.convertToDTO(sparePart);
+        };
+
+        transactionManger.execute(update);
+    }
+
+    private void addDeviceTypeToSparePart(SparePart sparePart, List<Long> deviceTypesId) {
+        deviceTypesId.forEach(id -> {
+            DeviceType deviceType = deviceTypeDAO.find(id);
+            deviceType.addSparePart(sparePart);
+            deviceTypeDAO.update(deviceType);
+        });
+    }
+
+    private void removeDeviceTypeFromSparePart(SparePart sparePart, List<Long> deviceTypesId) {
+        deviceTypeDAO.findBySparePartId(sparePart.getId())
+                .stream()
+                .filter(dt -> !deviceTypesId.contains(dt.getId()))
+                .forEach(dt -> {
+                    dt.removeSparePart(sparePart);
+                    deviceTypesId.remove(dt.getId());
+                    deviceTypeDAO.update(dt);
+                });
     }
 
     private List<EntityFilter> getFiltersForRepairType() {
