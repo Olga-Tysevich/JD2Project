@@ -41,6 +41,7 @@
                         <div class="button-table-container">
                             <form action="repair" method="post">
                                 <input type="hidden" name="command" value="show_repair_type">
+                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                                 <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairType.getId()%>">
                                 <input class="choose-button btn-table" type="submit" value="Изменить">
                             </form>

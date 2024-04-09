@@ -125,7 +125,7 @@ public class Constants {
 
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
-    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/add/repairTypePage.jsp";
+    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
 

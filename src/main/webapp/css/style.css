@@ -336,6 +336,7 @@ fieldset.f1 {
     border: 1px solid lightgray;
     padding: 10px;
     box-shadow: 9px -4px 5px #473f3fa6;
+    max-height: 250px;
 }
 
 .t-tr{

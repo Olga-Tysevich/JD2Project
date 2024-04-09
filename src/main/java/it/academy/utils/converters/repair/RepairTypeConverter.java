@@ -20,6 +20,7 @@ public class RepairTypeConverter {
     }
 
     public static RepairType convertDTOToEntity(RepairTypeDTO req) {
+        System.out.println("from conv " + req.getId());
         return RepairType.builder()
                 .id(req.getId())
                 .name(req.getName())
