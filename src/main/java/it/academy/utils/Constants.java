@@ -204,5 +204,4 @@ public class Constants {
     public static final String SPARE_PART_NAME_DESCRIPTION = "Название запчасти";
     //DeviceTypeDescription
     public static final String DEVICE_TYPE_NAME_DESCRIPTION = "Тип устройства";
-
 }

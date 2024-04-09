@@ -29,5 +29,4 @@ public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SpareP
                 .createQuery(find)
                 .getResultList();
     }
-
 }

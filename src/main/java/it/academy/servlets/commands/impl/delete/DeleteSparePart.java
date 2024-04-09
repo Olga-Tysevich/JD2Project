@@ -1,27 +1,25 @@
-package it.academy.servlets.commands.impl.change;
+package it.academy.servlets.commands.impl.delete;
 
-import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.services.SparePartService;
 import it.academy.services.impl.SparePartServiceImpl;
-import it.academy.servlets.commands.impl.add.AddSparePart;
-import it.academy.servlets.extractors.Extractor;
+import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.impl.SparePartExtractor;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+
+import static it.academy.utils.Constants.CURRENT_SPARE_PART_ID;
 import static it.academy.utils.Constants.MAIN_PAGE_PATH;
 
-public class ChangeSparePart extends AddSparePart {
+public class DeleteSparePart implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();
-    private Extractor<SparePartDTO> extractor = new SparePartExtractor();
+    private SparePartExtractor extractor = new SparePartExtractor();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        extractor.extractValues(req);
-        List<Long> idList = getDeviceTypeId(req);
-        SparePartDTO sparePartDTO = extractor.getResult();
-        sparePartService.updateSparePart(sparePartDTO, idList);
+        long id = Long.parseLong(req.getParameter(CURRENT_SPARE_PART_ID));
+        sparePartService.deleteSparePart(id);
 
         extractor.insertAttributes(req);
 

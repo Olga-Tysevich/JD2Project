@@ -46,6 +46,12 @@
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                             <input class="choose-button order-btn" type="submit" value="Изменить">
                         </form>
+                        <form action="repair" method="post">
+                            <input type="hidden" name="command" value="delete_spare_part">
+                            <input type="hidden" name="<%=CURRENT_SPARE_PART_ID%>" value="<%=sparePart.getId()%>">
+                            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                            <input class="choose-button order-btn" type="submit" value="Удалить">
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -91,17 +97,20 @@
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">
-                    <label class="form-el">Тип устройства:</label>
-                    <select multiple class="f-form " name="<%=DEVICE_TYPE_ID%>" size="5">
-                        <%for (DeviceTypeDTO deviceType : deviceTypes) {%>
-                        <option value="<%=deviceType.getId()%>"><%=deviceType.getName()%></option>
-                        <%}%>
-                    </select>
+                    <label class="form-el">Название запчасти</label>
+                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
                 </div>
 
                 <div class="f-input">
-                    <label class="form-el">Название запчасти</label>
-                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
+                    <label class="form-el">Тип устройства:</label>
+                <div>
+                    <%for (DeviceTypeDTO deviceType : deviceTypes) {%>
+                    <div>
+                        <input type="checkbox" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceType.getId()%>">
+                        <%=deviceType.getName()%>
+                    </div>
+                    <%}%>
+                </div>
                 </div>
 
                 <div class="button-container">

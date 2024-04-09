@@ -29,7 +29,7 @@ public class SparePart implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
-    @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<DeviceType> typeSet = new HashSet<>();
 
     public void addDeviceType(DeviceType deviceType) {

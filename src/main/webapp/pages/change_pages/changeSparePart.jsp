@@ -30,14 +30,6 @@
 
                         <div class="f-input">
                             <label class="form-el">Тип устройства:</label>
-<%--                            <select multiple class="select-sp" name="<%=DEVICE_TYPE_ID%>">--%>
-
-<%--                        <%for (DeviceTypeDTO deviceType : deviceTypes) {%>--%>
-<%--                                <option value="<%=deviceType.getId()%>" <% if(relatedDeviceTypes != null--%>
-<%--                                && relatedDeviceTypes.contains(deviceType)) {%>selected<%}%>>--%>
-<%--                                    <%=deviceType.getName()%>--%>
-<%--                                </option>--%>
-<%--                        <%}%>--%>
                         <div>
                         <%for (DeviceTypeDTO deviceType : deviceTypes) {%>
                             <div>
@@ -47,8 +39,6 @@
                             </div>
                         <%}%>
                         </div>
-
-<%--                            </select>--%>
                         </div>
 
 
