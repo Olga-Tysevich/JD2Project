@@ -1,15 +1,26 @@
 package it.academy.services.impl;
 
+import it.academy.dao.device.DeviceTypeDAO;
+import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
+import it.academy.dao.spare_parts_order.SparePartDAO;
+import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dto.ListForPage;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.repair.components.RepairType;
+import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.services.AdminService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
+import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.repair.RepairTypeConverter;
+import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -19,6 +30,8 @@ import static it.academy.utils.Constants.*;
 public class AdminServiceImpl implements AdminService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
+    private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private SparePartDAO sparePartDAO = new SparePartDAOImpl();
 
     @Override
     public ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber) {
@@ -65,6 +78,28 @@ public class AdminServiceImpl implements AdminService {
     public void updateRepairType(RepairTypeDTO repairType) {
         RepairType result = RepairTypeConverter.convertDTOToEntity(repairType);
         transactionManger.execute(() -> repairTypeDAO.update(result));
+    }
+
+    @Override
+    public List<DeviceTypeDTO> findDeviceTypes() {
+        List<DeviceType> repairs = transactionManger.execute(() -> deviceTypeDAO.findAll());
+        return DeviceTypeConverter.convertListToDTO(repairs);
+    }
+
+    @Override
+    public void addSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId) {
+        SparePart sparePart = SparePartConverter.convertDTOToEntity(sparePartDTO);
+        Supplier<SparePartDTO> create = () -> {
+            sparePartDAO.create(sparePart);
+            deviceTypesId.forEach(id -> {
+                DeviceType deviceType = deviceTypeDAO.find(id);
+                deviceType.addSparePart(sparePart);
+                deviceTypeDAO.update(deviceType);
+            });
+            return SparePartConverter.convertToDTO(sparePart);
+        };
+
+        transactionManger.execute(create);
     }
 
     private List<EntityFilter> getFiltersForRepairType() {

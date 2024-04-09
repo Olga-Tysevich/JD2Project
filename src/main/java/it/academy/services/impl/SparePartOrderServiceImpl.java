@@ -10,20 +10,17 @@ import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.SparePartOrderService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
-import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
@@ -48,7 +45,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
             SparePart sparePartAfterSave = sparePartDAO.create(sparePart);
             partDTO.getRelatedDeviceTypes().forEach(dt -> {
                 DeviceType deviceType = deviceTypeDAO.find(dt.getId());
-                deviceType.addSpareParts(sparePartAfterSave);
+                deviceType.addSparePart(sparePartAfterSave);
                 deviceTypeDAO.update(deviceType);
             });
             return sparePartAfterSave;
@@ -62,7 +59,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
             SparePart sparePartAfterSave = sparePartDAO.update(sparePart);
             partDTO.getRelatedDeviceTypes().forEach(dt -> {
                 DeviceType deviceType = deviceTypeDAO.find(dt.getId());
-                deviceType.addSpareParts(sparePartAfterSave);
+                deviceType.addSparePart(sparePartAfterSave);
                 deviceTypeDAO.update(deviceType);
             });
             return sparePart;
@@ -144,6 +141,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         return transactionManger.execute(find);
     }
 
+
     @Override
     public List<SparePartDTO> findSparePartsByDeviceTypeId(long id) {
         Supplier<List<SparePartDTO>> find = () -> {
@@ -175,11 +173,35 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         transactionManger.execute(() -> sparePartsOrderDAO.delete(id));
     }
 
+    @Override
+    public ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input) {
+        List<EntityFilter> filters = getFiltersForSparePart();
+
+        Supplier<ListForPage<SparePartDTO>> find = () -> {
+            List<SparePart> repairs = sparePartDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+            int maxPageNumber = (int) Math.ceil(((double) sparePartsOrderDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            List<SparePartDTO> list = SparePartConverter.convertListToDTO(repairs);
+            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+        };
+
+        return transactionManger.execute(find);
+    }
+
     private List<EntityFilter> getFiltersForSparePartOrder() {
         List<EntityFilter> filters = new ArrayList<>();
         filters.add(new EntityFilter(ORDER_DATE_PARAMETER, ORDER_DATE_DESCRIPTION));
-        filters.add(new EntityFilter(DEPARTURE_DATE_PARAMETER, ORDER_DEPARTURE_DATE));
-        filters.add(new EntityFilter(DELIVERY_DATE_PARAMETER, ORDER_DELIVERY_DATE));
+        filters.add(new EntityFilter(DEPARTURE_DATE_PARAMETER, ORDER_DEPARTURE_DATE_DESCRIPTION));
+        filters.add(new EntityFilter(DELIVERY_DATE_PARAMETER, ORDER_DELIVERY_DATE_DESCRIPTION));
         return filters;
     }
+
+
+    private List<EntityFilter> getFiltersForSparePart() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(OBJECT_NAME, SPARE_PART_NAME_DESCRIPTION));
+        filters.add(new EntityFilter(DEPARTURE_DATE_PARAMETER, DEVICE_TYPE_NAME_DESCRIPTION));
+        return filters;
+    }
+
+
 }

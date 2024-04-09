@@ -79,7 +79,8 @@
 
             <fieldset class="f1">
                 <legend>Запчасти</legend>
-                <button class="button button-fieldset"> Список запчастей</button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_SPARE_PART_TABLE_PAGE, FIRST_PAGE)%>'"> Список запчастей</button>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_SPARE_PART_ORDERS_TABLE_PAGE, FIRST_PAGE)%>'"> Список заказов запчатей</button>
             </fieldset>

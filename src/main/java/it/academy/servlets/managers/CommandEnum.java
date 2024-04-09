@@ -3,6 +3,7 @@ package it.academy.servlets.managers;
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.add.AddRepair;
 import it.academy.servlets.commands.impl.add.AddRepairType;
+import it.academy.servlets.commands.impl.add.AddSparePart;
 import it.academy.servlets.commands.impl.change.ChangeRepair;
 import it.academy.servlets.commands.impl.add.AddSparePartOrder;
 import it.academy.servlets.commands.impl.change.ChangeRepairType;
@@ -20,6 +21,7 @@ import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 import it.academy.servlets.commands.impl.tables.ShowRepairTable;
 import it.academy.servlets.commands.impl.tables.ShowRepairTypeTable;
 import it.academy.servlets.commands.impl.tables.ShowSparePartOrdersTable;
+import it.academy.servlets.commands.impl.tables.ShowSparePartTable;
 
 import static it.academy.utils.Constants.*;
 
@@ -42,7 +44,9 @@ public enum CommandEnum {
     ADD_REPAIR_TYPE(new AddRepairType()),
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
     SHOW_REPAIR_TYPE(new ShowRepairType()),
-    SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable());
+    SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable()),
+    SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
+    ADD_SPARE_PART(new AddSparePart());
 
     private ActionCommand command;
 

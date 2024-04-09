@@ -18,6 +18,8 @@ public interface SparePartOrderService {
 
     ListForPage<SparePartDTO> findSpareParts(int pageNumber);
 
+    ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
+
     void addSparePartOrder(SparePartOrderDTO partDTO);
 
     void changeSparePartOrder(SparePartOrderDTO partDTO);

@@ -38,14 +38,14 @@ public class DeviceType implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
     private Set<SparePart> spareParts = new HashSet<>();
 
-    public void addSpareParts(SparePart sparePart) {
+    public void addSparePart(SparePart sparePart) {
         if (sparePart != null) {
             spareParts.add(sparePart);
             sparePart.addDeviceType(this);
         }
     }
 
-    public void removeSpareParts(SparePart sparePart) {
+    public void removeSparePart(SparePart sparePart) {
         if (sparePart != null) {
             spareParts.remove(sparePart);
             sparePart.removeDeviceType(this);

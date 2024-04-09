@@ -2,6 +2,7 @@ package it.academy.entities.spare_parts_order;
 
 import it.academy.entities.device.components.DeviceType;
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -12,7 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "spare_parts")
+@Table(name = "spare_parts", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name"})
+})
 public class SparePart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
