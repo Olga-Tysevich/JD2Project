@@ -6,7 +6,7 @@ import it.academy.dto.spare_parts.SparePartOrderDTO;
 
 import java.util.List;
 
-public interface SparePartService {
+public interface SparePartOrderService {
 
     void addSparePart(SparePartDTO partDTO);
 
@@ -27,6 +27,10 @@ public interface SparePartService {
     SparePartOrderDTO findSparePartOrder(long id);
 
     List<SparePartOrderDTO> findSparePartOrdersByRepairId(long id);
+
+    ListForPage<SparePartOrderDTO> findSparePartOrders(int pageNumber);
+
+    ListForPage<SparePartOrderDTO> findSparePartOrders(int pageNumber, String filter, String input);
 
 //    ListForPage<SparePartDTO> findSparePart(ParametersForSearchDTO parameters);
 

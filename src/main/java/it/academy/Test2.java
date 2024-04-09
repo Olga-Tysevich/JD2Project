@@ -7,28 +7,17 @@ import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.device.ModelDTO;
-import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
-import it.academy.entities.repair.components.RepairType;
-import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.services.AdminService;
 import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
-import it.academy.services.SparePartService;
+import it.academy.services.SparePartOrderService;
 import it.academy.services.impl.AdminServiceImpl;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.services.impl.RepairWorkshopImpl;
-import it.academy.services.impl.SparePartServiceImpl;
-import it.academy.utils.converters.device.DeviceTypeConverter;
+import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.utils.dao.TransactionManger;
-
-import java.sql.Date;
-import java.util.List;
 
 import static it.academy.utils.Constants.*;
 
@@ -45,7 +34,7 @@ public class Test2 {
 //        ModelDTO model = modelService.findModel(2L);
 
         AdminService adminService = new AdminServiceImpl();
-        SparePartService sparePartService = new SparePartServiceImpl();
+        SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
         RepairService repairService = new RepairServiceImpl();
         RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
         RepairDAO repairDAO = new RepairDAOImpl();
@@ -53,7 +42,8 @@ public class Test2 {
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
         TransactionManger transactionManger = TransactionManger.getInstance();
 
-        ListForPage<RepairTypeDTO> f = adminService.findRepairTypes(1, REPAIR_TYPE_CODE, "C1");
+        ListForPage<SparePartOrderDTO> f = sparePartOrderService.findSparePartOrders(1);
+        ListForPage<SparePartOrderDTO> f2 = sparePartOrderService.findSparePartOrders(1, ORDER_DATE_PARAMETER, "2024-04-07");
 
 
 //        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(135L);

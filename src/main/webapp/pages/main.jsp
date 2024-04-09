@@ -80,24 +80,20 @@
             <fieldset class="f1">
                 <legend>Запчасти</legend>
                 <button class="button button-fieldset"> Список запчастей</button>
-                <button class="button button-fieldset"> Список заказов запчатей</button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_SPARE_PART_ORDERS_TABLE_PAGE, FIRST_PAGE)%>'"> Список заказов запчатей</button>
             </fieldset>
 
             <fieldset class="f1">
                 <legend>Ремонты</legend>
-                <button class="button button-fieldset"> Список статусов</button>
-                <button class="button button-fieldset"> Список категорий</button>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_TYPE_TABLE_PAGE, FIRST_PAGE)%>'"> Список типов</button>
-            </fieldset>
-
-            <fieldset class="f1">
-                <legend>Заявки</legend>
                 <form action="repair" method="post">
                     <input type="hidden" name="command" value="show_repair">
                     <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
                 </form>
-                <button class="button button-fieldset" onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, FIRST_PAGE)%>'"> Список ремонтов </button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, FIRST_PAGE)%>'"> Список ремонтов </button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_TYPE_TABLE_PAGE, FIRST_PAGE)%>'">Список типов ремонта</button>
             </fieldset>
 
         </div>

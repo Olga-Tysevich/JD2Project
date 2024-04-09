@@ -15,6 +15,7 @@ public class SparePartOrderConverter {
         SparePartOrderDTO order = SparePartOrderDTO.builder()
                 .id(sparePartsOrder.getId())
                 .repairId(sparePartsOrder.getRepair().getId())
+                .repairWorkshopNumber(sparePartsOrder.getRepair().getRepairWorkshopRepairNumber())
                 .orderDate(sparePartsOrder.getOrderDate())
                 .departureDate(sparePartsOrder.getDepartureDate())
                 .deliveryDate(sparePartsOrder.getDeliveryDate())

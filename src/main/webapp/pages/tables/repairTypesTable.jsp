@@ -18,7 +18,7 @@
         <div class="radio-container">
             <form class="status-form" action="main" method="post" id="find_repairs">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="command" value="show_repair_table">
+                <input type="hidden" name="command" value="show_repair_type_table">
             </form>
         </div>
 
@@ -56,7 +56,7 @@
         <div class="button-container">
             <%if (pageNumber != FIRST_PAGE) { %>
             <form action="main" method="post">
-                <input type="hidden" name="command" value="show_repair_table">
+                <input type="hidden" name="command" value="show_repair_type_table">
                 <%int prevPage = pageNumber - 1;%>
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
                 <input class="button light" type="submit" name="button" value="Предыдущая">
@@ -71,7 +71,7 @@
 
             <%if (pageNumber != maxPageNumber) { %>
             <form action="main" method="post">
-                <input type="hidden" name="command" value="show_repair_table">
+                <input type="hidden" name="command" value="show_repair_type_table">
                 <%int nextPage = pageNumber + 1;%>
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
                 <input class="button light" type="submit" name="button" value="Следующая">

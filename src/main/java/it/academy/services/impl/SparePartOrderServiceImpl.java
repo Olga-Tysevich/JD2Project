@@ -10,16 +10,20 @@ import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
+import it.academy.entities.repair.components.RepairType;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
-import it.academy.services.SparePartService;
+import it.academy.services.SparePartOrderService;
 import it.academy.utils.Builder;
+import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
+import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
@@ -28,9 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.LIST_SIZE;
+import static it.academy.utils.Constants.*;
 
-public class SparePartServiceImpl implements SparePartService {
+public class SparePartOrderServiceImpl implements SparePartOrderService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private SparePartDAO sparePartDAO = new SparePartDAOImpl();
     private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
@@ -113,6 +117,34 @@ public class SparePartServiceImpl implements SparePartService {
     }
 
     @Override
+    public ListForPage<SparePartOrderDTO> findSparePartOrders(int pageNumber) {
+        List<EntityFilter> filters = getFiltersForSparePartOrder();
+
+        Supplier<ListForPage<SparePartOrderDTO>> find = () -> {
+            List<SparePartsOrder> repairs = sparePartsOrderDAO.findForPage(pageNumber, LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) sparePartsOrderDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
+            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+        };
+
+        return transactionManger.execute(find);
+    }
+
+    @Override
+    public ListForPage<SparePartOrderDTO> findSparePartOrders(int pageNumber, String filter, String input) {
+        List<EntityFilter> filters = getFiltersForSparePartOrder();
+
+        Supplier<ListForPage<SparePartOrderDTO>> find = () -> {
+            List<SparePartsOrder> repairs = sparePartsOrderDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+            int maxPageNumber = (int) Math.ceil(((double) sparePartsOrderDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
+            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+        };
+
+        return transactionManger.execute(find);
+    }
+
+    @Override
     public List<SparePartDTO> findSparePartsByDeviceTypeId(long id) {
         Supplier<List<SparePartDTO>> find = () -> {
             List<SparePart> sparePart = sparePartDAO.findByDeviceTypeId(id);
@@ -141,5 +173,13 @@ public class SparePartServiceImpl implements SparePartService {
     @Override
     public void removeSparePartOrder(long id) {
         transactionManger.execute(() -> sparePartsOrderDAO.delete(id));
+    }
+
+    private List<EntityFilter> getFiltersForSparePartOrder() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(ORDER_DATE_PARAMETER, ORDER_DATE_DESCRIPTION));
+        filters.add(new EntityFilter(DEPARTURE_DATE_PARAMETER, ORDER_DEPARTURE_DATE));
+        filters.add(new EntityFilter(DELIVERY_DATE_PARAMETER, ORDER_DELIVERY_DATE));
+        return filters;
     }
 }

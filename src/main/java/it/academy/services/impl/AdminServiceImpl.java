@@ -10,7 +10,6 @@ import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.dao.TransactionManger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;

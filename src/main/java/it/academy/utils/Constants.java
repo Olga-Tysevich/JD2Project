@@ -25,6 +25,12 @@ public class Constants {
     public static final String OBJECT_ID = "id";
     public static final String IS_DELETED = "isDeleted";
     public static final String OBJECT_NAME = "name";
+    //Account parameters
+    public static final String USER = "user";
+    public static final String EMAIL = "email";
+    public static final String USER_NAME = "userName";
+    public static final String USER_SURNAME = "userSurname";
+    public static final String IS_ACTIVE_ACCOUNT = "isActive";
     //repair workshop
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
@@ -65,15 +71,11 @@ public class Constants {
     public static final String SPARE_PARTS = "spareParts";
     //Spare Parts
     public static final String DEVICE_TYPES = "typeSet";
+    //SparePartOrder
+    public static final String REPAIR_FROM_ORDER = "repair";
+
     //Spare Part order
     public static final String SPARE_PART_ORDER = "sp_order";
-    //Account parameters
-    public static final String USER = "user";
-    public static final String EMAIL = "email";
-    public static final String USER_NAME = "userName";
-    public static final String USER_SURNAME = "userSurname";
-    public static final String IS_ACTIVE_ACCOUNT = "isActive";
-
     //Model parameters
     public static final String MODEL_ID = "model_id";
     //Brand parameters
@@ -87,6 +89,10 @@ public class Constants {
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";
     public static final String REPAIR_MODEL_NAME = "model_name";
+    //SparePart order
+    public static final String ORDER_DATE_PARAMETER = "orderDate";
+    public static final String DEPARTURE_DATE_PARAMETER = "departureDate";
+    public static final String DELIVERY_DATE_PARAMETER = "deliveryDate";
 
     //Device parameters
     public static final String DEVICE_ID = "device_id";
@@ -136,15 +142,11 @@ public class Constants {
 
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
     public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
-
-    public static final String REPAIR_TYPE_FORM_BODY = "/pages/for_include/repairTypeForm.jsp";
-    public static final String REPAIR_TYPE_FORM_BODY2 = "/for_include/repairTypeForm.jsp";
-
-
+    public static final String SPARE_PART_ORDERS_TABLE_TYPE_PAGE_PATH = "/pages/tables/sparePartOrdersTable.jsp";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
-    public static final int LIST_SIZE = 25;
+    public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";
@@ -155,6 +157,7 @@ public class Constants {
 
     //show_command
     public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
+    public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
 
 
     public static final String BRANDS = "brands";
@@ -172,6 +175,7 @@ public class Constants {
     //open commands
     public static final String OPEN_REPAIR_TABLE_PAGE = "main?command=show_repair_table&&status=ALL&&page=%d";
     public static final String OPEN_REPAIR_TYPE_TABLE_PAGE = "main?command=show_repair_type_table&&page=%d";
+    public static final String OPEN_SPARE_PART_ORDERS_TABLE_PAGE = "main?command=show_spare_part_orders_table&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
 //    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
@@ -186,5 +190,9 @@ public class Constants {
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";
     public static final String REPAIR_TYPE_LEVEL_FILTER = "Уровень ремонта";
     public static final String REPAIR_TYPE_DESCRIPTION_FILTER = "Описание ремонта";
+    //SparePartOrder
+    public static final String ORDER_DATE_DESCRIPTION = "Дата заказа";
+    public static final String ORDER_DEPARTURE_DATE = "Дата отправки";
+    public static final String ORDER_DELIVERY_DATE = "Дата доставки";
 
 }

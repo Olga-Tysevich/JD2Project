@@ -13,6 +13,8 @@ public class SparePartOrderDTO {
 
     private Long repairId;
 
+    private String repairWorkshopNumber;
+
     private Date orderDate;
 
     private Date departureDate;

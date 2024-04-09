@@ -4,9 +4,9 @@ import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
-import it.academy.services.SparePartService;
+import it.academy.services.SparePartOrderService;
 import it.academy.services.impl.RepairServiceImpl;
-import it.academy.services.impl.SparePartServiceImpl;
+import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairExtractor;
@@ -21,7 +21,7 @@ import static it.academy.utils.Constants.*;
 
 public class ChangeRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
-    private SparePartService sparePartService = new SparePartServiceImpl();
+    private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
     private Extractor extractor = new RepairExtractor();
 
     @Override
@@ -36,7 +36,7 @@ public class ChangeRepair implements ActionCommand {
         extractor.insertAttributes(req);
 
         if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())) {
-            List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repair.getId());
+            List<SparePartOrderDTO> orders = sparePartOrderService.findSparePartOrdersByRepairId(repair.getId());
             req.setAttribute(ORDERS, orders);
         }
 

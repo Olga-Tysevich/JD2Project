@@ -19,6 +19,7 @@ import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 import it.academy.servlets.commands.impl.tables.ShowRepairTable;
 import it.academy.servlets.commands.impl.tables.ShowRepairTypeTable;
+import it.academy.servlets.commands.impl.tables.ShowSparePartOrdersTable;
 
 import static it.academy.utils.Constants.*;
 
@@ -40,7 +41,8 @@ public enum CommandEnum {
     SHOW_REPAIR_TYPE_TABLE(new ShowRepairTypeTable()),
     ADD_REPAIR_TYPE(new AddRepairType()),
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
-    SHOW_REPAIR_TYPE(new ShowRepairType());
+    SHOW_REPAIR_TYPE(new ShowRepairType()),
+    SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable());
 
     private ActionCommand command;
 

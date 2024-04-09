@@ -5,10 +5,8 @@ import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.services.AdminService;
 import it.academy.services.impl.AdminServiceImpl;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.EntityFilter;
-
+import it.academy.utils.TableManager;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import static it.academy.utils.Constants.*;
 import static it.academy.utils.Constants.REPAIR_TYPE_NAME;
 
@@ -48,13 +46,7 @@ public class RepairTypeExtractor implements Extractor<RepairTypeDTO> {
             repairTypes = adminService.findRepairTypes(pageNumber);
         }
 
-        List<EntityFilter> filters = repairTypes.getFiltersForPage();
-
-        req.setAttribute(PAGE, REPAIR_TABLE_TYPE_PAGE_PATH);
-        req.setAttribute(FILTERS, filters);
-        req.setAttribute(LIST_FOR_PAGE, repairTypes);
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-        req.setAttribute(MAX_PAGE, repairTypes.getMaxPageNumber());
+        TableManager.insertAttributesForTable(req, repairTypes, REPAIR_TABLE_TYPE_PAGE_PATH);
     }
 
     @Override

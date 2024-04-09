@@ -5,9 +5,9 @@ import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.services.RepairService;
-import it.academy.services.SparePartService;
+import it.academy.services.SparePartOrderService;
 import it.academy.services.impl.RepairServiceImpl;
-import it.academy.services.impl.SparePartServiceImpl;
+import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.impl.forms.ShowOrderSparePart;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.SparePartOrderExtractor;
@@ -20,7 +20,7 @@ import java.util.List;
 import static it.academy.utils.Constants.*;
 
 public class AddSparePartOrder extends ShowOrderSparePart {
-    private SparePartService sparePartService = new SparePartServiceImpl();
+    private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
     private RepairService repairService = new RepairServiceImpl();
     private Extractor extractor = new SparePartOrderExtractor();
 
@@ -30,14 +30,14 @@ public class AddSparePartOrder extends ShowOrderSparePart {
         extractor.extractValues(req);
 
         SparePartOrderDTO sparePartOrderDTO = (SparePartOrderDTO) extractor.getParameter(SPARE_PART_ORDER);
-        sparePartService.addSparePartOrder(sparePartOrderDTO);
+        sparePartOrderService.addSparePartOrder(sparePartOrderDTO);
 
         long repairId = (long) extractor.getParameter(REPAIR_ID);
         RepairDTO repairDTO = repairService.findRepair(repairId);
         long brandId = repairDTO.getDevice().getModel().getBrandId();
         List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(brandId);
         List<BrandDTO> brandDTOList = repairService.findBrands();
-        List<SparePartOrderDTO> orders = sparePartService.findSparePartOrdersByRepairId(repairId);
+        List<SparePartOrderDTO> orders = sparePartOrderService.findSparePartOrdersByRepairId(repairId);
 
         req.setAttribute(REPAIR, repairDTO);
         req.setAttribute(BRANDS, brandDTOList);
