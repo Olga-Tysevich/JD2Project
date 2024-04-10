@@ -72,7 +72,8 @@
             <fieldset class="f1">
                 <legend>Устройства</legend>
                 <button class="button button-fieldset"> Список моделей </button>
-                <button class="button button-fieldset"> Список брэндов </button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_BRAND_TABLE_PAGE, FIRST_PAGE)%>'"> Список брэндов </button>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_DEVICE_TYPE_TABLE_PAGE, FIRST_PAGE)%>'"> Список типов</button>
             </fieldset>

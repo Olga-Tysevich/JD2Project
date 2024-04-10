@@ -1,0 +1,30 @@
+package it.academy.servlets.commands.impl.change;
+
+import it.academy.dto.device.BrandDTO;
+import it.academy.services.BrandService;
+import it.academy.services.impl.BrandServiceImpl;
+import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.extractors.Extractor;
+import it.academy.servlets.extractors.impl.BrandExtractor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import static it.academy.utils.Constants.MAIN_PAGE_PATH;
+
+public class ChangeBrand implements ActionCommand {
+    private BrandService brandService = new BrandServiceImpl();
+    private Extractor<BrandDTO> extractor = new BrandExtractor();
+
+    @Override
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+
+        extractor.extractValues(req);
+        BrandDTO brand = extractor.getResult();
+        brandService.updateBrand(brand);
+
+        extractor.insertAttributes(req);
+
+        return MAIN_PAGE_PATH;
+    }
+
+}

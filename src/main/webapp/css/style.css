@@ -14,7 +14,6 @@ section {
     margin-left: auto;
     margin-right: auto;
     padding: 0 20px 0 20px;
-    box-shadow: rgba(71, 63, 63, 0.65) 1px 0 14px;
 }
 
 .forms-container{
@@ -74,6 +73,7 @@ section {
 
 .f-input-container{
     width: 80%;
+    box-shadow: rgba(71, 63, 63, 0.65) 1px 0 4px;
 }
 
 .rc-form{
@@ -198,7 +198,7 @@ form {
     justify-content: space-between;
     background: #f9eaf9;
     border: 1px solid lightgray;
-    box-shadow: 11px 2px 5px #473f3fa6;
+    box-shadow: 2px 2px 5px #473f3fa6;
     margin-bottom: 20px;
 }
 
@@ -211,7 +211,7 @@ fieldset.f1 {
     border: 1px solid lightgray;
     padding: 10px;
     margin: 10px 10px 0 0;
-    box-shadow: 9px -4px 5px #473f3fa6;
+    box-shadow: 2px -4px 5px #473f3fa6;
     width: 220px;
 }
 
@@ -337,7 +337,7 @@ fieldset.f1 {
     background: #f9eaf9;
     border: 1px solid lightgray;
     padding: 10px;
-    box-shadow: 9px -4px 5px #473f3fa6;
+    box-shadow: 2px -4px 5px #473f3fa6;
     max-height: 250px;
 }
 

@@ -1,29 +1,27 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.services.DeviceTypeService;
-import it.academy.services.impl.DeviceTypeServiceImpl;
+import it.academy.dto.device.BrandDTO;
+import it.academy.services.BrandService;
+import it.academy.services.impl.BrandServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.TableManager;
-
 import javax.servlet.http.HttpServletRequest;
-
 import static it.academy.utils.Constants.*;
 
-public class DeviceTypeExtractor implements Extractor<DeviceTypeDTO> {
-    private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
-    private DeviceTypeDTO deviceType;
+public class BrandExtractor  implements Extractor<BrandDTO> {
+    private BrandService brandService = new BrandServiceImpl();
+    private BrandDTO brand;
 
     @Override
     public void extractValues(HttpServletRequest req) {
-        Long deviceTypeId = req.getParameter(DEVICE_TYPE_ID) != null?
-                Long.parseLong(req.getParameter(DEVICE_TYPE_ID)) : null;
-        String deviceTypeName = req.getParameter(DEVICE_TYPE_NAME);
+        Long brandId = req.getParameter(BRAND_ID) != null?
+                Long.parseLong(req.getParameter(BRAND_ID)) : null;
+        String brandName = req.getParameter(BRAND_NAME);
         Boolean isActive = req.getParameter(IS_ACTIVE) != null && Boolean.parseBoolean(req.getParameter(IS_ACTIVE));
-        this.deviceType = DeviceTypeDTO.builder()
-                .id(deviceTypeId)
-                .name(deviceTypeName)
+        this.brand = BrandDTO.builder()
+                .id(brandId)
+                .name(brandName)
                 .isActive(isActive)
                 .build();
     }
@@ -36,14 +34,14 @@ public class DeviceTypeExtractor implements Extractor<DeviceTypeDTO> {
         String filter = req.getParameter(FILTER);
         String input = req.getParameter(USER_INPUT);
 
-        ListForPage<DeviceTypeDTO> repairTypes;
+        ListForPage<BrandDTO> brands;
         if (input != null && !input.isBlank()) {
-            repairTypes = deviceTypeService.findDeviceTypes(pageNumber, filter, input);
+            brands = brandService.findBrands(pageNumber, filter, input);
         } else {
-            repairTypes = deviceTypeService.findDeviceTypes(pageNumber);
+            brands = brandService.findBrands(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, repairTypes, DEVICE_TYPE_TABLE_PAGE_PATH);
+        TableManager.insertAttributesForTable(req, brands, BRAND_TABLE_PAGE_PATH);
     }
 
     @Override
@@ -57,7 +55,7 @@ public class DeviceTypeExtractor implements Extractor<DeviceTypeDTO> {
     }
 
     @Override
-    public DeviceTypeDTO getResult() {
-        return deviceType;
+    public BrandDTO getResult() {
+        return brand;
     }
 }

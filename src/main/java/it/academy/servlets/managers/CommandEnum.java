@@ -42,7 +42,11 @@ public enum CommandEnum {
     SHOW_DEVICE_TYPE_TABLE(new ShowDeviceTypeTable()),
     ADD_DEVICE_TYPE(new AddDeviceType()),
     SHOW_DEVICE_TYPE(new ShowDeviceType()),
-    CHANGE_DEVICE_TYPE(new ChangeDeviceType());
+    CHANGE_DEVICE_TYPE(new ChangeDeviceType()),
+    SHOW_BRAND_TABLE(new ShowBrandTable()),
+    ADD_BRAND(new AddBrand()),
+    SHOW_BRAND(new ShowBrand()),
+    CHANGE_BRAND(new ChangeBrand());
 
     private ActionCommand command;
 
