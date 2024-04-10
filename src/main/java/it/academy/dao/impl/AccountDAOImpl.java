@@ -20,7 +20,7 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
         CriteriaQuery<Account> findByParameters = criteriaBuilder().createQuery(Account.class);
         Root<Account> root = findByParameters.from(Account.class);
         Predicate blockedAccount = criteriaBuilder().
-                and(criteriaBuilder().equal(root.get(IS_ACTIVE_ACCOUNT), false));
+                and(criteriaBuilder().equal(root.get(IS_ACTIVE), false));
 
         return createFindAllQuery(findByParameters, root, blockedAccount);
     }
@@ -30,7 +30,7 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
         CriteriaQuery<Account> findByParameters = criteriaBuilder().createQuery(Account.class);
         Root<Account> root = findByParameters.from(Account.class);
         Predicate blockedAccount = criteriaBuilder().
-                and(criteriaBuilder().equal(root.get(IS_ACTIVE_ACCOUNT), false));
+                and(criteriaBuilder().equal(root.get(IS_ACTIVE), false));
 
         return createFindForPageQuery(findByParameters, root, pageNumber, listSize, blockedAccount);
     }
@@ -41,7 +41,7 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
         Root<Account> root = findByParameters.from(Account.class);
         Predicate anyMatch = createFindByAnyMatchPredicate(root, parameters);
         Predicate blockedAccount = criteriaBuilder().
-                and(criteriaBuilder().equal(root.get(IS_ACTIVE_ACCOUNT), false));
+                and(criteriaBuilder().equal(root.get(IS_ACTIVE), false));
 
         return createFindForPageQuery(findByParameters, root, pageNumber, listSize, blockedAccount, anyMatch);
     }

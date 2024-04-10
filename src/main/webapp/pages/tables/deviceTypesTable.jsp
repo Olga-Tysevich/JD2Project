@@ -26,6 +26,7 @@
         <table>
             <tr>
                 <th>Тип устройства</th>
+                <th>Активно</th>
                 <th class="menu">Управление</th>
             </tr>
 
@@ -33,21 +34,18 @@
             %>
             <tr class="t-tr">
                 <td class="code"><%=deviceType.getName()%></td>
-                <td>
-                    <div class="button-table-container">
-                        <form action="repair" method="post">
-                            <input type="hidden" name="command" value="show_device_type_form">
-                            <input type="hidden" name="<%=CURRENT_SPARE_PART_ID%>" value="<%=deviceType.getId()%>">
-                            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                            <input class="choose-button order-btn" type="submit" value="Изменить">
-                        </form>
-                        <form action="repair" method="post">
-                            <input type="hidden" name="command" value="delete_device_type">
-                            <input type="hidden" name="<%=CURRENT_SPARE_PART_ID%>" value="<%=deviceType.getId()%>">
-                            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                            <input class="choose-button order-btn" type="submit" value="Удалить">
-                        </form>
-                    </div>
+                <td class="code">
+                    <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=deviceType.getIsActive()%>"
+                           <%if (deviceType.getIsActive()) {%>checked<%}%> disabled>
+                </td>
+                <td class="code">
+                    <form action="repair" method="post" >
+                        <input type="hidden" name="command" value="show_device_type">
+                        <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceType.getId()%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=deviceType.getIsActive()%>">
+                        <input class="choose-button order-btn" type="submit" value="Изменить" >
+                    </form>
                 </td>
             </tr>
             <% }%>
@@ -93,11 +91,11 @@
 
                 <div class="f-input">
                     <label class="form-el">Описание</label>
-                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
+                    <input class="f-form" type="text" name="<%=DEVICE_TYPE_NAME%>" value="">
                 </div>
 
                 <div class="button-container">
-                    <input class="button" type="submit" value="Добавить" form="add_device_type"/>
+                    <input class="button" type="submit" value="Добавить" form="addDeviceType"/>
                 </div>
             </form>
         </div>

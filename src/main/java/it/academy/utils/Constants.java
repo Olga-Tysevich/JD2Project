@@ -30,7 +30,7 @@ public class Constants {
     public static final String EMAIL = "email";
     public static final String USER_NAME = "userName";
     public static final String USER_SURNAME = "userSurname";
-    public static final String IS_ACTIVE_ACCOUNT = "isActive";
+    public static final String IS_ACTIVE = "isActive";
     //repair workshop
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
@@ -96,6 +96,7 @@ public class Constants {
     //Device parameters
     public static final String DEVICE_ID = "device_id";
     //DeviceType parameters
+    public static final String DEVICE_TYPE = "device_type_id";
     public static final String DEVICE_TYPE_ID = "device_type_id";
     public static final String DEVICE_TYPE_NAME = "device_type_name";
     //Spare part order
@@ -110,6 +111,7 @@ public class Constants {
     public static final String DEPARTURE_DATE = "departure_date";
     public static final String DELIVERY_DATE = "delivery_date";
     //RepairType parameters
+
 
     //SparePart parameters
     public static final String CURRENT_SPARE_PART = "current_spare_part";
@@ -137,16 +139,18 @@ public class Constants {
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
     public static final String SPARE_PART_PAGE_PATH = "/pages/change_pages/changeSparePart.jsp";
+    public static final String DEVICE_TYPE_PAGE_PATH = "/pages/change_pages/changeDeviceType.jsp";
 
-    public static final String BRAND_LIST_PAGE_PATH = "/pages/lists/brandList.jsp";
-    public static final String MODEL_LIST_PAGE_PATH = "/pages/lists/modelList.jsp";
-    public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/lists/repairTypeList.jsp";
-    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/lists/sparePartsOrder.jsp";
+    public static final String BRAND_LIST_PAGE_PATH = "/pages/forms/brandList.jsp";
+    public static final String MODEL_LIST_PAGE_PATH = "/pages/forms/modelList.jsp";
+    public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
+    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
 
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
     public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
-    public static final String SPARE_PART_ORDERS_TABLE_TYPE_PAGE_PATH = "/pages/tables/sparePartOrdersTable.jsp";
-    public static final String SPARE_PART_TABLE_TYPE_PAGE_PATH = "/pages/tables/sparePartTable.jsp";
+    public static final String SPARE_PART_ORDERS_TABLE_PAGE_PATH = "/pages/tables/sparePartOrdersTable.jsp";
+    public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/tables/sparePartTable.jsp";
+    public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/tables/deviceTypesTable.jsp";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -163,6 +167,7 @@ public class Constants {
     public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
+    public static final String SHOW_DEVICE_TYPE_TABLE = "show_device_type_table";
 
 
     public static final String BRANDS = "brands";
@@ -183,6 +188,7 @@ public class Constants {
     public static final String OPEN_SPARE_PART_ORDERS_TABLE_PAGE = "main?command=show_spare_part_orders_table&&page=%d";
     public static final String OPEN_SPARE_PART_TABLE_PAGE = "main?command=show_spare_part_table&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
+    public static final String OPEN_DEVICE_TYPE_TABLE_PAGE = "main?command=show_device_type_table&&page=%d";
 //    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
 
@@ -192,16 +198,18 @@ public class Constants {
 
     //filters
     public static final String FILTERS = "filters";
+    public static final String IS_BLOCKED = "Заблокированные";
     //repairType filters
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";
     public static final String REPAIR_TYPE_LEVEL_FILTER = "Уровень ремонта";
     public static final String REPAIR_TYPE_DESCRIPTION_FILTER = "Описание ремонта";
-    //SparePartOrder
+    //SparePartOrder filters
     public static final String ORDER_DATE_DESCRIPTION = "Дата заказа";
     public static final String ORDER_DEPARTURE_DATE_DESCRIPTION = "Дата отправки";
     public static final String ORDER_DELIVERY_DATE_DESCRIPTION = "Дата доставки";
-    //SparePart
+    //SparePart filters
     public static final String SPARE_PART_NAME_DESCRIPTION = "Название запчасти";
-    //DeviceTypeDescription
+    //DeviceType filters
     public static final String DEVICE_TYPE_NAME_DESCRIPTION = "Тип устройства";
+
 }

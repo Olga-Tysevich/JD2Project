@@ -11,7 +11,7 @@
         <%
             ListForPage<SparePartDTO> data = (ListForPage<SparePartDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            int maxPageNumber;
+            int maxPageNumber= data.getMaxPageNumber();
             List<SparePartDTO> list = data.getList();
             List<DeviceTypeDTO> deviceTypes = (List<DeviceTypeDTO>) request.getAttribute(DEVICE_TYPES);
         %>

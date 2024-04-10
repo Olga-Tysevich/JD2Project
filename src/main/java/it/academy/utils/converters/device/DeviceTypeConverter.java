@@ -14,6 +14,7 @@ public class DeviceTypeConverter {
         return DeviceTypeDTO.builder()
                 .id(deviceType.getId())
                 .name(deviceType.getName())
+                .isActive(deviceType.getIsActive())
                 .build();
     }
 
@@ -21,6 +22,7 @@ public class DeviceTypeConverter {
         return DeviceType.builder()
                 .id(typeDTO.getId())
                 .name(typeDTO.getName())
+                .isActive(typeDTO.getIsActive())
                 .build();
     }
 

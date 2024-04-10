@@ -30,7 +30,7 @@ public class ShowSparePartOrdersTable implements ActionCommand {
             orders = service.findSparePartOrders(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, orders, SPARE_PART_ORDERS_TABLE_TYPE_PAGE_PATH);
+        TableManager.insertAttributesForTable(req, orders, SPARE_PART_ORDERS_TABLE_PAGE_PATH);
         req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_ORDERS_TABLE);
 
         return MAIN_PAGE_PATH;

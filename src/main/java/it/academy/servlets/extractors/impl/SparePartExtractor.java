@@ -48,7 +48,7 @@ public class SparePartExtractor implements Extractor<SparePartDTO> {
             spareParts = sparePartOrderService.findSpareParts(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, spareParts, SPARE_PART_TABLE_TYPE_PAGE_PATH);
+        TableManager.insertAttributesForTable(req, spareParts, SPARE_PART_TABLE_PAGE_PATH);
         req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_TABLE);
         req.setAttribute(DEVICE_TYPES, deviceTypes);
     }

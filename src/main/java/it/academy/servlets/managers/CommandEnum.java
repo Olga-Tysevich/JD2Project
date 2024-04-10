@@ -1,11 +1,8 @@
 package it.academy.servlets.managers;
 
 import it.academy.servlets.commands.*;
-import it.academy.servlets.commands.impl.add.AddRepair;
-import it.academy.servlets.commands.impl.add.AddRepairType;
-import it.academy.servlets.commands.impl.add.AddSparePart;
+import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
-import it.academy.servlets.commands.impl.add.AddSparePartOrder;
 import it.academy.servlets.commands.impl.delete.DeleteSparePart;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
 import it.academy.servlets.commands.impl.forms.*;
@@ -13,10 +10,7 @@ import it.academy.servlets.commands.impl.lists.ShowBrandList;
 import it.academy.servlets.commands.impl.lists.ShowModelList;
 import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
-import it.academy.servlets.commands.impl.tables.ShowRepairTable;
-import it.academy.servlets.commands.impl.tables.ShowRepairTypeTable;
-import it.academy.servlets.commands.impl.tables.ShowSparePartOrdersTable;
-import it.academy.servlets.commands.impl.tables.ShowSparePartTable;
+import it.academy.servlets.commands.impl.tables.*;
 
 import static it.academy.utils.Constants.*;
 
@@ -44,7 +38,11 @@ public enum CommandEnum {
     ADD_SPARE_PART(new AddSparePart()),
     SHOW_SPARE_PART_FORM(new ShowSparePartForm()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
-    DELETE_SPARE_PART(new DeleteSparePart());
+    DELETE_SPARE_PART(new DeleteSparePart()),
+    SHOW_DEVICE_TYPE_TABLE(new ShowDeviceTypeTable()),
+    ADD_DEVICE_TYPE(new AddDeviceType()),
+    SHOW_DEVICE_TYPE(new ShowDeviceType()),
+    CHANGE_DEVICE_TYPE(new ChangeDeviceType());
 
     private ActionCommand command;
 
