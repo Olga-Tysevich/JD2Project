@@ -2,12 +2,15 @@ package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.AccountDTO;
 import it.academy.dto.ListForPage;
+import it.academy.dto.repair_workshop.RepairWorkshopDTO;
 import it.academy.entities.RoleEnum;
 import it.academy.services.AdminService;
 import it.academy.services.impl.AdminServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.TableManager;
+
 import javax.servlet.http.HttpServletRequest;
+
 import static it.academy.utils.Constants.*;
 
 public class AccountExtractor implements Extractor<AccountDTO> {
@@ -16,13 +19,13 @@ public class AccountExtractor implements Extractor<AccountDTO> {
 
     @Override
     public void extractValues(HttpServletRequest req) {
-        Long objectId = req.getParameter(OBJECT_ID) != null?
+        Long objectId = req.getParameter(OBJECT_ID) != null ?
                 Long.parseLong(req.getParameter(OBJECT_ID)) : null;
         String email = req.getParameter(ACCOUNT_EMAIL);
         String userName = req.getParameter(USER_NAME);
         String userSurname = req.getParameter(USER_SURNAME);
-        RoleEnum role = RoleEnum.valueOf(req.getParameter(ROLE));
-        Long repairWorkshopId = req.getParameter(REPAIR_WORKSHOP_ID) != null?
+        RoleEnum role = req.getParameter(ROLE) != null? RoleEnum.valueOf(req.getParameter(ROLE)) : RoleEnum.SERVICE_CENTER;
+        Long repairWorkshopId = req.getParameter(REPAIR_WORKSHOP_ID) != null ?
                 Long.parseLong(req.getParameter(REPAIR_WORKSHOP_ID)) : null;
 
         if (RoleEnum.ADMIN.equals(role)) {
@@ -36,6 +39,9 @@ public class AccountExtractor implements Extractor<AccountDTO> {
                 .userName(userName)
                 .userSurname(userSurname)
                 .role(role)
+                .repairWorkshop(RepairWorkshopDTO.builder()
+                        .id(repairWorkshopId)
+                        .build())
                 .isActive(isActive)
                 .build();
         System.out.println(this.account);

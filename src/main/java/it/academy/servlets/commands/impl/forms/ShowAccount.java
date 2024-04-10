@@ -37,6 +37,7 @@ public class ShowAccount implements ActionCommand {
                     .role(RoleEnum.SERVICE_CENTER)
                     .isActive(true)
                     .build();
+            req.setAttribute(COMMAND, ADD_ACCOUNT);
 
         }
         List<RepairWorkshopDTO> serviceCenters = serviceCenterService.findRepairWorkshops();

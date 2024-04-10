@@ -59,7 +59,7 @@
             <fieldset class="f1">
                 <legend>Компания</legend>
                 <form  action="account" method="post">
-                    <input type="hidden" name="command" value="<%=SHOW_ACCOUNT%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
                 </form>

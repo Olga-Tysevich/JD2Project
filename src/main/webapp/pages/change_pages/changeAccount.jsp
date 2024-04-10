@@ -17,6 +17,7 @@
         <%
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             AccountDTO account = (AccountDTO) request.getAttribute(ACCOUNT);
+            Long id = account.getId();
             RepairWorkshopDTO serviceCenter = account.getRepairWorkshop();
             String command = (String) request.getAttribute(COMMAND);
             List<RepairWorkshopDTO> serviceCenters = (List<RepairWorkshopDTO>) request.getAttribute(REPAIR_WORKSHOPS);
@@ -28,7 +29,9 @@
                     <input type="text" name="command" value="<%=command%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 </div>
+                <%if (id != null) { %>
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
+                <% } %>
                 <div class="f-input">
                     <div class="radio-container-rp">
                         <label for="isActive">Активный: </label>

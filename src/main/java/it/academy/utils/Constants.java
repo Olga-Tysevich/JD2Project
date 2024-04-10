@@ -187,6 +187,7 @@ public class Constants {
     //show_command
     public static final String SHOW_START_PAGE = "open_page";
     public static final String SHOW_ACCOUNT = "show_account";
+    public static final String ADD_ACCOUNT = "add_account";
     public static final String CHANGE_ACCOUNT = "change_account";
     public static final String SHOW_ACCOUNT_TABLE = "show_account_table";
     public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";

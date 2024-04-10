@@ -18,6 +18,7 @@ import static it.academy.utils.Constants.*;
 public enum CommandEnum {
     LOGIN(new LoginCommand()),
     SHOW_ACCOUNT(new ShowAccount()),
+    ADD_ACCOUNT(new AddAccount()),
     CHANGE_ACCOUNT(new ChangeAccount()),
     SHOW_ACCOUNT_TABLE(new ShowAccountTable()),
     OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
