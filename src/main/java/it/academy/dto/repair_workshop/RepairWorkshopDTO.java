@@ -11,6 +11,14 @@ public class RepairWorkshopDTO {
 
     private String serviceName;
 
+    private String bankAccount;
+
+    private String bankCode;
+
+    private String bankName;
+
+    private String bankAddress;
+
     private String fullName;
 
     private String actualAddress;
@@ -25,12 +33,6 @@ public class RepairWorkshopDTO {
 
     private String registrationNumber;
 
-    private String bankAccount;
-
-    private String bankCode;
-
-    private String bankName;
-
-    private String bankAddress;
+    private Boolean isActive;
 
 }

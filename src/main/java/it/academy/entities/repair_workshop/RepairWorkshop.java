@@ -1,12 +1,8 @@
 package it.academy.entities.repair_workshop;
 
-import it.academy.entities.device.components.Brand;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,8 +19,6 @@ public class RepairWorkshop implements Serializable {
     @Column(name = "service_name")
     private String serviceName;
 
-    //    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "fullName", column = @Column(name = "full_name")),
@@ -35,8 +29,6 @@ public class RepairWorkshop implements Serializable {
     })
     private Requisites requisites;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "bankAccount", column = @Column(name = "bank_account")),
@@ -45,5 +37,8 @@ public class RepairWorkshop implements Serializable {
             @AttributeOverride(name = "bankAddress", column = @Column(name = "bank_address"))
     })
     private BankAccount bankAccount;
+
+    @Column
+    private Boolean isActive;
 
 }

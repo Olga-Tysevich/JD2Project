@@ -10,7 +10,7 @@ import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.RepairWorkshopService;
 import it.academy.services.impl.RepairServiceImpl;
-import it.academy.services.impl.RepairWorkshopImpl;
+import it.academy.services.impl.RepairWorkshopServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ import static it.academy.utils.Constants.*;
 
 public class RepairExtractor implements Extractor<RepairDTO> {
     private RepairService repairService = new RepairServiceImpl();
-    private RepairWorkshopService repairWorkshopService = new RepairWorkshopImpl();
+    private RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
     private Map<String, Object> reqParameters = new HashMap<>();
 
     @Override

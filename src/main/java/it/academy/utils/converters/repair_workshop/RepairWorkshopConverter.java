@@ -27,27 +27,29 @@ public class RepairWorkshopConverter {
                 .bankCode(repairWorkshop.getBankAccount().getBankCode())
                 .bankName(repairWorkshop.getBankAccount().getBankName())
                 .bankAddress(repairWorkshop.getBankAccount().getBankAddress())
+                .isActive(repairWorkshop.getIsActive())
                 .build();
     }
 
-    public static RepairWorkshop convertDTOToEntity(RepairWorkshopDTO req) {
+    public static RepairWorkshop convertDTOToEntity(RepairWorkshopDTO repairWorkshop) {
         return RepairWorkshop.builder()
-                .id(req.getId())
-                .serviceName(req.getServiceName())
+                .id(repairWorkshop.getId())
+                .serviceName(repairWorkshop.getServiceName())
                 .requisites(Requisites.builder()
-                        .fullName(req.getFullName())
-                        .actualAddress(req.getActualAddress())
-                        .phone(req.getPhone())
-                        .email(req.getEmail())
-                        .taxpayerNumber(req.getTaxpayerNumber())
-                        .registrationNumber(req.getRegistrationNumber())
+                        .fullName(repairWorkshop.getFullName())
+                        .actualAddress(repairWorkshop.getActualAddress())
+                        .phone(repairWorkshop.getPhone())
+                        .email(repairWorkshop.getEmail())
+                        .taxpayerNumber(repairWorkshop.getTaxpayerNumber())
+                        .registrationNumber(repairWorkshop.getRegistrationNumber())
                         .build())
                 .bankAccount(BankAccount.builder()
-                        .bankName(req.getBankName())
-                        .bankAccount(req.getBankAccount())
-                        .bankAddress(req.getBankAddress())
-                        .bankCode(req.getBankCode())
+                        .bankName(repairWorkshop.getBankName())
+                        .bankAccount(repairWorkshop.getBankAccount())
+                        .bankAddress(repairWorkshop.getBankAddress())
+                        .bankCode(repairWorkshop.getBankCode())
                         .build())
+                .isActive(repairWorkshop.getIsActive())
                 .build();
     }
 

@@ -4,14 +4,11 @@ import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.device.components.DeviceType;
 import it.academy.services.BrandService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.BrandConverter;
-import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.util.ArrayList;

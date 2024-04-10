@@ -65,8 +65,10 @@
 
             <fieldset class="f1">
                 <legend>Сервисные центры</legend>
-                <button class="button button-fieldset"> Список текущих сервисных центров </button>
-                <button class="button button-fieldset"> Список заблокированных сервисных центров </button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить сервисный центр </button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_TABLE_PAGE, FIRST_PAGE)%>'"> Список сервисных центров </button>
             </fieldset>
 
             <fieldset class="f1">

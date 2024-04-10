@@ -5,7 +5,7 @@ import it.academy.servlets.extractors.impl.SparePartExtractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static it.academy.utils.Constants.MAIN_PAGE_PATH;
+import static it.academy.utils.Constants.*;
 
 public class ShowSparePartTable implements ActionCommand {
     private SparePartExtractor extractor = new SparePartExtractor();
@@ -14,6 +14,7 @@ public class ShowSparePartTable implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.insertAttributes(req);
+        req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_TABLE);
 
         return MAIN_PAGE_PATH;
     }

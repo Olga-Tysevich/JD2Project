@@ -1,6 +1,7 @@
 package it.academy.dto.repair;
 
 import it.academy.dto.device.DeviceDTO;
+import it.academy.dto.repair_workshop.RepairWorkshopDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import lombok.Builder;
@@ -13,6 +14,8 @@ public class RepairDTO {
     //TODO добавить сервсный центр
 
     private Long id;
+
+    private RepairWorkshopDTO repairWorkshop;
 
     private DeviceDTO device;
 

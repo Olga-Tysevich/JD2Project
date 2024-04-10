@@ -50,7 +50,11 @@ public enum CommandEnum {
     SHOW_MODEL_TABLE(new ShowModelTable()),
     ADD_MODEL(new AddModel()),
     CHANGE_MODEL(new ChangeModel()),
-    SHOW_MODEL(new ShowModel());
+    SHOW_MODEL(new ShowModel()),
+    SHOW_REPAIR_WORKSHOP_TABLE(new ShowRepairWorkshopTable()),
+    SHOW_REPAIR_WORKSHOP(new ShowRepairWorkshop()),
+    ADD_REPAIR_WORKSHOP(new AddRepairWorkshop()),
+    CHANGE_REPAIR_WORKSHOP(new ChangeRepairWorkshop());
 
     private ActionCommand command;
 
