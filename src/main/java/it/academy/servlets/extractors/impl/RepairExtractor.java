@@ -7,10 +7,10 @@ import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.services.RepairService;
-import it.academy.services.RepairWorkshopService;
-import it.academy.services.impl.RepairServiceImpl;
-import it.academy.services.impl.RepairWorkshopServiceImpl;
+import it.academy.services.repair.RepairService;
+import it.academy.services.ServiceCenterService;
+import it.academy.services.repair.impl.RepairServiceImpl;
+import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ import static it.academy.utils.Constants.*;
 
 public class RepairExtractor implements Extractor<RepairDTO> {
     private RepairService repairService = new RepairServiceImpl();
-    private RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
+    private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private Map<String, Object> reqParameters = new HashMap<>();
 
     @Override

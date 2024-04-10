@@ -10,51 +10,48 @@ import java.util.List;
 @UtilityClass
 public class Converter {
 
-    public static <T, R> R convertToDTO(T entity, Class<T> entityClass, Class<R> dtoClass) throws IllegalAccessException,
-            InstantiationException, NoSuchMethodException, InvocationTargetException {
+    public static Object convert(Object object, Class<?> objectClass, Class<?> resultClass) {
 
-        Constructor<R> constructor = dtoClass.getConstructor();
-        constructor.setAccessible(true);
-        R result = constructor.newInstance();
+        Constructor<?> constructor = null;
+        Object result = null;
+        try {
+            constructor = resultClass.getConstructor();
+            constructor.setAccessible(true);
+            Object temp = constructor.newInstance();
+            List<Field> entityFields = List.of(objectClass.getDeclaredFields());
+            List<Field> dtoFields = List.of(resultClass.getDeclaredFields());
+            entityFields.forEach(f -> f.setAccessible(true));
 
-        List<Field> entityFields = List.of(entityClass.getDeclaredFields());
-        List<Field> dtoFields = List.of(dtoClass.getDeclaredFields());
-        entityFields.forEach(f -> f.setAccessible(true));
+            for (Field f : dtoFields) {
+                f.setAccessible(true);
+                String dtoFieldName = f.getName();
 
-
-        dtoFields.forEach(f -> {
-            f.setAccessible(true);
-            String dtoFieldName = f.getName();
-
-            Field entityField = dtoFields.stream()
-                    .filter(ef -> ef.getName().equals(dtoFieldName))
-                    .findFirst()
-                    .orElse(null);
-            if (entityField != null) {
-                try {
-                    Object val = f.get(result);
-                    Object val2 = entityField.get(entity);
-//                    f.set(result, val);
-//                    f.set(result, f.getDeclaringClass().cast(val));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                Field entityField = entityFields.stream()
+                        .filter(ef -> ef.getName().equals(dtoFieldName))
+                        .findFirst()
+                        .orElse(null);
+                if (entityField != null) {
+                    Object val = entityField.get(object);
+                    f.set(temp, val);
+                } else if (dtoFieldName.endsWith("DTO")) {
+                    Class<?> clazz = f.getDeclaringClass();
+                    Field entityObjectField = entityFields.stream()
+                            .filter(ef -> ef.getName().equals(dtoFieldName.replace("DTO", "")))
+                            .findFirst()
+                            .orElse(null);
+                    if (entityObjectField != null) {
+                        Class<?> clazz2 = entityObjectField.getDeclaringClass();
+                        f.set(temp, convert(entityObjectField, clazz2, clazz));
+                    }
                 }
             }
-        });
-        return null;
-    }
+            result = temp;
 
-    public static <T, R> T convertToEntity(R dto) {
-        return null;
-    }
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
-    public static <T, R> List<R> convertToDTO(List<T> entityList) {
-        return null;
+        return result;
     }
-
-    public static <T, R>  List<T> convertToEntity(List<R> dtoList) {
-        return null;
-    }
-
 
 }

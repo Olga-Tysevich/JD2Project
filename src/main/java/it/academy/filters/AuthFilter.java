@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static it.academy.utils.Constants.USER;
+import static it.academy.utils.Constants.ACCOUNT;
 
-@WebFilter(urlPatterns = {"/main", "/brands", "/models", "/repair"})
+@WebFilter(urlPatterns = {"/main", "/account", "/brands", "/models", "/repair"})
 public class AuthFilter implements Filter {
 
     @Override
@@ -23,7 +23,7 @@ public class AuthFilter implements Filter {
         String contextPath = req.getContextPath();
         HttpSession session = req.getSession();
 
-        if ((session != null) && (session.getAttribute(USER) != null)) {
+        if ((session != null) && (session.getAttribute(ACCOUNT) != null)) {
             chain.doFilter(request, response);
         } else {
             String s= contextPath;

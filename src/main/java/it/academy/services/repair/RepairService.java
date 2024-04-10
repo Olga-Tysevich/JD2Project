@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.repair;
 
 
 import it.academy.dto.ListForPage;

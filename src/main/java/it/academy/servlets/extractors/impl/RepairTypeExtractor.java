@@ -4,6 +4,8 @@ import it.academy.dto.ListForPage;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.services.AdminService;
 import it.academy.services.impl.AdminServiceImpl;
+import it.academy.services.repair.RepairTypeService;
+import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.TableManager;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +13,7 @@ import static it.academy.utils.Constants.*;
 import static it.academy.utils.Constants.REPAIR_TYPE_NAME;
 
 public class RepairTypeExtractor implements Extractor<RepairTypeDTO> {
-    private AdminService adminService = new AdminServiceImpl();
+    private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
     private RepairTypeDTO repairType;
 
 
@@ -41,9 +43,9 @@ public class RepairTypeExtractor implements Extractor<RepairTypeDTO> {
 
         ListForPage<RepairTypeDTO> repairTypes;
         if (input != null && !input.isBlank()) {
-            repairTypes = adminService.findRepairTypes(pageNumber, filter, input);
+            repairTypes = repairTypeService.findRepairTypes(pageNumber, filter, input);
         } else {
-            repairTypes = adminService.findRepairTypes(pageNumber);
+            repairTypes = repairTypeService.findRepairTypes(pageNumber);
         }
 
         TableManager.insertAttributesForTable(req, repairTypes, REPAIR_TABLE_TYPE_PAGE_PATH);

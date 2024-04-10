@@ -4,8 +4,8 @@ import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.services.RepairService;
-import it.academy.services.impl.RepairServiceImpl;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.Builder;
 

@@ -1,8 +1,10 @@
-<%@ page import="static it.academy.utils.Constants.USER" %>
+<%@ page import="static it.academy.utils.Constants.ACCOUNT" %>
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.EntityFilter" %>
+<%@ page import="it.academy.dto.AccountDTO" %>
+<%@ page import="it.academy.entities.RoleEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -15,29 +17,25 @@
     <div class=" container">
 
                 <%
-
-//                    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(USER));
-//                    String userEmail = accountDTO.getEmail();
-//                    String userName = accountDTO.getRepairWorkshop() != null? accountDTO.getRepairWorkshop().getServiceName()
-//                            : "Компания";
+                    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
+                    RoleEnum role = accountDTO.getRole();
+                    String userEmail = accountDTO.getEmail();
                     int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
+                    int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
                     List<EntityFilter> filters = (List<EntityFilter>) request.getAttribute(FILTERS);
                     String pageForDisplay = (String) request.getAttribute(PAGE);
-                    String showCommand = (String) request.getAttribute(SHOW_COMMAND);
+                    String command = (String) request.getAttribute(COMMAND);
                 %>
 
         <div class="header-container">
             <div class="header-el">
-<%--                <h1><%=userName%></h1>--%>
-            </div>
-            <div class="header-el">
-<%--                <h2><%=userEmail%></h2>--%>
+                <p><%=userEmail%></p>
             </div>
         </div>
 
-
+        <% if (pageForDisplay != null) { %>
         <form action="main" method="post" id="search">
-            <input type="hidden" name="command" value="<%=showCommand%>">
+            <input type="hidden" name="command" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
             <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
@@ -50,16 +48,23 @@
             </select>
             <input class="button light" type="submit" value="Найти" form="search">
         </form>
-
+        <% } %>
     </div>
 
     <div class="container main">
 
         <div class="menu-container">
+
+            <% if (RoleEnum.ADMIN.equals(role)) {%>
             <fieldset class="f1">
                 <legend>Компания</legend>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить аккаунт </button>
+                <form  action="account" method="post">
+                    <input type="hidden" name="command" value="<%=SHOW_ACCOUNT%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
+                </form>
+<%--                <button --%>
+<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить аккаунт </button>--%>
 
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_ACCOUNT_TABLE, FIRST_PAGE)%>'"> Список аккаунтов </button>
@@ -72,6 +77,21 @@
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_TABLE_PAGE, FIRST_PAGE)%>'"> Список сервисных центров </button>
             </fieldset>
+
+            <% } else { %>
+            <fieldset class="f1">
+                <legend>Сервисный центр</legend>
+                <form  action="account" method="post">
+                    <input type="hidden" name="command" value="<%=OPEN_REPAIR_WORKSHOP_PAGE%>">
+                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getRepairWorkshop().getId()%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Изменить учетные данные"/>
+                </form>
+
+<%--                <button class="button button-fieldset"--%>
+<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Изменить учетные данные </button>--%>
+            </fieldset>
+            <% } %>
 
             <fieldset class="f1">
                 <legend>Устройства</legend>
@@ -106,10 +126,44 @@
         </div>
 
         <div class="table-container">
-            <%if (pageForDisplay != null) {
+            <%=pageForDisplay%>
+            <%=maxPageNumber%>
+            <%=command%>
+            <% if (pageForDisplay != null) {
                 pageContext.include(pageForDisplay);
-            }
-            %>
+                if (maxPageNumber != 1) {%>
+            <div class="footer">
+                <div class="button-container">
+                    <%if (pageNumber != FIRST_PAGE) { %>
+                    <form action="main" method="post">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                        <%int prevPage = pageNumber - 1;%>
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
+                        <input class="button light" type="submit" name="button" value="Предыдущая">
+                    </form>
+                    <% } %>
+
+                    <p><%=pageNumber%>
+                        из
+                        <%=maxPageNumber%>
+                    </p>
+
+
+                    <%if (pageNumber != maxPageNumber) { %>
+                    <form action="main" method="post">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                        <input type="text" name="<%=COMMAND%>" value="<%=command%>">
+                        <%int nextPage = pageNumber + 1;%>
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
+                        <input class="button light" type="submit" name="button" value="Следующая">
+                    </form>
+                    <% }
+                    } %>
+
+                </div>
+            </div>
+            <% } %>
+
         </div>
 
     </div>

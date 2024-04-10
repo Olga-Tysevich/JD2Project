@@ -2,6 +2,7 @@ package it.academy.servlets.commands.impl;
 
 import it.academy.dto.AccountDTO;
 import it.academy.dto.LoginDTO;
+import it.academy.entities.RoleEnum;
 import it.academy.services.AuthService;
 import it.academy.services.impl.AuthServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -23,7 +24,7 @@ public class LoginCommand implements ActionCommand {
 
         try {
             AccountDTO accountDTO = service.loginUser(loginDTO);
-            req.getSession().setAttribute(USER, accountDTO);
+            req.getSession().setAttribute(ACCOUNT, accountDTO);
         } catch (Exception e) {
             req.setAttribute(ERROR, e.getMessage());
         }

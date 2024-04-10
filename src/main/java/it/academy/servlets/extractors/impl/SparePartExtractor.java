@@ -5,6 +5,8 @@ import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.services.AdminService;
 import it.academy.services.SparePartOrderService;
+import it.academy.services.device.DeviceTypeService;
+import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.services.impl.AdminServiceImpl;
 import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.extractors.Extractor;
@@ -17,7 +19,7 @@ import static it.academy.utils.Constants.*;
 
 public class SparePartExtractor implements Extractor<SparePartDTO> {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
-    private AdminService adminService = new AdminServiceImpl();
+    private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
     private SparePartDTO sparePart;
 
 
@@ -39,7 +41,7 @@ public class SparePartExtractor implements Extractor<SparePartDTO> {
 
         String filter = req.getParameter(FILTER);
         String input = req.getParameter(USER_INPUT);
-        List<DeviceTypeDTO> deviceTypes = adminService.findDeviceTypes();
+        List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
 
         ListForPage<SparePartDTO> spareParts;
         if (input != null && !input.isBlank()) {

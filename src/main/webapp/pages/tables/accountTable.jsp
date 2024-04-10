@@ -10,7 +10,6 @@
         <%
             ListForPage<AccountDTO> data = (ListForPage<AccountDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            int maxPageNumber = data.getMaxPageNumber();
             List<AccountDTO> list = data.getList();
         %>
 
@@ -38,7 +37,7 @@
                 </td>
                 <td class="code">
                     <form action="repair" method="post" >
-                        <input type="hidden" name="command" value="show_repair_workshop">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
                         <input type="hidden" name="<%=ACCOUNT_REPAIR_WORKSHOP%>" value="<%=account.getRepairWorkshop()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
@@ -48,39 +47,5 @@
             </tr>
             <% }%>
         </table>
-
-<%--        <jsp:include page="/pages/changePageButtons.jsp"/>--%>
-
-        <%if (data.getMaxPageNumber() != 1) {%>
-        <div class="footer">
-            <div class="button-container">
-                <%if (pageNumber != FIRST_PAGE) { %>
-                <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_repair_workshop_table">
-                    <%int prevPage = pageNumber - 1;%>
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                    <input class="button light" type="submit" name="button" value="Предыдущая">
-                </form>
-                <% } %>
-
-                <p><%=pageNumber%>
-                    из
-                    <%=maxPageNumber%>
-                </p>
-
-
-                <%if (pageNumber != maxPageNumber) { %>
-                <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_repair_workshop_table">
-                    <%int nextPage = pageNumber + 1;%>
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                    <input class="button light" type="submit" name="button" value="Следующая">
-                </form>
-                <% } %>
-
-            </div>
-        </div>
-        <% } %>
-
     </div>
 </section>

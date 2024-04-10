@@ -23,18 +23,4 @@ public interface AdminService {
     ListForPage<AccountDTO> findAccount(int pageNumber, String filter, String input);
 
 
-
-    ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber);
-
-    ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input);
-
-    RepairTypeDTO findRepairType(long id);
-
-    void addRepairType(RepairTypeDTO repairType);
-
-    void updateRepairType(RepairTypeDTO repairType);
-
-    List<DeviceTypeDTO> findDeviceTypes();
-
-
 }

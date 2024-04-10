@@ -5,7 +5,7 @@ import it.academy.dto.repair_workshop.RepairWorkshopDTO;
 
 import java.util.List;
 
-public interface RepairWorkshopService {
+public interface ServiceCenterService {
 
     void addRepairWorkshop(RepairWorkshopDTO repairWorkshop);
 

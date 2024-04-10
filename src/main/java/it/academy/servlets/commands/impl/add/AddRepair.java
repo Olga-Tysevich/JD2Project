@@ -2,8 +2,8 @@ package it.academy.servlets.commands.impl.add;
 
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.repair.RepairDTO;
-import it.academy.services.RepairService;
-import it.academy.services.impl.RepairServiceImpl;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairExtractor;

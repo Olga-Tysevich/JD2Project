@@ -1,4 +1,4 @@
-package it.academy.services.impl;
+package it.academy.services.repair.impl;
 
 
 import it.academy.dao.device.BrandDAO;
@@ -23,7 +23,7 @@ import it.academy.entities.device.components.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
-import it.academy.services.RepairService;
+import it.academy.services.repair.RepairService;
 import it.academy.utils.Builder;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.DeviceConverter;

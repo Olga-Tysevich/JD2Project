@@ -32,6 +32,7 @@ public class AccountConverter {
         RepairWorkshopDTO repairWorkshop = account.getRepairWorkshop() ;
         RepairWorkshop repairWorkshopDTO = repairWorkshop != null? RepairWorkshopConverter.convertDTOToEntity(repairWorkshop) : null;
         return Account.builder()
+                .id(account.getId())
                 .isActive(account.getIsActive())
                 .email(account.getEmail())
                 .userName(account.getUserName())

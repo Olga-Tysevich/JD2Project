@@ -3,14 +3,11 @@ package it.academy.services.impl;
 import it.academy.dao.RepairWorkshopDAO;
 import it.academy.dao.impl.RepairWorkshopDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
 import it.academy.dto.repair_workshop.RepairWorkshopDTO;
-import it.academy.entities.device.components.Brand;
 import it.academy.entities.repair_workshop.RepairWorkshop;
-import it.academy.services.RepairWorkshopService;
+import it.academy.services.ServiceCenterService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
-import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
 import it.academy.utils.dao.TransactionManger;
 
@@ -20,7 +17,7 @@ import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
 
-public class RepairWorkshopServiceImpl implements RepairWorkshopService {
+public class ServiceCenterServiceImpl implements ServiceCenterService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
     private RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
 

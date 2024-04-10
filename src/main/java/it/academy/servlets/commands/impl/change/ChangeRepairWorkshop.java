@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.repair_workshop.RepairWorkshopDTO;
-import it.academy.services.RepairWorkshopService;
-import it.academy.services.impl.RepairWorkshopServiceImpl;
+import it.academy.services.ServiceCenterService;
+import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairWorkshopExtractor;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.Constants.MAIN_PAGE_PATH;
 
 public class ChangeRepairWorkshop implements ActionCommand {
-    private RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
+    private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private Extractor<RepairWorkshopDTO> extractor = new RepairWorkshopExtractor();
 
     @Override
@@ -20,7 +20,7 @@ public class ChangeRepairWorkshop implements ActionCommand {
 
         extractor.extractValues(req);
         RepairWorkshopDTO repairWorkshopDTO = extractor.getResult();
-        repairWorkshopService.updateRepairWorkshop(repairWorkshopDTO);
+        serviceCenterService.updateRepairWorkshop(repairWorkshopDTO);
 
         extractor.insertAttributes(req);
 

@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.forms;
 
 import it.academy.dto.repair_workshop.RepairWorkshopDTO;
-import it.academy.services.RepairWorkshopService;
-import it.academy.services.impl.RepairWorkshopServiceImpl;
+import it.academy.services.ServiceCenterService;
+import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.Constants.*;
 
 public class ShowRepairWorkshop  implements ActionCommand {
-    private RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
+    private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         int pageNumber = req.getParameter(PAGE_NUMBER) != null? Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
         RepairWorkshopDTO repairWorkshop;
-        String id = req.getParameter(REPAIR_WORKSHOP_ID);
+        String id = req.getParameter(OBJECT_ID);
         if (id != null && !id.isBlank()) {
-            long repairWorkshopId = Long.parseLong(req.getParameter(REPAIR_WORKSHOP_ID));
-            repairWorkshop = repairWorkshopService.findRepairWorkshop(repairWorkshopId);
+            long repairWorkshopId = Long.parseLong(req.getParameter(OBJECT_ID));
+            repairWorkshop = serviceCenterService.findRepairWorkshop(repairWorkshopId);
             System.out.println(req.getParameter(COMMAND));
             req.setAttribute(COMMAND, CHANGE_REPAIR_WORKSHOP);
         } else  {

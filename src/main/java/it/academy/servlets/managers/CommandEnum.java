@@ -17,6 +17,9 @@ import static it.academy.utils.Constants.*;
 
 public enum CommandEnum {
     LOGIN(new LoginCommand()),
+    SHOW_ACCOUNT(new ShowAccount()),
+    CHANGE_ACCOUNT(new ChangeAccount()),
+    SHOW_ACCOUNT_TABLE(new ShowAccountTable()),
     OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_BRAND_LIST(new ShowBrandList()),
     SHOW_MODEL_LIST(new ShowModelList()),
@@ -56,8 +59,7 @@ public enum CommandEnum {
     SHOW_REPAIR_WORKSHOP_TABLE(new ShowRepairWorkshopTable()),
     SHOW_REPAIR_WORKSHOP(new ShowRepairWorkshop()),
     ADD_REPAIR_WORKSHOP(new AddRepairWorkshop()),
-    CHANGE_REPAIR_WORKSHOP(new ChangeRepairWorkshop()),
-    SHOW_ACCOUNT_TABLE(new ShowAccountTable());
+    CHANGE_REPAIR_WORKSHOP(new ChangeRepairWorkshop());
 
     private ActionCommand command;
 

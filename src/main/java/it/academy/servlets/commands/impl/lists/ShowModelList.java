@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.lists;
 
 import it.academy.dto.device.ModelDTO;
-import it.academy.services.RepairService;
-import it.academy.services.impl.RepairServiceImpl;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;

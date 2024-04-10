@@ -5,8 +5,6 @@ import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static it.academy.utils.Constants.USER;
-
 public class ShowPageCommand implements ActionCommand {
 //    private AdminService adminService = new AdminServiceImpl();
     private String pageKey;

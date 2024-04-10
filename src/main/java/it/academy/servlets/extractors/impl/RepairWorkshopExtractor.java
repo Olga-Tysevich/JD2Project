@@ -2,8 +2,8 @@ package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
 import it.academy.dto.repair_workshop.RepairWorkshopDTO;
-import it.academy.services.RepairWorkshopService;
-import it.academy.services.impl.RepairWorkshopServiceImpl;
+import it.academy.services.ServiceCenterService;
+import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.TableManager;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import static it.academy.utils.Constants.*;
 
 public class RepairWorkshopExtractor implements Extractor<RepairWorkshopDTO> {
-    private RepairWorkshopService repairWorkshopService = new RepairWorkshopServiceImpl();
+    private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private RepairWorkshopDTO repairType;
 
 
@@ -62,9 +62,9 @@ public class RepairWorkshopExtractor implements Extractor<RepairWorkshopDTO> {
 
         ListForPage<RepairWorkshopDTO> repairTypes;
         if (input != null && !input.isBlank()) {
-            repairTypes = repairWorkshopService.findRepairWorkshops(pageNumber, filter, input);
+            repairTypes = serviceCenterService.findRepairWorkshops(pageNumber, filter, input);
         } else {
-            repairTypes = repairWorkshopService.findRepairWorkshops(pageNumber);
+            repairTypes = serviceCenterService.findRepairWorkshops(pageNumber);
         }
 
         TableManager.insertAttributesForTable(req, repairTypes, REPAIR_WORKSHOP_TABLE_PAGE_PATH);

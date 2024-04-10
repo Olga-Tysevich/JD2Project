@@ -2,7 +2,6 @@ package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.AccountDTO;
 import it.academy.dto.ListForPage;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
 import it.academy.entities.RoleEnum;
 import it.academy.services.AdminService;
 import it.academy.services.impl.AdminServiceImpl;
@@ -23,13 +22,13 @@ public class AccountExtractor implements Extractor<AccountDTO> {
         String userName = req.getParameter(USER_NAME);
         String userSurname = req.getParameter(USER_SURNAME);
         RoleEnum role = RoleEnum.valueOf(req.getParameter(ROLE));
-        Object test = req.getAttribute(ACCOUNT_REPAIR_WORKSHOP);
+        Long repairWorkshopId = req.getParameter(REPAIR_WORKSHOP_ID) != null?
+                Long.parseLong(req.getParameter(REPAIR_WORKSHOP_ID)) : null;
 
-        System.out.println("object " + test);
+        if (RoleEnum.ADMIN.equals(role)) {
+            repairWorkshopId = null;
+        }
 
-
-
-        RepairWorkshopDTO repairWorkshop = (RepairWorkshopDTO) test;
         Boolean isActive = req.getParameter(IS_ACTIVE) != null && Boolean.parseBoolean(req.getParameter(IS_ACTIVE));
         this.account = AccountDTO.builder()
                 .id(objectId)
@@ -39,6 +38,7 @@ public class AccountExtractor implements Extractor<AccountDTO> {
                 .role(role)
                 .isActive(isActive)
                 .build();
+        System.out.println(this.account);
     }
 
     @Override
@@ -49,14 +49,15 @@ public class AccountExtractor implements Extractor<AccountDTO> {
         String filter = req.getParameter(FILTER);
         String input = req.getParameter(USER_INPUT);
 
-        ListForPage<AccountDTO> brands;
+        ListForPage<AccountDTO> accounts;
         if (input != null && !input.isBlank()) {
-            brands = adminService.findAccount(pageNumber, filter, input);
+            accounts = adminService.findAccount(pageNumber, filter, input);
         } else {
-            brands = adminService.findAccount(pageNumber);
+            accounts = adminService.findAccount(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, brands, ACCOUNT_TABLE_PAGE_PATH);
+        TableManager.insertAttributesForTable(req, accounts, ACCOUNT_TABLE_PAGE_PATH);
+        req.setAttribute(MAX_PAGE, accounts.getMaxPageNumber());
     }
 
     @Override

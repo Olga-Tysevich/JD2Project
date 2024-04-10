@@ -22,7 +22,7 @@ public class Constants {
     public static final String ROLE = "role";
     public static final String ACCOUNT_REPAIR_WORKSHOP = "repairWorkshop";
 
-    public static final String USER = "user";
+    public static final String ACCOUNT = "account";
     public static final String EMAIL = "email";
 //    public static final String USER_NAME = "userName";
 //    public static final String USER_SURNAME = "userSurname";
@@ -37,6 +37,10 @@ public class Constants {
     public static final String END_DATE = "endDate";
     public static final String REPAIR_TYPE_LEVEL = "level";
     public static final String REPAIR_TYPE_CODE = "code";
+
+    //role description
+    public static final String ADMIN_DESCRIPTION = "Администатор";
+    public static final String SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
     //repair statuses description
     public static final String REQUEST_DESCRIPTION = "Заявка";
     public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
@@ -74,6 +78,7 @@ public class Constants {
     //jsp
     //RepairWorkshop parameters
     public static final String REPAIR_WORKSHOP = "repair_workshop";
+    public static final String REPAIR_WORKSHOPS = "repair_workshops";
     public static final String REPAIR_WORKSHOP_ID = "repair_workshop_id";
     public static final String REPAIR_WORKSHOP_SERVICE_NAME = "repair_workshop_service_name";
     public static final String REPAIR_WORKSHOP_BANK_ACCOUNT = "repair_workshop_bank_account";
@@ -141,6 +146,7 @@ public class Constants {
     public static final String WAITING_SPARE_PARTS_TABLE_PATH = "path.page.repair.waiting";
 
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
+    public static final String ACCOUNT_PAGE_PATH = "/pages/change_pages/changeAccount.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
@@ -167,6 +173,7 @@ public class Constants {
     public static final String REPAIR_WORKSHOP_TABLE_PAGE_PATH = "/pages/tables/repairWorkshopTable.jsp";
 
     //jsp
+    //common
     public static final String PAGE_NUMBER = "pageNumber";
     public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
@@ -178,6 +185,9 @@ public class Constants {
     public static final String USER_INPUT = "user_input";
 
     //show_command
+    public static final String SHOW_START_PAGE = "open_page";
+    public static final String SHOW_ACCOUNT = "show_account";
+    public static final String CHANGE_ACCOUNT = "change_account";
     public static final String SHOW_ACCOUNT_TABLE = "show_account_table";
     public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
@@ -185,6 +195,7 @@ public class Constants {
     public static final String SHOW_DEVICE_TYPE_TABLE = "show_device_type_table";
     public static final String SHOW_BRAND_TABLE = "show_brand_table";
     public static final String SHOW_MODEL_TABLE = "show_model_table";
+    public static final String SHOW_REPAIR_WORKSHOP = "show_repair_workshop_table";
     public static final String SHOW_REPAIR_WORKSHOP_TABLE = "show_repair_workshop_table";
     public static final String ADD_REPAIR_WORKSHOP = "add_repair_workshop";
     public static final String CHANGE_REPAIR_WORKSHOP = "change_repair_workshop";
