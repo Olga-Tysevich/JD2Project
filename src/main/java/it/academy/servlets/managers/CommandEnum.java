@@ -46,7 +46,11 @@ public enum CommandEnum {
     SHOW_BRAND_TABLE(new ShowBrandTable()),
     ADD_BRAND(new AddBrand()),
     SHOW_BRAND(new ShowBrand()),
-    CHANGE_BRAND(new ChangeBrand());
+    CHANGE_BRAND(new ChangeBrand()),
+    SHOW_MODEL_TABLE(new ShowModelTable()),
+    ADD_MODEL(new AddModel()),
+    CHANGE_MODEL(new ChangeModel()),
+    SHOW_MODEL(new ShowModel());
 
     private ActionCommand command;
 

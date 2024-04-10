@@ -30,7 +30,7 @@
         %>
 
         <div class="lr-container">
-            <form class="lr-form" action="main" method="post" id="repair">
+            <form class="lr-form" action="main" method="post" id="form_for_submit">
                 <input type="hidden" name="command" value="add_repair">
                 <input type="hidden" name="<%=BRAND_ID%>" value="<%=brandId%>">
                 <input type="hidden" name="<%=DEVICE_ID%>" value="<%=deviceId%>">
@@ -134,7 +134,7 @@
                 </div>
 
         <div class="button-container">
-            <input class="button" type="submit" value="Сохранить" form="repair"/>
+            <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
             <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
         </div>
 

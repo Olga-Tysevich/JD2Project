@@ -20,20 +20,22 @@ public class ModelConverter {
                 .brandName(model.getBrand().getName())
                 .deviceTypeId(model.getType().getId())
                 .deviceTypeName(model.getType().getName())
+                .isActive(model.getIsActive())
                 .build();
     }
 
-    public static Model convertDTOToEntity(ModelDTO req) {
+    public static Model convertDTOToEntity(ModelDTO model) {
         return Model.builder()
-                .id(req.getId())
-                .name(req.getName())
+                .id(model.getId())
+                .name(model.getName())
+                .isActive(model.getIsActive())
                 .brand(Brand.builder()
-                        .id(req.getBrandId())
-                        .name(req.getBrandName())
+                        .id(model.getBrandId())
+                        .name(model.getBrandName())
                         .build())
                 .type(DeviceType.builder()
-                        .id(req.getDeviceTypeId())
-                        .name(req.getDeviceTypeName())
+                        .id(model.getDeviceTypeId())
+                        .name(model.getDeviceTypeName())
                         .build())
                 .build();
     }

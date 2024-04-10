@@ -20,6 +20,9 @@ public class Model implements Serializable {
     @Column
     private String name;
 
+    @Column
+    private Boolean isActive;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private Brand brand;

@@ -80,6 +80,7 @@ public class Constants {
     //jsp
     //Model parameters
     public static final String MODEL_ID = "model_id";
+    public static final String MODEL_NAME = "model_name";
     //Brand parameters
     public static final String BRAND_ID = "brand_id";
     public static final String CURRENT_BRAND_ID = "current_brand_id";
@@ -141,6 +142,7 @@ public class Constants {
     public static final String SPARE_PART_PAGE_PATH = "/pages/change_pages/changeSparePart.jsp";
     public static final String DEVICE_TYPE_PAGE_PATH = "/pages/change_pages/changeDeviceType.jsp";
     public static final String BRAND_PAGE_PATH = "/pages/change_pages/changeBrand.jsp";
+    public static final String MODEL_PAGE_PATH = "/pages/change_pages/changeModel.jsp";
 
     public static final String BRAND_LIST_PAGE_PATH = "/pages/forms/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/forms/modelList.jsp";
@@ -153,6 +155,7 @@ public class Constants {
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/tables/sparePartTable.jsp";
     public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/tables/deviceTypesTable.jsp";
     public static final String BRAND_TABLE_PAGE_PATH = "/pages/tables/brandTable.jsp";
+    public static final String MODEL_TABLE_PAGE_PATH = "/pages/tables/modelTable.jsp";
 
     //jsp
     public static final String PAGE_NUMBER = "pageNumber";
@@ -171,6 +174,7 @@ public class Constants {
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
     public static final String SHOW_DEVICE_TYPE_TABLE = "show_device_type_table";
     public static final String SHOW_BRAND_TABLE = "show_brand_table";
+    public static final String SHOW_MODEL_TABLE = "show_model_table";
 
 
     public static final String BRANDS = "brands";
@@ -193,6 +197,7 @@ public class Constants {
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
     public static final String OPEN_DEVICE_TYPE_TABLE_PAGE = "main?command=show_device_type_table&&page=%d";
     public static final String OPEN_BRAND_TABLE_PAGE = "main?command=show_brand_table&&page=%d";
+    public static final String OPEN_MODEL_TABLE_PAGE = "main?command=show_model_table&&page=%d";
 //    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
 
@@ -217,5 +222,7 @@ public class Constants {
     public static final String DEVICE_TYPE_NAME_DESCRIPTION = "Тип устройства";
     //Brand filters
     public static final String BRAND_NAME_DESCRIPTION = "Название бренда";
+    //Model filters
+    public static final String MODEL_NAME_FILTER = "Название модели";
 
 }

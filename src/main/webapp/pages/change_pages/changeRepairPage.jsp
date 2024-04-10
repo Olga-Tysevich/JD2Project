@@ -218,6 +218,6 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/FormWithBrandList.js"></script>
 
 </body>

@@ -19,7 +19,6 @@ public class ShowDeviceType implements ActionCommand {
         long deviceTypeId = Long.parseLong(req.getParameter(DEVICE_TYPE_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         DeviceTypeDTO deviceType = deviceTypeService.findDeviceType(deviceTypeId);
-        System.out.println(deviceType);
 
         req.setAttribute(DEVICE_TYPE, deviceType);
         req.setAttribute(PAGE_NUMBER, pageNumber);

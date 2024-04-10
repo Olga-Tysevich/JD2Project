@@ -18,4 +18,6 @@ public class ModelDTO {
     private Long deviceTypeId;
 
     private String deviceTypeName;
+
+    private Boolean isActive;
 }
