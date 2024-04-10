@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.services.DeviceTypeService;
-import it.academy.services.impl.DeviceTypeServiceImpl;
+import it.academy.services.device.DeviceTypeService;
+import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.DeviceTypeExtractor;

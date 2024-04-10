@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.device;
 
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;

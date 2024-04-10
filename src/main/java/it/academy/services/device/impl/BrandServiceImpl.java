@@ -1,11 +1,11 @@
-package it.academy.services.impl;
+package it.academy.services.device.impl;
 
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.BrandDTO;
 import it.academy.entities.device.components.Brand;
-import it.academy.services.BrandService;
+import it.academy.services.device.BrandService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.BrandConverter;

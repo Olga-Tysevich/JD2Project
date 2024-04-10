@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.add;
 
 import it.academy.dto.device.BrandDTO;
-import it.academy.services.BrandService;
-import it.academy.services.impl.BrandServiceImpl;
+import it.academy.services.device.BrandService;
+import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.BrandExtractor;

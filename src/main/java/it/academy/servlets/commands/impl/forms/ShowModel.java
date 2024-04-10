@@ -3,12 +3,12 @@ package it.academy.servlets.commands.impl.forms;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.device.ModelDTO;
-import it.academy.services.BrandService;
-import it.academy.services.DeviceTypeService;
-import it.academy.services.ModelService;
-import it.academy.services.impl.BrandServiceImpl;
-import it.academy.services.impl.DeviceTypeServiceImpl;
-import it.academy.services.impl.ModelServiceImpl;
+import it.academy.services.device.BrandService;
+import it.academy.services.device.DeviceTypeService;
+import it.academy.services.device.ModelService;
+import it.academy.services.device.impl.BrandServiceImpl;
+import it.academy.services.device.impl.DeviceTypeServiceImpl;
+import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;

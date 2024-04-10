@@ -2,8 +2,8 @@ package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.services.DeviceTypeService;
-import it.academy.services.impl.DeviceTypeServiceImpl;
+import it.academy.services.device.DeviceTypeService;
+import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.TableManager;
 

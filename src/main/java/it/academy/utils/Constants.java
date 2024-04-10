@@ -8,16 +8,24 @@ import java.util.Random;
 public class Constants {
     public static final Random RANDOM = new Random();
 
-    //parameters
+    //parameters common
     public static final String OBJECT_ID = "id";
+    public static final String IS_ACTIVE = "isActive";
     public static final String IS_DELETED = "isDeleted";
     public static final String OBJECT_NAME = "name";
+    public static final String ERROR = "error";
     //Account parameters
-    public static final String USER = "user";
-    public static final String EMAIL = "email";
+    public static final String ACCOUNT_EMAIL = "email";
+    public static final String PASSWORD = "password";
     public static final String USER_NAME = "userName";
     public static final String USER_SURNAME = "userSurname";
-    public static final String IS_ACTIVE = "isActive";
+    public static final String ROLE = "role";
+    public static final String ACCOUNT_REPAIR_WORKSHOP = "repairWorkshop";
+
+    public static final String USER = "user";
+    public static final String EMAIL = "email";
+//    public static final String USER_NAME = "userName";
+//    public static final String USER_SURNAME = "userSurname";
     //repair workshop
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
@@ -148,6 +156,7 @@ public class Constants {
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
 
+    public static final String ACCOUNT_TABLE_PAGE_PATH = "/pages/tables/accountTable.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
     public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
     public static final String SPARE_PART_ORDERS_TABLE_PAGE_PATH = "/pages/tables/sparePartOrdersTable.jsp";
@@ -169,6 +178,7 @@ public class Constants {
     public static final String USER_INPUT = "user_input";
 
     //show_command
+    public static final String SHOW_ACCOUNT_TABLE = "show_account_table";
     public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
@@ -203,6 +213,7 @@ public class Constants {
     public static final String OPEN_MODEL_TABLE_PAGE = "main?command=show_model_table&&page=%d";
     public static final String OPEN_REPAIR_WORKSHOP_TABLE_PAGE = "main?command=show_repair_workshop_table&&page=%d";
     public static final String OPEN_REPAIR_WORKSHOP_PAGE = "main?command=show_repair_workshop&&page=%d";
+    public static final String OPEN_ACCOUNT_TABLE = "main?command=show_account_table&&page=%d";
 //    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
 
@@ -229,5 +240,12 @@ public class Constants {
     public static final String BRAND_NAME_DESCRIPTION = "Название бренда";
     //Model filters
     public static final String MODEL_NAME_FILTER = "Название модели";
+
+    //ERROR_MESSAGES
+    public static final String EMAIL_ALREADY_EXISTS = "Email: %s is already registered!";
+    public static final String PASSWORDS_NOT_MATCH = "The entered passwords do not match!";
+    public static final String FIELD_NOT_FILLED = "Required field is not filled in!";
+    public static final String USER_NOT_FOUND = "User is not found!";
+    public static final String INCORRECT_PASSWORD = "Incorrect password!";
 
 }

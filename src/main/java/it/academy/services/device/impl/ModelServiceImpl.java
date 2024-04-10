@@ -1,11 +1,11 @@
-package it.academy.services.impl;
+package it.academy.services.device.impl;
 
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.entities.device.components.Model;
-import it.academy.services.ModelService;
+import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;

@@ -1,6 +1,9 @@
 package it.academy.utils;
 
 
+import it.academy.dto.AccountDTO;
+import it.academy.entities.Account;
+import it.academy.entities.RoleEnum;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.components.RepairType;
@@ -43,6 +46,21 @@ public class Generator {
     private List<String> repairTypes = Arrays.asList("Замена динамика", "Без ремонта", "Замена платы", "Проверка качества", "Замена мотора");
     private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
     private List<String> dates = Arrays.asList("2024-04-01", "2024-04-15", "2024-04-24", "2024-04-12", "2024-04-07");
+
+    public static Account generateAccount(boolean isOwner) {
+        String password = generateValidPasswords();
+        RoleEnum role = isOwner? RoleEnum.ADMIN : RoleEnum.SERVICE_CENTER;
+        return Account.builder()
+                .email(isOwner ? String.format(emails.get(0), RANDOM.nextInt(100)) :
+                        String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(100)))
+                .isActive(true)
+                .password(password)
+                .userName(names.get(RANDOM.nextInt(names.size())))
+                .userSurname(surnames.get(RANDOM.nextInt(surnames.size())))
+                .role(role)
+                .build();
+    }
+
 
     public static RepairWorkshop generateRepairWorkshop() {
         String name = repairWorkshops.get(RANDOM.nextInt(repairWorkshops.size())) + RANDOM.nextInt(100);

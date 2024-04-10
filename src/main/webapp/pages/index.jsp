@@ -1,4 +1,3 @@
-<%@ page import="static it.academy.utils.Constants.OPEN_START_PAGE" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -11,8 +10,7 @@
     </head>
 
     <body>
-<%--    <jsp:include page="login.jsp"/>--%>
-    <% response.sendRedirect(OPEN_START_PAGE);%>
+        <jsp:include page="login.jsp"/>
     </body>
 
 </html>

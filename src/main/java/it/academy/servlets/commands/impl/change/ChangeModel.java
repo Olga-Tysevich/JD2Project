@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.device.ModelDTO;
-import it.academy.services.ModelService;
-import it.academy.services.impl.ModelServiceImpl;
+import it.academy.services.device.ModelService;
+import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.ModelExtractor;

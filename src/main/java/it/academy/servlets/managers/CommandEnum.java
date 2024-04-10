@@ -1,6 +1,7 @@
 package it.academy.servlets.managers;
 
 import it.academy.servlets.commands.*;
+import it.academy.servlets.commands.impl.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.delete.DeleteSparePart;
@@ -15,6 +16,7 @@ import it.academy.servlets.commands.impl.tables.*;
 import static it.academy.utils.Constants.*;
 
 public enum CommandEnum {
+    LOGIN(new LoginCommand()),
     OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_BRAND_LIST(new ShowBrandList()),
     SHOW_MODEL_LIST(new ShowModelList()),
@@ -54,7 +56,8 @@ public enum CommandEnum {
     SHOW_REPAIR_WORKSHOP_TABLE(new ShowRepairWorkshopTable()),
     SHOW_REPAIR_WORKSHOP(new ShowRepairWorkshop()),
     ADD_REPAIR_WORKSHOP(new AddRepairWorkshop()),
-    CHANGE_REPAIR_WORKSHOP(new ChangeRepairWorkshop());
+    CHANGE_REPAIR_WORKSHOP(new ChangeRepairWorkshop()),
+    SHOW_ACCOUNT_TABLE(new ShowAccountTable());
 
     private ActionCommand command;
 

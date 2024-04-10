@@ -1,11 +1,11 @@
-package it.academy.services.impl;
+package it.academy.services.device.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.entities.device.components.DeviceType;
-import it.academy.services.DeviceTypeService;
+import it.academy.services.device.DeviceTypeService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;

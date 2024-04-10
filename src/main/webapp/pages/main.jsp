@@ -58,9 +58,11 @@
         <div class="menu-container">
             <fieldset class="f1">
                 <legend>Компания</legend>
-                <button class="button button-fieldset"> Добавить аккаунт </button>
-                <button class="button button-fieldset"> Список текущих администраторов </button>
-                <button class="button button-fieldset"> Список заблокированных администраторов </button>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить аккаунт </button>
+
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_ACCOUNT_TABLE, FIRST_PAGE)%>'"> Список аккаунтов </button>
             </fieldset>
 
             <fieldset class="f1">
