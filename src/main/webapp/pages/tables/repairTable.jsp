@@ -36,6 +36,7 @@
 
             <table>
                 <tr>
+                    <th>Сервисный центр</th>
                     <th class="date">Дата приема</th>
                     <th>No. заказа</th>
                     <th>Модель</th>
@@ -48,6 +49,7 @@
             <% for (RepairDTO repair : list) { %>
 
                 <tr>
+                    <td class="date"><%=repair.getRepairWorkshop().getServiceName()%></td>
                     <td class="date"><%=repair.getStartDate()%></td>
                     <td class="number"><%=repair.getRepairWorkshopRepairNumber()%></td>
                     <td class="number"><%=repair.getModelDescription()%></td>

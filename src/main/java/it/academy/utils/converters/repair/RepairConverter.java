@@ -8,6 +8,7 @@ import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.utils.Builder;
 import it.academy.utils.converters.device.DeviceConverter;
+import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class RepairConverter {
 
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repair.getId())
+                .repairWorkshop(RepairWorkshopConverter.convertToDTO(repair.getRepairWorkshop()))
                 .device(DeviceConverter.convertToDTO(repair.getDevice()))
                 .category(repair.getCategory())
                 .status(repair.getStatus())
@@ -60,6 +62,7 @@ public class RepairConverter {
         Repair repair = Repair.builder()
                 .id(repairDTO.getId())
 //                .repairWorkshop()
+                .repairWorkshop(RepairWorkshopConverter.convertDTOToEntity(repairDTO.getRepairWorkshop()))
                 .status(repairDTO.getStatus())
                 .category(repairDTO.getCategory())
                 .device(DeviceConverter.convertDTOToEntity(repairDTO.getDevice()))
