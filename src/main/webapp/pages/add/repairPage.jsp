@@ -89,8 +89,8 @@
 
                 <div class="f-input">
                     <label class="form-el" for="serviceNumber">Номер заказ-наряда:</label>
-                    <input class="f-form" required type="text" name="<%=REPAIR_WORKSHOP_REPAIR_NUMBER%>"
-                           value="<%=repairDTO.getRepairWorkshopRepairNumber()%>" id="serviceNumber">
+                    <input class="f-form" required type="text" name="<%=SERVICE_CENTER_REPAIR_NUMBER%>"
+                           value="<%=repairDTO.getServiceCenterRepairNumber()%>" id="serviceNumber">
                 </div>
 
                 <div class="f-input">

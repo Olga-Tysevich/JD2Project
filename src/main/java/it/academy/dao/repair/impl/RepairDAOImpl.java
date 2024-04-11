@@ -4,19 +4,13 @@ package it.academy.dao.repair.impl;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.entities.repair.Repair;
-import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.utils.dao.ParameterManager;
-
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 
-import static it.academy.utils.Constants.LIKE_QUERY_PATTERN;
-import static it.academy.utils.Constants.REPAIR_STATUS;
+import static it.academy.utils.Constants.*;
 
 public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
 
@@ -31,8 +25,8 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
         Root<Repair> root = find.from(Repair.class);
 
         find.select(root)
-                .where(criteriaBuilder().equal(root.get("status"), status),
-                        criteriaBuilder().equal(root.get("isDeleted"), false));
+                .where(criteriaBuilder().equal(root.get(REPAIR_STATUS), status),
+                        criteriaBuilder().equal(root.get(IS_DELETED), false));
 
         return entityManager()
                 .createQuery(find)

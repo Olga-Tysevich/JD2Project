@@ -26,7 +26,7 @@ public class ShowRepair implements ActionCommand {
                 .device(Builder.buildEmptyDevice(modelDTO))
                 .status(RepairStatus.REQUEST)
                 .defectDescription(DEFAULT_VALUE)
-                .repairWorkshopRepairNumber(DEFAULT_VALUE)
+                .serviceCenterRepairNumber(DEFAULT_VALUE)
                 .build();
         List<BrandDTO> brandDTOList = repairService.findBrands();
         List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(DEFAULT_ID);

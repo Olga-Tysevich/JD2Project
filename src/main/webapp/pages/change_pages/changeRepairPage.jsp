@@ -99,8 +99,8 @@
 
                     <div class="f-input">
                         <label class="form-el" for="serviceNumber">Номер заказ-наряда:</label>
-                        <input class="f-form" required type="text" name="<%=REPAIR_WORKSHOP_REPAIR_NUMBER%>"
-                               value="<%=repairDTO.getRepairWorkshopRepairNumber()%>" id="serviceNumber">
+                        <input class="f-form" required type="text" name="<%=SERVICE_CENTER_REPAIR_NUMBER%>"
+                               value="<%=repairDTO.getServiceCenterRepairNumber()%>" id="serviceNumber">
                     </div>
 
                     <div class="f-input">
@@ -205,14 +205,14 @@
             <form action="repair" method="post" id="order">
             <input type="hidden" name="command" value="show_order_spare_part">
             <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
-            <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairWorkshopRepairNumber()%>">
+            <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getServiceCenterRepairNumber()%>">
             <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=repairTypeId%>">
             </form>
 
             <form action="repair" method="post" id="completed">
                 <input type="hidden" name="command" value="show_repair_type_list">
                 <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
-                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairWorkshopRepairNumber()%>">
+                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getServiceCenterRepairNumber()%>">
             </form>
 
     </div>

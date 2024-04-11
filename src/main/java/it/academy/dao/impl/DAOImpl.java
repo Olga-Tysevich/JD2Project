@@ -1,10 +1,8 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
-import it.academy.utils.dao.ParameterContainer;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -45,9 +43,14 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public <S> T findByUniqueParameter(String filter, S parameter) {
         CriteriaQuery<T> findByParameter = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameter.from(clazz);
-
-        return createFindUniqueResultQuery(findByParameter, root,
-                criteriaBuilder().equal(root.get(filter), parameter));
+        findByParameter.select(root)
+                .where(criteriaBuilder().equal(root.get(filter), parameter))
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+        return entityManager().createQuery(findByParameter)
+                .getResultStream()
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -65,7 +68,11 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         CriteriaQuery<T> findAll = criteriaBuilder().createQuery(clazz);
         Root<T> root = findAll.from(clazz);
 
-        return createFindAllQuery(findAll, root);
+        findAll.select(root)
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+
+        return entityManager().createQuery(findAll)
+                .getResultList();
     }
 
 
@@ -74,16 +81,13 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         CriteriaQuery<T> findList = criteriaBuilder().createQuery(clazz);
         Root<T> root = findList.from(clazz);
 
-        return createFindForPageQuery(findList, root, pageNumber, listSize);
-    }
-
-    @Override
-    public List<T> findByAnyMatch(List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findByParameters.from(clazz);
-        Predicate anyMatch = createFindByAnyMatchPredicate(root, parameters);
-
-        return createFindAllQuery(findByParameters, root, anyMatch);
+        findList.select(root)
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+        return entityManager()
+                .createQuery(findList)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
     }
 
     @Override
@@ -94,26 +98,17 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                 .like(root.get(filter).as(String.class),
                         ParameterManager.getParameterForLikeQuery(value));
 
-        return createFindForPageQuery(findByParameters, root, pageNumber, listSize, predicate);
+        findByParameters.select(root)
+                .where(predicate)
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+
+        return entityManager()
+                .createQuery(findByParameters)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
     }
 
-    @Override
-    public List<T> findByExactMatch(List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findByParameters.from(clazz);
-        Predicate exactMatch = createFindByExactMatchQuery(root, parameters);
-
-        return createFindAllQuery(findByParameters, root, exactMatch);
-    }
-
-    @Override
-    public List<T> findForPageByExactMatch(int pageNumber, int listSize, List<ParameterContainer<?>> parameters) {
-        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findByParameters.from(clazz);
-        Predicate exactMatch = createFindByExactMatchQuery(root, parameters);
-
-        return createFindForPageQuery(findByParameters, root, pageNumber, listSize, exactMatch);
-    }
 
     @Override
     public BigInteger getNumberOfEntries() {
@@ -129,62 +124,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     protected CriteriaBuilder criteriaBuilder() {
         return manger.criteriaBuilder();
-    }
-
-
-    protected Predicate createFindByAnyMatchPredicate(Root<T> root, List<ParameterContainer<?>> containers) {
-
-        Predicate predicate = criteriaBuilder().disjunction();
-        containers.forEach(c -> predicate.getExpressions()
-                .add(criteriaBuilder()
-                        .or(criteriaBuilder()
-                                .like(root.get(c.getParameterName()).as(String.class),
-                                        ParameterManager.getParameterForLikeQuery(c.getParameterValue())
-                                )))
-        );
-        return predicate;
-    }
-
-    protected Predicate createFindByExactMatchQuery(Root<T> root, List<ParameterContainer<?>> containers) {
-
-        Predicate predicate = criteriaBuilder().disjunction();
-        containers.forEach(c -> predicate.getExpressions()
-                .add(criteriaBuilder()
-                        .or(criteriaBuilder()
-                                .equal(root.get(c.getParameterName()), c.getParameterValue())
-                        ))
-        );
-        return predicate;
-    }
-
-    protected T createFindUniqueResultQuery(CriteriaQuery<T> query, Root<T> root, Predicate... predicates) {
-        query.select(root)
-                .where(predicates)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
-        return entityManager().createQuery(query)
-                .getResultStream()
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
-    }
-
-    protected List<T> createFindAllQuery(CriteriaQuery<T> query, Root<T> root, Predicate... predicates) {
-        query.select(root)
-                .where(predicates)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
-        return entityManager().createQuery(query)
-                .getResultList();
-    }
-
-    protected List<T> createFindForPageQuery(CriteriaQuery<T> query, Root<T> root, int pageNumber, int listSize, Predicate... predicates) {
-        query.select(root)
-                .where(predicates)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
-        return entityManager()
-                .createQuery(query)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
     }
 
     protected Class<T> getClazz() {

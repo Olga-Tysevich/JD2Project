@@ -1,4 +1,4 @@
-package it.academy.entities.repair_workshop;
+package it.academy.entities.service_center;
 
 import lombok.*;
 import javax.persistence.*;
@@ -9,8 +9,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "repair_workshops")
-public class RepairWorkshop implements Serializable {
+@Table(name = "service_centers")
+public class ServiceCenter implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

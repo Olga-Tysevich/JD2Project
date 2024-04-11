@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.forms;
 
 import it.academy.dto.AccountDTO;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.RoleEnum;
 import it.academy.services.AdminService;
 import it.academy.services.ServiceCenterService;
@@ -40,11 +40,11 @@ public class ShowAccount implements ActionCommand {
             req.setAttribute(COMMAND, ADD_ACCOUNT);
 
         }
-        List<RepairWorkshopDTO> serviceCenters = serviceCenterService.findRepairWorkshops();
+        List<ServiceCenterDTO> serviceCenters = serviceCenterService.findServiceCenter();
 
         req.setAttribute(ACCOUNT, account);
         req.setAttribute(PAGE_NUMBER, pageNumber);
-        req.setAttribute(REPAIR_WORKSHOPS, serviceCenters);
+        req.setAttribute(SERVICE_CENTERS, serviceCenters);
 
         return ACCOUNT_PAGE_PATH;
     }

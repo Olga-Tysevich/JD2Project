@@ -1,23 +1,23 @@
 package it.academy.servlets.commands.impl.tables;
 
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.servlets.extractors.impl.RepairWorkshopExtractor;
+import it.academy.servlets.extractors.impl.ServiceCenterExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 
-public class ShowRepairWorkshopTable implements ActionCommand {
-    private Extractor<RepairWorkshopDTO> extractor = new RepairWorkshopExtractor();
+public class ShowServiceCenterTable implements ActionCommand {
+    private Extractor<ServiceCenterDTO> extractor = new ServiceCenterExtractor();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.insertAttributes(req);
-        req.setAttribute(SHOW_COMMAND, SHOW_REPAIR_WORKSHOP_TABLE);
+        req.setAttribute(COMMAND, SHOW_SERVICE_CENTER_TABLE);
 
         return MAIN_PAGE_PATH;
     }

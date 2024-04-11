@@ -10,8 +10,7 @@ import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.dao.TransactionManger;
-
-import java.util.ArrayList;
+import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -47,7 +46,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public ListForPage<BrandDTO> findBrands(int pageNumber) {
-        List<EntityFilter> filters = getFiltersForBrand();
+        List<EntityFilter> filters = FilterManager.getFiltersForBrand();
 
         Supplier<ListForPage<BrandDTO>> find = () -> {
             List<Brand> repairs = brandDAO.findForPage(pageNumber, LIST_SIZE);
@@ -61,7 +60,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public ListForPage<BrandDTO> findBrands(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = getFiltersForBrand();
+        List<EntityFilter> filters = FilterManager.getFiltersForBrand();
 
         Supplier<ListForPage<BrandDTO>> find = () -> {
             List<Brand> repairs = brandDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
@@ -71,13 +70,6 @@ public class BrandServiceImpl implements BrandService {
         };
 
         return transactionManger.execute(find);
-    }
-
-    private List<EntityFilter> getFiltersForBrand() {
-        List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
-        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
-        return filters;
     }
 
 }

@@ -6,9 +6,8 @@ import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairType;
-import it.academy.utils.Builder;
 import it.academy.utils.converters.device.DeviceConverter;
-import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -29,12 +28,12 @@ public class RepairConverter {
 
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repair.getId())
-                .repairWorkshop(RepairWorkshopConverter.convertToDTO(repair.getRepairWorkshop()))
+                .repairWorkshop(ServiceCenterConverter.convertToDTO(repair.getServiceCenter()))
                 .device(DeviceConverter.convertToDTO(repair.getDevice()))
                 .category(repair.getCategory())
                 .status(repair.getStatus())
                 .defectDescription(repair.getDefectDescription())
-                .repairWorkshopRepairNumber(repair.getRepairWorkshopRepairNumber())
+                .serviceCenterRepairNumber(repair.getServiceCenterRepairNumber())
                 .startDate(repair.getStartDate())
                 .endDate(repair.getEndDate())
                 .deliveryDate(repair.getDeliveryDate())
@@ -62,12 +61,12 @@ public class RepairConverter {
         Repair repair = Repair.builder()
                 .id(repairDTO.getId())
 //                .repairWorkshop()
-                .repairWorkshop(RepairWorkshopConverter.convertDTOToEntity(repairDTO.getRepairWorkshop()))
+                .serviceCenter(ServiceCenterConverter.convertDTOToEntity(repairDTO.getRepairWorkshop()))
                 .status(repairDTO.getStatus())
                 .category(repairDTO.getCategory())
                 .device(DeviceConverter.convertDTOToEntity(repairDTO.getDevice()))
                 .defectDescription(repairDTO.getDefectDescription())
-                .repairWorkshopRepairNumber(repairDTO.getRepairWorkshopRepairNumber())
+                .serviceCenterRepairNumber(repairDTO.getServiceCenterRepairNumber())
                 .startDate(repairDTO.getStartDate())
                 .endDate(repairDTO.getEndDate())
                 .deliveryDate(repairDTO.getDeliveryDate())

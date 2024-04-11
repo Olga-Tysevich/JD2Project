@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.spare_part;
 
 import it.academy.dto.ListForPage;
 import it.academy.dto.spare_parts.SparePartDTO;
@@ -13,7 +13,11 @@ public interface SparePartService {
 
     void deleteSparePart(long id);
 
+    SparePartDTO findSparePart(long id);
+
     ListForPage<SparePartDTO> findSpareParts(int pageNumber);
+
+    List<SparePartDTO> findSparePartsByDeviceTypeId(long id);
 
     ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
 

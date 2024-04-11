@@ -1,28 +1,26 @@
-package it.academy.servlets.commands.impl.add;
+package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.ServiceCenterService;
 import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.servlets.extractors.impl.RepairWorkshopExtractor;
+import it.academy.servlets.extractors.impl.ServiceCenterExtractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.MAIN_PAGE_PATH;
 
-public class AddRepairWorkshop implements ActionCommand {
+public class ChangeServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
-    private Extractor<RepairWorkshopDTO> extractor = new RepairWorkshopExtractor();
+    private Extractor<ServiceCenterDTO> extractor = new ServiceCenterExtractor();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.extractValues(req);
-
-        RepairWorkshopDTO repairWorkshop = extractor.getResult();
-        repairWorkshop.setIsActive(true);
-        serviceCenterService.addRepairWorkshop(repairWorkshop);
+        ServiceCenterDTO serviceCenterDTO = extractor.getResult();
+        serviceCenterService.updateServiceCenter(serviceCenterDTO);
 
         extractor.insertAttributes(req);
 

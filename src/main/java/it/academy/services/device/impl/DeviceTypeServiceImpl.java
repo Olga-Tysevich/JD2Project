@@ -10,7 +10,7 @@ import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
-import java.util.ArrayList;
+import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
@@ -45,7 +45,7 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Override
     public ListForPage<DeviceTypeDTO> findDeviceTypes(int pageNumber) {
-        List<EntityFilter> filters = getFiltersForDeviceType();
+        List<EntityFilter> filters = FilterManager.getFiltersForDeviceType();
 
         Supplier<ListForPage<DeviceTypeDTO>> find = () -> {
             List<DeviceType> repairs = deviceTypeDAO.findForPage(pageNumber, LIST_SIZE);
@@ -59,7 +59,7 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Override
     public ListForPage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = getFiltersForDeviceType();
+        List<EntityFilter> filters = FilterManager.getFiltersForDeviceType();
 
         Supplier<ListForPage<DeviceTypeDTO>> find = () -> {
             List<DeviceType> repairs = deviceTypeDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
@@ -71,11 +71,5 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
         return transactionManger.execute(find);
     }
 
-    private List<EntityFilter> getFiltersForDeviceType() {
-        List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
-        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
-        return filters;
-    }
 
 }

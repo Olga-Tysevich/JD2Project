@@ -1,22 +1,22 @@
 package it.academy.services;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 
 import java.util.List;
 
 public interface ServiceCenterService {
 
-    void addRepairWorkshop(RepairWorkshopDTO repairWorkshop);
+    void addServiceCenter(ServiceCenterDTO serviceCenterDTO);
 
-    void updateRepairWorkshop(RepairWorkshopDTO repairWorkshop);
+    void updateServiceCenter(ServiceCenterDTO serviceCenterDTO);
 
-    RepairWorkshopDTO findRepairWorkshop(long id);
+    ServiceCenterDTO findServiceCenter(long id);
 
-    List<RepairWorkshopDTO> findRepairWorkshops();
+    List<ServiceCenterDTO> findServiceCenter();
 
-    ListForPage<RepairWorkshopDTO> findRepairWorkshops(int pageNumber);
+    ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber);
 
-    ListForPage<RepairWorkshopDTO> findRepairWorkshops(int pageNumber, String filter, String input);
+    ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber, String filter, String input);
 
 }

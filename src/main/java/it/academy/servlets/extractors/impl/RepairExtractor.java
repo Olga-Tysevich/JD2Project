@@ -43,7 +43,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
         String buyerSurname = req.getParameter(BUYER_SURNAME);
         String buyerPhone = req.getParameter(BUYER_PHONE);
         long deviceId = Long.parseLong(req.getParameter(DEVICE_ID));
-        String repairWorkshopRepairNumber = req.getParameter(REPAIR_WORKSHOP_REPAIR_NUMBER);
+        String repairWorkshopRepairNumber = req.getParameter(SERVICE_CENTER_REPAIR_NUMBER);
         RepairCategory category = RepairCategory.valueOf(req.getParameter(REPAIR_CATEGORY));
         RepairStatus status = RepairStatus.valueOf(req.getParameter(REPAIR_STATUS));
         String defectDescription = req.getParameter(DEFECT_DESCRIPTION);
@@ -71,7 +71,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
                 .category(category)
                 .status(status)
                 .defectDescription(defectDescription)
-                .repairWorkshopRepairNumber(repairWorkshopRepairNumber)
+                .serviceCenterRepairNumber(repairWorkshopRepairNumber)
                 .startDate(startDate)
                 .isDeleted(isDeleted)
                 .build();

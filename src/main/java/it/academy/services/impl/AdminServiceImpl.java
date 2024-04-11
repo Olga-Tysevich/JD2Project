@@ -1,19 +1,16 @@
 package it.academy.services.impl;
 
 import it.academy.dao.AccountDAO;
-import it.academy.dao.RepairWorkshopDAO;
 import it.academy.dao.impl.AccountDAOImpl;
-import it.academy.dao.impl.RepairWorkshopDAOImpl;
 import it.academy.dto.AccountDTO;
 import it.academy.dto.ListForPage;
 import it.academy.entities.Account;
-import it.academy.entities.repair_workshop.RepairWorkshop;
 import it.academy.services.AdminService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
-import java.util.ArrayList;
+import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -49,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<AccountDTO> findAccount(int pageNumber) {
-        List<EntityFilter> filters = getFiltersForAccount();
+        List<EntityFilter> filters = FilterManager.getFiltersForAccount();
 
         Supplier<ListForPage<AccountDTO>> find = () -> {
             List<Account> accounts = accountDAO.findForPage(pageNumber, LIST_SIZE);
@@ -63,7 +60,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<AccountDTO> findAccount(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = getFiltersForAccount();
+        List<EntityFilter> filters = FilterManager.getFiltersForAccount();
 
         Supplier<ListForPage<AccountDTO>> find = () -> {
             List<Account> accounts = accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
@@ -73,13 +70,6 @@ public class AdminServiceImpl implements AdminService {
         };
 
         return transactionManger.execute(find);
-    }
-
-    private List<EntityFilter> getFiltersForAccount() {
-        List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
-        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
-        return filters;
     }
 
 }

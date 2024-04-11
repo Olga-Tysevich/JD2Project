@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.AccountDTO" %>
 <%@ page import="it.academy.entities.RoleEnum" %>
-<%@ page import="it.academy.dto.repair_workshop.RepairWorkshopDTO" %>
+<%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
@@ -18,9 +18,9 @@
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             AccountDTO account = (AccountDTO) request.getAttribute(ACCOUNT);
             Long id = account.getId();
-            RepairWorkshopDTO serviceCenter = account.getRepairWorkshop();
+            ServiceCenterDTO serviceCenter = account.getServiceCenter();
             String command = (String) request.getAttribute(COMMAND);
-            List<RepairWorkshopDTO> serviceCenters = (List<RepairWorkshopDTO>) request.getAttribute(REPAIR_WORKSHOPS);
+            List<ServiceCenterDTO> serviceCenters = (List<ServiceCenterDTO>) request.getAttribute(SERVICE_CENTERS);
         %>
         <div class="lr-container">
             <form action="main" method="post" id="account">
@@ -53,10 +53,10 @@
 
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
-                    <select class="f-form " name="<%=REPAIR_WORKSHOP_ID%>" size="0">
-                        <%for (RepairWorkshopDTO service : serviceCenters) { %>
+                    <select class="f-form " name="<%=SERVICE_CENTER_ID%>" size="0">
+                        <%for (ServiceCenterDTO service : serviceCenters) { %>
                         <option value="<%=service.getId()%>"
-                                <%if (serviceCenter != null && service.getId().equals(account.getRepairWorkshop().getId())) {%>selected<%}%>>
+                                <%if (serviceCenter != null && service.getId().equals(account.getServiceCenter().getId())) {%>selected<%}%>>
                             <%=service.getServiceName()%></option>
                         <% } %>
                     </select>

@@ -1,4 +1,4 @@
-package it.academy.services.impl;
+package it.academy.services.spare_part.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
@@ -17,7 +17,7 @@ import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
-import it.academy.services.SparePartOrderService;
+import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
@@ -37,47 +37,6 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
     private RepairDAO repairDAO = new RepairDAOImpl();
-
-    @Override
-    public void addSparePart(SparePartDTO partDTO) {
-        SparePart sparePart = SparePartConverter.convertDTOToEntity(partDTO);
-        transactionManger.execute(() -> {
-            SparePart sparePartAfterSave = sparePartDAO.create(sparePart);
-            partDTO.getRelatedDeviceTypes().forEach(dt -> {
-                DeviceType deviceType = deviceTypeDAO.find(dt.getId());
-                deviceType.addSparePart(sparePartAfterSave);
-                deviceTypeDAO.update(deviceType);
-            });
-            return sparePartAfterSave;
-        });
-    }
-
-    @Override
-    public void changeSparePart(SparePartDTO partDTO) {
-        SparePart sparePart = SparePartConverter.convertDTOToEntity(partDTO);
-        transactionManger.execute(() -> {
-            SparePart sparePartAfterSave = sparePartDAO.update(sparePart);
-            partDTO.getRelatedDeviceTypes().forEach(dt -> {
-                DeviceType deviceType = deviceTypeDAO.find(dt.getId());
-                deviceType.addSparePart(sparePartAfterSave);
-                deviceTypeDAO.update(deviceType);
-            });
-            return sparePart;
-        });
-    }
-
-    @Override
-    public SparePartDTO findSparePart(long id) {
-        Supplier<SparePartDTO> find = () -> {
-            SparePart sparePart = sparePartDAO.find(id);
-            SparePartDTO result = SparePartConverter.convertToDTO(sparePart);
-            List<DeviceType> types = deviceTypeDAO.findAll();
-            List<DeviceTypeDTO> deviceTypeDTOList = DeviceTypeConverter.convertListToDTO(types);
-            result.setAllDeviceTypes(deviceTypeDTOList);
-            return result;
-        };
-        return transactionManger.execute(find);
-    }
 
 
     @Override
@@ -140,16 +99,6 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 
-        return transactionManger.execute(find);
-    }
-
-
-    @Override
-    public List<SparePartDTO> findSparePartsByDeviceTypeId(long id) {
-        Supplier<List<SparePartDTO>> find = () -> {
-            List<SparePart> sparePart = sparePartDAO.findByDeviceTypeId(id);
-            return SparePartConverter.convertListToDTO(sparePart);
-        };
         return transactionManger.execute(find);
     }
 

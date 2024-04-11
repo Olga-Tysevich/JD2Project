@@ -1,7 +1,7 @@
 package it.academy.dto.repair;
 
 import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class RepairDTO {
 
     private Long id;
 
-    private RepairWorkshopDTO repairWorkshop;
+    private ServiceCenterDTO repairWorkshop;
 
     private DeviceDTO device;
 
@@ -25,7 +25,7 @@ public class RepairDTO {
 
     private String defectDescription;
 
-    private String repairWorkshopRepairNumber;
+    private String serviceCenterRepairNumber;
 
     private Date startDate;
 

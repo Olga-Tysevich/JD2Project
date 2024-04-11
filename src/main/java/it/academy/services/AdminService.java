@@ -2,9 +2,6 @@ package it.academy.services;
 
 import it.academy.dto.AccountDTO;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
 
 import java.util.List;
 

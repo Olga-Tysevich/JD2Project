@@ -7,7 +7,6 @@ import java.util.Random;
 @UtilityClass
 public class Constants {
     public static final Random RANDOM = new Random();
-
     //parameters common
     public static final String OBJECT_ID = "id";
     public static final String IS_ACTIVE = "isActive";
@@ -20,16 +19,15 @@ public class Constants {
     public static final String USER_NAME = "userName";
     public static final String USER_SURNAME = "userSurname";
     public static final String ROLE = "role";
-    public static final String ACCOUNT_REPAIR_WORKSHOP = "repairWorkshop";
-
+    public static final String ACCOUNT_SERVICE_CENTER = "serviceCenter";
     public static final String ACCOUNT = "account";
     public static final String EMAIL = "email";
 //    public static final String USER_NAME = "userName";
 //    public static final String USER_SURNAME = "userSurname";
-    //repair workshop
+    //serviceCenter
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
-    public static final String REPAIR_WORKSHOP_REPAIR_NUMBER = "repairWorkshopRepairNumber";
+    public static final String SERVICE_CENTER_REPAIR_NUMBER = "serviceCenterNumber";
     public static final String REPAIR_CATEGORY = "category";
     public static final String DEFECT_DESCRIPTION = "defectDescription";
     public static final String REPAIR_STATUS = "status";
@@ -77,21 +75,21 @@ public class Constants {
 
     //jsp
     //RepairWorkshop parameters
-    public static final String REPAIR_WORKSHOP = "repair_workshop";
-    public static final String REPAIR_WORKSHOPS = "repair_workshops";
-    public static final String REPAIR_WORKSHOP_ID = "repair_workshop_id";
-    public static final String REPAIR_WORKSHOP_SERVICE_NAME = "repair_workshop_service_name";
-    public static final String REPAIR_WORKSHOP_BANK_ACCOUNT = "repair_workshop_bank_account";
-    public static final String REPAIR_WORKSHOP_BANK_CODE = "repair_workshop_bank_code";
-    public static final String REPAIR_WORKSHOP_BANK_NAME = "repair_workshop_bank_name";
-    public static final String REPAIR_WORKSHOP_BANK_ADDRESS = "repair_workshop_bank_address";
-    public static final String REPAIR_WORKSHOP_FULL_NAME = "repair_workshop_full_name";
-    public static final String REPAIR_WORKSHOP_ACTUAL_ADDRESS = "repair_workshop_actual_address";
-    public static final String REPAIR_WORKSHOP_LEGAL_ADDRESS = "repair_workshop_legal_address";
-    public static final String REPAIR_WORKSHOP_PHONE = "repair_workshop_phone";
-    public static final String REPAIR_WORKSHOP_EMAIL = "repair_workshop_email";
-    public static final String REPAIR_WORKSHOP_TAXPAYER_NUMBER = "repair_workshop_taxpayer_number";
-    public static final String REPAIR_WORKSHOP_REGISTRATION_NUMBER = "repair_workshop_registration_number";
+    public static final String SERVICE_CENTER = "service_center";
+    public static final String SERVICE_CENTERS = "service_centers";
+    public static final String SERVICE_CENTER_ID = "service_center_id";
+    public static final String SERVICE_CENTER_NAME = "service_center_service_name";
+    public static final String SERVICE_CENTER_BANK_ACCOUNT = "service_center_bank_account";
+    public static final String SERVICE_CENTER_BANK_CODE = "service_center_bank_code";
+    public static final String SERVICE_CENTER_BANK_NAME = "service_center_bank_name";
+    public static final String SERVICE_CENTER_BANK_ADDRESS = "service_center_bank_address";
+    public static final String SERVICE_CENTER_FULL_NAME = "service_center_full_name";
+    public static final String SERVICE_CENTER_ACTUAL_ADDRESS = "service_center_actual_address";
+    public static final String SERVICE_CENTER_LEGAL_ADDRESS = "service_center_legal_address";
+    public static final String SERVICE_CENTER_PHONE = "service_center_phone";
+    public static final String SERVICE_CENTER_EMAIL = "service_center_email";
+    public static final String SERVICE_CENTER_TAXPAYER_NUMBER = "service_center_taxpayer_number";
+    public static final String SERVICE_CENTER_REGISTRATION_NUMBER = "service_center_registration_number";
     //Model parameters
     public static final String MODEL_ID = "model_id";
     public static final String MODEL_NAME = "model_name";
@@ -155,7 +153,7 @@ public class Constants {
     public static final String DEVICE_TYPE_PAGE_PATH = "/pages/change_pages/changeDeviceType.jsp";
     public static final String BRAND_PAGE_PATH = "/pages/change_pages/changeBrand.jsp";
     public static final String MODEL_PAGE_PATH = "/pages/change_pages/changeModel.jsp";
-    public static final String REPAIR_WORKSHOP_PAGE_PATH = "/pages/change_pages/changeRepairWorkshop.jsp";
+    public static final String SERVICE_CENTER_PAGE_PATH = "/pages/change_pages/changeServiceCenter.jsp";
 
     public static final String BRAND_LIST_PAGE_PATH = "/pages/forms/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/forms/modelList.jsp";
@@ -170,7 +168,7 @@ public class Constants {
     public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/tables/deviceTypesTable.jsp";
     public static final String BRAND_TABLE_PAGE_PATH = "/pages/tables/brandTable.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/tables/modelTable.jsp";
-    public static final String REPAIR_WORKSHOP_TABLE_PAGE_PATH = "/pages/tables/repairWorkshopTable.jsp";
+    public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/tables/serviceCenterTable.jsp";
 
     //jsp
     //common
@@ -196,10 +194,12 @@ public class Constants {
     public static final String SHOW_DEVICE_TYPE_TABLE = "show_device_type_table";
     public static final String SHOW_BRAND_TABLE = "show_brand_table";
     public static final String SHOW_MODEL_TABLE = "show_model_table";
-    public static final String SHOW_REPAIR_WORKSHOP = "show_repair_workshop_table";
-    public static final String SHOW_REPAIR_WORKSHOP_TABLE = "show_repair_workshop_table";
-    public static final String ADD_REPAIR_WORKSHOP = "add_repair_workshop";
-    public static final String CHANGE_REPAIR_WORKSHOP = "change_repair_workshop";
+    public static final String SHOW_MODEL = "show_model";
+    public static final String ADD_MODEL = "add_model";
+    public static final String SHOW_SERVICE_CENTER = "show_service_center";
+    public static final String SHOW_SERVICE_CENTER_TABLE = "show_service_center_table";
+    public static final String ADD_SERVICE_CENTER = "add_service_center";
+    public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 
     public static final String BRANDS = "brands";
@@ -223,8 +223,6 @@ public class Constants {
     public static final String OPEN_DEVICE_TYPE_TABLE_PAGE = "main?command=show_device_type_table&&page=%d";
     public static final String OPEN_BRAND_TABLE_PAGE = "main?command=show_brand_table&&page=%d";
     public static final String OPEN_MODEL_TABLE_PAGE = "main?command=show_model_table&&page=%d";
-    public static final String OPEN_REPAIR_WORKSHOP_TABLE_PAGE = "main?command=show_repair_workshop_table&&page=%d";
-    public static final String OPEN_REPAIR_WORKSHOP_PAGE = "main?command=show_repair_workshop&&page=%d";
     public static final String OPEN_ACCOUNT_TABLE = "main?command=show_account_table&&page=%d";
 //    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
     public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
@@ -236,6 +234,8 @@ public class Constants {
     //filters
     public static final String FILTERS = "filters";
     public static final String IS_BLOCKED = "Заблокированные";
+    //account filters
+    public static final String ACCOUNT_USER_SURNAME = "Фамилия";
     //repairType filters
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";
     public static final String REPAIR_TYPE_LEVEL_FILTER = "Уровень ремонта";

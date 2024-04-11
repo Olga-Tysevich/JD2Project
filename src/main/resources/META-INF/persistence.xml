@@ -20,9 +20,9 @@
         <class>it.academy.entities.liquidation.LiquidationCertificate</class>
         <class>it.academy.entities.repair.Repair</class>
         <class>it.academy.entities.Account</class>
-        <class>it.academy.entities.repair_workshop.RepairWorkshop</class>
-        <class>it.academy.entities.repair_workshop.Requisites</class>
-        <class>it.academy.entities.repair_workshop.BankAccount</class>
+        <class>it.academy.entities.service_center.ServiceCenter</class>
+        <class>it.academy.entities.service_center.Requisites</class>
+        <class>it.academy.entities.service_center.BankAccount</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

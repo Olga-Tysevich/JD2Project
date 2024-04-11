@@ -1,27 +1,19 @@
-package it.academy.dto.repair_workshop;
+package it.academy.entities.service_center;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RepairWorkshopDTO {
-
-    private Long id;
-
-    private String serviceName;
-
-    private String bankAccount;
-
-    private String bankCode;
-
-    private String bankName;
-
-    private String bankAddress;
+@Builder
+@Embeddable
+public class Requisites implements Serializable {
 
     private String fullName;
 
@@ -36,7 +28,4 @@ public class RepairWorkshopDTO {
     private String taxpayerNumber;
 
     private String registrationNumber;
-
-    private Boolean isActive;
-
 }

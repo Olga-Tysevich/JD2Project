@@ -26,7 +26,6 @@ public class AuthFilter implements Filter {
         if ((session != null) && (session.getAttribute(ACCOUNT) != null)) {
             chain.doFilter(request, response);
         } else {
-            String s= contextPath;
             res.sendRedirect(contextPath + "/index.jsp");
         }
     }

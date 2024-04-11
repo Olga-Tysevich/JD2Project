@@ -1,6 +1,6 @@
 package it.academy.dto;
 
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +25,6 @@ public class AccountDTO {
 
     private RoleEnum role;
 
-    private RepairWorkshopDTO repairWorkshop;
+    private ServiceCenterDTO serviceCenter;
 
 }

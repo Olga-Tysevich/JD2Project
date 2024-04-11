@@ -6,9 +6,9 @@ import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.repair.RepairService;
-import it.academy.services.SparePartOrderService;
+import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.repair.impl.RepairServiceImpl;
-import it.academy.services.impl.SparePartOrderServiceImpl;
+import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;

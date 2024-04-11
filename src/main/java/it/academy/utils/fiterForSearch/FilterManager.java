@@ -12,6 +12,13 @@ import static it.academy.utils.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
 @UtilityClass
 public class FilterManager {
 
+    public static List<EntityFilter> getFiltersForAccount() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(EMAIL, EMAIL));
+        filters.add(new EntityFilter(USER_SURNAME, ACCOUNT_USER_SURNAME));
+        return filters;
+    }
+
     public static List<EntityFilter> getFiltersForRepairType() {
         List<EntityFilter> filters = new ArrayList<>();
         filters.add(new EntityFilter(REPAIR_TYPE_CODE, REPAIR_TYPE_CODE_FILTER));
@@ -20,5 +27,34 @@ public class FilterManager {
         return filters;
     }
 
+    public static List<EntityFilter> getFiltersForBrand() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
+        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
+        return filters;
+    }
+
+    public static List<EntityFilter> getFiltersForDeviceType() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
+        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
+        return filters;
+    }
+
+    public static List<EntityFilter> getFiltersForModel() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(OBJECT_NAME, MODEL_NAME_FILTER));
+        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
+        filters.add(new EntityFilter(OBJECT_NAME, DEVICE_TYPE_NAME_DESCRIPTION));
+        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
+        return filters;
+    }
+
+    public static List<EntityFilter> getFiltersForRepairWorkshop() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
+        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
+        return filters;
+    }
 
 }

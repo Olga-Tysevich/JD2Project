@@ -1,17 +1,16 @@
 package it.academy.services.impl;
 
-import it.academy.dao.RepairWorkshopDAO;
-import it.academy.dao.impl.RepairWorkshopDAOImpl;
+import it.academy.dao.ServiceCenterDAO;
+import it.academy.dao.impl.ServiceCenterDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
-import it.academy.entities.repair_workshop.RepairWorkshop;
+import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.ServiceCenterService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
-import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
-
-import java.util.ArrayList;
+import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -19,40 +18,40 @@ import static it.academy.utils.Constants.*;
 
 public class ServiceCenterServiceImpl implements ServiceCenterService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
-    private RepairWorkshopDAO repairWorkshopDAO = new RepairWorkshopDAOImpl();
+    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     @Override
-    public void addRepairWorkshop(RepairWorkshopDTO repairWorkshop) {
-        RepairWorkshop result = RepairWorkshopConverter.convertDTOToEntity(repairWorkshop);
-        transactionManger.execute(() -> repairWorkshopDAO.create(result));
+    public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) {
+        ServiceCenter result = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
+        transactionManger.execute(() -> serviceCenterDAO.create(result));
     }
 
     @Override
-    public void updateRepairWorkshop(RepairWorkshopDTO repairWorkshop) {
-        RepairWorkshop result = RepairWorkshopConverter.convertDTOToEntity(repairWorkshop);
-        transactionManger.execute(() -> repairWorkshopDAO.update(result));
+    public void updateServiceCenter(ServiceCenterDTO serviceCenterDTO) {
+        ServiceCenter result = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
+        transactionManger.execute(() -> serviceCenterDAO.update(result));
     }
 
     @Override
-    public RepairWorkshopDTO findRepairWorkshop(long id) {
-        RepairWorkshop result = transactionManger.execute(() -> repairWorkshopDAO.find(id));
-        return RepairWorkshopConverter.convertToDTO(result);
+    public ServiceCenterDTO findServiceCenter(long id) {
+        ServiceCenter result = transactionManger.execute(() -> serviceCenterDAO.find(id));
+        return ServiceCenterConverter.convertToDTO(result);
     }
 
     @Override
-    public List<RepairWorkshopDTO> findRepairWorkshops() {
-        List<RepairWorkshop> repairs = transactionManger.execute(() -> repairWorkshopDAO.findAll());
-        return RepairWorkshopConverter.convertListToDTO(repairs);
+    public List<ServiceCenterDTO> findServiceCenter() {
+        List<ServiceCenter> repairs = transactionManger.execute(() -> serviceCenterDAO.findAll());
+        return ServiceCenterConverter.convertListToDTO(repairs);
     }
 
     @Override
-    public ListForPage<RepairWorkshopDTO> findRepairWorkshops(int pageNumber) {
-        List<EntityFilter> filters = getFiltersForRepairWorkshop();
+    public ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber) {
+        List<EntityFilter> filters = FilterManager.getFiltersForRepairWorkshop();
 
-        Supplier<ListForPage<RepairWorkshopDTO>> find = () -> {
-            List<RepairWorkshop> repairs = repairWorkshopDAO.findForPage(pageNumber, LIST_SIZE);
-            int maxPageNumber = (int) Math.ceil(((double) repairWorkshopDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<RepairWorkshopDTO> list = RepairWorkshopConverter.convertListToDTO(repairs);
+        Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
+            List<ServiceCenter> repairs = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) serviceCenterDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            List<ServiceCenterDTO> list = ServiceCenterConverter.convertListToDTO(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 
@@ -60,25 +59,19 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public ListForPage<RepairWorkshopDTO> findRepairWorkshops(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = getFiltersForRepairWorkshop();
+    public ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber, String filter, String input) {
+        List<EntityFilter> filters = FilterManager.getFiltersForRepairWorkshop();
 
-        Supplier<ListForPage<RepairWorkshopDTO>> find = () -> {
-            List<RepairWorkshop> repairs = repairWorkshopDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) repairWorkshopDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<RepairWorkshopDTO> list = RepairWorkshopConverter.convertListToDTO(repairs);
+        Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
+            List<ServiceCenter> repairs = serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+            int maxPageNumber = (int) Math.ceil(((double) serviceCenterDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            List<ServiceCenterDTO> list = ServiceCenterConverter.convertListToDTO(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 
         return transactionManger.execute(find);
     }
 
-    private List<EntityFilter> getFiltersForRepairWorkshop() {
-        List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
-        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
-        return filters;
-    }
 
 
 }

@@ -63,27 +63,38 @@
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
                 </form>
-<%--                <button --%>
-<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить аккаунт </button>--%>
 
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_ACCOUNT_TABLE, FIRST_PAGE)%>'"> Список аккаунтов </button>
+                <form  action="account" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список аккаунтов"/>
+                </form>
             </fieldset>
 
             <fieldset class="f1">
                 <legend>Сервисные центры</legend>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить сервисный центр </button>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_TABLE_PAGE, FIRST_PAGE)%>'"> Список сервисных центров </button>
+<%--                <button class="button button-fieldset"--%>
+<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить сервисный центр </button>--%>
+                <form  action="account" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Добавить сервисный центр"/>
+                </form>
+                <form  action="account" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER_TABLE%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список сервисных центров"/>
+                </form>
+<%--                <button class="button button-fieldset"--%>
+<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_TABLE_PAGE, FIRST_PAGE)%>'"> Список сервисных центров </button>--%>
             </fieldset>
 
             <% } else { %>
             <fieldset class="f1">
                 <legend>Сервисный центр</legend>
                 <form  action="account" method="post">
-                    <input type="hidden" name="command" value="<%=OPEN_REPAIR_WORKSHOP_PAGE%>">
-                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getRepairWorkshop().getId()%>">
+                    <input type="hidden" name="command" value="<%=SHOW_SERVICE_CENTER%>">
+                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getServiceCenter().getId()%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Изменить учетные данные"/>
                 </form>
@@ -131,7 +142,7 @@
             <%=command%>
             <% if (pageForDisplay != null) {
                 pageContext.include(pageForDisplay);
-                if (maxPageNumber != 1) {%>
+                if (maxPageNumber > 1) {%>
             <div class="footer">
                 <div class="button-container">
                     <%if (pageNumber != FIRST_PAGE) { %>

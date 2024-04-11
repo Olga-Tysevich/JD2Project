@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.spare_part;
 
 import it.academy.dto.ListForPage;
 import it.academy.dto.spare_parts.SparePartDTO;
@@ -10,13 +10,7 @@ import java.util.List;
 
 public interface SparePartOrderService {
 
-    void addSparePart(SparePartDTO partDTO);
-
-    void changeSparePart(SparePartDTO partDTO);
-
-    SparePartDTO findSparePart(long id);
-
-    List<SparePartDTO> findSparePartsByDeviceTypeId(long id);
+//    List<SparePartDTO> findSparePartsByDeviceTypeId(long id);
 
     ListForPage<SparePartDTO> findSpareParts(int pageNumber);
 

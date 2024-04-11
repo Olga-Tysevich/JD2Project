@@ -2,7 +2,7 @@ package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.AccountDTO;
 import it.academy.dto.ListForPage;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.RoleEnum;
 import it.academy.services.AdminService;
 import it.academy.services.impl.AdminServiceImpl;
@@ -25,8 +25,8 @@ public class AccountExtractor implements Extractor<AccountDTO> {
         String userName = req.getParameter(USER_NAME);
         String userSurname = req.getParameter(USER_SURNAME);
         RoleEnum role = req.getParameter(ROLE) != null? RoleEnum.valueOf(req.getParameter(ROLE)) : RoleEnum.SERVICE_CENTER;
-        Long repairWorkshopId = req.getParameter(REPAIR_WORKSHOP_ID) != null ?
-                Long.parseLong(req.getParameter(REPAIR_WORKSHOP_ID)) : null;
+        Long repairWorkshopId = req.getParameter(SERVICE_CENTER_ID) != null ?
+                Long.parseLong(req.getParameter(SERVICE_CENTER_ID)) : null;
 
         if (RoleEnum.ADMIN.equals(role)) {
             repairWorkshopId = null;
@@ -39,7 +39,7 @@ public class AccountExtractor implements Extractor<AccountDTO> {
                 .userName(userName)
                 .userSurname(userSurname)
                 .role(role)
-                .repairWorkshop(RepairWorkshopDTO.builder()
+                .serviceCenter(ServiceCenterDTO.builder()
                         .id(repairWorkshopId)
                         .build())
                 .isActive(isActive)

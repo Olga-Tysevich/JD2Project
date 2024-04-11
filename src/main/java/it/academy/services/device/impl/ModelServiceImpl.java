@@ -9,7 +9,7 @@ import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
-import java.util.ArrayList;
+import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -45,7 +45,7 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public ListForPage<ModelDTO> findModels(int pageNumber) {
-        List<EntityFilter> filters = getFiltersForModel();
+        List<EntityFilter> filters = FilterManager.getFiltersForModel();
 
         Supplier<ListForPage<ModelDTO>> find = () -> {
             List<Model> repairs = modelDAO.findForPage(pageNumber, LIST_SIZE);
@@ -59,7 +59,7 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = getFiltersForModel();
+        List<EntityFilter> filters = FilterManager.getFiltersForModel();
 
         Supplier<ListForPage<ModelDTO>> find = () -> {
             List<Model> repairs = modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
@@ -71,13 +71,5 @@ public class ModelServiceImpl implements ModelService {
         return transactionManger.execute(find);
     }
 
-    private List<EntityFilter> getFiltersForModel() {
-        List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(OBJECT_NAME, MODEL_NAME_FILTER));
-        filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
-        filters.add(new EntityFilter(OBJECT_NAME, DEVICE_TYPE_NAME_DESCRIPTION));
-        filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));
-        return filters;
-    }
 
 }

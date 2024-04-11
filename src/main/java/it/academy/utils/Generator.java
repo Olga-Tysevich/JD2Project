@@ -1,18 +1,17 @@
 package it.academy.utils;
 
 
-import it.academy.dto.AccountDTO;
 import it.academy.entities.Account;
 import it.academy.entities.RoleEnum;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.components.RepairType;
+import it.academy.entities.service_center.ServiceCenter;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.liquidation.LiquidationCertificate;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
-import it.academy.entities.repair_workshop.RepairWorkshop;
-import it.academy.entities.repair_workshop.BankAccount;
-import it.academy.entities.repair_workshop.Requisites;
+import it.academy.entities.service_center.BankAccount;
+import it.academy.entities.service_center.Requisites;
 import lombok.experimental.UtilityClass;
 import java.sql.Date;
 import java.util.Arrays;
@@ -62,9 +61,9 @@ public class Generator {
     }
 
 
-    public static RepairWorkshop generateRepairWorkshop() {
+    public static ServiceCenter generateServiceCenter() {
         String name = repairWorkshops.get(RANDOM.nextInt(repairWorkshops.size())) + RANDOM.nextInt(100);
-        return RepairWorkshop.builder()
+        return ServiceCenter.builder()
                 .serviceName(name)
                 .requisites(Requisites.builder()
                         .fullName(name + RANDOM.nextInt(repairWorkshops.size()))
@@ -81,6 +80,7 @@ public class Generator {
                         .bankAddress(addresses.get(RANDOM.nextInt(addresses.size())))
                         .bankCode(String.format(bankCode, RANDOM.nextInt(100000)))
                         .build())
+                .isActive(RANDOM.nextInt(100) % 10 == 0)
                 .build();
 
     }

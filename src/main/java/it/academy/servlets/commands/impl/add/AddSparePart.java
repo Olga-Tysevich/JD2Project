@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.add;
 
 import it.academy.dto.spare_parts.SparePartDTO;
-import it.academy.services.SparePartService;
-import it.academy.services.impl.SparePartServiceImpl;
+import it.academy.services.spare_part.SparePartService;
+import it.academy.services.spare_part.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.SparePartExtractor;

@@ -24,7 +24,7 @@
             </tr>
 
             <% for (AccountDTO account : list) {
-                String repairWorkshopName = account.getRepairWorkshop() != null? account.getRepairWorkshop().getServiceName() : "";
+                String repairWorkshopName = account.getServiceCenter() != null? account.getServiceCenter().getServiceName() : "";
             %>
             <tr class="t-tr">
                 <td class="code"><%=account.getEmail()%></td>
@@ -39,7 +39,7 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
-                        <input type="hidden" name="<%=ACCOUNT_REPAIR_WORKSHOP%>" value="<%=account.getRepairWorkshop()%>">
+                        <input type="hidden" name="<%=ACCOUNT_SERVICE_CENTER%>" value="<%=account.getServiceCenter()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

@@ -1,6 +1,6 @@
 package it.academy.entities;
 
-import it.academy.entities.repair_workshop.RepairWorkshop;
+import it.academy.entities.service_center.ServiceCenter;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
@@ -39,7 +39,7 @@ public class Account implements Serializable {
     private RoleEnum role;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "repair_workshop_id")
-    private RepairWorkshop repairWorkshop;
+    @JoinColumn(name = "service_center_id")
+    private ServiceCenter serviceCenter;
 
 }

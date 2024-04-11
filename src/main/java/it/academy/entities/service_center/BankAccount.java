@@ -1,4 +1,4 @@
-package it.academy.entities.repair_workshop;
+package it.academy.entities.service_center;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

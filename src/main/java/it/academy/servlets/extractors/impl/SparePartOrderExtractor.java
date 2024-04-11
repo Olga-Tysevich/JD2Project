@@ -3,10 +3,11 @@ package it.academy.servlets.extractors.impl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.academy.dto.spare_parts.SparePartDTO;
-import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
-import it.academy.services.SparePartOrderService;
-import it.academy.services.impl.SparePartOrderServiceImpl;
+import it.academy.services.spare_part.SparePartOrderService;
+import it.academy.services.spare_part.SparePartService;
+import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
+import it.academy.services.spare_part.impl.SparePartServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartForOrder;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 import static it.academy.utils.Constants.*;
 
 public class SparePartOrderExtractor implements Extractor<SparePartDTO> {
-    private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
+    private SparePartService sparePartService = new SparePartServiceImpl();
     private Map<String, Object> reqParameters = new HashMap<>();
     private Gson gson = new Gson();
 
@@ -76,7 +77,7 @@ public class SparePartOrderExtractor implements Extractor<SparePartDTO> {
         long repairId = (long) reqParameters.get(REPAIR_ID);
         String repairNumber = (String) reqParameters.get(REPAIR_NUMBER);
         long deviceTypeId = (long) reqParameters.get(DEVICE_TYPE_ID);
-        List<SparePartDTO> spareParts = sparePartOrderService.findSparePartsByDeviceTypeId(deviceTypeId);
+        List<SparePartDTO> spareParts = sparePartService.findSparePartsByDeviceTypeId(deviceTypeId);
 
         req.setAttribute(REPAIR_ID, repairId);
         req.setAttribute(SPARE_PARTS, spareParts);

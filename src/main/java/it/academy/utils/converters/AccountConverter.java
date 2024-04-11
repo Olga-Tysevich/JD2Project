@@ -1,10 +1,10 @@
 package it.academy.utils.converters;
 
 import it.academy.dto.AccountDTO;
-import it.academy.dto.repair_workshop.RepairWorkshopDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.Account;
-import it.academy.entities.repair_workshop.RepairWorkshop;
-import it.academy.utils.converters.repair_workshop.RepairWorkshopConverter;
+import it.academy.entities.service_center.ServiceCenter;
+import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 public class AccountConverter {
 
     public static AccountDTO convertToDTO(Account account) {
-        RepairWorkshop repairWorkshop = account.getRepairWorkshop() ;
-        RepairWorkshopDTO repairWorkshopDTO = repairWorkshop != null?
-                RepairWorkshopConverter.convertToDTO(repairWorkshop) : null;
+        ServiceCenter serviceCenter = account.getServiceCenter() ;
+        ServiceCenterDTO serviceCenterDTO = serviceCenter != null?
+                ServiceCenterConverter.convertToDTO(serviceCenter) : null;
         return AccountDTO.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
@@ -24,13 +24,13 @@ public class AccountConverter {
                 .userName(account.getUserName())
                 .userSurname(account.getUserSurname())
                 .role(account.getRole())
-                .repairWorkshop(repairWorkshopDTO)
+                .serviceCenter(serviceCenterDTO)
                 .build();
     }
 
     public static Account convertDTOToEntity(AccountDTO account) {
-        RepairWorkshopDTO repairWorkshop = account.getRepairWorkshop() ;
-        RepairWorkshop repairWorkshopDTO = repairWorkshop != null? RepairWorkshopConverter.convertDTOToEntity(repairWorkshop) : null;
+        ServiceCenterDTO repairWorkshop = account.getServiceCenter() ;
+        ServiceCenter serviceCenterDTO = repairWorkshop != null? ServiceCenterConverter.convertDTOToEntity(repairWorkshop) : null;
         return Account.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
@@ -38,7 +38,7 @@ public class AccountConverter {
                 .userName(account.getUserName())
                 .userSurname(account.getUserSurname())
                 .role(account.getRole())
-                .repairWorkshop(repairWorkshopDTO)
+                .serviceCenter(serviceCenterDTO)
                 .build();
     }
 
