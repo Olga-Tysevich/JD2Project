@@ -193,6 +193,8 @@ public class Constants {
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
     public static final String SHOW_DEVICE_TYPE_TABLE = "show_device_type_table";
     public static final String SHOW_BRAND_TABLE = "show_brand_table";
+    public static final String SHOW_BRAND = "show_brand";
+    public static final String ADD_BRAND = "add_brand";
     public static final String SHOW_MODEL_TABLE = "show_model_table";
     public static final String SHOW_MODEL = "show_model";
     public static final String ADD_MODEL = "add_model";

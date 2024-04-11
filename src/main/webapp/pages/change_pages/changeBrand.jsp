@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.device.BrandDTO" %>
+<%@ page import="static it.academy.servlets.managers.CommandEnum.CHANGE_BRAND" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -22,7 +23,7 @@
     <div class="forms-container lf">
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_brand">
-                <input type="hidden" name="command" value="change_brand">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_BRAND%>>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=BRAND_ID%>" value="<%=brand.getId()%>">
 
@@ -41,11 +42,14 @@
 
             <div class="button-container">
                 <input class="button" type="submit" value="Сохранить" form="change_brand"/>
-                <input class="button" type="button" value="Отмена" onclick="location.href='<%=OPEN_START_PAGE%>'"/>
+                <input class="button" type="submit" value="Отмена" form="cancel"/>
             </div>
         </div>
 
-
+        <form action="main" method="post" id="cancel">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
+            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+        </form>
 
     </div>
 </section>

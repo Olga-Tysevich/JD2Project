@@ -17,7 +17,7 @@ public class ShowDeviceTypeTable implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.insertAttributes(req);
-        req.setAttribute(SHOW_COMMAND, SHOW_DEVICE_TYPE_TABLE);
+        req.setAttribute(COMMAND, SHOW_DEVICE_TYPE_TABLE);
 
         return MAIN_PAGE_PATH;
     }

@@ -29,7 +29,7 @@ public class ModelExtractor implements Extractor<ModelDTO> {
                 Long.parseLong(req.getParameter(MODEL_ID)) : null;
         String modelName = req.getParameter(MODEL_NAME);
         Long brandId = Long.parseLong(req.getParameter(BRAND_ID));
-        Long deviceTypeId = Long.parseLong(req.getParameter(BRAND_ID));
+        Long deviceTypeId = Long.parseLong(req.getParameter(DEVICE_TYPE_ID));
         Boolean isActive = req.getParameter(IS_ACTIVE) != null && Boolean.parseBoolean(req.getParameter(IS_ACTIVE));
         this.model = ModelDTO.builder()
                 .id(modelId)

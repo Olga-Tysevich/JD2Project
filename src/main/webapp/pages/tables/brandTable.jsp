@@ -14,15 +14,6 @@
             List<BrandDTO> list = data.getList();
         %>
 
-
-<%--        <div class="radio-container">--%>
-<%--            <form class="status-form" action="main" method="post" id="find_spare_parts">--%>
-<%--                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
-<%--                <input type="hidden" name="command" value="show_spare_part_table">--%>
-<%--            </form>--%>
-<%--        </div>--%>
-
-
         <table>
             <tr>
                 <th>Тип устройства</th>
@@ -40,7 +31,7 @@
                 </td>
                 <td class="code">
                     <form action="repair" method="post" >
-                        <input type="hidden" name="command" value="show_brand">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND%>">
                         <input type="hidden" name="<%=BRAND_ID%>" value="<%=brand.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>">
@@ -51,42 +42,9 @@
             <% }%>
         </table>
 
-        <%--        <jsp:include page="/pages/changePageButtons.jsp"/>--%>
-
-        <%if (data.getMaxPageNumber() != 1) {%>
-        <div class="footer">
-            <div class="button-container">
-                <%if (pageNumber != FIRST_PAGE) { %>
-                <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_brand_table">
-                    <%int prevPage = pageNumber - 1;%>
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                    <input class="button light" type="submit" name="button" value="Предыдущая">
-                </form>
-                <% } %>
-
-                <p><%=pageNumber%>
-                    из
-                    <%=maxPageNumber%>
-                </p>
-
-
-                <%if (pageNumber != maxPageNumber) { %>
-                <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_brand_table">
-                    <%int nextPage = pageNumber + 1;%>
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                    <input class="button light" type="submit" name="button" value="Следующая">
-                </form>
-                <% } %>
-
-            </div>
-        </div>
-        <% } %>
-
         <div class="add-form">
             <form action="main" method="post" id="addBrand">
-                <input type="hidden" name="command" value="add_brand">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_BRAND%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">

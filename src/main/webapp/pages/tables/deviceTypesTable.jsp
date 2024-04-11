@@ -4,24 +4,16 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
+<%@ page import="static it.academy.servlets.managers.CommandEnum.SHOW_DEVICE_TYPE" %>
+<%@ page import="static it.academy.servlets.managers.CommandEnum.ADD_DEVICE_TYPE" %>
 <section>
     <div class="container t-container">
 
         <%
             ListForPage<DeviceTypeDTO> data = (ListForPage<DeviceTypeDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            int maxPageNumber = data.getMaxPageNumber();
             List<DeviceTypeDTO> list = data.getList();
         %>
-
-
-        <div class="radio-container">
-            <form class="status-form" action="main" method="post" id="find_spare_parts">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="command" value="show_spare_part_table">
-            </form>
-        </div>
-
 
         <table>
             <tr>
@@ -40,7 +32,7 @@
                 </td>
                 <td class="code">
                     <form action="repair" method="post" >
-                        <input type="hidden" name="command" value="show_device_type">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_DEVICE_TYPE%>">
                         <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceType.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=deviceType.getIsActive()%>">
@@ -51,42 +43,9 @@
             <% }%>
         </table>
 
-<%--        <jsp:include page="/pages/changePageButtons.jsp"/>--%>
-
-        <%if (data.getMaxPageNumber() != 1) {%>
-        <div class="footer">
-            <div class="button-container">
-                <%if (pageNumber != FIRST_PAGE) { %>
-                <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_device_type_table">
-                    <%int prevPage = pageNumber - 1;%>
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                    <input class="button light" type="submit" name="button" value="Предыдущая">
-                </form>
-                <% } %>
-
-                <p><%=pageNumber%>
-                    из
-                    <%=maxPageNumber%>
-                </p>
-
-
-                <%if (pageNumber != maxPageNumber) { %>
-                <form action="main" method="post">
-                    <input type="hidden" name="command" value="show_device_type_table">
-                    <%int nextPage = pageNumber + 1;%>
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                    <input class="button light" type="submit" name="button" value="Следующая">
-                </form>
-                <% } %>
-
-            </div>
-        </div>
-        <% } %>
-
         <div class="add-form">
             <form action="main" method="post" id="addDeviceType">
-                <input type="hidden" name="command" value="add_device_type">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_DEVICE_TYPE%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">

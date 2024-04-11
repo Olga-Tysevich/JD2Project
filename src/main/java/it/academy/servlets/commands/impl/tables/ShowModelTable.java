@@ -17,7 +17,7 @@ public class ShowModelTable implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.insertAttributes(req);
-        req.setAttribute(SHOW_COMMAND, SHOW_MODEL_TABLE);
+        req.setAttribute(COMMAND, SHOW_MODEL_TABLE);
 
         return MAIN_PAGE_PATH;
     }

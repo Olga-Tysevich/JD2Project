@@ -16,7 +16,7 @@ public class ShowBrandTable implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         extractor.insertAttributes(req);
-        req.setAttribute(SHOW_COMMAND, SHOW_BRAND_TABLE);
+        req.setAttribute(COMMAND, SHOW_BRAND_TABLE);
 
         return MAIN_PAGE_PATH;
     }
