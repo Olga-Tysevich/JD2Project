@@ -50,7 +50,7 @@ public class FilterManager {
         return filters;
     }
 
-    public static List<EntityFilter> getFiltersForRepairWorkshop() {
+    public static List<EntityFilter> getFiltersForServiceCenter() {
         List<EntityFilter> filters = new ArrayList<>();
         filters.add(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
         filters.add(new EntityFilter(IS_ACTIVE, IS_BLOCKED));

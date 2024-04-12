@@ -40,7 +40,7 @@ public class ServiceCenter implements Serializable {
     })
     private BankAccount bankAccount;
 
-    @Column
+    @Column(name = "active")
     private Boolean isActive;
 
 }

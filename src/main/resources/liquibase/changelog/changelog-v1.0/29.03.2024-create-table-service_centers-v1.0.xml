@@ -16,34 +16,52 @@
             </column>
 
             <column name="full_name" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="email" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
 
-            <column name="phone" type="varchar(255)"/>
+            <column name="phone" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="registration_number" type="int"/>
+            <column name="registration_number" type="int">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="taxpayer_number" type="int"/>
+            <column name="taxpayer_number" type="int">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="bank_name" type="varchar(255)"/>
+            <column name="bank_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="bank_code" type="varchar(255)"/>
+            <column name="bank_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="bank_account" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
 
-            <column name="bank_address" type="varchar(255)"/>
+            <column name="bank_address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="actual_address" type="varchar(255)"/>
+            <column name="actual_address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="legal_address" type="varchar(255)"/>
+            <column name="legal_address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="active" type="bit"/>
+            <column name="active" type="bit">
+                <constraints nullable="false"/>
+            </column>
 
         </createTable>
 

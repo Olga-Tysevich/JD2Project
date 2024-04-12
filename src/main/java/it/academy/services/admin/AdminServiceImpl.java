@@ -159,7 +159,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber) {
-        List<EntityFilter> filters = FilterManager.getFiltersForRepairWorkshop();
+        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
 
         Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
             List<ServiceCenter> repairs = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
@@ -173,7 +173,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = FilterManager.getFiltersForRepairWorkshop();
+        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
 
         Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
             List<ServiceCenter> repairs = serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);

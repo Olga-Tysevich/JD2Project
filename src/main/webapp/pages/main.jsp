@@ -8,6 +8,7 @@
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>

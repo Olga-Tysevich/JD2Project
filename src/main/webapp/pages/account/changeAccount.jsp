@@ -31,9 +31,11 @@
                 </div>
                 <div class="f-input">
                     <div class="radio-container-rp">
-                        <label for="isActive">Активный: </label>
-                        <input type="checkbox" id="isActive" name="<%=IS_ACTIVE%>"  value="<%=account.getIsActive()%>"
-                               <%if (account.getIsActive()) {%>checked<%}%> />
+                        <label >Активный: </label>
+                        <label >да: </label>
+                        <input type="radio" name="<%=IS_ACTIVE%>"  value="true" <%if (account.getIsActive()) {%>checked<%}%> />
+                        <label >нет: </label>
+                        <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!account.getIsActive()) {%>checked<%}%>/>
                     </div>
                 </div>
 

@@ -210,8 +210,6 @@ public class Constants {
     public static final String SHOW_MODEL_TABLE = "show_model_table";
     public static final String SHOW_MODEL = "show_model";
     public static final String ADD_MODEL = "add_model";
-    public static final String SHOW_SERVICE_CENTER = "show_service_center";
-    public static final String SHOW_SERVICE_CENTER_TABLE = "show_service_center_table";
     public static final String ADD_SERVICE_CENTER = "add_service_center";
     public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
@@ -277,6 +275,7 @@ public class Constants {
     public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
     public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
+    public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
 
 
 }

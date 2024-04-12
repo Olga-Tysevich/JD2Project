@@ -1,6 +1,7 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -30,9 +31,11 @@
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
                         <div class="f-input">
                             <div class="radio-container-rp">
-                                <label for="isActive">Активный: </label>
-                                <input type="checkbox" id="isActive" name="<%=IS_ACTIVE%>"  value="<%=serviceCenter.getIsActive()%>"
-                                <%if (serviceCenter.getIsActive()) {%>checked<%}%> />
+                                <label >Активный: </label>
+                                <label >да: </label>
+                                <input type="radio" name="<%=IS_ACTIVE%>"  value="true" <%if (serviceCenter.getIsActive()) {%>checked<%}%> />
+                                <label >нет: </label>
+                                <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!serviceCenter.getIsActive()) {%>checked<%}%>/>
                             </div>
                         </div>
                         <%} %>
@@ -96,6 +99,13 @@
                         <input class="f-form" required type="number" name="<%=SERVICE_CENTER_REGISTRATION_NUMBER%>" value="<%=serviceCenter.getRegistrationNumber()%>">
                         </div>
 
+                        <div class="f-input">
+                            <%
+                                String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
+                            %>
+                            <p class="error" id="error" style="display: none"><%=errorMessage%></p>
+                        </div>
+
                         <div class="button-container">
                             <input class="button" type="submit" value="Сохранить" form="service_center"/>
                             <input class="button" type="submit" value="Отмена" form="cancel"/>
@@ -111,5 +121,5 @@
             </div>
     </div>
 </section>
-
+<script rel="script" src="${pageContext.request.contextPath}/js/LoginFormBehavior.js"></script>
 </body>
