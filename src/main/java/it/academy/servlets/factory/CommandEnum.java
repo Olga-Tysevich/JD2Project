@@ -2,16 +2,22 @@ package it.academy.servlets.factory;
 
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.account.*;
+import it.academy.servlets.commands.impl.brand.AddBrand;
+import it.academy.servlets.commands.impl.brand.ChangeBrand;
+import it.academy.servlets.commands.impl.brand.ShowBrand;
+import it.academy.servlets.commands.impl.brand.ShowBrandTable;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.delete.DeleteSparePart;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
 import it.academy.servlets.commands.impl.forms.*;
-import it.academy.servlets.commands.impl.lists.ShowBrandList;
-import it.academy.servlets.commands.impl.lists.ShowModelList;
 import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
+import it.academy.servlets.commands.impl.models.AddModel;
+import it.academy.servlets.commands.impl.models.ChangeModel;
+import it.academy.servlets.commands.impl.models.ShowModel;
+import it.academy.servlets.commands.impl.models.ShowModelTable;
 import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
@@ -28,8 +34,6 @@ public enum CommandEnum {
     CHANGE_ACCOUNT(new ChangeAccount()),
     SHOW_ACCOUNT_TABLE(new ShowAccountTable()),
     OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
-    SHOW_BRAND_LIST(new ShowBrandList()),
-    SHOW_MODEL_LIST(new ShowModelList()),
     SHOW_REPAIR(new ShowRepair()),
     ADD_REPAIR(new AddRepair()),
     SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),

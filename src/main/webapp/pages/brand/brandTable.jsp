@@ -10,7 +10,6 @@
         <%
             ListForPage<BrandDTO> data = (ListForPage<BrandDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            int maxPageNumber = data.getMaxPageNumber();
             List<BrandDTO> list = data.getList();
         %>
 
@@ -45,6 +44,7 @@
         <div class="add-form">
             <form action="main" method="post" id="addBrand">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_BRAND%>">
+                <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">

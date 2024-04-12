@@ -47,7 +47,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
                 serviceCenterDTO.getServiceName());
 
         if (temp != null && !temp.getId().equals(serviceCenterDTO.getId())) {
-            throw new IllegalArgumentException(SERVICE_CENTERS_ALREADY_EXIST);
+            throw new IllegalArgumentException(SERVICE_NAME_ALREADY_TAKEN);
         }
 
         serviceCenterDAO.update(result);

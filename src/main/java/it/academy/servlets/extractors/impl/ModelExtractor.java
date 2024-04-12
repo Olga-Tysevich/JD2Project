@@ -49,7 +49,7 @@ public class ModelExtractor implements Extractor<ModelDTO> {
         String input = req.getParameter(USER_INPUT);
 
         ListForPage<ModelDTO> models;
-        List<BrandDTO> brands = brandService.findBrand();
+        List<BrandDTO> brands = brandService.findBrands();
         List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
         if (input != null && !input.isBlank()) {
             models = modelService.findModels(pageNumber, filter, input);

@@ -58,7 +58,9 @@ public class TransactionManger {
     }
 
     public synchronized void beginTransaction() {
-        entityManager().getTransaction().begin();
+        if (!entityManager().getTransaction().isActive()) {
+            entityManager().getTransaction().begin();
+        }
     }
 
     public synchronized void commit() {

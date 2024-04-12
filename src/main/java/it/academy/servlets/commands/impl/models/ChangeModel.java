@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.change;
+package it.academy.servlets.commands.impl.models;
 
 import it.academy.dto.device.req.ModelDTO;
 import it.academy.services.device.ModelService;

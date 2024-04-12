@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.forms;
+package it.academy.servlets.commands.impl.brand;
 
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.services.device.BrandService;
@@ -6,7 +6,6 @@ import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 
@@ -20,7 +19,7 @@ public class ShowBrand implements ActionCommand {
         long brandId = Long.parseLong(req.getParameter(BRAND_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         BrandDTO brand = brandService.findBrand(brandId);
-        System.out.println(brand);
+        System.out.println("show brand " + brand);
 
         req.setAttribute(BRAND, brand);
         req.setAttribute(PAGE_NUMBER, pageNumber);

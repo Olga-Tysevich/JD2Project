@@ -1,8 +1,8 @@
-<%@ page import="static it.academy.utils.Constants.OPEN_START_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.device.req.BrandDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_BRAND" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_BRAND_TABLE" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -40,6 +40,14 @@
                 </div>
             </form>
 
+            <div class="f-input">
+                <%
+                    String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
+                %>
+                <p class="error" id="error" style="display: none"><%=errorMessage%></p>
+            </div>
+
+
             <div class="button-container">
                 <input class="button" type="submit" value="Сохранить" form="change_brand"/>
                 <input class="button" type="submit" value="Отмена" form="cancel"/>
@@ -53,5 +61,5 @@
 
     </div>
 </section>
-
+<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
 </body>

@@ -9,6 +9,7 @@
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.*" %>
+<%@ page import="it.academy.utils.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -107,7 +108,7 @@
             <fieldset class="f1">
                 <legend>Текущий аккаунт</legend>
                 <form  action="account" method="post">
-                    <input type="hidden" name="command" value="<%=SHOW_SERVICE_CENTER%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
 <%--                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getServiceCenter().getId()%>">--%>
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Изменить учетные данные"/>
@@ -121,8 +122,10 @@
                 <legend>Устройства</legend>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_MODEL_TABLE_PAGE, FIRST_PAGE)%>'"> Список моделей </button>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_BRAND_TABLE_PAGE, FIRST_PAGE)%>'"> Список брэндов </button>
+                <form  action="brands" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список брэндов"/>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_DEVICE_TYPE_TABLE_PAGE, FIRST_PAGE)%>'"> Список типов</button>
             </fieldset>
@@ -189,5 +192,5 @@
     </div>
 
 </section>
-<script rel="script" src="${pageContext.request.contextPath}/js/LoginFormBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
 </body>

@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.forms;
+package it.academy.servlets.commands.impl.models;
 
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.dto.device.req.DeviceTypeDTO;
@@ -12,7 +12,6 @@ import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ShowModel implements ActionCommand {
         long modelId = Long.parseLong(req.getParameter(MODEL_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         ModelDTO model = modelService.findModel(modelId);
-        List<BrandDTO> brands = brandService.findBrand();
+        List<BrandDTO> brands = brandService.findBrands();
         List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
 
         req.setAttribute(DEVICE_TYPES, deviceTypes);

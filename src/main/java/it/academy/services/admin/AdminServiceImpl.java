@@ -40,10 +40,12 @@ public class AdminServiceImpl implements AdminService {
 
         transactionManger.beginTransaction();
         if (!createAccountDTO.getPassword().equals(createAccountDTO.getConfirmPassword())) {
+            transactionManger.commit();
             throw new EnteredPasswordsNotMatch();
         }
 
         if (accountDAO.findByUniqueParameter(EMAIL, account.getEmail()) != null) {
+            transactionManger.commit();
             throw new EmailAlreadyRegistered(account.getEmail());
         }
 
@@ -69,6 +71,7 @@ public class AdminServiceImpl implements AdminService {
 
         if (accountDAO.findByUniqueParameter(EMAIL, account.getEmail()) != null
                 && !accountDAO.findByUniqueParameter(EMAIL, account.getEmail()).getId().equals(temp.getId())) {
+            transactionManger.commit();
             throw new EmailAlreadyRegistered(account.getEmail());
         }
 

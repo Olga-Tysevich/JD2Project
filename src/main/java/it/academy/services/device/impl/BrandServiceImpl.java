@@ -21,15 +21,35 @@ public class BrandServiceImpl implements BrandService {
     private BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override
-    public void addBrand(BrandDTO brand) {
+    public void createBrand(BrandDTO brand) {
         Brand result = BrandConverter.convertDTOToEntity(brand);
-        transactionManger.execute(() -> brandDAO.create(result));
+        transactionManger.beginTransaction();
+
+        if (brandDAO.findByUniqueParameter(BRAND_NAME, brand.getName()) != null) {
+            transactionManger.commit();
+            throw new IllegalArgumentException(BRAND_ALREADY_EXIST);
+        }
+
+        brandDAO.create(result);
+
+        transactionManger.commit();
     }
 
     @Override
     public void updateBrand(BrandDTO brand) {
         Brand result = BrandConverter.convertDTOToEntity(brand);
-        transactionManger.execute(() -> brandDAO.update(result));
+        transactionManger.beginTransaction();
+
+        Brand temp = brandDAO.findByUniqueParameter(BRAND_NAME, brand.getName());
+
+        if (temp != null && !temp.getId().equals(result.getId())) {
+            transactionManger.commit();
+            throw new IllegalArgumentException(BRAND_ALREADY_EXIST);
+        }
+
+        brandDAO.update(result);
+
+        transactionManger.commit();
     }
 
     @Override
@@ -39,7 +59,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public List<BrandDTO> findBrand() {
+    public List<BrandDTO> findBrands() {
         List<Brand> repairs = transactionManger.execute(() -> brandDAO.findAll());
         return BrandConverter.convertListToDTO(repairs);
     }

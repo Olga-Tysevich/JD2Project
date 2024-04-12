@@ -121,5 +121,5 @@
             </div>
     </div>
 </section>
-<script rel="script" src="${pageContext.request.contextPath}/js/LoginFormBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
 </body>
