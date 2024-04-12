@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class RepairTypeServiceImpl implements RepairTypeService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
 
 

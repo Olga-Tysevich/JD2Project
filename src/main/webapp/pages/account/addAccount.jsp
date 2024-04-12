@@ -2,6 +2,7 @@
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -22,15 +23,7 @@
                 <div class="f-input">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_ACCOUNT%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                </div>
-
-                <div class="f-input">
-                    <label class="form-el">Тип аккаунта:</label>
-                    <select class="f-form " name="<%=ROLE%>" size="0">
-                        <%for (RoleEnum role : RoleEnum.values()) { %>
-                        <option value="<%=role%>"><%=role.getDescription()%></option>
-                        <% } %>
-                    </select>
+                    <input type="hidden" name="<%=ROLE%>" value="<%=RoleEnum.SERVICE_CENTER%>">
                 </div>
 
                 <div class="f-input">

@@ -13,7 +13,7 @@ public interface AdminService {
 
     void createAccount(CreateAccountDTO account) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered;
 
-    void updateAccount(ChangeAccountDTO account);
+    void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered;
 
 
     void addServiceCenter(ServiceCenterDTO serviceCenterDTO);

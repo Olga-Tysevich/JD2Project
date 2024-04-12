@@ -14,11 +14,10 @@ import java.util.Objects;
 import static it.academy.utils.Constants.OBJECT_ID;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
-    private TransactionManger manger;
+    private TransactionManger manger = TransactionManger.getInstance();
     private Class<T> clazz;
 
-    public DAOImpl(TransactionManger manger, Class<T> clazz) {
-        this.manger = manger;
+    public DAOImpl(Class<T> clazz) {
         this.clazz = clazz;
     }
 
@@ -125,4 +124,5 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     protected CriteriaBuilder criteriaBuilder() {
         return manger.criteriaBuilder();
     }
+
 }

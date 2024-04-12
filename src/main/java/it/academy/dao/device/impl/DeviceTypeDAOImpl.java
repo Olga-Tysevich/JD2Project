@@ -17,11 +17,7 @@ import static it.academy.utils.Constants.SPARE_PARTS;
 public class DeviceTypeDAOImpl extends DAOImpl<DeviceType, Long> implements DeviceTypeDAO {
 
     public DeviceTypeDAOImpl() {
-        super(new TransactionManger(), DeviceType.class);
-    }
-
-    public DeviceTypeDAOImpl(TransactionManger manger) {
-        super(manger, DeviceType.class);
+        super(DeviceType.class);
     }
 
     @Override

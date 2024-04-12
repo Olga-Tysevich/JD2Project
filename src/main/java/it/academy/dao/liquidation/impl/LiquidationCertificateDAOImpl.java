@@ -9,10 +9,7 @@ public class LiquidationCertificateDAOImpl extends DAOImpl<LiquidationCertificat
         implements LiquidationCertificateDAO {
 
     public LiquidationCertificateDAOImpl() {
-        super(new TransactionManger(), LiquidationCertificate.class);
+        super(LiquidationCertificate.class);
     }
 
-    public LiquidationCertificateDAOImpl(TransactionManger manger) {
-        super(manger, LiquidationCertificate.class);
-    }
 }

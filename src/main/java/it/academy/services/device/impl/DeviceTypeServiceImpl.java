@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class DeviceTypeServiceImpl implements DeviceTypeService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
 
     @Override

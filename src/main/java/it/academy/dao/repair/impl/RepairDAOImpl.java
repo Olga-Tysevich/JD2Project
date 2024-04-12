@@ -17,11 +17,7 @@ import static it.academy.utils.Constants.*;
 public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
 
     public RepairDAOImpl() {
-        super(new TransactionManger(), Repair.class);
-    }
-
-    public RepairDAOImpl(TransactionManger manger) {
-        super(manger, Repair.class);
+        super(Repair.class);
     }
 
     @Override

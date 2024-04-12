@@ -15,7 +15,7 @@ import static it.academy.utils.Constants.ACCOUNT_EMAIL;
 
 
 public class AuthServiceImpl implements AuthService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private AccountDAO accountDAO = new AccountDAOImpl();
 
     @Override

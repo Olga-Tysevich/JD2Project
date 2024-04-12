@@ -8,10 +8,6 @@ import it.academy.utils.dao.TransactionManger;
 public class BrandDAOImpl extends DAOImpl<Brand, Long> implements BrandDAO {
 
     public BrandDAOImpl() {
-        super(new TransactionManger(), Brand.class);
-    }
-
-    public BrandDAOImpl(TransactionManger manger) {
-        super(manger, Brand.class);
+        super(Brand.class);
     }
 }

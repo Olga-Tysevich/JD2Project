@@ -16,11 +16,7 @@ import static it.academy.utils.Constants.*;
 public class SparePartsOrderDAOImpl extends DAOImpl<SparePartsOrder, Long> implements SparePartsOrderDAO {
 
     public SparePartsOrderDAOImpl() {
-        super(new TransactionManger(), SparePartsOrder.class);
-    }
-
-    public SparePartsOrderDAOImpl(TransactionManger manger) {
-        super(manger, SparePartsOrder.class);
+        super(SparePartsOrder.class);
     }
 
     @Override

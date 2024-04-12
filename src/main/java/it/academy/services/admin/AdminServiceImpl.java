@@ -4,11 +4,11 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.AccountDAOImpl;
 import it.academy.dao.service_center.ServiceCenterDAO;
 import it.academy.dao.service_center.ServiceCenterDAOImpl;
-import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.req.ChangeAccountDTO;
 import it.academy.dto.account.req.CreateAccountDTO;
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.service_center.ServiceCenter;
@@ -28,9 +28,9 @@ import static it.academy.utils.Constants.EMAIL;
 import static it.academy.utils.Constants.LIST_SIZE;
 
 public class AdminServiceImpl implements AdminService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private AccountDAO accountDAO = new AccountDAOImpl();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
+    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     @Override
     public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered {
@@ -57,30 +57,40 @@ public class AdminServiceImpl implements AdminService {
 
         System.out.println("after save " + result);
 
-
         transactionManger.commit();
     }
 
     @Override
-    public void updateAccount(ChangeAccountDTO account) {
+    public void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered {
         Account result = AccountConverter.convertToEntity(account);
-
         System.out.println("update  account" + result);
-        transactionManger.execute(() -> {
-            if (account.getPassword() == null || account.getPassword().isBlank()) {
-                Account temp = accountDAO.find(account.getId());
-                System.out.println("update temp a " + temp);
-                ServiceCenter serviceCenter = serviceCenterDAO.find(account.getServiceCenterId());
-                System.out.println("update service center " + serviceCenter);
-                result.setServiceCenter(serviceCenter);
-                result.setPassword(temp.getPassword());
+        transactionManger.beginTransaction();
+        Account temp = accountDAO.find(account.getId());
 
-                System.out.println("update after set passw " + temp);
-            }
-            Account t = accountDAO.update(result);
-            System.out.println("update after " + t);
-            return t;
-        });
+        if (accountDAO.findByUniqueParameter(EMAIL, account.getEmail()) != null
+                && !accountDAO.findByUniqueParameter(EMAIL, account.getEmail()).getId().equals(temp.getId())) {
+            throw new EmailAlreadyRegistered(account.getEmail());
+        }
+
+        if (result.getIsActive() == null) {
+            result.setIsActive(false);
+        }
+
+        System.out.println("update temp a " + temp);
+        ServiceCenter serviceCenter = serviceCenterDAO.find(account.getServiceCenterId());
+        result.setServiceCenter(serviceCenter);
+
+        if (account.getPassword() == null || account.getPassword().isBlank()) {
+            System.out.println("update service center " + serviceCenter);
+            result.setPassword(temp.getPassword());
+
+            System.out.println("update after set passw " + temp);
+        }
+
+        Account t = accountDAO.update(result);
+        System.out.println("update after " + t);
+
+        transactionManger.commit();
     }
 
     @Override

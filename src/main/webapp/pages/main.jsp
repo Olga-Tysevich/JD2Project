@@ -23,7 +23,8 @@
                     AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
                     RoleEnum role = accountDTO.getRole();
                     String userEmail = accountDTO.getEmail();
-                    ListForPage list = (ListForPage) request.getAttribute(LIST_FOR_PAGE);
+                    ListForPage list = request.getAttribute(LIST_FOR_PAGE) != null?
+                            (ListForPage) request.getAttribute(LIST_FOR_PAGE) : new ListForPage();
                     int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
                     int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();
                     List<EntityFilter> filters = list.getFiltersForPage();

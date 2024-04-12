@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class ModelServiceImpl implements ModelService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private ModelDAO modelDAO = new ModelDAOImpl();
 
     @Override

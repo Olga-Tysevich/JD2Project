@@ -43,7 +43,7 @@ public class Test2 {
         RepairDAO repairDAO = new RepairDAOImpl();
         DeviceDAO deviceDAO = new DeviceDAOImpl();
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-        TransactionManger transactionManger = new TransactionManger();
+        TransactionManger transactionManger = TransactionManger.getInstance();
         SparePartDAOImpl sparePartDAO = new SparePartDAOImpl();
         AccountDAO accountDAO = new AccountDAOImpl();
         ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();

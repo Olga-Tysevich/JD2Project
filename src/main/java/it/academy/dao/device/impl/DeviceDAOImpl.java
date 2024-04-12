@@ -8,10 +8,6 @@ import it.academy.utils.dao.TransactionManger;
 public class DeviceDAOImpl extends DAOImpl<Device, Long> implements DeviceDAO {
 
     public DeviceDAOImpl() {
-        super(new TransactionManger(), Device.class);
-    }
-
-    public DeviceDAOImpl(TransactionManger manger) {
-        super(manger, Device.class);
+        super(Device.class);
     }
 }

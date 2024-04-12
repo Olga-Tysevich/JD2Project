@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class ServiceCenterServiceImpl implements ServiceCenterService {
-    private TransactionManger transactionManger = new TransactionManger();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
+    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     @Override
     public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) {

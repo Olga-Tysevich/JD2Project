@@ -8,10 +8,7 @@ import it.academy.utils.dao.TransactionManger;
 public class RepairTypeDAOImpl extends DAOImpl<RepairType, Long> implements RepairTypeDAO {
 
     public RepairTypeDAOImpl() {
-        super(new TransactionManger(), RepairType.class);
+        super(RepairType.class);
     }
 
-    public RepairTypeDAOImpl(TransactionManger manger) {
-        super(manger, RepairType.class);
-    }
 }

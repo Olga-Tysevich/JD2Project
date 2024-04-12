@@ -15,11 +15,7 @@ import static it.academy.utils.Constants.OBJECT_ID;
 public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
 
     public ModelDAOImpl() {
-        super(new TransactionManger(), Model.class);
-    }
-
-    public ModelDAOImpl(TransactionManger manger) {
-        super(manger, Model.class);
+        super(Model.class);
     }
 
     @Override

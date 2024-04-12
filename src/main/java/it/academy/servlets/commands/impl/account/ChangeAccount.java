@@ -1,14 +1,19 @@
 package it.academy.servlets.commands.impl.account;
 
+import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.table.req.TableReq;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.req.ChangeAccountDTO;
 import it.academy.dto.account.resp.AccountDTO;
+import it.academy.exceptions.account.EmailAlreadyRegistered;
+import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 import static it.academy.utils.Constants.*;
 
@@ -18,27 +23,29 @@ public class ChangeAccount implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        ChangeAccountDTO account = Extractor.extract(req, new ChangeAccountDTO());
-
-        adminService.updateAccount(account);
-
         int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        ChangeAccountDTO account = Extractor.extract(req, new ChangeAccountDTO());
+        TableReq request = Extractor.extract(req, new TableReq());
+        System.out.println("change account req " + request);
+        System.out.println("change account account " + account);
 
-        String filter = req.getParameter(FILTER);
-        String input = req.getParameter(USER_INPUT);
+        try {
+            adminService.updateAccount(account);
+        } catch (Exception e) {
+            System.out.println("error " + e.getMessage());
 
-        ListForPage<AccountDTO> accounts;
-        if (input != null && !input.isBlank()) {
-            accounts = adminService.findAccounts(pageNumber, filter, input);
-        } else {
-            accounts = adminService.findAccounts(pageNumber);
+            req.setAttribute(ERROR, e.getMessage());
+            req.setAttribute(PAGE, req.getParameter(PAGE));
+            req.setAttribute(ACCOUNT, adminService.findAccount(account.getId()));
+            req.setAttribute(PAGE_NUMBER, pageNumber);
+            return ACCOUNT_PAGE_PATH;
         }
 
-//        PageManager.insertAttributesForTable(req, accounts, ACCOUNT_TABLE_PAGE_PATH);
-        req.setAttribute(MAX_PAGE, accounts.getMaxPageNumber());
+        req.setAttribute(PAGE, req.getParameter(PAGE));
+        req.setAttribute(PAGE_NUMBER, pageNumber);
 
-        return MAIN_PAGE_PATH;
+        return new ShowAccountTable().execute(req);
     }
 
 }

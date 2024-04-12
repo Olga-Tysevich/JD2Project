@@ -40,7 +40,7 @@ import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.SERIAL_NUMBER;
 
 public class RepairServiceImpl implements RepairService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private RepairDAO repairDAO = new RepairDAOImpl();
     private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
     private BrandDAO brandDAO = new BrandDAOImpl();

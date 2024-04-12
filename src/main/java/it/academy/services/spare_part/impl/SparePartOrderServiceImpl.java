@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class SparePartOrderServiceImpl implements SparePartOrderService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private SparePartDAO sparePartDAO = new SparePartDAOImpl();
     private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();

@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class BrandServiceImpl implements BrandService {
-    private TransactionManger transactionManger = new TransactionManger();
+    private TransactionManger transactionManger = TransactionManger.getInstance();
     private BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override

@@ -16,11 +16,7 @@ import static it.academy.utils.Constants.*;
 public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SparePartDAO {
 
     public SparePartDAOImpl() {
-        super(new TransactionManger(), SparePart.class);
-    }
-
-    public SparePartDAOImpl(TransactionManger manger) {
-        super(manger, SparePart.class);
+        super(SparePart.class);
     }
 
     @Override
