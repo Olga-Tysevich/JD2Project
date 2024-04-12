@@ -22,7 +22,7 @@ public class ChangeBrand implements ActionCommand {
         TableReq request = Extractor.extract(req, new TableReq());
         System.out.println("change brand req " + request);
         System.out.println("change brand " + brand);
-        System.out.println("change brand page" + pageNumber);
+        System.out.println("change brand page " + pageNumber);
 
         try {
             brandService.updateBrand(brand);

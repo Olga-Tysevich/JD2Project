@@ -25,6 +25,7 @@
                 <div class="f-input">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_ACCOUNT%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                     <input type="hidden" name="<%=ROLE%>" value="<%=RoleEnum.SERVICE_CENTER%>">
                     <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=serviceCenter.getId()%>">
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
@@ -76,6 +77,7 @@
 
             <form action="main" method="post" id="cancel">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             </form>
         </div>

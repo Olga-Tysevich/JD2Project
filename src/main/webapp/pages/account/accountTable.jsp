@@ -13,6 +13,7 @@
             ListForPage<AccountDTO> data = (ListForPage<AccountDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             List<AccountDTO> list = data.getList();
+            String currentPage = request.getParameter(PAGE);
         %>
 
         <table>
@@ -42,6 +43,7 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
                         <input type="hidden" name="<%=ACCOUNT_SERVICE_CENTER%>" value="<%=account.getServiceCenter()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >

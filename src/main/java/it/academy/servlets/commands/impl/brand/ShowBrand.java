@@ -17,11 +17,13 @@ public class ShowBrand implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         long brandId = Long.parseLong(req.getParameter(BRAND_ID));
+        String page = req.getParameter(PAGE);
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         BrandDTO brand = brandService.findBrand(brandId);
         System.out.println("show brand " + brand);
 
         req.setAttribute(BRAND, brand);
+        req.setAttribute(PAGE, page);
         req.setAttribute(PAGE_NUMBER, pageNumber);
 
         return BRAND_PAGE_PATH;

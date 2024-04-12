@@ -1,4 +1,4 @@
-package it.academy.utils.helpers;
+package it.academy.utils.interfaces.wrappers;
 
 public interface ThrowingConsumer<T> {
 

@@ -1,4 +1,6 @@
-package it.academy.utils.helpers;
+package it.academy.utils.interfaces.wrappers;
+
+import it.academy.utils.interfaces.wrappers.ThrowingConsumer;
 
 public class ThrowingConsumerWrapper {
 

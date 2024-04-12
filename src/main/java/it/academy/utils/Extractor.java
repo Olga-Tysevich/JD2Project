@@ -1,6 +1,6 @@
 package it.academy.utils;
 
-import it.academy.utils.helpers.ThrowingConsumerWrapper;
+import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.util.List;
