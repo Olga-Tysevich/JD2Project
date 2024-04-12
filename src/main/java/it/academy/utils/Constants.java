@@ -261,12 +261,13 @@ public class Constants {
 
     //ERROR_MESSAGES
     public static final String ERROR_PATTERN = "text: %s, object: %s";
-    public static final String EMAIL_ALREADY_EXISTS = "Email: %s is already registered!";
-    public static final String PASSWORDS_NOT_MATCH = "The entered passwords do not match!";
-    public static final String FIELD_NOT_FILLED = "Required field is not filled in!";
-    public static final String USER_NOT_FOUND = "User is not found!";
-    public static final String INCORRECT_PASSWORD = "Incorrect password!";
     public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
+    //for pages
+    public static final String EMAIL_ALREADY_EXISTS = "Email: %s уже зарегистрирован!";
+    public static final String PASSWORDS_NOT_MATCH = "Введенные пароли не совпадают!";
+    public static final String FIELD_NOT_FILLED = "Необходимые поля не заполнены!";
+    public static final String USER_NOT_FOUND = "Пользователь не существует!";
+    public static final String INCORRECT_PASSWORD = "Неверный пароль!";
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
     public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";

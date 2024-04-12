@@ -20,7 +20,7 @@ public class ChangeBrand implements ActionCommand {
         try {
             return FormExtractor.extract(req,
                     (a) -> ThrowingConsumerWrapper.apply(() -> brandService.updateBrand((BrandDTO) a)),
-                    (id) -> brandService.findBrand(id),
+                    (id) -> brandService.findBrand((Long) id),
                     BrandDTO.class,
                     BRAND,
                     BRAND_PAGE_PATH,

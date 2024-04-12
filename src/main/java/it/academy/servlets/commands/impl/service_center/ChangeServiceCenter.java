@@ -1,12 +1,19 @@
 package it.academy.servlets.commands.impl.service_center;
 
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.dto.table.req.TableReq;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.commands.impl.brand.ShowBrandTable;
+import it.academy.servlets.extractors.FormExtractor;
 import it.academy.utils.Extractor;
+import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
+
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
+
 import static it.academy.utils.Constants.*;
 
 public class ChangeServiceCenter implements ActionCommand {
@@ -15,31 +22,19 @@ public class ChangeServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        System.out.println(req.getParameter(IS_ACTIVE));
-
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        ServiceCenterDTO serviceCenterDTO = Extractor.extract(req, new ServiceCenterDTO());
-        TableReq request = Extractor.extract(req, new TableReq());
-        System.out.println("change service center req " + request);
-        System.out.println("change service center center " + serviceCenterDTO);
-
         try {
-            serviceCenterService.updateServiceCenter(serviceCenterDTO);
-        } catch (Exception e) {
-            System.out.println(String.format(ERROR_PATTERN, e.getMessage(), serviceCenterDTO));
-
-            req.setAttribute(ERROR, e.getMessage());
-            req.setAttribute(PAGE, req.getParameter(PAGE));
-            req.setAttribute(SERVICE_CENTER, serviceCenterService.findServiceCenter(serviceCenterDTO.getId()));
-            req.setAttribute(PAGE_NUMBER, pageNumber);
-            return SERVICE_CENTER_PAGE_PATH;
+            return FormExtractor.extract(req,
+                    (a) -> ThrowingConsumerWrapper.apply(() -> serviceCenterService.updateServiceCenter((ServiceCenterDTO) a)),
+                    (id) -> serviceCenterService.findServiceCenter((Long) id),
+                    ServiceCenterDTO.class,
+                    SERVICE_CENTER,
+                    SERVICE_CENTER_PAGE_PATH,
+                    () -> new ShowServiceCenterTable().execute(req));
+        } catch (NoSuchMethodException | IllegalAccessException
+                | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+            System.out.println(e.getMessage());
+            return ERROR_PAGE_PATH;
         }
-
-        req.setAttribute(PAGE, req.getParameter(PAGE));
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-
-        return new ShowServiceCenterTable().execute(req);
     }
 
 }
