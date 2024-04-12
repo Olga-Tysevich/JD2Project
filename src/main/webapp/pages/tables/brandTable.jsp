@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.ListForPage" %>
-<%@ page import="it.academy.dto.device.BrandDTO" %>
+<%@ page import="it.academy.dto.device.req.BrandDTO" %>
 <section>
     <div class="container t-container">
 

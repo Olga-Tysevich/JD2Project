@@ -16,7 +16,7 @@ public class DeleteSparePart implements ActionCommand {
     private SparePartExtractor extractor = new SparePartExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long id = Long.parseLong(req.getParameter(CURRENT_SPARE_PART_ID));
         sparePartService.deleteSparePart(id);

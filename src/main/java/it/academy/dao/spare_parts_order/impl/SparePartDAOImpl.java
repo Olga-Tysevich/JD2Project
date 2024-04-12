@@ -4,6 +4,7 @@ import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.spare_parts_order.SparePartDAO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
+import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -15,7 +16,7 @@ import static it.academy.utils.Constants.*;
 public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SparePartDAO {
 
     public SparePartDAOImpl() {
-        super(SparePart.class);
+        super(new TransactionManger(), SparePart.class);
     }
 
     @Override

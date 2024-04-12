@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.utils.Builder;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class DeviceTypeServiceImpl implements DeviceTypeService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private TransactionManger transactionManger = new TransactionManger();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
 
     @Override

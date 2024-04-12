@@ -1,6 +1,6 @@
 package it.academy.dto.repair;
 
-import it.academy.dto.device.DeviceDTO;
+import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
@@ -17,7 +17,7 @@ public class RepairDTO {
 
     private ServiceCenterDTO repairWorkshop;
 
-    private DeviceDTO device;
+    private DeviceDTOResp device;
 
     private RepairCategory category;
 

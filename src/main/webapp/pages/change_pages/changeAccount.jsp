@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.AccountDTO" %>
-<%@ page import="it.academy.entities.RoleEnum" %>
+<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,7 +26,6 @@
             <form action="main" method="post" id="account">
                 <div class="f-input">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                    <input type="text" name="command" value="<%=command%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 </div>
                 <%if (id != null) { %>
@@ -35,7 +34,7 @@
                 <div class="f-input">
                     <div class="radio-container-rp">
                         <label for="isActive">Активный: </label>
-                        <input type="radio" id="isActive" name="<%=IS_ACTIVE%>"  value="<%=account.getIsActive()%>"
+                        <input type="checkbox" id="isActive" name="<%=IS_ACTIVE%>"  value="<%=account.getIsActive()%>"
                                <%if (account.getIsActive()) {%>checked<%}%> />
                     </div>
                 </div>
@@ -51,6 +50,7 @@
                     </select>
                 </div>
 
+                <% if (RoleEnum.SERVICE_CENTER.equals(account.getRole()) && serviceCenter != null) { %>
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
                     <select class="f-form " name="<%=SERVICE_CENTER_ID%>" size="0">
@@ -61,25 +61,26 @@
                         <% } %>
                     </select>
                 </div>
+                <% } %>
 
                 <div class="f-input">
                     <label class="form-el">email:</label>
-                    <input type="text" name="<%=EMAIL%>" value="<%=account.getEmail()%>">
+                    <input class="f-form" type="text" name="<%=EMAIL%>" value="<%=account.getEmail()%>">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Имя пользователя:</label>
-                    <input type="text" name="<%=USER_NAME%>" value="<%=account.getUserName()%>">
+                    <input class="f-form" type="text" name="<%=USER_NAME%>" value="<%=account.getUserName()%>">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Фамилия пользователя:</label>
-                    <input type="text" name="<%=USER_SURNAME%>" value="<%=account.getUserSurname()%>">
+                    <input class="f-form" type="text" name="<%=USER_SURNAME%>" value="<%=account.getUserSurname()%>">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Установить новый пароль:</label>
-                    <input type="password" placeholder="Введите пароль" name="<%=PASSWORD%>" value=""
+                    <input class="f-form" type="password" placeholder="Введите пароль" name="<%=PASSWORD%>" value=""
                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
                 </div>
 

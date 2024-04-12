@@ -1,14 +1,13 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.TableManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -48,7 +47,7 @@ public class SparePartExtractor implements Extractor<SparePartDTO> {
             spareParts = sparePartOrderService.findSpareParts(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, spareParts, SPARE_PART_TABLE_PAGE_PATH);
+//        PageManager.insertAttributesForTable(req, spareParts, SPARE_PART_TABLE_PAGE_PATH);
         req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_TABLE);
         req.setAttribute(DEVICE_TYPES, deviceTypes);
     }

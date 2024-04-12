@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.device.req.ModelDTO" %>
 <%@ page import="it.academy.utils.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>

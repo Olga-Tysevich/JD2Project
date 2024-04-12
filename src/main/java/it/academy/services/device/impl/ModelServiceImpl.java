@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.entities.device.components.Model;
 import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class ModelServiceImpl implements ModelService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private TransactionManger transactionManger = new TransactionManger();
     private ModelDAO modelDAO = new ModelDAOImpl();
 
     @Override

@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.lists;
 
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -16,7 +16,7 @@ public class ShowBrandList implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         List<BrandDTO> brandDTOList = repairService.findBrands();
         req.setAttribute(BRANDS, brandDTOList);

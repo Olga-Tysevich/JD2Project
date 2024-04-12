@@ -25,7 +25,7 @@ public class ChangeRepair implements ActionCommand {
     private Extractor extractor = new RepairExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
 

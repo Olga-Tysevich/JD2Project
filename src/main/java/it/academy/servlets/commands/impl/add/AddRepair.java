@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.device.DeviceDTO;
+import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
@@ -18,7 +18,7 @@ public class AddRepair implements ActionCommand {
     private Extractor extractor = new RepairExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
 
@@ -32,9 +32,9 @@ public class AddRepair implements ActionCommand {
         }
 
         RepairDTO repairDTO = (RepairDTO) extractor.getParameter(REPAIR);
-        DeviceDTO deviceDTO = repairDTO.getDevice();
-        deviceDTO.setId(null);
-        DeviceDTO savedDevice = repairService.addDevice(deviceDTO);
+        DeviceDTOResp deviceDTOResp = repairDTO.getDevice();
+        deviceDTOResp.setId(null);
+        DeviceDTOResp savedDevice = repairService.addDevice(deviceDTOResp);
         repairDTO.setDevice(savedDevice);
 
         repairService.addRepair(repairDTO);

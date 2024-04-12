@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.forms;
 
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.services.impl.AdminServiceImpl;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -15,7 +14,7 @@ public class ShowRepairType implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long repairTypeId = Long.parseLong(req.getParameter(REPAIR_TYPE_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));

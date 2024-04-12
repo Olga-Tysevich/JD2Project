@@ -5,6 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface ActionCommand {
 
-    String execute(HttpServletRequest req, HttpServletResponse resp);
+    String execute(HttpServletRequest req);
 
 }

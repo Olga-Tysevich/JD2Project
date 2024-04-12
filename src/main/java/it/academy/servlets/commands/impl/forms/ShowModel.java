@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.ModelService;
@@ -25,7 +25,7 @@ public class ShowModel implements ActionCommand {
 
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long modelId = Long.parseLong(req.getParameter(MODEL_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));

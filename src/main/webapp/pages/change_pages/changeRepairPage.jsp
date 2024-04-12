@@ -3,11 +3,11 @@
 <%@ page import="it.academy.entities.repair.components.RepairStatus" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
-<%@ page import="it.academy.dto.device.BrandDTO" %>
-<%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.req.ModelDTO" %>
 <%@ page import="it.academy.dto.spare_parts.SparePartOrderDTO" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
-<%@ page import="it.academy.dto.device.DeviceDTO" %>
+<%@ page import="it.academy.dto.device.resp.DeviceDTOResp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
             RepairDTO repairDTO = (RepairDTO) request.getAttribute(REPAIR);
             RepairTypeDTO repairTypeDTO = repairDTO.getRepairType();
             long brandId = repairDTO.getDevice().getModel().getBrandId();
-            DeviceDTO device = repairDTO.getDevice();
+            DeviceDTOResp device = repairDTO.getDevice();
             long repairTypeId = device.getModel().getDeviceTypeId();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());

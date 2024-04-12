@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.lists;
 
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -15,7 +15,7 @@ public class ShowModelList implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long brandId = req.getParameter(OBJECT_ID) != null? Long.parseLong(req.getParameter(OBJECT_ID)) : DEFAULT_ID;
         List<ModelDTO> models = repairService.findModelsByBrandId(brandId);

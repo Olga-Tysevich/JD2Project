@@ -14,7 +14,7 @@ public class ChangeSparePartOrder implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
         long orderId = Long.parseLong(req.getParameter(ORDER_ID));
         String departureDateString = req.getParameter(DEPARTURE_DATE);
         String deliveryDateString = req.getParameter(DELIVERY_DATE);

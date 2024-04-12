@@ -14,7 +14,7 @@ public class ShowRepairTypeList implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
         List<RepairTypeDTO> repairTypes = repairService.findRepairTypes();

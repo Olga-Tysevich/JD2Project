@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.entities.device.components.Brand;
 import it.academy.services.device.BrandService;
 import it.academy.utils.Builder;
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class BrandServiceImpl implements BrandService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private TransactionManger transactionManger = new TransactionManger();
     private BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override

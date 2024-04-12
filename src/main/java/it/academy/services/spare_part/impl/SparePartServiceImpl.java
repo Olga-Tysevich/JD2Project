@@ -5,7 +5,7 @@ import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.spare_parts_order.SparePartDAO;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class SparePartServiceImpl implements SparePartService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private TransactionManger transactionManger = new TransactionManger();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
     private SparePartDAO sparePartDAO = new SparePartDAOImpl();
 

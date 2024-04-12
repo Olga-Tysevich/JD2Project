@@ -16,7 +16,7 @@ public class ShowRepairTable implements ActionCommand {
     private RepairStatus lastStatus;
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;

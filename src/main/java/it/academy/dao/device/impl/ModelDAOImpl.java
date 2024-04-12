@@ -3,6 +3,7 @@ package it.academy.dao.device.impl;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.device.components.Model;
+import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -14,8 +15,7 @@ import static it.academy.utils.Constants.OBJECT_ID;
 public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
 
     public ModelDAOImpl() {
-        super(Model.class);
-
+        super(new TransactionManger(), Model.class);
     }
 
     @Override

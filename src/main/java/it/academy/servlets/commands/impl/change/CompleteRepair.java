@@ -15,7 +15,7 @@ public class CompleteRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
         long repairTypeId = Long.parseLong(req.getParameter(REPAIR_TYPE_ID));

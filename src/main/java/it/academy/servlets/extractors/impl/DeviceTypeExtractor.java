@@ -1,11 +1,10 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.TableManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,7 +42,7 @@ public class DeviceTypeExtractor implements Extractor<DeviceTypeDTO> {
             repairTypes = deviceTypeService.findDeviceTypes(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, repairTypes, DEVICE_TYPE_TABLE_PAGE_PATH);
+//        PageManager.insertAttributesForTable(req, repairTypes, DEVICE_TYPE_TABLE_PAGE_PATH);
     }
 
     @Override

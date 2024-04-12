@@ -5,7 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.25.xsd">
 
-    <include file="29.03.2024-create-table-company_permissions-v1.0.xml" relativeToChangelogFile="true"/>
-    <include file="29.03.2024-insert-values-company_permissions-v1.0.xml" relativeToChangelogFile="true"/>
+    <include file="29.03.2024-create-table-accounts-v1.0.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

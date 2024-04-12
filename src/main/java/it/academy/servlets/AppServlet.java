@@ -1,7 +1,7 @@
 package it.academy.servlets;
 
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.managers.ActionFactory;
+import it.academy.servlets.factory.ActionFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +30,7 @@ public class AppServlet extends HttpServlet {
         ActionFactory actionFactory = new ActionFactory();
         ActionCommand actionCommand = actionFactory.defineCommand(req);
 
-        page = actionCommand.execute(req, resp);
+        page = actionCommand.execute(req);
 
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);

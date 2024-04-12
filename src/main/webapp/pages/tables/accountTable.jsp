@@ -2,7 +2,9 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.AccountDTO" %>
+<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT" %>
+<%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
     <div class="container t-container">
@@ -36,6 +38,7 @@
                            <%if (account.getIsActive()) {%>checked<%}%> disabled>
                 </td>
                 <td class="code">
+                    <% if (RoleEnum.SERVICE_CENTER.equals(account.getRole())) { %>
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
@@ -43,6 +46,7 @@
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
+                    <% } %>
                 </td>
             </tr>
             <% }%>

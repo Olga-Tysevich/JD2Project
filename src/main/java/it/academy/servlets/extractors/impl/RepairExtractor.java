@@ -1,8 +1,8 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairCategory;
@@ -52,7 +52,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
         Long repairId = req.getParameter(REPAIR_ID) != null ? Long.parseLong(req.getParameter(REPAIR_ID)) : null;
 
         ModelDTO modelDTO = repairService.findModel(modelId);
-        DeviceDTO deviceDTO = DeviceDTO.builder()
+        DeviceDTOResp deviceDTOResp = DeviceDTOResp.builder()
                 .id(deviceId)
                 .model(modelDTO)
                 .serialNumber(serialNumber)
@@ -67,7 +67,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
 
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repairId)
-                .device(deviceDTO)
+                .device(deviceDTOResp)
                 .category(category)
                 .status(status)
                 .defectDescription(defectDescription)

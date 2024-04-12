@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.components.RepairStatus;
@@ -23,7 +23,7 @@ public class ShowConfirmedRepair implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
         RepairDTO repairDTO = repairService.findRepair(repairId);

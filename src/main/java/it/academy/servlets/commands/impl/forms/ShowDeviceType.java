@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -14,7 +14,7 @@ public class ShowDeviceType implements ActionCommand {
 
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long deviceTypeId = Long.parseLong(req.getParameter(DEVICE_TYPE_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));

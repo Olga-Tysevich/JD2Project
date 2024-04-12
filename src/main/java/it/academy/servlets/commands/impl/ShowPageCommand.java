@@ -14,7 +14,7 @@ public class ShowPageCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
 //        AccountDTOReq account = AccountDTOReq.builder()
 //                .email("user40@yahoo.com")

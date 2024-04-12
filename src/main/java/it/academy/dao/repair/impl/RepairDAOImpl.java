@@ -5,6 +5,8 @@ import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
+import it.academy.utils.dao.TransactionManger;
+
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
@@ -15,7 +17,7 @@ import static it.academy.utils.Constants.*;
 public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
 
     public RepairDAOImpl() {
-        super(Repair.class);
+        super(new TransactionManger(), Repair.class);
     }
 
 

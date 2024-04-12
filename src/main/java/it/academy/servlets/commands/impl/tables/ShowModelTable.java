@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.tables;
 
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.ModelExtractor;
@@ -14,7 +14,7 @@ public class ShowModelTable implements ActionCommand {
     private Extractor<ModelDTO> extractor = new ModelExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.insertAttributes(req);
         req.setAttribute(COMMAND, SHOW_MODEL_TABLE);

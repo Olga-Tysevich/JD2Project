@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -16,7 +16,7 @@ public class ChangeBrand implements ActionCommand {
     private Extractor<BrandDTO> extractor = new BrandExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
         BrandDTO brand = extractor.getResult();

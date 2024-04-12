@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.repair.RepairService;
@@ -19,7 +19,7 @@ public class ShowRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         ModelDTO modelDTO = repairService.findModel(DEFAULT_ID);
         RepairDTO repairDTO = RepairDTO.builder()

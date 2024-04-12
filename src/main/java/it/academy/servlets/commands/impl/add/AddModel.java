@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -17,7 +17,7 @@ public class AddModel implements ActionCommand {
     private Extractor<ModelDTO> extractor = new ModelExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
 

@@ -13,7 +13,7 @@ public class ShowRepairTypeTable implements ActionCommand {
     private Extractor<RepairTypeDTO> extractor = new RepairTypeExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.insertAttributes(req);
 

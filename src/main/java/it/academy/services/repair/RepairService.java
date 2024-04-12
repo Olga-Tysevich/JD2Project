@@ -2,13 +2,12 @@ package it.academy.services.repair;
 
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairStatus;
-import it.academy.entities.repair.components.RepairType;
 
 import java.util.List;
 
@@ -20,11 +19,11 @@ public interface RepairService {
 
     List<BrandDTO> findBrands();
 
-    DeviceDTO addDevice(DeviceDTO deviceDTO);
+    DeviceDTOResp addDevice(DeviceDTOResp deviceDTOResp);
 
-    DeviceDTO updateDevice(DeviceDTO deviceDTO);
+    DeviceDTOResp updateDevice(DeviceDTOResp deviceDTOResp);
 
-    DeviceDTO findDevice(long id);
+    DeviceDTOResp findDevice(long id);
 
     ModelDTO findModel(long id);
 

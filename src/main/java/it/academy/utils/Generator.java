@@ -1,8 +1,8 @@
 package it.academy.utils;
 
 
-import it.academy.entities.Account;
-import it.academy.entities.RoleEnum;
+import it.academy.entities.account.Account;
+import it.academy.entities.account.RoleEnum;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.*;
 import it.academy.entities.repair.components.RepairType;

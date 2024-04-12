@@ -3,8 +3,9 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.EntityFilter" %>
-<%@ page import="it.academy.dto.AccountDTO" %>
-<%@ page import="it.academy.entities.RoleEnum" %>
+<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -28,6 +29,16 @@
                 %>
 
         <div class="header-container">
+            <%=accountDTO%>
+            <%=role%>
+            <%=pageNumber%>
+            <%=maxPageNumber%>
+            <%=pageForDisplay%>
+            <%=command%>
+            <%
+                String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
+            %>
+            <p class="error" id="error" style="display: none"><%=errorMessage%></p>
             <div class="header-el">
                 <p><%=userEmail%></p>
             </div>
@@ -35,7 +46,7 @@
 
         <% if (pageForDisplay != null) { %>
         <form action="main" method="post" id="search">
-            <input type="hidden" name="command" value="<%=command%>">
+            <input type="hidden" name="<%=COMMAND%>>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
             <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
@@ -58,14 +69,16 @@
             <% if (RoleEnum.ADMIN.equals(role)) {%>
             <fieldset class="f1">
                 <legend>Компания</legend>
-                <form  action="account" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
+                <form action="account" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_ACCOUNT%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
                 </form>
 
                 <form  action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Список аккаунтов"/>
                 </form>
@@ -89,12 +102,12 @@
 <%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_TABLE_PAGE, FIRST_PAGE)%>'"> Список сервисных центров </button>--%>
             </fieldset>
 
-            <% } else { %>
+            <% } %>
             <fieldset class="f1">
                 <legend>Сервисный центр</legend>
                 <form  action="account" method="post">
                     <input type="hidden" name="command" value="<%=SHOW_SERVICE_CENTER%>">
-                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getServiceCenter().getId()%>">
+<%--                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getServiceCenter().getId()%>">--%>
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Изменить учетные данные"/>
                 </form>
@@ -102,7 +115,6 @@
 <%--                <button class="button button-fieldset"--%>
 <%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Изменить учетные данные </button>--%>
             </fieldset>
-            <% } %>
 
             <fieldset class="f1">
                 <legend>Устройства</legend>
@@ -137,9 +149,6 @@
         </div>
 
         <div class="table-container">
-            <%=pageForDisplay%>
-            <%=maxPageNumber%>
-            <%=command%>
             <% if (pageForDisplay != null) {
                 pageContext.include(pageForDisplay);
                 if (maxPageNumber > 1) {%>
@@ -163,7 +172,6 @@
                     <%if (pageNumber != maxPageNumber) { %>
                     <form action="main" method="post">
                         <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                        <input type="text" name="<%=COMMAND%>" value="<%=command%>">
                         <%int nextPage = pageNumber + 1;%>
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
                         <input class="button light" type="submit" name="button" value="Следующая">
@@ -180,4 +188,5 @@
     </div>
 
 </section>
+<script rel="script" src="${pageContext.request.contextPath}/js/LoginFormBehavior.js"></script>
 </body>

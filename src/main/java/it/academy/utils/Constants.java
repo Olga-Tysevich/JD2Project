@@ -7,23 +7,49 @@ import java.util.Random;
 @UtilityClass
 public class Constants {
     public static final Random RANDOM = new Random();
-    //parameters common
+
+    //common parameters
     public static final String OBJECT_ID = "id";
     public static final String IS_ACTIVE = "isActive";
-    public static final String IS_DELETED = "isDeleted";
     public static final String OBJECT_NAME = "name";
-    public static final String ERROR = "error";
-    //Account parameters
+
+    //account parameters
     public static final String ACCOUNT_EMAIL = "email";
+
+
+    //jsp pages
+    public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
+    public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
+    public static final String NEW_ACCOUNT_PAGE_PATH = "/pages/add/addAccount.jsp";
+    //jsp
+    public static final String COMMAND = "command";
+    public static final String PAGE_NUMBER = "pageNumber";
+    public static final int LIST_SIZE = 20;
+    public static final int FIRST_PAGE = 1;
+    public static final String MAX_PAGE = "maxPage";
+    public static final String PAGE = "page";
+    //Account
+    public static final String ACCOUNT = "account";
+    public static final String SERVICE_CENTERS = "service_centers";
     public static final String PASSWORD = "password";
-    public static final String USER_NAME = "userName";
-    public static final String USER_SURNAME = "userSurname";
+    public static final String PASSWORD_CONFIRM = "confirmPassword";
     public static final String ROLE = "role";
     public static final String ACCOUNT_SERVICE_CENTER = "serviceCenter";
-    public static final String ACCOUNT = "account";
     public static final String EMAIL = "email";
-//    public static final String USER_NAME = "userName";
-//    public static final String USER_SURNAME = "userSurname";
+    public static final String SERVICE_CENTER_ID = "serviceCenterId";
+    public static final String USER_NAME = "userName";
+    public static final String USER_SURNAME = "userSurname";
+
+
+
+
+
+
+    //parameters common
+    public static final String IS_DELETED = "isDeleted";
+    public static final String ERROR = "error";
+    //Account parameters
+
     //serviceCenter
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
@@ -76,8 +102,6 @@ public class Constants {
     //jsp
     //RepairWorkshop parameters
     public static final String SERVICE_CENTER = "service_center";
-    public static final String SERVICE_CENTERS = "service_centers";
-    public static final String SERVICE_CENTER_ID = "service_center_id";
     public static final String SERVICE_CENTER_NAME = "service_center_service_name";
     public static final String SERVICE_CENTER_BANK_ACCOUNT = "service_center_bank_account";
     public static final String SERVICE_CENTER_BANK_CODE = "service_center_bank_code";
@@ -133,8 +157,7 @@ public class Constants {
     //QueryManager
     public static final String PUNCTUATION_MARKS_PATTERN = "[\\s\\p{P}]+";
 
-    //Commands
-    public static final String COMMAND = "command";
+
 
     //Paths
     public static final String ERROR_PAGE_PATH = "path.page.error";
@@ -143,7 +166,6 @@ public class Constants {
     public static final String REPAIR_TABLE_PATH = "path.page.repair.table";
     public static final String WAITING_SPARE_PARTS_TABLE_PATH = "path.page.repair.waiting";
 
-    public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     public static final String ACCOUNT_PAGE_PATH = "/pages/change_pages/changeAccount.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
@@ -172,11 +194,6 @@ public class Constants {
 
     //jsp
     //common
-    public static final String PAGE_NUMBER = "pageNumber";
-    public static final int LIST_SIZE = 20;
-    public static final int FIRST_PAGE = 1;
-    public static final String MAX_PAGE = "maxPage";
-    public static final String PAGE = "page";
     public static final String SHOW_COMMAND = "show_command";
     public static final String LIST_FOR_PAGE = "table";
     public static final String FILTER = "filter";
@@ -184,7 +201,6 @@ public class Constants {
 
     //show_command
     public static final String SHOW_START_PAGE = "open_page";
-    public static final String SHOW_ACCOUNT = "show_account";
     public static final String ADD_ACCOUNT = "add_account";
     public static final String CHANGE_ACCOUNT = "change_account";
     public static final String SHOW_ACCOUNT_TABLE = "show_account_table";
@@ -261,5 +277,7 @@ public class Constants {
     public static final String FIELD_NOT_FILLED = "Required field is not filled in!";
     public static final String USER_NOT_FOUND = "User is not found!";
     public static final String INCORRECT_PASSWORD = "Incorrect password!";
+    public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
+    public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
 
 }

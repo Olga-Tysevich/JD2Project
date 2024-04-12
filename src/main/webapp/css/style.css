@@ -359,3 +359,19 @@ fieldset.f1 {
     text-align: center;
     min-height: 500px;
 }
+
+.login-container{
+    background: #f9eaf9;
+    border: 1px solid lightgray;
+    padding: 10px;
+    box-shadow: 4px 2px 5px #473f3fa6;
+    margin: auto;
+    width: 250px;
+}
+
+.login-section{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

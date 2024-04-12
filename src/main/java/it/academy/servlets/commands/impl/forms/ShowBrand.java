@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -15,7 +15,7 @@ public class ShowBrand implements ActionCommand {
 
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         long brandId = Long.parseLong(req.getParameter(BRAND_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));

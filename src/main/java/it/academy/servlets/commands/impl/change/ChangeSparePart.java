@@ -16,7 +16,7 @@ public class ChangeSparePart extends AddSparePart {
     private Extractor<SparePartDTO> extractor = new SparePartExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
         List<Long> idList = getDeviceTypeId(req);

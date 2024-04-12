@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static it.academy.utils.Constants.ACCOUNT;
+import static it.academy.utils.Constants.*;
 
-@WebFilter(urlPatterns = {"/main", "/account", "/brands", "/models", "/repair"})
+@WebFilter(urlPatterns = {"/main"})
 public class AuthFilter implements Filter {
 
     @Override
@@ -26,7 +26,7 @@ public class AuthFilter implements Filter {
         if ((session != null) && (session.getAttribute(ACCOUNT) != null)) {
             chain.doFilter(request, response);
         } else {
-            res.sendRedirect(contextPath + "/index.jsp");
+            res.sendRedirect(contextPath + LOGIN_PAGE_PATH);
         }
     }
 

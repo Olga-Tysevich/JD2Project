@@ -1,7 +1,7 @@
 package it.academy.services.device;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 
 import java.util.List;
 

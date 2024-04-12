@@ -14,7 +14,7 @@ public class ShowServiceCenterTable implements ActionCommand {
     private Extractor<ServiceCenterDTO> extractor = new ServiceCenterExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.insertAttributes(req);
         req.setAttribute(COMMAND, SHOW_SERVICE_CENTER_TABLE);

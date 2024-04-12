@@ -1,9 +1,9 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.ModelService;
@@ -11,7 +11,7 @@ import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.TableManager;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class ModelExtractor implements Extractor<ModelDTO> {
 
         req.setAttribute(DEVICE_TYPES, deviceTypes);
         req.setAttribute(BRANDS, brands);
-        TableManager.insertAttributesForTable(req, models, MODEL_TABLE_PAGE_PATH);
+//        PageManager.insertAttributesForTable(req, models, MODEL_TABLE_PAGE_PATH);
     }
 
     @Override

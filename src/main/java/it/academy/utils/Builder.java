@@ -1,8 +1,8 @@
 package it.academy.utils;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dto.device.req.ModelDTO;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class Builder {
                 .build();
     }
 
-    public static DeviceDTO buildEmptyDevice(ModelDTO model) {
-        return DeviceDTO.builder()
+    public static DeviceDTOResp buildEmptyDevice(ModelDTO model) {
+        return DeviceDTOResp.builder()
                 .id(DEFAULT_ID)
                 .model(model)
                 .serialNumber(DEFAULT_VALUE)

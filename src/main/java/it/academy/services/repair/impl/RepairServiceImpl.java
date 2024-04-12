@@ -12,9 +12,9 @@ import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.device.Device;
@@ -40,7 +40,7 @@ import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.SERIAL_NUMBER;
 
 public class RepairServiceImpl implements RepairService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private TransactionManger transactionManger = new TransactionManger();
     private RepairDAO repairDAO = new RepairDAOImpl();
     private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
     private BrandDAO brandDAO = new BrandDAOImpl();
@@ -71,8 +71,8 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public DeviceDTO addDevice(DeviceDTO deviceDTO) {
-        Device device = DeviceConverter.convertDTOToEntity(deviceDTO);
+    public DeviceDTOResp addDevice(DeviceDTOResp deviceDTOResp) {
+        Device device = DeviceConverter.convertDTOToEntity(deviceDTOResp);
         device.setSerialNumber(device.getSerialNumber().toUpperCase());
         Device result = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, device.getSerialNumber());
 
@@ -85,8 +85,8 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public DeviceDTO updateDevice(DeviceDTO deviceDTO) {
-        Device device = DeviceConverter.convertDTOToEntity(deviceDTO);
+    public DeviceDTOResp updateDevice(DeviceDTOResp deviceDTOResp) {
+        Device device = DeviceConverter.convertDTOToEntity(deviceDTOResp);
         device.setSerialNumber(device.getSerialNumber().toUpperCase());
 
         Device result = transactionManger.execute(() -> deviceDAO.update(device));
@@ -175,12 +175,12 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public DeviceDTO findDevice(long id) {
+    public DeviceDTOResp findDevice(long id) {
         Device device = transactionManger.execute(() -> deviceDAO.find(id));
-        DeviceDTO deviceDTO = DeviceConverter.convertToDTO(device);
+        DeviceDTOResp deviceDTOResp = DeviceConverter.convertToDTO(device);
 
         transactionManger.closeManager();
-        return deviceDTO;
+        return deviceDTOResp;
     }
 
     @Override

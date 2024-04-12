@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.services.repair.RepairService;
@@ -25,7 +25,7 @@ public class AddSparePartOrder extends ShowOrderSparePart {
     private Extractor extractor = new SparePartOrderExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
 

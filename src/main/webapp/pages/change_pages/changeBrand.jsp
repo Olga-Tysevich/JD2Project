@@ -1,8 +1,8 @@
 <%@ page import="static it.academy.utils.Constants.OPEN_START_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.device.BrandDTO" %>
-<%@ page import="static it.academy.servlets.managers.CommandEnum.CHANGE_BRAND" %>
+<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_BRAND" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">

@@ -9,10 +9,8 @@ import it.academy.dao.spare_parts_order.SparePartsOrderDAO;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
-import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.spare_parts_order.SparePart;
@@ -20,7 +18,6 @@ import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
-import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
@@ -32,7 +29,7 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class SparePartOrderServiceImpl implements SparePartOrderService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
+    private TransactionManger transactionManger = new TransactionManger();
     private SparePartDAO sparePartDAO = new SparePartDAOImpl();
     private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
     private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();

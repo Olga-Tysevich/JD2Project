@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.device.DeviceTypeService;
@@ -22,7 +22,7 @@ public class ShowSparePartForm implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
         long sparePartId = Long.parseLong(req.getParameter(CURRENT_SPARE_PART_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         SparePartDTO sparePart = sparePartService.findSparePart(sparePartId);

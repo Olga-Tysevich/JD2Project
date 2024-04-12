@@ -1,8 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.services.AdminService;
-import it.academy.services.impl.AdminServiceImpl;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -19,7 +17,7 @@ public class AddRepairType implements ActionCommand {
     private Extractor<RepairTypeDTO> extractor = new RepairTypeExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
 

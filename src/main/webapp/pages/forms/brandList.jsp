@@ -1,5 +1,5 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.device.BrandDTO" %>
+<%@ page import="it.academy.dto.device.req.BrandDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>

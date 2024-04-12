@@ -2,55 +2,33 @@ package it.academy.utils.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
 public class TransactionManger {
-    private static volatile TransactionManger instance;
-    private ReentrantLock lock = new ReentrantLock();
     private EntityManager entityManager;
 
-    private TransactionManger() {
-    }
 
-    public static TransactionManger getInstance() {
-        if (instance != null) {
-            return instance;
-        }
-        synchronized (TransactionManger.class) {
-            if (instance == null) {
-                instance = new TransactionManger();
-            }
-            return instance;
-        }
-    }
-
-    public synchronized EntityManager entityManager() {
+    public EntityManager entityManager() {
         if (entityManager != null && entityManager.isOpen()) {
             return entityManager;
         }
-        lock.lock();
         if (entityManager == null || !entityManager.isOpen()) {
             entityManager = HibernateUtil.getEntityManager();
         }
-        lock.unlock();
         return entityManager;
     }
 
-    public synchronized CriteriaBuilder criteriaBuilder() {
+    public CriteriaBuilder criteriaBuilder() {
         return entityManager().getCriteriaBuilder();
     }
 
-    public synchronized void closeManager() {
-        lock.lock();
+    public void closeManager() {
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close();
         }
-        lock.unlock();
     }
 
-    public synchronized <T> T execute(Supplier<T> method) {
-        lock.lock();
+    public <T> T execute(Supplier<T> method) {
         beginTransaction();
         T result;
         try {
@@ -61,7 +39,6 @@ public class TransactionManger {
             throw e;
         }
         entityManager().close();
-        lock.unlock();
         return result;
     }
 

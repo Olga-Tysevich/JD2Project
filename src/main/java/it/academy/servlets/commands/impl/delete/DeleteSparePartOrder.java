@@ -11,7 +11,7 @@ public class DeleteSparePartOrder implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
         long orderId = Long.parseLong(req.getParameter(ORDER_ID));
         long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
 

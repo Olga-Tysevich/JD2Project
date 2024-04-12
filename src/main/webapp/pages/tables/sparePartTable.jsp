@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="it.academy.dto.spare_parts.SparePartDTO" %>
-<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.device.req.DeviceTypeDTO" %>
 <section>
     <div class="container t-container">
 

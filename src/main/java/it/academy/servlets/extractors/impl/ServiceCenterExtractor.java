@@ -5,7 +5,6 @@ import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.ServiceCenterService;
 import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.TableManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,7 +66,7 @@ public class ServiceCenterExtractor implements Extractor<ServiceCenterDTO> {
             repairTypes = serviceCenterService.findServiceCenter(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, repairTypes, SERVICE_CENTER_TABLE_PAGE_PATH);
+//        PageManager.insertAttributesForTable(req, repairTypes, SERVICE_CENTER_TABLE_PAGE_PATH);
     }
 
     @Override

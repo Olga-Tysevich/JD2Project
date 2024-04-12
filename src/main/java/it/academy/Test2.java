@@ -1,6 +1,6 @@
 package it.academy;
 
-import it.academy.dao.AccountDAO;
+import it.academy.dao.account.AccountDAO;
 import it.academy.dao.ServiceCenterDAO;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.DeviceDAO;
@@ -10,18 +10,16 @@ import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
-import it.academy.dao.impl.AccountDAOImpl;
+import it.academy.dao.account.AccountDAOImpl;
 import it.academy.dao.impl.ServiceCenterDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
-import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
-import it.academy.entities.device.components.Model;
 import it.academy.entities.service_center.ServiceCenter;
-import it.academy.services.AdminService;
+import it.academy.services.admin.AdminService;
 import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.AdminServiceImpl;
+import it.academy.services.admin.AdminServiceImpl;
 import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
@@ -46,7 +44,7 @@ public class Test2 {
         RepairDAO repairDAO = new RepairDAOImpl();
         DeviceDAO deviceDAO = new DeviceDAOImpl();
         DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-        TransactionManger transactionManger = TransactionManger.getInstance();
+        TransactionManger transactionManger = new TransactionManger();
         SparePartDAOImpl sparePartDAO = new SparePartDAOImpl();
         AccountDAO accountDAO = new AccountDAOImpl();
         ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
@@ -80,12 +78,12 @@ public class Test2 {
 //                })
 //                .collect(Collectors.toList());
 
-        List<DeviceType> deviceType = IntStream.range(0, 40)
-                .mapToObj(i -> {
-                    DeviceType type = Generator.generateDeviceType();
-                    return transactionManger.execute(() -> deviceTypeDAO.create(type));
-                })
-                .collect(Collectors.toList());
+//        List<DeviceType> deviceType = IntStream.range(0, 40)
+//                .mapToObj(i -> {
+//                    DeviceType type = Generator.generateDeviceType();
+//                    return transactionManger.execute(() -> deviceTypeDAO.create(type));
+//                })
+//                .collect(Collectors.toList());
 
 //        List<Model> models = IntStream.range(0, 40)
 //                .mapToObj(i -> {

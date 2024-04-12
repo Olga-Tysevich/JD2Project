@@ -19,7 +19,7 @@
         <class>it.academy.entities.spare_parts_order.SparePartsOrder</class>
         <class>it.academy.entities.liquidation.LiquidationCertificate</class>
         <class>it.academy.entities.repair.Repair</class>
-        <class>it.academy.entities.Account</class>
+        <class>it.academy.entities.account.Account</class>
         <class>it.academy.entities.service_center.ServiceCenter</class>
         <class>it.academy.entities.service_center.Requisites</class>
         <class>it.academy.entities.service_center.BankAccount</class>

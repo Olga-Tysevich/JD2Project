@@ -3,10 +3,10 @@
 <%@ page import="it.academy.entities.repair.components.RepairStatus" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
-<%@ page import="it.academy.dto.device.BrandDTO" %>
-<%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.req.ModelDTO" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="it.academy.dto.device.DeviceDTO" %>
+<%@ page import="it.academy.dto.device.resp.DeviceDTOResp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             RepairDTO repairDTO = (RepairDTO) request.getAttribute(REPAIR);
             long brandId = repairDTO.getDevice().getModel().getBrandId();
             Long deviceId = repairDTO.getDevice().getId();
-            DeviceDTO device = repairDTO.getDevice();
+            DeviceDTOResp device = repairDTO.getDevice();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             List<BrandDTO> brandDTOList = (List<BrandDTO>) request.getAttribute(BRANDS);

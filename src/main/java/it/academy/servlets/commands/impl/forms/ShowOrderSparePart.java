@@ -12,7 +12,7 @@ public class ShowOrderSparePart implements ActionCommand {
     private Extractor extractor = new SparePartOrderExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
         extractor.insertAttributes(req);

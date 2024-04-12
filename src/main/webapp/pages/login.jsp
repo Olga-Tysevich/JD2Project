@@ -1,8 +1,8 @@
 <%@ page import="static it.academy.utils.Constants.ERROR" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<section>
-    <div class=" container">
+<section class="login-section">
+    <div class="login-container">
 
         <form action="login" method="post" id="login">
 
@@ -18,6 +18,7 @@
                 <input class="form-el" required type="password" name="password" placeholder="Введите пароль" value="User8707!"
                        id="password"
                        pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
+
 
                 <%
                     String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);

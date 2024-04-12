@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.tables;
 
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.BrandExtractor;
@@ -13,7 +13,7 @@ public class ShowBrandTable implements ActionCommand {
     private Extractor<BrandDTO> extractor = new BrandExtractor();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req) {
 
         extractor.insertAttributes(req);
         req.setAttribute(COMMAND, SHOW_BRAND_TABLE);

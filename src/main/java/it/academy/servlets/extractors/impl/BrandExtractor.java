@@ -1,11 +1,11 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.ListForPage;
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.req.BrandDTO;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.TableManager;
+
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.utils.Constants.*;
 
@@ -41,7 +41,7 @@ public class BrandExtractor  implements Extractor<BrandDTO> {
             brands = brandService.findBrands(pageNumber);
         }
 
-        TableManager.insertAttributesForTable(req, brands, BRAND_TABLE_PAGE_PATH);
+//        PageManager.insertAttributesForTable(req, brands, BRAND_TABLE_PAGE_PATH);
     }
 
     @Override
