@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.add;
+package it.academy.servlets.commands.impl.service_center;
 
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.ServiceCenterService;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.MAIN_PAGE_PATH;
 
-public class AddServiceCenter implements ActionCommand {
+public class ChangeServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private Extractor<ServiceCenterDTO> extractor = new ServiceCenterExtractor();
 
@@ -19,10 +19,8 @@ public class AddServiceCenter implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
-
-        ServiceCenterDTO repairWorkshop = extractor.getResult();
-        repairWorkshop.setIsActive(true);
-        serviceCenterService.addServiceCenter(repairWorkshop);
+        ServiceCenterDTO serviceCenterDTO = extractor.getResult();
+        serviceCenterService.updateServiceCenter(serviceCenterDTO);
 
         extractor.insertAttributes(req);
 

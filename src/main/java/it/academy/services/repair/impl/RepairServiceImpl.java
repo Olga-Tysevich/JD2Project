@@ -11,7 +11,7 @@ import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.device.req.ModelDTO;

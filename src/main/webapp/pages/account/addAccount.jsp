@@ -14,12 +14,14 @@
 
         <%
             List<ServiceCenterDTO> serviceCenters = (List<ServiceCenterDTO>) request.getAttribute(SERVICE_CENTERS);
+            int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
         %>
         <%=serviceCenters%>
         <div class="lr-container">
             <form action="main" method="post" id="account">
                 <div class="f-input">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_ACCOUNT%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 </div>
 
                 <div class="f-input">

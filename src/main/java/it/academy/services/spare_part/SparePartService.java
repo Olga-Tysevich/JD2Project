@@ -1,6 +1,6 @@
 package it.academy.services.spare_part;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.spare_parts.SparePartDTO;
 
 import java.util.List;

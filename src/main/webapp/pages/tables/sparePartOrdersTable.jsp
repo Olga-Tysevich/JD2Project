@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="it.academy.dto.spare_parts.SparePartOrderDTO" %>
 <%@ page import="it.academy.dto.spare_parts.SparePartDTO" %>
 <%@ page import="java.util.Map" %>

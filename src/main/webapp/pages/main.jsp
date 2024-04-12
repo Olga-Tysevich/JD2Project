@@ -6,6 +6,8 @@
 <%@ page import="it.academy.dto.account.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
+<%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -21,11 +23,12 @@
                     AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
                     RoleEnum role = accountDTO.getRole();
                     String userEmail = accountDTO.getEmail();
-                    int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-                    int maxPageNumber = request.getAttribute(MAX_PAGE) == null ? FIRST_PAGE : (int) request.getAttribute(MAX_PAGE);
-                    List<EntityFilter> filters = (List<EntityFilter>) request.getAttribute(FILTERS);
-                    String pageForDisplay = (String) request.getAttribute(PAGE);
-                    String command = (String) request.getAttribute(COMMAND);
+                    ListForPage list = (ListForPage) request.getAttribute(LIST_FOR_PAGE);
+                    int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
+                    int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();
+                    List<EntityFilter> filters = list.getFiltersForPage();
+                    String pageForDisplay = list.getPage();
+                    String command = list.getCommand();
                 %>
 
         <div class="header-container">
@@ -86,8 +89,6 @@
 
             <fieldset class="f1">
                 <legend>Сервисные центры</legend>
-<%--                <button class="button button-fieldset"--%>
-<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_PAGE, FIRST_PAGE)%>'"> Добавить сервисный центр </button>--%>
                 <form  action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
@@ -98,13 +99,11 @@
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Список сервисных центров"/>
                 </form>
-<%--                <button class="button button-fieldset"--%>
-<%--                        onclick="location.href='<%=String.format(OPEN_REPAIR_WORKSHOP_TABLE_PAGE, FIRST_PAGE)%>'"> Список сервисных центров </button>--%>
             </fieldset>
 
             <% } %>
             <fieldset class="f1">
-                <legend>Сервисный центр</legend>
+                <legend>Текущий аккаунт</legend>
                 <form  action="account" method="post">
                     <input type="hidden" name="command" value="<%=SHOW_SERVICE_CENTER%>">
 <%--                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getServiceCenter().getId()%>">--%>

@@ -1,7 +1,7 @@
 package it.academy.dao.device.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.utils.dao.TransactionManger;
@@ -18,6 +18,10 @@ public class DeviceTypeDAOImpl extends DAOImpl<DeviceType, Long> implements Devi
 
     public DeviceTypeDAOImpl() {
         super(new TransactionManger(), DeviceType.class);
+    }
+
+    public DeviceTypeDAOImpl(TransactionManger manger) {
+        super(manger, DeviceType.class);
     }
 
     @Override

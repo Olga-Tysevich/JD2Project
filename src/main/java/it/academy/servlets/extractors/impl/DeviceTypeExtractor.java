@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;

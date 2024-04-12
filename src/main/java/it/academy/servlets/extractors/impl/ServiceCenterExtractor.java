@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.ServiceCenterService;
 import it.academy.services.impl.ServiceCenterServiceImpl;
@@ -45,7 +45,7 @@ public class ServiceCenterExtractor implements Extractor<ServiceCenterDTO> {
                 .legalAddress(legalAddress)
                 .phone(phone)
                 .email(email)
-                .taxpayerNumber(taxpayerNumber)
+//                .taxpayerNumber(taxpayerNumber)
                 .registrationNumber(registrationNumber)
                 .isActive(isActive)
                 .build();

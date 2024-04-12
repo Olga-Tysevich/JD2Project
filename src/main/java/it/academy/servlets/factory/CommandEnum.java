@@ -12,6 +12,10 @@ import it.academy.servlets.commands.impl.lists.ShowBrandList;
 import it.academy.servlets.commands.impl.lists.ShowModelList;
 import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
+import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
+import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
+import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
+import it.academy.servlets.commands.impl.service_center.ShowServiceCenterTable;
 import it.academy.servlets.commands.impl.tables.*;
 
 import static it.academy.utils.Constants.*;

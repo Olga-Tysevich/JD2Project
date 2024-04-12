@@ -1,10 +1,9 @@
 package it.academy.servlets.extractors.impl.test;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 import static it.academy.utils.Constants.*;
 import static it.academy.utils.Constants.MAX_PAGE;

@@ -1,6 +1,6 @@
 package it.academy.dao.spare_parts_order.impl;
 
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.dao.spare_parts_order.SparePartDAO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
@@ -17,6 +17,10 @@ public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SpareP
 
     public SparePartDAOImpl() {
         super(new TransactionManger(), SparePart.class);
+    }
+
+    public SparePartDAOImpl(TransactionManger manger) {
+        super(manger, SparePart.class);
     }
 
     @Override

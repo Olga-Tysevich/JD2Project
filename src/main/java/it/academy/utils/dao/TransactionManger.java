@@ -42,11 +42,11 @@ public class TransactionManger {
         return result;
     }
 
-    private void beginTransaction() {
+    public void beginTransaction() {
         entityManager().getTransaction().begin();
     }
 
-    private void commit() {
+    public void commit() {
         if (entityManager().getTransaction().isActive()) {
             entityManager().getTransaction().commit();
         }

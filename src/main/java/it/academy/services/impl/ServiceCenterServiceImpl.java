@@ -1,8 +1,8 @@
 package it.academy.services.impl;
 
-import it.academy.dao.ServiceCenterDAO;
-import it.academy.dao.impl.ServiceCenterDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dao.service_center.ServiceCenterDAO;
+import it.academy.dao.service_center.ServiceCenterDAOImpl;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.ServiceCenterService;
@@ -18,12 +18,23 @@ import static it.academy.utils.Constants.*;
 
 public class ServiceCenterServiceImpl implements ServiceCenterService {
     private TransactionManger transactionManger = new TransactionManger();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
 
     @Override
     public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) {
-        ServiceCenter result = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
-        transactionManger.execute(() -> serviceCenterDAO.create(result));
+        transactionManger.beginTransaction();
+        ServiceCenter temp = serviceCenterDAO.findByEmailAndServiceName(serviceCenterDTO.getEmail(),
+                serviceCenterDTO.getServiceName());
+
+        if (temp != null) {
+            throw new IllegalArgumentException(SERVICE_CENTERS_ALREADY_EXIST);
+        }
+
+        ServiceCenter serviceCenter = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
+
+        ServiceCenter result = serviceCenterDAO.create(serviceCenter);
+        System.out.println("Service center " + result);
+        transactionManger.commit();
     }
 
     @Override

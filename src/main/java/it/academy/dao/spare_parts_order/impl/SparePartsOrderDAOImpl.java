@@ -1,6 +1,6 @@
 package it.academy.dao.spare_parts_order.impl;
 
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.dao.spare_parts_order.SparePartsOrderDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
@@ -17,6 +17,10 @@ public class SparePartsOrderDAOImpl extends DAOImpl<SparePartsOrder, Long> imple
 
     public SparePartsOrderDAOImpl() {
         super(new TransactionManger(), SparePartsOrder.class);
+    }
+
+    public SparePartsOrderDAOImpl(TransactionManger manger) {
+        super(manger, SparePartsOrder.class);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package it.academy.dao.repair.impl;
 
 
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
@@ -20,6 +20,9 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
         super(new TransactionManger(), Repair.class);
     }
 
+    public RepairDAOImpl(TransactionManger manger) {
+        super(manger, Repair.class);
+    }
 
     @Override
     public List<Repair> findRepairsByStatus(RepairStatus status, int page, int listSize) {

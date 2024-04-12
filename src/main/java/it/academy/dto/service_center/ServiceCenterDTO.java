@@ -15,19 +15,19 @@ public class ServiceCenterDTO {
 
     private String serviceName;
 
+    private String bankName;
+
     private String bankAccount;
 
     private String bankCode;
-
-    private String bankName;
 
     private String bankAddress;
 
     private String fullName;
 
-    private String actualAddress;
-
     private String legalAddress;
+
+    private String actualAddress;
 
     private String phone;
 

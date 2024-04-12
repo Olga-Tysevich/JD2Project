@@ -1,10 +1,10 @@
 package it.academy.services.admin;
 
-import it.academy.dao.ServiceCenterDAO;
 import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.AccountDAOImpl;
-import it.academy.dao.impl.ServiceCenterDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dao.service_center.ServiceCenterDAO;
+import it.academy.dao.service_center.ServiceCenterDAOImpl;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.req.ChangeAccountDTO;
 import it.academy.dto.account.req.CreateAccountDTO;
 import it.academy.dto.account.resp.AccountDTO;
@@ -30,7 +30,7 @@ import static it.academy.utils.Constants.LIST_SIZE;
 public class AdminServiceImpl implements AdminService {
     private TransactionManger transactionManger = new TransactionManger();
     private AccountDAO accountDAO = new AccountDAOImpl();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
 
     @Override
     public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered {
@@ -38,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
         System.out.println("add adto " + createAccountDTO);
         System.out.println("add a " + account);
 
+        transactionManger.beginTransaction();
         if (!createAccountDTO.getPassword().equals(createAccountDTO.getConfirmPassword())) {
             throw new EnteredPasswordsNotMatch();
         }
@@ -46,22 +47,18 @@ public class AdminServiceImpl implements AdminService {
             throw new EmailAlreadyRegistered(account.getEmail());
         }
 
-        Supplier<Account> create = () -> {
+        if (RoleEnum.SERVICE_CENTER.equals(account.getRole())) {
+            ServiceCenter serviceCenter = serviceCenterDAO.find(createAccountDTO.getServiceCenterId());
+            System.out.println("add servicee center " + serviceCenter);
+            account.setServiceCenter(serviceCenter);
+        }
 
-            if (RoleEnum.SERVICE_CENTER.equals(account.getRole())) {
-                ServiceCenter serviceCenter = serviceCenterDAO.find(createAccountDTO.getServiceCenterId());
-                System.out.println("add servicee center " + serviceCenter);
-                account.setServiceCenter(serviceCenter);
-            }
+        Account result = accountDAO.create(account);
 
-            Account result = accountDAO.create(account);
+        System.out.println("after save " + result);
 
-            System.out.println("after save " + result);
 
-            return result;
-        };
-
-        transactionManger.execute(create);
+        transactionManger.commit();
     }
 
     @Override

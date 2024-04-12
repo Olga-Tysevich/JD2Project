@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.req.CreateAccountDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
@@ -8,7 +8,7 @@ import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.impl.test.Extractor;
+import it.academy.utils.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,6 +21,8 @@ public class AddAccount implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
+        int pageNumber = req.getParameter(PAGE_NUMBER) != null?
+                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
         CreateAccountDTO accountDTO = Extractor.extract(req, new CreateAccountDTO());
         ListForPage<ServiceCenterDTO> listFoPage = new ListForPage<>();
         try {
@@ -37,7 +39,7 @@ public class AddAccount implements ActionCommand {
         }
 
         req.setAttribute(PAGE, req.getParameter(PAGE));
-        req.setAttribute(PAGE_NUMBER, Integer.parseInt(req.getParameter(PAGE_NUMBER)));
+        req.setAttribute(PAGE_NUMBER, pageNumber);
 
         return MAIN_PAGE_PATH;
     }

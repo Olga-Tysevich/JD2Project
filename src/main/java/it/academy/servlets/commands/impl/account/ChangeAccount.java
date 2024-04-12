@@ -1,12 +1,12 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.req.ChangeAccountDTO;
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.impl.test.Extractor;
+import it.academy.utils.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
 

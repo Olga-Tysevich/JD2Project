@@ -1,13 +1,12 @@
 package it.academy.servlets.commands.impl.tables;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 

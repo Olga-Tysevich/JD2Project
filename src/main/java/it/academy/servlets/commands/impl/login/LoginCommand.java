@@ -2,6 +2,8 @@ package it.academy.servlets.commands.impl.login;
 
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.login.req.LoginDTO;
+import it.academy.dto.table.resp.ListForPage;
+import it.academy.entities.account.Account;
 import it.academy.services.auth.AuthService;
 import it.academy.services.auth.AuthServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -28,7 +30,9 @@ public class LoginCommand implements ActionCommand {
             System.out.println(e.getMessage());
             return LOGIN_PAGE_PATH;
         }
-        req.setAttribute(PAGE_NUMBER, FIRST_PAGE);
+        ListForPage<Account> list = new ListForPage<>();
+        list.setPageNumber(FIRST_PAGE);
+        req.setAttribute(LIST_FOR_PAGE, list);
 
         return MAIN_PAGE_PATH;
     }

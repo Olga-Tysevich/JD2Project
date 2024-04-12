@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors.impl.account;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.entities.account.RoleEnum;

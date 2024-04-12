@@ -2,7 +2,7 @@ package it.academy.services.device.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.services.device.DeviceTypeService;

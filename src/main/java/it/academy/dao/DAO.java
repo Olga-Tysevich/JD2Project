@@ -11,7 +11,7 @@ public interface DAO<T, R> {
 
     T find(R id);
 
-    <S> T findByUniqueParameter(String filter, S parameter);
+    <S> T findByUniqueParameter(String filter, S parameters);
 
     boolean delete(R id);
 

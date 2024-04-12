@@ -1,7 +1,7 @@
 package it.academy.dao.device.impl;
 
 import it.academy.dao.device.ModelDAO;
-import it.academy.dao.impl.DAOImpl;
+import it.academy.dao.DAOImpl;
 import it.academy.entities.device.components.Model;
 import it.academy.utils.dao.TransactionManger;
 
@@ -16,6 +16,10 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
 
     public ModelDAOImpl() {
         super(new TransactionManger(), Model.class);
+    }
+
+    public ModelDAOImpl(TransactionManger manger) {
+        super(manger, Model.class);
     }
 
     @Override

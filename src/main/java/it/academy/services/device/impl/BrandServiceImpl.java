@@ -2,7 +2,7 @@ package it.academy.services.device.impl;
 
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.entities.device.components.Brand;
 import it.academy.services.device.BrandService;

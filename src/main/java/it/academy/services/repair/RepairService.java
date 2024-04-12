@@ -1,7 +1,7 @@
 package it.academy.services.repair;
 
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.device.req.ModelDTO;

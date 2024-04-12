@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.account.resp.AccountDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT" %>

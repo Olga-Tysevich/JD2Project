@@ -2,7 +2,7 @@ package it.academy.services.repair.impl;
 
 import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.services.repair.RepairTypeService;

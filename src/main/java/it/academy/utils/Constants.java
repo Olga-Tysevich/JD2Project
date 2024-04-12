@@ -15,19 +15,44 @@ public class Constants {
 
     //account parameters
     public static final String ACCOUNT_EMAIL = "email";
+    //service center
+    public static final String SERVICE_CENTER_REQUISITES = "requisites";
+    public static final String SERVICE_CENTER_EMAIL = "email";
+    public static final String SERVICE_CENTER_NAME = "serviceName";
+    public static final String SERVICE_CENTER_BANK_NAME = "bankName";
+    public static final String SERVICE_CENTER_BANK_ACCOUNT = "bankAccount";
+    public static final String SERVICE_CENTER_BANK_CODE = "bankCode";
+    public static final String SERVICE_CENTER_BANK_ADDRESS = "bankAddress";
+    public static final String SERVICE_CENTER_FULL_NAME = "fullName";
+    public static final String SERVICE_CENTER_LEGAL_ADDRESS = "legalAddress";
+    public static final String SERVICE_CENTER_ACTUAL_ADDRESS = "actualAddress";
+    public static final String SERVICE_CENTER_PHONE = "phone";
+    public static final String SERVICE_CENTER_TAXPAYER_NUMBER = "taxpayerNumber";
+    public static final String SERVICE_CENTER_REGISTRATION_NUMBER = "registrationNumber";
 
-
-    //jsp pages
-    public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
-    public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
-    public static final String NEW_ACCOUNT_PAGE_PATH = "/pages/add/addAccount.jsp";
     //jsp
+    public static final String LIST_FOR_PAGE = "table";
+    public static final String FILTER = "filter";
+    public static final String USER_INPUT = "input";
     public static final String COMMAND = "command";
     public static final String PAGE_NUMBER = "pageNumber";
     public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";
+    //jsp pages
+    //login main
+    public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
+    public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
+    //account
+    public static final String NEW_ACCOUNT_PAGE_PATH = "/pages/account/addAccount.jsp";
+    public static final String ACCOUNT_PAGE_PATH = "/pages/account/changeAccount.jsp";
+    public static final String ACCOUNT_TABLE_PAGE_PATH = "/pages/account/accountTable.jsp";
+    //service center
+    public static final String SERVICE_CENTER_PAGE_PATH = "/pages/service_center/changeServiceCenter.jsp";
+    public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/service_center/serviceCenterTable.jsp";
+
+
     //Account
     public static final String ACCOUNT = "account";
     public static final String SERVICE_CENTERS = "service_centers";
@@ -100,20 +125,9 @@ public class Constants {
 
 
     //jsp
+    public static final String SHOW_COMMAND = "show_command";
     //RepairWorkshop parameters
     public static final String SERVICE_CENTER = "service_center";
-    public static final String SERVICE_CENTER_NAME = "service_center_service_name";
-    public static final String SERVICE_CENTER_BANK_ACCOUNT = "service_center_bank_account";
-    public static final String SERVICE_CENTER_BANK_CODE = "service_center_bank_code";
-    public static final String SERVICE_CENTER_BANK_NAME = "service_center_bank_name";
-    public static final String SERVICE_CENTER_BANK_ADDRESS = "service_center_bank_address";
-    public static final String SERVICE_CENTER_FULL_NAME = "service_center_full_name";
-    public static final String SERVICE_CENTER_ACTUAL_ADDRESS = "service_center_actual_address";
-    public static final String SERVICE_CENTER_LEGAL_ADDRESS = "service_center_legal_address";
-    public static final String SERVICE_CENTER_PHONE = "service_center_phone";
-    public static final String SERVICE_CENTER_EMAIL = "service_center_email";
-    public static final String SERVICE_CENTER_TAXPAYER_NUMBER = "service_center_taxpayer_number";
-    public static final String SERVICE_CENTER_REGISTRATION_NUMBER = "service_center_registration_number";
     //Model parameters
     public static final String MODEL_ID = "model_id";
     public static final String MODEL_NAME = "model_name";
@@ -157,16 +171,8 @@ public class Constants {
     //QueryManager
     public static final String PUNCTUATION_MARKS_PATTERN = "[\\s\\p{P}]+";
 
-
-
     //Paths
-    public static final String ERROR_PAGE_PATH = "path.page.error";
-    //    public static final String MAIN_PAGE_PATH = "path.page.main";
-//    public static final String REPAIR_PAGE_PATH = "path.page.repair";
-    public static final String REPAIR_TABLE_PATH = "path.page.repair.table";
-    public static final String WAITING_SPARE_PARTS_TABLE_PATH = "path.page.repair.waiting";
 
-    public static final String ACCOUNT_PAGE_PATH = "/pages/change_pages/changeAccount.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
@@ -175,14 +181,13 @@ public class Constants {
     public static final String DEVICE_TYPE_PAGE_PATH = "/pages/change_pages/changeDeviceType.jsp";
     public static final String BRAND_PAGE_PATH = "/pages/change_pages/changeBrand.jsp";
     public static final String MODEL_PAGE_PATH = "/pages/change_pages/changeModel.jsp";
-    public static final String SERVICE_CENTER_PAGE_PATH = "/pages/change_pages/changeServiceCenter.jsp";
 
     public static final String BRAND_LIST_PAGE_PATH = "/pages/forms/brandList.jsp";
     public static final String MODEL_LIST_PAGE_PATH = "/pages/forms/modelList.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
 
-    public static final String ACCOUNT_TABLE_PAGE_PATH = "/pages/tables/accountTable.jsp";
+
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
     public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
     public static final String SPARE_PART_ORDERS_TABLE_PAGE_PATH = "/pages/tables/sparePartOrdersTable.jsp";
@@ -190,20 +195,13 @@ public class Constants {
     public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/tables/deviceTypesTable.jsp";
     public static final String BRAND_TABLE_PAGE_PATH = "/pages/tables/brandTable.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/tables/modelTable.jsp";
-    public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/tables/serviceCenterTable.jsp";
 
     //jsp
-    //common
-    public static final String SHOW_COMMAND = "show_command";
-    public static final String LIST_FOR_PAGE = "table";
-    public static final String FILTER = "filter";
-    public static final String USER_INPUT = "user_input";
 
     //show_command
     public static final String SHOW_START_PAGE = "open_page";
     public static final String ADD_ACCOUNT = "add_account";
     public static final String CHANGE_ACCOUNT = "change_account";
-    public static final String SHOW_ACCOUNT_TABLE = "show_account_table";
     public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
@@ -272,6 +270,7 @@ public class Constants {
     public static final String MODEL_NAME_FILTER = "Название модели";
 
     //ERROR_MESSAGES
+    public static final String ERROR_PATTERN = "text: %s, object: %s";
     public static final String EMAIL_ALREADY_EXISTS = "Email: %s is already registered!";
     public static final String PASSWORDS_NOT_MATCH = "The entered passwords do not match!";
     public static final String FIELD_NOT_FILLED = "Required field is not filled in!";
@@ -279,5 +278,7 @@ public class Constants {
     public static final String INCORRECT_PASSWORD = "Incorrect password!";
     public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
+    public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
+
 
 }

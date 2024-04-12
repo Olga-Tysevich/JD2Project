@@ -1,8 +1,9 @@
 package it.academy.utils;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.device.req.ModelDTO;
+import it.academy.dto.service_center.ServiceCenterDTO;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 
@@ -30,6 +31,24 @@ public class Builder {
                 .buyerPhone(DEFAULT_VALUE)
                 .salesmanName(DEFAULT_VALUE)
                 .salesmanPhone(DEFAULT_VALUE)
+                .build();
+    }
+
+    public static ServiceCenterDTO buildEmptyServiceCenter() {
+        return ServiceCenterDTO.builder()
+                .serviceName(DEFAULT_VALUE)
+                .bankAccount(DEFAULT_VALUE)
+                .bankCode(DEFAULT_VALUE)
+                .bankName(DEFAULT_VALUE)
+                .bankAddress(DEFAULT_VALUE)
+                .fullName(DEFAULT_VALUE)
+                .actualAddress(DEFAULT_VALUE)
+                .legalAddress(DEFAULT_VALUE)
+                .phone(DEFAULT_VALUE)
+                .email(DEFAULT_VALUE)
+                .taxpayerNumber(DEFAULT_VALUE)
+                .registrationNumber(DEFAULT_VALUE)
+                .isActive(true)
                 .build();
     }
 

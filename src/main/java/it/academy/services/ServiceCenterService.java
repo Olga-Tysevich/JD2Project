@@ -1,13 +1,14 @@
 package it.academy.services;
 
-import it.academy.dto.ListForPage;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.exceptions.account.EmailAlreadyRegistered;
 
 import java.util.List;
 
 public interface ServiceCenterService {
 
-    void addServiceCenter(ServiceCenterDTO serviceCenterDTO);
+    void addServiceCenter(ServiceCenterDTO serviceCenterDTO) throws EmailAlreadyRegistered;
 
     void updateServiceCenter(ServiceCenterDTO serviceCenterDTO);
 

@@ -1,7 +1,7 @@
 package it.academy;
 
 import it.academy.dao.account.AccountDAO;
-import it.academy.dao.ServiceCenterDAO;
+import it.academy.dao.service_center.ServiceCenterDAO;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.DeviceDAO;
 import it.academy.dao.device.DeviceTypeDAO;
@@ -11,11 +11,10 @@ import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.account.AccountDAOImpl;
-import it.academy.dao.impl.ServiceCenterDAOImpl;
+import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
-import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.admin.AdminService;
 import it.academy.services.ServiceCenterService;
@@ -25,14 +24,11 @@ import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
-import it.academy.utils.Generator;
 import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Test2 {
 

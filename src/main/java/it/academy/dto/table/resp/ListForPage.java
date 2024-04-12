@@ -1,4 +1,4 @@
-package it.academy.dto;
+package it.academy.dto.table.resp;
 
 import it.academy.utils.EntityFilter;
 import lombok.AllArgsConstructor;
@@ -14,12 +14,16 @@ import java.util.List;
 @AllArgsConstructor
 public class ListForPage<T> {
 
-    private int pageNumber;
+    private Integer pageNumber;
 
-    private int maxPageNumber;
+    private Integer maxPageNumber;
 
     private List<T> list;
 
     private List<EntityFilter> filtersForPage;
+
+    private String command;
+
+    private String page;
 
 }

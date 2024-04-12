@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="it.academy.dto.device.req.DeviceTypeDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_DEVICE_TYPE" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_DEVICE_TYPE" %>

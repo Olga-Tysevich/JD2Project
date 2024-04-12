@@ -16,6 +16,9 @@
             ServiceCenterDTO serviceCenter = (ServiceCenterDTO) request.getAttribute(SERVICE_CENTER);
             String command = (String) request.getAttribute(COMMAND);
         %>
+        <%=pageNumber%>
+        <%=serviceCenter%>
+        <%=command%>
             <div class="lr-container">
                     <form action="main" method="post" id="service_center">
                         <div class="f-input">
@@ -35,62 +38,62 @@
                         <%} %>
                         <div class="f-input">
                             <label class="form-el">Сервисное имя:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_NAME%>" value="<%=serviceCenter.getServiceName()%>">
+                        <input class="f-form" required type="text" name="<%=SERVICE_CENTER_NAME%>" value="<%=serviceCenter.getServiceName()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Банк:</label>
-                        <input class="f-form"  type="text" name="<%=SERVICE_CENTER_BANK_NAME%>" value="<%=serviceCenter.getBankName()%>">
+                        <input class="f-form" required type="text" name="<%=SERVICE_CENTER_BANK_NAME%>" value="<%=serviceCenter.getBankName()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Банковский аккаунт:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_BANK_ACCOUNT%>" value="<%=serviceCenter.getBankAccount()%>">
+                        <input class="f-form" required  type="text" name="<%=SERVICE_CENTER_BANK_ACCOUNT%>" value="<%=serviceCenter.getBankAccount()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">БИК:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_BANK_CODE%>" value="<%=serviceCenter.getBankCode()%>">
+                        <input class="f-form" required type="text" name="<%=SERVICE_CENTER_BANK_CODE%>" value="<%=serviceCenter.getBankCode()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Адрес банка:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_BANK_ADDRESS%>" value="<%=serviceCenter.getBankAddress()%>">
+                        <input class="f-form" required  type="text" name="<%=SERVICE_CENTER_BANK_ADDRESS%>" value="<%=serviceCenter.getBankAddress()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Полное название:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_FULL_NAME%>" value="<%=serviceCenter.getFullName()%>">
+                        <input class="f-form" required type="text" name="<%=SERVICE_CENTER_FULL_NAME%>" value="<%=serviceCenter.getFullName()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Юридический адрес:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_LEGAL_ADDRESS%>" value="<%=serviceCenter.getLegalAddress()%>">
+                        <input class="f-form" required  type="text" name="<%=SERVICE_CENTER_LEGAL_ADDRESS%>" value="<%=serviceCenter.getLegalAddress()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Фактический адрес:</label>
-                        <input class="f-form" type="text" name="<%=SERVICE_CENTER_ACTUAL_ADDRESS%>" value="<%=serviceCenter.getActualAddress()%>">
+                        <input class="f-form" required type="text" name="<%=SERVICE_CENTER_ACTUAL_ADDRESS%>" value="<%=serviceCenter.getActualAddress()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">Телефон:</label>
-                        <input class="f-form" type="tel" name="<%=SERVICE_CENTER_PHONE%>" value="<%=serviceCenter.getPhone()%>">
+                        <input class="f-form" required type="tel" name="<%=SERVICE_CENTER_PHONE%>" value="<%=serviceCenter.getPhone()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">email:</label>
-                        <input class="f-form" type="email" name="<%=SERVICE_CENTER_EMAIL%>" value="<%=serviceCenter.getEmail()%>">
+                        <input class="f-form" required type="email" name="<%=SERVICE_CENTER_EMAIL%>" value="<%=serviceCenter.getEmail()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">УНН:</label>
-                        <input class="f-form" type="number" name="<%=SERVICE_CENTER_TAXPAYER_NUMBER%>" value="<%=serviceCenter.getTaxpayerNumber()%>">
+                        <input class="f-form" required type="number" name="<%=SERVICE_CENTER_TAXPAYER_NUMBER%>" value="<%=serviceCenter.getTaxpayerNumber()%>">
                         </div>
 
                         <div class="f-input">
                             <label class="form-el">ОКПО:</label>
-                        <input class="f-form" type="number" name="<%=SERVICE_CENTER_REGISTRATION_NUMBER%>" value="<%=serviceCenter.getRegistrationNumber()%>">
+                        <input class="f-form" required type="number" name="<%=SERVICE_CENTER_REGISTRATION_NUMBER%>" value="<%=serviceCenter.getRegistrationNumber()%>">
                         </div>
 
                         <div class="button-container">

@@ -25,7 +25,7 @@ public class Requisites implements Serializable {
 
     private String email;
 
-    private String taxpayerNumber;
+    private Integer taxpayerNumber;
 
-    private String registrationNumber;
+    private Integer registrationNumber;
 }
