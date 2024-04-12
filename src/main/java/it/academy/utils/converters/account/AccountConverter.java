@@ -59,10 +59,4 @@ public class AccountConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<Account> convertToEntityList(List<AccountDTO> accounts) {
-//        return accounts.stream()
-//                .map(AccountConverter::convertToEntity)
-//                .collect(Collectors.toList());
-        return null;
-    }
 }

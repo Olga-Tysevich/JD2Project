@@ -3,8 +3,8 @@ package it.academy.servlets.commands.impl.service_center;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.dto.table.req.TableReq;
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.service_center.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.servlets.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE;
@@ -22,9 +22,9 @@ public class ShowServiceCenterTable implements ActionCommand {
         ListForPage<ServiceCenterDTO> serviceCenters;
         if (request.getInput() != null && !request.getInput().isBlank()
                 && request.getFilter() != null && !request.getFilter().isBlank()) {
-            serviceCenters = serviceCenterService.findServiceCenter(request.getPageNumber(), request.getFilter(), request.getInput());
+            serviceCenters = serviceCenterService.findServiceCenters(request.getPageNumber(), request.getFilter(), request.getInput());
         } else {
-            serviceCenters = serviceCenterService.findServiceCenter(request.getPageNumber());
+            serviceCenters = serviceCenterService.findServiceCenters(request.getPageNumber());
         }
         System.out.println("show service center table accounts " + serviceCenters);
         serviceCenters.setPage(SERVICE_CENTER_TABLE_PAGE_PATH);

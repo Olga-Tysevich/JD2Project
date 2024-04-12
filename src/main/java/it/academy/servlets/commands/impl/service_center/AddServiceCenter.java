@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.service_center;
 
 import it.academy.dto.service_center.ServiceCenterDTO;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.service_center.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.Extractor;
 import javax.servlet.http.HttpServletRequest;

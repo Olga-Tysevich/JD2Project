@@ -7,6 +7,8 @@ import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.AdminServiceImpl;
+import it.academy.services.service_center.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.Extractor;
 
@@ -17,6 +19,7 @@ import static it.academy.utils.Constants.*;
 
 public class AddAccount implements ActionCommand {
     private AdminService adminService = new AdminServiceImpl();
+    private ServiceCenterService service = new ServiceCenterServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req) {
@@ -28,7 +31,7 @@ public class AddAccount implements ActionCommand {
         try {
             adminService.createAccount(accountDTO);
         } catch (EnteredPasswordsNotMatch | EmailAlreadyRegistered e) {
-            List<ServiceCenterDTO> serviceCenters = adminService.findServiceCenters();
+            List<ServiceCenterDTO> serviceCenters = service.findServiceCenters();
             listFoPage.setList(serviceCenters);
             System.out.println("add account list " + serviceCenters);
             System.out.println("error " + e.getMessage());

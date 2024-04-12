@@ -23,14 +23,12 @@ public class AddBrand implements ActionCommand {
         } catch (IllegalArgumentException e) {
             System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
-
-            return new ShowBrandTable().execute(req);
         }
 
         req.setAttribute(PAGE, req.getParameter(PAGE));
         req.setAttribute(PAGE_NUMBER, pageNumber);
 
-        return MAIN_PAGE_PATH;
+        return new ShowBrandTable().execute(req);
     }
 
 }

@@ -7,7 +7,6 @@ import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dto.account.req.ChangeAccountDTO;
 import it.academy.dto.account.req.CreateAccountDTO;
 import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.RoleEnum;
@@ -17,11 +16,11 @@ import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.account.AccountConverter;
-import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.EMAIL;
@@ -110,83 +109,28 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber) {
-        List<EntityFilter> filters = FilterManager.getFiltersForAccount();
-
-        Supplier<ListForPage<AccountDTO>> find = () -> {
-            List<Account> accounts = accountDAO.findForPage(pageNumber, LIST_SIZE);
-            int maxPageNumber = (int) Math.ceil(((double) accountDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<AccountDTO> list = AccountConverter.convertToDTOList(accounts);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
-        };
-
-        return transactionManger.execute(find);
+        return getServiceCenterList(() -> accountDAO.findForPage(pageNumber, LIST_SIZE), pageNumber,
+                AccountConverter::convertToDTOList);
     }
 
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = FilterManager.getFiltersForAccount();
+        return getServiceCenterList(() -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
+                AccountConverter::convertToDTOList);
+    }
+
+    private ListForPage<AccountDTO> getServiceCenterList(Supplier<List<Account>> method, int pageNumber,
+                                                               Function<List<Account>, List<AccountDTO>> converter) {
+        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
 
         Supplier<ListForPage<AccountDTO>> find = () -> {
-            List<Account> accounts = accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+            List<Account> accounts = method.get();
             int maxPageNumber = (int) Math.ceil(((double) accountDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<AccountDTO> list = AccountConverter.convertToDTOList(accounts);
+            List<AccountDTO> list = converter.apply(accounts);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 
         return transactionManger.execute(find);
     }
-
-    @Override
-    public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) {
-        ServiceCenter result = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
-        transactionManger.execute(() -> serviceCenterDAO.create(result));
-    }
-
-    @Override
-    public void updateServiceCenter(ServiceCenterDTO serviceCenterDTO) {
-        ServiceCenter result = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
-        transactionManger.execute(() -> serviceCenterDAO.update(result));
-    }
-
-    @Override
-    public ServiceCenterDTO findServiceCenters(long id) {
-        ServiceCenter result = transactionManger.execute(() -> serviceCenterDAO.find(id));
-        return ServiceCenterConverter.convertToDTO(result);
-    }
-
-    @Override
-    public List<ServiceCenterDTO> findServiceCenters() {
-        List<ServiceCenter> repairs = transactionManger.execute(() -> serviceCenterDAO.findAll());
-        return ServiceCenterConverter.convertListToDTO(repairs);
-    }
-
-    @Override
-    public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber) {
-        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
-
-        Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
-            List<ServiceCenter> repairs = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
-            int maxPageNumber = (int) Math.ceil(((double) serviceCenterDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<ServiceCenterDTO> list = ServiceCenterConverter.convertListToDTO(repairs);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
-        };
-
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
-
-        Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
-            List<ServiceCenter> repairs = serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) serviceCenterDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<ServiceCenterDTO> list = ServiceCenterConverter.convertListToDTO(repairs);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
-        };
-
-        return transactionManger.execute(find);
-    }
-
 
 }

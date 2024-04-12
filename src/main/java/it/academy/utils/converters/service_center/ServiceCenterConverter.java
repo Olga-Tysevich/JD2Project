@@ -31,7 +31,7 @@ public class ServiceCenterConverter {
                 .build();
     }
 
-    public static ServiceCenter convertDTOToEntity(ServiceCenterDTO serviceCenterDTO) {
+    public static ServiceCenter convertToEntity(ServiceCenterDTO serviceCenterDTO) {
         return ServiceCenter.builder()
                 .id(serviceCenterDTO.getId())
                 .serviceName(serviceCenterDTO.getServiceName())
@@ -54,15 +54,15 @@ public class ServiceCenterConverter {
                 .build();
     }
 
-    public static List<ServiceCenterDTO> convertListToDTO(List<ServiceCenter> serviceCenters) {
+    public static List<ServiceCenterDTO> convertToDTOList(List<ServiceCenter> serviceCenters) {
         return serviceCenters.stream()
                 .map(ServiceCenterConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<ServiceCenter> convertDTOListToEntityList(List<ServiceCenterDTO> reqList) {
+    public static List<ServiceCenter> convertToEntityList(List<ServiceCenterDTO> reqList) {
         return reqList.stream()
-                .map(ServiceCenterConverter::convertDTOToEntity)
+                .map(ServiceCenterConverter::convertToEntity)
                 .collect(Collectors.toList());
     }
 

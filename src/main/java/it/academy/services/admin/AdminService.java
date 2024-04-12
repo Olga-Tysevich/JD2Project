@@ -15,19 +15,6 @@ public interface AdminService {
 
     void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered;
 
-
-    void addServiceCenter(ServiceCenterDTO serviceCenterDTO);
-
-    void updateServiceCenter(ServiceCenterDTO serviceCenterDTO);
-
-    ServiceCenterDTO findServiceCenters(long id);
-
-    List<ServiceCenterDTO> findServiceCenters();
-
-    ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber);
-
-    ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input);
-
     AccountDTO findAccount(long id);
 
     List<AccountDTO> findAccounts();

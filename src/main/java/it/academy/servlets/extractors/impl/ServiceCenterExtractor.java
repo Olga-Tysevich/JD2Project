@@ -2,8 +2,8 @@ package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.service_center.ServiceCenterDTO;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.service_center.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,9 +61,9 @@ public class ServiceCenterExtractor implements Extractor<ServiceCenterDTO> {
 
         ListForPage<ServiceCenterDTO> repairTypes;
         if (input != null && !input.isBlank()) {
-            repairTypes = serviceCenterService.findServiceCenter(pageNumber, filter, input);
+            repairTypes = serviceCenterService.findServiceCenters(pageNumber, filter, input);
         } else {
-            repairTypes = serviceCenterService.findServiceCenter(pageNumber);
+            repairTypes = serviceCenterService.findServiceCenters(pageNumber);
         }
 
 //        PageManager.insertAttributesForTable(req, repairTypes, SERVICE_CENTER_TABLE_PAGE_PATH);

@@ -18,7 +18,7 @@ public class BrandConverter {
                 .build();
     }
 
-    public static Brand convertDTOToEntity(BrandDTO req) {
+    public static Brand convertToEntity(BrandDTO req) {
         return Brand.builder()
                 .id(req.getId())
                 .name(req.getName())
@@ -26,15 +26,15 @@ public class BrandConverter {
                 .build();
     }
 
-    public static List<BrandDTO> convertListToDTO(List<Brand> brands) {
+    public static List<BrandDTO> convertToListDTO(List<Brand> brands) {
         return brands.stream()
                 .map(BrandConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<Brand> convertDTOListToEntityList(List<BrandDTO> brands) {
+    public static List<Brand> convertToEntityList(List<BrandDTO> brands) {
         return brands.stream()
-                .map(BrandConverter::convertDTOToEntity)
+                .map(BrandConverter::convertToEntity)
                 .collect(Collectors.toList());
     }
 

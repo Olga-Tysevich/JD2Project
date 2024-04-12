@@ -23,14 +23,17 @@
     <div class="forms-container lf">
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_brand">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_BRAND%>>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_BRAND%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="<%=BRAND_ID%>" value="<%=brand.getId()%>">
+                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
 
                 <div class="f-input">
                     <label class="form-el">Активен</label>
-                    <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>"
-                           <%if (brand.getIsActive()) {%>checked<%}%>>
+                    <label >Активный: </label>
+                    <label >да: </label>
+                    <input type="radio" name="<%=IS_ACTIVE%>"  value="true" <%if (brand.getIsActive()) {%>checked<%}%> />
+                    <label >нет: </label>
+                    <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!brand.getIsActive()) {%>checked<%}%>/>
                 </div>
 
 

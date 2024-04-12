@@ -8,9 +8,9 @@ import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairCategory;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.repair.RepairService;
-import it.academy.services.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.repair.impl.RepairServiceImpl;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;

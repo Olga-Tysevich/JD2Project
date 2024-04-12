@@ -1,11 +1,10 @@
-package it.academy.services.impl;
+package it.academy.services.service_center;
 
 import it.academy.dao.service_center.ServiceCenterDAO;
 import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.entities.service_center.ServiceCenter;
-import it.academy.services.ServiceCenterService;
 import it.academy.utils.Builder;
 import it.academy.utils.EntityFilter;
 import it.academy.utils.converters.service_center.ServiceCenterConverter;
@@ -30,7 +29,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
             throw new IllegalArgumentException(SERVICE_CENTERS_ALREADY_EXIST);
         }
 
-        ServiceCenter serviceCenter = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
+        ServiceCenter serviceCenter = ServiceCenterConverter.convertToEntity(serviceCenterDTO);
 
         ServiceCenter result = serviceCenterDAO.create(serviceCenter);
         System.out.println("Service center " + result);
@@ -39,7 +38,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 
     @Override
     public void updateServiceCenter(ServiceCenterDTO serviceCenterDTO) {
-        ServiceCenter result = ServiceCenterConverter.convertDTOToEntity(serviceCenterDTO);
+        ServiceCenter result = ServiceCenterConverter.convertToEntity(serviceCenterDTO);
 
         transactionManger.beginTransaction();
 
@@ -62,21 +61,21 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public List<ServiceCenterDTO> findServiceCenter() {
+    public List<ServiceCenterDTO> findServiceCenters() {
         List<ServiceCenter> centers = transactionManger.execute(() -> serviceCenterDAO.findAll());
-        return ServiceCenterConverter.convertListToDTO(centers);
+        return ServiceCenterConverter.convertToDTOList(centers);
     }
 
     @Override
-    public ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber) {
+    public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber) {
         return getServiceCenterList(() -> serviceCenterDAO.findForPage(pageNumber, LIST_SIZE), pageNumber,
-                ServiceCenterConverter::convertListToDTO);
+                ServiceCenterConverter::convertToDTOList);
     }
 
     @Override
-    public ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber, String filter, String input) {
+    public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
         return getServiceCenterList(() -> serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
-                ServiceCenterConverter::convertListToDTO);
+                ServiceCenterConverter::convertToDTOList);
     }
 
     private ListForPage<ServiceCenterDTO> getServiceCenterList(Supplier<List<ServiceCenter>> method, int pageNumber,

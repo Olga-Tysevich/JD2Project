@@ -61,7 +61,7 @@ public class RepairConverter {
         Repair repair = Repair.builder()
                 .id(repairDTO.getId())
 //                .repairWorkshop()
-                .serviceCenter(ServiceCenterConverter.convertDTOToEntity(repairDTO.getRepairWorkshop()))
+                .serviceCenter(ServiceCenterConverter.convertToEntity(repairDTO.getRepairWorkshop()))
                 .status(repairDTO.getStatus())
                 .category(repairDTO.getCategory())
                 .device(DeviceConverter.convertDTOToEntity(repairDTO.getDevice()))

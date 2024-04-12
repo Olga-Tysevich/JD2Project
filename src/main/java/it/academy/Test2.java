@@ -17,9 +17,9 @@ import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.services.admin.AdminService;
-import it.academy.services.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.admin.AdminServiceImpl;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.services.spare_part.SparePartOrderService;
@@ -50,7 +50,7 @@ public class Test2 {
         ModelDAO modelDAO = new ModelDAOImpl();
         BrandDAO brandDAO = new BrandDAOImpl();
 
-        List<ServiceCenter> repairWorkshops = ServiceCenterConverter.convertDTOListToEntityList(serviceCenterService.findServiceCenter());
+        List<ServiceCenter> repairWorkshops = ServiceCenterConverter.convertToEntityList(serviceCenterService.findServiceCenters());
 
         CommandEnum c = CommandEnum.valueOf(SHOW_ACCOUNT_TABLE.name());
 

@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.service_center;
 
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.service_center.ServiceCenterDTO;
@@ -14,10 +14,10 @@ public interface ServiceCenterService {
 
     ServiceCenterDTO findServiceCenter(long id);
 
-    List<ServiceCenterDTO> findServiceCenter();
+    List<ServiceCenterDTO> findServiceCenters();
 
-    ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber);
+    ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber);
 
-    ListForPage<ServiceCenterDTO> findServiceCenter(int pageNumber, String filter, String input);
+    ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input);
 
 }

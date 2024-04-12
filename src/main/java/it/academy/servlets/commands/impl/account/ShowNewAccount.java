@@ -2,8 +2,8 @@ package it.academy.servlets.commands.impl.account;
 
 import it.academy.dto.account.req.CreateAccountDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.service_center.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,7 +23,7 @@ public class ShowNewAccount implements ActionCommand {
                 .confirmPassword(DEFAULT_VALUE)
                 .build();
 
-        List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenter();
+        List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
         if (!serviceCenterList.isEmpty()) {
             req.setAttribute(ACCOUNT, accountDTO);
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);
