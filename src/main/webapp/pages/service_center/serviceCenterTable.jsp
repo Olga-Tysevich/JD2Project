@@ -39,6 +39,7 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

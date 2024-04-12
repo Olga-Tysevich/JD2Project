@@ -3,7 +3,7 @@ package it.academy.servlets.commands.impl.brand;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.TableExtractor;
+import it.academy.servlets.extractors.TableExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +19,7 @@ public class ShowBrandTable implements ActionCommand {
                 (b, f, c) -> brandService.findBrands(b, f, c),
                 (i) -> brandService.findBrands(i),
                 SHOW_BRAND_TABLE);
+
     }
 
 }

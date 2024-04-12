@@ -56,6 +56,8 @@ public class Constants {
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";
     //jsp pages
+    //error page
+    public static final String ERROR_PAGE_PATH = "/pages/error.jsp";
     //login main
     public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
@@ -269,6 +271,7 @@ public class Constants {
     public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
+    public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
 
 
 }

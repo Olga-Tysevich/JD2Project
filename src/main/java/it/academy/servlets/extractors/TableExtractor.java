@@ -1,4 +1,4 @@
-package it.academy.servlets.commands;
+package it.academy.servlets.extractors;
 
 import it.academy.dto.table.req.TableReq;
 import it.academy.dto.table.resp.ListForPage;

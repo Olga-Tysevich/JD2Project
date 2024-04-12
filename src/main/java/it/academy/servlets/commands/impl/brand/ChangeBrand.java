@@ -1,13 +1,13 @@
 package it.academy.servlets.commands.impl.brand;
 
 import it.academy.dto.device.req.BrandDTO;
-import it.academy.dto.table.req.TableReq;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.utils.Extractor;
-
+import it.academy.servlets.extractors.FormExtractor;
+import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 
 import static it.academy.utils.Constants.*;
 
@@ -16,30 +16,21 @@ public class ChangeBrand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        BrandDTO brand = Extractor.extract(req, new BrandDTO());
-        TableReq request = Extractor.extract(req, new TableReq());
-        System.out.println("change brand req " + request);
-        System.out.println("change brand " + brand);
-        System.out.println("change brand page " + pageNumber);
 
         try {
-            brandService.updateBrand(brand);
-        } catch (IllegalArgumentException e) {
-            System.out.println("error " + e.getMessage());
-
-            req.setAttribute(ERROR, e.getMessage());
-            req.setAttribute(PAGE, request.getPage());
-            req.setAttribute(BRAND, brandService.findBrand(brand.getId()));
-            req.setAttribute(PAGE_NUMBER, pageNumber);
-            return BRAND_PAGE_PATH;
+            return FormExtractor.extract(req,
+                    (a) -> ThrowingConsumerWrapper.apply(() -> brandService.updateBrand((BrandDTO) a)),
+                    (id) -> brandService.findBrand(id),
+                    BrandDTO.class,
+                    BRAND,
+                    BRAND_PAGE_PATH,
+                    () -> new ShowBrandTable().execute(req));
+        } catch (NoSuchMethodException | IllegalAccessException
+                | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+            System.out.println(e.getMessage());
+            return ERROR_PAGE_PATH;
         }
 
-        req.setAttribute(PAGE, request.getPage());
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-
-        return new ShowBrandTable().execute(req);
     }
 
 }

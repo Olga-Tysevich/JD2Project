@@ -1,7 +1,5 @@
 package it.academy.utils.interfaces.wrappers;
 
-import it.academy.utils.interfaces.wrappers.ThrowingConsumer;
-
 public class ThrowingConsumerWrapper {
 
     public static<T> void apply(ThrowingConsumer<T> consumer){

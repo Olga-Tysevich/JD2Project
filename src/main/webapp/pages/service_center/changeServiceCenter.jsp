@@ -23,7 +23,8 @@
             <div class="lr-container">
                     <form action="main" method="post" id="service_center">
                         <div class="f-input">
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                            <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                            <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         </div>
                         <%=OBJECT_ID%>
@@ -115,6 +116,7 @@
 
                 <form method="post" action="main" id="cancel">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 </form>
 
