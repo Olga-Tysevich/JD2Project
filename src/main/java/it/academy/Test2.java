@@ -24,11 +24,14 @@ import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
+import it.academy.servlets.factory.CommandEnum;
 import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 
 public class Test2 {
 
@@ -48,6 +51,8 @@ public class Test2 {
         BrandDAO brandDAO = new BrandDAOImpl();
 
         List<ServiceCenter> repairWorkshops = ServiceCenterConverter.convertDTOListToEntityList(serviceCenterService.findServiceCenter());
+
+        CommandEnum c = CommandEnum.valueOf(SHOW_ACCOUNT_TABLE.name());
 
 //        List<Account> accounts = IntStream.range(0, 40)
 //                .mapToObj(i -> {

@@ -37,7 +37,7 @@
             <%=pageNumber%>
             <%=maxPageNumber%>
             <%=pageForDisplay%>
-            <%=command%>
+            <p><%=command%></p>
             <%
                 String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
             %>
@@ -49,11 +49,11 @@
 
         <% if (pageForDisplay != null) { %>
         <form action="main" method="post" id="search">
-            <input type="hidden" name="<%=COMMAND%>>" value="<%=command%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
             <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
-            <select class="filter" name="filter" size="1">
+            <select class="filter" name="<%=FILTER%>" size="1">
                 <% if (filters != null) {
                     for (EntityFilter filter: filters) { %>
                 <option selected value="<%=filter.getFieldName()%>"><%=filter.getDescription()%></option>

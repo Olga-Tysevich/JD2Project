@@ -32,7 +32,7 @@ public class ShowAccountTable implements ActionCommand {
         System.out.println("show account table accounts " + accounts);
         accounts.setPage(ACCOUNT_TABLE_PAGE_PATH);
         accounts.setCommand(SHOW_ACCOUNT_TABLE.name());
-        System.out.println("show accounts request after find" + request);
+        System.out.println("show accounts request after find" + accounts);
 
         req.setAttribute(LIST_FOR_PAGE, accounts);
 

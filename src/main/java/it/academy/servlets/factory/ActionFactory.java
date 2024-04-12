@@ -13,6 +13,7 @@ public class ActionFactory {
         ActionCommand current = null;
 
         String action = req.getParameter(COMMAND);
+        System.out.println("action factory command " + action);
 
         try {
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
