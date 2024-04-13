@@ -1,16 +1,15 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.account.req.CreateAccountDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
-import it.academy.exceptions.account.EmailAlreadyRegistered;
-import it.academy.exceptions.account.EnteredPasswordsNotMatch;
+import it.academy.dto.table.resp.ListForPage;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.AdminServiceImpl;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.utils.Extractor;
+import it.academy.servlets.extractors.FormExtractor;
+import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,28 +22,26 @@ public class AddAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        CreateAccountDTO accountDTO = Extractor.extract(req, new CreateAccountDTO());
-        ListForPage<ServiceCenterDTO> listFoPage = new ListForPage<>();
         try {
-            adminService.createAccount(accountDTO);
-        } catch (EnteredPasswordsNotMatch | EmailAlreadyRegistered e) {
-            List<ServiceCenterDTO> serviceCenters = service.findServiceCenters();
-            listFoPage.setList(serviceCenters);
-            System.out.println("add account list " + serviceCenters);
-            System.out.println("error " + e.getMessage());
-
-            req.setAttribute(SERVICE_CENTERS, serviceCenters);
-            req.setAttribute(ERROR, e.getMessage());
-            return NEW_ACCOUNT_PAGE_PATH;
+            String result = FormExtractor.extract(req,
+                    (a) -> ThrowingConsumerWrapper.apply(() -> adminService.createAccount((CreateAccountDTO) a)),
+                    (i) -> adminService.findAccount(0L),
+                    CreateAccountDTO.class,
+                    ACCOUNT,
+                    NEW_ACCOUNT_PAGE_PATH,
+                    () -> new ShowAccountTable().execute(req));
+            System.out.println("result " + result);
+            if (NEW_ACCOUNT_PAGE_PATH.equals(result)) {
+                ListForPage<ServiceCenterDTO> listFoPage = new ListForPage<>();
+                List<ServiceCenterDTO> serviceCenters = service.findServiceCenters();
+                listFoPage.setList(serviceCenters);
+                req.setAttribute(SERVICE_CENTERS, serviceCenters);
+            }
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ERROR_PAGE_PATH;
         }
-
-        req.setAttribute(PAGE, req.getParameter(PAGE));
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-
-        return MAIN_PAGE_PATH;
     }
 
 }

@@ -17,7 +17,7 @@ import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;

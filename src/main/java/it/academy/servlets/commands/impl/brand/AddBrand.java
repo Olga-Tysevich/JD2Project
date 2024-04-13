@@ -4,7 +4,7 @@ import it.academy.dto.device.req.BrandDTO;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.utils.Extractor;
+import it.academy.servlets.extractors.ExtractorImpl;
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.utils.Constants.*;
@@ -17,7 +17,7 @@ public class AddBrand implements ActionCommand {
 
         int pageNumber = req.getParameter(PAGE_NUMBER) != null?
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        BrandDTO brandDTO = Extractor.extract(req, new BrandDTO());
+        BrandDTO brandDTO = ExtractorImpl.extract(req, new BrandDTO());
         try {
             brandService.createBrand(brandDTO);
         } catch (IllegalArgumentException e) {

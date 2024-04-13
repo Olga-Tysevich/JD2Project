@@ -7,13 +7,15 @@ import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
+import it.academy.exceptions.common.AccessDenied;
+
 import java.util.List;
 
 public interface AdminService {
 
-    void createAccount(CreateAccountDTO account) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered;
+    void createAccount(CreateAccountDTO account) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered, AccessDenied;
 
-    void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered;
+    void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered, AccessDenied;
 
     AccountDTO findAccount(long id);
 

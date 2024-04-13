@@ -4,7 +4,9 @@ import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.utils.Extractor;
+import it.academy.servlets.extractors.FormExtractor;
+import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
+
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.utils.Constants.*;
@@ -15,26 +17,19 @@ public class AddServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        ServiceCenterDTO serviceCenterDTO = Extractor.extract(req, new ServiceCenterDTO());
-        serviceCenterDTO.setIsActive(true);
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        System.out.println("add create service " + serviceCenterDTO);
-
         try {
-            serviceCenterService.addServiceCenter(serviceCenterDTO);
-            System.out.println("add service created!");
+            return FormExtractor.extract(req,
+                    (a) -> ThrowingConsumerWrapper.apply(() -> serviceCenterService.addServiceCenter((ServiceCenterDTO) a)),
+                    (id) -> serviceCenterService.findServiceCenter((Long) id),
+                    ServiceCenterDTO.class,
+                    SERVICE_CENTER,
+                    SERVICE_CENTER_PAGE_PATH,
+                    () -> new ShowServiceCenterTable().execute(req));
         } catch (Exception e) {
-            System.out.println(String.format(ERROR_PATTERN, e.getMessage(), serviceCenterDTO));
-            req.setAttribute(SERVICE_CENTER, serviceCenterDTO);
-            req.setAttribute(PAGE_NUMBER, pageNumber);
-            return SERVICE_CENTER_PAGE_PATH;
+            System.out.println(e.getMessage());
+            return ERROR_PAGE_PATH;
         }
 
-        req.setAttribute(PAGE, req.getParameter(PAGE));
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-
-        return MAIN_PAGE_PATH;
     }
 
 }

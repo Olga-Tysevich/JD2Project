@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "service_centers", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"service_name", "taxpayer_number", "registration_number", "bank_account"})
+        @UniqueConstraint(columnNames = {"service_name"})
 })
 public class ServiceCenter implements Serializable {
     @Id

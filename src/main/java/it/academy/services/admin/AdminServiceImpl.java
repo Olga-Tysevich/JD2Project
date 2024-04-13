@@ -13,18 +13,18 @@ import it.academy.entities.account.RoleEnum;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
+import it.academy.exceptions.common.AccessDenied;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.ServiceHelper;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.account.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
-
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.EMAIL;
-import static it.academy.utils.Constants.LIST_SIZE;
+import static it.academy.utils.Constants.*;
 
 public class AdminServiceImpl implements AdminService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
@@ -32,7 +32,10 @@ public class AdminServiceImpl implements AdminService {
     private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     @Override
-    public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered {
+    public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered, AccessDenied {
+
+        ServiceHelper.checkCurrentAccount(createAccountDTO.getCurrentAccount());
+
         Account account = AccountConverter.convertToEntity(createAccountDTO);
         System.out.println("add adto " + createAccountDTO);
         System.out.println("add a " + account);
@@ -62,7 +65,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered {
+    public void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered, AccessDenied {
+
+        ServiceHelper.checkCurrentAccount(account.getCurrentAccount());
+
         Account result = AccountConverter.convertToEntity(account);
         System.out.println("update  account" + result);
         transactionManger.beginTransaction();

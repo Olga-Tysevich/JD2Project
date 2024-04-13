@@ -7,7 +7,7 @@ import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;

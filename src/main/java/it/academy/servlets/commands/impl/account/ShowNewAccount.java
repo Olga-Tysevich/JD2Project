@@ -5,6 +5,7 @@ import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ShowNewAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-        CreateAccountDTO accountDTO = CreateAccountDTO.builder()
+        CreateAccountDTO createAccountDTO = CreateAccountDTO.builder()
                 .email(DEFAULT_VALUE)
                 .userName(DEFAULT_VALUE)
                 .userSurname(DEFAULT_VALUE)
@@ -25,7 +26,7 @@ public class ShowNewAccount implements ActionCommand {
 
         List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
         if (!serviceCenterList.isEmpty()) {
-            req.setAttribute(ACCOUNT, accountDTO);
+            req.setAttribute(ACCOUNT, createAccountDTO);
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);
             return NEW_ACCOUNT_PAGE_PATH;
         }

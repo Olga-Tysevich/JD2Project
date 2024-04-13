@@ -10,7 +10,7 @@ import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.services.spare_part.SparePartService;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;

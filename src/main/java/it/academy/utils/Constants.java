@@ -17,6 +17,7 @@ public class Constants {
     //common
     public static final String IS_DELETED = "isDeleted";
     public static final String ERROR = "error";
+    public static final String CURRENT_ACCOUNT = "currentAccount";
     //account parameters
     public static final String ACCOUNT = "account";
     public static final String ACCOUNT_EMAIL = "email";
@@ -75,6 +76,8 @@ public class Constants {
     public static final String BRAND_PAGE_PATH = "/pages/brand/changeBrand.jsp";
     public static final String BRAND_TABLE_PAGE_PATH = "/pages/brand/brandTable.jsp";
 
+
+
     //serviceCenter
     public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
@@ -86,7 +89,6 @@ public class Constants {
     public static final String END_DATE = "endDate";
     public static final String REPAIR_TYPE_LEVEL = "level";
     public static final String REPAIR_TYPE_CODE = "code";
-
     //role description
     public static final String ADMIN_DESCRIPTION = "Администатор";
     public static final String SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
@@ -273,6 +275,7 @@ public class Constants {
     public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
+    public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
 
 
 }

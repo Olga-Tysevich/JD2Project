@@ -14,7 +14,6 @@ public class ShowAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-
         long accountId = Long.parseLong(req.getParameter(OBJECT_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
 

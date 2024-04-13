@@ -5,9 +5,11 @@ import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.entities.device.components.Brand;
+import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.device.BrandService;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.ServiceHelper;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
@@ -22,7 +24,10 @@ public class BrandServiceImpl implements BrandService {
     private BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override
-    public void createBrand(BrandDTO brand) {
+    public void createBrand(BrandDTO brand) throws AccessDenied {
+
+        ServiceHelper.checkCurrentAccount(brand.getCurrentAccount());
+
         Brand result = BrandConverter.convertToEntity(brand);
         transactionManger.beginTransaction();
 
@@ -37,7 +42,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void updateBrand(BrandDTO brand) {
+    public void updateBrand(BrandDTO brand) throws AccessDenied {
+
+        ServiceHelper.checkCurrentAccount(brand.getCurrentAccount());
+
         Brand result = BrandConverter.convertToEntity(brand);
         transactionManger.beginTransaction();
 

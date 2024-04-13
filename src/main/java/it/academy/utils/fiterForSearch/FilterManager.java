@@ -1,6 +1,5 @@
 package it.academy.utils.fiterForSearch;
 
-import it.academy.utils.EntityFilter;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;

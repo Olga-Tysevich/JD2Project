@@ -1,5 +1,6 @@
 package it.academy.dto.account.req;
 
+import it.academy.dto.account.resp.AccountDTO;
 import it.academy.entities.account.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAccountDTO {
+
+    private AccountDTO currentAccount;
 
     private RoleEnum role;
 

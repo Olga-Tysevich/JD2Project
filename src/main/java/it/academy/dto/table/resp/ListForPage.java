@@ -1,6 +1,6 @@
 package it.academy.dto.table.resp;
 
-import it.academy.utils.EntityFilter;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

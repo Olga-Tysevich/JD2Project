@@ -7,7 +7,7 @@ import it.academy.dto.device.req.ModelDTO;
 import it.academy.entities.device.components.Model;
 import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;import it.academy.utils.converters.device.ModelConverter;
+import it.academy.utils.fiterForSearch.EntityFilter;import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;

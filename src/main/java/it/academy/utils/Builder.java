@@ -4,6 +4,7 @@ import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 

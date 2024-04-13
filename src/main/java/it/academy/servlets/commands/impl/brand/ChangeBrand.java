@@ -7,7 +7,6 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.FormExtractor;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
 
 import static it.academy.utils.Constants.*;
 
@@ -25,8 +24,7 @@ public class ChangeBrand implements ActionCommand {
                     BRAND,
                     BRAND_PAGE_PATH,
                     () -> new ShowBrandTable().execute(req));
-        } catch (NoSuchMethodException | IllegalAccessException
-                | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ERROR_PAGE_PATH;
         }

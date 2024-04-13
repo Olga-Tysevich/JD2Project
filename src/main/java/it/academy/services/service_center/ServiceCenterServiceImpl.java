@@ -6,7 +6,7 @@ import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.service_center.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
@@ -22,14 +22,17 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     @Override
     public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) {
         transactionManger.beginTransaction();
-        ServiceCenter temp = serviceCenterDAO.findByEmailAndServiceName(serviceCenterDTO.getEmail(),
+        ServiceCenter temp = serviceCenterDAO.findByUniqueParameter(SERVICE_CENTER_NAME,
                 serviceCenterDTO.getServiceName());
+        System.out.println(temp);
 
         if (temp != null) {
             throw new IllegalArgumentException(SERVICE_CENTERS_ALREADY_EXIST);
         }
 
+
         ServiceCenter serviceCenter = ServiceCenterConverter.convertToEntity(serviceCenterDTO);
+        serviceCenter.setIsActive(true);
 
         ServiceCenter result = serviceCenterDAO.create(serviceCenter);
         System.out.println("Service center " + result);

@@ -6,6 +6,7 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.servlets.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE;
+import static it.academy.utils.Constants.ERROR_PAGE_PATH;
 
 public class ShowServiceCenterTable implements ActionCommand {
    private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
@@ -13,10 +14,15 @@ public class ShowServiceCenterTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        return TableExtractor.extract(req,
-                (b, f, c) -> serviceCenterService.findServiceCenters(b, f, c),
-                (i) -> serviceCenterService.findServiceCenters(i),
-                SHOW_SERVICE_CENTER_TABLE);
+        try {
+            return TableExtractor.extract(req,
+                    (b, f, c) -> serviceCenterService.findServiceCenters(b, f, c),
+                    (i) -> serviceCenterService.findServiceCenters(i),
+                    SHOW_SERVICE_CENTER_TABLE);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ERROR_PAGE_PATH;
+        }
 
     }
 

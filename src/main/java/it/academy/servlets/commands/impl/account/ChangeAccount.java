@@ -6,10 +6,8 @@ import it.academy.services.admin.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.FormExtractor;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
+
 import javax.servlet.http.HttpServletRequest;
-
-
-import java.lang.reflect.InvocationTargetException;
 
 import static it.academy.utils.Constants.*;
 
@@ -18,7 +16,6 @@ public class ChangeAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-
         try {
             return FormExtractor.extract(req,
                     (a) -> ThrowingConsumerWrapper.apply(() -> adminService.updateAccount((ChangeAccountDTO) a)),
@@ -27,9 +24,9 @@ public class ChangeAccount implements ActionCommand {
                     ACCOUNT,
                     ACCOUNT_PAGE_PATH,
                     () -> new ShowAccountTable().execute(req));
-        } catch (NoSuchMethodException | IllegalAccessException
-                | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
+            req.setAttribute(ERROR, ERROR_MESSAGE);
             return ERROR_PAGE_PATH;
         }
     }

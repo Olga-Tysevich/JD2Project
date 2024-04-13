@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.utils.EntityFilter" %>
+<%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.account.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
@@ -130,6 +130,7 @@
                     <input class="button button-fieldset" type="submit" value="Список брэндов"/>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_DEVICE_TYPE_TABLE_PAGE, FIRST_PAGE)%>'"> Список типов</button>
+                </form>
             </fieldset>
 
             <fieldset class="f1">

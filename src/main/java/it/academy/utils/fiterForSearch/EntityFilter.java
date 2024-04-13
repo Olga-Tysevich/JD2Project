@@ -1,4 +1,4 @@
-package it.academy.utils;
+package it.academy.utils.fiterForSearch;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

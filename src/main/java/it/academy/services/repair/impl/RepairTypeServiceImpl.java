@@ -7,7 +7,7 @@ import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.utils.Builder;
-import it.academy.utils.EntityFilter;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 

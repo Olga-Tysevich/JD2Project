@@ -16,7 +16,7 @@ public class TableExtractor{
     public static<T> String extract(HttpServletRequest req, FilteredEntitySupplier<ListForPage<T>> methodWithFilters,
                                     Function<Integer, ListForPage<T>> methodWithoutFilters, CommandEnum command) {
 
-        TableReq request = it.academy.utils.Extractor.extract(req, new TableReq());
+        TableReq request = ExtractorImpl.extract(req, new TableReq());
         System.out.println("show table req " + request);
 
         ListForPage<T> list;
