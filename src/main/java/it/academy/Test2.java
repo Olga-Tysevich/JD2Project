@@ -15,8 +15,16 @@ import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
+import it.academy.dto.account.resp.AccountDTO;
+import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.table.resp.ListForPage;
+import it.academy.entities.account.Account;
+import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
+import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.admin.AdminService;
+import it.academy.services.device.BrandService;
+import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.admin.AdminServiceImpl;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
@@ -35,7 +43,7 @@ import static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 
 public class Test2 {
 
-    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, AccessDenied {
         AdminService adminService = new AdminServiceImpl();
         SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
         RepairService repairService = new RepairServiceImpl();
@@ -49,10 +57,16 @@ public class Test2 {
         ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
         ModelDAO modelDAO = new ModelDAOImpl();
         BrandDAO brandDAO = new BrandDAOImpl();
+        BrandService brandService = new BrandServiceImpl();
 
-        List<ServiceCenter> repairWorkshops = ServiceCenterConverter.convertToEntityList(serviceCenterService.findServiceCenters());
 
         CommandEnum c = CommandEnum.valueOf(SHOW_ACCOUNT_TABLE.name());
+
+        transactionManger.beginTransaction();
+        AccountDTO accountDTO = adminService.findAccount(2L);
+        List<Account> brandListForPage = accountDAO.findServiceCenterAccounts(1L);
+        transactionManger.commit();
+
 
 //        List<Account> accounts = IntStream.range(0, 40)
 //                .mapToObj(i -> {

@@ -2,6 +2,7 @@ package it.academy.dao;
 
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -93,9 +94,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
-        Predicate predicate = criteriaBuilder()
-                .like(root.get(filter).as(String.class),
-                        ParameterManager.getParameterForLikeQuery(value));
+        Predicate predicate = createLikePredicate(root, filter, value);
 
         findByParameters.select(root)
                 .where(predicate)
@@ -107,7 +106,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                 .setMaxResults(listSize)
                 .getResultList();
     }
-
 
     @Override
     public BigInteger getNumberOfEntries() {
@@ -123,6 +121,12 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     protected CriteriaBuilder criteriaBuilder() {
         return manger.criteriaBuilder();
+    }
+
+    protected Predicate createLikePredicate(Root<T> root, String filter, String value) {
+        return criteriaBuilder()
+                .like(root.get(filter).as(String.class),
+                        ParameterManager.getParameterForLikeQuery(value));
     }
 
 }

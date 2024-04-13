@@ -18,8 +18,8 @@ public class ShowAccountTable implements ActionCommand {
 
         try {
             return TableExtractor.extract(req,
-                    (a, f, c) -> adminService.findAccounts(a, f, c),
-                    (i) -> adminService.findAccounts(i),
+                    (a, p, f, c) -> adminService.findAccounts(a, p, f, c),
+                    (a, p) -> adminService.findAccounts(a, p),
                     SHOW_ACCOUNT_TABLE);
         } catch (Exception e) {
             System.out.println(e.getMessage());

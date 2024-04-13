@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.change;
+package it.academy.servlets.commands.impl.device_type;
 
 import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.services.device.DeviceTypeService;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.MAIN_PAGE_PATH;
 
-public class ChangeDeviceType implements ActionCommand {
+public class AddDeviceType implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
     private Extractor<DeviceTypeDTO> extractor = new DeviceTypeExtractor();
 
@@ -20,8 +20,10 @@ public class ChangeDeviceType implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
-        DeviceTypeDTO deviceType = extractor.getResult();
-        deviceTypeService.updateDeviceType(deviceType);
+
+        DeviceTypeDTO deviceType  = extractor.getResult();
+        deviceType.setIsActive(true);
+        deviceTypeService.addDeviceType(deviceType);
 
         extractor.insertAttributes(req);
 

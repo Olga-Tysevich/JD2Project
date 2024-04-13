@@ -28,18 +28,18 @@ public class BrandExtractor  implements Extractor<BrandDTO> {
 
     @Override
     public void insertAttributes(HttpServletRequest req) {
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-
-        String filter = req.getParameter(FILTER);
-        String input = req.getParameter(USER_INPUT);
-
-        ListForPage<BrandDTO> brands;
-        if (input != null && !input.isBlank()) {
-            brands = brandService.findBrands(pageNumber, filter, input);
-        } else {
-            brands = brandService.findBrands(pageNumber);
-        }
+//        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
+//                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+//
+//        String filter = req.getParameter(FILTER);
+//        String input = req.getParameter(USER_INPUT);
+//
+//        ListForPage<BrandDTO> brands;
+//        if (input != null && !input.isBlank()) {
+//            brands = brandService.findBrands(pageNumber, filter, input);
+//        } else {
+//            brands = brandService.findBrands(pageNumber);
+//        }
 
 //        PageManager.insertAttributesForTable(req, brands, BRAND_TABLE_PAGE_PATH);
     }

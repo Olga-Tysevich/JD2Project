@@ -6,6 +6,8 @@ import it.academy.servlets.commands.impl.brand.AddBrand;
 import it.academy.servlets.commands.impl.brand.ChangeBrand;
 import it.academy.servlets.commands.impl.brand.ShowBrand;
 import it.academy.servlets.commands.impl.brand.ShowBrandTable;
+import it.academy.servlets.commands.impl.device_type.AddDeviceType;
+import it.academy.servlets.commands.impl.device_type.ChangeDeviceType;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;

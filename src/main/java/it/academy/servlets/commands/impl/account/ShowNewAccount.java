@@ -1,6 +1,7 @@
 package it.academy.servlets.commands.impl.account;
 
 import it.academy.dto.account.req.CreateAccountDTO;
+import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
@@ -16,6 +17,9 @@ public class ShowNewAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
+
+        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
+
         CreateAccountDTO createAccountDTO = CreateAccountDTO.builder()
                 .email(DEFAULT_VALUE)
                 .userName(DEFAULT_VALUE)
@@ -24,7 +28,7 @@ public class ShowNewAccount implements ActionCommand {
                 .confirmPassword(DEFAULT_VALUE)
                 .build();
 
-        List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
+        List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters(currentAccount);
         if (!serviceCenterList.isEmpty()) {
             req.setAttribute(ACCOUNT, createAccountDTO);
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);

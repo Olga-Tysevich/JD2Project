@@ -18,8 +18,8 @@ public class ShowBrandTable implements ActionCommand {
 
         try {
             return TableExtractor.extract(req,
-                    (b, f, c) -> brandService.findBrands(b, f, c),
-                    (i) -> brandService.findBrands(i),
+                    (a, b, f, c) -> brandService.findBrands(a, b, f, c),
+                    (a, i) -> brandService.findBrands(a, i),
                     SHOW_BRAND_TABLE);
         } catch (Exception e) {
             System.out.println(e.getMessage());

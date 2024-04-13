@@ -53,18 +53,18 @@ public class ServiceCenterExtractor implements Extractor<ServiceCenterDTO> {
 
     @Override
     public void insertAttributes(HttpServletRequest req) {
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-
-        String filter = req.getParameter(FILTER);
-        String input = req.getParameter(USER_INPUT);
-
-        ListForPage<ServiceCenterDTO> repairTypes;
-        if (input != null && !input.isBlank()) {
-            repairTypes = serviceCenterService.findServiceCenters(pageNumber, filter, input);
-        } else {
-            repairTypes = serviceCenterService.findServiceCenters(pageNumber);
-        }
+//        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
+//                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+//
+//        String filter = req.getParameter(FILTER);
+//        String input = req.getParameter(USER_INPUT);
+//
+//        ListForPage<ServiceCenterDTO> repairTypes;
+//        if (input != null && !input.isBlank()) {
+//            repairTypes = serviceCenterService.findServiceCenters(pageNumber, filter, input);
+//        } else {
+//            repairTypes = serviceCenterService.findServiceCenters(pageNumber);
+//        }
 
 //        PageManager.insertAttributesForTable(req, repairTypes, SERVICE_CENTER_TABLE_PAGE_PATH);
     }

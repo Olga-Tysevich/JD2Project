@@ -1,6 +1,7 @@
 package it.academy.servlets.commands.impl.brand;
 
 import it.academy.dto.device.req.BrandDTO;
+import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -20,7 +21,7 @@ public class AddBrand implements ActionCommand {
         BrandDTO brandDTO = ExtractorImpl.extract(req, new BrandDTO());
         try {
             brandService.createBrand(brandDTO);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | AccessDenied e) {
             System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
         }

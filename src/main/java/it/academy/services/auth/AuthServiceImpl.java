@@ -6,6 +6,7 @@ import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.login.req.LoginDTO;
 import it.academy.entities.account.Account;
 import it.academy.exceptions.auth.IncorrectPassword;
+import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;
 import it.academy.utils.converters.account.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
@@ -19,13 +20,17 @@ public class AuthServiceImpl implements AuthService {
     private AccountDAO accountDAO = new AccountDAOImpl();
 
     @Override
-    public AccountDTO loginUser(LoginDTO loginDTO) throws UserNotFound, IncorrectPassword {
+    public AccountDTO loginUser(LoginDTO loginDTO) throws UserNotFound, IncorrectPassword, UserIsBlocked {
 
         if (!isUserExists(loginDTO.getEmail())) {
             throw new UserNotFound();
         }
 
         Account account = accountDAO.findByUniqueParameter(ACCOUNT_EMAIL, loginDTO.getEmail());
+
+        if (account.getIsActive()) {
+            throw new UserIsBlocked();
+        }
 
         if (!account.getPassword().equals(loginDTO.getPassword())) {
             throw new IncorrectPassword();

@@ -26,7 +26,7 @@ public class BrandConverter {
                 .build();
     }
 
-    public static List<BrandDTO> convertToListDTO(List<Brand> brands) {
+    public static List<BrandDTO> convertToDTOList(List<Brand> brands) {
         return brands.stream()
                 .map(BrandConverter::convertToDTO)
                 .collect(Collectors.toList());

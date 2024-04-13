@@ -4,10 +4,14 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
 <section>
     <div class="container t-container">
 
         <%
+            AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
+            RoleEnum role = accountDTO.getRole();
             ListForPage<BrandDTO> data = (ListForPage<BrandDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             List<BrandDTO> list = data.getList();
@@ -18,7 +22,10 @@
             <tr>
                 <th>Тип устройства</th>
                 <th>Активно</th>
+
+                <% if (RoleEnum.ADMIN.equals(role)) {%>
                 <th class="menu">Управление</th>
+                <% } %>
             </tr>
 
             <% for (BrandDTO brand : list) {
@@ -36,7 +43,9 @@
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>">
+                        <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
+                        <% } %>
                     </form>
                 </td>
             </tr>

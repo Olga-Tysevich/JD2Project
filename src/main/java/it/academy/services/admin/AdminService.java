@@ -19,11 +19,9 @@ public interface AdminService {
 
     AccountDTO findAccount(long id);
 
-    List<AccountDTO> findAccounts();
+    ListForPage<AccountDTO> findAccounts(AccountDTO accountDTO, int pageNumber);
 
-    ListForPage<AccountDTO> findAccounts(int pageNumber);
-
-    ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input);
+    ListForPage<AccountDTO> findAccounts(AccountDTO accountDTO, int pageNumber, String filter, String input);
 
 
 }

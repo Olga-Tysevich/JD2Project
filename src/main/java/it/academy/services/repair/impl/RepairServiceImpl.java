@@ -64,7 +64,7 @@ public class RepairServiceImpl implements RepairService {
     public List<BrandDTO> findBrands() {
         Supplier<List<BrandDTO>> find = () -> {
             List<Brand> result = brandDAO.findAll();
-            return BrandConverter.convertToListDTO(result);
+            return BrandConverter.convertToDTOList(result);
         };
 
         return transactionManger.execute(find);

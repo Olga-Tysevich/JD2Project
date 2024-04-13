@@ -1,5 +1,6 @@
 package it.academy.services.device;
 
+import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.exceptions.common.AccessDenied;
@@ -14,10 +15,10 @@ public interface BrandService {
 
     BrandDTO findBrand(long id);
 
-    List<BrandDTO> findBrands();
+    List<BrandDTO> findBrands(AccountDTO accountDTO);
 
-    ListForPage<BrandDTO> findBrands(int pageNumber);
+    ListForPage<BrandDTO> findBrands(AccountDTO accountDTO, int pageNumber);
 
-    ListForPage<BrandDTO> findBrands(int pageNumber, String filter, String input);
+    ListForPage<BrandDTO> findBrands(AccountDTO accountDTO, int pageNumber, String filter, String input);
 
 }

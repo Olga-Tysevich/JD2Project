@@ -1,5 +1,6 @@
 package it.academy.dto.service_center;
 
+import it.academy.dto.account.resp.AccountDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceCenterDTO {
+
+    private AccountDTO currentAccount;
 
     private Long id;
 

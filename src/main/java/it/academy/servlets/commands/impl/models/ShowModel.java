@@ -1,5 +1,6 @@
 package it.academy.servlets.commands.impl.models;
 
+import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.device.req.BrandDTO;
 import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.dto.device.req.ModelDTO;
@@ -26,10 +27,12 @@ public class ShowModel implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
+        AccountDTO currentAccountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
+
         long modelId = Long.parseLong(req.getParameter(MODEL_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         ModelDTO model = modelService.findModel(modelId);
-        List<BrandDTO> brands = brandService.findBrands();
+        List<BrandDTO> brands = brandService.findBrands(currentAccountDTO);
         List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
 
         req.setAttribute(DEVICE_TYPES, deviceTypes);

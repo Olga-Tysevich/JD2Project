@@ -218,7 +218,6 @@ public class Constants {
     public static final String REPAIR_TYPES = "repair_types";
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
 
-    public static final String REPAIR_PAGE_DATA = "repair page data";
     public static final long DEFAULT_ID = 1L;
     public static final String DEFAULT_VALUE = "";
 
@@ -229,15 +228,10 @@ public class Constants {
     public static final String OPEN_SPARE_PART_TABLE_PAGE = "main?command=show_spare_part_table&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
     public static final String OPEN_DEVICE_TYPE_TABLE_PAGE = "main?command=show_device_type_table&&page=%d";
-    public static final String OPEN_BRAND_TABLE_PAGE = "main?command=show_brand_table&&page=%d";
     public static final String OPEN_MODEL_TABLE_PAGE = "main?command=show_model_table&&page=%d";
-    public static final String OPEN_ACCOUNT_TABLE = "main?command=show_account_table&&page=%d";
-//    public static final String OPEN_REPAIR_PAGE = "repair?command=delete_spare_part_order&&repair_id=repairId&&order_id=orderId";
-    public static final String CHANGE_ORDER_PAGE = "main?command=change_spare_part_order&&order_id=%d&&departure_date=%s&&delivery_date=%s";
 
 
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
-    public static final String OPEN_MODEL_LIST_PAGE = "brands?command=show_model_list&&id=%s";
 
     //filters
     public static final String FILTERS = "filters";
@@ -269,6 +263,7 @@ public class Constants {
     public static final String PASSWORDS_NOT_MATCH = "Введенные пароли не совпадают!";
     public static final String FIELD_NOT_FILLED = "Необходимые поля не заполнены!";
     public static final String USER_NOT_FOUND = "Пользователь не существует!";
+    public static final String USER_IS_BLOCKED = "Пользователь заблокирован!";
     public static final String INCORRECT_PASSWORD = "Неверный пароль!";
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
     public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
@@ -277,5 +272,9 @@ public class Constants {
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
 
+    //sql
+    public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive";
+    public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id";
+    public static final String IS_ACTIVE_PARAMETER = "isActive";
 
 }

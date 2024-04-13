@@ -42,23 +42,23 @@ public class ModelExtractor implements Extractor<ModelDTO> {
 
     @Override
     public void insertAttributes(HttpServletRequest req) {
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-
-        String filter = req.getParameter(FILTER);
-        String input = req.getParameter(USER_INPUT);
-
-        ListForPage<ModelDTO> models;
-        List<BrandDTO> brands = brandService.findBrands();
-        List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
-        if (input != null && !input.isBlank()) {
-            models = modelService.findModels(pageNumber, filter, input);
-        } else {
-            models = modelService.findModels(pageNumber);
-        }
-
-        req.setAttribute(DEVICE_TYPES, deviceTypes);
-        req.setAttribute(BRANDS, brands);
+//        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
+//                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+//
+//        String filter = req.getParameter(FILTER);
+//        String input = req.getParameter(USER_INPUT);
+//
+//        ListForPage<ModelDTO> models;
+//        List<BrandDTO> brands = brandService.findBrands();
+//        List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
+//        if (input != null && !input.isBlank()) {
+//            models = modelService.findModels(pageNumber, filter, input);
+//        } else {
+//            models = modelService.findModels(pageNumber);
+//        }
+//
+//        req.setAttribute(DEVICE_TYPES, deviceTypes);
+//        req.setAttribute(BRANDS, brands);
 //        PageManager.insertAttributesForTable(req, models, MODEL_TABLE_PAGE_PATH);
     }
 
