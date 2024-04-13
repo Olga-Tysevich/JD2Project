@@ -1,9 +1,10 @@
 package it.academy.dao;
 
+import it.academy.entities.device.components.Brand;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
-
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -12,7 +13,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
-import static it.academy.utils.Constants.OBJECT_ID;
+import static it.academy.utils.Constants.*;
+import static it.academy.utils.Constants.IS_ACTIVE;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger = TransactionManger.getInstance();
@@ -100,6 +102,44 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                 .where(predicate)
                 .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
 
+        return entityManager()
+                .createQuery(findByParameters)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+
+    @Override
+    public List<T> findActiveObjects(boolean isActive) {
+        String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
+        TypedQuery<T> find = entityManager().createQuery(query, clazz);
+        find.setParameter(IS_ACTIVE_PARAMETER, 1);
+
+        return find.getResultList();
+    }
+
+    @Override
+    public List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize) {
+        String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
+        TypedQuery<T> find = entityManager().createQuery(query, clazz);
+        find.setParameter(IS_ACTIVE_PARAMETER, isActive);
+
+        return find.setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize, String filter, String value) {
+        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
+        Root<T> root = findByParameters.from(clazz);
+
+        Predicate predicate = createLikePredicate(root, filter, value);
+
+        findByParameters.select(root)
+                .where(predicate, criteriaBuilder().equal(root.get(IS_ACTIVE), isActive))
+                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
         return entityManager()
                 .createQuery(findByParameters)
                 .setFirstResult((pageNumber - 1) * listSize)

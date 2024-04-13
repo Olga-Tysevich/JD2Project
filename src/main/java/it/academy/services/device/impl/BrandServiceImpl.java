@@ -73,7 +73,7 @@ public class BrandServiceImpl implements BrandService {
     public List<BrandDTO> findBrands(AccountDTO accountDTO) {
 
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return BrandConverter.convertToDTOList(brandDAO.findActiveBrands(true));
+            return BrandConverter.convertToDTOList(brandDAO.findActiveObjects(true));
         }
 
         List<Brand> repairs = transactionManger.execute(() -> brandDAO.findAll());
@@ -84,7 +84,7 @@ public class BrandServiceImpl implements BrandService {
     public ListForPage<BrandDTO> findBrands(AccountDTO accountDTO, int pageNumber) {
 
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getBrandList(() -> brandDAO.findActiveBrandsForPage(true, pageNumber, LIST_SIZE), pageNumber,
+            return getBrandList(() -> brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE), pageNumber,
                     BrandConverter::convertToDTOList);
         }
 
@@ -95,23 +95,23 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public ListForPage<BrandDTO> findBrands(AccountDTO accountDTO, int pageNumber, String filter, String input) {
 
-
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getBrandList(() -> brandDAO.findActiveBrandsForPage(true, pageNumber, LIST_SIZE, filter, input), pageNumber,
+            return getBrandList(() -> brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input), pageNumber,
                     BrandConverter::convertToDTOList);
         }
         return getBrandList(() -> brandDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
                 BrandConverter::convertToDTOList);
     }
 
+
     private ListForPage<BrandDTO> getBrandList(Supplier<List<Brand>> method, int pageNumber,
                                                Function<List<Brand>, List<BrandDTO>> converter) {
         List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
 
         Supplier<ListForPage<BrandDTO>> find = () -> {
-            List<Brand> centers = method.get();
+            List<Brand> brands = method.get();
             int maxPageNumber = (int) Math.ceil(((double) brandDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<BrandDTO> list = converter.apply(centers);
+            List<BrandDTO> list = converter.apply(brands);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 

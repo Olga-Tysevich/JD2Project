@@ -70,7 +70,7 @@ public class SparePartServiceImpl implements SparePartService {
             SparePart sparePart = sparePartDAO.find(id);
             SparePartDTO result = SparePartConverter.convertToDTO(sparePart);
             List<DeviceType> types = deviceTypeDAO.findAll();
-            List<DeviceTypeDTO> deviceTypeDTOList = DeviceTypeConverter.convertListToDTO(types);
+            List<DeviceTypeDTO> deviceTypeDTOList = DeviceTypeConverter.convertToDTOList(types);
             result.setAllDeviceTypes(deviceTypeDTOList);
             return result;
         };
@@ -110,8 +110,8 @@ public class SparePartServiceImpl implements SparePartService {
     public void deleteSparePart(long id) {
         transactionManger.execute(() -> {
             SparePart sparePart = sparePartDAO.find(id);
-            List<DeviceType> deviceTypes = deviceTypeDAO.findBySparePartId(sparePart.getId());
-            deviceTypes.forEach(dt -> dt.removeSparePart(sparePart));
+//            List<DeviceType> deviceTypes = deviceTypeDAO.findBySparePartId(sparePart.getId());
+//            deviceTypes.forEach(dt -> dt.removeSparePart(sparePart));
             return sparePartDAO.delete(id);
         });
     }
@@ -135,14 +135,14 @@ public class SparePartServiceImpl implements SparePartService {
     }
 
     private void removeDeviceTypeFromSparePart(SparePart sparePart, List<Long> deviceTypesId) {
-        deviceTypeDAO.findBySparePartId(sparePart.getId())
-                .stream()
-                .filter(dt -> !deviceTypesId.contains(dt.getId()))
-                .forEach(dt -> {
-                    dt.removeSparePart(sparePart);
-                    deviceTypesId.remove(dt.getId());
-                    deviceTypeDAO.update(dt);
-                });
+//        deviceTypeDAO.findBySparePartId(sparePart.getId())
+//                .stream()
+//                .filter(dt -> !deviceTypesId.contains(dt.getId()))
+//                .forEach(dt -> {
+//                    dt.removeSparePart(sparePart);
+//                    deviceTypesId.remove(dt.getId());
+//                    deviceTypeDAO.update(dt);
+//                });
     }
 
     private List<EntityFilter> getFilters() {

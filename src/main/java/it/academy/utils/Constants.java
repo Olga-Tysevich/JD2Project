@@ -7,13 +7,23 @@ import java.util.Random;
 @UtilityClass
 public class Constants {
     public static final Random RANDOM = new Random();
+    public static final int LIST_SIZE = 20;
+    public static final int FIRST_PAGE = 1;
 
+    //ERROR_MESSAGES
+    public static final String ERROR_PATTERN = "text: %s, object: %s";
+    public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
+
+    //sql
+    public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive";
+    public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id";
+    public static final String IS_ACTIVE_PARAMETER = "isActive";
+
+    //parameters
     //common parameters
     public static final String OBJECT_ID = "id";
     public static final String IS_ACTIVE = "isActive";
     public static final String OBJECT_NAME = "name";
-
-    //parameters
     //common
     public static final String IS_DELETED = "isDeleted";
     public static final String ERROR = "error";
@@ -45,6 +55,8 @@ public class Constants {
     public static final String SERVICE_CENTER_REGISTRATION_NUMBER = "registrationNumber";
     //brand
     public static final String BRAND_NAME = "name";
+    //device type
+    public static final String DEVICE_TYPE_NAME = "name";
 
     //jsp
     public static final String LIST_FOR_PAGE = "table";
@@ -52,8 +64,6 @@ public class Constants {
     public static final String USER_INPUT = "input";
     public static final String COMMAND = "command";
     public static final String PAGE_NUMBER = "pageNumber";
-    public static final int LIST_SIZE = 20;
-    public static final int FIRST_PAGE = 1;
     public static final String MAX_PAGE = "maxPage";
     public static final String PAGE = "page";
     //jsp pages
@@ -75,11 +85,13 @@ public class Constants {
     public static final String BRAND = "brand";
     public static final String BRAND_PAGE_PATH = "/pages/brand/changeBrand.jsp";
     public static final String BRAND_TABLE_PAGE_PATH = "/pages/brand/brandTable.jsp";
+    //device type
+    public static final String DEVICE_TYPE = "device_type";
+    public static final String DEVICE_TYPE_PAGE_PATH = "/pages/device_type/changeDeviceType.jsp";
+    public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/device_type/deviceTypesTable.jsp";
 
 
 
-    //serviceCenter
-    public static final String REPAIR_WORKSHOP_NAME = "serviceName";
     //repair
     public static final String SERVICE_CENTER_REPAIR_NUMBER = "serviceCenterNumber";
     public static final String REPAIR_CATEGORY = "category";
@@ -89,24 +101,7 @@ public class Constants {
     public static final String END_DATE = "endDate";
     public static final String REPAIR_TYPE_LEVEL = "level";
     public static final String REPAIR_TYPE_CODE = "code";
-    //role description
-    public static final String ADMIN_DESCRIPTION = "Администатор";
-    public static final String SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
-    //repair statuses description
-    public static final String REQUEST_DESCRIPTION = "Заявка";
-    public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
-    public static final String WAITING_SP_DESCRIPTION = "Заказаны запчасти";
-    public static final String COMPLETED_DESCRIPTION = "Завершен";
-    public static final String DECOMMISSIONED_DESCRIPTION = "Списан";
-    public static final String PAID_DESCRIPTION = "Оплачен";
-    public static final String DELIVERED_DESCRIPTION = "Выдан";
-    public static final String REJECTED_DESCRIPTION = "Отклонен";
-    public static final String ALL_DESCRIPTION = "Все ремонты";
-    //repair categories description
-    public static final String WARRANTY_DESCRIPTION = "Гарантийный";
-    public static final String PRE_SALE_DESCRIPTION = "Предпродажный";
-    public static final String PAID_CATEGORY_DESCRIPTION = "Платный";
-    public static final String REPEATED_DESCRIPTION = "Повторный";
+
     //model
     public static final String SERIAL_NUMBER = "serialNumber";
     public static final String SALESMAN_NAME = "salesmanName";
@@ -145,10 +140,6 @@ public class Constants {
     public static final String SPARE_PART_ORDER = "sp_order";
     //Device parameters
     public static final String DEVICE_ID = "device_id";
-    //DeviceType parameters
-    public static final String DEVICE_TYPE = "device_type_id";
-    public static final String DEVICE_TYPE_ID = "device_type_id";
-    public static final String DEVICE_TYPE_NAME = "device_type_name";
     //Spare part order
     public static final String ORDER_ID = "order_id";
     public static final String REPAIR_NUMBER = "repair_number";
@@ -178,36 +169,20 @@ public class Constants {
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
     public static final String SPARE_PART_PAGE_PATH = "/pages/change_pages/changeSparePart.jsp";
-    public static final String DEVICE_TYPE_PAGE_PATH = "/pages/change_pages/changeDeviceType.jsp";
     public static final String MODEL_PAGE_PATH = "/pages/change_pages/changeModel.jsp";
-
-    public static final String BRAND_LIST_PAGE_PATH = "/pages/forms/brandList.jsp";
-    public static final String MODEL_LIST_PAGE_PATH = "/pages/forms/modelList.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
-
-
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
-    public static final String REPAIR_TABLE_TYPE_PAGE_PATH = "/pages/tables/repairTypesTable.jsp";
-    public static final String SPARE_PART_ORDERS_TABLE_PAGE_PATH = "/pages/tables/sparePartOrdersTable.jsp";
-    public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/tables/sparePartTable.jsp";
-    public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/tables/deviceTypesTable.jsp";
-    public static final String MODEL_TABLE_PAGE_PATH = "/pages/tables/modelTable.jsp";
 
     //jsp
 
     //show_command
     public static final String SHOW_START_PAGE = "open_page";
-    public static final String SHOW_REPAIR_TYPE_TABLE = "show_repair_type_table";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
-    public static final String SHOW_DEVICE_TYPE_TABLE = "show_device_type_table";
-    public static final String SHOW_BRAND = "show_brand";
-    public static final String ADD_BRAND = "add_brand";
     public static final String SHOW_MODEL_TABLE = "show_model_table";
     public static final String SHOW_MODEL = "show_model";
     public static final String ADD_MODEL = "add_model";
-    public static final String ADD_SERVICE_CENTER = "add_service_center";
     public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 
@@ -233,6 +208,42 @@ public class Constants {
 
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
 
+
+    //for pages
+    public static final String EMAIL_ALREADY_EXISTS = "Email: %s уже зарегистрирован!";
+    public static final String PASSWORDS_NOT_MATCH = "Введенные пароли не совпадают!";
+    public static final String FIELD_NOT_FILLED = "Необходимые поля не заполнены!";
+    public static final String USER_NOT_FOUND = "Пользователь не существует!";
+    public static final String USER_IS_BLOCKED = "Пользователь заблокирован!";
+    public static final String INCORRECT_PASSWORD = "Неверный пароль!";
+    public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
+    public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
+    public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
+    public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
+    public static final String DEVICE_TYPE_ALREADY_EXIST = "Данный тип устройства уже добавлен!";
+    public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
+    public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
+
+    //description
+    //role description
+    public static final String ADMIN_DESCRIPTION = "Администатор";
+    public static final String SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
+    //repair statuses description
+    public static final String REQUEST_DESCRIPTION = "Заявка";
+    public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
+    public static final String WAITING_SP_DESCRIPTION = "Заказаны запчасти";
+    public static final String COMPLETED_DESCRIPTION = "Завершен";
+    public static final String DECOMMISSIONED_DESCRIPTION = "Списан";
+    public static final String PAID_DESCRIPTION = "Оплачен";
+    public static final String DELIVERED_DESCRIPTION = "Выдан";
+    public static final String REJECTED_DESCRIPTION = "Отклонен";
+    public static final String ALL_DESCRIPTION = "Все ремонты";
+    //repair categories description
+    public static final String WARRANTY_DESCRIPTION = "Гарантийный";
+    public static final String PRE_SALE_DESCRIPTION = "Предпродажный";
+    public static final String PAID_CATEGORY_DESCRIPTION = "Платный";
+    public static final String REPEATED_DESCRIPTION = "Повторный";
+
     //filters
     public static final String FILTERS = "filters";
     public static final String IS_BLOCKED = "Заблокированные";
@@ -254,27 +265,5 @@ public class Constants {
     public static final String BRAND_NAME_DESCRIPTION = "Название бренда";
     //Model filters
     public static final String MODEL_NAME_FILTER = "Название модели";
-
-    //ERROR_MESSAGES
-    public static final String ERROR_PATTERN = "text: %s, object: %s";
-    public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
-    //for pages
-    public static final String EMAIL_ALREADY_EXISTS = "Email: %s уже зарегистрирован!";
-    public static final String PASSWORDS_NOT_MATCH = "Введенные пароли не совпадают!";
-    public static final String FIELD_NOT_FILLED = "Необходимые поля не заполнены!";
-    public static final String USER_NOT_FOUND = "Пользователь не существует!";
-    public static final String USER_IS_BLOCKED = "Пользователь заблокирован!";
-    public static final String INCORRECT_PASSWORD = "Неверный пароль!";
-    public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
-    public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
-    public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
-    public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
-    public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
-    public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
-
-    //sql
-    public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive";
-    public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id";
-    public static final String IS_ACTIVE_PARAMETER = "isActive";
 
 }

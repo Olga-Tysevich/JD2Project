@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
 
         Account account = accountDAO.findByUniqueParameter(ACCOUNT_EMAIL, loginDTO.getEmail());
 
-        if (account.getIsActive()) {
+        if (!account.getIsActive()) {
             throw new UserIsBlocked();
         }
 

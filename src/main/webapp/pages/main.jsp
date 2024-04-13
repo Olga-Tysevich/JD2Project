@@ -127,9 +127,13 @@
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=BRAND_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                    <input class="button button-fieldset" type="submit" value="Список брэндов"/>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_DEVICE_TYPE_TABLE_PAGE, FIRST_PAGE)%>'"> Список типов</button>
+                    <input class="button button-fieldset" type="submit" value="Список брендов"/>
+                </form>
+                <form  action="brands" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_DEVICE_TYPE_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=DEVICE_TYPE_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список типов устройств"/>
                 </form>
             </fieldset>
 

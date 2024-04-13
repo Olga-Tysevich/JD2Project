@@ -18,7 +18,7 @@ public class DeviceTypeConverter {
                 .build();
     }
 
-    public static DeviceType convertDTOToEntity(DeviceTypeDTO typeDTO) {
+    public static DeviceType convertToEntity(DeviceTypeDTO typeDTO) {
         return DeviceType.builder()
                 .id(typeDTO.getId())
                 .name(typeDTO.getName())
@@ -26,15 +26,15 @@ public class DeviceTypeConverter {
                 .build();
     }
 
-    public static List<DeviceTypeDTO> convertListToDTO(List<DeviceType> brands) {
+    public static List<DeviceTypeDTO> convertToDTOList(List<DeviceType> brands) {
         return brands.stream()
                 .map(DeviceTypeConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<DeviceType> convertDTOListToEntityList(List<DeviceTypeDTO> brands) {
+    public static List<DeviceType> convertToEntityList(List<DeviceTypeDTO> brands) {
         return brands.stream()
-                .map(DeviceTypeConverter::convertDTOToEntity)
+                .map(DeviceTypeConverter::convertToEntity)
                 .collect(Collectors.toList());
     }
 

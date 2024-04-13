@@ -2,15 +2,12 @@ package it.academy.utils.converters.spare_parst;
 
 import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
-import it.academy.dto.spare_parts.SparePartDTO;
-import it.academy.entities.device.Device;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +16,7 @@ public class SparePartConverter {
 
     public static SparePartDTO convertToDTO(SparePart sparePart) {
         List<DeviceType> deviceTypes = new ArrayList<>(sparePart.getTypeSet());
-        List<DeviceTypeDTO> types = DeviceTypeConverter.convertListToDTO(deviceTypes);
+        List<DeviceTypeDTO> types = DeviceTypeConverter.convertToDTOList(deviceTypes);
 
         return SparePartDTO.builder()
                 .id(sparePart.getId())

@@ -7,11 +7,4 @@ import java.util.List;
 
 public interface BrandDAO extends DAO<Brand, Long> {
 
-    List<Brand> findActiveBrands(boolean isActive);
-
-    List<Brand> findActiveBrandsForPage(boolean isActive, int pageNumber, int listSize);
-
-    List<Brand> findActiveBrandsForPage(boolean isActive, int pageNumber, int listSize,
-                                        String filter, String value);
-
 }

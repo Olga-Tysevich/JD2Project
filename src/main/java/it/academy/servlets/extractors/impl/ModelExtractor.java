@@ -1,79 +1,79 @@
-package it.academy.servlets.extractors.impl;
-
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.BrandDTO;
-import it.academy.dto.device.req.DeviceTypeDTO;
-import it.academy.dto.device.req.ModelDTO;
-import it.academy.services.device.BrandService;
-import it.academy.services.device.DeviceTypeService;
-import it.academy.services.device.ModelService;
-import it.academy.services.device.impl.BrandServiceImpl;
-import it.academy.services.device.impl.DeviceTypeServiceImpl;
-import it.academy.services.device.impl.ModelServiceImpl;
-import it.academy.servlets.extractors.Extractor;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
-import static it.academy.utils.Constants.*;
-
-public class ModelExtractor implements Extractor<ModelDTO> {
-    private ModelService modelService = new ModelServiceImpl();
-    private BrandService brandService = new BrandServiceImpl();
-    private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
-    private ModelDTO model;
-
-    @Override
-    public void extractValues(HttpServletRequest req) {
-        Long modelId = req.getParameter(MODEL_ID) != null?
-                Long.parseLong(req.getParameter(MODEL_ID)) : null;
-        String modelName = req.getParameter(MODEL_NAME);
-        Long brandId = Long.parseLong(req.getParameter(BRAND_ID));
-        Long deviceTypeId = Long.parseLong(req.getParameter(DEVICE_TYPE_ID));
-        Boolean isActive = req.getParameter(IS_ACTIVE) != null && Boolean.parseBoolean(req.getParameter(IS_ACTIVE));
-        this.model = ModelDTO.builder()
-                .id(modelId)
-                .name(modelName)
-                .brandId(brandId)
-                .deviceTypeId(deviceTypeId)
-                .isActive(isActive)
-                .build();
-    }
-
-    @Override
-    public void insertAttributes(HttpServletRequest req) {
-//        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-//                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+//package it.academy.servlets.extractors.impl;
 //
-//        String filter = req.getParameter(FILTER);
-//        String input = req.getParameter(USER_INPUT);
+//import it.academy.dto.table.resp.ListForPage;
+//import it.academy.dto.device.req.BrandDTO;
+//import it.academy.dto.device.req.DeviceTypeDTO;
+//import it.academy.dto.device.req.ModelDTO;
+//import it.academy.services.device.BrandService;
+//import it.academy.services.device.DeviceTypeService;
+//import it.academy.services.device.ModelService;
+//import it.academy.services.device.impl.BrandServiceImpl;
+//import it.academy.services.device.impl.DeviceTypeServiceImpl;
+//import it.academy.services.device.impl.ModelServiceImpl;
+//import it.academy.servlets.extractors.Extractor;
 //
-//        ListForPage<ModelDTO> models;
-//        List<BrandDTO> brands = brandService.findBrands();
-//        List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
-//        if (input != null && !input.isBlank()) {
-//            models = modelService.findModels(pageNumber, filter, input);
-//        } else {
-//            models = modelService.findModels(pageNumber);
-//        }
+//import javax.servlet.http.HttpServletRequest;
+//import java.util.List;
 //
-//        req.setAttribute(DEVICE_TYPES, deviceTypes);
-//        req.setAttribute(BRANDS, brands);
-//        PageManager.insertAttributesForTable(req, models, MODEL_TABLE_PAGE_PATH);
-    }
-
-    @Override
-    public void addParameter(String parameterName, Object parameter) {
-
-    }
-
-    @Override
-    public Object getParameter(String parameterName) {
-        return null;
-    }
-
-    @Override
-    public ModelDTO getResult() {
-        return model;
-    }
-}
+//import static it.academy.utils.Constants.*;
+//
+//public class ModelExtractor implements Extractor<ModelDTO> {
+//    private ModelService modelService = new ModelServiceImpl();
+//    private BrandService brandService = new BrandServiceImpl();
+//    private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
+//    private ModelDTO model;
+//
+//    @Override
+//    public void extractValues(HttpServletRequest req) {
+//        Long modelId = req.getParameter(MODEL_ID) != null?
+//                Long.parseLong(req.getParameter(MODEL_ID)) : null;
+//        String modelName = req.getParameter(MODEL_NAME);
+//        Long brandId = Long.parseLong(req.getParameter(BRAND_ID));
+//        Long deviceTypeId = Long.parseLong(req.getParameter(DEVICE_TYPE_ID));
+//        Boolean isActive = req.getParameter(IS_ACTIVE) != null && Boolean.parseBoolean(req.getParameter(IS_ACTIVE));
+//        this.model = ModelDTO.builder()
+//                .id(modelId)
+//                .name(modelName)
+//                .brandId(brandId)
+//                .deviceTypeId(deviceTypeId)
+//                .isActive(isActive)
+//                .build();
+//    }
+//
+//    @Override
+//    public void insertAttributes(HttpServletRequest req) {
+////        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
+////                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+////
+////        String filter = req.getParameter(FILTER);
+////        String input = req.getParameter(USER_INPUT);
+////
+////        ListForPage<ModelDTO> models;
+////        List<BrandDTO> brands = brandService.findBrands();
+////        List<DeviceTypeDTO> deviceTypes = deviceTypeService.findDeviceTypes();
+////        if (input != null && !input.isBlank()) {
+////            models = modelService.findModels(pageNumber, filter, input);
+////        } else {
+////            models = modelService.findModels(pageNumber);
+////        }
+////
+////        req.setAttribute(DEVICE_TYPES, deviceTypes);
+////        req.setAttribute(BRANDS, brands);
+////        PageManager.insertAttributesForTable(req, models, MODEL_TABLE_PAGE_PATH);
+//    }
+//
+//    @Override
+//    public void addParameter(String parameterName, Object parameter) {
+//
+//    }
+//
+//    @Override
+//    public Object getParameter(String parameterName) {
+//        return null;
+//    }
+//
+//    @Override
+//    public ModelDTO getResult() {
+//        return model;
+//    }
+//}

@@ -20,7 +20,6 @@ public class ShowBrand implements ActionCommand {
         String page = req.getParameter(PAGE);
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         BrandDTO brand = brandService.findBrand(brandId);
-        System.out.println("show brand " + brand);
 
         req.setAttribute(BRAND, brand);
         req.setAttribute(PAGE, page);

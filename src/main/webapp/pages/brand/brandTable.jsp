@@ -6,6 +6,8 @@
 <%@ page import="it.academy.dto.device.req.BrandDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_BRAND" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_BRAND" %>
 <section>
     <div class="container t-container">
 
@@ -20,7 +22,7 @@
 
         <table>
             <tr>
-                <th>Тип устройства</th>
+                <th>Наименование</th>
                 <th>Активно</th>
 
                 <% if (RoleEnum.ADMIN.equals(role)) {%>
@@ -52,6 +54,7 @@
             <% }%>
         </table>
 
+        <% if (RoleEnum.ADMIN.equals(role)) {%>
         <div class="add-form">
             <form action="main" method="post" id="addBrand">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_BRAND%>">
@@ -69,5 +72,6 @@
                 </div>
             </form>
         </div>
+        <% }%>
     </div>
 </section>

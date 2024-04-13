@@ -5,6 +5,4 @@ import it.academy.entities.service_center.ServiceCenter;
 
 public interface ServiceCenterDAO extends DAO<ServiceCenter, Long> {
 
-    ServiceCenter findByEmailAndServiceName(String email, String serviceName);
-
 }

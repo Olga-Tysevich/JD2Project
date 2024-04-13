@@ -21,6 +21,13 @@ public interface DAO<T, R> {
 
     List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value);
 
+    List<T> findActiveObjects(boolean isActive);
+
+    List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize);
+
+    List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize,
+                                     String filter, String value);
+
     BigInteger getNumberOfEntries();
 
 }

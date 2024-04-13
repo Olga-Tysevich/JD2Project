@@ -4,28 +4,33 @@ import it.academy.dto.device.req.DeviceTypeDTO;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.Extractor;
-import it.academy.servlets.extractors.impl.DeviceTypeExtractor;
+import it.academy.servlets.extractors.FormExtractor;
+import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import static it.academy.utils.Constants.MAIN_PAGE_PATH;
+import static it.academy.utils.Constants.*;
+import static it.academy.utils.Constants.ERROR_PAGE_PATH;
 
 public class ChangeDeviceType implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
-    private Extractor<DeviceTypeDTO> extractor = new DeviceTypeExtractor();
 
     @Override
     public String execute(HttpServletRequest req) {
 
-        extractor.extractValues(req);
-        DeviceTypeDTO deviceType = extractor.getResult();
-        deviceTypeService.updateDeviceType(deviceType);
+        try {
+            return FormExtractor.extract(req,
+                    (a) -> ThrowingConsumerWrapper.apply(() -> deviceTypeService.updateDeviceType((DeviceTypeDTO) a)),
+                    (id) -> deviceTypeService.findDeviceType((Long) id),
+                    DeviceTypeDTO.class,
+                    DEVICE_TYPE,
+                    DEVICE_TYPE_PAGE_PATH,
+                    () -> new ShowDeviceTypeTable().execute(req));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ERROR_PAGE_PATH;
+        }
 
-        extractor.insertAttributes(req);
-
-        return MAIN_PAGE_PATH;
     }
 
 }

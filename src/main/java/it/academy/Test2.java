@@ -1,7 +1,7 @@
 package it.academy;
 
 import it.academy.dao.account.AccountDAO;
-import it.academy.dao.service_center.ServiceCenterDAO;
+import it.academy.dao.account.AccountDAOImpl;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.DeviceDAO;
 import it.academy.dao.device.DeviceTypeDAO;
@@ -10,34 +10,30 @@ import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
-import it.academy.dao.account.AccountDAOImpl;
-import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
+import it.academy.dao.service_center.ServiceCenterDAO;
+import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.device.req.BrandDTO;
-import it.academy.dto.table.resp.ListForPage;
 import it.academy.entities.account.Account;
-import it.academy.entities.device.components.Brand;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.admin.AdminService;
+import it.academy.services.admin.AdminServiceImpl;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
-import it.academy.services.service_center.ServiceCenterService;
-import it.academy.services.admin.AdminServiceImpl;
-import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
+import it.academy.services.service_center.ServiceCenterService;
+import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.factory.CommandEnum;
-import it.academy.utils.converters.service_center.ServiceCenterConverter;
+import it.academy.utils.converters.Converter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 import static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 
@@ -61,10 +57,13 @@ public class Test2 {
 
 
         CommandEnum c = CommandEnum.valueOf(SHOW_ACCOUNT_TABLE.name());
+;
 
         transactionManger.beginTransaction();
-        AccountDTO accountDTO = adminService.findAccount(2L);
-        List<Account> brandListForPage = accountDAO.findServiceCenterAccounts(1L);
+        Account account = accountDAO.find(1L);
+        ServiceCenter serviceCenter = account.getServiceCenter();
+        account.setServiceCenter(null);
+        AccountDTO accountDTO = Converter.convert(account, AccountDTO.class);
         transactionManger.commit();
 
 
