@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT" %>
-<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
     <div class="container t-container">

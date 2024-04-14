@@ -5,12 +5,12 @@ import it.academy.dao.impl.DeviceTypeDAOImpl;
 import it.academy.dto.req.DeviceTypeDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.entities.account.RoleEnum;
-import it.academy.entities.device.components.DeviceType;
+import it.academy.utils.enums.RoleEnum;
+import it.academy.entities.DeviceType;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.DeviceTypeService;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.device.DeviceTypeConverter;
+import it.academy.utils.converters.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 

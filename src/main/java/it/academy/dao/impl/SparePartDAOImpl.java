@@ -1,8 +1,8 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.SparePartDAO;
-import it.academy.entities.device.components.DeviceType;
-import it.academy.entities.spare_parts_order.SparePart;
+import it.academy.entities.DeviceType;
+import it.academy.entities.SparePart;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;

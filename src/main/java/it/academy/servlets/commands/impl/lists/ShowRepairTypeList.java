@@ -1,11 +1,10 @@
 package it.academy.servlets.commands.impl.lists;
 
-import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.services.repair.RepairService;
-import it.academy.services.repair.impl.RepairServiceImpl;
+import it.academy.dto.resp.RepairTypeDTO;
+import it.academy.services.RepairService;
+import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static it.academy.utils.Constants.*;

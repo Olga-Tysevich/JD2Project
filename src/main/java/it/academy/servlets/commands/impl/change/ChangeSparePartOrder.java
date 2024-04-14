@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
-import it.academy.services.spare_part.SparePartOrderService;
-import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
+import it.academy.services.SparePartOrderService;
+import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;

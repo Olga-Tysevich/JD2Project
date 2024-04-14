@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>
 <%@ page import="it.academy.dto.req.BrandDTO" %>
-<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_BRAND" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_BRAND" %>

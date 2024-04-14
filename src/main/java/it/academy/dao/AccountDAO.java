@@ -1,7 +1,6 @@
 package it.academy.dao;
 
-import it.academy.dao.DAO;
-import it.academy.entities.account.Account;
+import it.academy.entities.Account;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.repair.RepairDTO" %>
-<%@ page import="it.academy.entities.repair.components.RepairStatus" %>
+<%@ page import="it.academy.dto.resp.RepairDTO" %>
+<%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.entities.repair.components.RepairCategory" %>
+<%@ page import="it.academy.utils.enums.RepairCategory" %>
 <%@ page import="it.academy.dto.req.BrandDTO" %>
 <%@ page import="it.academy.dto.req.ChangeModelDTO" %>
 <%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
-<%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
+<%@ page import="it.academy.dto.resp.RepairTypeDTO" %>
 <%@ page import="it.academy.dto.resp.DeviceDTOResp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>

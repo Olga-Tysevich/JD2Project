@@ -7,7 +7,7 @@
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_DEVICE_TYPE" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_DEVICE_TYPE" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
-<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <section>
     <div class="container t-container">
 

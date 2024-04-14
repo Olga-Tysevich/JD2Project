@@ -4,33 +4,25 @@ import it.academy.dto.req.ChangeModelDTO;
 import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.AddCommand;
-import it.academy.servlets.commands.impl.account.*;
-import it.academy.servlets.commands.impl.brand.AddBrand;
-import it.academy.servlets.commands.impl.brand.ChangeBrand;
-import it.academy.servlets.commands.impl.brand.ShowBrand;
-import it.academy.servlets.commands.impl.brand.ShowBrandTable;
-import it.academy.servlets.commands.impl.device_type.AddDeviceType;
-import it.academy.servlets.commands.impl.device_type.ChangeDeviceType;
-import it.academy.servlets.commands.impl.device_type.ShowDeviceType;
-import it.academy.servlets.commands.impl.device_type.ShowDeviceTypeTable;
+import it.academy.servlets.commands.impl.add.AddBrand;
+import it.academy.servlets.commands.impl.change.ChangeBrand;
+import it.academy.servlets.commands.impl.add.AddDeviceType;
+import it.academy.servlets.commands.impl.change.ChangeDeviceType;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
-import it.academy.servlets.commands.impl.forms.*;
 import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
-import it.academy.servlets.commands.impl.model.ChangeModel;
-import it.academy.servlets.commands.impl.model.ShowModelTable;
-import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
-import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
-import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
-import it.academy.servlets.commands.impl.service_center.ShowServiceCenterTable;
-import it.academy.servlets.commands.impl.spare_part.AddSparePart;
-import it.academy.servlets.commands.impl.spare_part.ChangeSparePart;
-import it.academy.servlets.commands.impl.spare_part.ShowSparePartForm;
-import it.academy.servlets.commands.impl.spare_part.ShowSparePartTable;
-import it.academy.servlets.commands.impl.tables.*;
+import it.academy.servlets.commands.impl.change.ChangeModel;
+import it.academy.servlets.commands.impl.show.tables.*;
+import it.academy.servlets.commands.impl.add.AddServiceCenter;
+import it.academy.servlets.commands.impl.change.ChangeServiceCenter;
+import it.academy.servlets.commands.impl.show.forms.ShowServiceCenter;
+import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.add.AddSparePart;
+import it.academy.servlets.commands.impl.change.ChangeSparePart;
+import it.academy.servlets.commands.impl.show.forms.*;
 
 import static it.academy.utils.Constants.*;
 
@@ -57,7 +49,7 @@ public enum CommandEnum {
     CHANGE_MODEL(new ChangeModel()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
     ADD_SPARE_PART(new AddSparePart()),
-    SHOW_SPARE_PART_FORM(new ShowSparePartForm()),
+    SHOW_SPARE_PART_FORM(new ShowSparePart()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
 
 //    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),

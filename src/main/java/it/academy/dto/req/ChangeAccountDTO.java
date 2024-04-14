@@ -1,7 +1,7 @@
 package it.academy.dto.req;
 
 import it.academy.dto.resp.AccountDTO;
-import it.academy.entities.account.RoleEnum;
+import it.academy.utils.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

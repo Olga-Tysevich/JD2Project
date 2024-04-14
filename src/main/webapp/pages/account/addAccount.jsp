@@ -1,5 +1,5 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_ACCOUNT" %>

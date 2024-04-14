@@ -1,8 +1,8 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.SparePartsOrderDAO;
-import it.academy.entities.repair.Repair;
-import it.academy.entities.spare_parts_order.SparePartsOrder;
+import it.academy.entities.Repair;
+import it.academy.entities.SparePartsOrder;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;

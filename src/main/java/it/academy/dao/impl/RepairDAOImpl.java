@@ -2,8 +2,8 @@ package it.academy.dao.impl;
 
 
 import it.academy.dao.RepairDAO;
-import it.academy.entities.repair.Repair;
-import it.academy.entities.repair.components.RepairStatus;
+import it.academy.entities.Repair;
+import it.academy.utils.enums.RepairStatus;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;

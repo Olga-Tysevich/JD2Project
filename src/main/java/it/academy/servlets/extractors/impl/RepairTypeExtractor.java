@@ -1,9 +1,9 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.resp.ListForPage;
-import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.services.repair.RepairTypeService;
-import it.academy.services.repair.impl.RepairTypeServiceImpl;
+import it.academy.dto.resp.RepairTypeDTO;
+import it.academy.services.RepairTypeService;
+import it.academy.services.impl.RepairTypeServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;

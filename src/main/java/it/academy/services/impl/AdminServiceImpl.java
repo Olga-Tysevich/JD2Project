@@ -8,15 +8,15 @@ import it.academy.dto.req.ChangeAccountDTO;
 import it.academy.dto.req.CreateAccountDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.entities.account.Account;
-import it.academy.entities.account.RoleEnum;
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.Account;
+import it.academy.utils.enums.RoleEnum;
+import it.academy.entities.ServiceCenter;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.AdminService;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.account.AccountConverter;
+import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 
@@ -34,8 +34,6 @@ public class AdminServiceImpl implements AdminService {
         ServiceHelper.checkCurrentAccount(createAccountDTO.getCurrentAccount());
 
         Account account = AccountConverter.convertToEntity(createAccountDTO);
-        System.out.println("add adto " + createAccountDTO);
-        System.out.println("add a " + account);
 
         transactionManger.beginTransaction();
         if (!createAccountDTO.getPassword().equals(createAccountDTO.getConfirmPassword())) {
@@ -50,13 +48,10 @@ public class AdminServiceImpl implements AdminService {
 
         if (RoleEnum.SERVICE_CENTER.equals(account.getRole())) {
             ServiceCenter serviceCenter = serviceCenterDAO.find(createAccountDTO.getServiceCenterId());
-            System.out.println("add servicee center " + serviceCenter);
             account.setServiceCenter(serviceCenter);
         }
 
-        Account result = accountDAO.create(account);
-
-        System.out.println("after save " + result);
+        accountDAO.create(account);
 
         transactionManger.commit();
     }
@@ -67,7 +62,6 @@ public class AdminServiceImpl implements AdminService {
         ServiceHelper.checkCurrentAccount(account.getCurrentAccount());
 
         Account result = AccountConverter.convertToEntity(account);
-        System.out.println("update  account" + result);
         transactionManger.beginTransaction();
         Account temp = accountDAO.find(account.getId());
 
@@ -81,19 +75,14 @@ public class AdminServiceImpl implements AdminService {
             result.setIsActive(false);
         }
 
-        System.out.println("update temp a " + temp);
         ServiceCenter serviceCenter = serviceCenterDAO.find(account.getServiceCenterId());
         result.setServiceCenter(serviceCenter);
 
         if (account.getPassword() == null || account.getPassword().isBlank()) {
-            System.out.println("update service center " + serviceCenter);
             result.setPassword(temp.getPassword());
-
-            System.out.println("update after set passw " + temp);
         }
 
-        Account t = accountDAO.update(result);
-        System.out.println("update after " + t);
+        accountDAO.update(result);
 
         transactionManger.commit();
     }

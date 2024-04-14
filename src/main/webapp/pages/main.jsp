@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
-<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>

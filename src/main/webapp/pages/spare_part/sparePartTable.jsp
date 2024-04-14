@@ -5,7 +5,7 @@
 <%@ page import="it.academy.dto.resp.ListForPage" %>
 <%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
-<%@ page import="it.academy.entities.account.RoleEnum" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.resp.SparePartDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SPARE_PART_FORM" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_SPARE_PART" %>
@@ -32,8 +32,6 @@
                 <th class="menu">Управление</th>
                 <% } %>
             </tr>
-
-            <%="LIST " + list%>
 
             <%
                 for (SparePartDTO sparePart : list) {

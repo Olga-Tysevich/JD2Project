@@ -1,7 +1,7 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.ServiceCenterDAO;
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.ServiceCenter;
 
 public class ServiceCenterDAOImpl extends DAOImpl<ServiceCenter, Long> implements ServiceCenterDAO {
 

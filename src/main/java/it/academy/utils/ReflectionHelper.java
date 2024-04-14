@@ -1,6 +1,6 @@
 package it.academy.utils;
 
-import it.academy.entities.account.RoleEnum;
+import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 
 import static it.academy.utils.Constants.UNSUPPORTED_CLASS;

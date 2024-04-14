@@ -1,7 +1,7 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.ModelDAO;
-import it.academy.entities.device.components.Model;
+import it.academy.entities.Model;
 import java.util.List;
 
 import static it.academy.utils.Constants.*;

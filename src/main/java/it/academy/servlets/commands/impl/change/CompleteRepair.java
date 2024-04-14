@@ -1,13 +1,12 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.repair.RepairDTO;
-import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.entities.repair.components.RepairStatus;
-import it.academy.services.repair.RepairService;
-import it.academy.services.repair.impl.RepairServiceImpl;
+import it.academy.dto.resp.RepairDTO;
+import it.academy.dto.resp.RepairTypeDTO;
+import it.academy.utils.enums.RepairStatus;
+import it.academy.services.RepairService;
+import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 

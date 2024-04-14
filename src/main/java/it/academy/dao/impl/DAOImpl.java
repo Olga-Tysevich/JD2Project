@@ -1,7 +1,6 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
-import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -114,7 +113,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                 .getResultList();
     }
 
-
     @Override
     public List<T> findActiveObjects(boolean isActive) {
         String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
@@ -174,7 +172,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     protected Predicate createLikePredicate(Root<T> root, String filter, String value) {
         return criteriaBuilder()
                 .like(root.get(filter).as(String.class),
-                        ParameterManager.getParameterForLikeQuery(value));
+                        String.format(LIKE_QUERY_PATTERN,value));
     }
 
 }

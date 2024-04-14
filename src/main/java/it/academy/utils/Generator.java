@@ -1,17 +1,15 @@
 package it.academy.utils;
 
 
-import it.academy.entities.account.Account;
-import it.academy.entities.account.RoleEnum;
-import it.academy.entities.device.Device;
-import it.academy.entities.device.components.*;
-import it.academy.entities.repair.components.RepairType;
-import it.academy.entities.service_center.ServiceCenter;
-import it.academy.entities.spare_parts_order.SparePart;
-import it.academy.entities.liquidation.LiquidationCertificate;
-import it.academy.entities.spare_parts_order.SparePartsOrder;
-import it.academy.entities.service_center.BankAccount;
-import it.academy.entities.service_center.Requisites;
+import it.academy.entities.*;
+import it.academy.entities.Device;
+import it.academy.entities.RepairType;
+import it.academy.entities.ServiceCenter;
+import it.academy.entities.SparePart;
+import it.academy.entities.SparePartsOrder;
+import it.academy.entities.BankAccount;
+import it.academy.entities.Requisites;
+import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 import java.sql.Date;
 import java.util.Arrays;

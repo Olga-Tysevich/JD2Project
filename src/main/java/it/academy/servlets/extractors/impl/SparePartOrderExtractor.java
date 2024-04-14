@@ -4,13 +4,13 @@
 //import com.google.gson.reflect.TypeToken;
 //import it.academy.dto.req.SparePartDTO;
 //import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
-//import it.academy.services.spare_part.SparePartOrderService;
-//import it.academy.services.spare_part.SparePartService;
-//import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
-//import it.academy.services.spare_part.impl.SparePartServiceImpl;
+//import it.academy.services.SparePartOrderService;
+//import it.academy.services.SparePartService;
+//import it.academy.services.impl.SparePartOrderServiceImpl;
+//import it.academy.services.impl.SparePartServiceImpl;
 //import it.academy.servlets.extractors.Extractor;
-//import it.academy.utils.converters.spare_parst.SparePartConverter;
-//import it.academy.utils.converters.spare_parst.SparePartForOrder;
+//import it.academy.utils.converters.SparePartConverter;
+//import it.academy.utils.converters.SparePartForOrder;
 //
 //import javax.servlet.http.HttpServletRequest;
 //import java.lang.reflect.Type;

@@ -1,7 +1,7 @@
 package it.academy.dao;
 
-import it.academy.entities.repair.Repair;
-import it.academy.entities.repair.components.RepairStatus;
+import it.academy.entities.Repair;
+import it.academy.utils.enums.RepairStatus;
 import java.math.BigInteger;
 import java.util.List;
 

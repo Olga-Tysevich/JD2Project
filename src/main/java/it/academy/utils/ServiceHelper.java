@@ -3,11 +3,9 @@ package it.academy.utils;
 import it.academy.dao.DAO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.entities.account.RoleEnum;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
-import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.function.Function;

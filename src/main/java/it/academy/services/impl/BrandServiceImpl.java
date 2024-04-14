@@ -5,12 +5,12 @@ import it.academy.dao.impl.BrandDAOImpl;
 import it.academy.dto.req.BrandDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.entities.account.RoleEnum;
-import it.academy.entities.device.components.Brand;
+import it.academy.utils.enums.RoleEnum;
+import it.academy.entities.Brand;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.BrandService;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.device.BrandConverter;
+import it.academy.utils.converters.BrandConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 

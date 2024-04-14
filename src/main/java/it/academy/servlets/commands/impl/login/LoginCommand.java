@@ -3,7 +3,7 @@ package it.academy.servlets.commands.impl.login;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.req.LoginDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.entities.account.Account;
+import it.academy.entities.Account;
 import it.academy.services.AuthService;
 import it.academy.services.impl.AuthServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

@@ -1,7 +1,6 @@
 package it.academy.dao;
 
-import it.academy.dao.DAO;
-import it.academy.entities.device.components.Model;
+import it.academy.entities.Model;
 
 import java.util.List;
 

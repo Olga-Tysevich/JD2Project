@@ -2,12 +2,12 @@
 //
 //import it.academy.dto.req.BrandDTO;
 //import it.academy.dto.device.ModelDTO;
-//import it.academy.dto.repair.RepairDTO;
+//import it.academy.dto.resp.RepairDTO;
 //import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
-//import it.academy.services.repair.RepairService;
-//import it.academy.services.spare_part.SparePartOrderService;
-//import it.academy.services.repair.impl.RepairServiceImpl;
-//import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
+//import it.academy.services.RepairService;
+//import it.academy.services.SparePartOrderService;
+//import it.academy.services.impl.RepairServiceImpl;
+//import it.academy.services.impl.SparePartOrderServiceImpl;
 //import it.academy.servlets.commands.impl.forms.ShowOrderSparePart;
 //import it.academy.servlets.extractors.Extractor;
 //import it.academy.servlets.extractors.impl.SparePartOrderExtractor;

@@ -1,8 +1,8 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.AccountDAO;
-import it.academy.entities.account.Account;
-import it.academy.entities.service_center.ServiceCenter;
+import it.academy.entities.Account;
+import it.academy.entities.ServiceCenter;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;

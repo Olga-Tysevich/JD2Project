@@ -1,14 +1,13 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.services.repair.RepairTypeService;
-import it.academy.services.repair.impl.RepairTypeServiceImpl;
+import it.academy.dto.resp.RepairTypeDTO;
+import it.academy.services.RepairTypeService;
+import it.academy.services.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairTypeExtractor;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 

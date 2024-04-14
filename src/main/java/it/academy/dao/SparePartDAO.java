@@ -1,6 +1,6 @@
 package it.academy.dao;
 
-import it.academy.entities.spare_parts_order.SparePart;
+import it.academy.entities.SparePart;
 
 import java.util.List;
 

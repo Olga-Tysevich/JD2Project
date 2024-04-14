@@ -4,12 +4,12 @@ import it.academy.dao.AccountDAO;
 import it.academy.dao.impl.AccountDAOImpl;
 import it.academy.dto.req.LoginDTO;
 import it.academy.dto.resp.AccountDTO;
-import it.academy.entities.account.Account;
+import it.academy.entities.Account;
 import it.academy.exceptions.auth.IncorrectPassword;
 import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;
 import it.academy.services.AuthService;
-import it.academy.utils.converters.account.AccountConverter;
+import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 
 import static it.academy.utils.Constants.ACCOUNT_EMAIL;
