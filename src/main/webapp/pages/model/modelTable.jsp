@@ -10,6 +10,7 @@
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="it.academy.dto.device.resp.ModelListDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_MODEL" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_MODEL" %>
 <section>
     <div class="container t-container">
 

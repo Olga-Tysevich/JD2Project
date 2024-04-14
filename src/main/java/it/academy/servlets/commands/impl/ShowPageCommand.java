@@ -1,31 +1,35 @@
 package it.academy.servlets.commands.impl;
 
 import it.academy.servlets.commands.ActionCommand;
-
+import it.academy.utils.interfaces.EntitySupplier;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static it.academy.utils.Constants.*;
 
-public class ShowPageCommand implements ActionCommand {
-//    private AdminService adminService = new AdminServiceImpl();
-    private String pageKey;
+public class ShowPageCommand<T> implements ActionCommand {
+    private EntitySupplier<T> methodForSearch;
+    private String objectKey;
+    private String pagePath;
 
-    public ShowPageCommand(String pageKey) {
-        this.pageKey = pageKey;
+    public ShowPageCommand(EntitySupplier<T> methodForSearch, String objectKey, String pagePath) {
+        this.methodForSearch = methodForSearch;
+        this.objectKey = objectKey;
+        this.pagePath = pagePath;
     }
 
     @Override
     public String execute(HttpServletRequest req) {
 
-//        AccountDTOReq account = AccountDTOReq.builder()
-//                .email("user40@yahoo.com")
-//                .build();
-//
-//        RespDTO<AccountDTO> response = adminService.findAdminAccountByEmail(account);
-//        AccountDTO accountDTO = response.getParameter();
-//
-//        req.getSession().setAttribute(USER, accountDTO);
-//        resp.setStatus(response.getHttpStatus());
-        return pageKey;
+        long objectId = Long.parseLong(req.getParameter(OBJECT_ID));
+        String page = req.getParameter(PAGE);
+        int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
+        T dto = methodForSearch.get(objectId);
+        System.out.println("show " + dto);
+
+        req.setAttribute(objectKey, dto);
+        req.setAttribute(PAGE, page);
+        req.setAttribute(PAGE_NUMBER, pageNumber);
+
+        return pagePath;
     }
 
 }

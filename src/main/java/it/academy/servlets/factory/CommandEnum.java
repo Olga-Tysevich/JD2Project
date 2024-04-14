@@ -1,7 +1,6 @@
 package it.academy.servlets.factory;
 
 import it.academy.dto.device.req.ChangeModelDTO;
-import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.AddCommand;
@@ -10,10 +9,6 @@ import it.academy.servlets.commands.impl.brand.AddBrand;
 import it.academy.servlets.commands.impl.brand.ChangeBrand;
 import it.academy.servlets.commands.impl.brand.ShowBrand;
 import it.academy.servlets.commands.impl.brand.ShowBrandTable;
-//import it.academy.servlets.commands.impl.device_type.AddDeviceType;
-//import it.academy.servlets.commands.impl.device_type.ChangeDeviceType;
-//import it.academy.servlets.commands.impl.device_type.ShowDeviceType;
-//import it.academy.servlets.commands.impl.device_type.ShowDeviceTypeTable;
 import it.academy.servlets.commands.impl.device_type.AddDeviceType;
 import it.academy.servlets.commands.impl.device_type.ChangeDeviceType;
 import it.academy.servlets.commands.impl.device_type.ShowDeviceType;
@@ -21,18 +16,11 @@ import it.academy.servlets.commands.impl.device_type.ShowDeviceTypeTable;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
-//import it.academy.servlets.commands.impl.delete.DeleteSparePart;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
 import it.academy.servlets.commands.impl.forms.*;
 import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
-//import it.academy.servlets.commands.impl.models.AddModel;
-//import it.academy.servlets.commands.impl.models.ChangeModel;
-////import it.academy.servlets.commands.impl.models.ShowModel;
-//import it.academy.servlets.commands.impl.models.ShowModelTable;
-import it.academy.servlets.commands.impl.model.AddModel;
 import it.academy.servlets.commands.impl.model.ChangeModel;
-import it.academy.servlets.commands.impl.model.ShowModel;
 import it.academy.servlets.commands.impl.model.ShowModelTable;
 import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
@@ -60,12 +48,11 @@ public enum CommandEnum {
     SHOW_DEVICE_TYPE(new ShowDeviceType()),
     CHANGE_DEVICE_TYPE(new ChangeDeviceType()),
     SHOW_MODEL_TABLE(new ShowModelTable()),
-//    ADD_MODEL(new AddModel()),
     ADD_MODEL(new AddCommand<>(new ModelServiceImpl()::createModel, new ChangeModelDTO(), new ShowModelTable())),
-    SHOW_MODEL(new ShowModel()),
+    SHOW_MODEL(new ShowPageCommand<>((i) -> new ModelServiceImpl().findModel((Long) i), MODEL, MODEL_PAGE_PATH)),
     CHANGE_MODEL(new ChangeModel()),
 
-    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
+//    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_REPAIR(new ShowRepair()),
     ADD_REPAIR(new AddRepair()),
     SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),

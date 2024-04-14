@@ -189,7 +189,6 @@ public class Constants {
     public static final String SHOW_START_PAGE = "open_page";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
-    public static final String SHOW_MODEL = "show_model";
     public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 
