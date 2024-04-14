@@ -1,7 +1,8 @@
 package it.academy.services.device;
 
 import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.device.req.ModelDTO;
+import it.academy.dto.device.req.ChangeModelDTO;
+import it.academy.dto.device.resp.ModelDTO;
 import it.academy.dto.device.resp.ModelListDTO;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.exceptions.common.AccessDenied;
@@ -12,9 +13,9 @@ import java.util.List;
 
 public interface ModelService {
 
-    void createModel(ModelDTO model) throws AccessDenied;
+    void createModel(ChangeModelDTO model) throws AccessDenied;
 
-    void updateModel(ModelDTO model) throws AccessDenied;
+    void updateModel(ChangeModelDTO model) throws AccessDenied;
 
     ModelDTO findModel(long id);
 

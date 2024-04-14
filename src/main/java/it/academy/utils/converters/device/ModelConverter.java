@@ -1,6 +1,7 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.device.req.ModelDTO;
+import it.academy.dto.device.req.ChangeModelDTO;
+import it.academy.dto.device.resp.ModelDTO;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
@@ -38,6 +39,14 @@ public class ModelConverter {
                         .id(model.getDeviceTypeId())
                         .name(model.getDeviceTypeName())
                         .build())
+                .build();
+    }
+
+    public static Model convertToEntity(ChangeModelDTO model) {
+        return Model.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .isActive(model.getIsActive())
                 .build();
     }
 

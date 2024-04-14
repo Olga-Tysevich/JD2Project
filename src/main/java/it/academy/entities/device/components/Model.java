@@ -22,7 +22,7 @@ public class Model implements Serializable {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "active")
     private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.EAGER)

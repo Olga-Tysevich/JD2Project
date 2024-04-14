@@ -5,7 +5,7 @@ import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
-import static it.academy.servlets.factory.CommandEnum.SHOW_BRAND_TABLE;
+import static it.academy.servlets.factory.CommandEnum.SHOW_MODEL_TABLE;
 import static it.academy.utils.Constants.*;
 
 public class ShowModelTable implements ActionCommand {
@@ -18,7 +18,7 @@ public class ShowModelTable implements ActionCommand {
             return TableExtractor.extract(req,
                     (a, b, f, c) -> modelService.findModels(a, b, f, c),
                     (a, i) -> modelService.findModels(a, i),
-                    SHOW_BRAND_TABLE);
+                    SHOW_MODEL_TABLE);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

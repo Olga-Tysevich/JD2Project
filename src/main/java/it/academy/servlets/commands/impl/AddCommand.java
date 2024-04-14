@@ -1,29 +1,30 @@
-package it.academy.servlets.commands.impl.models;
+package it.academy.servlets.commands.impl;
 
-import it.academy.dto.device.req.ChangeModelDTO;
-import it.academy.exceptions.common.AccessDenied;
-import it.academy.services.device.ModelService;
-import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.brand.ShowBrandTable;
 import it.academy.servlets.extractors.ExtractorImpl;
 import javax.servlet.http.HttpServletRequest;
-
+import java.util.function.Consumer;
 import static it.academy.utils.Constants.*;
 
-public class AddModel implements ActionCommand {
-    private ModelService modelService = new ModelServiceImpl();
+public class AddCommand<T> implements ActionCommand {
+    private Consumer<T> methodForSave;
+    private T dto;
+
+    public AddCommand(Consumer<T> methodForSave, T dto) {
+        this.methodForSave = methodForSave;
+        this.dto = dto;
+    }
 
     @Override
     public String execute(HttpServletRequest req) {
 
         int pageNumber = req.getParameter(PAGE_NUMBER) != null?
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        ChangeModelDTO modelDTO = ExtractorImpl.extract(req, new ChangeModelDTO());
-
+        T dto = ExtractorImpl.extract(req, this.dto);
         try {
-            modelService.createModel(modelDTO);
-        } catch (IllegalArgumentException | AccessDenied e) {
+            methodForSave.accept(dto);
+        } catch (Exception e) {
             System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
         }
@@ -31,7 +32,7 @@ public class AddModel implements ActionCommand {
         req.setAttribute(PAGE, req.getParameter(PAGE));
         req.setAttribute(PAGE_NUMBER, pageNumber);
 
-        return new ShowModelTable().execute(req);
+        return new ShowBrandTable().execute(req);
     }
 
 }

@@ -9,10 +9,13 @@ import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.device.req.ModelDTO;
+import it.academy.dto.device.req.ChangeModelDTO;
+import it.academy.dto.device.resp.ModelDTO;
 import it.academy.dto.device.resp.ModelListDTO;
 import it.academy.dto.table.resp.ListForPage;
 import it.academy.entities.account.RoleEnum;
+import it.academy.entities.device.components.Brand;
+import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.exceptions.model.BrandsNotFound;
@@ -25,9 +28,12 @@ import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
-import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import java.util.List;
+import java.util.function.Consumer;
+
+import static it.academy.utils.Constants.LIST_SIZE;
+import static it.academy.utils.Constants.MODEL_ALREADY_EXIST;
 
 public class ModelServiceImpl implements ModelService {
     private TransactionManger transactionManger = TransactionManger.getInstance();
@@ -36,45 +42,50 @@ public class ModelServiceImpl implements ModelService {
     private BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override
-    public void createModel(ModelDTO model) throws AccessDenied {
-        ServiceHelper.checkCurrentAccount(model.getCurrentAccount());
-
-        Model result = ModelConverter.convertToEntity(model);
-        transactionManger.beginTransaction();
-
-        if (modelDAO.getModel(result) != null) {
-            transactionManger.commit();
-            throw new IllegalArgumentException(MODEL_ALREADY_EXIST);
-        }
-
-        modelDAO.create(result);
-
-        transactionManger.commit();
+    public void createModel(ChangeModelDTO model) throws AccessDenied {
+        changeModel(model, modelDAO::create);
     }
 
     @Override
-    public void updateModel(ModelDTO model) throws AccessDenied {
+    public void updateModel(ChangeModelDTO model) throws AccessDenied {
+        changeModel(model, modelDAO::update);
+    }
+
+    private void changeModel(ChangeModelDTO model, Consumer<Model> method) throws AccessDenied {
         ServiceHelper.checkCurrentAccount(model.getCurrentAccount());
 
         Model result = ModelConverter.convertToEntity(model);
         transactionManger.beginTransaction();
 
-        Model temp = modelDAO.getModel(result);
+        Brand brand = brandDAO.find(model.getBrandId());
+        DeviceType deviceType = deviceTypeDAO.find(model.getDeviceTypeId());
+        result.setBrand(brand);
+        result.setType(deviceType);
 
+        Model temp = modelDAO.getModel(result);
+        System.out.println("change model " + model);
+        System.out.println("change model temp " + temp);
+        System.out.println("change model temp equals" + (temp != null && !temp.getId().equals(result.getId())));
         if (temp != null && !temp.getId().equals(result.getId())) {
             transactionManger.commit();
             throw new IllegalArgumentException(MODEL_ALREADY_EXIST);
         }
 
-        modelDAO.update(result);
+        method.accept(result);
 
         transactionManger.commit();
     }
 
     @Override
     public ModelDTO findModel(long id) {
-        Model deviceType = transactionManger.execute(() -> modelDAO.find(id));
-        return ModelConverter.convertToDTO(deviceType);
+        return transactionManger.execute(() -> {
+            ModelDTO result = ModelConverter.convertToDTO(modelDAO.find(id));
+            List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
+            List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findAll());
+            result.setDeviceTypes(deviceTypes);
+            result.setBrands(brands);
+            return result;
+        });
     }
 
     @Override

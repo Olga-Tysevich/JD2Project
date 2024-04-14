@@ -6,9 +6,10 @@
 <%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
 <%@ page import="it.academy.dto.account.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
-<%@ page import="it.academy.dto.device.req.ModelDTO" %>
+<%@ page import="it.academy.dto.device.resp.ModelDTO" %>
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="it.academy.dto.device.resp.ModelListDTO" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_MODEL" %>
 <section>
     <div class="container t-container">
 
@@ -65,6 +66,8 @@
         <div class="add-form">
             <form action="main" method="post" id="addModel">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_MODEL%>">
+                <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">
@@ -78,7 +81,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Тип устройства:</label>
-                    <select class="f-form " name="<%=DEVICE_TYPE_ID%>" size="1">
+                    <select class="f-form " name="<%=TYPE_ID%>" size="1">
                         <%for (DeviceTypeDTO deviceTypeDTO : deviceTypes) {%>
                         <option value="<%=deviceTypeDTO.getId()%>"><%=deviceTypeDTO.getName()%></option>
                         <%}%>

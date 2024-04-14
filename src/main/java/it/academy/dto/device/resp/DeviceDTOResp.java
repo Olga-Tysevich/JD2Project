@@ -1,6 +1,5 @@
 package it.academy.dto.device.resp;
 
-import it.academy.dto.device.req.ModelDTO;
 import lombok.Builder;
 import lombok.Data;
 

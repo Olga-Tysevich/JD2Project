@@ -1,6 +1,5 @@
 package it.academy.dao;
 
-import it.academy.entities.device.components.Brand;
 import it.academy.utils.dao.ParameterManager;
 import it.academy.utils.dao.TransactionManger;
 import javax.persistence.EntityManager;

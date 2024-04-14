@@ -26,8 +26,10 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
         return entityManager()
                 .createQuery(FIND_MODEL, Model.class)
                 .setParameter(MODEL_NAME, model.getName())
-                .setParameter(BRAND, model.getBrand())
-                .setParameter(MODEL_DEVICE_TYPE, model.getType())
-                .getSingleResult();
+                .setParameter(FIND_MODEL_BRAND_ID, model.getBrand().getId())
+                .setParameter(FIND_MODEL_DEVICE_TYPE_ID, model.getType().getId())
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 }

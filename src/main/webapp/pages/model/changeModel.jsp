@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
-<%@ page import="it.academy.dto.device.req.CreateModelDTO" %>
 <%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="it.academy.dto.device.resp.ModelDTO" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_MODEL_TABLE" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_MODEL" %>
 <head>
     <meta charset="UTF-8">
@@ -15,9 +16,9 @@
 
     <%
         int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-        CreateModelDTO model = (CreateModelDTO) request.getAttribute(MODEL);
-        List<BrandDTO> brandList = (List<BrandDTO>) request.getAttribute(BRANDS);
-        List<DeviceTypeDTO> deviceTypes = (List<DeviceTypeDTO>) request.getAttribute(DEVICE_TYPES);
+        ModelDTO model = (ModelDTO) request.getAttribute(MODEL);
+        List<BrandDTO> brandList = model.getBrands();
+        List<DeviceTypeDTO> deviceTypes = model.getDeviceTypes();
     %>
 
     <form action="main" method="post">
@@ -28,13 +29,17 @@
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_model_id">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_MODEL%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="<%=MODEL_ID%>" value="<%=model.getId()%>">
+                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
 
                 <div class="f-input">
-                    <label class="form-el">Активно</label>
-                    <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=model.getIsActive()%>"
-                           <%if (model.getIsActive()) {%>checked<%}%>>
+                    <label class="form-el">Активен</label>
+                    <label >Активный: </label>
+                    <label >да: </label>
+                    <input type="radio" name="<%=IS_ACTIVE%>"  value="true" <%if (model.getIsActive()) {%>checked<%}%> />
+                    <label >нет: </label>
+                    <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!model.getIsActive()) {%>checked<%}%>/>
                 </div>
 
                 <div class="f-input">
@@ -50,7 +55,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Тип устройства:</label>
-                    <select class="f-form " name="<%=DEVICE_TYPE_ID%>" size="1">
+                    <select class="f-form " name="<%=TYPE_ID%>" size="1">
                         <%=DEVICE_TYPE_ID%>
                         <%for (DeviceTypeDTO deviceTypeDTO : deviceTypes) {%>
                         <option value="<%=deviceTypeDTO.getId()%>" <%if (deviceTypeDTO.getId().equals(model.getDeviceTypeId())) {%>selected<%}%>>
@@ -73,6 +78,7 @@
 
         <form action="main" method="post" id="cancel">
             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
         </form>
 

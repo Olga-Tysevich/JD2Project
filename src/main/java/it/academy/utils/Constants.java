@@ -18,9 +18,10 @@ public class Constants {
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id";
     public static final String IS_ACTIVE_PARAMETER = "isActive";
-    public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :modelName AND m.brand.id = :brandId AND m.type.id = :typeId";
+    public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
     public static final String FIND_MODEL_BRAND_ID = "brandId";
+    public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
 
     //parameters
     //common parameters
@@ -64,7 +65,6 @@ public class Constants {
     public static final String MODEL_NAME = "name";
     public static final String MODEL_DEVICE_TYPE = "type";
 
-
     //jsp
     public static final String LIST_FOR_PAGE = "table";
     public static final String FILTER = "filter";
@@ -98,6 +98,8 @@ public class Constants {
     public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/device_type/deviceTypesTable.jsp";
     //model
     public static final String MODELS = "models";
+    public static final String BRAND_ID = "brandId";
+    public static final String TYPE_ID = "deviceTypeId";
     public static final String DEVICE_TYPE_ID = "device_type_id";
     public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
@@ -137,7 +139,6 @@ public class Constants {
     //RepairWorkshop parameters
     //Model parameters
     //Brand parameters
-    public static final String BRAND_ID = "brand_id";
     public static final String CURRENT_BRAND_ID = "current_brand_id";
     //Repair parameters
     public static final String REPAIR_ID = "repair_id";
@@ -189,7 +190,6 @@ public class Constants {
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
     public static final String SHOW_MODEL = "show_model";
-    public static final String ADD_MODEL = "add_model";
     public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 
@@ -208,8 +208,6 @@ public class Constants {
     public static final String OPEN_SPARE_PART_ORDERS_TABLE_PAGE = "main?command=show_spare_part_orders_table&&page=%d";
     public static final String OPEN_SPARE_PART_TABLE_PAGE = "main?command=show_spare_part_table&&page=%d";
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
-    public static final String OPEN_DEVICE_TYPE_TABLE_PAGE = "main?command=show_device_type_table&&page=%d";
-    public static final String OPEN_MODEL_TABLE_PAGE = "main?command=show_model_table&&page=%d";
 
 
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
