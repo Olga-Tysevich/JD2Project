@@ -1,15 +1,12 @@
-package it.academy.services.admin;
+package it.academy.services;
 
-import it.academy.dto.account.req.ChangeAccountDTO;
-import it.academy.dto.account.req.CreateAccountDTO;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.req.ChangeAccountDTO;
+import it.academy.dto.req.CreateAccountDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.common.AccessDenied;
-
-import java.util.List;
 
 public interface AdminService {
 

@@ -1,5 +1,6 @@
-package it.academy.dto.spare_parts;
+package it.academy.dto.repair.spare_parts;
 
+import it.academy.dto.req.SparePartDTO;
 import lombok.Builder;
 import lombok.Data;
 import java.sql.Date;

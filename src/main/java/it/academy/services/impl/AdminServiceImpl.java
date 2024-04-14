@@ -1,37 +1,32 @@
-package it.academy.services.admin;
+package it.academy.services.impl;
 
-import it.academy.dao.account.AccountDAO;
-import it.academy.dao.account.AccountDAOImpl;
-import it.academy.dao.service_center.ServiceCenterDAO;
-import it.academy.dao.service_center.ServiceCenterDAOImpl;
-import it.academy.dto.account.req.ChangeAccountDTO;
-import it.academy.dto.account.req.CreateAccountDTO;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dao.AccountDAO;
+import it.academy.dao.ServiceCenterDAO;
+import it.academy.dao.impl.AccountDAOImpl;
+import it.academy.dao.impl.ServiceCenterDAOImpl;
+import it.academy.dto.req.ChangeAccountDTO;
+import it.academy.dto.req.CreateAccountDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.common.AccessDenied;
-import it.academy.utils.Builder;
+import it.academy.services.AdminService;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.account.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
-
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.EMAIL;
 import static it.academy.utils.Constants.LIST_SIZE;
 
 public class AdminServiceImpl implements AdminService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private AccountDAO accountDAO = new AccountDAOImpl();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final AccountDAO accountDAO = new AccountDAOImpl();
+    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
 
     @Override
     public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered, AccessDenied {
@@ -111,44 +106,27 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<AccountDTO> findAccounts(AccountDTO accountDTO, int pageNumber) {
-
-        if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getServiceCenterList(() -> accountDAO.findForPage(pageNumber, LIST_SIZE), pageNumber,
-                    AccountConverter::convertToDTOList);
-        }
-
-        long serviceCenterId = accountDTO.getServiceCenter().getId();
-
-        return getServiceCenterList(() -> accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE),
-                pageNumber, AccountConverter::convertToDTOList);
+        return findAccounts(accountDTO, pageNumber, null, null);
     }
 
     @Override
     public ListForPage<AccountDTO> findAccounts(AccountDTO accountDTO, int pageNumber, String filter, String input) {
 
         if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getServiceCenterList(() -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
-                    AccountConverter::convertToDTOList);
+
+            return ServiceHelper.getList(accountDAO,
+                    () -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
+                    AccountConverter::convertToDTOList,
+                    FilterManager::getFiltersForServiceCenter);
         }
 
         long serviceCenterId = accountDTO.getServiceCenter().getId();
 
-        return getServiceCenterList(() -> accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE, filter, input),
-                pageNumber, AccountConverter::convertToDTOList);
-    }
-
-    private ListForPage<AccountDTO> getServiceCenterList(Supplier<List<Account>> method, int pageNumber,
-                                                         Function<List<Account>, List<AccountDTO>> converter) {
-        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
-
-        Supplier<ListForPage<AccountDTO>> find = () -> {
-            List<Account> accounts = method.get();
-            int maxPageNumber = (int) Math.ceil(((double) accountDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<AccountDTO> list = converter.apply(accounts);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
-        };
-
-        return transactionManger.execute(find);
+        return ServiceHelper.getList(accountDAO,
+                () -> accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE, filter, input),
+                pageNumber,
+                AccountConverter::convertToDTOList,
+                FilterManager::getFiltersForServiceCenter);
     }
 
 }

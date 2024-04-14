@@ -1,18 +1,18 @@
-package it.academy.services.device.impl;
+package it.academy.services.impl;
 
-import it.academy.dao.device.BrandDAO;
-import it.academy.dao.device.DeviceTypeDAO;
-import it.academy.dao.device.ModelDAO;
-import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dao.device.impl.ModelDAOImpl;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.device.req.ChangeModelDTO;
-import it.academy.dto.device.resp.ModelDTO;
-import it.academy.dto.device.resp.ModelListDTO;
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dao.BrandDAO;
+import it.academy.dao.DeviceTypeDAO;
+import it.academy.dao.ModelDAO;
+import it.academy.dao.impl.BrandDAOImpl;
+import it.academy.dao.impl.DeviceTypeDAOImpl;
+import it.academy.dao.impl.ModelDAOImpl;
+import it.academy.dto.req.BrandDTO;
+import it.academy.dto.req.ChangeModelDTO;
+import it.academy.dto.req.DeviceTypeDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
+import it.academy.dto.resp.ModelDTO;
+import it.academy.dto.resp.ModelListDTO;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
@@ -20,7 +20,7 @@ import it.academy.entities.device.components.Model;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.DeviceTypesNotFound;
-import it.academy.services.device.ModelService;
+import it.academy.services.ModelService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.device.BrandConverter;
@@ -36,10 +36,10 @@ import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.MODEL_ALREADY_EXIST;
 
 public class ModelServiceImpl implements ModelService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private ModelDAO modelDAO = new ModelDAOImpl();
-    private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-    private BrandDAO brandDAO = new BrandDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final ModelDAO modelDAO = new ModelDAOImpl();
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private final BrandDAO brandDAO = new BrandDAOImpl();
 
     @Override
     public void createModel(ChangeModelDTO model) throws AccessDenied {

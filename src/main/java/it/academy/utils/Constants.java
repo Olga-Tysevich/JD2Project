@@ -103,6 +103,10 @@ public class Constants {
     public static final String DEVICE_TYPE_ID = "device_type_id";
     public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
+    //spare parts
+    public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
+    public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
+
 
 
     //repair
@@ -178,7 +182,6 @@ public class Constants {
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
-    public static final String SPARE_PART_PAGE_PATH = "/pages/change_pages/changeSparePart.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
@@ -188,7 +191,6 @@ public class Constants {
     //show_command
     public static final String SHOW_START_PAGE = "open_page";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
-    public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
     public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 

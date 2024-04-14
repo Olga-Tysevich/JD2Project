@@ -1,7 +1,7 @@
-package it.academy.services.auth;
+package it.academy.services;
 
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.login.req.LoginDTO;
+import it.academy.dto.req.LoginDTO;
+import it.academy.dto.resp.AccountDTO;
 import it.academy.exceptions.auth.IncorrectPassword;
 import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;

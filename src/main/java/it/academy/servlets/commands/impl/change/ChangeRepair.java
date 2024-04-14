@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.repair.RepairDTO;
-import it.academy.dto.spare_parts.SparePartOrderDTO;
+import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.repair.RepairService;
 import it.academy.services.spare_part.SparePartOrderService;
@@ -12,7 +12,6 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairExtractor;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 import java.util.List;

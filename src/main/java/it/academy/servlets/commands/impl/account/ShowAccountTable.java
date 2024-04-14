@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.services.admin.AdminService;
-import it.academy.services.admin.AdminServiceImpl;
+import it.academy.services.AdminService;
+import it.academy.services.impl.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.TableExtractor;
 

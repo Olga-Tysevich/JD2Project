@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.model;
 
-import it.academy.services.device.ModelService;
-import it.academy.services.device.impl.ModelServiceImpl;
+import it.academy.services.ModelService;
+import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;

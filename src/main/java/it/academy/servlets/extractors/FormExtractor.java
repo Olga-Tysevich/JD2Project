@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors;
 
-import it.academy.dto.table.req.TableReq;
+import it.academy.dto.req.TableReq;
 import it.academy.utils.interfaces.EntitySupplier;
 import lombok.experimental.UtilityClass;
 
@@ -14,7 +14,8 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 @UtilityClass
-public class FormExtractor {
+public class FormExtractor{
+
 
     public static <T, R> String extract(HttpServletRequest req, Consumer<T> methodForSave,
                                         EntitySupplier<R> methodForGet, Class<T> resultClass,

@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors.impl.test;
 
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dto.resp.ListForPage;
 import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;

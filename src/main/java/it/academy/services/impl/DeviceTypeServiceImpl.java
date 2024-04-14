@@ -1,28 +1,26 @@
-package it.academy.services.device.impl;
+package it.academy.services.impl;
 
-import it.academy.dao.device.DeviceTypeDAO;
-import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dao.DeviceTypeDAO;
+import it.academy.dao.impl.DeviceTypeDAOImpl;
+import it.academy.dto.req.DeviceTypeDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.exceptions.common.AccessDenied;
-import it.academy.services.device.DeviceTypeService;
-import it.academy.utils.Builder;
+import it.academy.services.DeviceTypeService;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
+
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
+
 import static it.academy.utils.Constants.*;
 
 public class DeviceTypeServiceImpl implements DeviceTypeService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
 
     @Override
     public void createDeviceType(DeviceTypeDTO deviceType) throws AccessDenied {
@@ -73,44 +71,28 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
             return DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findActiveObjects(true));
         }
 
-        List<DeviceType> deviceTypes = transactionManger.execute(() -> deviceTypeDAO.findAll());
+        List<DeviceType> deviceTypes = transactionManger.execute(deviceTypeDAO::findAll);
         return DeviceTypeConverter.convertToDTOList(deviceTypes);
     }
 
     @Override
     public ListForPage<DeviceTypeDTO> findDeviceTypes(AccountDTO accountDTO, int pageNumber) {
 
-        if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getDeviceTypeList(() -> deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE), pageNumber,
-                    DeviceTypeConverter::convertToDTOList);
-        }
-
-        return getDeviceTypeList(() -> deviceTypeDAO.findForPage(pageNumber, LIST_SIZE), pageNumber,
-                DeviceTypeConverter::convertToDTOList);
+        return findDeviceTypes(accountDTO, pageNumber, null, null);
     }
 
     @Override
     public ListForPage<DeviceTypeDTO> findDeviceTypes(AccountDTO accountDTO, int pageNumber, String filter, String input) {
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getDeviceTypeList(() -> deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input), pageNumber,
-                    DeviceTypeConverter::convertToDTOList);
+            return ServiceHelper.getList(deviceTypeDAO,
+                    () -> deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input), pageNumber,
+                    DeviceTypeConverter::convertToDTOList,
+                    FilterManager::getFiltersForDeviceType);
         }
-        return getDeviceTypeList(() -> deviceTypeDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
-                DeviceTypeConverter::convertToDTOList);
-    }
-
-    private ListForPage<DeviceTypeDTO> getDeviceTypeList(Supplier<List<DeviceType>> method, int pageNumber,
-                                                         Function<List<DeviceType>, List<DeviceTypeDTO>> converter) {
-        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
-
-        Supplier<ListForPage<DeviceTypeDTO>> find = () -> {
-            List<DeviceType> deviceTypes = method.get();
-            int maxPageNumber = (int) Math.ceil(((double) deviceTypeDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<DeviceTypeDTO> list = converter.apply(deviceTypes);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
-        };
-
-        return transactionManger.execute(find);
+        return ServiceHelper.getList(deviceTypeDAO,
+                () -> deviceTypeDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
+                DeviceTypeConverter::convertToDTOList,
+                FilterManager::getFiltersForDeviceType);
     }
 
 }

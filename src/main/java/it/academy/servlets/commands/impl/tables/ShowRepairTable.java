@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.tables;
 
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dto.resp.ListForPage;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.repair.RepairService;
@@ -36,7 +36,7 @@ public class ShowRepairTable implements ActionCommand {
         req.setAttribute(PAGE_NUMBER, pageNumber);
         req.setAttribute(MAX_PAGE, repairs.getMaxPageNumber());
         req.setAttribute(REPAIR_STATUS, lastStatus);
-        req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_TABLE);
+//        req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_TABLE);
 
         return MAIN_PAGE_PATH;
 

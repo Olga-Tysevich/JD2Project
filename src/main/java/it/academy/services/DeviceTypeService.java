@@ -1,8 +1,8 @@
-package it.academy.services.device;
+package it.academy.services;
 
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.req.DeviceTypeDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.exceptions.common.AccessDenied;
 
 import java.util.List;
@@ -19,6 +19,6 @@ public interface DeviceTypeService {
 
     ListForPage<DeviceTypeDTO> findDeviceTypes(AccountDTO accountDTO, int pageNumber);
 
-    ListForPage<DeviceTypeDTO> findDeviceTypes(AccountDTO accountDTO,int pageNumber, String filter, String input);
+    ListForPage<DeviceTypeDTO> findDeviceTypes(AccountDTO accountDTO, int pageNumber, String filter, String input);
 
 }
