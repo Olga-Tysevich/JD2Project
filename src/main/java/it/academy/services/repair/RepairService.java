@@ -1,11 +1,11 @@
 package it.academy.services.repair;
 
 
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.resp.DeviceDTOResp;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.dto.req.BrandDTO;
+import it.academy.dto.resp.DeviceDTOResp;
+import it.academy.dto.resp.ListForPage;
 import it.academy.entities.repair.components.RepairStatus;
 
 import java.util.List;

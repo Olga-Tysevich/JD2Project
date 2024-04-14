@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.dto.account.req.ChangeAccountDTO;
-import it.academy.services.admin.AdminService;
-import it.academy.services.admin.AdminServiceImpl;
+import it.academy.dto.req.ChangeAccountDTO;
+import it.academy.services.AdminService;
+import it.academy.services.impl.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.FormExtractor;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;

@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.services.admin.AdminService;
-import it.academy.services.admin.AdminServiceImpl;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.services.AdminService;
+import it.academy.services.impl.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;

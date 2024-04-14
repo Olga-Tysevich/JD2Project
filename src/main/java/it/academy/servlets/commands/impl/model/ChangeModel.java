@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.model;
 
-import it.academy.dto.device.req.ChangeModelDTO;
-import it.academy.services.device.ModelService;
-import it.academy.services.device.impl.ModelServiceImpl;
+import it.academy.dto.req.ChangeModelDTO;
+import it.academy.services.ModelService;
+import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.FormExtractor;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;

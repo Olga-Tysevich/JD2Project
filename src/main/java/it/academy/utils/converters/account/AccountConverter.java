@@ -1,9 +1,9 @@
 package it.academy.utils.converters.account;
 
-import it.academy.dto.account.req.ChangeAccountDTO;
-import it.academy.dto.account.req.CreateAccountDTO;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.req.ChangeAccountDTO;
+import it.academy.dto.req.CreateAccountDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.entities.account.Account;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.utils.converters.service_center.ServiceCenterConverter;

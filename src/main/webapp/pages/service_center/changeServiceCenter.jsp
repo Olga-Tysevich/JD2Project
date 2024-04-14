@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
+<%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
 <%@ page import="it.academy.servlets.factory.CommandEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,15 +16,13 @@
         <%
             int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
             ServiceCenterDTO serviceCenter = (ServiceCenterDTO) request.getAttribute(SERVICE_CENTER);
-            CommandEnum command = (CommandEnum) request.getAttribute(COMMAND);
         %>
         <%=pageNumber%>
         <%=serviceCenter%>
-        <%=command%>
             <div class="lr-container">
                     <form action="main" method="post" id="service_center">
                         <div class="f-input">
-                            <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                            <input type="hidden" name="<%=COMMAND%>" value="<%=request.getAttribute(COMMAND)%>">
                             <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         </div>

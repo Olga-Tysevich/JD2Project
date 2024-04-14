@@ -1,9 +1,9 @@
 //package it.academy.servlets.extractors.impl;
 //
-//import it.academy.dto.table.resp.ListForPage;
-//import it.academy.dto.device.DeviceTypeDTO;
-//import it.academy.services.device.DeviceTypeService;
-//import it.academy.services.device.impl.DeviceTypeServiceImpl;
+//import it.academy.dto.resp.ListForPage;
+//import it.academy.dto.req.DeviceTypeDTO;
+//import it.academy.services.DeviceTypeService;
+//import it.academy.services.impl.DeviceTypeServiceImpl;
 //import it.academy.servlets.extractors.Extractor;
 //
 //import javax.servlet.http.HttpServletRequest;

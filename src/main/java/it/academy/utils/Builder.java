@@ -1,7 +1,7 @@
 package it.academy.utils;
 
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.resp.ListForPage;
+import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.experimental.UtilityClass;
 import java.util.List;

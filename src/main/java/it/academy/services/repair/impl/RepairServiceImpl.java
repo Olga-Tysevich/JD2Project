@@ -1,24 +1,15 @@
 package it.academy.services.repair.impl;
 
 
-import it.academy.dao.device.BrandDAO;
-import it.academy.dao.device.DeviceDAO;
-import it.academy.dao.device.ModelDAO;
-import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dao.device.impl.DeviceDAOImpl;
-import it.academy.dao.device.impl.ModelDAOImpl;
-import it.academy.dao.repair.RepairDAO;
-import it.academy.dao.repair.RepairTypeDAO;
-import it.academy.dao.repair.impl.RepairDAOImpl;
-import it.academy.dao.repair.impl.RepairTypeDAOImpl;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dao.*;
+import it.academy.dao.impl.*;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.dto.req.BrandDTO;
+import it.academy.dto.resp.DeviceDTOResp;
+import it.academy.dto.resp.ListForPage;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.components.Brand;
-import it.academy.entities.device.components.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.repair.components.RepairType;
@@ -26,7 +17,6 @@ import it.academy.services.repair.RepairService;
 import it.academy.utils.Builder;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.DeviceConverter;
-import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.converters.repair.RepairConverter;
 import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.dao.TransactionManger;
@@ -39,12 +29,12 @@ import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.SERIAL_NUMBER;
 
 public class RepairServiceImpl implements RepairService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private RepairDAO repairDAO = new RepairDAOImpl();
-    private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
-    private BrandDAO brandDAO = new BrandDAOImpl();
-    private DeviceDAO deviceDAO = new DeviceDAOImpl();
-    private ModelDAO modelDAO = new ModelDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final RepairDAO repairDAO = new RepairDAOImpl();
+    private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
+    private final BrandDAO brandDAO = new BrandDAOImpl();
+    private final DeviceDAO deviceDAO = new DeviceDAOImpl();
+    private final ModelDAO modelDAO = new ModelDAOImpl();
 
     @Override
     public void addRepair(RepairDTO repairDTO) {

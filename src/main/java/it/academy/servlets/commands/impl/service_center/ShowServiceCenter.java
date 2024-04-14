@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.service_center;
 
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

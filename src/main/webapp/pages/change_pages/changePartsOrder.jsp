@@ -1,7 +1,7 @@
-<%@ page import="it.academy.dto.spare_parts.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.utils.Constants.ORDERS" %>
-<%@ page import="it.academy.dto.spare_parts.SparePartDTO" %>
+<%@ page import="it.academy.dto.req.SparePartDTO" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="static it.academy.utils.Constants.ORDER_ID" %>
 <%@ page import="static it.academy.utils.Constants.*" %>

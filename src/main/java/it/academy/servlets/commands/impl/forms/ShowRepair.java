@@ -1,12 +1,11 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.BrandDTO;
+import it.academy.dto.req.BrandDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.utils.Builder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

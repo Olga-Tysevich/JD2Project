@@ -1,25 +1,25 @@
 package it.academy.services.spare_part;
 
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.dto.req.SparePartDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.SparePartForTableDTO;
+import it.academy.dto.resp.ListForPage;
 
 import java.util.List;
 
 public interface SparePartService {
 
-    void addSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId);
+    void addSparePart(SparePartDTO sparePartDTO);
 
-    void updateSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId);
-
-    void deleteSparePart(long id);
+    void changeSparePart(SparePartDTO sparePartDTO);
 
     SparePartDTO findSparePart(long id);
 
-    ListForPage<SparePartDTO> findSpareParts(int pageNumber);
+    ListForPage<SparePartForTableDTO> findSpareParts(AccountDTO accountDTO, int pageNumber);
 
-    List<SparePartDTO> findSparePartsByDeviceTypeId(long id);
+    List<SparePartForTableDTO> findSparePartsByDeviceTypeId(AccountDTO accountDTO, long id);
 
-    ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
+    ListForPage<SparePartForTableDTO> findSpareParts(AccountDTO accountDTO, int pageNumber, String filter, String input);
 
 
 }

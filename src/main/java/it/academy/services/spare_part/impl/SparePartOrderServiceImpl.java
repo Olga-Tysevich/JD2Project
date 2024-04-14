@@ -1,26 +1,26 @@
 package it.academy.services.spare_part.impl;
 
-import it.academy.dao.device.DeviceTypeDAO;
-import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dao.repair.RepairDAO;
-import it.academy.dao.repair.impl.RepairDAOImpl;
-import it.academy.dao.spare_parts_order.SparePartDAO;
-import it.academy.dao.spare_parts_order.SparePartsOrderDAO;
-import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
-import it.academy.dao.spare_parts_order.impl.SparePartsOrderDAOImpl;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.spare_parts.SparePartDTO;
-import it.academy.dto.spare_parts.SparePartOrderDTO;
+import it.academy.dao.DeviceTypeDAO;
+import it.academy.dao.RepairDAO;
+import it.academy.dao.SparePartDAO;
+import it.academy.dao.SparePartsOrderDAO;
+import it.academy.dao.impl.DeviceTypeDAOImpl;
+import it.academy.dao.impl.RepairDAOImpl;
+import it.academy.dao.impl.SparePartDAOImpl;
+import it.academy.dao.impl.SparePartsOrderDAOImpl;
+import it.academy.dto.req.SparePartDTO;
+import it.academy.dto.resp.ListForPage;
+import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.components.RepairStatus;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.utils.Builder;
-import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.fiterForSearch.EntityFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +29,11 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class SparePartOrderServiceImpl implements SparePartOrderService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private SparePartDAO sparePartDAO = new SparePartDAOImpl();
-    private SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
-    private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-    private RepairDAO repairDAO = new RepairDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final SparePartDAO sparePartDAO = new SparePartDAOImpl();
+    private final SparePartsOrderDAO sparePartsOrderDAO = new SparePartsOrderDAOImpl();
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private final RepairDAO repairDAO = new RepairDAOImpl();
 
 
     @Override
@@ -43,8 +43,9 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         Supplier<ListForPage<SparePartDTO>> find = () -> {
             List<SparePart> repairs = sparePartDAO.findForPage(pageNumber, LIST_SIZE);
             int maxPageNumber = (int) Math.ceil(((double) sparePartDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<SparePartDTO> list = SparePartConverter.convertListToDTO(repairs);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+//            List<SparePartDTO> list = SparePartConverter.convertToDTOList(repairs);
+//            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+            return null;
         };
 
         return transactionManger.execute(find);
@@ -128,8 +129,9 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         Supplier<ListForPage<SparePartDTO>> find = () -> {
             List<SparePart> repairs = sparePartDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
             int maxPageNumber = (int) Math.ceil(((double) sparePartDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<SparePartDTO> list = SparePartConverter.convertListToDTO(repairs);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+//            List<SparePartDTO> list = SparePartConverter.convertToDTOList(repairs);
+//            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+            return null;
         };
 
         return transactionManger.execute(find);

@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dto.resp.ListForPage;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.services.repair.impl.RepairTypeServiceImpl;

@@ -1,6 +1,6 @@
 package it.academy.utils.converters.service_center;
 
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.entities.service_center.BankAccount;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.entities.service_center.Requisites;

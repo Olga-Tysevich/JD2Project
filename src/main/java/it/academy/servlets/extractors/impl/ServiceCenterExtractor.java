@@ -1,7 +1,6 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;

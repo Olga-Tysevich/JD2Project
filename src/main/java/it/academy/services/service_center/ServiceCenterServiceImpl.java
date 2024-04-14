@@ -1,12 +1,12 @@
 package it.academy.services.service_center;
 
-import it.academy.dao.account.AccountDAO;
-import it.academy.dao.account.AccountDAOImpl;
-import it.academy.dao.service_center.ServiceCenterDAO;
-import it.academy.dao.service_center.ServiceCenterDAOImpl;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.service_center.ServiceCenterDTO;
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dao.AccountDAO;
+import it.academy.dao.ServiceCenterDAO;
+import it.academy.dao.impl.AccountDAOImpl;
+import it.academy.dao.impl.ServiceCenterDAOImpl;
+import it.academy.dto.req.ServiceCenterDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.service_center.ServiceCenter;
@@ -25,9 +25,9 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class ServiceCenterServiceImpl implements ServiceCenterService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
-    private AccountDAO accountDAO = new AccountDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private final AccountDAO accountDAO = new AccountDAOImpl();
 
     @Override
     public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) throws AccessDenied {

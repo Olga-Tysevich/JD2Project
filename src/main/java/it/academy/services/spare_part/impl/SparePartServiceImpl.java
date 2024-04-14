@@ -1,57 +1,65 @@
 package it.academy.services.spare_part.impl;
 
-import it.academy.dao.device.DeviceTypeDAO;
-import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dao.spare_parts_order.SparePartDAO;
-import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.spare_parts.SparePartDTO;
+import it.academy.dao.DeviceTypeDAO;
+import it.academy.dao.SparePartDAO;
+import it.academy.dao.impl.DeviceTypeDAOImpl;
+import it.academy.dao.impl.SparePartDAOImpl;
+import it.academy.dto.req.DeviceTypeDTO;
+import it.academy.dto.req.SparePartDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.SparePartForTableDTO;
+import it.academy.dto.resp.ListForPage;
+import it.academy.entities.account.RoleEnum;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
+import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.spare_part.SparePartService;
-import it.academy.utils.fiterForSearch.EntityFilter;
+import it.academy.utils.Builder;
+import it.academy.utils.ServiceHelper;
+import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.fiterForSearch.FilterManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.Constants.LIST_SIZE;
 
 public class SparePartServiceImpl implements SparePartService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-    private SparePartDAO sparePartDAO = new SparePartDAOImpl();
-
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private final SparePartDAO sparePartDAO = new SparePartDAOImpl();
 
     @Override
-    public List<SparePartDTO> findSparePartsByDeviceTypeId(long id) {
-        Supplier<List<SparePartDTO>> find = () -> {
-            List<SparePart> sparePart = sparePartDAO.findByDeviceTypeId(id);
-            return SparePartConverter.convertListToDTO(sparePart);
-        };
-        return transactionManger.execute(find);
-    }
-
-//    @Override
-//    public void addSparePart(SparePartDTO partDTO) {
-//        SparePart sparePart = SparePartConverter.convertDTOToEntity(partDTO);
-//        transactionManger.execute(() -> {
-//            SparePart sparePartAfterSave = sparePartDAO.create(sparePart);
+    public void addSparePart(SparePartDTO partDTO) {
+        SparePart sparePart = SparePartConverter.convertDTOToEntity(partDTO);
+        transactionManger.execute(() -> {
+            SparePart sparePartAfterSave = sparePartDAO.create(sparePart);
 //            partDTO.getRelatedDeviceTypes().forEach(dt -> {
 //                DeviceType deviceType = deviceTypeDAO.find(dt.getId());
 //                deviceType.addSparePart(sparePartAfterSave);
 //                deviceTypeDAO.update(deviceType);
 //            });
-//            return sparePartAfterSave;
-//        });
-//    }
+            return sparePartAfterSave;
+        });
+    }
 
-//    @Override
-//    public void changeSparePart(SparePartDTO partDTO) {
+
+    @Override
+    public List<SparePartForTableDTO> findSparePartsByDeviceTypeId(AccountDTO accountDTO, long id) {
+        Supplier<List<SparePartForTableDTO>> find = () -> {
+            List<SparePart> sparePart = sparePartDAO.findByDeviceTypeId(id);
+//            return SparePartConverter.convertToDTOList(sparePart);
+            return null;
+        };
+
+        return transactionManger.execute(find);
+    }
+
+    @Override
+    public void changeSparePart(SparePartDTO partDTO) {
 //        SparePart sparePart = SparePartConverter.convertDTOToEntity(partDTO);
 //        transactionManger.execute(() -> {
 //            SparePart sparePartAfterSave = sparePartDAO.update(sparePart);
@@ -62,93 +70,54 @@ public class SparePartServiceImpl implements SparePartService {
 //            });
 //            return sparePart;
 //        });
-//    }
+
+    }
 
     @Override
     public SparePartDTO findSparePart(long id) {
         Supplier<SparePartDTO> find = () -> {
             SparePart sparePart = sparePartDAO.find(id);
-            SparePartDTO result = SparePartConverter.convertToDTO(sparePart);
+//            SparePartDTO result = SparePartConverter.convertToDTO(sparePart);
             List<DeviceType> types = deviceTypeDAO.findAll();
             List<DeviceTypeDTO> deviceTypeDTOList = DeviceTypeConverter.convertToDTOList(types);
-            result.setAllDeviceTypes(deviceTypeDTOList);
-            return result;
+//            result.setAllDeviceTypes(deviceTypeDTOList);
+            return null;
         };
         return transactionManger.execute(find);
     }
 
 
     @Override
-    public void addSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId) {
-        SparePart sparePart = SparePartConverter.convertDTOToEntity(sparePartDTO);
-        Supplier<SparePartDTO> create = () -> {
-            sparePartDAO.create(sparePart);
-            deviceTypesId.forEach(id -> {
-                DeviceType deviceType = deviceTypeDAO.find(id);
-                deviceType.addSparePart(sparePart);
-                deviceTypeDAO.update(deviceType);
-            });
-            return SparePartConverter.convertToDTO(sparePart);
-        };
-
-        transactionManger.execute(create);
+    public ListForPage<SparePartForTableDTO> findSpareParts(AccountDTO accountDTO, int pageNumber) {
+        return findSpareParts(accountDTO, pageNumber, null, null);
     }
 
     @Override
-    public void updateSparePart(SparePartDTO sparePartDTO, List<Long> deviceTypesId) {
-        SparePart sparePart = SparePartConverter.convertDTOToEntity(sparePartDTO);
-        Supplier<SparePartDTO> update = () -> {
-            removeDeviceTypeFromSparePart(sparePart, deviceTypesId);
-            addDeviceTypeToSparePart(sparePart, deviceTypesId);
-            return SparePartConverter.convertToDTO(sparePart);
-        };
+    public ListForPage<SparePartForTableDTO> findSpareParts(AccountDTO accountDTO, int pageNumber, String filter, String input) {
+        transactionManger.beginTransaction();
+        System.out.println("in spare part service ");
+        List<SparePart> spareParts;
+        List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
+        System.out.println("deviceTypes " + deviceTypes);
 
-        transactionManger.execute(update);
+        if (deviceTypes.isEmpty()) {
+            throw new DeviceTypesNotFound();
+        }
+
+        if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
+            spareParts = sparePartDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input);
+        } else {
+            spareParts = sparePartDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+        }
+        System.out.println("spare part " + spareParts);
+
+        ListForPage<SparePartForTableDTO> sparePartsForTable = ServiceHelper.getList(sparePartDAO,
+                () -> spareParts,
+                pageNumber,
+                (l) -> SparePartConverter.convertToDTOList(spareParts, deviceTypes),
+                FilterManager::getFiltersForSparePart);
+        transactionManger.commit();
+        return sparePartsForTable;
     }
 
-    @Override
-    public void deleteSparePart(long id) {
-        transactionManger.execute(() -> {
-            SparePart sparePart = sparePartDAO.find(id);
-//            List<DeviceType> deviceTypes = deviceTypeDAO.findBySparePartId(sparePart.getId());
-//            deviceTypes.forEach(dt -> dt.removeSparePart(sparePart));
-            return sparePartDAO.delete(id);
-        });
-    }
-
-    @Override
-    public ListForPage<SparePartDTO> findSpareParts(int pageNumber) {
-        return null;
-    }
-
-    @Override
-    public ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input) {
-        return null;
-    }
-
-    private void addDeviceTypeToSparePart(SparePart sparePart, List<Long> deviceTypesId) {
-        deviceTypesId.forEach(id -> {
-            DeviceType deviceType = deviceTypeDAO.find(id);
-            deviceType.addSparePart(sparePart);
-            deviceTypeDAO.update(deviceType);
-        });
-    }
-
-    private void removeDeviceTypeFromSparePart(SparePart sparePart, List<Long> deviceTypesId) {
-//        deviceTypeDAO.findBySparePartId(sparePart.getId())
-//                .stream()
-//                .filter(dt -> !deviceTypesId.contains(dt.getId()))
-//                .forEach(dt -> {
-//                    dt.removeSparePart(sparePart);
-//                    deviceTypesId.remove(dt.getId());
-//                    deviceTypeDAO.update(dt);
-//                });
-    }
-
-    private List<EntityFilter> getFilters() {
-        List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(DEVICE_TYPES, DEVICE_TYPE_NAME_DESCRIPTION));
-        filters.add(new EntityFilter(OBJECT_NAME, REPAIR_TYPE_LEVEL_FILTER));
-        return filters;
-    }
 }

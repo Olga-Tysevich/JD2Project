@@ -1,7 +1,7 @@
 package it.academy.services.repair;
 
-import it.academy.dto.table.resp.ListForPage;
 import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.dto.resp.ListForPage;
 
 public interface RepairTypeService {
 

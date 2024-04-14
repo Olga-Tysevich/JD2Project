@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dto.resp.DeviceDTOResp;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
@@ -9,7 +9,6 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.servlets.extractors.impl.RepairExtractor;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.Constants.*;
 

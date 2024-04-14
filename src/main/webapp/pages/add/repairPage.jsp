@@ -3,10 +3,10 @@
 <%@ page import="it.academy.entities.repair.components.RepairStatus" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.entities.repair.components.RepairCategory" %>
-<%@ page import="it.academy.dto.device.BrandDTO" %>
-<%@ page import="it.academy.dto.device.req.ChangeModelDTO" %>
+<%@ page import="it.academy.dto.req.BrandDTO" %>
+<%@ page import="it.academy.dto.req.ChangeModelDTO" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="it.academy.dto.device.resp.DeviceDTOResp" %>
+<%@ page import="it.academy.dto.resp.DeviceDTOResp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

@@ -1,11 +1,11 @@
 package it.academy.servlets.commands.impl.account;
 
-import it.academy.dto.account.req.CreateAccountDTO;
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.service_center.ServiceCenterDTO;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.services.admin.AdminService;
-import it.academy.services.admin.AdminServiceImpl;
+import it.academy.dto.req.CreateAccountDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.req.ServiceCenterDTO;
+import it.academy.dto.resp.ListForPage;
+import it.academy.services.AdminService;
+import it.academy.services.impl.AdminServiceImpl;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

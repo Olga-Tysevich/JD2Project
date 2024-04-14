@@ -1,6 +1,6 @@
 package it.academy.servlets.extractors;
 
-import it.academy.dto.account.resp.AccountDTO;
+import it.academy.dto.resp.AccountDTO;
 import it.academy.utils.ReflectionHelper;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 

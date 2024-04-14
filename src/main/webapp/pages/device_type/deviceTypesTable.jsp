@@ -2,11 +2,11 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.table.resp.ListForPage" %>
-<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.resp.ListForPage" %>
+<%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_DEVICE_TYPE" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_DEVICE_TYPE" %>
-<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <section>
     <div class="container t-container">

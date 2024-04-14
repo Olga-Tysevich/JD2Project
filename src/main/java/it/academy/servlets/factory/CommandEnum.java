@@ -1,7 +1,7 @@
 package it.academy.servlets.factory;
 
-import it.academy.dto.device.req.ChangeModelDTO;
-import it.academy.services.device.impl.ModelServiceImpl;
+import it.academy.dto.req.ChangeModelDTO;
+import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.AddCommand;
 import it.academy.servlets.commands.impl.account.*;
@@ -26,6 +26,7 @@ import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.spare_part.ShowSparePartTable;
 import it.academy.servlets.commands.impl.tables.*;
 
 import static it.academy.utils.Constants.*;
@@ -51,6 +52,10 @@ public enum CommandEnum {
     ADD_MODEL(new AddCommand<>(new ModelServiceImpl()::createModel, new ChangeModelDTO(), new ShowModelTable())),
     SHOW_MODEL(new ShowPageCommand<>((i) -> new ModelServiceImpl().findModel((Long) i), MODEL, MODEL_PAGE_PATH)),
     CHANGE_MODEL(new ChangeModel()),
+    SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
+//    ADD_SPARE_PART(new AddSparePart()),
+    SHOW_SPARE_PART_FORM(null),
+//    CHANGE_SPARE_PART(new ChangeSparePart()),
 
 //    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_REPAIR(new ShowRepair()),
@@ -69,10 +74,7 @@ public enum CommandEnum {
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
     SHOW_REPAIR_TYPE(new ShowRepairType()),
     SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable()),
-//    SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
-//    ADD_SPARE_PART(new AddSparePart()),
-//    SHOW_SPARE_PART_FORM(new ShowSparePartForm()),
-//    CHANGE_SPARE_PART(new ChangeSparePart()),
+
 //    DELETE_SPARE_PART(new DeleteSparePart()),
 //    SHOW_MODEL(new ShowModel()),
 

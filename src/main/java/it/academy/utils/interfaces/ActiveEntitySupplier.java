@@ -1,6 +1,6 @@
 package it.academy.utils.interfaces;
 
-import it.academy.dto.account.resp.AccountDTO;
+import it.academy.dto.resp.AccountDTO;
 
 public interface ActiveEntitySupplier<T> {
 

@@ -1,8 +1,8 @@
 package it.academy.servlets.extractors;
 
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.table.req.TableReq;
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.req.TableReq;
+import it.academy.dto.resp.ListForPage;
 import it.academy.servlets.factory.CommandEnum;
 import it.academy.utils.interfaces.ActiveEntitySupplier;
 import it.academy.utils.interfaces.FilteredEntitySupplier;
@@ -28,7 +28,7 @@ public class TableExtractor{
         } else {
             list = methodWithoutFilters.get(currentAccount, request.getPageNumber());
         }
-        System.out.println("show table accounts " + list);
+        System.out.println("show table list " + list);
         list.setPage(request.getPage());
         list.setCommand(command.name());
         System.out.println("show request after find" + list);

@@ -2,8 +2,8 @@
 //
 //import com.google.gson.Gson;
 //import com.google.gson.reflect.TypeToken;
-//import it.academy.dto.spare_parts.SparePartDTO;
-//import it.academy.dto.spare_parts.SparePartOrderDTO;
+//import it.academy.dto.req.SparePartDTO;
+//import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 //import it.academy.services.spare_part.SparePartOrderService;
 //import it.academy.services.spare_part.SparePartService;
 //import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;

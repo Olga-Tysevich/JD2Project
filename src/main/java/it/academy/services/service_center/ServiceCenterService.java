@@ -1,8 +1,8 @@
 package it.academy.services.service_center;
 
-import it.academy.dto.account.resp.AccountDTO;
-import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.service_center.ServiceCenterDTO;
+import it.academy.dto.req.ServiceCenterDTO;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.common.AccessDenied;
 

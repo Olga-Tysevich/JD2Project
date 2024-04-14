@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
-<%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
+<%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

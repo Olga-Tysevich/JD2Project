@@ -1,9 +1,9 @@
 //package it.academy.servlets.commands.impl.add;
 //
-//import it.academy.dto.device.BrandDTO;
+//import it.academy.dto.req.BrandDTO;
 //import it.academy.dto.device.ModelDTO;
 //import it.academy.dto.repair.RepairDTO;
-//import it.academy.dto.spare_parts.SparePartOrderDTO;
+//import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 //import it.academy.services.repair.RepairService;
 //import it.academy.services.spare_part.SparePartOrderService;
 //import it.academy.services.repair.impl.RepairServiceImpl;

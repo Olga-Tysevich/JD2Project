@@ -1,11 +1,11 @@
 //package it.academy.servlets.extractors.impl.account;
 //
-//import it.academy.dto.table.resp.ListForPage;
-//import it.academy.dto.account.resp.AccountDTO;
-//import it.academy.dto.service_center.ServiceCenterDTO;
+//import it.academy.dto.resp.ListForPage;
+//import it.academy.dto.resp.AccountDTO;
+//import it.academy.dto.req.ServiceCenterDTO;
 //import it.academy.entities.account.RoleEnum;
-//import it.academy.services.admin.AdminService;
-//import it.academy.services.admin.AdminServiceImpl;
+//import it.academy.services.AdminService;
+//import it.academy.services.impl.AdminServiceImpl;
 //import it.academy.servlets.extractors.Extractor;
 //
 //import javax.servlet.http.HttpServletRequest;

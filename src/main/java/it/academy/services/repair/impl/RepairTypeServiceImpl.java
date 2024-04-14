@@ -1,15 +1,15 @@
 package it.academy.services.repair.impl;
 
-import it.academy.dao.repair.RepairTypeDAO;
-import it.academy.dao.repair.impl.RepairTypeDAOImpl;
-import it.academy.dto.table.resp.ListForPage;
+import it.academy.dao.RepairTypeDAO;
+import it.academy.dao.impl.RepairTypeDAOImpl;
 import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.dto.resp.ListForPage;
 import it.academy.entities.repair.components.RepairType;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.utils.Builder;
-import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.converters.repair.RepairTypeConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.fiterForSearch.EntityFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class RepairTypeServiceImpl implements RepairTypeService {
-    private TransactionManger transactionManger = TransactionManger.getInstance();
-    private RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
+    private final TransactionManger transactionManger = TransactionManger.getInstance();
+    private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
 
 
     @Override
@@ -68,7 +68,6 @@ public class RepairTypeServiceImpl implements RepairTypeService {
         RepairType result = RepairTypeConverter.convertDTOToEntity(repairType);
         transactionManger.execute(() -> repairTypeDAO.update(result));
     }
-
 
 
     private List<EntityFilter> getFiltersForRepairType() {

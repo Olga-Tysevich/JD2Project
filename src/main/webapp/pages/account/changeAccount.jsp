@@ -1,8 +1,8 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
-<%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
+<%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

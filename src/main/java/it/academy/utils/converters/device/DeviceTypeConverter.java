@@ -1,6 +1,6 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.req.DeviceTypeDTO;
 import it.academy.entities.device.components.DeviceType;
 import lombok.experimental.UtilityClass;
 

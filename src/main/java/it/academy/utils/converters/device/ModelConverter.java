@@ -1,7 +1,7 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.device.req.ChangeModelDTO;
-import it.academy.dto.device.resp.ModelDTO;
+import it.academy.dto.req.ChangeModelDTO;
+import it.academy.dto.resp.ModelDTO;
 import it.academy.entities.device.components.Brand;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.device.components.Model;

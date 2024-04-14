@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.model;
 
-import it.academy.dto.device.resp.ModelDTO;
-import it.academy.services.device.ModelService;
-import it.academy.services.device.impl.ModelServiceImpl;
+import it.academy.dto.resp.ModelDTO;
+import it.academy.services.ModelService;
+import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.utils.Constants.*;

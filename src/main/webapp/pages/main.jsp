@@ -3,11 +3,11 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
-<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
-<%@ page import="it.academy.dto.table.resp.ListForPage" %>
+<%@ page import="it.academy.dto.resp.ListForPage" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.*" %>
 <%@ page import="it.academy.utils.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -143,8 +143,12 @@
 
             <fieldset class="f1">
                 <legend>Запчасти</legend>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_SPARE_PART_TABLE_PAGE, FIRST_PAGE)%>'"> Список запчастей</button>
+                <form  action="brands" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=SPARE_PART_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список запчастей"/>
+                </form>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_SPARE_PART_ORDERS_TABLE_PAGE, FIRST_PAGE)%>'"> Список заказов запчатей</button>
             </fieldset>

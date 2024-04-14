@@ -1,7 +1,7 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.resp.DeviceDTOResp;
+import it.academy.dto.req.BrandDTO;
+import it.academy.dto.resp.DeviceDTOResp;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairCategory;
