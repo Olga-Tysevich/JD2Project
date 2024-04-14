@@ -6,17 +6,18 @@
 <%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
-<%@ page import="it.academy.dto.resp.SparePartForTableDTO" %>
+<%@ page import="it.academy.dto.resp.SparePartDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SPARE_PART_FORM" %>
+<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_SPARE_PART" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<SparePartForTableDTO> data = (ListForPage<SparePartForTableDTO>) request.getAttribute(LIST_FOR_PAGE);
+            ListForPage<SparePartDTO> data = (ListForPage<SparePartDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            List<SparePartForTableDTO> list = data.getList();
+            List<SparePartDTO> list = data.getList();
             List<DeviceTypeDTO> deviceTypes = list.get(0).getAllDeviceTypes();
             String currentPage = request.getParameter(PAGE);
         %>
@@ -32,8 +33,10 @@
                 <% } %>
             </tr>
 
+            <%="LIST " + list%>
+
             <%
-                for (SparePartForTableDTO sparePart : list) {
+                for (SparePartDTO sparePart : list) {
                 for (DeviceTypeDTO deviceType : sparePart.getRelatedDeviceTypes()) {
             %>
             <tr class="t-tr">
@@ -46,7 +49,7 @@
                     <div class="button-table-container">
                         <form action="repair" method="post">
                             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_FORM%>">
-                            <input type="hidden" name="<%=CURRENT_SPARE_PART_ID%>" value="<%=sparePart.getId()%>">
+                            <input type="hidden" name="<%=OBJECT_ID%>" value="<%=sparePart.getId()%>">
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                             <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                             <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=sparePart.getIsActive()%>">
@@ -62,8 +65,8 @@
     <% if (RoleEnum.ADMIN.equals(role)) {%>
         <div class="add-form">
             <form action="main" method="post" id="addSparePart">
-                <input type="hidden" name="<%=COMMAND%>" value="add_spare_part">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=request.getAttribute(PAGE_NUMBER)%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART%>">
+                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
 

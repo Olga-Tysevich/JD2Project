@@ -8,7 +8,7 @@ import it.academy.dao.impl.DeviceTypeDAOImpl;
 import it.academy.dao.impl.RepairDAOImpl;
 import it.academy.dao.impl.SparePartDAOImpl;
 import it.academy.dao.impl.SparePartsOrderDAOImpl;
-import it.academy.dto.req.SparePartDTO;
+import it.academy.dto.req.ChangeSparePartDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.Repair;
@@ -17,7 +17,6 @@ import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import it.academy.services.spare_part.SparePartOrderService;
 import it.academy.utils.Builder;
-import it.academy.utils.converters.spare_parst.SparePartConverter;
 import it.academy.utils.converters.spare_parst.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.EntityFilter;
@@ -37,10 +36,10 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
 
 
     @Override
-    public ListForPage<SparePartDTO> findSpareParts(int pageNumber) {
+    public ListForPage<ChangeSparePartDTO> findSpareParts(int pageNumber) {
         List<EntityFilter> filters = getFiltersForSparePart();
 
-        Supplier<ListForPage<SparePartDTO>> find = () -> {
+        Supplier<ListForPage<ChangeSparePartDTO>> find = () -> {
             List<SparePart> repairs = sparePartDAO.findForPage(pageNumber, LIST_SIZE);
             int maxPageNumber = (int) Math.ceil(((double) sparePartDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
 //            List<SparePartDTO> list = SparePartConverter.convertToDTOList(repairs);
@@ -123,10 +122,10 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     }
 
     @Override
-    public ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input) {
+    public ListForPage<ChangeSparePartDTO> findSpareParts(int pageNumber, String filter, String input) {
         List<EntityFilter> filters = getFiltersForSparePart();
 
-        Supplier<ListForPage<SparePartDTO>> find = () -> {
+        Supplier<ListForPage<ChangeSparePartDTO>> find = () -> {
             List<SparePart> repairs = sparePartDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
             int maxPageNumber = (int) Math.ceil(((double) sparePartDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
 //            List<SparePartDTO> list = SparePartConverter.convertToDTOList(repairs);

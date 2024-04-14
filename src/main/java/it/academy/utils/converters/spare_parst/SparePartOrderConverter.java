@@ -1,11 +1,9 @@
 package it.academy.utils.converters.spare_parst;
 
-import it.academy.dto.req.SparePartDTO;
 import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 import it.academy.entities.spare_parts_order.SparePartsOrder;
 import lombok.experimental.UtilityClass;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -37,7 +35,7 @@ public class SparePartOrderConverter {
                 .deliveryDate(partOrderDTO.getDeliveryDate())
                 .build();
         partOrderDTO.getSpareParts().forEach((key, value) ->
-                order.addSparePart(SparePartConverter.convertDTOToEntity(key), value));
+                order.addSparePart(SparePartConverter.convertToEntity(key), value));
         return order;
     }
 

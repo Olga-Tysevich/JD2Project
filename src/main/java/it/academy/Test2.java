@@ -15,27 +15,34 @@ import it.academy.dao.impl.RepairDAOImpl;
 import it.academy.dao.ServiceCenterDAO;
 import it.academy.dao.impl.ServiceCenterDAOImpl;
 import it.academy.dao.impl.SparePartDAOImpl;
+import it.academy.dto.req.ChangeSparePartDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.entities.account.Account;
+import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.AdminService;
+import it.academy.services.DeviceTypeService;
 import it.academy.services.impl.AdminServiceImpl;
 import it.academy.services.BrandService;
 import it.academy.services.ModelService;
 import it.academy.services.impl.BrandServiceImpl;
+import it.academy.services.impl.DeviceTypeServiceImpl;
 import it.academy.services.impl.ModelServiceImpl;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.services.service_center.ServiceCenterService;
 import it.academy.services.service_center.ServiceCenterServiceImpl;
 import it.academy.services.spare_part.SparePartOrderService;
+import it.academy.services.spare_part.SparePartService;
 import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
+import it.academy.services.spare_part.impl.SparePartServiceImpl;
 import it.academy.servlets.factory.CommandEnum;
 import it.academy.utils.converters.Converter;
 import it.academy.utils.dao.TransactionManger;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 
@@ -57,17 +64,20 @@ public class Test2 {
         BrandDAO brandDAO = new BrandDAOImpl();
         BrandService brandService = new BrandServiceImpl();
         ModelService modelService = new ModelServiceImpl();
+        DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
+        SparePartService sparePartService = new SparePartServiceImpl();
 
-
+        AccountDTO accountDTO = adminService.findAccount(1L);
         CommandEnum c = CommandEnum.valueOf(SHOW_ACCOUNT_TABLE.name());
-;
+        ChangeSparePartDTO partDTO = ChangeSparePartDTO.builder()
+                .id(3L)
+                .currentAccount(accountDTO)
+                .name("dsdfs")
+                .deviceTypeIdList(List.of(deviceTypeService.findDeviceType(1L).getId()))
+                .isActive(true)
+                .build();
+        sparePartService.updateSparePart(partDTO);
 
-        transactionManger.beginTransaction();
-        Account account = accountDAO.find(1L);
-        ServiceCenter serviceCenter = account.getServiceCenter();
-        account.setServiceCenter(null);
-        AccountDTO accountDTO = Converter.convert(account, AccountDTO.class);
-        transactionManger.commit();
 
 //        ModelListDTO models = modelService.findModels(accountDTO, 1, null, null);
 

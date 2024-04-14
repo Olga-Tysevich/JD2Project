@@ -64,6 +64,8 @@ public class Constants {
     //model
     public static final String MODEL_NAME = "name";
     public static final String MODEL_DEVICE_TYPE = "type";
+    //spare part
+    public static final String SPARE_PART_NAME = "name";
 
     //jsp
     public static final String LIST_FOR_PAGE = "table";
@@ -104,6 +106,8 @@ public class Constants {
     public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
     //spare parts
+    public static final String SPARE_PART = "spare_part";
+    public static final String SPARE_PART_ID = "spare_part_id";
     public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
 
@@ -158,8 +162,6 @@ public class Constants {
     public static final String ORDER_ID = "order_id";
     public static final String REPAIR_NUMBER = "repair_number";
     public static final String SPARE_PART_QUANTITY = "quantity";
-    public static final String SPARE_PART_NAME = "spare_part_name";
-    public static final String SPARE_PART_ID = "spare_part_id";
     public static final String ORDERS = "orders";
     public static final String ORDER_DATA = "order_data";
     public static final String ORDER_DATE = "order_date";
@@ -167,7 +169,6 @@ public class Constants {
     public static final String DELIVERY_DATE = "delivery_date";
 
     //SparePart parameters
-    public static final String CURRENT_SPARE_PART = "current_spare_part";
     public static final String CURRENT_SPARE_PART_ID = "current_spare_part_id";
 
     //DAO
@@ -231,6 +232,8 @@ public class Constants {
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
     public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
+    public static final String DEVICE_TYPE_NOT_SELECTED = "Не выбраны связанные устройства!";
+    public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
 
     //description
     //role description

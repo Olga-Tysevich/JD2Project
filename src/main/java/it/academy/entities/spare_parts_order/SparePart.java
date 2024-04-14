@@ -29,8 +29,8 @@ public class SparePart implements Serializable {
     private Boolean isActive;
 
     @Builder.Default
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
     @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<DeviceType> typeSet = new HashSet<>();

@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>
 <%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
-<%@ page import="it.academy.dto.req.SparePartDTO" %>
+<%@ page import="it.academy.dto.req.ChangeSparePartDTO" %>
 <%@ page import="java.util.Map" %>
 <section>
     <div class="container t-container">
@@ -37,8 +37,8 @@
 
             <%
                 for (SparePartOrderDTO sparePartOrder : list) {
-                Map<SparePartDTO, Integer> spareParts = sparePartOrder.getSpareParts();
-                for (SparePartDTO sparePart : spareParts.keySet()) {
+                Map<ChangeSparePartDTO, Integer> spareParts = sparePartOrder.getSpareParts();
+                for (ChangeSparePartDTO sparePart : spareParts.keySet()) {
             %>
                 <tr class="t-tr">
                     <td class="code"><%=sparePartOrder.getRepairWorkshopNumber()%></td>

@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SparePartForTableDTO {
+public class SparePartDTO {
 
     private AccountDTO currentAccount;
 

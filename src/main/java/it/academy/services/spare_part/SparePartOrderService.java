@@ -1,6 +1,6 @@
 package it.academy.services.spare_part;
 
-import it.academy.dto.req.SparePartDTO;
+import it.academy.dto.req.ChangeSparePartDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 
@@ -10,9 +10,9 @@ public interface SparePartOrderService {
 
 //    List<SparePartDTO> findSparePartsByDeviceTypeId(long id);
 
-    ListForPage<SparePartDTO> findSpareParts(int pageNumber);
+    ListForPage<ChangeSparePartDTO> findSpareParts(int pageNumber);
 
-    ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
+    ListForPage<ChangeSparePartDTO> findSpareParts(int pageNumber, String filter, String input);
 
     void addSparePartOrder(SparePartOrderDTO partDTO);
 

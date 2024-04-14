@@ -1,15 +1,19 @@
 package it.academy.dto.req;
 
 import it.academy.dto.resp.AccountDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 
 @Data
 @Builder
-public class SparePartDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ChangeSparePartDTO {
 
     private AccountDTO currentAccount;
 
@@ -18,5 +22,7 @@ public class SparePartDTO {
     private Long id;
 
     private String name;
+
+    private Boolean isActive;
 
 }

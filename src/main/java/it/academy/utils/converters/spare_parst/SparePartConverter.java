@@ -1,8 +1,8 @@
 package it.academy.utils.converters.spare_parst;
 
 import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.req.SparePartDTO;
-import it.academy.dto.resp.SparePartForTableDTO;
+import it.academy.dto.req.ChangeSparePartDTO;
+import it.academy.dto.resp.SparePartDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;
 import it.academy.utils.converters.device.DeviceTypeConverter;
@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class SparePartConverter {
 
-    public static SparePartForTableDTO convertToDTO(SparePart sparePart, List<DeviceTypeDTO> deviceTypes) {
+    public static SparePartDTO convertToDTO(SparePart sparePart, List<DeviceTypeDTO> deviceTypes) {
         List<DeviceType> relatedDeviceTypes = new ArrayList<>(sparePart.getTypeSet());
         List<DeviceTypeDTO> types = DeviceTypeConverter.convertToDTOList(relatedDeviceTypes);
 
-        return SparePartForTableDTO.builder()
+        return SparePartDTO.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
                 .relatedDeviceTypes(types)
@@ -28,27 +28,28 @@ public class SparePartConverter {
                 .build();
     }
 
-    public static SparePart convertDTOToEntity(SparePartDTO partDTO) {
+    public static SparePart convertToEntity(ChangeSparePartDTO partDTO) {
         return SparePart.builder()
                 .id(partDTO.getId())
                 .name(partDTO.getName())
+                .isActive(partDTO.getIsActive())
                 .build();
     }
 
-    public static List<SparePartForTableDTO> convertToDTOList(List<SparePart> spareParts, List<DeviceTypeDTO> deviceTypes) {
+    public static List<SparePartDTO> convertToDTOList(List<SparePart> spareParts, List<DeviceTypeDTO> deviceTypes) {
         return spareParts.stream()
                 .map(s -> convertToDTO(s, deviceTypes))
                 .collect(Collectors.toList());
     }
 
-    public static List<SparePart> convertDTOListToEntityList(List<SparePartDTO> sparePars) {
+    public static List<SparePart> convertDTOListToEntityList(List<ChangeSparePartDTO> sparePars) {
         return sparePars.stream()
-                .map(SparePartConverter::convertDTOToEntity)
+                .map(SparePartConverter::convertToEntity)
                 .collect(Collectors.toList());
     }
 
-    public static SparePartDTO convertToSparePartDTO(SparePartForOrder sparePart) {
-        return SparePartDTO.builder()
+    public static ChangeSparePartDTO convertToSparePartDTO(SparePartForOrder sparePart) {
+        return ChangeSparePartDTO.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
                 .build();

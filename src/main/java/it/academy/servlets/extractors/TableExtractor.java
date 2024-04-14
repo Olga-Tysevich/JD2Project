@@ -30,6 +30,7 @@ public class TableExtractor{
         }
         System.out.println("show table list " + list);
         list.setPage(request.getPage());
+        System.out.println("show table page number " + request.getPageNumber());
         list.setCommand(command.name());
         System.out.println("show request after find" + list);
 

@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.req.SparePartDTO" %>
+<%@ page import="it.academy.dto.req.ChangeSparePartDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
         <div class=" forms-container">
 
             <%
-                List<SparePartDTO> spareParts = (List<SparePartDTO>) request.getAttribute(SPARE_PARTS);
+                List<ChangeSparePartDTO> spareParts = (List<ChangeSparePartDTO>) request.getAttribute(SPARE_PARTS);
             %>
 
 
@@ -32,7 +32,7 @@
                     <div class="f-input">
                         <label class="form-el">Запчасть:</label>
                         <select class="f-form " name="id" size="0">
-                            <%for (SparePartDTO sparePartDTO : spareParts) { %>
+                            <%for (ChangeSparePartDTO sparePartDTO : spareParts) { %>
                             <option id="spare_part_id" value="<%=sparePartDTO.getId()%>"><%=sparePartDTO.getName()%></option>
                             <% } %>
                         </select>

@@ -27,6 +27,7 @@
                 <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
+                <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>">
 
                 <div class="f-input">
                     <label class="form-el">Активен</label>

@@ -26,6 +26,9 @@ import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.spare_part.AddSparePart;
+import it.academy.servlets.commands.impl.spare_part.ChangeSparePart;
+import it.academy.servlets.commands.impl.spare_part.ShowSparePartForm;
 import it.academy.servlets.commands.impl.spare_part.ShowSparePartTable;
 import it.academy.servlets.commands.impl.tables.*;
 
@@ -53,9 +56,9 @@ public enum CommandEnum {
     SHOW_MODEL(new ShowPageCommand<>((i) -> new ModelServiceImpl().findModel((Long) i), MODEL, MODEL_PAGE_PATH)),
     CHANGE_MODEL(new ChangeModel()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
-//    ADD_SPARE_PART(new AddSparePart()),
-    SHOW_SPARE_PART_FORM(null),
-//    CHANGE_SPARE_PART(new ChangeSparePart()),
+    ADD_SPARE_PART(new AddSparePart()),
+    SHOW_SPARE_PART_FORM(new ShowSparePartForm()),
+    CHANGE_SPARE_PART(new ChangeSparePart()),
 
 //    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_REPAIR(new ShowRepair()),

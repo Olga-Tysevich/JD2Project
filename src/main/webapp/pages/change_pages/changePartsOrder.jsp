@@ -1,7 +1,7 @@
 <%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.utils.Constants.ORDERS" %>
-<%@ page import="it.academy.dto.req.SparePartDTO" %>
+<%@ page import="it.academy.dto.req.ChangeSparePartDTO" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="static it.academy.utils.Constants.ORDER_ID" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
@@ -11,7 +11,7 @@
      List<SparePartOrderDTO> orders = (List<SparePartOrderDTO>) request.getAttribute(ORDERS);
      if (orders != null && !orders.isEmpty()) {
          for (SparePartOrderDTO orderDTO : orders) {
-        Map<SparePartDTO, Integer> spareParts = orderDTO.getSpareParts();%>
+        Map<ChangeSparePartDTO, Integer> spareParts = orderDTO.getSpareParts();%>
 
 <form class="lr-form" action="repair" method="post" id="repair">
     <input type="hidden" name="command" value="change_spare_part_order">
@@ -58,7 +58,7 @@
                 <th>Количество</th>
             </tr>
 
-            <%     for (SparePartDTO sparePartDTO : spareParts.keySet()) {
+            <%     for (ChangeSparePartDTO sparePartDTO : spareParts.keySet()) {
             %>
 
             <tr id="data_id" class="spare_part_input">
