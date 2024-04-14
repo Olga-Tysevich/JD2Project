@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.models;
+package it.academy.servlets.commands.impl.model;
 
 import it.academy.dto.device.resp.ModelDTO;
 import it.academy.services.device.ModelService;

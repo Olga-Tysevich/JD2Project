@@ -1,6 +1,10 @@
 package it.academy.servlets.factory;
 
+import it.academy.dto.device.req.ChangeModelDTO;
+import it.academy.services.device.ModelService;
+import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.*;
+import it.academy.servlets.commands.impl.AddCommand;
 import it.academy.servlets.commands.impl.account.*;
 import it.academy.servlets.commands.impl.brand.AddBrand;
 import it.academy.servlets.commands.impl.brand.ChangeBrand;
@@ -26,10 +30,10 @@ import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 //import it.academy.servlets.commands.impl.models.ChangeModel;
 ////import it.academy.servlets.commands.impl.models.ShowModel;
 //import it.academy.servlets.commands.impl.models.ShowModelTable;
-import it.academy.servlets.commands.impl.models.AddModel;
-import it.academy.servlets.commands.impl.models.ChangeModel;
-import it.academy.servlets.commands.impl.models.ShowModel;
-import it.academy.servlets.commands.impl.models.ShowModelTable;
+import it.academy.servlets.commands.impl.model.AddModel;
+import it.academy.servlets.commands.impl.model.ChangeModel;
+import it.academy.servlets.commands.impl.model.ShowModel;
+import it.academy.servlets.commands.impl.model.ShowModelTable;
 import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
@@ -56,7 +60,8 @@ public enum CommandEnum {
     SHOW_DEVICE_TYPE(new ShowDeviceType()),
     CHANGE_DEVICE_TYPE(new ChangeDeviceType()),
     SHOW_MODEL_TABLE(new ShowModelTable()),
-    ADD_MODEL(new AddModel()),
+//    ADD_MODEL(new AddModel()),
+    ADD_MODEL(new AddCommand<>(new ModelServiceImpl()::createModel, new ChangeModelDTO(), new ShowModelTable())),
     SHOW_MODEL(new ShowModel()),
     CHANGE_MODEL(new ChangeModel()),
 

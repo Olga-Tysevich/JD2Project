@@ -1,11 +1,10 @@
-package it.academy.servlets.commands.impl.models;
+package it.academy.servlets.commands.impl.model;
 
 import it.academy.dto.device.req.ChangeModelDTO;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.brand.ShowBrandTable;
 import it.academy.servlets.extractors.ExtractorImpl;
 import javax.servlet.http.HttpServletRequest;
 

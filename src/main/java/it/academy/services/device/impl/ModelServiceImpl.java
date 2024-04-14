@@ -63,9 +63,6 @@ public class ModelServiceImpl implements ModelService {
         result.setType(deviceType);
 
         Model temp = modelDAO.getModel(result);
-        System.out.println("change model " + model);
-        System.out.println("change model temp " + temp);
-        System.out.println("change model temp equals" + (temp != null && !temp.getId().equals(result.getId())));
         if (temp != null && !temp.getId().equals(result.getId())) {
             transactionManger.commit();
             throw new IllegalArgumentException(MODEL_ALREADY_EXIST);

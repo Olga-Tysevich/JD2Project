@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl;
 
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.brand.ShowBrandTable;
 import it.academy.servlets.extractors.ExtractorImpl;
 import javax.servlet.http.HttpServletRequest;
 import java.util.function.Consumer;
@@ -10,10 +9,12 @@ import static it.academy.utils.Constants.*;
 public class AddCommand<T> implements ActionCommand {
     private Consumer<T> methodForSave;
     private T dto;
+    private ActionCommand commandForDisplayTable;
 
-    public AddCommand(Consumer<T> methodForSave, T dto) {
+    public AddCommand(Consumer<T> methodForSave, T dto, ActionCommand commandForDisplayTable) {
         this.methodForSave = methodForSave;
         this.dto = dto;
+        this.commandForDisplayTable = commandForDisplayTable;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class AddCommand<T> implements ActionCommand {
         req.setAttribute(PAGE, req.getParameter(PAGE));
         req.setAttribute(PAGE_NUMBER, pageNumber);
 
-        return new ShowBrandTable().execute(req);
+        return commandForDisplayTable.execute(req);
     }
 
 }
