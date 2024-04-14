@@ -18,6 +18,9 @@ public class Constants {
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id";
     public static final String IS_ACTIVE_PARAMETER = "isActive";
+    public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :modelName AND m.brand.id = :brandId AND m.type.id = :typeId";
+    public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
+    public static final String FIND_MODEL_BRAND_ID = "brandId";
 
     //parameters
     //common parameters
@@ -57,6 +60,10 @@ public class Constants {
     public static final String BRAND_NAME = "name";
     //device type
     public static final String DEVICE_TYPE_NAME = "name";
+    //model
+    public static final String MODEL_NAME = "name";
+    public static final String MODEL_DEVICE_TYPE = "type";
+
 
     //jsp
     public static final String LIST_FOR_PAGE = "table";
@@ -89,7 +96,11 @@ public class Constants {
     public static final String DEVICE_TYPE = "device_type";
     public static final String DEVICE_TYPE_PAGE_PATH = "/pages/device_type/changeDeviceType.jsp";
     public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/device_type/deviceTypesTable.jsp";
-
+    //model
+    public static final String MODELS = "models";
+    public static final String DEVICE_TYPE_ID = "device_type_id";
+    public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
+    public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
 
 
     //repair
@@ -125,8 +136,6 @@ public class Constants {
     public static final String SHOW_COMMAND = "show_command";
     //RepairWorkshop parameters
     //Model parameters
-    public static final String MODEL_ID = "model_id";
-    public static final String MODEL_NAME = "model_name";
     //Brand parameters
     public static final String BRAND_ID = "brand_id";
     public static final String CURRENT_BRAND_ID = "current_brand_id";
@@ -169,7 +178,6 @@ public class Constants {
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
     public static final String SPARE_PART_PAGE_PATH = "/pages/change_pages/changeSparePart.jsp";
-    public static final String MODEL_PAGE_PATH = "/pages/change_pages/changeModel.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
@@ -180,14 +188,12 @@ public class Constants {
     public static final String SHOW_START_PAGE = "open_page";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String SHOW_SPARE_PART_TABLE = "show_spare_part_table";
-    public static final String SHOW_MODEL_TABLE = "show_model_table";
     public static final String SHOW_MODEL = "show_model";
     public static final String ADD_MODEL = "add_model";
     public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 
     public static final String BRANDS = "brands";
-    public static final String MODELS = "models";
     public static final String MODEL = "model";
     public static final String REPAIR = "repair";
     public static final String REPAIR_TYPES = "repair_types";
@@ -221,8 +227,11 @@ public class Constants {
     public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
     public static final String DEVICE_TYPE_ALREADY_EXIST = "Данный тип устройства уже добавлен!";
+    public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
+    public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
+    public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
 
     //description
     //role description

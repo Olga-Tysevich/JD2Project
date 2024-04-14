@@ -2,9 +2,8 @@ package it.academy.services.repair;
 
 
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.resp.DeviceDTOResp;
-import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairStatus;
@@ -25,13 +24,13 @@ public interface RepairService {
 
     DeviceDTOResp findDevice(long id);
 
-    ModelDTO findModel(long id);
+//    CreateModelDTO findModel(long id);
 
     BrandDTO findBrand(long id);
 
     RepairTypeDTO findRepairType(long id);
 
-    List<ModelDTO> findModelsByBrandId(long brandId);
+//    List<CreateModelDTO> findModelsByBrandId(long brandId);
 
     RepairDTO findRepair(long id);
 

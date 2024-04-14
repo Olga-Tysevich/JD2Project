@@ -26,6 +26,7 @@ import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 //import it.academy.servlets.commands.impl.models.ChangeModel;
 ////import it.academy.servlets.commands.impl.models.ShowModel;
 //import it.academy.servlets.commands.impl.models.ShowModelTable;
+import it.academy.servlets.commands.impl.models.ShowModelTable;
 import it.academy.servlets.commands.impl.service_center.AddServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ChangeServiceCenter;
 import it.academy.servlets.commands.impl.service_center.ShowServiceCenter;
@@ -51,6 +52,7 @@ public enum CommandEnum {
     ADD_DEVICE_TYPE(new AddDeviceType()),
     SHOW_DEVICE_TYPE(new ShowDeviceType()),
     CHANGE_DEVICE_TYPE(new ChangeDeviceType()),
+    SHOW_MODEL_TABLE(new ShowModelTable()),
 
     OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_REPAIR(new ShowRepair()),
@@ -74,7 +76,6 @@ public enum CommandEnum {
 //    SHOW_SPARE_PART_FORM(new ShowSparePartForm()),
 //    CHANGE_SPARE_PART(new ChangeSparePart()),
 //    DELETE_SPARE_PART(new DeleteSparePart()),
-//    SHOW_MODEL_TABLE(new ShowModelTable()),
 //    ADD_MODEL(new AddModel()),
 //    CHANGE_MODEL(new ChangeModel()),
 //    SHOW_MODEL(new ShowModel()),

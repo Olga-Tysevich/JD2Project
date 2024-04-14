@@ -4,7 +4,7 @@ import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.DeviceTypeDTO;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.exceptions.common.AccessDenied;
@@ -73,8 +73,8 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
             return DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findActiveObjects(true));
         }
 
-        List<DeviceType> repairs = transactionManger.execute(() -> deviceTypeDAO.findAll());
-        return DeviceTypeConverter.convertToDTOList(repairs);
+        List<DeviceType> deviceTypes = transactionManger.execute(() -> deviceTypeDAO.findAll());
+        return DeviceTypeConverter.convertToDTOList(deviceTypes);
     }
 
     @Override

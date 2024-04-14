@@ -5,7 +5,7 @@ import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.spare_parts_order.SparePartDAO;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.DeviceTypeDTO;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.spare_parts.SparePartDTO;
 import it.academy.entities.device.components.DeviceType;
 import it.academy.entities.spare_parts_order.SparePart;

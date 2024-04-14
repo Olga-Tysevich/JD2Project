@@ -121,8 +121,12 @@
 
             <fieldset class="f1">
                 <legend>Устройства</legend>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_MODEL_TABLE_PAGE, FIRST_PAGE)%>'"> Список моделей </button>
+                <form  action="brands" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список моделей"/>
+                </form>
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=BRAND_TABLE_PAGE_PATH%>">

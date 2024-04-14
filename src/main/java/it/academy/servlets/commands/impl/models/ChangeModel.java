@@ -1,6 +1,6 @@
 //package it.academy.servlets.commands.impl.models;
 //
-//import it.academy.dto.device.req.ModelDTO;
+//import it.academy.dto.device.ModelDTO;
 //import it.academy.services.device.ModelService;
 //import it.academy.services.device.impl.ModelServiceImpl;
 //import it.academy.servlets.commands.ActionCommand;

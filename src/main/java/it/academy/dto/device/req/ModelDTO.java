@@ -1,11 +1,14 @@
 package it.academy.dto.device.req;
 
+import it.academy.dto.account.resp.AccountDTO;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
 public class ModelDTO {
+
+    private AccountDTO currentAccount;
 
     private Long id;
 
@@ -20,4 +23,5 @@ public class ModelDTO {
     private String deviceTypeName;
 
     private Boolean isActive;
+
 }

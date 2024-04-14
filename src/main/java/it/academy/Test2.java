@@ -16,13 +16,16 @@ import it.academy.dao.service_center.ServiceCenterDAO;
 import it.academy.dao.service_center.ServiceCenterDAOImpl;
 import it.academy.dao.spare_parts_order.impl.SparePartDAOImpl;
 import it.academy.dto.account.resp.AccountDTO;
+import it.academy.dto.device.resp.ModelListDTO;
 import it.academy.entities.account.Account;
 import it.academy.entities.service_center.ServiceCenter;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.admin.AdminService;
 import it.academy.services.admin.AdminServiceImpl;
 import it.academy.services.device.BrandService;
+import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.BrandServiceImpl;
+import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.services.service_center.ServiceCenterService;
@@ -54,6 +57,7 @@ public class Test2 {
         ModelDAO modelDAO = new ModelDAOImpl();
         BrandDAO brandDAO = new BrandDAOImpl();
         BrandService brandService = new BrandServiceImpl();
+        ModelService modelService = new ModelServiceImpl();
 
 
         CommandEnum c = CommandEnum.valueOf(SHOW_ACCOUNT_TABLE.name());
@@ -65,6 +69,8 @@ public class Test2 {
         account.setServiceCenter(null);
         AccountDTO accountDTO = Converter.convert(account, AccountDTO.class);
         transactionManger.commit();
+
+//        ModelListDTO models = modelService.findModels(accountDTO, 1, null, null);
 
 
 //        List<Account> accounts = IntStream.range(0, 40)

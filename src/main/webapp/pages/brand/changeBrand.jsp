@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_BRAND" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_BRAND_TABLE" %>
 <head>

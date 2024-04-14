@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.device_type;
 
-import it.academy.dto.device.req.DeviceTypeDTO;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;

@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
 <%@ page import="it.academy.dto.spare_parts.SparePartDTO" %>
-<%@ page import="it.academy.dto.device.req.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
 <section>
     <div class="container t-container">
 
@@ -12,7 +12,7 @@
             ListForPage<SparePartDTO> data = (ListForPage<SparePartDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             int maxPageNumber= data.getMaxPageNumber();
-            List<SparePartDTO> list = data.getList();
+            List<SparePartDTO> list = data.getDto();
             List<DeviceTypeDTO> deviceTypes = (List<DeviceTypeDTO>) request.getAttribute(DEVICE_TYPES);
         %>
 

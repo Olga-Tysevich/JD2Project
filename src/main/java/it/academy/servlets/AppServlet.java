@@ -31,6 +31,7 @@ public class AppServlet extends HttpServlet {
         ActionCommand actionCommand = actionFactory.defineCommand(req);
 
         page = actionCommand.execute(req);
+        System.out.println("page " + page);
 
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);

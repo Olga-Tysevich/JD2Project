@@ -48,4 +48,16 @@
                 referencedColumnNames="id"/>
     </changeSet>
 
+    <changeSet id="insert_admin_account_id" author="Olga Tysevich">
+    <insert tableName="accounts">
+        <column name="email" value="olga@mail.ru"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="email" value="olga@mail.ru"/>
+        <column name="password" value="User8707!"/>
+        <column name="role" value="ADMIN"/>
+        <column name="user_name" value="admin"/>
+        <column name="user_surname" value="admin"/>
+    </insert>
+    </changeSet>
+
 </databaseChangeLog>

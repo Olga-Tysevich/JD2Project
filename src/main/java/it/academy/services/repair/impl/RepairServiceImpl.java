@@ -12,9 +12,8 @@ import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.resp.DeviceDTOResp;
-import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.device.Device;
@@ -96,15 +95,15 @@ public class RepairServiceImpl implements RepairService {
     }
 
 
-
-    @Override
-    public ModelDTO findModel(long id) {
-        Model model = transactionManger.execute(() -> modelDAO.find(id));
-        ModelDTO modelDTO = ModelConverter.convertToDTO(model);
-
-        transactionManger.closeManager();
-        return modelDTO;
-    }
+//
+//    @Override
+//    public CreateModelDTO findModel(long id) {
+//        Model model = transactionManger.execute(() -> modelDAO.find(id));
+//        CreateModelDTO createModelDTO = ModelConverter.convertToDTO(model);
+//
+//        transactionManger.closeManager();
+//        return createModelDTO;
+//    }
 
     @Override
     public BrandDTO findBrand(long id) {
@@ -124,14 +123,14 @@ public class RepairServiceImpl implements RepairService {
         return repairTypeDTO;
     }
 
-    @Override
-    public List<ModelDTO> findModelsByBrandId(long brandId) {
-        List<Model> models = transactionManger.execute(() -> modelDAO.findAllByBrandId(brandId));
-        List<ModelDTO> modelDTOList = ModelConverter.convertListToDTO(models);
-
-        transactionManger.closeManager();
-        return modelDTOList;
-    }
+//    @Override
+//    public List<CreateModelDTO> findModelsByBrandId(long brandId) {
+//        List<Model> models = transactionManger.execute(() -> modelDAO.findAllByBrandId(brandId));
+//        List<CreateModelDTO> createModelDTOList = ModelConverter.convertToDTOList(models);
+//
+//        transactionManger.closeManager();
+//        return createModelDTOList;
+//    }
 
     @Override
     public RepairDTO findRepair(long id) {

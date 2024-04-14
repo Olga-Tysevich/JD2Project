@@ -2,19 +2,26 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.table.resp.ListForPage" %>
-<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
+<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.account.resp.AccountDTO" %>
+<%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="it.academy.dto.device.req.ModelDTO" %>
-<%@ page import="it.academy.dto.device.req.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.table.resp.ListForPage" %>
+<%@ page import="it.academy.dto.device.resp.ModelListDTO" %>
 <section>
     <div class="container t-container">
 
         <%
-            ListForPage<ModelDTO> data = (ListForPage<ModelDTO>) request.getAttribute(LIST_FOR_PAGE);
+            AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
+            RoleEnum role = accountDTO.getRole();
+            ListForPage<ModelListDTO> data = (ListForPage<ModelListDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            List<ModelDTO> list = data.getList();
-            List<BrandDTO> brandList = (List<BrandDTO>) request.getAttribute(BRANDS);
-            List<DeviceTypeDTO> deviceTypes = (List<DeviceTypeDTO>) request.getAttribute(DEVICE_TYPES);
+            String currentPage = request.getParameter(PAGE);
+            ModelListDTO list = data.getList().get(0);
+            List<ModelDTO> models = list.getModels();
+            List<BrandDTO> brandList = list.getBrands();
+            List<DeviceTypeDTO> deviceTypes = list.getDeviceTypes();
         %>
 
         <table>
@@ -23,10 +30,12 @@
                 <th>Бренд</th>
                 <th>Тип устройства</th>
                 <th>Активно</th>
+                <% if (RoleEnum.ADMIN.equals(role)) {%>
                 <th class="menu">Управление</th>
+                <% } %>
             </tr>
 
-            <% for (ModelDTO model : list) {
+            <% for (ModelDTO model : models) {
             %>
             <tr class="t-tr">
                 <td class="code"><%=model.getName()%></td>
@@ -39,16 +48,20 @@
                 <td class="code">
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL%>">
-                        <input type="hidden" name="<%=MODEL_ID%>" value="<%=model.getId()%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=model.getIsActive()%>">
+                        <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
+                        <% } %>
                     </form>
                 </td>
             </tr>
             <% }%>
         </table>
 
+        <% if (RoleEnum.ADMIN.equals(role)) {%>
         <div class="add-form">
             <form action="main" method="post" id="addModel">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_MODEL%>">
@@ -82,5 +95,6 @@
                 </div>
             </form>
         </div>
+        <% }%>
     </div>
 </section>

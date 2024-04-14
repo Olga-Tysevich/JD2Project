@@ -1,8 +1,7 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.resp.DeviceDTOResp;
-import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.components.RepairCategory;
@@ -34,7 +33,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
 
         long lastBrandId = Long.parseLong(req.getParameter(BRAND_ID));
         long currentBrandId = Long.parseLong(req.getParameter(CURRENT_BRAND_ID));
-        long modelId = Long.parseLong(req.getParameter(MODEL_ID));
+//        long modelId = Long.parseLong(req.getParameter(MODEL_ID));
         String serialNumber = req.getParameter(SERIAL_NUMBER);
         Date dateOfSale = !req.getParameter(DATE_OF_SALE).isEmpty() ? Date.valueOf(req.getParameter(DATE_OF_SALE)) : null;
         String salesmanName = req.getParameter(SALESMAN_NAME);
@@ -51,10 +50,10 @@ public class RepairExtractor implements Extractor<RepairDTO> {
         Date startDate = req.getParameter(START_DATE) != null? Date.valueOf(req.getParameter(START_DATE)) : null;
         Long repairId = req.getParameter(REPAIR_ID) != null ? Long.parseLong(req.getParameter(REPAIR_ID)) : null;
 
-        ModelDTO modelDTO = repairService.findModel(modelId);
+//        CreateModelDTO createModelDTO = repairService.findModel(modelId);
         DeviceDTOResp deviceDTOResp = DeviceDTOResp.builder()
                 .id(deviceId)
-                .model(modelDTO)
+//                .model(createModelDTO)
                 .serialNumber(serialNumber)
                 .dateOfSale(dateOfSale)
                 .salesmanName(salesmanName)
@@ -101,13 +100,13 @@ public class RepairExtractor implements Extractor<RepairDTO> {
         RepairDTO repairDTO = (RepairDTO) reqParameters.get(REPAIR);
         long lastBrandId = (long) reqParameters.get(BRAND_ID);
         long currentBrandId = (long) reqParameters.get(CURRENT_BRAND_ID);
-        List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(currentBrandId);
+//        List<CreateModelDTO> createModelDTOList = repairService.findModelsByBrandId(currentBrandId);
         List<BrandDTO> brandDTOList = repairService.findBrands();
-        repairDTO.getDevice().getModel().setBrandId(currentBrandId);
+//        repairDTO.getDevice().getModel().setBrandId(currentBrandId);
 
         req.setAttribute(REPAIR, repairDTO);
         req.setAttribute(BRANDS, brandDTOList);
-        req.setAttribute(MODELS, modelDTOList);
+//        req.setAttribute(MODELS, createModelDTOList);
         req.setAttribute(BRAND_ID, lastBrandId);
         req.setAttribute(CURRENT_BRAND_ID, currentBrandId);
     }

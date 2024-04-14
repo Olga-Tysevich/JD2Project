@@ -2,6 +2,7 @@
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.service_center.ServiceCenterDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
+<%@ page import="it.academy.servlets.factory.CommandEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -15,7 +16,7 @@
         <%
             int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
             ServiceCenterDTO serviceCenter = (ServiceCenterDTO) request.getAttribute(SERVICE_CENTER);
-            String command = (String) request.getAttribute(COMMAND);
+            CommandEnum command = (CommandEnum) request.getAttribute(COMMAND);
         %>
         <%=pageNumber%>
         <%=serviceCenter%>

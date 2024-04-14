@@ -1,9 +1,9 @@
 //package it.academy.servlets.commands.impl.models;
 //
 //import it.academy.dto.account.resp.AccountDTO;
-//import it.academy.dto.device.req.BrandDTO;
-//import it.academy.dto.device.req.DeviceTypeDTO;
-//import it.academy.dto.device.req.ModelDTO;
+//import it.academy.dto.device.BrandDTO;
+//import it.academy.dto.device.DeviceTypeDTO;
+//import it.academy.dto.device.ModelDTO;
 //import it.academy.services.device.BrandService;
 //import it.academy.services.device.DeviceTypeService;
 //import it.academy.services.device.ModelService;

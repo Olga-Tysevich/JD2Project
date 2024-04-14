@@ -1,8 +1,6 @@
 package it.academy.utils;
 
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.resp.DeviceDTOResp;
-import it.academy.dto.device.req.ModelDTO;
 import it.academy.dto.service_center.ServiceCenterDTO;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.experimental.UtilityClass;
@@ -22,18 +20,18 @@ public class Builder {
                 .build();
     }
 
-    public static DeviceDTOResp buildEmptyDevice(ModelDTO model) {
-        return DeviceDTOResp.builder()
-                .id(DEFAULT_ID)
-                .model(model)
-                .serialNumber(DEFAULT_VALUE)
-                .buyerName(DEFAULT_VALUE)
-                .buyerSurname(DEFAULT_VALUE)
-                .buyerPhone(DEFAULT_VALUE)
-                .salesmanName(DEFAULT_VALUE)
-                .salesmanPhone(DEFAULT_VALUE)
-                .build();
-    }
+//    public static DeviceDTOResp buildEmptyDevice(CreateModelDTO model) {
+//        return DeviceDTOResp.builder()
+//                .id(DEFAULT_ID)
+//                .model(model)
+//                .serialNumber(DEFAULT_VALUE)
+//                .buyerName(DEFAULT_VALUE)
+//                .buyerSurname(DEFAULT_VALUE)
+//                .buyerPhone(DEFAULT_VALUE)
+//                .salesmanName(DEFAULT_VALUE)
+//                .salesmanPhone(DEFAULT_VALUE)
+//                .build();
+//    }
 
     public static ServiceCenterDTO buildEmptyServiceCenter() {
         return ServiceCenterDTO.builder()

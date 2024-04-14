@@ -4,7 +4,7 @@ import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.entities.account.RoleEnum;
 import it.academy.entities.device.components.Brand;
 import it.academy.exceptions.common.AccessDenied;

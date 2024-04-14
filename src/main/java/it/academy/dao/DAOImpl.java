@@ -96,6 +96,11 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
+
+        if (filter == null) {
+            return findForPage(pageNumber, listSize);
+        }
+
         Predicate predicate = createLikePredicate(root, filter, value);
 
         findByParameters.select(root)
@@ -135,6 +140,9 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
+        if (filter == null) {
+            return findActiveObjectsForPage(isActive, pageNumber, listSize);
+        }
         Predicate predicate = createLikePredicate(root, filter, value);
 
         findByParameters.select(root)

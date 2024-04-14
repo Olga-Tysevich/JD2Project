@@ -6,7 +6,7 @@
                             https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.25.xsd">
 
     <changeSet id="create_brands_table_01" author="Olga Tysevich">
-        <createTable tableName="service_centers">
+        <createTable tableName="device_types">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>

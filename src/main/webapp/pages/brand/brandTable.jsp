@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.table.resp.ListForPage" %>
-<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="it.academy.entities.account.RoleEnum" %>
 <%@ page import="it.academy.dto.account.resp.AccountDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_BRAND" %>

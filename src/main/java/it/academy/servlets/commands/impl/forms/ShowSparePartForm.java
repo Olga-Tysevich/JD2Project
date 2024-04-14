@@ -1,6 +1,6 @@
 //package it.academy.servlets.commands.impl.forms;
 //
-//import it.academy.dto.device.req.DeviceTypeDTO;
+//import it.academy.dto.device.DeviceTypeDTO;
 //import it.academy.dto.spare_parts.SparePartDTO;
 //import it.academy.services.spare_part.SparePartOrderService;
 //import it.academy.services.device.DeviceTypeService;

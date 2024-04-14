@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.device.req.DeviceTypeDTO" %>
-<%@ page import="it.academy.dto.device.req.ModelDTO" %>
-<%@ page import="it.academy.dto.device.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.device.req.CreateModelDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_MODEL" %>
 <head>
@@ -15,7 +15,7 @@
 
     <%
         int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-        ModelDTO model = (ModelDTO) request.getAttribute(MODEL);
+        CreateModelDTO model = (CreateModelDTO) request.getAttribute(MODEL);
         List<BrandDTO> brandList = (List<BrandDTO>) request.getAttribute(BRANDS);
         List<DeviceTypeDTO> deviceTypes = (List<DeviceTypeDTO>) request.getAttribute(DEVICE_TYPES);
     %>

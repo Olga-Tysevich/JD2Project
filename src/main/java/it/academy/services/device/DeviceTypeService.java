@@ -2,7 +2,7 @@ package it.academy.services.device;
 
 import it.academy.dto.account.resp.AccountDTO;
 import it.academy.dto.table.resp.ListForPage;
-import it.academy.dto.device.req.DeviceTypeDTO;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.exceptions.common.AccessDenied;
 
 import java.util.List;

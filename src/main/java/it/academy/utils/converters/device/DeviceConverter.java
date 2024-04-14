@@ -33,7 +33,7 @@ public class DeviceConverter {
     public static Device convertDTOToEntity(DeviceDTOResp deviceDTOResp) {
         return Device.builder()
                 .id(deviceDTOResp.getId())
-                .model(ModelConverter.convertDTOToEntity(deviceDTOResp.getModel()))
+                .model(ModelConverter.convertToEntity(deviceDTOResp.getModel()))
                 .serialNumber(deviceDTOResp.getSerialNumber())
                 .dateOfSale(deviceDTOResp.getDateOfSale())
                 .buyer(Buyer.builder()

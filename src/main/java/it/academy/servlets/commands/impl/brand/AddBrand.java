@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.brand;
 
-import it.academy.dto.device.req.BrandDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;

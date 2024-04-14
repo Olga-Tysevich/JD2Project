@@ -13,7 +13,7 @@
             ListForPage<SparePartOrderDTO> data = (ListForPage<SparePartOrderDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             int maxPageNumber = data.getMaxPageNumber();
-            List<SparePartOrderDTO> list = data.getList();
+            List<SparePartOrderDTO> list = data.getDto();
         %>
 
 

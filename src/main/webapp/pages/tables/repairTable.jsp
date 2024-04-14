@@ -12,7 +12,7 @@
             ListForPage<RepairDTO> data = (ListForPage<RepairDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             int maxPageNumber = data.getMaxPageNumber();
-            List<RepairDTO> list = data.getList();
+            List<RepairDTO> list = data.getDto();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             RepairStatus lastStatus = (RepairStatus) request.getAttribute(REPAIR_STATUS);
         %>

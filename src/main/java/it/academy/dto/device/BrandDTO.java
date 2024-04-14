@@ -1,4 +1,4 @@
-package it.academy.dto.device.req;
+package it.academy.dto.device;
 
 import it.academy.dto.account.resp.AccountDTO;
 import lombok.AllArgsConstructor;

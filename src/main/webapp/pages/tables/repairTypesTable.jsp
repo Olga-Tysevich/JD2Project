@@ -11,7 +11,7 @@
             ListForPage<RepairTypeDTO> data = (ListForPage<RepairTypeDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             int maxPageNumber = data.getMaxPageNumber();
-            List<RepairTypeDTO> list = data.getList();
+            List<RepairTypeDTO> list = data.getDto();
         %>
 
 

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ModelConverter {
 
+
     public static ModelDTO convertToDTO(Model model) {
         return ModelDTO.builder()
                 .id(model.getId())
@@ -24,7 +25,7 @@ public class ModelConverter {
                 .build();
     }
 
-    public static Model convertDTOToEntity(ModelDTO model) {
+    public static Model convertToEntity(ModelDTO model) {
         return Model.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -40,15 +41,9 @@ public class ModelConverter {
                 .build();
     }
 
-    public static List<ModelDTO> convertListToDTO(List<Model> models) {
+    public static List<ModelDTO> convertToDTOList(List<Model> models) {
         return models.stream()
                 .map(ModelConverter::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    public static List<Model> convertDTOListToEntityList(List<ModelDTO> models) {
-        return models.stream()
-                .map(ModelConverter::convertDTOToEntity)
                 .collect(Collectors.toList());
     }
 

@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.forms;
 
-import it.academy.dto.device.req.BrandDTO;
-import it.academy.dto.device.req.ModelDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_parts.SparePartOrderDTO;
 import it.academy.entities.repair.components.RepairStatus;
@@ -12,7 +11,6 @@ import it.academy.services.spare_part.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
@@ -30,8 +28,8 @@ public class ShowConfirmedRepair implements ActionCommand {
         req.setAttribute(REPAIR, repairDTO);
 
         List<BrandDTO> brandDTOList = repairService.findBrands();
-        long brandId = repairDTO.getDevice().getModel().getBrandId();
-        List<ModelDTO> modelDTOList = repairService.findModelsByBrandId(brandId);
+//        long brandId = repairDTO.getDevice().getModel().getBrandId();
+//        List<CreateModelDTO> createModelDTOList = repairService.findModelsByBrandId(brandId);
 
         if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {
             List<SparePartOrderDTO> orders = sparePartOrderService.findSparePartOrdersByRepairId(repairId);
@@ -39,7 +37,7 @@ public class ShowConfirmedRepair implements ActionCommand {
         }
 
         req.setAttribute(BRANDS, brandDTOList);
-        req.setAttribute(MODELS, modelDTOList);
+//        req.setAttribute(MODELS, createModelDTOList);
 
         return CHANGE_REPAIR_PAGE_PATH;
     }

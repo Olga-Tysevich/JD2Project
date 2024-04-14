@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
-<%@ page import="it.academy.dto.device.req.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_DEVICE_TYPE" %>
 <%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_DEVICE_TYPE_TABLE" %>
 <head>
