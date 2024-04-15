@@ -103,8 +103,8 @@ public class RepairConverter {
     public static Repair convertToEntity(RepairDTO repairDTO) {
         return Repair.builder()
                 .id(repairDTO.getId())
-                .status(repairDTO.getStatus())
                 .category(repairDTO.getCategory())
+                .status(repairDTO.getStatus())
                 .device(Device.builder()
                         .serialNumber(repairDTO.getSerialNumber())
                         .buyer(Buyer.builder()

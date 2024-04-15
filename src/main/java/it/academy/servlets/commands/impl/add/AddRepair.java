@@ -17,31 +17,16 @@ public class AddRepair implements ActionCommand {
     public String execute(HttpServletRequest req) {
         try {
             AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-
-            long lastBrandId = req.getParameter(BRAND_ID) != null ?
-                    Long.parseLong(req.getParameter(BRAND_ID)) : DEFAULT_ID;
-            long currentBrandId = req.getParameter(CURRENT_BRAND_ID) != null ?
-                    Long.parseLong(req.getParameter(CURRENT_BRAND_ID)) : DEFAULT_ID;
-            int pageNumber = req.getParameter(PAGE_NUMBER) != null?
-                    Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-            String page = req.getParameter(PAGE);
             RepairDTO repairDTO = ExtractorImpl.extract(req, new RepairDTO());
             repairDTO.setCurrentAccount(currentAccount);
+            String page = req.getParameter(PAGE);
 
-            if (!(currentBrandId == lastBrandId)) {
-                RepairFormDTO repairForm = repairService.getRepairFormData(currentAccount, currentBrandId);
-
-                req.setAttribute(REPAIR_FORM, repairForm);
-                req.setAttribute(BRAND_ID, repairForm.getCurrentBrandId());
-                req.setAttribute(REPAIR, repairDTO);
-                req.setAttribute(PAGE_NUMBER, pageNumber);
+            if (checkBrand(req, currentAccount, repairDTO)) {
                 return ADD_REPAIR_PAGE_PATH;
             }
 
-            req.setAttribute(PAGE_NUMBER, pageNumber);
-            req.setAttribute(PAGE, page);
-
             repairService.addRepair(repairDTO);
+            req.setAttribute(PAGE, page);
 
             return MAIN_PAGE_PATH;
         } catch (Exception e) {
@@ -49,6 +34,31 @@ public class AddRepair implements ActionCommand {
             return ERROR_PAGE_PATH;
         }
 
+    }
+
+    protected boolean checkBrand(HttpServletRequest req, AccountDTO currentAccount, RepairDTO repairDTO) {
+
+        long lastBrandId = req.getParameter(BRAND_ID) != null ?
+                Long.parseLong(req.getParameter(BRAND_ID)) : DEFAULT_ID;
+
+        long currentBrandId = req.getParameter(CURRENT_BRAND_ID) != null ?
+                Long.parseLong(req.getParameter(CURRENT_BRAND_ID)) : DEFAULT_ID;
+
+        int pageNumber = req.getParameter(PAGE_NUMBER) != null?
+                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+
+        repairDTO.setCurrentAccount(currentAccount);
+        if (!(currentBrandId == lastBrandId)) {
+            RepairFormDTO repairForm = repairService.getRepairFormData(currentAccount, currentBrandId);
+            req.setAttribute(REPAIR_FORM, repairForm);
+            req.setAttribute(BRAND_ID, repairForm.getCurrentBrandId());
+            req.setAttribute(REPAIR, repairDTO);
+            req.setAttribute(PAGE_NUMBER, pageNumber);
+            return true;
+        }
+
+        req.setAttribute(PAGE_NUMBER, pageNumber);
+        return false;
     }
 
 }

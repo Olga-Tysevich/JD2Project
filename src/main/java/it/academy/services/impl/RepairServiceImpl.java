@@ -94,8 +94,14 @@ public class RepairServiceImpl implements RepairService {
     public void updateRepair(RepairDTO repairDTO) {
 
         Repair repair = RepairConverter.convertToEntity(repairDTO);
+
         transactionManger.beginTransaction();
+
         Device device = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, repairDTO.getSerialNumber());
+        repair.getDevice().setId(device.getId());
+        Model model = modelDAO.find(repairDTO.getModelId());
+        device.setModel(model);
+        repair.getDevice().setModel(device.getModel());
         ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
         repair.setServiceCenter(serviceCenter);
         repair.setDevice(device);
