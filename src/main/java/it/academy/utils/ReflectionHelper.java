@@ -1,7 +1,11 @@
 package it.academy.utils;
 
+import it.academy.utils.enums.RepairCategory;
+import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
+
+import java.sql.Date;
 
 import static it.academy.utils.Constants.UNSUPPORTED_CLASS;
 
@@ -19,9 +23,15 @@ public class ReflectionHelper {
             return Long.parseLong(parameter);
         } else if (fieldClass == RoleEnum.class) {
             return RoleEnum.valueOf(parameter);
+        } else if (fieldClass == RepairStatus.class) {
+            return RepairStatus.valueOf(parameter);
+        } else if (fieldClass == RepairCategory.class) {
+            return RepairCategory.valueOf(parameter);
         } else if (fieldClass == String.class) {
             return parameter;
-        } else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
+        } else if (fieldClass == Date.class && !parameter.isEmpty()) {
+            return Date.valueOf(parameter);
+        }else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
             return Boolean.valueOf(parameter);
         } else {
             throw new IllegalArgumentException(UNSUPPORTED_CLASS);

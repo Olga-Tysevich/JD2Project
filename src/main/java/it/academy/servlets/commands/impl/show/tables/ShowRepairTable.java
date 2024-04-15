@@ -1,13 +1,19 @@
 package it.academy.servlets.commands.impl.show.tables;
 
+import it.academy.dto.req.ChangeRepairDTO;
+import it.academy.dto.req.TableReq;
+import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.resp.RepairDTO;
+import it.academy.dto.resp.RepairForTableDTO;
+import it.academy.servlets.extractors.impl.ExtractorImpl;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE;
 import static it.academy.utils.Constants.*;
 
 public class ShowRepairTable implements ActionCommand {
@@ -17,26 +23,26 @@ public class ShowRepairTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        TableReq request = ExtractorImpl.extract(req, new TableReq());
+
         RepairStatus lastStatus = req.getParameter(REPAIR_STATUS) != null?
                 RepairStatus.valueOf(req.getParameter(REPAIR_STATUS)) : RepairStatus.ALL;
-        ListForPage<RepairDTO> repairs;
+        ListForPage<ChangeRepairDTO> repairs;
 
+        int pageNumber = lastStatus.equals(this.lastStatus)? request.getPageNumber() : FIRST_PAGE;
         if (RepairStatus.ALL.equals(lastStatus)) {
-            repairs = repairService.findRepairs(pageNumber);
+            repairs = repairService.findRepairs(request.getPageNumber());
         } else {
-            pageNumber = lastStatus.equals(this.lastStatus)? pageNumber : FIRST_PAGE;
             repairs = repairService.findRepairsByStatus(lastStatus, pageNumber);
         }
 
+        System.out.println("repairs list " + repairs);
+
+        repairs.setCommand(req.getParameter(COMMAND));
+        repairs.setPage(req.getParameter(PAGE));
         this.lastStatus = lastStatus;
-        req.setAttribute(PAGE, REPAIR_TABLE_PAGE_PATH);
         req.setAttribute(LIST_FOR_PAGE, repairs);
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-        req.setAttribute(MAX_PAGE, repairs.getMaxPageNumber());
         req.setAttribute(REPAIR_STATUS, lastStatus);
-//        req.setAttribute(SHOW_COMMAND, SHOW_SPARE_PART_TABLE);
 
         return MAIN_PAGE_PATH;
 

@@ -3,24 +3,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>
-<%@ page import="it.academy.dto.resp.RepairDTO" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
+<%@ page import="it.academy.dto.resp.AccountDTO" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+<%@ page import="it.academy.dto.req.ChangeRepairDTO" %>
 <section>
     <div class=" container">
 
         <%
-            ListForPage<RepairDTO> data = (ListForPage<RepairDTO>) request.getAttribute(LIST_FOR_PAGE);
+            AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
+            RoleEnum role = accountDTO.getRole();
+            ListForPage<ChangeRepairDTO> data = (ListForPage<ChangeRepairDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            int maxPageNumber = data.getMaxPageNumber();
-            List<RepairDTO> list = data.getDto();
+            List<ChangeRepairDTO> list = data.getList();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
-            RepairStatus lastStatus = (RepairStatus) request.getAttribute(REPAIR_STATUS);
         %>
 
         <div class="radio-container">
             <form class="status-form" action="main" method="post" id="find_repairs">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="command" value="show_repair_table">
+                <input type="hidden" name="<%=PAGE%>" value="<%=data.getPage()%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
                 <div class="radio-container"><div>Статус ремонта: </div>
                 <%for (RepairStatus status: statuses) { %>
                     <div>
@@ -43,64 +48,40 @@
                     <th>Серийный номер</th>
                     <th>Заявленный дефект</th>
                     <th>Статус ремонта</th>
+                    <% if (RoleEnum.ADMIN.equals(role)) {%>
                     <th class="menu">Управление</th>
+                    <% } %>
                 </tr>
 
-            <% for (RepairDTO repair : list) { %>
+            <% for (ChangeRepairDTO repair : list) { %>
 
                 <tr>
-                    <td class="date"><%=repair.getRepairWorkshop().getServiceName()%></td>
+                    <td class="date"><%=repair.getServiceCenterName()%></td>
                     <td class="date"><%=repair.getStartDate()%></td>
-                    <td class="number"><%=repair.getServiceCenterRepairNumber()%></td>
+                    <td class="number"><%=repair.getRepairNumber()%></td>
                     <td class="number"><%=repair.getModelDescription()%></td>
-                    <td><%=repair.getDevice().getSerialNumber()%></td>
+                    <td><%=repair.getSerialNumber()%></td>
                     <td class="defect"><%=repair.getDefectDescription()%></td>
                     <td><%=repair.getStatus().getDescription()%></td>
+
+                    <% if (RoleEnum.ADMIN.equals(role)) { %>
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="post">
-                                <input type="hidden" name="command" value="show_confirmed_repair">
+                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
+                                <input type="hidden" name="<%=PAGE%>" value="<%=data.getPage()%>">
+                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=data.getPageNumber()%>">
                                 <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repair.getId()%>">
+                                <input type="hidden" name="<%=BRAND_ID%>" value="<%=repair.getBrandId()%>">
+                                <input type="hidden" name="<%=CURRENT_BRAND_ID%>" value="<%=repair.getBrandId()%>">
                                 <input class="choose-button btn-table" type="submit" value="Изменить">
                             </form>
                         </div>
                     </td>
+                    <% } %>
+
                 </tr>
                 <% } %>
             </table>
-
-        <%if (data.getMaxPageNumber() != 1) {%>
-        <div class="footer">
-        <div class="button-container">
-            <%if (pageNumber != FIRST_PAGE) { %>
-            <form action="main" method="post">
-                <input type="hidden" name="command" value="show_repair_table">
-                <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=lastStatus%>">
-                <%int prevPage = pageNumber - 1;%>
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                <input class="button light" type="submit" name="button" value="Предыдущая">
-            </form>
-            <% } %>
-
-            <p><%=pageNumber%>
-                из
-                <%=maxPageNumber%>
-            </p>
-
-
-            <%if (pageNumber != maxPageNumber) { %>
-            <form action="main" method="post">
-                <input type="hidden" name="command" value="show_repair_table">
-                <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=lastStatus%>">
-                <%int nextPage = pageNumber + 1;%>
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                <input class="button light" type="submit" name="button" value="Следующая">
-            </form>
-            <% } %>
-
-        </div>
-        </div>
-        <% } %>
-
     </div>
 </section>

@@ -1,5 +1,6 @@
 package it.academy.utils;
 
+import it.academy.dto.resp.DeviceDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.utils.fiterForSearch.EntityFilter;
@@ -19,19 +20,6 @@ public class Builder {
                 .filtersForPage(filters)
                 .build();
     }
-
-//    public static DeviceDTOResp buildEmptyDevice(CreateModelDTO model) {
-//        return DeviceDTOResp.builder()
-//                .id(DEFAULT_ID)
-//                .model(model)
-//                .serialNumber(DEFAULT_VALUE)
-//                .buyerName(DEFAULT_VALUE)
-//                .buyerSurname(DEFAULT_VALUE)
-//                .buyerPhone(DEFAULT_VALUE)
-//                .salesmanName(DEFAULT_VALUE)
-//                .salesmanPhone(DEFAULT_VALUE)
-//                .build();
-//    }
 
     public static ServiceCenterDTO buildEmptyServiceCenter() {
         return ServiceCenterDTO.builder()

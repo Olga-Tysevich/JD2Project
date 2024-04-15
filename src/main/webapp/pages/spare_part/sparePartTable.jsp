@@ -7,8 +7,8 @@
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.resp.SparePartDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SPARE_PART_FORM" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_SPARE_PART" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_FORM" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART" %>
 <section>
     <div class="container t-container">
 

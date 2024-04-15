@@ -1,6 +1,6 @@
 package it.academy.utils.converters;
 
-import it.academy.dto.resp.DeviceDTOResp;
+import it.academy.dto.resp.DeviceDTO;
 import it.academy.entities.Device;
 import it.academy.entities.Buyer;
 import it.academy.entities.Model;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class DeviceConverter {
 
-    public static DeviceDTOResp convertToDTO(Device device) {
+    public static DeviceDTO convertToDTO(Device device) {
         Model model = device.getModel();
         Salesman salesman = device.getSalesman();
         Buyer buyer = device.getBuyer();
-        return DeviceDTOResp.builder()
+        return DeviceDTO.builder()
                 .id(device.getId())
                 .model(ModelConverter.convertToDTO(model))
                 .serialNumber(device.getSerialNumber())
@@ -30,31 +30,31 @@ public class DeviceConverter {
                 .build();
     }
 
-    public static Device convertDTOToEntity(DeviceDTOResp deviceDTOResp) {
+    public static Device convertDTOToEntity(DeviceDTO deviceDTO) {
         return Device.builder()
-                .id(deviceDTOResp.getId())
-                .model(ModelConverter.convertToEntity(deviceDTOResp.getModel()))
-                .serialNumber(deviceDTOResp.getSerialNumber())
-                .dateOfSale(deviceDTOResp.getDateOfSale())
+                .id(deviceDTO.getId())
+                .model(ModelConverter.convertToEntity(deviceDTO.getModel()))
+                .serialNumber(deviceDTO.getSerialNumber())
+                .dateOfSale(deviceDTO.getDateOfSale())
                 .buyer(Buyer.builder()
-                        .name(deviceDTOResp.getBuyerName())
-                        .surname(deviceDTOResp.getBuyerSurname())
-                        .phone(deviceDTOResp.getBuyerPhone())
+                        .name(deviceDTO.getBuyerName())
+                        .surname(deviceDTO.getBuyerSurname())
+                        .phone(deviceDTO.getBuyerPhone())
                         .build())
                 .salesman(Salesman.builder()
-                        .name(deviceDTOResp.getSalesmanName())
-                        .phone(deviceDTOResp.getSalesmanPhone())
+                        .name(deviceDTO.getSalesmanName())
+                        .phone(deviceDTO.getSalesmanPhone())
                         .build())
                 .build();
     }
 
-    public static List<DeviceDTOResp> convertListToDTOReq(List<Device> devices) {
+    public static List<DeviceDTO> convertListToDTOReq(List<Device> devices) {
         return devices.stream()
                 .map(DeviceConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<Device> convertDTOReqListToEntityList(List<DeviceDTOResp> devices) {
+    public static List<Device> convertDTOReqListToEntityList(List<DeviceDTO> devices) {
         return devices.stream()
                 .map(DeviceConverter::convertDTOToEntity)
                 .collect(Collectors.toList());

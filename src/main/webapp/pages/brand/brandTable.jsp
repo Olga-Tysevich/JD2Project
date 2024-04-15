@@ -6,8 +6,8 @@
 <%@ page import="it.academy.dto.req.BrandDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_BRAND" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_BRAND" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_BRAND" %>
 <section>
     <div class="container t-container">
 

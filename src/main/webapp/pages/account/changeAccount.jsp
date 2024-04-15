@@ -3,8 +3,8 @@
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

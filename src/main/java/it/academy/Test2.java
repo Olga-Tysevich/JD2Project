@@ -34,13 +34,13 @@ import it.academy.services.SparePartOrderService;
 import it.academy.services.SparePartService;
 import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.services.impl.SparePartServiceImpl;
-import it.academy.servlets.factory.CommandEnum;
+import it.academy.servlets.commands.factory.CommandEnum;
 import it.academy.utils.dao.TransactionManger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 
 public class Test2 {
 

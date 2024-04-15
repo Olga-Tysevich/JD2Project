@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.show.forms;
 
 import it.academy.dto.req.BrandDTO;
+import it.academy.dto.req.SparePartOrderDTO;
 import it.academy.dto.resp.RepairDTO;
-import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.SparePartOrderService;

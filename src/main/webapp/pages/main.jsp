@@ -5,11 +5,11 @@
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.*" %>
-<%@ page import="it.academy.utils.Constants" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+<%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -32,6 +32,7 @@
                     List<EntityFilter> filters = list.getFiltersForPage();
                     String pageForDisplay = list.getPage();
                     String command = list.getCommand();
+                    RepairStatus lastStatus = (RepairStatus) request.getAttribute(REPAIR_STATUS);
                 %>
 
         <div class="header-container">
@@ -156,11 +157,18 @@
             <fieldset class="f1">
                 <legend>Ремонты</legend>
                 <form action="repair" method="post">
-                    <input type="hidden" name="command" value="show_repair">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=page%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
                 </form>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_TABLE_PAGE, FIRST_PAGE)%>'"> Список ремонтов </button>
+
+                <form action="repair" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Список ремонтов">
+                </form>
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_REPAIR_TYPE_TABLE_PAGE, FIRST_PAGE)%>'">Список типов ремонта</button>
             </fieldset>
@@ -176,6 +184,7 @@
                     <%if (pageNumber != FIRST_PAGE) { %>
                     <form action="main" method="post">
                         <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                        <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=lastStatus%>">
                         <%int prevPage = pageNumber - 1;%>
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
                         <input class="button light" type="submit" name="button" value="Предыдущая">
@@ -191,6 +200,7 @@
                     <%if (pageNumber != maxPageNumber) { %>
                     <form action="main" method="post">
                         <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                        <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=lastStatus%>">
                         <%int nextPage = pageNumber + 1;%>
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
                         <input class="button light" type="submit" name="button" value="Следующая">

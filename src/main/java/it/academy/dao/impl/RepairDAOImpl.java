@@ -24,8 +24,7 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
         Root<Repair> root = find.from(Repair.class);
 
         find.select(root)
-                .where(criteriaBuilder().equal(root.get(REPAIR_STATUS), status),
-                        criteriaBuilder().equal(root.get(IS_DELETED), false));
+                .where(criteriaBuilder().equal(root.get(REPAIR_STATUS), status));
 
         return entityManager()
                 .createQuery(find)

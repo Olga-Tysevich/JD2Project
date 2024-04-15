@@ -1,6 +1,5 @@
-package it.academy.dto.req;
+package it.academy.dto.resp;
 
-import it.academy.dto.resp.AccountDTO;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import lombok.AllArgsConstructor;
@@ -12,44 +11,33 @@ import java.sql.Date;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class ChangeRepairDTO {
-
-    private AccountDTO currentAccount;
-
-    private Long serviceCenterId;
+@AllArgsConstructor
+public class RepairForTableDTO {
 
     private String serviceCenterName;
 
     private Long id;
 
-    private Long deviceId;
-
-    private Long brandId;
+    private String modelDescription;
 
     private RepairCategory category;
 
     private RepairStatus status;
 
-    private String defectDescription;
-
     private String serialNumber;
+
+    private Date dateOfSale;
+
+    private String defectDescription;
 
     private String repairNumber;
 
     private Date startDate;
 
-    private Date dateOfSale;
-
     private Date endDate;
-
-    private String repairTypeName;
 
     private Date deliveryDate;
 
-    private Long repairTypeId;
-
-    private String modelDescription;
-
+    private String repairTypeName;
 }

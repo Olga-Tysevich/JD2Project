@@ -21,6 +21,15 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     }
 
     @Override
+    public List<Model> findActiveByBrandId(long brandId) {
+        return entityManager()
+                .createQuery(FIND_ACTIVE_MODEL_BY_BRAND_ID, Model.class)
+                .setParameter(FIND_MODEL_BRAND_ID, brandId)
+                .setParameter(IS_ACTIVE_PARAMETER, true)
+                .getResultList();
+    }
+
+    @Override
     public Model getModel(Model model) {
         return entityManager()
                 .createQuery(FIND_MODEL, Model.class)

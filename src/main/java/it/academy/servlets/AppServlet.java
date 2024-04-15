@@ -1,7 +1,7 @@
 package it.academy.servlets;
 
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.factory.ActionFactory;
+import it.academy.servlets.commands.factory.ActionFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

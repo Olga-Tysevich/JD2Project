@@ -1,13 +1,17 @@
 package it.academy.dto.resp;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Data
 @Builder
-public class DeviceDTOResp {
+@AllArgsConstructor
+@NoArgsConstructor
+public class DeviceDTO {
 
     private Long id;
 

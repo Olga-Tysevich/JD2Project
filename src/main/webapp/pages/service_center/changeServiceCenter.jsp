@@ -1,8 +1,8 @@
 <%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
-<%@ page import="it.academy.servlets.factory.CommandEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
+<%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

@@ -15,6 +15,8 @@ import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
 
@@ -24,23 +26,15 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Override
     public void createDeviceType(DeviceTypeDTO deviceType) throws AccessDenied {
-        ServiceHelper.checkCurrentAccount(deviceType.getCurrentAccount());
-
-        DeviceType result = DeviceTypeConverter.convertToEntity(deviceType);
-        transactionManger.beginTransaction();
-
-        if (deviceTypeDAO.findByUniqueParameter(DEVICE_TYPE_NAME, deviceType.getName()) != null) {
-            transactionManger.commit();
-            throw new IllegalArgumentException(DEVICE_TYPE_ALREADY_EXIST);
-        }
-
-        deviceTypeDAO.create(result);
-
-        transactionManger.commit();
+        changeDeviceType(deviceType, deviceTypeDAO::create);
     }
 
     @Override
     public void updateDeviceType(DeviceTypeDTO deviceType) throws AccessDenied {
+        changeDeviceType(deviceType, deviceTypeDAO::update);
+    }
+
+    private void changeDeviceType(DeviceTypeDTO deviceType, Consumer<DeviceType> method) {
 
         ServiceHelper.checkCurrentAccount(deviceType.getCurrentAccount());
 
@@ -54,7 +48,7 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
             throw new IllegalArgumentException(DEVICE_TYPE_ALREADY_EXIST);
         }
 
-        deviceTypeDAO.update(result);
+        method.accept(result);
 
         transactionManger.commit();
     }
@@ -83,14 +77,16 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Override
     public ListForPage<DeviceTypeDTO> findDeviceTypes(AccountDTO accountDTO, int pageNumber, String filter, String input) {
+
+        Supplier<List<DeviceType>> find;
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return ServiceHelper.getList(deviceTypeDAO,
-                    () -> deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input), pageNumber,
-                    DeviceTypeConverter::convertToDTOList,
-                    FilterManager::getFiltersForDeviceType);
+            find = () -> deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input);
+        } else  {
+            find = () -> deviceTypeDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
         }
         return ServiceHelper.getList(deviceTypeDAO,
-                () -> deviceTypeDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
+                find,
+                pageNumber,
                 DeviceTypeConverter::convertToDTOList,
                 FilterManager::getFiltersForDeviceType);
     }

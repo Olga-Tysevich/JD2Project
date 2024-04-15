@@ -1,10 +1,8 @@
-package it.academy.servlets.factory;
+package it.academy.servlets.commands.factory;
 
-import it.academy.dto.req.ChangeModelDTO;
-import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.*;
-import it.academy.servlets.commands.impl.AddCommand;
 import it.academy.servlets.commands.impl.add.AddBrand;
+import it.academy.servlets.commands.impl.change.ChangeRepair;
 import it.academy.servlets.commands.impl.change.ChangeBrand;
 import it.academy.servlets.commands.impl.add.AddDeviceType;
 import it.academy.servlets.commands.impl.change.ChangeDeviceType;
@@ -12,7 +10,6 @@ import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
-import it.academy.servlets.commands.impl.ShowPageCommand;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 import it.academy.servlets.commands.impl.change.ChangeModel;
 import it.academy.servlets.commands.impl.show.tables.*;
@@ -24,8 +21,6 @@ import it.academy.servlets.commands.impl.add.AddSparePart;
 import it.academy.servlets.commands.impl.change.ChangeSparePart;
 import it.academy.servlets.commands.impl.show.forms.*;
 
-import static it.academy.utils.Constants.*;
-
 public enum CommandEnum {
     LOGIN(new LoginCommand()),
     SHOW_NEW_ACCOUNT(new ShowNewAccount()),
@@ -35,7 +30,8 @@ public enum CommandEnum {
     SHOW_ACCOUNT_TABLE(new ShowAccountTable()),
     SHOW_SERVICE_CENTER_TABLE(new ShowServiceCenterTable()),
     SHOW_SERVICE_CENTER(new ShowServiceCenter()),
-    ADD_SERVICE_CENTER(new AddServiceCenter()),SHOW_BRAND_TABLE(new ShowBrandTable()),
+    ADD_SERVICE_CENTER(new AddServiceCenter()),
+    SHOW_BRAND_TABLE(new ShowBrandTable()),
     ADD_BRAND(new AddBrand()),
     SHOW_BRAND(new ShowBrand()),
     CHANGE_BRAND(new ChangeBrand()),
@@ -44,20 +40,19 @@ public enum CommandEnum {
     SHOW_DEVICE_TYPE(new ShowDeviceType()),
     CHANGE_DEVICE_TYPE(new ChangeDeviceType()),
     SHOW_MODEL_TABLE(new ShowModelTable()),
-    ADD_MODEL(new AddCommand<>(new ModelServiceImpl()::createModel, new ChangeModelDTO(), new ShowModelTable())),
-    SHOW_MODEL(new ShowPageCommand<>((i) -> new ModelServiceImpl().findModel((Long) i), MODEL, MODEL_PAGE_PATH)),
+    ADD_MODEL(new AddModel()),
+    SHOW_MODEL(new ShowModel()),
     CHANGE_MODEL(new ChangeModel()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
     ADD_SPARE_PART(new AddSparePart()),
     SHOW_SPARE_PART_FORM(new ShowSparePart()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
-
-//    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
     SHOW_REPAIR(new ShowRepair()),
-    ADD_REPAIR(new AddRepair()),
-    SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),
     CHANGE_REPAIR(new ChangeRepair()),
     SHOW_REPAIR_TABLE(new ShowRepairTable()),
+
+//    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
+    SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),
 //    SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
 //    ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),

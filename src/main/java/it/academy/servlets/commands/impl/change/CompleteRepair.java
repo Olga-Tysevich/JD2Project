@@ -26,7 +26,7 @@ public class CompleteRepair implements ActionCommand {
                 .level(req.getParameter(REPAIR_TYPE_LEVEL))
                 .name(REPAIR_TYPE_NAME)
                 .build();
-        repair.setRepairType(repairTypeDTO);
+//        repair.setRepairType(repairTypeDTO);
         repair.setStatus(RepairStatus.COMPLETED);
 
         repairService.updateRepair(repair);

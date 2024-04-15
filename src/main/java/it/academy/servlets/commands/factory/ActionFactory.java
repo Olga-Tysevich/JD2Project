@@ -1,4 +1,4 @@
-package it.academy.servlets.factory;
+package it.academy.servlets.commands.factory;
 
 import it.academy.servlets.commands.ActionCommand;
 

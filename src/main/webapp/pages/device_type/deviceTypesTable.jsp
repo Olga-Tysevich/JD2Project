@@ -4,8 +4,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>
 <%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_DEVICE_TYPE" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_DEVICE_TYPE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_DEVICE_TYPE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_DEVICE_TYPE" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <section>

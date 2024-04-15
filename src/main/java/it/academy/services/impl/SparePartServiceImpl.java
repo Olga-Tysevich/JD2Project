@@ -60,6 +60,7 @@ public class SparePartServiceImpl implements SparePartService {
         }
 
         if (partDTO.getId() == null) {
+            partDTO.setIsActive(true);
             method.accept(result);
         }
         partDTO.getDeviceTypeIdList().forEach(dt -> {

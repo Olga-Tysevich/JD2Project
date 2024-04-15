@@ -4,8 +4,8 @@
 <%@ page import="it.academy.dto.req.BrandDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ModelDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_MODEL_TABLE" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_MODEL" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_MODEL" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">

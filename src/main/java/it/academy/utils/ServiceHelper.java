@@ -11,15 +11,13 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.ACCESS_IS_DENIED;
 import static it.academy.utils.Constants.LIST_SIZE;
 
 
 public class ServiceHelper {
 
     public static void checkCurrentAccount(AccountDTO account) throws AccessDenied {
-        if (!RoleEnum.ADMIN.equals(account.getRole())) {
-            System.out.println("in createBlock " + ACCESS_IS_DENIED);
+        if (account == null || !RoleEnum.ADMIN.equals(account.getRole())) {
             throw new AccessDenied();
         }
     }

@@ -7,7 +7,7 @@ import it.academy.servlets.extractors.impl.TableExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 import static it.academy.utils.Constants.ERROR_PAGE_PATH;
 
 public class ShowAccountTable implements ActionCommand {

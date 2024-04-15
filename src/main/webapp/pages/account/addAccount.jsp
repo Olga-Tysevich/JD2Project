@@ -2,7 +2,7 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

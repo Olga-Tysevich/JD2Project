@@ -1,8 +1,6 @@
 package it.academy.entities;
 
-import it.academy.entities.DeviceType;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -29,10 +27,10 @@ public class SparePart implements Serializable {
     private Boolean isActive;
 
     @Builder.Default
-//    @EqualsAndHashCode.Exclude
-//    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
-    @ManyToMany(mappedBy = "spareParts", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "spareParts", cascade = CascadeType.MERGE)
     private Set<DeviceType> typeSet = new HashSet<>();
 
     public void addDeviceType(DeviceType deviceType) {

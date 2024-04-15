@@ -5,8 +5,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.25.xsd">
 
-    <changeSet id="create_brands_table_01" author="Olga Tysevich">
-        <createTable tableName="brands">
+    <changeSet id="create_spare_parts_table_01" author="Olga Tysevich">
+        <createTable tableName="spare_parts">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
@@ -18,7 +18,6 @@
             <column name="active" type="bit">
                 <constraints nullable="false"/>
             </column>
-
         </createTable>
 
     </changeSet>

@@ -11,7 +11,9 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "devices")
+@Table(name = "devices", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"serial_number"})
+})
 public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

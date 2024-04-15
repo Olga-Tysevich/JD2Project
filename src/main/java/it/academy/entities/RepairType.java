@@ -13,7 +13,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "repair_types")
+@Table(name = "repair_types", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name"})
+})
 public class RepairType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

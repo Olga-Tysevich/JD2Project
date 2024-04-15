@@ -9,8 +9,8 @@
 <%@ page import="it.academy.dto.resp.ModelDTO" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>
 <%@ page import="it.academy.dto.resp.ModelListDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.ADD_MODEL" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_MODEL" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_MODEL" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL" %>
 <section>
     <div class="container t-container">
 

@@ -37,14 +37,14 @@ public class Repair implements Serializable {
     @JoinColumn(name = "device_id")
     private Device device;
 
-    @Column(name = "defct_description")
+    @Column(name = "defect_description")
     private String defectDescription;
 
-    @Column
-    private String serviceCenterRepairNumber;
+    @Column(name = "repair_number")
+    private String repairNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "repair_type_id")
     private RepairType repairType;
 
     @Column(name = "start_date", updatable = false)
@@ -54,11 +54,7 @@ public class Repair implements Serializable {
     @Column(name = "end_date")
     private Date endDate;
 
-
     @Column(name = "delivery_date")
     private Date deliveryDate;
-
-    @Column(name = "deleted")
-    private boolean isDeleted;
 
 }

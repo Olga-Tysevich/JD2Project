@@ -55,7 +55,18 @@ public class ModelServiceImpl implements ModelService {
         ServiceHelper.checkCurrentAccount(model.getCurrentAccount());
 
         Model result = ModelConverter.convertToEntity(model);
+
         transactionManger.beginTransaction();
+        List<Brand> brands = brandDAO.findAll();
+        List<DeviceType> deviceTypes = deviceTypeDAO.findAll();
+
+        if (brands.isEmpty()) {
+            throw new BrandsNotFound();
+        }
+
+        if (deviceTypes.isEmpty()) {
+            throw new DeviceTypesNotFound();
+        }
 
         Brand brand = brandDAO.find(model.getBrandId());
         DeviceType deviceType = deviceTypeDAO.find(model.getDeviceTypeId());
@@ -92,7 +103,7 @@ public class ModelServiceImpl implements ModelService {
             return ModelConverter.convertToDTOList(modelDAO.findActiveObjects(true));
         }
 
-        List<Model> models = transactionManger.execute(() -> modelDAO.findAll());
+        List<Model> models = transactionManger.execute(modelDAO::findAll);
         return ModelConverter.convertToDTOList(models);
     }
 

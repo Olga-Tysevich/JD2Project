@@ -6,7 +6,7 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.impl.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.factory.CommandEnum.SHOW_DEVICE_TYPE_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_DEVICE_TYPE_TABLE;
 import static it.academy.utils.Constants.*;
 
 public class ShowDeviceTypeTable implements ActionCommand {

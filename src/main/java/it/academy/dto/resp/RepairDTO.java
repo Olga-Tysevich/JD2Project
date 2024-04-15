@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.sql.Date;
 
 @Data
@@ -15,19 +14,39 @@ import java.sql.Date;
 @NoArgsConstructor
 public class RepairDTO {
 
+    private AccountDTO currentAccount;
+
     private Long serviceCenterId;
 
     private Long id;
 
-    private DeviceDTOResp device;
+    private Long deviceId;
+
+    private Long brandId;
+
+    private Long modelId;
 
     private RepairCategory category;
 
     private RepairStatus status;
 
+    private String serialNumber;
+
+    private Date dateOfSale;
+
+    private String salesmanName;
+
+    private String salesmanPhone;
+
+    private String buyerName;
+
+    private String buyerSurname;
+
+    private String buyerPhone;
+
     private String defectDescription;
 
-    private String serviceCenterRepairNumber;
+    private String repairNumber;
 
     private Date startDate;
 
@@ -35,10 +54,12 @@ public class RepairDTO {
 
     private Date deliveryDate;
 
-    private RepairTypeDTO repairType;
+    private Long repairTypeId;
 
-    private boolean isDeleted;
+    private String repairTypeName;
 
-    private String modelDescription;
+    private String repairTypeCode;
+
+    private String repairTypeLevel;
 
 }

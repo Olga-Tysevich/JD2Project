@@ -142,12 +142,6 @@ public class Generator {
                 .build();
     }
 
-    public static LiquidationCertificate generateCertificate() {
-        return LiquidationCertificate.builder()
-                .number("LCNo." + RANDOM.nextInt(10000))
-                .build();
-    }
-
     private static String generateValidPasswords() {
         String pattern = "(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}";
 

@@ -2,8 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
 <%@ page import="it.academy.dto.resp.SparePartDTO" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.CHANGE_SPARE_PART" %>
-<%@ page import="static it.academy.servlets.factory.CommandEnum.SHOW_SPARE_PART_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SPARE_PART" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

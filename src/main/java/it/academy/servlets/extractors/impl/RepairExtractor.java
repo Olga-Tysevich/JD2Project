@@ -1,7 +1,7 @@
 package it.academy.servlets.extractors.impl;
 
 import it.academy.dto.req.BrandDTO;
-import it.academy.dto.resp.DeviceDTOResp;
+import it.academy.dto.resp.DeviceDTO;
 import it.academy.dto.resp.RepairDTO;
 import it.academy.dto.resp.RepairTypeDTO;
 import it.academy.utils.enums.RepairCategory;
@@ -51,7 +51,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
         Long repairId = req.getParameter(REPAIR_ID) != null ? Long.parseLong(req.getParameter(REPAIR_ID)) : null;
 
 //        CreateModelDTO createModelDTO = repairService.findModel(modelId);
-        DeviceDTOResp deviceDTOResp = DeviceDTOResp.builder()
+        DeviceDTO deviceDTO = DeviceDTO.builder()
                 .id(deviceId)
 //                .model(createModelDTO)
                 .serialNumber(serialNumber)
@@ -66,13 +66,13 @@ public class RepairExtractor implements Extractor<RepairDTO> {
 
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repairId)
-                .device(deviceDTOResp)
+//                .device(deviceDTO)
                 .category(category)
                 .status(status)
                 .defectDescription(defectDescription)
-                .serviceCenterRepairNumber(repairWorkshopRepairNumber)
+                .repairNumber(repairWorkshopRepairNumber)
                 .startDate(startDate)
-                .isDeleted(isDeleted)
+//                .isDeleted(isDeleted)
                 .build();
 
         if (status.isFinishedStatus()) {
@@ -81,7 +81,7 @@ public class RepairExtractor implements Extractor<RepairDTO> {
             RepairTypeDTO repairTypeDTO = repairService.findRepairType(repairTypeId);
 
             repairDTO.setEndDate(endDate);
-            repairDTO.setRepairType(repairTypeDTO);
+//            repairDTO.setRepairType(repairTypeDTO);
         }
 
         if (status.isDeliveredStatus()) {

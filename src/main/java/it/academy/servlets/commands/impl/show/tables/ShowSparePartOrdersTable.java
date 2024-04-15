@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.show.tables;
 
+import it.academy.dto.req.SparePartOrderDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
 import it.academy.services.SparePartOrderService;
 import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

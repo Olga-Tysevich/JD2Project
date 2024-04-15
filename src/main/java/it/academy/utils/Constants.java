@@ -20,6 +20,7 @@ public class Constants {
     public static final String IS_ACTIVE_PARAMETER = "isActive";
     public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
+    public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_BRAND_ID = "brandId";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
 
@@ -110,14 +111,23 @@ public class Constants {
     public static final String SPARE_PART_ID = "spare_part_id";
     public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
-
+    //repair
+    public static final String REPAIR_FORM = "repair_form";
+    public static final String REPAIR = "repair";
+    public static final String REPAIR_STATUS = "status";
+    public static final String REPAIR_CATEGORY = "category";
+    public static final String REPAIR_SERVICE_CENTER_ID = "serviceCenterId";
+    public static final String CURRENT_BRAND_ID = "currentBrandId";
+    public static final String MODEL_ID = "modelId";
+    public static final String DEVICE_ID = "deviceId";
+    public static final String REPAIR_PAGE_PATH = "/pages/repair/repairPage.jsp";
+    public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/repair/changeRepairPage.jsp";
+    public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
 
 
     //repair
-    public static final String SERVICE_CENTER_REPAIR_NUMBER = "serviceCenterNumber";
-    public static final String REPAIR_CATEGORY = "category";
+    public static final String SERVICE_CENTER_REPAIR_NUMBER = "repairNumber";
     public static final String DEFECT_DESCRIPTION = "defectDescription";
-    public static final String REPAIR_STATUS = "status";
     public static final String START_DATE = "startDate";
     public static final String END_DATE = "endDate";
     public static final String REPAIR_TYPE_LEVEL = "level";
@@ -144,12 +154,7 @@ public class Constants {
 
     //jsp
     public static final String SHOW_COMMAND = "show_command";
-    //RepairWorkshop parameters
-    //Model parameters
-    //Brand parameters
-    public static final String CURRENT_BRAND_ID = "current_brand_id";
-    //Repair parameters
-    public static final String REPAIR_ID = "repair_id";
+    public static final String REPAIR_ID = "id";
     public static final String REPAIR_TYPE = "type";
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";
@@ -157,7 +162,6 @@ public class Constants {
     //SparePartOrder parameters
     public static final String SPARE_PART_ORDER = "sp_order";
     //Device parameters
-    public static final String DEVICE_ID = "device_id";
     //Spare part order
     public static final String ORDER_ID = "order_id";
     public static final String REPAIR_NUMBER = "repair_number";
@@ -179,13 +183,10 @@ public class Constants {
 
     //Paths
 
-    public static final String REPAIR_PAGE_PATH = "/pages/add/repairPage.jsp";
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
-    public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/change_pages/changeRepairPage.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
-    public static final String REPAIR_TABLE_PAGE_PATH = "/pages/tables/repairTable.jsp";
 
     //jsp
 
@@ -197,7 +198,6 @@ public class Constants {
 
     public static final String BRANDS = "brands";
     public static final String MODEL = "model";
-    public static final String REPAIR = "repair";
     public static final String REPAIR_TYPES = "repair_types";
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
 
@@ -231,6 +231,7 @@ public class Constants {
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
     public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
+    public static final String MODELS_NOT_FOUND = "Нет добавленных моделей!";
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
     public static final String DEVICE_TYPE_NOT_SELECTED = "Не выбраны связанные устройства!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";

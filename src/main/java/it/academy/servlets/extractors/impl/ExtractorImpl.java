@@ -22,8 +22,11 @@ public class ExtractorImpl {
                 AccountDTO accountDTO = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
                 ThrowingConsumerWrapper.apply(() -> f.set(result, accountDTO));
             } else {
-                ThrowingConsumerWrapper.apply(() -> f.set(result,
-                        ReflectionHelper.defineParameterType(request.getParameter(f.getName()), f.getType())));
+                String value = request.getParameter(f.getName());
+                if (value != null) {
+                    ThrowingConsumerWrapper.apply(() -> f.set(result,
+                            ReflectionHelper.defineParameterType(value, f.getType())));
+                }
             }
         });
 
