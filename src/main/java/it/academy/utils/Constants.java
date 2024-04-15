@@ -113,6 +113,7 @@ public class Constants {
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
     //repair
     public static final String REPAIR_FORM = "repair_form";
+    public static final String CHANGE_REPAIR_FORM = "change_repair_form";
     public static final String REPAIR = "repair";
     public static final String REPAIR_STATUS = "status";
     public static final String REPAIR_CATEGORY = "category";
@@ -121,6 +122,7 @@ public class Constants {
     public static final String MODEL_ID = "modelId";
     public static final String DEVICE_ID = "deviceId";
     public static final String REPAIR_PAGE_PATH = "/pages/repair/repairPage.jsp";
+    public static final String ADD_REPAIR_PAGE_PATH = "/pages/repair/addRepairPage.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/repair/changeRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
 

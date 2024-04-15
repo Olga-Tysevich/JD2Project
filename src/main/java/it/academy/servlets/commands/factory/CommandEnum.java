@@ -48,11 +48,12 @@ public enum CommandEnum {
     SHOW_SPARE_PART_FORM(new ShowSparePart()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
     SHOW_REPAIR(new ShowRepair()),
+    SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),
+    ADD_REPAIR(new AddRepair()),
     CHANGE_REPAIR(new ChangeRepair()),
     SHOW_REPAIR_TABLE(new ShowRepairTable()),
 
 //    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
-    SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),
 //    SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
 //    ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),

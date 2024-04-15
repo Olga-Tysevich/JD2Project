@@ -18,7 +18,6 @@ public class TableExtractor{
                                     ActiveEntitySupplier<ListForPage<T>> methodWithoutFilters, CommandEnum command) {
 
         TableReq request = ExtractorImpl.extract(req, new TableReq());
-        System.out.println("show table req " + request);
         AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
 
         ListForPage<T> list;
@@ -28,11 +27,8 @@ public class TableExtractor{
         } else {
             list = methodWithoutFilters.get(currentAccount, request.getPageNumber());
         }
-        System.out.println("show table list " + list);
         list.setPage(request.getPage());
-        System.out.println("show table page number " + request.getPageNumber());
         list.setCommand(command.name());
-        System.out.println("show request after find" + list);
 
         req.setAttribute(LIST_FOR_PAGE, list);
 

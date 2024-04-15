@@ -1,10 +1,7 @@
 package it.academy.servlets.extractors.impl;
 
-import it.academy.dto.req.TableReq;
-import it.academy.servlets.extractors.impl.ExtractorImpl;
 import it.academy.utils.interfaces.EntitySupplier;
 import lombok.experimental.UtilityClass;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -29,10 +26,7 @@ public class FormExtractor{
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
 
         Constructor<T> constructor = resultClass.getConstructor();
-        System.out.println("constructor " + constructor);
         T dto = ExtractorImpl.extract(req, constructor.newInstance());
-        System.out.println("dto " + dto);
-        System.out.println(dto);
         Field idField;
         Object id = null;
         try {
@@ -42,14 +36,8 @@ public class FormExtractor{
             id = idField.get(dto);
         } catch (Exception ignored) {};
 
-        System.out.println("object id " + id);
-        TableReq request = ExtractorImpl.extract(req, new TableReq());
-        System.out.println("change req " + request);
-        System.out.println("change obj " + id);
-
         try {
             methodForSave.accept(dto);
-            System.out.println("updated successful");
         } catch (Exception e) {
             System.out.println(String.format(ERROR_PATTERN, e.getMessage(), dto));
 
@@ -60,10 +48,8 @@ public class FormExtractor{
             req.setAttribute(ERROR, e.getMessage());
             String page = req.getParameter(PAGE);
             req.setAttribute(PAGE, page);
-            System.out.println("page " + page);
             req.setAttribute(objectKey, findResult == null ? dto : findResult);
             req.setAttribute(PAGE_NUMBER, pageNumber);
-            System.out.println("exception page " + exceptionPagePath);
             return exceptionPagePath;
         }
 

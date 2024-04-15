@@ -20,6 +20,9 @@ import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
 
+import java.util.List;
+import java.util.function.Supplier;
+
 import static it.academy.utils.Constants.EMAIL;
 import static it.academy.utils.Constants.LIST_SIZE;
 
@@ -101,18 +104,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ListForPage<AccountDTO> findAccounts(AccountDTO accountDTO, int pageNumber, String filter, String input) {
 
-        if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
+        Supplier<List<Account>> find;
 
-            return ServiceHelper.getList(accountDAO,
-                    () -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
-                    AccountConverter::convertToDTOList,
-                    FilterManager::getFiltersForServiceCenter);
+        if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
+            find = () -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+        } else {
+            long serviceCenterId = accountDTO.getServiceCenter().getId();
+            find = () ->accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE, filter, input);
         }
 
-        long serviceCenterId = accountDTO.getServiceCenter().getId();
-
         return ServiceHelper.getList(accountDAO,
-                () -> accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE, filter, input),
+                find,
                 pageNumber,
                 AccountConverter::convertToDTOList,
                 FilterManager::getFiltersForServiceCenter);

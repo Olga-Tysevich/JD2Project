@@ -3,14 +3,14 @@ package it.academy.servlets.extractors.impl;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.utils.ReflectionHelper;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
-
+import lombok.experimental.UtilityClass;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.util.List;
-
 import static it.academy.utils.Constants.ACCOUNT;
 import static it.academy.utils.Constants.CURRENT_ACCOUNT;
 
+@UtilityClass
 public class ExtractorImpl {
 
     public static <T> T extract(HttpServletRequest request, T result) {

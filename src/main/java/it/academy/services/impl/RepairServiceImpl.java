@@ -4,7 +4,6 @@ import it.academy.dao.*;
 import it.academy.dao.impl.*;
 import it.academy.dto.req.BrandDTO;
 import it.academy.dto.req.ChangeRepairDTO;
-import it.academy.dto.req.RepairFormReq;
 import it.academy.dto.resp.*;
 import it.academy.entities.*;
 import it.academy.exceptions.model.BrandsNotFound;
@@ -35,25 +34,21 @@ public class RepairServiceImpl implements RepairService {
     private final ModelDAO modelDAO = new ModelDAOImpl();
 
     @Override
-    public RepairFormDTO getRepairFormData(RepairFormReq repairForm) {
-
-        AccountDTO currentAccount = repairForm.getCurrentAccount();
+    public RepairFormDTO getRepairFormData(AccountDTO currentAccount, long brandId) {
 
         transactionManger.beginTransaction();
         List<BrandDTO> brands;
         List<ModelDTO> modelsForBrand;
         Map<Long, String> serviceCenters = null;
-        Long currentServiceCenterId = null;
 
         if (RoleEnum.ADMIN.equals(currentAccount.getRole())) {
             brands = BrandConverter.convertToDTOList(brandDAO.findAll());
-            modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findAllByBrandId(repairForm.getBrandId()));
+            modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findAllByBrandId(brandId));
             serviceCenters = serviceCenterDAO.findAll().stream()
                     .collect(Collectors.toMap(ServiceCenter::getId, ServiceCenter::getServiceName));
         } else {
             brands = BrandConverter.convertToDTOList(brandDAO.findActiveObjects(true));
-            modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findActiveByBrandId(repairForm.getBrandId()));
-            currentServiceCenterId = currentAccount.getServiceCenter().getId();
+            modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findActiveByBrandId(brandId));
         }
 
         if (brands == null || brands.isEmpty()) {
@@ -64,18 +59,11 @@ public class RepairServiceImpl implements RepairService {
             throw new ModelNotFound();
         }
 
-        RepairDTO repairDTO = null;
-        if (repairForm.getRepairId() != null) {
-            Repair repair = repairDAO.find(repairForm.getRepairId());
-            repairDTO = RepairConverter.convertToRepairDTO(repair);
-        }
-
         return RepairFormDTO.builder()
                 .serviceCenters(serviceCenters)
-                .currentServiceCenterId(currentServiceCenterId)
+                .currentBrandId(brandId)
                 .brands(brands)
                 .models(modelsForBrand)
-                .repairDTO(repairDTO)
                 .build();
     }
 
@@ -117,31 +105,19 @@ public class RepairServiceImpl implements RepairService {
         transactionManger.commit();
     }
 
-
     @Override
-    public List<BrandDTO> findBrands() {
-        Supplier<List<BrandDTO>> find = () -> {
-            List<Brand> result = brandDAO.findAll();
-            return BrandConverter.convertToDTOList(result);
-        };
+    public ChangeRepairFormDTO findRepair(AccountDTO currentAccount, long id) {
 
-        return transactionManger.execute(find);
-    }
+        ServiceHelper.checkCurrentAccount(currentAccount);
 
-    @Override
-    public RepairTypeDTO findRepairType(long id) {
-        return null;
-    }
+        transactionManger.beginTransaction();
+        RepairDTO repairDTO = RepairConverter.convertToRepairDTO(repairDAO.find(id));
+        RepairFormDTO repairFormDTO = getRepairFormData(currentAccount, repairDTO.getBrandId());
 
-    @Override
-    public RepairDTO findRepair(long id) {
-
-        Repair repair = transactionManger.execute(() -> repairDAO.find(id));
-//        RepairDTO repairDTO = RepairConverter.convertToDTO(repair);
-
+        ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO);
         transactionManger.closeManager();
-//        return repairDTO;
-        return null;
+
+        return result;
     }
 
     @Override

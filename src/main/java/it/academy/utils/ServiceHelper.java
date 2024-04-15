@@ -3,6 +3,7 @@ package it.academy.utils;
 import it.academy.dao.DAO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
+import it.academy.entities.Account;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.utils.fiterForSearch.EntityFilter;

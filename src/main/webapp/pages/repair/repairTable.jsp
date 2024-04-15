@@ -68,7 +68,7 @@
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="post">
-                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
+                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_CONFIRMED_REPAIR%>">
                                 <input type="hidden" name="<%=PAGE%>" value="<%=data.getPage()%>">
                                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=data.getPageNumber()%>">
                                 <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repair.getId()%>">

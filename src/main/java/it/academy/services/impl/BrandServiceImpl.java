@@ -5,16 +5,18 @@ import it.academy.dao.impl.BrandDAOImpl;
 import it.academy.dto.req.BrandDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.utils.enums.RoleEnum;
 import it.academy.entities.Brand;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.BrandService;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.BrandConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
 
@@ -24,25 +26,15 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void createBrand(BrandDTO brand) throws AccessDenied {
-
-        ServiceHelper.checkCurrentAccount(brand.getCurrentAccount());
-
-        Brand result = BrandConverter.convertToEntity(brand);
-        transactionManger.beginTransaction();
-
-        if (brandDAO.findByUniqueParameter(BRAND_NAME, brand.getName()) != null) {
-            transactionManger.commit();
-            throw new IllegalArgumentException(BRAND_ALREADY_EXIST);
-        }
-
-        brandDAO.create(result);
-
-        transactionManger.commit();
+        changeBrand(brand, brandDAO::create);
     }
 
     @Override
     public void updateBrand(BrandDTO brand) throws AccessDenied {
+        changeBrand(brand, brandDAO::update);
+    }
 
+    private void changeBrand(BrandDTO brand, Consumer<Brand> method) {
         ServiceHelper.checkCurrentAccount(brand.getCurrentAccount());
 
         Brand result = BrandConverter.convertToEntity(brand);
@@ -55,7 +47,7 @@ public class BrandServiceImpl implements BrandService {
             throw new IllegalArgumentException(BRAND_ALREADY_EXIST);
         }
 
-        brandDAO.update(result);
+        method.accept(result);
 
         transactionManger.commit();
     }
@@ -86,14 +78,14 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public ListForPage<BrandDTO> findBrands(AccountDTO accountDTO, int pageNumber, String filter, String input) {
 
+        Supplier<List<Brand>> find;
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return ServiceHelper.getList(brandDAO,
-                    () -> brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input), pageNumber,
-                    BrandConverter::convertToDTOList,
-                    FilterManager::getFiltersForBrand);
+            find = () -> brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input);
+        } else {
+            find = () -> brandDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
         }
         return ServiceHelper.getList(brandDAO,
-                () -> brandDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber,
+                find, pageNumber,
                 BrandConverter::convertToDTOList,
                 FilterManager::getFiltersForBrand);
     }

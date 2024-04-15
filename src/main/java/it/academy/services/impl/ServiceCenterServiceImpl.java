@@ -8,19 +8,16 @@ import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.entities.Account;
-import it.academy.utils.enums.RoleEnum;
 import it.academy.entities.ServiceCenter;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.services.ServiceCenterService;
-import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.fiterForSearch.EntityFilter;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
@@ -43,11 +40,10 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
             throw new IllegalArgumentException(SERVICE_CENTERS_ALREADY_EXIST);
         }
 
-
         ServiceCenter serviceCenter = ServiceCenterConverter.convertToEntity(serviceCenterDTO);
         serviceCenter.setIsActive(true);
 
-        ServiceCenter result = serviceCenterDAO.create(serviceCenter);
+        serviceCenterDAO.create(serviceCenter);
         transactionManger.commit();
     }
 
@@ -101,43 +97,28 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     @Override
     public ListForPage<ServiceCenterDTO> findServiceCenters(AccountDTO accountDTO, int pageNumber) {
 
-        if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getServiceCenterList(() -> serviceCenterDAO.findForPage(pageNumber, LIST_SIZE), pageNumber,
-                    ServiceCenterConverter::convertToDTOList);
-        }
-
-        long serviceCenterId = accountDTO.getServiceCenter().getId();
-        return getServiceCenterList(() -> List.of(serviceCenterDAO.find(serviceCenterId)), pageNumber,
-                ServiceCenterConverter::convertToDTOList);
+        return find(accountDTO, pageNumber, null, null);
 
     }
 
     @Override
     public ListForPage<ServiceCenterDTO> findServiceCenters(AccountDTO accountDTO, int pageNumber,
                                                             String filter, String input) {
-
-        if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return getServiceCenterList(() -> serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input),
-                    pageNumber, ServiceCenterConverter::convertToDTOList);
-        }
-
-        long serviceCenterId = accountDTO.getServiceCenter().getId();
-        return getServiceCenterList(() -> List.of(serviceCenterDAO.find(serviceCenterId)), pageNumber,
-                ServiceCenterConverter::convertToDTOList);
+        return find(accountDTO, pageNumber, filter, input);
     }
 
-    private ListForPage<ServiceCenterDTO> getServiceCenterList(Supplier<List<ServiceCenter>> method, int pageNumber,
-                                                               Function<List<ServiceCenter>, List<ServiceCenterDTO>> converter) {
-        List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
+    public ListForPage<ServiceCenterDTO> find(AccountDTO accountDTO, int pageNumber, String filter, String input) {
 
-        Supplier<ListForPage<ServiceCenterDTO>> find = () -> {
-            List<ServiceCenter> centers = method.get();
-            int maxPageNumber = (int) Math.ceil(((double) serviceCenterDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
-            List<ServiceCenterDTO> list = converter.apply(centers);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
-        };
-
-        return transactionManger.execute(find);
+        Supplier<List<ServiceCenter>> find;
+        if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
+            find = () -> serviceCenterDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input);
+        } else {
+            find = () -> serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
+        }
+        return ServiceHelper.getList(serviceCenterDAO,
+                find, pageNumber,
+                ServiceCenterConverter::convertToDTOList,
+                FilterManager::getFiltersForServiceCenter);
     }
 
 }

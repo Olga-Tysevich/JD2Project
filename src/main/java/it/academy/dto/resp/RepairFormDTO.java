@@ -24,6 +24,6 @@ public class RepairFormDTO {
 
     private DeviceDTO device;
 
-    private RepairDTO repairDTO;
+    private Long currentBrandId;
 
 }

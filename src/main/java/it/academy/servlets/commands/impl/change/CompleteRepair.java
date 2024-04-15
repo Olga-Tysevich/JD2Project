@@ -18,7 +18,7 @@ public class CompleteRepair implements ActionCommand {
 
         long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
         long repairTypeId = Long.parseLong(req.getParameter(REPAIR_TYPE_ID));
-        RepairDTO repair = repairService.findRepair(repairId);
+//        RepairDTO repair = repairService.findRepair(repairId);
 
         RepairTypeDTO repairTypeDTO = RepairTypeDTO.builder()
                 .id(repairTypeId)
@@ -27,9 +27,9 @@ public class CompleteRepair implements ActionCommand {
                 .name(REPAIR_TYPE_NAME)
                 .build();
 //        repair.setRepairType(repairTypeDTO);
-        repair.setStatus(RepairStatus.COMPLETED);
-
-        repairService.updateRepair(repair);
+//        repair.setStatus(RepairStatus.COMPLETED);
+//
+//        repairService.updateRepair(repair);
 
         return String.format(OPEN_REPAIR_PAGE, repairId);
     }

@@ -29,8 +29,11 @@ public class ReflectionHelper {
             return RepairCategory.valueOf(parameter);
         } else if (fieldClass == String.class) {
             return parameter;
-        } else if (fieldClass == Date.class && !parameter.isEmpty()) {
-            return Date.valueOf(parameter);
+        } else if (fieldClass == Date.class) {
+            if (!parameter.isEmpty()){
+                return Date.valueOf(parameter);
+            }
+            return null;
         }else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
             return Boolean.valueOf(parameter);
         } else {
