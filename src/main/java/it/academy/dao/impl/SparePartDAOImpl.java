@@ -3,6 +3,7 @@ package it.academy.dao.impl;
 import it.academy.dao.SparePartDAO;
 import it.academy.entities.DeviceType;
 import it.academy.entities.SparePart;
+import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -15,6 +16,10 @@ public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SpareP
 
     public SparePartDAOImpl() {
         super(SparePart.class);
+    }
+
+    public SparePartDAOImpl(TransactionManger manger) {
+        super(manger, SparePart.class);
     }
 
     @Override

@@ -3,6 +3,7 @@ package it.academy.dao.impl;
 import it.academy.dao.AccountDAO;
 import it.academy.entities.Account;
 import it.academy.entities.ServiceCenter;
+import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,6 +18,14 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
 
     public AccountDAOImpl() {
         super(Account.class);
+    }
+
+    public AccountDAOImpl(Class<Account> clazz) {
+        super(clazz);
+    }
+
+    public AccountDAOImpl(TransactionManger manger) {
+        super(manger, Account.class);
     }
 
     @Override

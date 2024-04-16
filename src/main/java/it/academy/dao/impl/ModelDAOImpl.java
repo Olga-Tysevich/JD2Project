@@ -2,6 +2,8 @@ package it.academy.dao.impl;
 
 import it.academy.dao.ModelDAO;
 import it.academy.entities.Model;
+import it.academy.utils.dao.TransactionManger;
+
 import java.util.List;
 
 import static it.academy.utils.Constants.*;
@@ -10,6 +12,10 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
 
     public ModelDAOImpl() {
         super(Model.class);
+    }
+
+    public ModelDAOImpl(TransactionManger manger) {
+        super(manger, Model.class);
     }
 
     @Override

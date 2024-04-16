@@ -3,6 +3,7 @@ package it.academy.dao.impl;
 import it.academy.dao.SparePartOrderDAO;
 import it.academy.entities.Repair;
 import it.academy.entities.SparePartOrder;
+import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -15,6 +16,10 @@ public class SparePartOrderDAOImpl extends DAOImpl<SparePartOrder, Long> impleme
 
     public SparePartOrderDAOImpl() {
         super(SparePartOrder.class);
+    }
+
+    public SparePartOrderDAOImpl(TransactionManger manger) {
+        super(manger, SparePartOrder.class);
     }
 
     @Override

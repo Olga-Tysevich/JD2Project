@@ -1,6 +1,7 @@
 package it.academy.utils;
 
 
+import it.academy.dto.req.CreateAccountDTO;
 import it.academy.entities.*;
 import it.academy.entities.Device;
 import it.academy.entities.RepairType;
@@ -20,7 +21,7 @@ import static it.academy.utils.Constants.RANDOM;
 @UtilityClass
 public class Generator {
     private List<String> repairWorkshops = Arrays.asList("Дрималай", "Кенфорд", "МастерПин", "Патио", "Электросервис");
-    private List<String> emails = Arrays.asList("owner%s@mail.ru", "admin%s@mail.ru", "user%s@gmail.com", "user%s@yahoo.com", "user%s@outlook.com");
+    private List<String> emails = Arrays.asList("account%s@mail.ru", "admin%s@mail.ru", "user%s@gmail.com", "user%s@yahoo.com", "user%s@outlook.com");
     private List<String> names = Arrays.asList("Александр", "Иван", "Екатерина", "Ольга", "Дмитрий", "Михаил", "Татьяна", "Светлана", "Николай", "Мария");
     private List<String> surnames = Arrays.asList("Иванович", "Петрович", "Сидорович", "Васильевич", "Попович", "Соколович", "Михайлович");
     private List<String> roles = Arrays.asList("Owner", "Admin", "Service owner", "Service manager", "Service engineer");
@@ -44,17 +45,15 @@ public class Generator {
     private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
     private List<String> dates = Arrays.asList("2024-04-01", "2024-04-15", "2024-04-24", "2024-04-12", "2024-04-07");
 
-    public static Account generateAccount(boolean isOwner) {
+    public static CreateAccountDTO generateAccount() {
         String password = generateValidPasswords();
-        RoleEnum role = isOwner? RoleEnum.ADMIN : RoleEnum.SERVICE_CENTER;
-        return Account.builder()
-                .email(isOwner ? String.format(emails.get(0), RANDOM.nextInt(100)) :
-                        String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(100)))
-                .isActive(true)
+        return CreateAccountDTO.builder()
+                .email(String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(1000)))
                 .password(password)
+                .confirmPassword(password)
                 .userName(names.get(RANDOM.nextInt(names.size())))
                 .userSurname(surnames.get(RANDOM.nextInt(surnames.size())))
-                .role(role)
+                .role(RoleEnum.SERVICE_CENTER)
                 .build();
     }
 

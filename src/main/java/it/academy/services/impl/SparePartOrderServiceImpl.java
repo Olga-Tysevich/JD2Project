@@ -22,9 +22,9 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class SparePartOrderServiceImpl implements SparePartOrderService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl();
-    private final RepairDAO repairDAO = new RepairDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl(transactionManger);
+    private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
 
 
     @Override

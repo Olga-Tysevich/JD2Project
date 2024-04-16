@@ -5,25 +5,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.function.Supplier;
 
 public class TransactionManger {
-    private static volatile TransactionManger instance;
     private EntityManager entityManager;
 
-    private TransactionManger() {
-    }
-
-    public static TransactionManger getInstance() {
-        if (instance != null) {
-            return instance;
-        }
-        synchronized (TransactionManger.class) {
-            if (instance == null) {
-                instance = new TransactionManger();
-            }
-            return instance;
-        }
-    }
-
-    public synchronized EntityManager entityManager() {
+    public EntityManager entityManager() {
         if (entityManager != null && entityManager.isOpen()) {
             return entityManager;
         }
@@ -33,17 +17,17 @@ public class TransactionManger {
         return entityManager;
     }
 
-    public synchronized CriteriaBuilder criteriaBuilder() {
+    public CriteriaBuilder criteriaBuilder() {
         return entityManager().getCriteriaBuilder();
     }
 
-    public synchronized void closeManager() {
+    public void closeManager() {
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close();
         }
     }
 
-    public synchronized <T> T execute(Supplier<T> method) {
+    public <T> T execute(Supplier<T> method) {
         beginTransaction();
         T result;
         try {
@@ -57,15 +41,16 @@ public class TransactionManger {
         return result;
     }
 
-    public synchronized void beginTransaction() {
+    public void beginTransaction() {
         if (!entityManager().getTransaction().isActive()) {
             entityManager().getTransaction().begin();
         }
     }
 
-    public synchronized void commit() {
+    public void commit() {
         if (entityManager().getTransaction().isActive()) {
             entityManager().getTransaction().commit();
+            entityManager.close();
         }
     }
 

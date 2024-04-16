@@ -3,6 +3,7 @@ package it.academy.dao.impl;
 
 import it.academy.dao.RepairDAO;
 import it.academy.entities.Repair;
+import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,6 +17,10 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
 
     public RepairDAOImpl() {
         super(Repair.class);
+    }
+
+    public RepairDAOImpl(TransactionManger manger) {
+        super(manger, Repair.class);
     }
 
     @Override

@@ -9,6 +9,7 @@ import it.academy.entities.*;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.ModelNotFound;
 import it.academy.services.RepairService;
+import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.*;
 import it.academy.utils.dao.TransactionManger;
@@ -16,6 +17,7 @@ import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -25,14 +27,14 @@ import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.SERIAL_NUMBER;
 
 public class RepairServiceImpl implements RepairService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
-    private final RepairDAO repairDAO = new RepairDAOImpl();
-    private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl();
-    private final BrandDAO brandDAO = new BrandDAOImpl();
-    private final DeviceDAO deviceDAO = new DeviceDAOImpl();
-    private final ModelDAO modelDAO = new ModelDAOImpl();
-    private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
+    private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
+    private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl(transactionManger);
+    private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
+    private final DeviceDAO deviceDAO = new DeviceDAOImpl(transactionManger);
+    private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
+    private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl(transactionManger);
 
     @Override
     public RepairFormDTO getRepairFormData(AccountDTO currentAccount, long brandId) {
@@ -60,12 +62,14 @@ public class RepairServiceImpl implements RepairService {
             throw new ModelNotFound();
         }
 
-        return RepairFormDTO.builder()
+        RepairFormDTO repairFormDTO = RepairFormDTO.builder()
                 .serviceCenters(serviceCenters)
                 .currentBrandId(brandId)
                 .brands(brands)
                 .models(modelsForBrand)
                 .build();
+        transactionManger.commit();
+        return repairFormDTO;
     }
 
     @Override
@@ -127,7 +131,8 @@ public class RepairServiceImpl implements RepairService {
         List<SparePartOrderDTO> ordersDTO = SparePartOrderConverter.convertListToDTO(orders);
 
         ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO, ordersDTO);
-        transactionManger.closeManager();
+
+        transactionManger.commit();
 
         return result;
     }
@@ -144,11 +149,14 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public ListForPage<ChangeRepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
-        Supplier<ListForPage<ChangeRepairDTO>> find = () -> ServiceHelper.getList(repairDAO,
-                () -> repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE),
-                pageNumber,
-                RepairConverter::convertToDTOList,
-                FilterManager::getFiltersForServiceCenter);
+
+        Supplier<ListForPage<ChangeRepairDTO>> find = () -> {
+            List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) repairDAO.getNumberOfEntriesByStatus(status).intValue()) / LIST_SIZE);
+            List<ChangeRepairDTO> list = RepairConverter.convertToDTOList(repairs);
+            return Builder.buildListForPage(list, pageNumber, maxPageNumber, new ArrayList<>());
+        };
+
         return transactionManger.execute(find);
     }
 

@@ -16,10 +16,15 @@ import static it.academy.utils.Constants.*;
 import static it.academy.utils.Constants.IS_ACTIVE;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
-    private TransactionManger manger = TransactionManger.getInstance();
+    private TransactionManger manger;
     private Class<T> clazz;
 
     public DAOImpl(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
+    public DAOImpl(TransactionManger manger, Class<T> clazz) {
+        this.manger = manger;
         this.clazz = clazz;
     }
 

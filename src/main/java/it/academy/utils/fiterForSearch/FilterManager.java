@@ -14,6 +14,7 @@ public class FilterManager {
     public static List<EntityFilter> getFiltersForAccount() {
         List<EntityFilter> filters = new ArrayList<>();
         filters.add(new EntityFilter(EMAIL, EMAIL));
+        filters.add(new EntityFilter(USER_NAME, ACCOUNT_USER_NAME));
         filters.add(new EntityFilter(USER_SURNAME, ACCOUNT_USER_SURNAME));
         return filters;
     }

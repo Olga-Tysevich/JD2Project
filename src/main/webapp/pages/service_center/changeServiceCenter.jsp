@@ -24,7 +24,6 @@
                             <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         </div>
-                        <%=OBJECT_ID%>
                         <% if (serviceCenter.getId() != null) {%>
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
                         <div class="f-input">

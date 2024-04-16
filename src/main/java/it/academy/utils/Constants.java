@@ -195,6 +195,7 @@ public class Constants {
     public static final String DEPARTURE_DATE_PARAMETER = "departureDate";
     public static final String DELIVERY_DATE_PARAMETER = "deliveryDate";
     //account filters
+    public static final String ACCOUNT_USER_NAME = "Имя";
     public static final String ACCOUNT_USER_SURNAME = "Фамилия";
     //repairType filters
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";

@@ -27,6 +27,9 @@ public class TableExtractor{
         } else {
             list = methodWithoutFilters.get(currentAccount, request.getPageNumber());
         }
+        System.out.println("list " + list);
+        System.out.println("command " + command);
+        System.out.println("page " + request.getPage());
         list.setPage(request.getPage());
         list.setCommand(command.name());
 

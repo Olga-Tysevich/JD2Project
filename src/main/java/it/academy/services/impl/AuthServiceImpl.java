@@ -16,8 +16,8 @@ import static it.academy.utils.Constants.ACCOUNT_EMAIL;
 
 
 public class AuthServiceImpl implements AuthService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final AccountDAO accountDAO = new AccountDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
 
     @Override
     public AccountDTO loginUser(LoginDTO loginDTO) throws UserNotFound, IncorrectPassword, UserIsBlocked {

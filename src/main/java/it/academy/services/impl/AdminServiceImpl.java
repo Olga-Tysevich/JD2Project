@@ -27,9 +27,9 @@ import static it.academy.utils.Constants.EMAIL;
 import static it.academy.utils.Constants.LIST_SIZE;
 
 public class AdminServiceImpl implements AdminService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final AccountDAO accountDAO = new AccountDAOImpl();
-    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
+    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
 
     @Override
     public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered, AccessDenied {
@@ -117,7 +117,7 @@ public class AdminServiceImpl implements AdminService {
                 find,
                 pageNumber,
                 AccountConverter::convertToDTOList,
-                FilterManager::getFiltersForServiceCenter);
+                FilterManager::getFiltersForAccount);
     }
 
 }

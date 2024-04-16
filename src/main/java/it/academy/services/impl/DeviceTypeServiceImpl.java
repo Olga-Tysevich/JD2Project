@@ -21,8 +21,8 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class DeviceTypeServiceImpl implements DeviceTypeService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl(transactionManger);
 
     @Override
     public void createDeviceType(DeviceTypeDTO deviceType) throws AccessDenied {

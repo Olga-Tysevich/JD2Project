@@ -23,9 +23,9 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class ServiceCenterServiceImpl implements ServiceCenterService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl();
-    private final AccountDAO accountDAO = new AccountDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
+    private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
 
     @Override
     public void addServiceCenter(ServiceCenterDTO serviceCenterDTO) throws AccessDenied {

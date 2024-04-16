@@ -9,7 +9,6 @@ import it.academy.dto.req.DeviceTypeDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.resp.SparePartDTO;
-import it.academy.utils.enums.RoleEnum;
 import it.academy.entities.DeviceType;
 import it.academy.entities.SparePart;
 import it.academy.exceptions.model.DeviceTypesNotFound;
@@ -18,7 +17,9 @@ import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.DeviceTypeConverter;
 import it.academy.utils.converters.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
@@ -27,42 +28,42 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class SparePartServiceImpl implements SparePartService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-    private final SparePartDAO sparePartDAO = new SparePartDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl(transactionManger);
+    private final SparePartDAO sparePartDAO = new SparePartDAOImpl(transactionManger);
 
     @Override
-    public void createSparePart(ChangeSparePartDTO partDTO) {
-        changeSparePart(partDTO, sparePartDAO::create);
+    public void createSparePart(ChangeSparePartDTO changeSparePartDTO) {
+        changeSparePart(changeSparePartDTO, sparePartDAO::create);
     }
 
     @Override
-    public void updateSparePart(ChangeSparePartDTO partDTO) {
-        changeSparePart(partDTO, sparePartDAO::update);
+    public void updateSparePart(ChangeSparePartDTO changeSparePartDTO) {
+        changeSparePart(changeSparePartDTO, sparePartDAO::update);
     }
 
-    private void changeSparePart(ChangeSparePartDTO partDTO, Consumer<SparePart> method) {
-        ServiceHelper.checkCurrentAccount(partDTO.getCurrentAccount());
+    private void changeSparePart(ChangeSparePartDTO changeSparePartDTO, Consumer<SparePart> method) {
+        ServiceHelper.checkCurrentAccount(changeSparePartDTO.getCurrentAccount());
 
-        SparePart result = SparePartConverter.convertToEntity(partDTO);
+        SparePart result = SparePartConverter.convertToEntity(changeSparePartDTO);
         transactionManger.beginTransaction();
 
-        SparePart temp = sparePartDAO.findByUniqueParameter(SPARE_PART_NAME, partDTO.getName());
-        if (temp != null && !temp.getId().equals(partDTO.getId())) {
+        SparePart temp = sparePartDAO.findByUniqueParameter(SPARE_PART_NAME, changeSparePartDTO.getName());
+        if (temp != null && !temp.getId().equals(changeSparePartDTO.getId())) {
             transactionManger.commit();
             throw new IllegalArgumentException(SPARE_PART_ALREADY_EXIST);
         }
 
-        if (partDTO.getDeviceTypeIdList() != null && partDTO.getDeviceTypeIdList().isEmpty()) {
+        if (changeSparePartDTO.getDeviceTypeIdList() != null && changeSparePartDTO.getDeviceTypeIdList().isEmpty()) {
             transactionManger.commit();
             throw new IllegalArgumentException(DEVICE_TYPE_NOT_SELECTED);
         }
 
-        if (partDTO.getId() == null) {
-            partDTO.setIsActive(true);
+        if (changeSparePartDTO.getId() == null) {
+            changeSparePartDTO.setIsActive(true);
             method.accept(result);
         }
-        partDTO.getDeviceTypeIdList().forEach(dt -> {
+        changeSparePartDTO.getDeviceTypeIdList().forEach(dt -> {
             DeviceType deviceType = deviceTypeDAO.find(dt);
             deviceType.addSparePart(result);
             deviceTypeDAO.update(deviceType);

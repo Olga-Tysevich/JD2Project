@@ -21,8 +21,8 @@ import java.util.function.Supplier;
 import static it.academy.utils.Constants.*;
 
 public class BrandServiceImpl implements BrandService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final BrandDAO brandDAO = new BrandDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
 
     @Override
     public void createBrand(BrandDTO brand) throws AccessDenied {

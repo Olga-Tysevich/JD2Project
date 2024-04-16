@@ -36,10 +36,10 @@ import static it.academy.utils.Constants.LIST_SIZE;
 import static it.academy.utils.Constants.MODEL_ALREADY_EXIST;
 
 public class ModelServiceImpl implements ModelService {
-    private final TransactionManger transactionManger = TransactionManger.getInstance();
-    private final ModelDAO modelDAO = new ModelDAOImpl();
-    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl();
-    private final BrandDAO brandDAO = new BrandDAOImpl();
+    private final TransactionManger transactionManger = new TransactionManger();
+    private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
+    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl(transactionManger);
+    private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
 
     @Override
     public void createModel(ChangeModelDTO model) throws AccessDenied {
