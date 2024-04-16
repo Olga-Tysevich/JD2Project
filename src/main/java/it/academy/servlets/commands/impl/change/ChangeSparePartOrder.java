@@ -4,12 +4,9 @@ import it.academy.dto.req.ChangeSparePartOrderDTO;
 import it.academy.services.SparePartOrderService;
 import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.forms.ShowConfirmedRepair;
+import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
 import it.academy.servlets.extractors.impl.ExtractorImpl;
 import javax.servlet.http.HttpServletRequest;
-
-import static it.academy.utils.Constants.ORDER_REPAIR_ID;
-import static it.academy.utils.Constants.REPAIR_ID;
 
 public class ChangeSparePartOrder implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
@@ -21,8 +18,7 @@ public class ChangeSparePartOrder implements ActionCommand {
 
         sparePartOrderService.changeSparePartOrder(order);
 
-        req.setAttribute(REPAIR_ID, req.getParameter(ORDER_REPAIR_ID));
-        return new ShowConfirmedRepair().execute(req);
+        return new ShowRepairTable().execute(req);
     }
 
 }
