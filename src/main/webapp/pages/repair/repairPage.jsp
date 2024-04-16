@@ -176,12 +176,10 @@
 
                 <% if(repairDTO.getStatus().isFinishedStatus()) {%>
                 <div class="f-input">
-                    <p>
                         <label class="date-label" for="endDate">Дата завершения: </label>
                     <div class="date-container">
                         <input class="f-form" required type="date" id="endDate" name="<%=END_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
                     </div>
-                    </p>
                 </div>
 
                 <div class="f-input">
@@ -226,7 +224,6 @@
         <form action="main" method="post" id="cancel">
             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
-            <input type="text" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
         </form>
 
