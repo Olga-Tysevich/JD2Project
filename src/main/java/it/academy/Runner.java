@@ -1,15 +1,15 @@
 package it.academy;
 
+import it.academy.dto.req.BrandDTO;
 import it.academy.dto.req.CreateAccountDTO;
+import it.academy.dto.req.DeviceTypeDTO;
 import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.dto.resp.AccountDTO;
-import it.academy.exceptions.account.EmailAlreadyRegistered;
-import it.academy.exceptions.account.EnteredPasswordsNotMatch;
-import it.academy.services.AdminService;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.AdminServiceImpl;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.*;
+import it.academy.services.impl.*;
 import it.academy.utils.Generator;
+import it.academy.utils.converters.BrandConverter;
+import it.academy.utils.converters.DeviceTypeConverter;
 import it.academy.utils.converters.ServiceCenterConverter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +24,11 @@ public class Runner {
     public static final int MAX_SIZE = 30;
     private static AdminService adminService = new AdminServiceImpl();
     private static ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
+    private static BrandService brandService = new BrandServiceImpl();
+    private static DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
+    private static ModelService modelService = new ModelServiceImpl();
 
-    public static void main(String[] args) throws EmailAlreadyRegistered, EnteredPasswordsNotMatch {
+    public static void main(String[] args) {
 
         AccountDTO admin = adminService.findAccount(1L);
         log.info(admin.toString());
@@ -56,6 +59,25 @@ public class Runner {
             } catch (Exception ignored) {
             }
         }
+
+        List<BrandDTO> brands = IntStream.range(0, MAX_SIZE)
+                .mapToObj(i -> BrandConverter.convertToDTO(Generator.generateBrand()))
+                .collect(Collectors.toList());
+
+        brands.forEach(b -> {
+            b.setCurrentAccount(admin);
+            brandService.createBrand(b);
+        });
+
+        List<DeviceTypeDTO> deviceTypes = IntStream.range(0, MAX_SIZE)
+                .mapToObj(i -> DeviceTypeConverter.convertToDTO(Generator.generateDeviceType()))
+                .collect(Collectors.toList());
+
+        deviceTypes.forEach(d -> {
+            d.setCurrentAccount(admin);
+            deviceTypeService.createDeviceType(d);
+        });
+
 
 
     }

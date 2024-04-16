@@ -91,7 +91,13 @@ public class RepairServiceImpl implements RepairService {
         ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
         repair.setServiceCenter(serviceCenter);
 
-        repairDAO.create(repair);
+        try {
+            repairDAO.create(repair);
+            log.info(String.format(OBJECT_CREATED_PATTERN, repair));
+        } catch (Exception e) {
+            log.error(String.format(ERROR_PATTERN, e.getMessage(), repair));
+            throw e;
+        }
 
         transactionManger.commit();
     }
@@ -112,7 +118,13 @@ public class RepairServiceImpl implements RepairService {
         repair.setServiceCenter(serviceCenter);
         repair.setDevice(device);
 
-        repairDAO.update(repair);
+        try {
+            repairDAO.update(repair);
+            log.info(String.format(OBJECT_CREATED_PATTERN, repair));
+        } catch (Exception e) {
+            log.error(String.format(ERROR_PATTERN, e.getMessage(), repair));
+            throw e;
+        }
 
         transactionManger.commit();
     }
