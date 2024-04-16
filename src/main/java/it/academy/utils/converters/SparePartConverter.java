@@ -35,6 +35,14 @@ public class SparePartConverter {
                 .build();
     }
 
+    public static SparePart convertToEntity(SparePartDTO partDTO) {
+        return SparePart.builder()
+                .id(partDTO.getId())
+                .name(partDTO.getName())
+                .isActive(partDTO.getIsActive())
+                .build();
+    }
+
     public static List<SparePartDTO> convertToDTOList(List<SparePart> spareParts, List<DeviceTypeDTO> deviceTypes) {
         return spareParts.stream()
                 .map(s -> convertToDTO(s, deviceTypes))
@@ -47,10 +55,11 @@ public class SparePartConverter {
                 .collect(Collectors.toList());
     }
 
-    public static ChangeSparePartDTO convertToSparePartDTO(SparePartForOrder sparePart) {
-        return ChangeSparePartDTO.builder()
+    public static SparePartDTO convertToSparePartDTO(SparePartForOrder sparePart) {
+        return SparePartDTO.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
+                .isActive(true)
                 .build();
     }
 }

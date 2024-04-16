@@ -32,6 +32,7 @@ public class RepairServiceImpl implements RepairService {
     private final BrandDAO brandDAO = new BrandDAOImpl();
     private final DeviceDAO deviceDAO = new DeviceDAOImpl();
     private final ModelDAO modelDAO = new ModelDAOImpl();
+    private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl();
 
     @Override
     public RepairFormDTO getRepairFormData(AccountDTO currentAccount, long brandId) {
@@ -117,10 +118,15 @@ public class RepairServiceImpl implements RepairService {
         ServiceHelper.checkCurrentAccount(currentAccount);
 
         transactionManger.beginTransaction();
-        RepairDTO repairDTO = RepairConverter.convertToRepairDTO(repairDAO.find(id));
+        Repair repair = repairDAO.find(id);
+        RepairDTO repairDTO = RepairConverter.convertToRepairDTO(repair);
         RepairFormDTO repairFormDTO = getRepairFormData(currentAccount, repairDTO.getBrandId());
+        DeviceDTO device = DeviceConverter.convertToDTO(repair.getDevice());
+        repairFormDTO.setDevice(device);
+        List<SparePartOrder> orders = sparePartOrderDAO.findSparePartOrdersByRepairId(repair.getId());
+        List<SparePartOrderDTO> ordersDTO = SparePartOrderConverter.convertListToDTO(orders);
 
-        ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO);
+        ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO, ordersDTO);
         transactionManger.closeManager();
 
         return result;

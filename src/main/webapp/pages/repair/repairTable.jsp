@@ -9,6 +9,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.req.ChangeRepairDTO" %>
+<%@ page import="it.academy.dto.resp.RepairDTO" %>
 <section>
     <div class=" container">
 
@@ -64,7 +65,7 @@
                     <td class="defect"><%=repair.getDefectDescription()%></td>
                     <td><%=repair.getStatus().getDescription()%></td>
 
-                    <% if (RoleEnum.ADMIN.equals(role)) { %>
+                    <% if (RoleEnum.ADMIN.equals(role) || !repair.getStatus().isFinishedStatus()) { %>
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="post">

@@ -12,9 +12,9 @@ import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
 import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 import it.academy.servlets.commands.impl.change.ChangeModel;
+import it.academy.servlets.commands.impl.show.ShowPageCommand;
 import it.academy.servlets.commands.impl.show.tables.*;
 import it.academy.servlets.commands.impl.add.AddServiceCenter;
-import it.academy.servlets.commands.impl.change.ChangeServiceCenter;
 import it.academy.servlets.commands.impl.show.forms.ShowServiceCenter;
 import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
 import it.academy.servlets.commands.impl.add.AddSparePart;
@@ -22,6 +22,7 @@ import it.academy.servlets.commands.impl.change.ChangeSparePart;
 import it.academy.servlets.commands.impl.show.forms.*;
 
 public enum CommandEnum {
+    OPEN_PAGE(new ShowPageCommand()),
     LOGIN(new LoginCommand()),
     SHOW_NEW_ACCOUNT(new ShowNewAccount()),
     SHOW_ACCOUNT(new ShowAccount()),
@@ -31,6 +32,7 @@ public enum CommandEnum {
     SHOW_SERVICE_CENTER_TABLE(new ShowServiceCenterTable()),
     SHOW_SERVICE_CENTER(new ShowServiceCenter()),
     ADD_SERVICE_CENTER(new AddServiceCenter()),
+    CHANGE_SERVICE_CENTER(new ChangeServiceCenter()),
     SHOW_BRAND_TABLE(new ShowBrandTable()),
     ADD_BRAND(new AddBrand()),
     SHOW_BRAND(new ShowBrand()),
@@ -52,11 +54,11 @@ public enum CommandEnum {
     ADD_REPAIR(new AddRepair()),
     CHANGE_REPAIR(new ChangeRepair()),
     SHOW_REPAIR_TABLE(new ShowRepairTable()),
-
-//    OPEN_PAGE(new ShowPageCommand(MAIN_PAGE_PATH)),
-//    SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
-//    ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
+    SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
+    ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
+
+
     DELETE_SPARE_PART_ORDER(new DeleteSparePartOrder()),
     SHOW_REPAIR_TYPE_LIST(new ShowRepairTypeList()),
     COMPLETE_REPAIR(new CompleteRepair()),
@@ -64,12 +66,12 @@ public enum CommandEnum {
     ADD_REPAIR_TYPE(new AddRepairType()),
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
     SHOW_REPAIR_TYPE(new ShowRepairType()),
-    SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable()),
+    SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable());
 
 //    DELETE_SPARE_PART(new DeleteSparePart()),
 //    SHOW_MODEL(new ShowModel()),
 
-    CHANGE_SERVICE_CENTER(new ChangeServiceCenter());
+
 
     private ActionCommand command;
 

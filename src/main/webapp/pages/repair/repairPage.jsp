@@ -8,6 +8,8 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_REPAIR" %>
 <%@ page import="it.academy.dto.resp.*" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
+<%@ page import="it.academy.dto.resp.SparePartOrderDTO" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -34,6 +36,9 @@
             Long repairId = repairDTO != null? repairDTO.getId() : null;
             String pageForDisplay = (String) request.getAttribute(PAGE);
             int pageNumber = request.getParameter(PAGE_NUMBER) != null? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+            List<SparePartOrderDTO> orders = changeRepairForm.getOrders();
+            DeviceDTO deviceDTO = repairForm.getDevice();
+            Long deviceTypeId = deviceDTO.getModel().getDeviceTypeId();
         %>
 
         <div class="lr-container">
@@ -43,7 +48,7 @@
                 <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=BRAND_ID%>" value="<%=lastBrandId%>">
-                <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO != null? repairDTO.getId(): null%>">
+                <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairId%>">
 
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <div class="f-input">
@@ -170,6 +175,47 @@
                     <p class="error" id="error" style="display: none"><%=errorMessage%></p>
                 </div>
 
+                <% if(repairDTO.getStatus().isFinishedStatus()) {%>
+                <div class="f-input">
+                    <p>
+                        <label class="date-label" for="endDate">Дата завершения: </label>
+                    <div class="date-container">
+                        <input class="f-form" required type="date" id="endDate" name="<%=END_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                    </div>
+                    </p>
+                </div>
+
+                <div class="f-input">
+                    <p>
+                        Выполненный ремонт:
+                        <label for="repairCode">Код:</label>
+                        <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairDTO.getRepairTypeId()%>">
+                        <input type="text" id="repairCode" name="<%=REPAIR_TYPE_CODE%>"
+                               value="<%=repairDTO.getRepairTypeCode() == null? "" : repairDTO.getRepairTypeCode()%>"/>
+                        <label for="repairLevel">Уровень:</label>
+                        <input type="text" id="repairLevel" name="<%=REPAIR_TYPE_LEVEL%>"
+                               value="<%=repairDTO.getRepairTypeLevel() == null? "" : repairDTO.getRepairTypeLevel()%>"/>
+                        <label for="repairName">Описание:</label>
+                        <input type="text" id="repairName" name="<%=REPAIR_TYPE_NAME%>"
+                               value="<%=repairDTO.getRepairTypeName() == null? "" : repairDTO.getRepairTypeName()%>"/>
+                    </p>
+                </div>
+                <%if (RepairStatus.DELIVERED.equals(repairDTO.getStatus())) { %>
+
+                <div class="f-input">
+                    <p>
+                        <label for="deliveryDate">Дата выдачи: </label>
+                        <input type="date" required id="deliveryDate" name="<%=DELIVERY_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>
+                    </p>
+                </div>
+                <% }  %>
+                <% } else { %>
+                <div class="lf-button-container">
+                    <input class="choose-button btn-table lf-button" type="submit" value="Заказать запчасти" form="order"/>
+                    <input class="choose-button btn-table lf-button" type="submit" value="Сообщить о выполнении" form="completed"/>
+                </div>
+                <% }  %>
+
                 <div class="button-container">
                     <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
                     <input class="button" type="submit" value="Отмена" form="cancel"/>
@@ -183,6 +229,29 @@
             <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
         </form>
+
+        <% if (orders != null && !orders.isEmpty()) {
+            request.setAttribute(ORDERS, orders);
+            request.setAttribute(ORDER_REPAIR_ID, repairId);
+            request.setAttribute(PAGE, pageForDisplay);
+            request.setAttribute(PAGE_NUMBER, pageNumber);
+            pageContext.include(CHANGE_SPARE_PART_ORDER_PAGE_PATH);
+        }%>
+
+        <form action="repair" method="post" id="order">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ORDER_SPARE_PART%>">
+            <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+            <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
+            <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceTypeId%>">
+            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+        </form>
+
+        <form action="repair" method="post" id="completed">
+            <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
+            <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+            <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
+        </form>
+
 
     </div>
 </section>

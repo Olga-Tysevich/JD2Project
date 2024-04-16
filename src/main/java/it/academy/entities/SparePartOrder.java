@@ -1,10 +1,7 @@
 package it.academy.entities;
 
-import it.academy.entities.Repair;
-import it.academy.entities.SparePart;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -17,7 +14,7 @@ import java.util.Map;
 @Builder
 @Entity
 @Table(name = "orders")
-public class SparePartsOrder implements Serializable {
+public class SparePartOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

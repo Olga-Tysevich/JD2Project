@@ -27,7 +27,7 @@ public class ChangeRepair extends AddRepair {
             if (checkBrand(req, currentAccount, repairDTO)) {
                 RepairFormDTO repairFormDTO = (RepairFormDTO) req.getAttribute(REPAIR_FORM);
                 repairDTO.setBrandId(repairFormDTO.getCurrentBrandId());
-                ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(repairDTO, repairFormDTO);
+                ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(repairDTO, repairFormDTO, null);
                 req.setAttribute(CHANGE_REPAIR_FORM, changeRepairFormDTO);
                 String page = req.getParameter(PAGE);
                 req.setAttribute(PAGE, page);

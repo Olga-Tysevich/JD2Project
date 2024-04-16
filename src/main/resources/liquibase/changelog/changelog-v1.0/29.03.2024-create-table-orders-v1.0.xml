@@ -22,10 +22,6 @@
             <column name="departure_date" type="date"/>
 
             <column name="delivery_date" type="date"/>
-
-            <column name="active" type="bit">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
     </changeSet>

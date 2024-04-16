@@ -1,34 +1,35 @@
 package it.academy.utils.converters;
 
-import it.academy.dto.req.SparePartOrderDTO;
-import it.academy.entities.SparePartsOrder;
+import it.academy.dto.resp.SparePartDTO;
+import it.academy.dto.resp.SparePartOrderDTO;
+import it.academy.entities.SparePartOrder;
 import lombok.experimental.UtilityClass;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @UtilityClass
 public class SparePartOrderConverter {
 
-    public static SparePartOrderDTO convertToDTO(SparePartsOrder sparePartsOrder) {
-//        SparePartOrderDTO order = SparePartOrderDTO.builder()
-//                .id(sparePartsOrder.getId())
-//                .repairId(sparePartsOrder.getRepair().getId())
-//                .serviceCenterRepairNumber(sparePartsOrder.getRepair().getServiceCenterRepairNumber())
-//                .orderDate(sparePartsOrder.getOrderDate())
-//                .departureDate(sparePartsOrder.getDepartureDate())
-//                .deliveryDate(sparePartsOrder.getDeliveryDate())
-//                .build();
-//        Map<SparePartDTO, Integer> spareParts = sparePartsOrder.getSpareParts()
-//                .entrySet().stream()
-//                .collect(Collectors.toMap(entry -> SparePartConverter.convertToDTO(entry.getKey()),
-//                        Map.Entry::getValue));
-//        order.setSpareParts(spareParts);
-//        return order;
-        return null;
+    public static SparePartOrderDTO convertToDTO(SparePartOrder sparePartOrder) {
+        SparePartOrderDTO order = SparePartOrderDTO.builder()
+                .id(sparePartOrder.getId())
+                .repairId(sparePartOrder.getRepair().getId())
+                .serviceCenterRepairNumber(sparePartOrder.getRepair().getRepairNumber())
+                .orderDate(sparePartOrder.getOrderDate())
+                .departureDate(sparePartOrder.getDepartureDate())
+                .deliveryDate(sparePartOrder.getDeliveryDate())
+                .build();
+        Map<SparePartDTO, Integer> spareParts = sparePartOrder.getSpareParts()
+                .entrySet().stream()
+                .collect(Collectors.toMap(entry -> SparePartConverter.convertToDTO(entry.getKey(), null),
+                        Map.Entry::getValue));
+        order.setSpareParts(spareParts);
+        return order;
     }
 
-    public static SparePartsOrder convertDTOToEntity(SparePartOrderDTO partOrderDTO) {
-        SparePartsOrder order = SparePartsOrder.builder()
+    public static SparePartOrder convertDTOToEntity(SparePartOrderDTO partOrderDTO) {
+        SparePartOrder order = SparePartOrder.builder()
                 .id(partOrderDTO.getId())
                 .orderDate(partOrderDTO.getOrderDate())
                 .departureDate(partOrderDTO.getDepartureDate())
@@ -39,13 +40,13 @@ public class SparePartOrderConverter {
         return order;
     }
 
-    public static List<SparePartOrderDTO> convertListToDTO(List<SparePartsOrder> partsOrders) {
+    public static List<SparePartOrderDTO> convertListToDTO(List<SparePartOrder> partsOrders) {
         return partsOrders.stream()
                 .map(SparePartOrderConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static List<SparePartsOrder> convertDTOListToEntityList(List<SparePartOrderDTO> partOrderDTOS) {
+    public static List<SparePartOrder> convertDTOListToEntityList(List<SparePartOrderDTO> partOrderDTOS) {
         return partOrderDTOS.stream()
                 .map(SparePartOrderConverter::convertDTOToEntity)
                 .collect(Collectors.toList());

@@ -2,11 +2,9 @@
 //
 //import com.google.gson.Gson;
 //import com.google.gson.reflect.TypeToken;
-//import it.academy.dto.req.SparePartDTO;
-//import it.academy.dto.repair.spare_parts.SparePartOrderDTO;
-//import it.academy.services.SparePartOrderService;
+//import it.academy.dto.resp.SparePartDTO;
+//import it.academy.dto.resp.SparePartOrderDTO;
 //import it.academy.services.SparePartService;
-//import it.academy.services.impl.SparePartOrderServiceImpl;
 //import it.academy.services.impl.SparePartServiceImpl;
 //import it.academy.servlets.extractors.Extractor;
 //import it.academy.utils.converters.SparePartConverter;
@@ -22,14 +20,12 @@
 //
 //import static it.academy.utils.Constants.*;
 //
-//public class SparePartOrderExtractor implements Extractor<SparePartDTO> {
+//public class SparePartOrderExtractor {
 //    private SparePartService sparePartService = new SparePartServiceImpl();
 //    private Map<String, Object> reqParameters = new HashMap<>();
 //    private Gson gson = new Gson();
 //
-//    @Override
 //    public void extractValues(HttpServletRequest req) {
-//
 //        long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
 //        String orderData = req.getParameter(ORDER_DATA);
 //        String orderDateString = req.getParameter(ORDER_DATE);

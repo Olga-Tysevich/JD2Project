@@ -17,8 +17,6 @@
             int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
             ServiceCenterDTO serviceCenter = (ServiceCenterDTO) request.getAttribute(SERVICE_CENTER);
         %>
-        <%=pageNumber%>
-        <%=serviceCenter%>
             <div class="lr-container">
                     <form action="main" method="post" id="service_center">
                         <div class="f-input">

@@ -19,7 +19,6 @@ import it.academy.utils.converters.DeviceTypeConverter;
 import it.academy.utils.converters.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
@@ -77,9 +76,8 @@ public class SparePartServiceImpl implements SparePartService {
     @Override
     public List<SparePartDTO> findSparePartsByDeviceTypeId(AccountDTO accountDTO, long id) {
         Supplier<List<SparePartDTO>> find = () -> {
-            List<SparePart> sparePart = sparePartDAO.findByDeviceTypeId(id);
-//            return SparePartConverter.convertToDTOList(sparePart);
-            return null;
+            List<SparePart> spareParts = sparePartDAO.findByDeviceTypeId(id);
+            return SparePartConverter.convertToDTOList(spareParts, null);
         };
 
         return transactionManger.execute(find);

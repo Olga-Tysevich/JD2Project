@@ -6,7 +6,7 @@ import it.academy.entities.Device;
 import it.academy.entities.RepairType;
 import it.academy.entities.ServiceCenter;
 import it.academy.entities.SparePart;
-import it.academy.entities.SparePartsOrder;
+import it.academy.entities.SparePartOrder;
 import it.academy.entities.BankAccount;
 import it.academy.entities.Requisites;
 import it.academy.utils.enums.RoleEnum;
@@ -133,9 +133,9 @@ public class Generator {
                 .build();
     }
 
-    public static SparePartsOrder generateOrder() {
+    public static SparePartOrder generateOrder() {
         Date date = Date.valueOf(dates.get(RANDOM.nextInt(dates.size())));
-        return SparePartsOrder.builder()
+        return SparePartOrder.builder()
                 .orderDate(date)
                 .departureDate(date)
                 .deliveryDate(date)

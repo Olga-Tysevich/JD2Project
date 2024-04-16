@@ -30,7 +30,6 @@ public class AddSparePart implements ActionCommand {
             sparePartService.createSparePart(sparePartDTO);
 
         } catch (IllegalArgumentException | AccessDenied e) {
-            System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
         }
 

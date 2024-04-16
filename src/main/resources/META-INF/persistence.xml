@@ -16,7 +16,7 @@
         <class>it.academy.utils.enums.RepairCategory</class>
         <class>it.academy.entities.RepairType</class>
         <class>it.academy.entities.SparePart</class>
-        <class>it.academy.entities.SparePartsOrder</class>
+        <class>it.academy.entities.SparePartOrder</class>
         <class>it.academy.entities.Repair</class>
         <class>it.academy.entities.Account</class>
         <class>it.academy.entities.ServiceCenter</class>

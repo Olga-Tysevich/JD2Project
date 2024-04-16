@@ -30,7 +30,6 @@ public class Constants {
     public static final String IS_ACTIVE = "isActive";
     public static final String OBJECT_NAME = "name";
     //common
-    public static final String IS_DELETED = "isDeleted";
     public static final String ERROR = "error";
     public static final String CURRENT_ACCOUNT = "currentAccount";
     //account parameters
@@ -125,6 +124,14 @@ public class Constants {
     public static final String ADD_REPAIR_PAGE_PATH = "/pages/repair/addRepairPage.jsp";
     public static final String CHANGE_REPAIR_PAGE_PATH = "/pages/repair/changeRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
+    //spare part
+    public static final String ORDER_ID = "id";
+    public static final String ORDER_REPAIR_ID = "repairId";
+    public static final String ORDER_DATE = "orderDate";
+    public static final String DEPARTURE_DATE = "departureDate";
+    public static final String DELIVERY_DATE = "deliveryDate";
+    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part/sparePartsOrder.jsp";
+    public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part/changeSparePartOrder.jsp";
 
 
     //repair
@@ -165,14 +172,10 @@ public class Constants {
     public static final String SPARE_PART_ORDER = "sp_order";
     //Device parameters
     //Spare part order
-    public static final String ORDER_ID = "order_id";
     public static final String REPAIR_NUMBER = "repair_number";
     public static final String SPARE_PART_QUANTITY = "quantity";
     public static final String ORDERS = "orders";
     public static final String ORDER_DATA = "order_data";
-    public static final String ORDER_DATE = "order_date";
-    public static final String DEPARTURE_DATE = "departure_date";
-    public static final String DELIVERY_DATE = "delivery_date";
 
     //SparePart parameters
     public static final String CURRENT_SPARE_PART_ID = "current_spare_part_id";
@@ -186,16 +189,13 @@ public class Constants {
     //Paths
 
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
-    public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/change_pages/changePartsOrder.jsp";
     public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
-    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/forms/sparePartsOrder.jsp";
 
     //jsp
 
     //show_command
     public static final String SHOW_START_PAGE = "open_page";
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
-    public static final String CHANGE_SERVICE_CENTER = "change_service_center";
 
 
     public static final String BRANDS = "brands";

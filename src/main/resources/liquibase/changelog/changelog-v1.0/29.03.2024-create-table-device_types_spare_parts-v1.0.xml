@@ -14,10 +14,6 @@
             <column name="spare_part_id" type="bigint">
                 <constraints nullable="false" />
             </column>
-
-            <column name="active" type="bit">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
     </changeSet>
