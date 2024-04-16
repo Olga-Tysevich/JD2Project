@@ -22,7 +22,7 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     public List<Model> findAllByBrandId(long brandId) {
         return entityManager()
                 .createQuery(FIND_MODEL_BY_BRAND_ID, Model.class)
-                .setParameter(FIND_MODEL_BRAND_ID, brandId)
+                .setParameter(BRAND_ID, brandId)
                 .getResultList();
     }
 
@@ -30,8 +30,8 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     public List<Model> findActiveByBrandId(long brandId) {
         return entityManager()
                 .createQuery(FIND_ACTIVE_MODEL_BY_BRAND_ID, Model.class)
-                .setParameter(FIND_MODEL_BRAND_ID, brandId)
-                .setParameter(IS_ACTIVE_PARAMETER, true)
+                .setParameter(BRAND_ID, brandId)
+                .setParameter(IS_ACTIVE, true)
                 .getResultList();
     }
 
@@ -39,8 +39,8 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     public Model getModel(Model model) {
         return entityManager()
                 .createQuery(FIND_MODEL, Model.class)
-                .setParameter(MODEL_NAME, model.getName())
-                .setParameter(FIND_MODEL_BRAND_ID, model.getBrand().getId())
+                .setParameter(OBJECT_NAME, model.getName())
+                .setParameter(BRAND_ID, model.getBrand().getId())
                 .setParameter(FIND_MODEL_DEVICE_TYPE_ID, model.getType().getId())
                 .getResultStream()
                 .findFirst()

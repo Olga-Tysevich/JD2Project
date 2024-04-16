@@ -3,7 +3,7 @@ package it.academy.servlets.commands.impl.show.tables;
 import it.academy.services.SparePartService;
 import it.academy.services.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.impl.TableExtractor;
+import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;

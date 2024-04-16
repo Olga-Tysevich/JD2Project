@@ -28,13 +28,14 @@ import it.academy.utils.converters.DeviceTypeConverter;
 import it.academy.utils.converters.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.FilterManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-import static it.academy.utils.Constants.LIST_SIZE;
-import static it.academy.utils.Constants.MODEL_ALREADY_EXIST;
+import static it.academy.utils.Constants.*;
 
+@Slf4j
 public class ModelServiceImpl implements ModelService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
@@ -44,11 +45,13 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public void createModel(ChangeModelDTO model) throws AccessDenied {
         changeModel(model, modelDAO::create);
+        log.info(String.format(OBJECT_CREATED_PATTERN, model));
     }
 
     @Override
     public void updateModel(ChangeModelDTO model) throws AccessDenied {
         changeModel(model, modelDAO::update);
+        log.info(String.format(OBJECT_UPDATED_PATTERN, model));
     }
 
     private void changeModel(ChangeModelDTO model, Consumer<Model> method) throws AccessDenied {
@@ -79,7 +82,12 @@ public class ModelServiceImpl implements ModelService {
             throw new IllegalArgumentException(MODEL_ALREADY_EXIST);
         }
 
-        method.accept(result);
+        try {
+            method.accept(result);
+        } catch (Exception e) {
+            log.error(String.format(ERROR_PATTERN, e.getMessage(), result));
+            throw e;
+        }
 
         transactionManger.commit();
     }
@@ -88,11 +96,16 @@ public class ModelServiceImpl implements ModelService {
     public ModelDTO findModel(long id) {
         return transactionManger.execute(() -> {
             ModelDTO result = ModelConverter.convertToDTO(modelDAO.find(id));
-            List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
-            List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findAll());
-            result.setDeviceTypes(deviceTypes);
-            result.setBrands(brands);
-            return result;
+            try {
+                List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
+                List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findAll());
+                result.setDeviceTypes(deviceTypes);
+                result.setBrands(brands);
+                return result;
+            } catch (Exception e) {
+                log.error(String.format(ERROR_PATTERN, e.getMessage(), result));
+                throw e;
+            }
         });
     }
 

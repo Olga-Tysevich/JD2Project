@@ -4,8 +4,7 @@ import it.academy.dto.resp.RepairTypeDTO;
 import it.academy.services.RepairTypeService;
 import it.academy.services.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.Extractor;
-import it.academy.servlets.extractors.impl.RepairTypeExtractor;
+import it.academy.servlets.extractors.RepairTypeExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,15 +12,15 @@ import static it.academy.utils.Constants.*;
 
 public class AddRepairType implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
-    private Extractor<RepairTypeDTO> extractor = new RepairTypeExtractor();
+    private RepairTypeExtractor extractor = new RepairTypeExtractor();
 
     @Override
     public String execute(HttpServletRequest req) {
 
         extractor.extractValues(req);
 
-        RepairTypeDTO repairTypeDTO = extractor.getResult();
-        repairTypeService.addRepairType(repairTypeDTO);
+//        RepairTypeDTO repairTypeDTO = extractor.getResult();
+//        repairTypeService.addRepairType(repairTypeDTO);
 
         extractor.insertAttributes(req);
 

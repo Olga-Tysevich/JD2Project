@@ -16,6 +16,7 @@ import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static it.academy.utils.Constants.LIST_SIZE;
-import static it.academy.utils.Constants.SERIAL_NUMBER;
+import static it.academy.utils.Constants.*;
 
+@Slf4j
 public class RepairServiceImpl implements RepairService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
@@ -38,7 +39,6 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public RepairFormDTO getRepairFormData(AccountDTO currentAccount, long brandId) {
-
         transactionManger.beginTransaction();
         List<BrandDTO> brands;
         List<ModelDTO> modelsForBrand;
@@ -68,6 +68,7 @@ public class RepairServiceImpl implements RepairService {
                 .brands(brands)
                 .models(modelsForBrand)
                 .build();
+        log.info(String.format(OBJECT_CREATED_PATTERN, repairFormDTO));
         transactionManger.commit();
         return repairFormDTO;
     }
@@ -80,7 +81,7 @@ public class RepairServiceImpl implements RepairService {
         Device device = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, repairDTO.getSerialNumber());
 
         if (device != null) {
-           repair.setDevice(device);
+            repair.setDevice(device);
         }
 
         device = repair.getDevice();

@@ -1,8 +1,6 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.resp.RepairDTO;
 import it.academy.dto.resp.RepairTypeDTO;
-import it.academy.utils.enums.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -16,7 +14,7 @@ public class CompleteRepair implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
+        long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
         long repairTypeId = Long.parseLong(req.getParameter(REPAIR_TYPE_ID));
 //        RepairDTO repair = repairService.findRepair(repairId);
 

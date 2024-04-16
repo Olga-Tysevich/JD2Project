@@ -61,7 +61,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Описание</label>
-                    <input class="f-form" type="text" name="<%=DEVICE_TYPE_NAME%>" value="">
+                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
                 </div>
 
                 <div class="button-container">

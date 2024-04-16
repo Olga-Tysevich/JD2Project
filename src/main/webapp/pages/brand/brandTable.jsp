@@ -64,7 +64,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Описание</label>
-                    <input class="f-form" type="text" name="<%=BRAND_NAME%>" value="">
+                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
                 </div>
 
                 <div class="button-container">

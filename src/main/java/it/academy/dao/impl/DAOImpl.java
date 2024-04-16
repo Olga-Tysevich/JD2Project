@@ -122,7 +122,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public List<T> findActiveObjects(boolean isActive) {
         String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
         TypedQuery<T> find = entityManager().createQuery(query, clazz);
-        find.setParameter(IS_ACTIVE_PARAMETER, 1);
+        find.setParameter(IS_ACTIVE, 1);
 
         return find.getResultList();
     }
@@ -131,7 +131,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize) {
         String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
         TypedQuery<T> find = entityManager().createQuery(query, clazz);
-        find.setParameter(IS_ACTIVE_PARAMETER, isActive);
+        find.setParameter(IS_ACTIVE, isActive);
 
         return find.setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
@@ -161,8 +161,12 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     @Override
     public BigInteger getNumberOfEntries() {
         CriteriaQuery<Long> getTableSize = criteriaBuilder().createQuery(Long.class);
-        getTableSize.select(criteriaBuilder().count(getTableSize.from(clazz)));
-        long result = entityManager().createQuery(getTableSize).getSingleResult();
+        getTableSize
+                .select(criteriaBuilder()
+                        .count(getTableSize.from(clazz)));
+        long result = entityManager()
+                .createQuery(getTableSize)
+                .getSingleResult();
         return new BigInteger(String.valueOf(result));
     }
 

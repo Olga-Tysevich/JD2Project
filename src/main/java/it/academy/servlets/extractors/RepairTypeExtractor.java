@@ -1,23 +1,21 @@
-package it.academy.servlets.extractors.impl;
+package it.academy.servlets.extractors;
 
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.resp.RepairTypeDTO;
 import it.academy.services.RepairTypeService;
 import it.academy.services.impl.RepairTypeServiceImpl;
-import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;
-import static it.academy.utils.Constants.*;
-import static it.academy.utils.Constants.REPAIR_TYPE_NAME;
 
-public class RepairTypeExtractor implements Extractor<RepairTypeDTO> {
+import static it.academy.utils.Constants.*;
+
+public class RepairTypeExtractor {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
     private RepairTypeDTO repairType;
 
 
-    @Override
     public void extractValues(HttpServletRequest req) {
-        Long repairTypeId = req.getParameter(REPAIR_TYPE_ID) != null?
+        Long repairTypeId = req.getParameter(REPAIR_TYPE_ID) != null ?
                 Long.parseLong(req.getParameter(REPAIR_TYPE_ID)) : null;
         String repairTypeCode = req.getParameter(REPAIR_TYPE_CODE);
         String repairTypeLevel = req.getParameter(REPAIR_TYPE_LEVEL);
@@ -31,7 +29,7 @@ public class RepairTypeExtractor implements Extractor<RepairTypeDTO> {
                 .build();
     }
 
-    @Override
+
     public void insertAttributes(HttpServletRequest req) {
         int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
@@ -49,19 +47,5 @@ public class RepairTypeExtractor implements Extractor<RepairTypeDTO> {
 //        PageManager.insertAttributesForTable(req, repairTypes, REPAIR_TABLE_TYPE_PAGE_PATH);
     }
 
-    @Override
-    public void addParameter(String parameterName, Object parameter) {
-
-    }
-
-    @Override
-    public Object getParameter(String parameterName) {
-        return null;
-    }
-
-    @Override
-    public RepairTypeDTO getResult() {
-        return repairType;
-    }
 
 }

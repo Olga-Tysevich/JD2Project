@@ -2,18 +2,14 @@ package it.academy.servlets.commands.impl.show.tables;
 
 import it.academy.dto.req.ChangeRepairDTO;
 import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.dto.resp.RepairDTO;
-import it.academy.dto.resp.RepairForTableDTO;
-import it.academy.servlets.extractors.impl.ExtractorImpl;
+import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.services.RepairService;
 import it.academy.services.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE;
 import static it.academy.utils.Constants.*;
 
 public class ShowRepairTable implements ActionCommand {
@@ -23,7 +19,7 @@ public class ShowRepairTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        TableReq request = ExtractorImpl.extract(req, new TableReq());
+        TableReq request = Extractor.extract(req, new TableReq());
 
         RepairStatus lastStatus = req.getParameter(REPAIR_STATUS) != null?
                 RepairStatus.valueOf(req.getParameter(REPAIR_STATUS)) : RepairStatus.ALL;

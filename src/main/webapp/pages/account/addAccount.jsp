@@ -18,7 +18,6 @@
             List<ServiceCenterDTO> serviceCenters = (List<ServiceCenterDTO>) request.getAttribute(SERVICE_CENTERS);
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
         %>
-        <%=serviceCenters%>
         <div class="lr-container">
             <form action="main" method="post" id="account">
                 <div class="f-input">

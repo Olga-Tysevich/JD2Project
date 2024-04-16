@@ -51,7 +51,7 @@
                             <form action="repair" method="post">
                                 <input type="hidden" name="command" value="show_confirmed_repair">
                                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                                <input type="hidden" name="<%=REPAIR_ID%>" value="<%=sparePartOrder.getRepairId()%>">
+                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=sparePartOrder.getRepairId()%>">
                                 <input class="choose-button order-btn" type="submit" value="Перейти в ремонт">
                             </form>
                         </div>

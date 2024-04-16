@@ -4,11 +4,13 @@ import it.academy.dto.req.BrandDTO;
 import it.academy.services.BrandService;
 import it.academy.services.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.utils.Constants.*;
 
+@Slf4j
 public class ShowBrand implements ActionCommand {
     private BrandService brandService = new BrandServiceImpl();
 

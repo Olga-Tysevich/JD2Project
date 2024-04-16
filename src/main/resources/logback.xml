@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="LOG" class="ch.qos.logback.core.FileAppender">
+        <File>~\JD2Project\src\main\resources\log\log_file.log</File>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+        <logger name="it.academy" level="INFO" additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+    <root level="INFO">
+        <appender-ref ref="LOG"/>
+    </root>
+
+
+</configuration>

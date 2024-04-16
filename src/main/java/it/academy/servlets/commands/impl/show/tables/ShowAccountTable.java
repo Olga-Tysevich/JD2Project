@@ -3,7 +3,7 @@ package it.academy.servlets.commands.impl.show.tables;
 import it.academy.services.AdminService;
 import it.academy.services.impl.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.impl.TableExtractor;
+import it.academy.servlets.extractors.TableExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 

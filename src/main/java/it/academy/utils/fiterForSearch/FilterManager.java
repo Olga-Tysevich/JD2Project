@@ -62,9 +62,9 @@ public class FilterManager {
 
     public List<EntityFilter> getFiltersForSparePartOrder() {
         List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(ORDER_DATE_PARAMETER, ORDER_DATE_DESCRIPTION));
-        filters.add(new EntityFilter(DEPARTURE_DATE_PARAMETER, ORDER_DEPARTURE_DATE_DESCRIPTION));
-        filters.add(new EntityFilter(DELIVERY_DATE_PARAMETER, ORDER_DELIVERY_DATE_DESCRIPTION));
+        filters.add(new EntityFilter(ORDER_DATE, ORDER_DATE_DESCRIPTION));
+        filters.add(new EntityFilter(DEPARTURE_DATE, ORDER_DEPARTURE_DATE_DESCRIPTION));
+        filters.add(new EntityFilter(DELIVERY_DATE, ORDER_DELIVERY_DATE_DESCRIPTION));
         return filters;
     }
 

@@ -6,7 +6,8 @@ import it.academy.services.SparePartService;
 import it.academy.services.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.tables.ShowSparePartTable;
-import it.academy.servlets.extractors.impl.ExtractorImpl;
+import it.academy.servlets.extractors.Extractor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -15,16 +16,17 @@ import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.*;
 
+@Slf4j
 public class AddSparePart implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req) {
 
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null?
+        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
                 Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
         try {
-            ChangeSparePartDTO sparePartDTO = ExtractorImpl.extract(req, new ChangeSparePartDTO());
+            ChangeSparePartDTO sparePartDTO = Extractor.extract(req, new ChangeSparePartDTO());
             List<Long> deviceTypesId = getDeviceTypeId(req);
             sparePartDTO.setDeviceTypeIdList(deviceTypesId);
             sparePartService.createSparePart(sparePartDTO);

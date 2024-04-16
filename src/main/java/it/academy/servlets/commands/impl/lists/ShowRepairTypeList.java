@@ -15,10 +15,10 @@ public class ShowRepairTypeList implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
+        long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
         List<RepairTypeDTO> repairTypes = repairService.findRepairTypes();
 
-        req.setAttribute(REPAIR_ID, repairId);
+        req.setAttribute(OBJECT_ID, repairId);
         req.setAttribute(REPAIR_TYPES, repairTypes);
 
         return REPAIR_TYPE_LIST_PAGE_PATH;

@@ -5,7 +5,7 @@ import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.ModelService;
 import it.academy.services.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.impl.TableExtractor;
+import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE;
 import static it.academy.utils.Constants.*;

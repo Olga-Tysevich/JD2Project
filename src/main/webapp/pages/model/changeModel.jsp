@@ -66,7 +66,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Название модели</label>
-                    <input class="f-form" type="text" name="<%=MODEL_NAME%>" value="<%=model.getName()%>">
+                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="<%=model.getName()%>">
                 </div>
             </form>
 

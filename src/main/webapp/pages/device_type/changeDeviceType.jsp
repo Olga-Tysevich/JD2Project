@@ -40,7 +40,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Тип девайса</label>
-                    <input class="f-form" type="text" name="<%=DEVICE_TYPE_NAME%>" value="<%=deviceType.getName()%>">
+                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="<%=deviceType.getName()%>">
                 </div>
             </form>
 

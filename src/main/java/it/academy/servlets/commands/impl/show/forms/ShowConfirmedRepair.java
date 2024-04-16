@@ -19,7 +19,7 @@ public class ShowConfirmedRepair implements ActionCommand {
 
         try {
             AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-            long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
+            long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
             int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
             String page = req.getParameter(PAGE);
             ChangeRepairFormDTO changeRepairForm = repairService.findRepair(currentAccount, repairId);

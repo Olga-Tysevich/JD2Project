@@ -41,7 +41,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Название</label>
-                    <input class="f-form" type="text" name="<%=BRAND_NAME%>" value="<%=brand.getName()%>">
+                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="<%=brand.getName()%>">
                 </div>
             </form>
 

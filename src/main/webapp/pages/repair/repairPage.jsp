@@ -43,7 +43,7 @@
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="form_for_submit">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_REPAIR%>">
-                <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairId%>">
+                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=BRAND_ID%>" value="<%=lastBrandId%>">
@@ -52,7 +52,7 @@
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
-                    <select class="f-form " name="<%=REPAIR_SERVICE_CENTER_ID%>" size="1">
+                    <select class="f-form " name="<%=SERVICE_CENTER_ID%>" size="1">
                         <%for (Map.Entry<Long, String> serviceCenter : serviceCenters.entrySet()) {%>
                         <option value="<%=serviceCenter.getKey()%>"
                                 <%if(serviceCenter.getKey().equals(repairId)) {%>selected<%}%>>
@@ -62,7 +62,7 @@
                     </select>
                 </div>
                 <% } else { %>
-                <input type="hidden" name="<%=REPAIR_SERVICE_CENTER_ID%>"
+                <input type="hidden" name="<%=SERVICE_CENTER_ID%>"
                        value="<%=currentAccount.getServiceCenter().getId()%>">
                 <% } %>
 
@@ -239,7 +239,7 @@
 
         <form action="repair" method="post" id="order">
             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ORDER_SPARE_PART%>">
-            <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+            <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
             <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
             <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceTypeId%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
@@ -247,7 +247,7 @@
 
         <form action="repair" method="post" id="completed">
             <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
-            <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairDTO.getId()%>">
+            <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
             <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
         </form>
 

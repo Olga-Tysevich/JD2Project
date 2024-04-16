@@ -26,7 +26,7 @@
                 <form class="rc-form" action="repair" method="post" id="addSparePartOrder">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                    <input type="hidden" name="<%=REPAIR_ID%>" value="<%=request.getAttribute(REPAIR_ID)%>">
+                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=request.getAttribute(OBJECT_ID)%>">
                     <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=request.getAttribute(DEVICE_TYPE_ID)%>">
                     <input type="hidden" name="page" value="<%=pageNumber%>">
                     <div class="f-input">

@@ -13,6 +13,7 @@ import it.academy.utils.converters.BrandConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -20,6 +21,7 @@ import java.util.function.Supplier;
 
 import static it.academy.utils.Constants.*;
 
+@Slf4j
 public class BrandServiceImpl implements BrandService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
@@ -27,11 +29,13 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public void createBrand(BrandDTO brand) throws AccessDenied {
         changeBrand(brand, brandDAO::create);
+        log.info(String.format(OBJECT_CREATED_PATTERN, brand));
     }
 
     @Override
     public void updateBrand(BrandDTO brand) throws AccessDenied {
         changeBrand(brand, brandDAO::update);
+        log.info(String.format(OBJECT_UPDATED_PATTERN, brand));
     }
 
     private void changeBrand(BrandDTO brand, Consumer<Brand> method) {
@@ -40,21 +44,35 @@ public class BrandServiceImpl implements BrandService {
         Brand result = BrandConverter.convertToEntity(brand);
         transactionManger.beginTransaction();
 
-        Brand temp = brandDAO.findByUniqueParameter(BRAND_NAME, brand.getName());
+        Brand temp = brandDAO.findByUniqueParameter(OBJECT_NAME, brand.getName());
 
         if (temp != null && !temp.getId().equals(result.getId())) {
             transactionManger.commit();
             throw new IllegalArgumentException(BRAND_ALREADY_EXIST);
         }
 
-        method.accept(result);
+        try {
+            method.accept(result);
+        } catch (Exception e) {
+            log.error(String.format(ERROR_PATTERN, e.getMessage(), result));
+            throw e;
+        }
 
         transactionManger.commit();
     }
 
     @Override
     public BrandDTO findBrand(long id) {
-        Brand result = transactionManger.execute(() -> brandDAO.find(id));
+        Brand result = transactionManger.execute(() -> {
+            try {
+                Brand brand = brandDAO.find(id);
+                log.info(String.format(OBJECT_FOUND_PATTERN, brand));
+                return brand;
+            } catch (Exception e) {
+                log.error(String.format(ERROR_PATTERN, e.getMessage(), OBJECT_ID + id));
+                throw e;
+            }
+        });
         return BrandConverter.convertToDTO(result);
     }
 

@@ -3,9 +3,8 @@ package it.academy.utils;
 import it.academy.dao.DAO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.entities.Account;
-import it.academy.utils.enums.RoleEnum;
 import it.academy.exceptions.common.AccessDenied;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.EntityFilter;
 
 import java.util.List;
@@ -23,9 +22,9 @@ public class ServiceHelper {
         }
     }
 
-    public static<T, R, L, S extends DAO<T, L>> ListForPage<R> getList(S dao, Supplier<List<T>> method, int pageNumber,
-                                                                       Function<List<T>, List<R>> converter,
-                                                                       Supplier<List<EntityFilter>> methodForGetFilters) {
+    public static <T, R, L, S extends DAO<T, L>> ListForPage<R> getList(S dao, Supplier<List<T>> method, int pageNumber,
+                                                                        Function<List<T>, List<R>> converter,
+                                                                        Supplier<List<EntityFilter>> methodForGetFilters) {
 
         List<EntityFilter> filters = methodForGetFilters.get();
         List<T> list = method.get();

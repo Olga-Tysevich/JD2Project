@@ -48,7 +48,7 @@ public class SparePartServiceImpl implements SparePartService {
         SparePart result = SparePartConverter.convertToEntity(changeSparePartDTO);
         transactionManger.beginTransaction();
 
-        SparePart temp = sparePartDAO.findByUniqueParameter(SPARE_PART_NAME, changeSparePartDTO.getName());
+        SparePart temp = sparePartDAO.findByUniqueParameter(OBJECT_NAME, changeSparePartDTO.getName());
         if (temp != null && !temp.getId().equals(changeSparePartDTO.getId())) {
             transactionManger.commit();
             throw new IllegalArgumentException(SPARE_PART_ALREADY_EXIST);

@@ -12,7 +12,7 @@ import it.academy.services.AuthService;
 import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 
-import static it.academy.utils.Constants.ACCOUNT_EMAIL;
+import static it.academy.utils.Constants.*;
 
 
 public class AuthServiceImpl implements AuthService {
@@ -26,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
             throw new UserNotFound();
         }
 
-        Account account = accountDAO.findByUniqueParameter(ACCOUNT_EMAIL, loginDTO.getEmail());
+        Account account = accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail());
 
         if (!account.getIsActive()) {
             throw new UserIsBlocked();
@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
 
     private boolean isUserExists(String email) {
         return transactionManger.execute(() ->
-                accountDAO.findByUniqueParameter(ACCOUNT_EMAIL, email)) != null;
+                accountDAO.findByUniqueParameter(EMAIL, email)) != null;
     }
 
 }

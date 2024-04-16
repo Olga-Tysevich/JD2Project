@@ -72,7 +72,7 @@
                                 <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_CONFIRMED_REPAIR%>">
                                 <input type="hidden" name="<%=PAGE%>" value="<%=data.getPage()%>">
                                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=data.getPageNumber()%>">
-                                <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repair.getId()%>">
+                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
                                 <input type="hidden" name="<%=BRAND_ID%>" value="<%=repair.getBrandId()%>">
                                 <input type="hidden" name="<%=CURRENT_BRAND_ID%>" value="<%=repair.getBrandId()%>">
                                 <input class="choose-button btn-table" type="submit" value="Изменить">

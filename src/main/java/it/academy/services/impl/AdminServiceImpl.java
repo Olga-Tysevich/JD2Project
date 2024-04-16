@@ -9,7 +9,6 @@ import it.academy.dto.req.CreateAccountDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.entities.Account;
-import it.academy.utils.enums.RoleEnum;
 import it.academy.entities.ServiceCenter;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
@@ -18,14 +17,16 @@ import it.academy.services.AdminService;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.EMAIL;
-import static it.academy.utils.Constants.LIST_SIZE;
+import static it.academy.utils.Constants.*;
 
+@Slf4j
 public class AdminServiceImpl implements AdminService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
@@ -54,7 +55,13 @@ public class AdminServiceImpl implements AdminService {
             account.setServiceCenter(serviceCenter);
         }
 
-        accountDAO.create(account);
+        try {
+            accountDAO.create(account);
+            log.info(String.format(OBJECT_CREATED_PATTERN, account));
+        } catch (Exception e) {
+            log.error(String.format(ERROR_PATTERN, e.getMessage(), account));
+            throw e;
+        }
 
         transactionManger.commit();
     }
@@ -85,14 +92,29 @@ public class AdminServiceImpl implements AdminService {
             result.setPassword(temp.getPassword());
         }
 
-        accountDAO.update(result);
+        try {
+            accountDAO.update(result);
+            log.info(String.format(OBJECT_UPDATED_PATTERN, account));
+        } catch (Exception e) {
+            log.error(String.format(ERROR_PATTERN, e.getMessage(), result));
+            throw e;
+        }
 
         transactionManger.commit();
     }
 
     @Override
     public AccountDTO findAccount(long id) {
-        Account result = transactionManger.execute(() -> accountDAO.find(id));
+        Account result = transactionManger.execute(() -> {
+            try {
+                Account account = accountDAO.find(id);
+                log.info(String.format(OBJECT_FOUND_PATTERN, account));
+                return account;
+            } catch (Exception e) {
+                log.error(String.format(ERROR_PATTERN, e.getMessage(), OBJECT_ID + id));
+                throw e;
+            }
+        });
         return AccountConverter.convertToDTO(result);
     }
 
@@ -110,7 +132,7 @@ public class AdminServiceImpl implements AdminService {
             find = () -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
         } else {
             long serviceCenterId = accountDTO.getServiceCenter().getId();
-            find = () ->accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE, filter, input);
+            find = () -> accountDAO.findServiceCenterAccounts(serviceCenterId, pageNumber, LIST_SIZE, filter, input);
         }
 
         return ServiceHelper.getList(accountDAO,

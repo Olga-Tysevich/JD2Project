@@ -12,8 +12,8 @@ public class DeleteSparePartOrder implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-        long orderId = Long.parseLong(req.getParameter(ORDER_ID));
-        long repairId = Long.parseLong(req.getParameter(REPAIR_ID));
+        long orderId = Long.parseLong(req.getParameter(OBJECT_ID));
+        long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
 
         System.out.println(orderId);
         System.out.println(repairId);

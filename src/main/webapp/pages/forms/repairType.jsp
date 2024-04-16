@@ -15,7 +15,7 @@
         <div class=" forms-container">
 
             <%
-                long repairId = (long) request.getAttribute(REPAIR_ID);
+                long repairId = (long) request.getAttribute(OBJECT_ID);
                 String repairNumber = (String) request.getAttribute(REPAIR_NUMBER);
                 List<RepairTypeDTO> repairTypes = (List<RepairTypeDTO>) request.getAttribute(REPAIR_TYPES);
             %>
@@ -39,7 +39,7 @@
                         %>
                         <form class="rc-form" action="repair" method="post" id="repairType">
                             <input type="hidden" name="command" value="complete_repair">
-                            <input type="hidden" name="<%=REPAIR_ID%>" value="<%=repairId%>">
+                            <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>">
                             <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairType.getId()%>">
                             <input type="hidden" name="<%=REPAIR_TYPE_CODE%>" value="<%=repairType.getCode()%>">
                             <input type="hidden" name="<%=REPAIR_TYPE_LEVEL%>" value="<%=repairType.getLevel()%>">

@@ -83,7 +83,7 @@
 
                         <div class="f-input">
                             <label class="form-el">email:</label>
-                        <input class="f-form" required type="email" name="<%=SERVICE_CENTER_EMAIL%>" value="<%=serviceCenter.getEmail()%>">
+                        <input class="f-form" required type="email" name="<%=EMAIL%>" value="<%=serviceCenter.getEmail()%>">
                         </div>
 
                         <div class="f-input">

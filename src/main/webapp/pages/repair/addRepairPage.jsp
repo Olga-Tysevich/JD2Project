@@ -46,7 +46,7 @@
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
-                    <select class="f-form " name="<%=REPAIR_SERVICE_CENTER_ID%>" size="1">
+                    <select class="f-form " name="<%=SERVICE_CENTER_ID%>" size="1">
                         <%for (Map.Entry<Long, String> serviceCenter : serviceCenters.entrySet()) {%>
                         <option value="<%=serviceCenter.getKey()%>">
                             <%=serviceCenter.getValue()%>
@@ -55,7 +55,7 @@
                     </select>
                 </div>
                 <% } else { %>
-                <input type="hidden" name="<%=REPAIR_SERVICE_CENTER_ID%>"
+                <input type="hidden" name="<%=SERVICE_CENTER_ID%>"
                        value="<%=currentAccount.getServiceCenter().getId()%>">
                 <% } %>
 

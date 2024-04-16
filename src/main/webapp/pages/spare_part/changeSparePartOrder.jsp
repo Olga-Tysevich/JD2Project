@@ -1,6 +1,5 @@
 <%@ page import="static it.academy.utils.Constants.ORDERS" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="static it.academy.utils.Constants.ORDER_ID" %>
 <%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page import="it.academy.dto.resp.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
@@ -24,7 +23,7 @@
     <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_SPARE_PART_ORDER%>">
     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
     <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
-    <input type="hidden" name="<%=ORDER_ID%>" value="<%=orderDTO.getId()%>">
+    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=orderDTO.getId()%>">
     <input type="hidden" name="<%=ORDER_REPAIR_ID%>" value="<%=request.getAttribute(ORDER_REPAIR_ID)%>">
     <div class="order-container">
 
@@ -80,7 +79,7 @@
             <tr id="data_id" class="spare_part_input">
                 <td class="order-td">
                     <input type="hidden" name="<%=SPARE_PART_ID%>" value="<%=sparePartDTO.getId()%>" disabled>
-                    <input type="text" name="<%=SPARE_PART_NAME%>" value="<%=sparePartDTO.getName()%>" disabled>
+                    <input type="text" name="<%=OBJECT_NAME%>" value="<%=sparePartDTO.getName()%>" disabled>
                 </td>
                 <td class="order-td">
                     <input class="quantity " type="number" name="<%=SPARE_PART_QUANTITY%>"
