@@ -8,17 +8,26 @@ import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
 import it.academy.servlets.extractors.impl.ExtractorImpl;
 import javax.servlet.http.HttpServletRequest;
 
+import static it.academy.utils.Constants.*;
+
 public class ChangeSparePartOrder implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req) {
 
-        ChangeSparePartOrderDTO order = ExtractorImpl.extract(req, new ChangeSparePartOrderDTO());
+        try {
 
-        sparePartOrderService.changeSparePartOrder(order);
+            ChangeSparePartOrderDTO order = ExtractorImpl.extract(req, new ChangeSparePartOrderDTO());
 
-        return new ShowRepairTable().execute(req);
+            sparePartOrderService.changeSparePartOrder(order);
+
+            return new ShowRepairTable().execute(req);
+
+        } catch (Exception e) {
+            req.setAttribute(ERROR, ERROR_MESSAGE);
+            return ERROR_PAGE_PATH;
+        }
     }
 
 }
