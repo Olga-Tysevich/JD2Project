@@ -23,7 +23,6 @@ public class AddDeviceType implements ActionCommand {
         try {
             deviceTypeService.createDeviceType(deviceTypeDTO);
         } catch (IllegalArgumentException | AccessDenied e) {
-            System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
         }
 

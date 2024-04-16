@@ -3,6 +3,7 @@
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.OPEN_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -77,7 +78,7 @@
             </form>
 
             <form action="main" method="post" id="cancel">
-                <input type="hidden" name="command" value="<%=SHOW_START_PAGE%>">
+                <input type="hidden" name="command" value="<%=OPEN_PAGE%>">
             </form>
         </div>
     </div>

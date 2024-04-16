@@ -23,10 +23,8 @@ public class ChangeSparePart extends AddSparePart {
             ChangeSparePartDTO sparePartDTO = ExtractorImpl.extract(req, new ChangeSparePartDTO());
             List<Long> deviceTypesId = getDeviceTypeId(req);
             sparePartDTO.setDeviceTypeIdList(deviceTypesId);
-            System.out.println("change spare part " + sparePartDTO);
             sparePartService.updateSparePart(sparePartDTO);
         } catch (IllegalArgumentException | AccessDenied e) {
-            System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
             long sparePartId = req.getParameter(SPARE_PART_ID) != null?
                     Long.parseLong(req.getParameter(SPARE_PART_ID)) : DEFAULT_ID;

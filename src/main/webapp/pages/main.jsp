@@ -36,12 +36,6 @@
                 %>
 
         <div class="header-container">
-            <%=accountDTO%>
-            <%=role%>
-            <%=pageNumber%>
-            <%=maxPageNumber%>
-            <%=pageForDisplay%>
-            <p><%=command%></p>
             <%
                 String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
             %>

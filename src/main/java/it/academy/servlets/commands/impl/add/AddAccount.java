@@ -35,7 +35,6 @@ public class AddAccount implements ActionCommand {
                     ACCOUNT,
                     NEW_ACCOUNT_PAGE_PATH,
                     () -> new ShowAccountTable().execute(req));
-            System.out.println("result " + result);
             if (NEW_ACCOUNT_PAGE_PATH.equals(result)) {
                 ListForPage<ServiceCenterDTO> listFoPage = new ListForPage<>();
                 List<ServiceCenterDTO> serviceCenters = service.findServiceCenters(currentAccount);

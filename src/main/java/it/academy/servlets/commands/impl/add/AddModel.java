@@ -24,7 +24,6 @@ public class AddModel implements ActionCommand {
         try {
             modelService.createModel(modelDTO);
         } catch (IllegalArgumentException | AccessDenied e) {
-            System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
         }
 

@@ -230,7 +230,6 @@
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
         </form>
 
-        <input type="text" name="<%=PAGE_NUMBER%>" value="<%=repairId%>">
         <% if (orders != null && !orders.isEmpty()) {
             request.setAttribute(ORDERS, orders);
             request.setAttribute(ORDER_REPAIR_ID, repairId);

@@ -1,4 +1,6 @@
 <%@ page import="static it.academy.utils.Constants.ERROR" %>
+<%@ page import="static it.academy.utils.Constants.COMMAND" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.LOGIN" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <section class="login-section">
@@ -7,7 +9,7 @@
         <form action="login" method="post" id="login">
 
             <div class="form-container">
-                <input type="hidden" name="command" value="login">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=LOGIN%>">
 
                 <label class="form-el" for="email">Email:</label>
                 <input class="form-el" required type="email" name="email" placeholder="Введите email" value="olga@mail.ru"

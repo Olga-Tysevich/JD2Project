@@ -23,7 +23,6 @@ public class AddBrand implements ActionCommand {
         try {
             brandService.createBrand(brandDTO);
         } catch (IllegalArgumentException | AccessDenied e) {
-            System.out.println("error " + e.getMessage());
             req.setAttribute(ERROR, e.getMessage());
         }
 
