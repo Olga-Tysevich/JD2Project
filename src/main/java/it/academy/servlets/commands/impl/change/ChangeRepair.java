@@ -28,6 +28,7 @@ public class ChangeRepair extends AddRepair {
                 RepairFormDTO repairFormDTO = (RepairFormDTO) req.getAttribute(REPAIR_FORM);
                 repairDTO.setBrandId(repairFormDTO.getCurrentBrandId());
                 ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(repairDTO, repairFormDTO, null);
+                System.out.println("change repair " + changeRepairFormDTO.getRepairFormDTO().getDevice());
                 req.setAttribute(CHANGE_REPAIR_FORM, changeRepairFormDTO);
                 String page = req.getParameter(PAGE);
                 req.setAttribute(PAGE, page);

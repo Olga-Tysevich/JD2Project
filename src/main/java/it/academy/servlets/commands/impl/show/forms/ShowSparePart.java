@@ -16,9 +16,7 @@ public class ShowSparePart implements ActionCommand {
         long sparePartId = Long.parseLong(req.getParameter(OBJECT_ID));
         String page = req.getParameter(PAGE);
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
-        System.out.println("show spare part form page number " + pageNumber);
         SparePartDTO sparePart = sparePartService.findSparePart(sparePartId);
-        System.out.println("show spare part " + sparePart);
 
         req.setAttribute(SPARE_PART, sparePart);
         req.setAttribute(PAGE, page);

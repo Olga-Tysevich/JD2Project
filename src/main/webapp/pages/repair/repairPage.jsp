@@ -37,8 +37,7 @@
             String pageForDisplay = (String) request.getAttribute(PAGE);
             int pageNumber = request.getParameter(PAGE_NUMBER) != null? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
             List<SparePartOrderDTO> orders = changeRepairForm.getOrders();
-            DeviceDTO deviceDTO = repairForm.getDevice();
-            Long deviceTypeId = deviceDTO.getModel().getDeviceTypeId();
+            Long deviceTypeId = repairDTO.getDeviceId();
         %>
 
         <div class="lr-container">
