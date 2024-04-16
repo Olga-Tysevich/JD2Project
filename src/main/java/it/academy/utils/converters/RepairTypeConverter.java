@@ -34,9 +34,4 @@ public class RepairTypeConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<RepairType> convertDTOListToEntityList(List<RepairTypeDTO> repairTypes) {
-        return repairTypes.stream()
-                .map(RepairTypeConverter::convertDTOToEntity)
-                .collect(Collectors.toList());
-    }
 }

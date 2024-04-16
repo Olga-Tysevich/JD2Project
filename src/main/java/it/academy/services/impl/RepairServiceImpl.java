@@ -145,6 +145,7 @@ public class RepairServiceImpl implements RepairService {
 
         ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO, ordersDTO);
 
+
         transactionManger.commit();
 
         return result;

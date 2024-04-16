@@ -22,6 +22,8 @@ public class ServiceHelper {
         }
     }
 
+
+
     public static <T, R, L, S extends DAO<T, L>> ListForPage<R> getList(S dao, Supplier<List<T>> method, int pageNumber,
                                                                         Function<List<T>, List<R>> converter,
                                                                         Supplier<List<EntityFilter>> methodForGetFilters) {

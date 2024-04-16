@@ -9,7 +9,7 @@ import it.academy.services.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.forms.ShowConfirmedRepair;
 import it.academy.utils.converters.SparePartConverter;
-import it.academy.utils.converters.SparePartForOrder;
+import it.academy.utils.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;

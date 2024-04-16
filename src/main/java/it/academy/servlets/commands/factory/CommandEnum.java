@@ -9,8 +9,6 @@ import it.academy.servlets.commands.impl.change.ChangeDeviceType;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
-import it.academy.servlets.commands.impl.delete.DeleteSparePartOrder;
-import it.academy.servlets.commands.impl.lists.ShowRepairTypeList;
 import it.academy.servlets.commands.impl.change.ChangeModel;
 import it.academy.servlets.commands.impl.show.ShowPageCommand;
 import it.academy.servlets.commands.impl.show.tables.*;
@@ -56,16 +54,7 @@ public enum CommandEnum {
     SHOW_REPAIR_TABLE(new ShowRepairTable()),
     SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
     ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
-    CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
-
-    DELETE_SPARE_PART_ORDER(new DeleteSparePartOrder()),
-    SHOW_REPAIR_TYPE_LIST(new ShowRepairTypeList()),
-    COMPLETE_REPAIR(new CompleteRepair()),
-    SHOW_REPAIR_TYPE_TABLE(new ShowRepairTypeTable()),
-    ADD_REPAIR_TYPE(new AddRepairType()),
-    CHANGE_REPAIR_TYPE(new ChangeRepairType()),
-    SHOW_REPAIR_TYPE(new ShowRepairType()),
-    SHOW_SPARE_PART_ORDERS_TABLE(new ShowSparePartOrdersTable());
+    CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder());
 
 
     private ActionCommand command;

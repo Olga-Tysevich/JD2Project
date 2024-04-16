@@ -132,10 +132,4 @@ public class RepairConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<RepairDTO> convertToRepairDTOList(List<Repair> repairs) {
-        return repairs.stream()
-                .map(RepairConverter::convertToRepairDTO)
-                .collect(Collectors.toList());
-    }
-
 }

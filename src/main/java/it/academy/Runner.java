@@ -1,9 +1,6 @@
 package it.academy;
 
-import it.academy.dto.req.BrandDTO;
-import it.academy.dto.req.CreateAccountDTO;
-import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.req.ServiceCenterDTO;
+import it.academy.dto.req.*;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.services.*;
 import it.academy.services.impl.*;
@@ -78,7 +75,20 @@ public class Runner {
             deviceTypeService.createDeviceType(d);
         });
 
+        List<DeviceTypeDTO> deviceTypeList = deviceTypeService.findDeviceTypes(admin);
+        List<BrandDTO> brandList = brandService.findBrands(admin);
 
+        deviceTypeList.forEach(dt -> {
+            BrandDTO brand = brandList.get(RANDOM.nextInt(brandList.size()));
+            ChangeModelDTO changeModelDTO = ChangeModelDTO.builder()
+                    .brandId(brand.getId())
+                    .currentAccount(admin)
+                    .deviceTypeId(dt.getId())
+                    .isActive(true)
+                    .name(Generator.generateModelName())
+                    .build();
+            modelService.createModel(changeModelDTO);
+        });
 
     }
 

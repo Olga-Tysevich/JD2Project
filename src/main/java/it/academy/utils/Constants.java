@@ -216,7 +216,6 @@ public class Constants {
     //Paths
     public static final String SHOW_COMMAND = "show_command";
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
-    public static final String REPAIR_TYPE_LIST_PAGE_PATH = "/pages/forms/repairType.jsp";
     //show_command
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String REPAIR_TYPES = "repair_types";

@@ -1,4 +1,4 @@
-package it.academy.utils.converters;
+package it.academy.utils;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

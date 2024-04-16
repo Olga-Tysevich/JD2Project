@@ -1,18 +1,10 @@
 package it.academy.utils;
 
-
 import it.academy.dto.req.CreateAccountDTO;
 import it.academy.entities.*;
-import it.academy.entities.Device;
-import it.academy.entities.RepairType;
-import it.academy.entities.ServiceCenter;
-import it.academy.entities.SparePart;
-import it.academy.entities.SparePartOrder;
-import it.academy.entities.BankAccount;
-import it.academy.entities.Requisites;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
-import java.sql.Date;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +12,8 @@ import static it.academy.utils.Constants.RANDOM;
 
 @UtilityClass
 public class Generator {
+    public static final int BOUND = 10000;
+    public static final int MAX_DIGIT = 8;
     private List<String> repairWorkshops = Arrays.asList("Дрималай", "Кенфорд", "МастерПин", "Патио", "Электросервис");
     private List<String> emails = Arrays.asList("account%s@mail.ru", "admin%s@mail.ru", "user%s@gmail.com", "user%s@yahoo.com", "user%s@outlook.com");
     private List<String> names = Arrays.asList("Александр", "Иван", "Екатерина", "Ольга", "Дмитрий", "Михаил", "Татьяна", "Светлана", "Николай", "Мария");
@@ -48,7 +42,7 @@ public class Generator {
     public static CreateAccountDTO generateAccount() {
         String password = generateValidPasswords();
         return CreateAccountDTO.builder()
-                .email(String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(1000)))
+                .email(String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(BOUND)))
                 .password(password)
                 .confirmPassword(password)
                 .userName(names.get(RANDOM.nextInt(names.size())))
@@ -59,7 +53,7 @@ public class Generator {
 
 
     public static ServiceCenter generateServiceCenter() {
-        String name = repairWorkshops.get(RANDOM.nextInt(repairWorkshops.size())) + RANDOM.nextInt(100);
+        String name = repairWorkshops.get(RANDOM.nextInt(repairWorkshops.size())) + RANDOM.nextInt(BOUND);
         return ServiceCenter.builder()
                 .serviceName(name)
                 .requisites(Requisites.builder()
@@ -67,77 +61,43 @@ public class Generator {
                         .actualAddress(addresses.get(RANDOM.nextInt(addresses.size())))
                         .legalAddress(addresses.get(RANDOM.nextInt(addresses.size())))
                         .phone(phones.get(RANDOM.nextInt(phones.size())))
-                        .email(String.format(serviceEmail, RANDOM.nextInt(1000)))
-                        .taxpayerNumber(RANDOM.nextInt(100000000) + RANDOM.nextInt(100000000))
-                        .registrationNumber(RANDOM.nextInt(100000) + RANDOM.nextInt(10000))
+                        .email(String.format(serviceEmail, RANDOM.nextInt(BOUND)))
+                        .taxpayerNumber(RANDOM.nextInt(BOUND) + RANDOM.nextInt(BOUND))
+                        .registrationNumber(RANDOM.nextInt(BOUND) + RANDOM.nextInt(BOUND))
                         .build())
                 .bankAccount(BankAccount.builder()
                         .bankName(banks.get(RANDOM.nextInt(banks.size())))
-                        .bankAccount(String.format(bankAccount, RANDOM.nextInt(100000000)))
+                        .bankAccount(String.format(bankAccount, RANDOM.nextInt(BOUND)))
                         .bankAddress(addresses.get(RANDOM.nextInt(addresses.size())))
-                        .bankCode(String.format(bankCode, RANDOM.nextInt(100000)))
+                        .bankCode(String.format(bankCode, RANDOM.nextInt(BOUND)))
                         .build())
-                .isActive(RANDOM.nextInt(100) % 10 == 0)
+                .isActive(RANDOM.nextInt(BOUND) % 2 == 0)
                 .build();
 
     }
 
     public static Brand generateBrand() {
         return Brand.builder()
-                .name(brands.get(RANDOM.nextInt(brands.size())) + RANDOM.nextInt(10000))
+                .name(brands.get(RANDOM.nextInt(brands.size())) + RANDOM.nextInt(BOUND))
                 .isActive(true)
                 .build();
     }
 
     public static DeviceType generateDeviceType() {
         return DeviceType.builder()
-                .name(deviceTypes.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(10000))
+                .name(deviceTypes.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(BOUND))
                 .isActive(true)
                 .build();
     }
 
-    public static Model generateModel() {
-        return Model.builder()
-                .name(models.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(10000))
-                .build();
+    public static String generateModelName() {
+        return models.get(RANDOM.nextInt(deviceTypes.size())) + RANDOM.nextInt(BOUND);
     }
 
-    public static Device generateDevice() {
-        return Device.builder()
-                .serialNumber(String.format(serialNumber, RANDOM.nextInt(100000000)))
-                .dateOfSale(Date.valueOf(dates.get(RANDOM.nextInt(dates.size()))))
-                .buyer(Buyer.builder()
-                        .name(names.get(RANDOM.nextInt(names.size())))
-                        .surname(surnames.get(RANDOM.nextInt(surnames.size())))
-                        .phone(phones.get(RANDOM.nextInt(phones.size())))
-                        .build())
-                .salesman(Salesman.builder()
-                .name(salesmen.get(RANDOM.nextInt(salesmen.size())))
-                .phone(phones.get(RANDOM.nextInt(phones.size())))
-                .build())
-                .build();
-    }
-
-    public static RepairType generateType() {
-        return RepairType.builder()
-                .name(repairTypes.get(RANDOM.nextInt(repairTypes.size())) + RANDOM.nextInt(10000))
-                .code("C" + RANDOM.nextInt(100))
-                .level("L" + RANDOM.nextInt(100))
-                .build();
-    }
 
     public static SparePart generateSparePart() {
         return SparePart.builder()
-                .name(spareParts.get(RANDOM.nextInt(spareParts.size()))+ RANDOM.nextInt(10000))
-                .build();
-    }
-
-    public static SparePartOrder generateOrder() {
-        Date date = Date.valueOf(dates.get(RANDOM.nextInt(dates.size())));
-        return SparePartOrder.builder()
-                .orderDate(date)
-                .departureDate(date)
-                .deliveryDate(date)
+                .name(spareParts.get(RANDOM.nextInt(spareParts.size())) + RANDOM.nextInt(BOUND))
                 .build();
     }
 
@@ -159,7 +119,7 @@ public class Generator {
         String allChars = upper + lower + digits + special;
 
         StringBuilder password = new StringBuilder();
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < MAX_DIGIT; j++) {
             int index = RANDOM.nextInt(allChars.length());
             password.append(allChars.charAt(index));
         }

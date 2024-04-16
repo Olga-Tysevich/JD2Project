@@ -7,11 +7,11 @@
         </encoder>
     </appender>
 
-        <logger name="it.academy" level="INFO" additivity="false">
-            <appender-ref ref="STDOUT" />
+        <logger name="it.academy" level="ERROR" additivity="false">
+            <appender-ref ref="LOG" />
         </logger>
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="LOG"/>
     </root>
 

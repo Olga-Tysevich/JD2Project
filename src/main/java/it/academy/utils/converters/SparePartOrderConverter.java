@@ -46,10 +46,4 @@ public class SparePartOrderConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<SparePartOrder> convertDTOListToEntityList(List<SparePartOrderDTO> partOrderDTOS) {
-        return partOrderDTOS.stream()
-                .map(SparePartOrderConverter::convertDTOToEntity)
-                .collect(Collectors.toList());
-    }
-
 }

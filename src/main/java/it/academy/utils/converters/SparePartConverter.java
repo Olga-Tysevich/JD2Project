@@ -5,6 +5,7 @@ import it.academy.dto.req.ChangeSparePartDTO;
 import it.academy.dto.resp.SparePartDTO;
 import it.academy.entities.DeviceType;
 import it.academy.entities.SparePart;
+import it.academy.utils.SparePartForOrder;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
@@ -46,12 +47,6 @@ public class SparePartConverter {
     public static List<SparePartDTO> convertToDTOList(List<SparePart> spareParts, List<DeviceTypeDTO> deviceTypes) {
         return spareParts.stream()
                 .map(s -> convertToDTO(s, deviceTypes))
-                .collect(Collectors.toList());
-    }
-
-    public static List<SparePart> convertDTOListToEntityList(List<ChangeSparePartDTO> sparePars) {
-        return sparePars.stream()
-                .map(SparePartConverter::convertToEntity)
                 .collect(Collectors.toList());
     }
 

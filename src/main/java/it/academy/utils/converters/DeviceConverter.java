@@ -7,9 +7,6 @@ import it.academy.entities.Model;
 import it.academy.entities.Salesman;
 import lombok.experimental.UtilityClass;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @UtilityClass
 public class DeviceConverter {
 
@@ -48,15 +45,4 @@ public class DeviceConverter {
                 .build();
     }
 
-    public static List<DeviceDTO> convertListToDTOReq(List<Device> devices) {
-        return devices.stream()
-                .map(DeviceConverter::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    public static List<Device> convertDTOReqListToEntityList(List<DeviceDTO> devices) {
-        return devices.stream()
-                .map(DeviceConverter::convertDTOToEntity)
-                .collect(Collectors.toList());
-    }
 }

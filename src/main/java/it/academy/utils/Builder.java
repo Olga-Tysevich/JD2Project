@@ -1,6 +1,5 @@
 package it.academy.utils;
 
-import it.academy.dto.resp.DeviceDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.utils.fiterForSearch.EntityFilter;

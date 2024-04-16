@@ -142,11 +142,15 @@ public class ModelServiceImpl implements ModelService {
         if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
             deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
             brands = BrandConverter.convertToDTOList(brandDAO.findAll());
-            models = ModelConverter.convertToDTOList(modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input));
+            models = ModelConverter.convertToDTOList(
+                    modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input));
         } else {
-            deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
-            brands = BrandConverter.convertToDTOList(brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
-            models = ModelConverter.convertToDTOList(modelDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
+            deviceTypes = DeviceTypeConverter.convertToDTOList(
+                    deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
+            brands = BrandConverter.convertToDTOList(
+                    brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
+            models = ModelConverter.convertToDTOList(
+                    modelDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
         }
 
         if (brands.isEmpty()) {
@@ -165,7 +169,11 @@ public class ModelServiceImpl implements ModelService {
                 .models(models)
                 .build();
 
-        return Builder.buildListForPage(List.of(modelListDTO), pageNumber, maxPageNumber, FilterManager.getFiltersForModel());
+        return Builder.buildListForPage(
+                List.of(modelListDTO),
+                pageNumber,
+                maxPageNumber,
+                FilterManager.getFiltersForModel());
     }
 
 }

@@ -60,10 +60,4 @@ public class ServiceCenterConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<ServiceCenter> convertToEntityList(List<ServiceCenterDTO> reqList) {
-        return reqList.stream()
-                .map(ServiceCenterConverter::convertToEntity)
-                .collect(Collectors.toList());
-    }
-
 }

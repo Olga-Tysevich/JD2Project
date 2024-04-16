@@ -32,10 +32,4 @@ public class DeviceTypeConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<DeviceType> convertToEntityList(List<DeviceTypeDTO> brands) {
-        return brands.stream()
-                .map(DeviceTypeConverter::convertToEntity)
-                .collect(Collectors.toList());
-    }
-
 }

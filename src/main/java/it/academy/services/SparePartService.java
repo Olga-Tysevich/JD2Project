@@ -17,9 +17,8 @@ public interface SparePartService {
 
     ListForPage<SparePartDTO> findSpareParts(AccountDTO accountDTO, int pageNumber);
 
-    List<SparePartDTO> findSparePartsByDeviceTypeId(AccountDTO accountDTO, long id);
-
     ListForPage<SparePartDTO> findSpareParts(AccountDTO accountDTO, int pageNumber, String filter, String input);
 
+    List<SparePartDTO> findSparePartsByDeviceTypeId(AccountDTO accountDTO, long id);
 
 }

@@ -32,10 +32,4 @@ public class BrandConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<Brand> convertToEntityList(List<BrandDTO> brands) {
-        return brands.stream()
-                .map(BrandConverter::convertToEntity)
-                .collect(Collectors.toList());
-    }
-
 }
