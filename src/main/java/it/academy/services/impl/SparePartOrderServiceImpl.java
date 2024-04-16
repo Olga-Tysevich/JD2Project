@@ -18,7 +18,6 @@ import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
-
 import static it.academy.utils.Constants.*;
 
 public class SparePartOrderServiceImpl implements SparePartOrderService {

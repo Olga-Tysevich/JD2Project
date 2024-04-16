@@ -42,6 +42,7 @@
                         <div class="f-input">
                             <label class="form-el">Тип устройства:</label>
                         <div>
+                            <div class="type_container">
                         <%for (DeviceTypeDTO deviceType : deviceTypes) {%>
                             <div>
                                 <input type="checkbox" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceType.getId()%>"
@@ -49,6 +50,7 @@
                                 <%=deviceType.getName()%>
                             </div>
                         <%}%>
+                        </div>
                         </div>
                         </div>
 

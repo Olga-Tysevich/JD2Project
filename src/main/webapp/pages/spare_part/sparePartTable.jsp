@@ -73,9 +73,10 @@
                     <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
                 </div>
 
+                <div class="">
                 <div class="f-input">
                     <label class="form-el">Тип устройства:</label>
-                <div>
+                <div class="type_container">
                     <%for (DeviceTypeDTO deviceType : deviceTypes) {%>
                     <div>
                         <input type="checkbox" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceType.getId()%>">
@@ -84,7 +85,7 @@
                     <%}%>
                 </div>
                 </div>
-
+                </div>
                 <div class="button-container">
                     <input class="button" type="submit" value="Добавить" form="addSparePart"/>
                 </div>

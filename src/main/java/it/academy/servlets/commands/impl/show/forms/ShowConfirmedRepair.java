@@ -29,10 +29,11 @@ public class ShowConfirmedRepair implements ActionCommand {
             req.setAttribute(CHANGE_REPAIR_FORM, changeRepairForm);
             req.setAttribute(PAGE_NUMBER, pageNumber);
             req.setAttribute(PAGE, page);
+
             return REPAIR_PAGE_PATH;
         } catch (BrandsNotFound | ModelNotFound e) {
             req.setAttribute(ERROR, e.getMessage());
-            return MAIN_PAGE_PATH;
+            return REPAIR_PAGE_PATH;
         } catch (Exception e) {
             req.setAttribute(ERROR, ERROR_MESSAGE);
             return ERROR_PAGE_PATH;

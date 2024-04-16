@@ -375,3 +375,8 @@ fieldset.f1 {
     align-items: center;
     justify-content: center;
 }
+
+.type_container{
+    overflow: auto;
+    height: 200px;
+}

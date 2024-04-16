@@ -116,7 +116,8 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
             find = () -> serviceCenterDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
         }
         return ServiceHelper.getList(serviceCenterDAO,
-                find, pageNumber,
+                find,
+                pageNumber,
                 ServiceCenterConverter::convertToDTOList,
                 FilterManager::getFiltersForServiceCenter);
     }

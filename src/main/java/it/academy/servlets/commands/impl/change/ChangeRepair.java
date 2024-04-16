@@ -33,6 +33,7 @@ public class ChangeRepair extends AddRepair {
                 ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(repairDTO, repairFormDTO, null);
                 req.setAttribute(CHANGE_REPAIR_FORM, changeRepairFormDTO);
                 String page = req.getParameter(PAGE);
+                System.out.println("PAGE " + page);
                 req.setAttribute(PAGE, page);
                 return REPAIR_PAGE_PATH;
             }

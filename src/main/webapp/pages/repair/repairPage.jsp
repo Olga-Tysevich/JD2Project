@@ -226,6 +226,7 @@
         <form action="main" method="post" id="cancel">
             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+            <input type="text" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
         </form>
 

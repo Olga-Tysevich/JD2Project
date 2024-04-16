@@ -121,7 +121,6 @@ public class SparePartServiceImpl implements SparePartService {
             spareParts.add(emptySparePart);
         }
 
-
         ListForPage<SparePartDTO> sparePartsForTable = ServiceHelper.getList(sparePartDAO,
                 () -> spareParts,
                 pageNumber,
