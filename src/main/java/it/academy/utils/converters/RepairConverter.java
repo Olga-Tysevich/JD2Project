@@ -6,7 +6,7 @@ import it.academy.entities.*;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;
-import static it.academy.utils.Constants.DEVICE_DESCRIPTION_PATTERN;
+import static it.academy.utils.constants.Constants.DEVICE_DESCRIPTION_PATTERN;
 
 @UtilityClass
 public class RepairConverter {

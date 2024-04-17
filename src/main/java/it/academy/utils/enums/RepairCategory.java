@@ -1,6 +1,6 @@
 package it.academy.utils.enums;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public enum RepairCategory {
     WARRANTY(WARRANTY_DESCRIPTION),

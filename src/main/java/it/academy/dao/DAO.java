@@ -1,6 +1,5 @@
 package it.academy.dao;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public interface DAO<T, R> {
@@ -28,6 +27,10 @@ public interface DAO<T, R> {
     List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize,
                                      String filter, String value);
 
-    BigInteger getNumberOfEntries();
+    long getNumberOfEntries();
+
+    public long getNumberOfEntriesByFilter(String filter, String value);
+
+    public long getNumberOfActiveEntriesByFilter(String filter, String value);
 
 }

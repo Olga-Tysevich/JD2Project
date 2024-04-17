@@ -5,8 +5,8 @@ import lombok.experimental.UtilityClass;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
-import static it.academy.utils.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
+import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
 
 @UtilityClass
 public class FilterManager {

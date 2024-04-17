@@ -3,10 +3,10 @@ package it.academy.utils.converters;
 import it.academy.dto.req.ChangeAccountDTO;
 import it.academy.dto.req.CreateAccountDTO;
 import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.entities.Account;
 import it.academy.entities.ServiceCenter;
 import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 public class AccountConverter {
 
     public static AccountDTO convertToDTO(Account account) {
-        ServiceCenter serviceCenter = account.getServiceCenter() ;
-        ServiceCenterDTO serviceCenterDTO = serviceCenter != null?
-                ServiceCenterConverter.convertToDTO(serviceCenter) : null;
+        ServiceCenter serviceCenter = account.getServiceCenter();
+        Long serviceCenterId = serviceCenter != null ? serviceCenter.getId() : null;
+        String serviceCenterName = serviceCenter != null ? serviceCenter.getServiceName() : "";
         return AccountDTO.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
@@ -24,7 +24,8 @@ public class AccountConverter {
                 .userName(account.getUserName())
                 .userSurname(account.getUserSurname())
                 .role(account.getRole())
-                .serviceCenter(serviceCenterDTO)
+                .serviceCenterId(serviceCenterId)
+                .serviceCenterName(serviceCenterName)
                 .build();
     }
 

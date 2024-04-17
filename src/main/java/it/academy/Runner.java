@@ -3,6 +3,8 @@ package it.academy;
 import it.academy.dto.req.*;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.services.*;
+import it.academy.services.admin.AdminService;
+import it.academy.services.admin.impl.AdminServiceImpl;
 import it.academy.services.impl.*;
 import it.academy.utils.Generator;
 import it.academy.utils.converters.BrandConverter;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static it.academy.utils.Constants.RANDOM;
+import static it.academy.utils.constants.Constants.RANDOM;
 
 @Slf4j
 public class Runner {
@@ -49,7 +51,7 @@ public class Runner {
         List<ServiceCenterDTO> serviceCenterDTOS = serviceCenterService.findServiceCenters(admin);
 
         for (CreateAccountDTO createAccountDTO : account) {
-            createAccountDTO.setCurrentAccount(admin);
+//            createAccountDTO.setCurrentAccount(admin);
             createAccountDTO.setServiceCenterId(serviceCenterDTOS.get(RANDOM.nextInt(serviceCenterDTOS.size())).getId());
             try {
                 adminService.createAccount(createAccountDTO);

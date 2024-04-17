@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.req.ChangeAccountDTO;
-import it.academy.services.AdminService;
-import it.academy.services.impl.AdminServiceImpl;
+import it.academy.services.admin.AdminService;
+import it.academy.services.admin.impl.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.tables.ShowAccountTable;
 import it.academy.servlets.extractors.FormExtractor;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
 public class ChangeAccount implements ActionCommand {

@@ -12,8 +12,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
-import static it.academy.utils.Constants.*;
-import static it.academy.utils.Constants.IS_ACTIVE;
+import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.Constants.IS_ACTIVE;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger;
@@ -159,15 +159,26 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public BigInteger getNumberOfEntries() {
-        CriteriaQuery<Long> getTableSize = criteriaBuilder().createQuery(Long.class);
-        getTableSize
-                .select(criteriaBuilder()
-                        .count(getTableSize.from(clazz)));
-        long result = entityManager()
-                .createQuery(getTableSize)
-                .getSingleResult();
-        return new BigInteger(String.valueOf(result));
+    public long getNumberOfEntries() {
+        String query = String.format(GET_NUMBER_OF_ENTRIES, clazz.getSimpleName());
+        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
+        return count.getSingleResult();
+    }
+
+    @Override
+    public long getNumberOfActiveEntriesByFilter(String filter, String value) {
+        String query = String.format(GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER, clazz.getSimpleName(), filter);
+        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
+        count.setParameter(PARAMETER_VALUE, value);
+        return count.getSingleResult();
+    }
+
+    @Override
+    public long getNumberOfEntriesByFilter(String filter, String value) {
+        String query = String.format(GET_NUMBER_OF_ENTRIES_BY_FILTER, clazz.getSimpleName(), filter);
+        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
+        count.setParameter(PARAMETER_VALUE, value);
+        return count.getSingleResult();
     }
 
     protected EntityManager entityManager() {
@@ -183,5 +194,4 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
                 .like(root.get(filter).as(String.class),
                         String.format(LIKE_QUERY_PATTERN,value));
     }
-
 }

@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
 public class ModelServiceImpl implements ModelService {

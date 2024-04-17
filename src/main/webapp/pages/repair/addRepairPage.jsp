@@ -1,4 +1,4 @@
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.req.BrandDTO" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.dto.resp.ModelDTO" %>

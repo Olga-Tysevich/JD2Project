@@ -1,6 +1,6 @@
-<%@ page import="static it.academy.utils.Constants.ORDERS" %>
+<%@ page import="static it.academy.utils.constants.Constants.ORDERS" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.resp.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.SparePartDTO" %>

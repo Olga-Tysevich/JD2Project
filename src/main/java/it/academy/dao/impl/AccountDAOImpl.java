@@ -4,7 +4,6 @@ import it.academy.dao.AccountDAO;
 import it.academy.entities.Account;
 import it.academy.entities.ServiceCenter;
 import it.academy.utils.dao.TransactionManger;
-
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -12,20 +11,20 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO {
 
-    public AccountDAOImpl() {
-        super(Account.class);
-    }
-
-    public AccountDAOImpl(Class<Account> clazz) {
-        super(clazz);
-    }
-
     public AccountDAOImpl(TransactionManger manger) {
         super(manger, Account.class);
+    }
+
+    @Override
+    public boolean checkIfExist(Account account) {
+        TypedQuery<Account> find = entityManager().createQuery(CHECK_ACCOUNT, Account.class);
+        find.setParameter(OBJECT_ID, account.getId());
+        find.setParameter(EMAIL, account.getEmail());
+        return find.getSingleResult() == null;
     }
 
     @Override
@@ -34,7 +33,6 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
         find.setParameter(OBJECT_ID, serviceCenterId);
 
         return find.getResultList();
-
     }
 
     @Override
@@ -46,7 +44,6 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
                 .getResultList();
-
     }
 
     @Override

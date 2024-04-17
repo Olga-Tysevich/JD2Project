@@ -8,7 +8,7 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE;
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ShowModelTable implements ActionCommand {
     private ModelService modelService = new ModelServiceImpl();

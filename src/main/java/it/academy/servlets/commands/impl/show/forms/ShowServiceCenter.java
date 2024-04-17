@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.servlets.commands.factory.CommandEnum.ADD_SERVICE_CENTER;
 import static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SERVICE_CENTER;
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ShowServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();

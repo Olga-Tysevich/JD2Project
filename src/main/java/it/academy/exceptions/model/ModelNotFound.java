@@ -1,6 +1,6 @@
 package it.academy.exceptions.model;
 
-import static it.academy.utils.Constants.MODELS_NOT_FOUND;
+import static it.academy.utils.constants.Constants.MODELS_NOT_FOUND;
 
 public class ModelNotFound extends RuntimeException{
 

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class SparePartServiceImpl implements SparePartService {
     private final TransactionManger transactionManger = new TransactionManger();

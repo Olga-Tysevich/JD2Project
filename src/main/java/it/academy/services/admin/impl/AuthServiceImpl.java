@@ -1,4 +1,4 @@
-package it.academy.services.impl;
+package it.academy.services.admin.impl;
 
 import it.academy.dao.AccountDAO;
 import it.academy.dao.impl.AccountDAOImpl;
@@ -8,11 +8,11 @@ import it.academy.entities.Account;
 import it.academy.exceptions.auth.IncorrectPassword;
 import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;
-import it.academy.services.AuthService;
+import it.academy.services.admin.AuthService;
 import it.academy.utils.converters.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 
 public class AuthServiceImpl implements AuthService {

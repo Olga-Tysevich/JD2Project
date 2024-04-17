@@ -1,5 +1,5 @@
-<%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ListForPage" %>

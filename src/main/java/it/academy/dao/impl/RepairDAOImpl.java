@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import java.math.BigInteger;
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
 

@@ -2,7 +2,7 @@ package it.academy.utils.interfaces.wrappers;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static it.academy.utils.Constants.ERROR_PATTERN;
+import static it.academy.utils.constants.Constants.ERROR_PATTERN;
 
 @Slf4j
 public class ThrowingConsumerWrapper {

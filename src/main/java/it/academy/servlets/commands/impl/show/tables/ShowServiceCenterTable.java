@@ -8,7 +8,7 @@ import it.academy.servlets.extractors.TableExtractor;
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE;
-import static it.academy.utils.Constants.ERROR_PAGE_PATH;
+import static it.academy.utils.constants.Constants.ERROR_PAGE_PATH;
 
 public class ShowServiceCenterTable implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();

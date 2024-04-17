@@ -6,7 +6,7 @@ import it.academy.utils.dao.TransactionManger;
 
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
 

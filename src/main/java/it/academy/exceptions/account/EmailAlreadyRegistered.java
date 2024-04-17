@@ -1,6 +1,6 @@
 package it.academy.exceptions.account;
 
-import static it.academy.utils.Constants.EMAIL_ALREADY_EXISTS;
+import static it.academy.utils.constants.Constants.EMAIL_ALREADY_EXISTS;
 
 public class EmailAlreadyRegistered extends Exception {
 

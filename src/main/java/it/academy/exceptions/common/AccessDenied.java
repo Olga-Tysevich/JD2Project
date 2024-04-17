@@ -1,6 +1,6 @@
 package it.academy.exceptions.common;
 
-import static it.academy.utils.Constants.ACCESS_IS_DENIED;
+import static it.academy.utils.constants.Constants.ACCESS_IS_DENIED;
 
 public class AccessDenied extends RuntimeException{
 

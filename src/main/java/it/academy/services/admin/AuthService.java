@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.admin;
 
 import it.academy.dto.req.LoginDTO;
 import it.academy.dto.resp.AccountDTO;

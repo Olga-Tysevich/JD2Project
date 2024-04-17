@@ -53,7 +53,7 @@
         <column name="email" value="olga@mail.ru"/>
         <column name="active" valueBoolean="true"/>
         <column name="email" value="olga@mail.ru"/>
-        <column name="password" value="User8707!"/>
+        <column name="password" value="$2a$10$ulZ1o903hUk6W33a9tLyBOOtx00iRNSsBTtibCVgjBEr4.2s6v482"/>
         <column name="role" value="ADMIN"/>
         <column name="user_name" value="admin"/>
         <column name="user_surname" value="admin"/>

@@ -14,7 +14,7 @@ import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class RepairTypeServiceImpl implements RepairTypeService {
     private final TransactionManger transactionManger = new TransactionManger();
@@ -28,7 +28,7 @@ public class RepairTypeServiceImpl implements RepairTypeService {
 
         Supplier<ListForPage<RepairTypeDTO>> find = () -> {
             List<RepairType> repairs = repairTypeDAO.findForPage(pageNumber, LIST_SIZE);
-            int maxPageNumber = (int) Math.ceil(((double) repairTypeDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
             List<RepairTypeDTO> list = RepairTypeConverter.convertListToDTO(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
@@ -42,7 +42,7 @@ public class RepairTypeServiceImpl implements RepairTypeService {
 
         Supplier<ListForPage<RepairTypeDTO>> find = () -> {
             List<RepairType> repairs = repairTypeDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) repairTypeDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
             List<RepairTypeDTO> list = RepairTypeConverter.convertListToDTO(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };

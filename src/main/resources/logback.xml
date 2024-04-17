@@ -1,19 +1,77 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="LOG" class="ch.qos.logback.core.FileAppender">
-        <File>~\JD2Project\src\main\resources\log\log_file.log</File>
+
+    <variable name="LOG_FILE" value="../logs/JD2Project/log"/>
+
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}/errorLog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>errorLog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%date %level [%thread] %logger [%file:%line] -%kvp- %msg%n</pattern>
         </encoder>
     </appender>
 
-        <logger name="it.academy" level="ERROR" additivity="false">
-            <appender-ref ref="LOG" />
-        </logger>
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}/infoLog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>infoLog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
 
-    <root level="ERROR">
-        <appender-ref ref="LOG"/>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger [%file:%line] -%kvp- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <encoder>
+            <pattern>%kvp %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="it.academy" additivity="false">
+        <appender-ref ref="ERROR_FILE"/>
+    </logger>
+
+    <logger name="it.academy" additivity="false">
+        <appender-ref ref="INFO_FILE"/>
+    </logger>
+
+    <logger name="it.academy" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
     </root>
-
-
 </configuration>

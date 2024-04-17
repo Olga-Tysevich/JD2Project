@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 import java.util.Arrays;
 import java.util.List;
 
-import static it.academy.utils.Constants.RANDOM;
+import static it.academy.utils.constants.Constants.RANDOM;
 
 @UtilityClass
 public class Generator {

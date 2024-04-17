@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
-import static it.academy.utils.Constants.ERROR_PAGE_PATH;
+import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.Constants.ERROR_PAGE_PATH;
 
 @Slf4j
 public class ChangeDeviceType implements ActionCommand {

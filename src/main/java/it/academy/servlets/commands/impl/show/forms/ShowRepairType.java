@@ -7,7 +7,7 @@ import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ShowRepairType implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();

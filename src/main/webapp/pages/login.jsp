@@ -1,5 +1,5 @@
-<%@ page import="static it.academy.utils.Constants.ERROR" %>
-<%@ page import="static it.academy.utils.Constants.COMMAND" %>
+<%@ page import="static it.academy.utils.constants.Constants.ERROR" %>
+<%@ page import="static it.academy.utils.constants.Constants.COMMAND" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.LOGIN" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 

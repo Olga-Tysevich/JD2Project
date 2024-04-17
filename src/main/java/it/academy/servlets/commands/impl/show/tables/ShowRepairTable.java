@@ -11,7 +11,7 @@ import it.academy.utils.enums.RepairStatus;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ShowRepairTable implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();

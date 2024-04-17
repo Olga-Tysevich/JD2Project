@@ -1,6 +1,5 @@
 package it.academy.dto.req;
 
-import it.academy.dto.resp.AccountDTO;
 import it.academy.utils.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangeAccountDTO {
-
-    private AccountDTO currentAccount;
 
     private Long id;
 

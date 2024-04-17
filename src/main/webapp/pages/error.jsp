@@ -1,4 +1,4 @@
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.OPEN_PAGE" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

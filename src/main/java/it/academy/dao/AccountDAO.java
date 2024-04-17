@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AccountDAO extends DAO<Account, Long> {
 
+    boolean checkIfExist(Account account);
+
     List<Account> findServiceCenterAccounts(long serviceCenterId);
 
     List<Account> findServiceCenterAccounts(long serviceCenterId, int pageNumber, int listSize);

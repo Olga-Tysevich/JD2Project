@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.MessageConstants.OBJECT_UPDATED_PATTERN;
 
 @Slf4j
 public class DeviceTypeServiceImpl implements DeviceTypeService {

@@ -4,9 +4,9 @@ import it.academy.dto.req.CreateAccountDTO;
 import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
-import it.academy.services.AdminService;
+import it.academy.services.admin.AdminService;
 import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.AdminServiceImpl;
+import it.academy.services.admin.impl.AdminServiceImpl;
 import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.tables.ShowAccountTable;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
 public class AddAccount implements ActionCommand {

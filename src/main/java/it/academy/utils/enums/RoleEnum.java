@@ -1,7 +1,7 @@
 package it.academy.utils.enums;
 
-import static it.academy.utils.Constants.ADMIN_DESCRIPTION;
-import static it.academy.utils.Constants.SERVICE_CENTER_DESCRIPTION;
+import static it.academy.utils.constants.Constants.ADMIN_DESCRIPTION;
+import static it.academy.utils.constants.Constants.SERVICE_CENTER_DESCRIPTION;
 
 public enum RoleEnum {
     ADMIN(ADMIN_DESCRIPTION),

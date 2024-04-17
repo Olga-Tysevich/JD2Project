@@ -1,5 +1,5 @@
-<%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>

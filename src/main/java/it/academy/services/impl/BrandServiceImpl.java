@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
 public class BrandServiceImpl implements BrandService {
@@ -29,7 +29,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public void createBrand(BrandDTO brand) throws AccessDenied {
         changeBrand(brand, brandDAO::create);
-        log.info(String.format(OBJECT_CREATED_PATTERN, brand));
+        log.info(String.format(ERROR_PATTERN, brand));
     }
 
     @Override

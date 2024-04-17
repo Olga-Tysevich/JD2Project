@@ -20,7 +20,7 @@ import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ServiceCenterServiceImpl implements ServiceCenterService {
     private final TransactionManger transactionManger = new TransactionManger();
@@ -89,7 +89,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
             return ServiceCenterConverter.convertToDTOList(centers);
         }
 
-        long serviceCenterId = accountDTO.getServiceCenter().getId();
+        long serviceCenterId = 1;
         List<ServiceCenter> centers = transactionManger.execute(() -> List.of(serviceCenterDAO.find(serviceCenterId)));
         return ServiceCenterConverter.convertToDTOList(centers);
     }

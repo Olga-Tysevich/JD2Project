@@ -1,14 +1,14 @@
 package it.academy.servlets.commands.impl.show.forms;
 
 import it.academy.dto.resp.AccountDTO;
-import it.academy.services.AdminService;
-import it.academy.services.impl.AdminServiceImpl;
+import it.academy.services.admin.AdminService;
+import it.academy.services.admin.impl.AdminServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
 public class ShowAccount implements ActionCommand {

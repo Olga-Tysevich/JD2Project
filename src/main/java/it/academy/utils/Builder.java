@@ -6,7 +6,7 @@ import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @UtilityClass
 public class Builder {

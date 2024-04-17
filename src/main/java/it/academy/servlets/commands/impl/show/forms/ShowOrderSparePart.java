@@ -9,7 +9,7 @@ import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ShowOrderSparePart implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();

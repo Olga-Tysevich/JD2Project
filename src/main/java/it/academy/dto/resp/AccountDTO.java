@@ -1,6 +1,5 @@
 package it.academy.dto.resp;
 
-import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.utils.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +24,8 @@ public class AccountDTO {
 
     private RoleEnum role;
 
-    private ServiceCenterDTO serviceCenter;
+    private Long serviceCenterId;
+
+    private String serviceCenterName;
 
 }

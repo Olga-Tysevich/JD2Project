@@ -54,7 +54,7 @@ public class TransactionManger {
         }
     }
 
-    private void rollback() {
+    public void rollback() {
         if (entityManager().getTransaction().isActive()
                 || entityManager().getTransaction().getRollbackOnly()) {
             entityManager().getTransaction().commit();

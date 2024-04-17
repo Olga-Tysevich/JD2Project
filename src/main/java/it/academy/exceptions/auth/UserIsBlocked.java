@@ -1,6 +1,6 @@
 package it.academy.exceptions.auth;
 
-import static it.academy.utils.Constants.USER_IS_BLOCKED;
+import static it.academy.utils.constants.Constants.USER_IS_BLOCKED;
 
 public class UserIsBlocked extends Exception {
 

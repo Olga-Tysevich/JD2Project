@@ -3,7 +3,7 @@ package it.academy.servlets.commands.factory;
 import it.academy.servlets.commands.ActionCommand;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
 public class ActionFactory {

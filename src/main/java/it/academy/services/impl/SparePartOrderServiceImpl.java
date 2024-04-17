@@ -18,7 +18,7 @@ import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import java.util.List;
 import java.util.function.Supplier;
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class SparePartOrderServiceImpl implements SparePartOrderService {
     private final TransactionManger transactionManger = new TransactionManger();
@@ -64,7 +64,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
 
         Supplier<ListForPage<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> repairs = sparePartOrderDAO.findForPage(pageNumber, LIST_SIZE);
-            int maxPageNumber = (int) Math.ceil(((double) sparePartOrderDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
             List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
@@ -78,7 +78,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
 
         Supplier<ListForPage<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> repairs = sparePartOrderDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) sparePartOrderDAO.getNumberOfEntries().intValue()) / LIST_SIZE);
+            int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
             List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };

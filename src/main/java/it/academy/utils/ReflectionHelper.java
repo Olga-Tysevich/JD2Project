@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
 
 import java.sql.Date;
 
-import static it.academy.utils.Constants.UNSUPPORTED_CLASS;
+import static it.academy.utils.constants.Constants.UNSUPPORTED_CLASS;
 
 @UtilityClass
 public class ReflectionHelper {

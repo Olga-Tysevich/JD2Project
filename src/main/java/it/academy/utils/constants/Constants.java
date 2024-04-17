@@ -1,4 +1,4 @@
-package it.academy.utils;
+package it.academy.utils.constants;
 
 import lombok.experimental.UtilityClass;
 
@@ -21,22 +21,23 @@ public class Constants {
     public static final String CURRENT_ACTION = "Current action: %s";
     public static final String CURRENT_PAGE = "Current page: %s";
     public static final String CURRENT_ACCOUNT_PATTERN = "Current account: %s";
-    public static final String OBJECT_CREATED_PATTERN = "object created: %s";
-    public static final String OBJECT_UPDATED_PATTERN = "object updated: %s";
-    public static final String OBJECT_FOUND_PATTERN = "object found: %s";
     public static final String OBJECT_NOT_FOUND_PATTERN = "object not found: %s";
     public static final String OBJECT_EXTRACTED_PATTERN = "object extracted: %s";
     public static final String FORM_EXTRACTED_PATTERN = "form extracted: %s";
     //ERROR_MESSAGES
-    public static final String ERROR_PATTERN = "error: %s, object: %s";
     public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
     //sql
-    public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive";
-    public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id";
+    public static final String GET_NUMBER_OF_ENTRIES = "SELECT count(s) FROM %s";
+    public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
+    public static final String GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value AND active = true";
+    public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
+    public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE id != :id AND email = :email";
+    public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
     public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
+    public static final String PARAMETER_VALUE = "value";
     //parameters
     //common parameters
     public static final String OBJECT_ID = "id";
@@ -184,6 +185,14 @@ public class Constants {
     public static final String PRE_SALE_DESCRIPTION = "Предпродажный";
     public static final String PAID_CATEGORY_DESCRIPTION = "Платный";
     public static final String REPEATED_DESCRIPTION = "Повторный";
+
+
+    //info
+    public static final String OBJECT_CREATED_PATTERN = "Object created: {}";
+    public static final String OBJECT_UPDATED_PATTERN = "object updated: {}";
+    public static final String OBJECT_FOUND_PATTERN = "Object found: {}";
+    public static final String ERROR_PATTERN = "Objectsdf found: {}";
+
     //filters
     //account filters
     public static final String ACCOUNT_USER_NAME = "Имя";

@@ -4,12 +4,12 @@ import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.req.LoginDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.entities.Account;
-import it.academy.services.AuthService;
-import it.academy.services.impl.AuthServiceImpl;
+import it.academy.services.admin.AuthService;
+import it.academy.services.admin.impl.AuthServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class LoginCommand implements ActionCommand {
     private AuthService service = new AuthServiceImpl();

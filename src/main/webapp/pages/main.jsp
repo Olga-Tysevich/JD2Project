@@ -1,6 +1,6 @@
-<%@ page import="static it.academy.utils.Constants.ACCOUNT" %>
-<%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.ACCOUNT" %>
+<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>

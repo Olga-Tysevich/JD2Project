@@ -1,5 +1,5 @@
-<%@ page import="static it.academy.utils.Constants.PAGE_NUMBER" %>
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>

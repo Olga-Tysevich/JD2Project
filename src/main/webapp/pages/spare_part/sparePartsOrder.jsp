@@ -1,4 +1,4 @@
-<%@ page import="static it.academy.utils.Constants.*" %>
+<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.SparePartDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART_ORDER" %>

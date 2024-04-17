@@ -6,7 +6,7 @@ import it.academy.services.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.constants.Constants.*;
 
 public class ShowDeviceType implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
