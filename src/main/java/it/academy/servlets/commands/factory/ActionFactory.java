@@ -4,6 +4,7 @@ import it.academy.servlets.commands.ActionCommand;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.MessageConstants.UNKNOWN_COMMAND;
 
 @Slf4j
 public class ActionFactory {
@@ -12,15 +13,12 @@ public class ActionFactory {
         ActionCommand current;
 
         String action = req.getParameter(COMMAND);
-        log.info(String.format(CURRENT_CLASS,  this.getClass().getSimpleName()));
-        log.info(String.format(CURRENT_ACTION, action));
 
         try {
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();
-            log.info(String.format(CURRENT_COMMAND, current));
         } catch (IllegalArgumentException e) {
-            log.error(String.format(UNKNOWN_COMMAND, action));
+            log.error(UNKNOWN_COMMAND, action);
             throw e;
         }
 

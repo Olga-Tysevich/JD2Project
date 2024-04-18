@@ -16,10 +16,11 @@ public class ShowDeviceTypeTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         try {
-            return TableExtractor.extract(req,
-                    (a, b, f, c) -> deviceTypeService.findDeviceTypes(a, b, f, c),
-                    (a, i) -> deviceTypeService.findDeviceTypes(a, i),
-                    SHOW_DEVICE_TYPE_TABLE);
+//            return TableExtractor.extract(req,
+//                    (a, b, f, c) -> deviceTypeService.findDeviceTypes(a, b, f, c),
+//                    (a, i) -> deviceTypeService.findDeviceTypes(a, i),
+//                    SHOW_DEVICE_TYPE_TABLE);
+            return null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ERROR_PAGE_PATH;

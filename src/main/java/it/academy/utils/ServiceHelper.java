@@ -20,7 +20,7 @@ import static it.academy.utils.constants.MessageConstants.OBJECTS_NOT_FOUND_PATT
 @Slf4j
 public class ServiceHelper {
 
-    public static int countMaxPageNumber(int listSize) {
+    public static int countMaxPageNumber(long listSize) {
         return (int) Math.ceil(((double) listSize) / LIST_SIZE);
     }
 

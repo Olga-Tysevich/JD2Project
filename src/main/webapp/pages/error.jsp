@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <h1><%=request.getAttribute(ERROR)%></h1>
+        <h1><%=ERROR_MESSAGE%></h1>
 
         <form action="main" method="post">
             <input type="hidden" name="<%=COMMAND%>" value="<%=OPEN_PAGE%>">

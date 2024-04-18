@@ -6,12 +6,14 @@ import it.academy.dto.req.ServiceCenterDTO;
 import it.academy.services.ServiceCenterService;
 import it.academy.services.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
 
+@Slf4j
 public class ShowNewAccount implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
@@ -35,8 +37,6 @@ public class ShowNewAccount implements ActionCommand {
             return NEW_ACCOUNT_PAGE_PATH;
         }
         req.setAttribute(ERROR, SERVICE_CENTERS_NOT_FOUND);
-        System.out.println(SERVICE_CENTERS_NOT_FOUND);
-
         return MAIN_PAGE_PATH;
     }
 

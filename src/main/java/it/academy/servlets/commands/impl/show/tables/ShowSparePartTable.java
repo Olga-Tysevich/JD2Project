@@ -16,11 +16,12 @@ public class ShowSparePartTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         try {
-            return TableExtractor.extract(req,
-                    (a, b, f, c) -> sparePartService.findSpareParts(a, b, f, c),
-                    (a, i) -> sparePartService.findSpareParts(a, i),
-                    SHOW_SPARE_PART_TABLE);
+//            return TableExtractor.extract(req,
+//                    (a, b, f, c) -> sparePartService.findSpareParts(a, b, f, c),
+//                    (a, i) -> sparePartService.findSpareParts(a, i),
+//                    SHOW_SPARE_PART_TABLE);
 
+            return null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ERROR_PAGE_PATH;

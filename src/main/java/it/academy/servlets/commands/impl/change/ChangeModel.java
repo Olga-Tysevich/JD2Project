@@ -29,7 +29,6 @@ public class ChangeModel implements ActionCommand {
                     MODEL,
                     MODEL_PAGE_PATH,
                     () -> new ShowModelTable().execute(req));
-            log.info(String.format(CURRENT_PAGE, result));
             return result;
         } catch (Exception e) {
             return ERROR_PAGE_PATH;

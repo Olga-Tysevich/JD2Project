@@ -17,10 +17,11 @@ public class ShowModelTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         try {
-            return TableExtractor.extract(req,
-                    (a, b, f, c) -> modelService.findModels(a, b, f, c),
-                    (a, i) -> modelService.findModels(a, i),
-                    SHOW_MODEL_TABLE);
+//            return TableExtractor.extract(req,
+//                    (a, b, f, c) -> modelService.findModels(a, b, f, c),
+//                    (a, i) -> modelService.findModels(a, i),
+//                    SHOW_MODEL_TABLE);
+            return null;
         } catch (BrandsNotFound | DeviceTypesNotFound e) {
             req.setAttribute(ERROR, e.getMessage());
             return MAIN_PAGE_PATH;

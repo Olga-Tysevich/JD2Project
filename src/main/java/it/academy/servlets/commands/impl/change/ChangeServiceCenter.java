@@ -28,7 +28,6 @@ public class ChangeServiceCenter implements ActionCommand {
                     SERVICE_CENTER,
                     SERVICE_CENTER_PAGE_PATH,
                     () -> new ShowServiceCenterTable().execute(req));
-            log.info(String.format(CURRENT_PAGE, result));
             return result;
         } catch (Exception e) {
             System.out.println(e.getMessage());

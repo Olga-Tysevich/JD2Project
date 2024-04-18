@@ -1,9 +1,7 @@
 package it.academy.entities;
 
 import it.academy.utils.enums.RoleEnum;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -26,7 +24,6 @@ public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    @NotNull(message = ID_MUST_BE_NOT_NULL)
     private Long id;
 
     @Column(name = "active")
@@ -50,7 +47,6 @@ public class Account implements Serializable {
 
     @Column
     @NotNull(message = INVALID_PASSWORD_ERROR)
-    @Pattern(regexp = PASSWORD_PATTERN, message = INVALID_PASSWORD_ERROR)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -59,6 +55,8 @@ public class Account implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_center_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private ServiceCenter serviceCenter;
 
 }

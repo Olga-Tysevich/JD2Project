@@ -17,10 +17,11 @@ public class ShowServiceCenterTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         try {
-            return TableExtractor.extract(req,
-                    (a, p, f, c) -> serviceCenterService.findServiceCenters(a, p, f, c),
-                    (a, p) -> serviceCenterService.findServiceCenters(a, p),
-                    SHOW_SERVICE_CENTER_TABLE);
+//            return TableExtractor.extract(req,
+//                    (a, p, f, c) -> serviceCenterService.findServiceCenters(a, p, f, c),
+//                    (a, p) -> serviceCenterService.findServiceCenters(a, p),
+//                    SHOW_SERVICE_CENTER_TABLE);
+            return null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ERROR_PAGE_PATH;

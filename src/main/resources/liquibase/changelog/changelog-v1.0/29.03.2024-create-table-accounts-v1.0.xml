@@ -50,10 +50,9 @@
 
     <changeSet id="insert_admin_account_id" author="Olga Tysevich">
     <insert tableName="accounts">
-        <column name="email" value="olga@mail.ru"/>
+        <column name="email" value="admin@mail.ru"/>
         <column name="active" valueBoolean="true"/>
-        <column name="email" value="olga@mail.ru"/>
-        <column name="password" value="$2a$10$ulZ1o903hUk6W33a9tLyBOOtx00iRNSsBTtibCVgjBEr4.2s6v482"/>
+        <column name="password" value="$2a$10$0nBBb9riyviQfNlJ94vxduDG.6WP4eoULnO6zu7ZSlQ6FsVF1KFlC"/>
         <column name="role" value="ADMIN"/>
         <column name="user_name" value="admin"/>
         <column name="user_surname" value="admin"/>

@@ -3,8 +3,8 @@ package it.academy;
 import it.academy.dto.req.*;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.services.*;
-import it.academy.services.admin.AdminService;
-import it.academy.services.admin.impl.AdminServiceImpl;
+import it.academy.services.account.AccountService;
+import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.services.impl.*;
 import it.academy.utils.Generator;
 import it.academy.utils.converters.BrandConverter;
@@ -21,7 +21,7 @@ import static it.academy.utils.constants.Constants.RANDOM;
 @Slf4j
 public class Runner {
     public static final int MAX_SIZE = 30;
-    private static AdminService adminService = new AdminServiceImpl();
+    private static AccountService accountService = new AccountServiceImpl();
     private static ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private static BrandService brandService = new BrandServiceImpl();
     private static DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
@@ -29,7 +29,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        AccountDTO admin = adminService.findAccount(1L);
+        AccountDTO admin = accountService.findAccount(1L);
         log.info(admin.toString());
 
         List<ServiceCenterDTO> serviceCenters = IntStream.range(0, MAX_SIZE)
@@ -54,7 +54,7 @@ public class Runner {
 //            createAccountDTO.setCurrentAccount(admin);
             createAccountDTO.setServiceCenterId(serviceCenterDTOS.get(RANDOM.nextInt(serviceCenterDTOS.size())).getId());
             try {
-                adminService.createAccount(createAccountDTO);
+                accountService.createAccount(createAccountDTO);
             } catch (Exception ignored) {
             }
         }

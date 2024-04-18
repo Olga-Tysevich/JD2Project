@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.OPEN_PAGE" %>
+<%@ page import="it.academy.dto.req.CreateAccountDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -16,6 +17,7 @@
 
         <%
             List<ServiceCenterDTO> serviceCenters = (List<ServiceCenterDTO>) request.getAttribute(SERVICE_CENTERS);
+            CreateAccountDTO account = (CreateAccountDTO) request.getAttribute(ACCOUNT);
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
         %>
         <div class="lr-container">
@@ -37,28 +39,33 @@
 
                 <div class="f-input">
                     <label class="form-el">email:</label>
-                    <input class="f-form" required type="email" name="<%=EMAIL%>" value="olga@mail.ru">
+                    <input class="f-form" required type="email" name="<%=EMAIL%>" value="<%=account.getEmail()%>"
+                    pattern="^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Имя пользователя:</label>
-                    <input class="f-form" required type="text" name="<%=USER_NAME%>" value="User">
+                    <input class="f-form" required type="text" name="<%=USER_NAME%>" value="<%=account.getUserName()%>"
+                    pattern="[A-ZА-Я][a-zа-я]{2,19}">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Фамилия пользователя:</label>
-                    <input class="f-form" required type="text" name="<%=USER_SURNAME%>" value="User surname">
+                    <input class="f-form" required type="text" name="<%=USER_SURNAME%>" value="<%=account.getUserSurname()%>"
+                    pattern="[A-ZА-Я][a-zа-я]{2,19}">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Введите пароль:</label>
-                    <input class="f-form" required type="password" placeholder="Введите пароль" name="<%=PASSWORD%>" value="Olga8707!"
+                    <input class="f-form" required type="password" placeholder="Введите пароль"
+                           name="<%=PASSWORD%>" value="<%=account.getPassword()%>"
                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Введите пароль:</label>
-                    <input class="f-form" required type="password" placeholder="Подтвердите пароль" name="<%=PASSWORD_CONFIRM%>" value="Olga8707!"
+                    <input class="f-form" required type="password" placeholder="Подтвердите пароль"
+                           name="<%=PASSWORD_CONFIRM%>" value="<%=account.getConfirmPassword()%>"
                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
                 </div>
 
@@ -77,7 +84,9 @@
             </form>
 
             <form action="main" method="post" id="cancel">
-                <input type="hidden" name="command" value="<%=OPEN_PAGE%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=OPEN_PAGE%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=MAIN_PAGE_PATH%>">
+                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             </form>
         </div>
     </div>

@@ -4,6 +4,8 @@ import it.academy.dao.AccountDAO;
 import it.academy.entities.Account;
 import it.academy.entities.ServiceCenter;
 import it.academy.utils.dao.TransactionManger;
+
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -20,11 +22,16 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
     }
 
     @Override
-    public boolean checkIfExist(Account account) {
+    public boolean checkIfEmailExist(Account account) {
         TypedQuery<Account> find = entityManager().createQuery(CHECK_ACCOUNT, Account.class);
         find.setParameter(OBJECT_ID, account.getId());
         find.setParameter(EMAIL, account.getEmail());
-        return find.getSingleResult() == null;
+        try {
+            Account result = find.getSingleResult();
+            return result == null;
+        } catch (NoResultException e) {
+            return false;
+        }
     }
 
     @Override

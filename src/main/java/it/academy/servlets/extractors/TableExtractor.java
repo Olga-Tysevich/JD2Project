@@ -1,15 +1,10 @@
 package it.academy.servlets.extractors;
 
-import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.ListForPage;
-import it.academy.servlets.commands.factory.CommandEnum;
-import it.academy.utils.interfaces.ActiveEntitySupplier;
-import it.academy.utils.interfaces.FilteredEntitySupplier;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 import static it.academy.utils.constants.Constants.*;
 
@@ -17,28 +12,22 @@ import static it.academy.utils.constants.Constants.*;
 @Slf4j
 public class TableExtractor {
 
-    public static <T> String extract(HttpServletRequest req, FilteredEntitySupplier<ListForPage<T>> methodWithFilters,
-                                     ActiveEntitySupplier<ListForPage<T>> methodWithoutFilters, CommandEnum command) {
+    public static Map<String, Object> extract(HttpServletRequest request) {
 
-        log.info(String.format(CURRENT_CLASS,  FormExtractor.class.getSimpleName()));
-        TableReq request = Extractor.extract(req, new TableReq());
-        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        log.info(String.format(CURRENT_ACCOUNT_PATTERN,  currentAccount));
+        Map<String, Object> pageData = new HashMap<>();
+        int pageNumber = request.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        String page = request.getParameter(PAGE) != null ? request.getParameter(PAGE) : MAIN_PAGE_PATH;
+        String userInput = request.getParameter(USER_INPUT);
+        String filter = request.getParameter(FILTER);
+        String command = request.getParameter(COMMAND);
 
-        ListForPage<T> list;
-        if (request.getInput() != null && !request.getInput().isBlank()
-                && request.getFilter() != null && !request.getFilter().isBlank()) {
-            list = methodWithFilters.get(currentAccount, request.getPageNumber(), request.getFilter(), request.getInput());
-        } else {
-            list = methodWithoutFilters.get(currentAccount, request.getPageNumber());
-        }
-        log.info(String.format(CURRENT_COMMAND, command));
-        list.setPage(request.getPage());
-        list.setCommand(command.name());
+        pageData.put(PAGE_NUMBER, pageNumber);
+        pageData.put(PAGE, page);
+        pageData.put(USER_INPUT, userInput);
+        pageData.put(FILTER, filter);
+        pageData.put(COMMAND, command);
 
-        req.setAttribute(LIST_FOR_PAGE, list);
-
-        return MAIN_PAGE_PATH;
+        return pageData;
     }
 
 }

@@ -17,10 +17,11 @@ public class ShowBrandTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         try {
-            return TableExtractor.extract(req,
-                    (a, b, f, c) -> brandService.findBrands(a, b, f, c),
-                    (a, i) -> brandService.findBrands(a, i),
-                    SHOW_BRAND_TABLE);
+//            return TableExtractor.extract(req,
+//                    (a, b, f, c) -> brandService.findBrands(a, b, f, c),
+//                    (a, i) -> brandService.findBrands(a, i),
+//                    SHOW_BRAND_TABLE);
+            return null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ERROR_PAGE_PATH;

@@ -28,7 +28,6 @@ public class ChangeBrand implements ActionCommand {
                     BRAND,
                     BRAND_PAGE_PATH,
                     () -> new ShowBrandTable().execute(req));
-            log.info(String.format(CURRENT_PAGE, result));
             return result;
         } catch (Exception e) {
             return ERROR_PAGE_PATH;

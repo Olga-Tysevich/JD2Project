@@ -1,10 +1,9 @@
 <%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
-<%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_ACCOUNT" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -18,7 +17,6 @@
         <%
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             AccountDTO account = (AccountDTO) request.getAttribute(ACCOUNT);
-            ServiceCenterDTO serviceCenter = account.getServiceCenter();
         %>
         <div class="lr-container">
             <form action="main" method="post" id="account">
@@ -26,8 +24,10 @@
                     <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_ACCOUNT%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
-                    <input type="hidden" name="<%=ROLE%>" value="<%=RoleEnum.SERVICE_CENTER%>">
-                    <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=serviceCenter.getId()%>">
+                    <input type="hidden" name="<%=ROLE%>" value="<%=account.getRole()%>">
+                    <% if (!RoleEnum.ADMIN.equals(account.getRole())) { %>
+                    <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=account.getServiceCenterId()%>">
+                    <% } %>
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
                 </div>
                 <div class="f-input">
@@ -41,18 +41,26 @@
                 </div>
 
                 <div class="f-input">
+                    <label class="form-el">Сервисный центр:</label>
+                    <input class="f-form" type="text" value="<%=account.getServiceCenterName()%>" disabled>
+                </div>
+
+                <div class="f-input">
                     <label class="form-el">email:</label>
-                    <input class="f-form" type="text" name="<%=EMAIL%>" value="<%=account.getEmail()%>">
+                    <input class="f-form" type="text" name="<%=EMAIL%>" value="<%=account.getEmail()%>"
+                           pattern="^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Имя пользователя:</label>
-                    <input class="f-form" type="text" name="<%=USER_NAME%>" value="<%=account.getUserName()%>">
+                    <input class="f-form" type="text" name="<%=USER_NAME%>" value="<%=account.getUserName()%>"
+                           pattern="[A-ZА-Я][a-zа-я]{2,19}">
                 </div>
 
                 <div class="f-input">
                     <label class="form-el">Фамилия пользователя:</label>
-                    <input class="f-form" type="text" name="<%=USER_SURNAME%>" value="<%=account.getUserSurname()%>">
+                    <input class="f-form" type="text" name="<%=USER_SURNAME%>" value="<%=account.getUserSurname()%>"
+                           pattern="[A-ZА-Я][a-zа-я]{2,19}">
                 </div>
 
                 <div class="f-input">

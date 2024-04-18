@@ -72,7 +72,7 @@
                 <legend>Компания</legend>
                 <form action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_ACCOUNT%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=ACCOUNT_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
                 </form>

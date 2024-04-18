@@ -1,4 +1,4 @@
-package it.academy.services.admin.impl;
+package it.academy.services.account.impl;
 
 import it.academy.dao.AccountDAO;
 import it.academy.dao.ServiceCenterDAO;
@@ -15,7 +15,7 @@ import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.account.ValidationException;
 import it.academy.exceptions.common.ObjectCreationFailed;
 import it.academy.exceptions.common.ObjectNotFound;
-import it.academy.services.admin.AdminService;
+import it.academy.services.account.AccountService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.AccountConverter;
@@ -30,12 +30,14 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static it.academy.utils.EntityValidator.validateEntity;
-import static it.academy.utils.constants.Constants.EMAIL;
-import static it.academy.utils.constants.Constants.LIST_SIZE;
+import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.MessageConstants.*;
+import static it.academy.utils.constants.MessageConstants.OBJECT_CREATED_PATTERN;
+import static it.academy.utils.constants.MessageConstants.OBJECT_FOUND_PATTERN;
+import static it.academy.utils.constants.MessageConstants.OBJECT_UPDATED_PATTERN;
 
 @Slf4j
-public class AdminServiceImpl implements AdminService {
+public class AccountServiceImpl implements AccountService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
@@ -52,6 +54,7 @@ public class AdminServiceImpl implements AdminService {
 
         long serviceCenterId = createAccountDTO.getServiceCenterId();
         setServiceCenter(account, serviceCenterId);
+        log.info(OBJECT_FOR_SAVE_PATTERN, account);
 
         validateAccount(account);
 
@@ -62,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
         } catch (Exception e) {
             log.error(OBJECT_CREATION_FAILED_PATTERN, account, e.getMessage());
             transactionManger.rollback();
-            throw new ObjectCreationFailed();
+            throw new ObjectCreationFailed(e.getMessage());
         }
 
         transactionManger.commit();
@@ -72,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
     public void updateAccount(ChangeAccountDTO changeAccount) throws EmailAlreadyRegistered,
             ObjectNotFound, ValidationException {
 
-        Account result = AccountConverter.convertToEntity(changeAccount);
+        Account account = AccountConverter.convertToEntity(changeAccount);
         transactionManger.beginTransaction();
         Account temp = accountDAO.find(changeAccount.getId());
 
@@ -81,26 +84,27 @@ public class AdminServiceImpl implements AdminService {
             throw new ObjectNotFound();
         }
 
-        if (accountDAO.checkIfExist(result)) {
+        if (accountDAO.checkIfEmailExist(account)) {
             transactionManger.rollback();
             throw new EmailAlreadyRegistered(changeAccount.getEmail());
         }
 
-        long serviceCenterId = changeAccount.getServiceCenterId();
-        setServiceCenter(result, serviceCenterId);
+        Long serviceCenterId = changeAccount.getServiceCenterId();
+        setServiceCenter(account, serviceCenterId);
+        log.info(OBJECT_FOR_UPDATE_PATTERN, account);
 
         if (changeAccount.getPassword() == null || changeAccount.getPassword().isBlank()) {
-            result.setPassword(temp.getPassword());
+            account.setPassword(temp.getPassword());
         }
 
-        validateAccount(result);
+        validateAccount(account);
 
         try {
-            accountDAO.update(result);
+            accountDAO.update(account);
             log.info(OBJECT_UPDATED_PATTERN, changeAccount);
         } catch (Exception e) {
             transactionManger.rollback();
-            log.error(OBJECT_UPDATE_FAILED_PATTERN, result, e.getMessage());
+            log.error(OBJECT_UPDATE_FAILED_PATTERN, account, e.getMessage());
             throw e;
         }
 
@@ -124,28 +128,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber) {
-        return find(accountDAO::findAll, pageNumber);
+        long numberOfEntries = accountDAO.getNumberOfEntries();
+        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
+        return find(() -> accountDAO.findForPage(pageNumber, LIST_SIZE), pageNumber, maxPageNumber);
     }
 
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
-        return find(() -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber);
+        long numberOfEntries = accountDAO.getNumberOfEntriesByFilter(filter, input);
+        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
+        return find(() -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber, maxPageNumber);
     }
 
-    @Override
-    public ListForPage<AccountDTO> findServiceAccounts(long id, int pageNumber) {
-        return find(() -> accountDAO.findServiceCenterAccounts(id, pageNumber, LIST_SIZE), pageNumber);
-    }
-
-    @Override
-    public ListForPage<AccountDTO> findServiceAccounts(long id, int pageNumber, String filter, String input) {
-        return find(() -> accountDAO.findServiceCenterAccounts(id, pageNumber, LIST_SIZE, filter, input), pageNumber);
-    }
-
-    private ListForPage<AccountDTO> find(Supplier<List<Account>> methodForSearch, int pageNumber) {
+    private ListForPage<AccountDTO> find(Supplier<List<Account>> methodForSearch, int pageNumber, int maxPageNumber) {
         List<Account> accounts = ServiceHelper.getList(transactionManger, methodForSearch, Account.class);
         List<EntityFilter> filters = FilterManager.getFiltersForAccount();
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(accounts.size());
         List<AccountDTO> listDTO = AccountConverter.convertToDTOList(accounts);
         return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
     }
@@ -165,7 +162,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    private void setServiceCenter(Account account, long serviceCenterId) throws ObjectNotFound {
+    private void setServiceCenter(Account account, Long serviceCenterId) throws ObjectNotFound {
         if (RoleEnum.ADMIN.equals(account.getRole())) {
             return;
         }

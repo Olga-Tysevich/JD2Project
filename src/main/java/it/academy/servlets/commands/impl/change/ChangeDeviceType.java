@@ -29,7 +29,6 @@ public class ChangeDeviceType implements ActionCommand {
                     DEVICE_TYPE,
                     DEVICE_TYPE_PAGE_PATH,
                     () -> new ShowDeviceTypeTable().execute(req));
-            log.info(String.format(CURRENT_PAGE, result));
             return result;
         } catch (Exception e) {
             return ERROR_PAGE_PATH;

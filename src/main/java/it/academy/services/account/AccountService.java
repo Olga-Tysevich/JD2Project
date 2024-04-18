@@ -1,4 +1,4 @@
-package it.academy.services.admin;
+package it.academy.services.account;
 
 import it.academy.dto.req.ChangeAccountDTO;
 import it.academy.dto.req.CreateAccountDTO;
@@ -10,7 +10,7 @@ import it.academy.exceptions.account.ValidationException;
 import it.academy.exceptions.common.ObjectCreationFailed;
 import it.academy.exceptions.common.ObjectNotFound;
 
-public interface AdminService {
+public interface AccountService {
 
     void createAccount(CreateAccountDTO account) throws EnteredPasswordsNotMatch, EmailAlreadyRegistered,
             ValidationException, ObjectCreationFailed, ObjectNotFound;
@@ -22,10 +22,5 @@ public interface AdminService {
     ListForPage<AccountDTO> findAccounts(int pageNumber);
 
     ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input);
-
-    ListForPage<AccountDTO> findServiceAccounts(long id, int pageNumber);
-
-    ListForPage<AccountDTO> findServiceAccounts(long id, int pageNumber, String filter, String input);
-
 
 }
