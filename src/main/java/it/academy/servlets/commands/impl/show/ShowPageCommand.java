@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.MessageConstants.CURRENT_PAGE_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.CURRENT_PAGE_PATTERN;
 
 @Slf4j
 public class ShowPageCommand implements ActionCommand {

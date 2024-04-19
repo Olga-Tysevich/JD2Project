@@ -5,7 +5,7 @@ import it.academy.exceptions.common.AccessDenied;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import static it.academy.utils.constants.MessageConstants.CURRENT_ACCOUNT_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.CURRENT_ACCOUNT_PATTERN;
 
 @UtilityClass
 @Slf4j

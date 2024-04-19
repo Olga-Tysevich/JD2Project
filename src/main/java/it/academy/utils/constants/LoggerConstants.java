@@ -3,14 +3,13 @@ package it.academy.utils.constants;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class MessageConstants {
+public class LoggerConstants {
     public static final int MIN_FIELD_LENGTH = 2;
     public static final int MAX_FIELD_LENGTH = 20;
 
     //entity patterns
     public static final String EMAIL_PATTERN = "^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$";
     public static final String TEXT_PATTERN = "[A-ZА-Я][a-zа-я]{2,19}";
-    public static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$";
 
     //logger
     public static final String EXTRACT_ERROR_PATTERN = "Extract error: {}, object {}, field {}";
@@ -25,13 +24,12 @@ public class MessageConstants {
     public static final String INVALID_SURNAME_ERROR = "Invalid surname!";
     public static final String INVALID_PASSWORD_ERROR = "Password must be not null!";
     public static final String INVALID_ROLE_ERROR = "Role is empty!";
+    public static final String OBJECT_ALREADY_EXIST = "Object already exist! Object: {}";
     public static final String OBJECT_NOT_FOUND_PATTERN = "Object not found id: {}, class: {}";
     public static final String OBJECTS_NOT_FOUND_PATTERN = "Objects not found, class: {}";
     public static final String OBJECT_CREATION_FAILED_PATTERN = "Object creation failed: {}, cause {}";
     public static final String OBJECT_UPDATE_FAILED_PATTERN = "Object update failed: {}, cause {}";
-    public static final String OBJECT_EXTRACT_FAILED_PATTERN = "Object extract failed: {}, cause {}";
     public static final String CURRENT_COMMAND = "Current command: {}";
-    public static final String CURRENT_PAGE = "Current page: {}";
     public static final String INVALID_ROLE = "Invalid role! {}";
     public static final String WRONG_PASSWORD_ERROR = "Wrong password. Current: {}; Except: {}";
     public static final String USER_IS_BLOCKED_ERROR = "User is blocked {}";

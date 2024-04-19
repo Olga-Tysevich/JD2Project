@@ -14,7 +14,7 @@ import java.sql.Date;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.MessageConstants.EXTRACT_ERROR_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.EXTRACT_ERROR_PATTERN;
 
 @UtilityClass
 @Slf4j

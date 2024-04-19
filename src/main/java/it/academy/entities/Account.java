@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-import static it.academy.utils.constants.MessageConstants.*;
+import static it.academy.utils.constants.LoggerConstants.*;
 
 @Data
 @NoArgsConstructor

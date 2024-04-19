@@ -1,17 +1,17 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.exceptions.common.ObjectAlreadyExist;
+import it.academy.services.account.ServiceCenterService;
+import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
-import it.academy.servlets.extractors.FormExtractor;
-import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
+import it.academy.servlets.extractors.Extractor;
+import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
-
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
 @Slf4j
 public class ChangeServiceCenter implements ActionCommand {
@@ -20,18 +20,17 @@ public class ChangeServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
+        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
+        CommandHelper.checkRole(currentAccount);
+
         try {
-            String result = FormExtractor.extract(req,
-                    (a) -> ThrowingConsumerWrapper.apply(() -> serviceCenterService.updateServiceCenter((ServiceCenterDTO) a)),
-                    (id) -> serviceCenterService.findServiceCenter((Long) id),
-                    ServiceCenterDTO.class,
-                    SERVICE_CENTER,
-                    SERVICE_CENTER_PAGE_PATH,
-                    () -> new ShowServiceCenterTable().execute(req));
-            return result;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ERROR_PAGE_PATH;
+            ServiceCenterDTO forUpdate = Extractor.extract(req, new ServiceCenterDTO());
+            log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
+            serviceCenterService.updateServiceCenter(forUpdate);
+            return MAIN_PAGE_PATH;
+        } catch (ObjectAlreadyExist e) {
+            req.setAttribute(ERROR, e.getMessage());
+            return SERVICE_CENTER_PAGE_PATH;
         }
     }
 

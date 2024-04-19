@@ -6,10 +6,10 @@ import it.academy.dto.resp.AccountDTO;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.account.ValidationException;
-import it.academy.services.ServiceCenterService;
+import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.MessageConstants.OBJECT_EXTRACTED_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
 @Slf4j
 public class AddAccount implements ActionCommand {
@@ -36,7 +36,7 @@ public class AddAccount implements ActionCommand {
             accountService.createAccount(forCreate);
             return MAIN_PAGE_PATH;
         } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
-            List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters(currentAccount);
+            List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
             req.setAttribute(ERROR, e.getMessage());
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);
             return NEW_ACCOUNT_PAGE_PATH;

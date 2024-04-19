@@ -12,7 +12,7 @@
                 <input type="hidden" name="<%=COMMAND%>" value="<%=LOGIN%>">
 
                 <label class="form-el" for="email">Email:</label>
-                <input class="form-el" required type="email" name="email" placeholder="Введите email" value="olga@mail.ru"
+                <input class="form-el" required type="email" name="email" placeholder="Введите email" value="admin@mail.ru"
                        id="email"
                        pattern="^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$">
 

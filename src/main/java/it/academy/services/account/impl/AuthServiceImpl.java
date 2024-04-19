@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.MessageConstants.*;
+import static it.academy.utils.constants.LoggerConstants.*;
 
 @Slf4j
 public class AuthServiceImpl implements AuthService {

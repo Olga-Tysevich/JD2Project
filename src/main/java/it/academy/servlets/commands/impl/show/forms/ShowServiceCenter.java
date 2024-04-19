@@ -1,12 +1,11 @@
 package it.academy.servlets.commands.impl.show.forms;
 
 import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.account.ServiceCenterService;
+import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.Builder;
 import javax.servlet.http.HttpServletRequest;
-
 import static it.academy.servlets.commands.factory.CommandEnum.ADD_SERVICE_CENTER;
 import static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SERVICE_CENTER;
 import static it.academy.utils.constants.Constants.*;
@@ -17,14 +16,13 @@ public class ShowServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null? Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         ServiceCenterDTO serviceCenterDTO;
         String id = req.getParameter(OBJECT_ID);
 
         if (id != null && !id.isBlank()) {
-            long repairWorkshopId = Long.parseLong(req.getParameter(OBJECT_ID));
-            serviceCenterDTO = serviceCenterService.findServiceCenter(repairWorkshopId);
-
+            long serviceCenterId = Long.parseLong(req.getParameter(OBJECT_ID));
+            serviceCenterDTO = serviceCenterService.findServiceCenter(serviceCenterId);
             req.setAttribute(COMMAND, CHANGE_SERVICE_CENTER);
         } else  {
             serviceCenterDTO = Builder.buildEmptyServiceCenter();

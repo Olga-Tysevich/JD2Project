@@ -26,13 +26,13 @@ public class Constants {
     public static final String GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value AND active = true";
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
     public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
+    public static final String CHECK_SERVICE_CENTER = "SELECT s FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
     public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
     public static final String PARAMETER_VALUE = "value";
-    public static final String SERVICE_CENTER_ID_PARAMETER = "service_center_id";
     //parameters
     //common parameters
     public static final String OBJECT_ID = "id";
@@ -149,7 +149,8 @@ public class Constants {
     public static final String USER_IS_BLOCKED = "Пользователь заблокирован!";
     public static final String INCORRECT_PASSWORD = "Неверный пароль!";
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
-    public static final String SERVICE_CENTERS_ALREADY_EXIST = "Сервисный центр уже существует!";
+    public static final String SERVICE_CENTER_ALREADY_EXIST = "Сервисный центр уже существует!";
+    public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
     public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
     public static final String DEVICE_TYPE_ALREADY_EXIST = "Данный тип устройства уже добавлен!";
@@ -161,6 +162,7 @@ public class Constants {
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
     public static final String DEVICE_TYPE_NOT_SELECTED = "Не выбраны связанные устройства!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
+    public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";
     //description
     //role description
     public static final String ADMIN_DESCRIPTION = "Администатор";

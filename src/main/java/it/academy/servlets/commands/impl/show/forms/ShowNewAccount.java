@@ -3,14 +3,13 @@ package it.academy.servlets.commands.impl.show.forms;
 import it.academy.dto.req.CreateAccountDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.services.ServiceCenterService;
-import it.academy.services.impl.ServiceCenterServiceImpl;
+import it.academy.services.account.ServiceCenterService;
+import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 import static it.academy.utils.constants.Constants.*;
 
 @Slf4j
@@ -21,6 +20,7 @@ public class ShowNewAccount implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
+        CommandHelper.checkRole(currentAccount);
 
         CreateAccountDTO createAccountDTO = CreateAccountDTO.builder()
                 .email(DEFAULT_VALUE)
@@ -30,7 +30,7 @@ public class ShowNewAccount implements ActionCommand {
                 .confirmPassword(DEFAULT_VALUE)
                 .build();
 
-        List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters(currentAccount);
+        List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
         if (!serviceCenterList.isEmpty()) {
             req.setAttribute(ACCOUNT, createAccountDTO);
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);

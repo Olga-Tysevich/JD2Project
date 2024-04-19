@@ -14,8 +14,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static it.academy.utils.constants.Constants.LIST_SIZE;
-import static it.academy.utils.constants.MessageConstants.OBJECTS_FOUND_PATTERN;
-import static it.academy.utils.constants.MessageConstants.OBJECTS_NOT_FOUND_PATTERN;
+import static it.academy.utils.constants.Constants.OBJECTS_NOT_FOUND_MESSAGE;
+import static it.academy.utils.constants.LoggerConstants.*;
 
 @Slf4j
 public class ServiceHelper {
@@ -37,7 +37,7 @@ public class ServiceHelper {
         } catch (Exception e) {
             log.error(OBJECTS_NOT_FOUND_PATTERN, objectClass);
             transactionManger.rollback();
-            throw new ObjectNotFound();
+            throw new ObjectNotFound(OBJECTS_NOT_FOUND_MESSAGE);
         }
     }
 

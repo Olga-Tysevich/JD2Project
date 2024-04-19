@@ -31,10 +31,10 @@ import java.util.function.Supplier;
 
 import static it.academy.utils.EntityValidator.validateEntity;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.MessageConstants.*;
-import static it.academy.utils.constants.MessageConstants.OBJECT_CREATED_PATTERN;
-import static it.academy.utils.constants.MessageConstants.OBJECT_FOUND_PATTERN;
-import static it.academy.utils.constants.MessageConstants.OBJECT_UPDATED_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.*;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_CREATED_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_FOUND_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_UPDATED_PATTERN;
 
 @Slf4j
 public class AccountServiceImpl implements AccountService {
@@ -47,26 +47,20 @@ public class AccountServiceImpl implements AccountService {
             EmailAlreadyRegistered, ValidationException, ObjectCreationFailed, ObjectNotFound {
 
         checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
-        checkEmail(createAccountDTO.getEmail());
         Account account = AccountConverter.convertToEntity(createAccountDTO);
-
+        account.setIsActive(true);
         transactionManger.beginTransaction();
+
+        checkEmail(account);
 
         long serviceCenterId = createAccountDTO.getServiceCenterId();
         setServiceCenter(account, serviceCenterId);
         log.info(OBJECT_FOR_SAVE_PATTERN, account);
 
         validateAccount(account);
-
-        try {
-            encodePassword(account);
-            accountDAO.create(account);
-            log.info(OBJECT_CREATED_PATTERN, account);
-        } catch (Exception e) {
-            log.error(OBJECT_CREATION_FAILED_PATTERN, account, e.getMessage());
-            transactionManger.rollback();
-            throw new ObjectCreationFailed(e.getMessage());
-        }
+        encodePassword(account);
+        accountDAO.create(account);
+        log.info(OBJECT_CREATED_PATTERN, account);
 
         transactionManger.commit();
     }
@@ -81,13 +75,14 @@ public class AccountServiceImpl implements AccountService {
 
         if (temp == null) {
             transactionManger.rollback();
-            throw new ObjectNotFound();
+            throw new ObjectNotFound(USER_NOT_FOUND);
         }
 
-        if (accountDAO.checkIfEmailExist(account)) {
-            transactionManger.rollback();
-            throw new EmailAlreadyRegistered(changeAccount.getEmail());
+        if (RoleEnum.ADMIN.equals(changeAccount.getRole())) {
+            changeAccount.setServiceCenterId(null);
         }
+
+        checkEmail(account);
 
         Long serviceCenterId = changeAccount.getServiceCenterId();
         setServiceCenter(account, serviceCenterId);
@@ -98,16 +93,8 @@ public class AccountServiceImpl implements AccountService {
         }
 
         validateAccount(account);
-
-        try {
-            accountDAO.update(account);
-            log.info(OBJECT_UPDATED_PATTERN, changeAccount);
-        } catch (Exception e) {
-            transactionManger.rollback();
-            log.error(OBJECT_UPDATE_FAILED_PATTERN, account, e.getMessage());
-            throw e;
-        }
-
+        accountDAO.update(account);
+        log.info(OBJECT_UPDATED_PATTERN, changeAccount);
         transactionManger.commit();
 
     }
@@ -121,7 +108,7 @@ public class AccountServiceImpl implements AccountService {
                 return AccountConverter.convertToDTO(account);
             } catch (Exception e) {
                 log.error(OBJECT_NOT_FOUND_PATTERN, id, Account.class);
-                throw new ObjectNotFound();
+                throw new ObjectNotFound(USER_NOT_FOUND);
             }
         });
     }
@@ -174,7 +161,7 @@ public class AccountServiceImpl implements AccountService {
         } else {
             transactionManger.rollback();
             log.warn(OBJECT_NOT_FOUND_PATTERN, serviceCenterId, Account.class);
-            throw new ObjectNotFound();
+            throw new ObjectNotFound(SERVICE_CENTER_NOT_FOUND);
         }
     }
 
@@ -185,10 +172,10 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    private void checkEmail(String email) throws EmailAlreadyRegistered {
-        if (accountDAO.findByUniqueParameter(EMAIL, email) != null) {
+    private void checkEmail(Account account) throws EmailAlreadyRegistered {
+        if (accountDAO.checkIfEmailExist(account)) {
             transactionManger.rollback();
-            throw new EmailAlreadyRegistered(email);
+            throw new EmailAlreadyRegistered(account.getEmail());
         }
     }
 

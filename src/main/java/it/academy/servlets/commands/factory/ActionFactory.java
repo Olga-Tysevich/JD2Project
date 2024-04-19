@@ -4,7 +4,7 @@ import it.academy.servlets.commands.ActionCommand;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.MessageConstants.UNKNOWN_COMMAND;
+import static it.academy.utils.constants.LoggerConstants.UNKNOWN_COMMAND;
 
 @Slf4j
 public class ActionFactory {

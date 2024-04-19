@@ -1,11 +1,9 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.req.TableReq;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.extractors.Extractor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;

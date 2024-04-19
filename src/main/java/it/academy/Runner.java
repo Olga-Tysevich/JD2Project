@@ -4,7 +4,9 @@ import it.academy.dto.req.*;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.services.*;
 import it.academy.services.account.AccountService;
+import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.AccountServiceImpl;
+import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.services.impl.*;
 import it.academy.utils.Generator;
 import it.academy.utils.converters.BrandConverter;
@@ -37,7 +39,6 @@ public class Runner {
                 .collect(Collectors.toList());
 
         for (ServiceCenterDTO serviceCenter : serviceCenters) {
-            serviceCenter.setCurrentAccount(admin);
             try {
                 serviceCenterService.addServiceCenter(serviceCenter);
             } catch (Exception ignored) {
@@ -48,7 +49,7 @@ public class Runner {
                 .mapToObj(i -> Generator.generateAccount())
                 .collect(Collectors.toList());
 
-        List<ServiceCenterDTO> serviceCenterDTOS = serviceCenterService.findServiceCenters(admin);
+        List<ServiceCenterDTO> serviceCenterDTOS = serviceCenterService.findServiceCenters();
 
         for (CreateAccountDTO createAccountDTO : account) {
 //            createAccountDTO.setCurrentAccount(admin);
