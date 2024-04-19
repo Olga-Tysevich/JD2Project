@@ -6,6 +6,7 @@ import it.academy.dto.resp.SparePartDTO;
 import it.academy.entities.DeviceType;
 import it.academy.entities.SparePart;
 import it.academy.utils.SparePartForOrder;
+import it.academy.utils.converters.device.DeviceTypeConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;

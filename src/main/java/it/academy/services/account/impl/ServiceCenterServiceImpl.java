@@ -99,9 +99,9 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     private ListForPage<ServiceCenterDTO> find(Supplier<List<ServiceCenter>> methodForSearch, int pageNumber, int maxPageNumber) {
-        List<ServiceCenter> accounts = ServiceHelper.getList(transactionManger, methodForSearch, ServiceCenter.class);
+        List<ServiceCenter> serviceCenters = ServiceHelper.getList(transactionManger, methodForSearch, ServiceCenter.class);
         List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
-        List<ServiceCenterDTO> listDTO = ServiceCenterConverter.convertToDTOList(accounts);
+        List<ServiceCenterDTO> listDTO = ServiceCenterConverter.convertToDTOList(serviceCenters);
         return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
     }
 

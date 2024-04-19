@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.show.forms;
 
 import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.services.DeviceTypeService;
-import it.academy.services.impl.DeviceTypeServiceImpl;
+import it.academy.services.device.DeviceTypeService;
+import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 

@@ -24,7 +24,6 @@
             <tr>
                 <th>Наименование</th>
                 <th>Активно</th>
-
                 <% if (RoleEnum.ADMIN.equals(role)) {%>
                 <th class="menu">Управление</th>
                 <% } %>
@@ -41,7 +40,7 @@
                 <td class="code">
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND%>">
-                        <input type="hidden" name="<%=BRAND_ID%>" value="<%=brand.getId()%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>">

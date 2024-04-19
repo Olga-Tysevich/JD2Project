@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.device;
 
 import it.academy.dto.req.ChangeModelDTO;
 import it.academy.dto.resp.AccountDTO;

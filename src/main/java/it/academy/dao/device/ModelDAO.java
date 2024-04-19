@@ -1,10 +1,10 @@
-package it.academy.dao;
+package it.academy.dao.device;
 
 import it.academy.entities.Model;
 
 import java.util.List;
 
-public interface ModelDAO extends DAO<Model, Long> {
+public interface ModelDAO extends DeviceComponentDAO<Model, Long> {
 
     List<Model> findAllByBrandId(long brandId);
 

@@ -19,7 +19,6 @@ public class ShowServiceCenterTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-
         AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
         CommandHelper.checkRole(currentAccount);
 

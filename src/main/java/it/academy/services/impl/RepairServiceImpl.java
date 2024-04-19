@@ -1,6 +1,12 @@
 package it.academy.services.impl;
 
 import it.academy.dao.*;
+import it.academy.dao.device.BrandDAO;
+import it.academy.dao.device.DeviceDAO;
+import it.academy.dao.device.ModelDAO;
+import it.academy.dao.device.impl.BrandDAOImpl;
+import it.academy.dao.device.impl.DeviceDAOImpl;
+import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.impl.*;
 import it.academy.dto.req.BrandDTO;
 import it.academy.dto.req.ChangeRepairDTO;
@@ -12,6 +18,9 @@ import it.academy.services.RepairService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.*;
+import it.academy.utils.converters.device.BrandConverter;
+import it.academy.utils.converters.device.DeviceConverter;
+import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;

@@ -1,8 +1,8 @@
 package it.academy.services.impl;
 
-import it.academy.dao.DeviceTypeDAO;
+import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.SparePartDAO;
-import it.academy.dao.impl.DeviceTypeDAOImpl;
+import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.impl.SparePartDAOImpl;
 import it.academy.dto.req.ChangeSparePartDTO;
 import it.academy.dto.req.DeviceTypeDTO;
@@ -14,7 +14,7 @@ import it.academy.entities.SparePart;
 import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.SparePartService;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.DeviceTypeConverter;
+import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.SparePartConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;

@@ -2,8 +2,8 @@ package it.academy.servlets.commands.impl.add;
 
 import it.academy.dto.req.ChangeModelDTO;
 import it.academy.exceptions.common.AccessDenied;
-import it.academy.services.ModelService;
-import it.academy.services.impl.ModelServiceImpl;
+import it.academy.services.device.ModelService;
+import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.tables.ShowModelTable;
 import it.academy.servlets.extractors.Extractor;

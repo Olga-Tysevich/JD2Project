@@ -1,4 +1,4 @@
-package it.academy.utils.converters;
+package it.academy.utils.converters.device;
 
 import it.academy.dto.req.ChangeModelDTO;
 import it.academy.dto.resp.ModelDTO;

@@ -27,6 +27,7 @@ public class Constants {
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
     public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
     public static final String CHECK_SERVICE_CENTER = "SELECT s FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
+    public static final String CHECK_DEVICE_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
     public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
@@ -157,9 +158,11 @@ public class Constants {
     public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
+    public static final String BRAND_NOT_FOUND = "Бренд не найден!";
     public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
     public static final String MODELS_NOT_FOUND = "Нет добавленных моделей!";
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
+    public static final String DEVICE_TYPE_NOT_FOUND = "Тип устройства не найден!";
     public static final String DEVICE_TYPE_NOT_SELECTED = "Не выбраны связанные устройства!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
     public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";

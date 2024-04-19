@@ -1,6 +1,7 @@
-package it.academy.dao.impl;
+package it.academy.dao.device.impl;
 
-import it.academy.dao.ModelDAO;
+import it.academy.dao.device.ModelDAO;
+import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.Model;
 import it.academy.utils.dao.TransactionManger;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
 
-public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
+public class ModelDAOImpl extends DeviceComponentDAOImpl<Model, Long> implements ModelDAO {
 
     public ModelDAOImpl() {
         super(Model.class);
