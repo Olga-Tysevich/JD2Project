@@ -33,6 +33,7 @@ public class LoggerConstants {
     public static final String INVALID_ROLE = "Invalid role! {}";
     public static final String WRONG_PASSWORD_ERROR = "Wrong password. Current: {}; Except: {}";
     public static final String USER_IS_BLOCKED_ERROR = "User is blocked {}";
+    public static final String UNSUPPORTED_CLASS = "Unsupported field class! Field class {}";
 
     //info
     public static final String OBJECT_FOR_SAVE_PATTERN = "Object for save: {}";

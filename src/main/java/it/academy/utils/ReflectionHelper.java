@@ -1,6 +1,5 @@
 package it.academy.utils;
 
-import it.academy.dto.resp.AccountDTO;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
@@ -13,8 +12,8 @@ import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.List;
 
-import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.EXTRACT_ERROR_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.UNSUPPORTED_CLASS;
 
 @UtilityClass
 @Slf4j
@@ -26,19 +25,14 @@ public class ReflectionHelper {
         List<Field> fieldList = List.of(tClass.getDeclaredFields());
         fieldList.forEach(f -> {
             f.setAccessible(true);
-            if (f.getName().equals(CURRENT_ACCOUNT)) {
-                AccountDTO accountDTO = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
-                ThrowingConsumerWrapper.apply(() -> f.set(result, accountDTO));
-            } else {
-                String value = request.getParameter(f.getName());
-                if (value != null) {
-                    try {
-                        ThrowingConsumerWrapper.apply(() -> f.set(result,
-                                ReflectionHelper.defineParameterType(value, f.getType())));
-                    } catch (Exception e) {
-                        log.error(EXTRACT_ERROR_PATTERN, e.getMessage(), result, f.getName());
-                        throw e;
-                    }
+            String value = request.getParameter(f.getName());
+            if (value != null) {
+                try {
+                    ThrowingConsumerWrapper.apply(() -> f.set(result,
+                            ReflectionHelper.defineParameterType(value, f.getType())));
+                } catch (Exception e) {
+                    log.error(EXTRACT_ERROR_PATTERN, e.getMessage(), result, f.getName());
+                    throw e;
                 }
             }
         });
@@ -70,6 +64,7 @@ public class ReflectionHelper {
         } else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
             return Boolean.valueOf(parameter);
         } else {
+            log.error(UNSUPPORTED_CLASS, fieldClass);
             throw new IllegalArgumentException(UNSUPPORTED_CLASS);
         }
     }

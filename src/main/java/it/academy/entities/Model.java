@@ -1,7 +1,5 @@
 package it.academy.entities;
 
-import it.academy.entities.Brand;
-import it.academy.entities.DeviceType;
 import lombok.*;
 
 import javax.persistence.*;

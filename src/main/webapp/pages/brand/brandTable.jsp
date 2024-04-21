@@ -17,7 +17,7 @@
             ListForPage<BrandDTO> data = (ListForPage<BrandDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             List<BrandDTO> list = data.getList();
-            String currentPage = request.getParameter(PAGE);
+            String currentPage = (String) request.getAttribute(PAGE);
         %>
 
         <table>

@@ -116,6 +116,15 @@
 
             <fieldset class="f1">
                 <legend>Устройства</legend>
+                <% if (RoleEnum.ADMIN.equals(role)) { %>
+                <form  action="brands" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_MODEL%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input class="button button-fieldset" type="submit" value="Добавить модель"/>
+                </form>
+                <% } %>
+
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_TABLE_PAGE_PATH%>">

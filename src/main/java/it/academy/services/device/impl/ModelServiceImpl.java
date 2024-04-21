@@ -9,34 +9,32 @@ import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.req.BrandDTO;
 import it.academy.dto.req.ChangeModelDTO;
 import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.resp.ModelDTO;
-import it.academy.dto.resp.ModelListDTO;
-import it.academy.exceptions.common.ObjectAlreadyExist;
-import it.academy.utils.enums.RoleEnum;
+import it.academy.dto.resp.ModelForChangeDTO;
 import it.academy.entities.Brand;
 import it.academy.entities.DeviceType;
 import it.academy.entities.Model;
 import it.academy.exceptions.common.AccessDenied;
+import it.academy.exceptions.common.ObjectAlreadyExist;
+import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
-import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
+import it.academy.utils.constants.LoggerConstants;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.OBJECT_ALREADY_EXIST;
+import static it.academy.utils.constants.LoggerConstants.*;
 
 @Slf4j
 public class ModelServiceImpl implements ModelService {
@@ -46,136 +44,117 @@ public class ModelServiceImpl implements ModelService {
     private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
 
     @Override
-    public void createModel(ChangeModelDTO model) throws AccessDenied {
-        changeModel(model, modelDAO::create);
-        log.info(String.format(OBJECT_CREATED_PATTERN, model));
+    public void createModel(ChangeModelDTO modelDTO) throws AccessDenied {
+        Model model = ModelConverter.convertToEntity(modelDTO);
+        Supplier<Model> create = () -> {
+            Brand brand = brandDAO.find(modelDTO.getBrandId());
+            DeviceType deviceType = deviceTypeDAO.find(modelDTO.getDeviceTypeId());
+            model.setBrand(brand);
+            model.setType(deviceType);
+            checkIfExist(model);
+            checkIfComponentsAdded();
+            return modelDAO.create(model);
+        };
+        transactionManger.execute(create);
+        log.info(LoggerConstants.OBJECT_CREATED_PATTERN, model);
     }
 
     @Override
-    public void updateModel(ChangeModelDTO model) throws AccessDenied {
-        changeModel(model, modelDAO::update);
-        log.info(String.format(OBJECT_UPDATED_PATTERN, model));
-    }
-
-    private void changeModel(ChangeModelDTO model, Consumer<Model> method) throws AccessDenied {
-
-        Model result = ModelConverter.convertToEntity(model);
-
-        transactionManger.beginTransaction();
-        List<Brand> brands = brandDAO.findAll();
-        List<DeviceType> deviceTypes = deviceTypeDAO.findAll();
-
-        if (brands.isEmpty()) {
-            throw new BrandsNotFound();
-        }
-
-        if (deviceTypes.isEmpty()) {
-            throw new DeviceTypesNotFound();
-        }
-
-        Brand brand = brandDAO.find(model.getBrandId());
-        DeviceType deviceType = deviceTypeDAO.find(model.getDeviceTypeId());
-        result.setBrand(brand);
-        result.setType(deviceType);
-
-        Model temp = modelDAO.getModel(result);
-        if (temp != null && !temp.getId().equals(result.getId())) {
-            transactionManger.commit();
-            throw new IllegalArgumentException(MODEL_ALREADY_EXIST);
-        }
-
-        try {
-            method.accept(result);
-        } catch (Exception e) {
-            log.error(String.format(ERROR_PATTERN, e.getMessage(), result));
-            throw e;
-        }
-
-        transactionManger.commit();
+    public void updateModel(ChangeModelDTO modelDTO) throws AccessDenied {
+        Model model = ModelConverter.convertToEntity(modelDTO);
+        Supplier<Model> create = () -> {
+            Brand brand = brandDAO.find(modelDTO.getBrandId());
+            DeviceType deviceType = deviceTypeDAO.find(modelDTO.getDeviceTypeId());
+            model.setBrand(brand);
+            model.setType(deviceType);
+            checkIfExist(model);
+            return modelDAO.update(model);
+        };
+        transactionManger.execute(create);
+        log.info(LoggerConstants.OBJECT_CREATED_PATTERN, model);
     }
 
     @Override
-    public ModelDTO findModel(long id) {
+    public ModelForChangeDTO getModelForm() {
         return transactionManger.execute(() -> {
-            ModelDTO result = ModelConverter.convertToDTO(modelDAO.find(id));
-            try {
-                List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
-                List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findAll());
-                result.setDeviceTypes(deviceTypes);
-                result.setBrands(brands);
-                return result;
-            } catch (Exception e) {
-                log.error(String.format(ERROR_PATTERN, e.getMessage(), result));
-                throw e;
-            }
+            ModelDTO modelDTO = Builder.buildEmptyModel();
+            ModelForChangeDTO modelForChangeDTO = findDataForForm();
+            modelForChangeDTO.setModelDTO(modelDTO);
+            log.info(LoggerConstants.OBJECT_FOUND_PATTERN, modelDTO);
+            return modelForChangeDTO;
         });
     }
 
     @Override
-    public List<ModelDTO> findModels(AccountDTO accountDTO) {
+    public ModelForChangeDTO getModelForm(long id) {
+        return transactionManger.execute(() -> {
+            Model model = modelDAO.find(id);
+            if (model == null) {
+                log.warn(OBJECT_NOT_FOUND_PATTERN, id, Model.class);
+                throw new ObjectNotFound(MODEL_NOT_FOUND);
+            }
+            ModelDTO modelDTO = ModelConverter.convertToDTO(model);
+            ModelForChangeDTO modelForChangeDTO = findDataForForm();
+            modelForChangeDTO.setModelDTO(modelDTO);
+            log.info(LoggerConstants.OBJECT_FOUND_PATTERN, modelDTO);
+            return modelForChangeDTO;
+        });
+    }
 
-        if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            return ModelConverter.convertToDTOList(modelDAO.findActiveObjects(true));
-        }
+    private ModelForChangeDTO findDataForForm() {
+        checkIfComponentsAdded();
+        List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
+        List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findAll());
+        return ModelForChangeDTO.builder()
+                .brands(brands)
+                .deviceTypes(deviceTypes)
+                .build();
+    }
 
+    @Override
+    public List<ModelDTO> findModels() {
         List<Model> models = transactionManger.execute(modelDAO::findAll);
+        if (models.isEmpty()) {
+            log.warn(OBJECTS_NOT_FOUND_PATTERN, Model.class);
+            throw new ObjectNotFound(MODELS_NOT_FOUND);
+        }
         return ModelConverter.convertToDTOList(models);
     }
 
     @Override
-    public ListForPage<ModelListDTO> findModels(AccountDTO accountDTO, int pageNumber)
-            throws DeviceTypesNotFound, BrandsNotFound {
-        return getModelList(accountDTO, pageNumber, null, null);
+    public ListForPage<ModelDTO> findModels(int pageNumber) {
+        long numberOfEntries = modelDAO.getNumberOfEntries();
+        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
+        return find(() -> modelDAO.findForPage(pageNumber, LIST_SIZE), pageNumber, maxPageNumber);
     }
 
     @Override
-    public ListForPage<ModelListDTO> findModels(AccountDTO accountDTO, int pageNumber, String filter, String input)
-            throws DeviceTypesNotFound, BrandsNotFound {
-        return getModelList(accountDTO, pageNumber, filter, input);
+    public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input)  {
+        long numberOfEntries = modelDAO.getNumberOfEntriesByFilter(filter, input);
+        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
+        return find(() -> modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber, maxPageNumber);
     }
 
-    private ListForPage<ModelListDTO> getModelList(AccountDTO accountDTO, int pageNumber, String filter, String input)
-            throws BrandsNotFound, DeviceTypesNotFound {
-        List<DeviceTypeDTO> deviceTypes;
-        List<BrandDTO> brands;
-        List<ModelDTO> models;
+    private ListForPage<ModelDTO> find(Supplier<List<Model>> methodForSearch, int pageNumber, int maxPageNumber) {
+        List<Model> models = ServiceHelper.getList(transactionManger, methodForSearch, Model.class);
+        List<EntityFilter> filters = FilterManager.getFiltersForModel();
+        List<ModelDTO> modelsDTO = ModelConverter.convertToDTOList(models);
+        return Builder.buildListForPage(modelsDTO, pageNumber, maxPageNumber, filters);
+    }
 
-        transactionManger.beginTransaction();
-        if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-            deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
-            brands = BrandConverter.convertToDTOList(brandDAO.findAll());
-            models = ModelConverter.convertToDTOList(
-                    modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input));
-        } else {
-            deviceTypes = DeviceTypeConverter.convertToDTOList(
-                    deviceTypeDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
-            brands = BrandConverter.convertToDTOList(
-                    brandDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
-            models = ModelConverter.convertToDTOList(
-                    modelDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input));
-        }
-
-        if (brands.isEmpty()) {
+    private void checkIfComponentsAdded() {
+        if (brandDAO.getNumberOfEntries() == 0 || deviceTypeDAO.getNumberOfEntries() == 0) {
+            log.warn(LoggerConstants.OBJECTS_NOT_FOUND_PATTERN, Brand.class);
             throw new BrandsNotFound();
         }
-
-        if (deviceTypes.isEmpty()) {
-            throw new DeviceTypesNotFound();
-        }
-
-        transactionManger.commit();
-        int maxPageNumber = (int) Math.ceil(((double) models.size()) / LIST_SIZE);
-        ModelListDTO modelListDTO = ModelListDTO.builder()
-                .brands(brands)
-                .deviceTypes(deviceTypes)
-                .models(models)
-                .build();
-
-        return Builder.buildListForPage(
-                List.of(modelListDTO),
-                pageNumber,
-                maxPageNumber,
-                FilterManager.getFiltersForModel());
     }
+
+    private void checkIfExist(Model model) {
+        if (modelDAO.checkIfExist(model)) {
+            log.warn(OBJECT_ALREADY_EXIST, model);
+            throw new ObjectAlreadyExist(MODEL_ALREADY_EXIST);
+        }
+    }
+
 
 }

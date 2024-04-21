@@ -1,27 +1,25 @@
 package it.academy.services.device;
 
 import it.academy.dto.req.ChangeModelDTO;
-import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
 import it.academy.dto.resp.ModelDTO;
-import it.academy.dto.resp.ModelListDTO;
-import it.academy.exceptions.common.AccessDenied;
-import it.academy.exceptions.model.BrandsNotFound;
-import it.academy.exceptions.model.DeviceTypesNotFound;
+import it.academy.dto.resp.ModelForChangeDTO;
 
 import java.util.List;
 
 public interface ModelService {
 
-    void createModel(ChangeModelDTO model) throws AccessDenied;
+    void createModel(ChangeModelDTO model);
 
-    void updateModel(ChangeModelDTO model) throws AccessDenied;
+    void updateModel(ChangeModelDTO model);
 
-    ModelDTO findModel(long id);
+    ModelForChangeDTO getModelForm();
 
-    List<ModelDTO> findModels(AccountDTO accountDTO);
+    ModelForChangeDTO getModelForm(long id);
 
-    ListForPage<ModelListDTO> findModels(AccountDTO accountDTO, int pageNumber) throws DeviceTypesNotFound, BrandsNotFound;
+    List<ModelDTO> findModels();
 
-    ListForPage<ModelListDTO> findModels(AccountDTO accountDTO, int pageNumber, String filter, String input) throws DeviceTypesNotFound, BrandsNotFound;
+    ListForPage<ModelDTO> findModels(int pageNumber);
+
+    ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input);
 }

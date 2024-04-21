@@ -19,7 +19,6 @@ public class Constants {
     public static final String CURRENT_ACCOUNT_PATTERN = "Current account: %s";
     public static final String FORM_EXTRACTED_PATTERN = "form extracted: %s";
     //ERROR_MESSAGES
-    public static final String UNSUPPORTED_CLASS = "Unsupported field class!";
     //sql
     public static final String GET_NUMBER_OF_ENTRIES = "SELECT count(s) FROM %s s";
     public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
@@ -29,7 +28,7 @@ public class Constants {
     public static final String CHECK_SERVICE_CENTER = "SELECT s FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
     public static final String CHECK_DEVICE_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
-    public static final String FIND_MODEL = "SELECT m FROM Model m WHERE m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
+    public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
@@ -161,6 +160,7 @@ public class Constants {
     public static final String BRAND_NOT_FOUND = "Бренд не найден!";
     public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
     public static final String MODELS_NOT_FOUND = "Нет добавленных моделей!";
+    public static final String MODEL_NOT_FOUND = "Модель не найдена!";
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
     public static final String DEVICE_TYPE_NOT_FOUND = "Тип устройства не найден!";
     public static final String DEVICE_TYPE_NOT_SELECTED = "Не выбраны связанные устройства!";

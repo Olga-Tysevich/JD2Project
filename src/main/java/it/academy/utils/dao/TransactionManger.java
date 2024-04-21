@@ -1,9 +1,14 @@
 package it.academy.utils.dao;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.function.Supplier;
 
+import static it.academy.utils.constants.LoggerConstants.ERROR_PATTERN;
+
+@Slf4j
 public class TransactionManger {
     private EntityManager entityManager;
 
@@ -34,10 +39,11 @@ public class TransactionManger {
             result = method.get();
             commit();
         } catch (Exception e) {
+            log.error(ERROR_PATTERN, e.getMessage());
             rollback();
             throw e;
         }
-        entityManager().close();
+        closeManager();
         return result;
     }
 

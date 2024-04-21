@@ -5,7 +5,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.resp.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_MODEL" %>
+<%@ page import="it.academy.dto.resp.ModelForChangeDTO" %>
+<%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -16,9 +17,12 @@
 
     <%
         int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-        ModelDTO model = (ModelDTO) request.getAttribute(MODEL);
-        List<BrandDTO> brandList = model.getBrands();
-        List<DeviceTypeDTO> deviceTypes = model.getDeviceTypes();
+        ModelForChangeDTO modelData = (ModelForChangeDTO) request.getAttribute(MODEL);
+        ModelDTO model = modelData.getModelDTO();
+        List<BrandDTO> brandList = modelData.getBrands();
+        List<DeviceTypeDTO> deviceTypes = modelData.getDeviceTypes();
+        CommandEnum command = (CommandEnum) request.getAttribute(COMMAND);
+        String pageForDisplay = (String) request.getAttribute(PAGE);
     %>
 
     <form action="main" method="post">
@@ -28,11 +32,12 @@
     <div class="forms-container lf">
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_model_id">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_MODEL%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                <% if (model.getId() != null) { %>
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
-
+                <% } %>
                 <div class="f-input">
                     <label class="form-el">Активен</label>
                     <label >Активный: </label>
@@ -70,6 +75,13 @@
                 </div>
             </form>
 
+            <div class="f-input">
+                <%
+                    String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
+                %>
+                <p class="error" id="error" style="display: none"><%=errorMessage%></p>
+            </div>
+
             <div class="button-container">
                 <input class="button" type="submit" value="Сохранить" form="change_model_id"/>
                 <input class="button" type="submit" value="Отмена" form="cancel"/>
@@ -84,5 +96,5 @@
 
     </div>
 </section>
-
+<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
 </body>

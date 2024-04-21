@@ -24,11 +24,11 @@ public class ChangeDeviceType implements ActionCommand {
 
         AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
         CommandHelper.checkRole(accountDTO);
-        DeviceTypeDTO forCreate = Extractor.extract(req, new DeviceTypeDTO());
-        log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
+        DeviceTypeDTO forUpdate = Extractor.extract(req, new DeviceTypeDTO());
+        log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
-            deviceTypeService.updateDeviceType(forCreate);
+            deviceTypeService.updateDeviceType(forUpdate);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             return new ShowDeviceType().execute(req);

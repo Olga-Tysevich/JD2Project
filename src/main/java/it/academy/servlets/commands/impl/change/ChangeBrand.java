@@ -26,11 +26,11 @@ public class ChangeBrand implements ActionCommand {
 
         AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
         CommandHelper.checkRole(accountDTO);
-        BrandDTO forCreate = Extractor.extract(req, new BrandDTO());
-        log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
+        BrandDTO forUpdate = Extractor.extract(req, new BrandDTO());
+        log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
-            brandService.updateBrand(forCreate);
+            brandService.updateBrand(forUpdate);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             return new ShowBrand().execute(req);

@@ -2,28 +2,21 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.req.BrandDTO" %>
-<%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.resp.ModelDTO" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
-<%@ page import="it.academy.dto.resp.ModelListDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_MODEL" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL" %>
+<%@ page import="it.academy.dto.resp.ListForPage" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<ModelListDTO> data = (ListForPage<ModelListDTO>) request.getAttribute(LIST_FOR_PAGE);
+            ListForPage<ModelDTO> data = (ListForPage<ModelDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
+            List<ModelDTO> models = data.getList();
             String currentPage = request.getParameter(PAGE);
-            ModelListDTO list = data.getList().get(0);
-            List<ModelDTO> models = list.getModels();
-            List<BrandDTO> brandList = list.getBrands();
-            List<DeviceTypeDTO> deviceTypes = list.getDeviceTypes();
         %>
 
         <table>
@@ -63,42 +56,5 @@
             <% }%>
         </table>
 
-        <% if (RoleEnum.ADMIN.equals(role)) {%>
-        <div class="add-form">
-            <form action="main" method="post" id="addModel">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_MODEL%>">
-                <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-
-                <div class="f-input">
-                    <label class="form-el">Бренд:</label>
-                    <select class="f-form " name="<%=BRAND_ID%>" size="1">
-                        <%for (BrandDTO brandDTO : brandList) {%>
-                        <option value="<%=brandDTO.getId()%>"><%=brandDTO.getName()%></option>
-                        <%}%>
-                    </select>
-                </div>
-
-                <div class="f-input">
-                    <label class="form-el">Тип устройства:</label>
-                    <select class="f-form " name="<%=TYPE_ID%>" size="1">
-                        <%for (DeviceTypeDTO deviceTypeDTO : deviceTypes) {%>
-                        <option value="<%=deviceTypeDTO.getId()%>"><%=deviceTypeDTO.getName()%></option>
-                        <%}%>
-                    </select>
-                </div>
-
-                <div class="f-input">
-                    <label class="form-el">Описание</label>
-                    <input class="f-form" type="text" name="<%=OBJECT_NAME%>" value="">
-                </div>
-
-                <div class="button-container">
-                    <input class="button" type="submit" value="Добавить" form="addModel"/>
-                </div>
-            </form>
-        </div>
-        <% }%>
     </div>
 </section>
