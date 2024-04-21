@@ -1,7 +1,7 @@
 package it.academy.services.device;
 
-import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.ListForPage;
 
 import java.util.List;
 

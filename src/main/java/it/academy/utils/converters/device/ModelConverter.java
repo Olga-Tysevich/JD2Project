@@ -1,10 +1,10 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.req.ChangeModelDTO;
-import it.academy.dto.resp.ModelDTO;
-import it.academy.entities.Brand;
-import it.academy.entities.DeviceType;
-import it.academy.entities.Model;
+import it.academy.dto.device.ChangeModelDTO;
+import it.academy.dto.device.ModelDTO;
+import it.academy.entities.device.Brand;
+import it.academy.entities.device.DeviceType;
+import it.academy.entities.device.Model;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

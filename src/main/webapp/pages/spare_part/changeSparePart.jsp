@@ -1,9 +1,9 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.SparePartForChangeDTO" %>
+<%@ page import="it.academy.dto.spare_part.SparePartForChangeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
-<%@ page import="it.academy.dto.resp.ModelDTO" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>

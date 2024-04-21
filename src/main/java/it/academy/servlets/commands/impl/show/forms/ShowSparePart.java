@@ -1,13 +1,11 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.resp.SparePartForChangeDTO;
-import it.academy.dto.resp.SparePartForChangeDTO;
+import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.services.device.SparePartService;
 import it.academy.services.device.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.commands.factory.CommandEnum.CHANGE_MODEL;
 import static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SPARE_PART;
 import static it.academy.utils.constants.Constants.*;
 

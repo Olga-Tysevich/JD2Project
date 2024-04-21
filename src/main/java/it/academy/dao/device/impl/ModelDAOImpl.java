@@ -2,7 +2,7 @@ package it.academy.dao.device.impl;
 
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.impl.DAOImpl;
-import it.academy.entities.Model;
+import it.academy.entities.device.Model;
 import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.TypedQuery;

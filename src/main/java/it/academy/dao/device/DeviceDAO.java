@@ -1,6 +1,7 @@
 package it.academy.dao.device;
 
-import it.academy.entities.Device;
+import it.academy.dao.ComponentDAO;
+import it.academy.entities.device.Device;
 
-public interface DeviceDAO extends DeviceComponentDAO<Device, Long> {
+public interface DeviceDAO extends ComponentDAO<Device, Long> {
 }

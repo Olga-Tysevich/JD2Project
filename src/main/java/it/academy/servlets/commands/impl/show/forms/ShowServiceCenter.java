@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.req.ServiceCenterDTO;
+import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

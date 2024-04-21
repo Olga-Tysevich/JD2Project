@@ -1,10 +1,10 @@
 package it.academy.services.device.impl;
 
-import it.academy.dao.device.DeviceComponentDAO;
+import it.academy.dao.ComponentDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dto.req.BrandDTO;
-import it.academy.dto.resp.ListForPage;
-import it.academy.entities.Brand;
+import it.academy.dto.device.BrandDTO;
+import it.academy.dto.ListForPage;
+import it.academy.entities.device.Brand;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.device.BrandService;
@@ -26,7 +26,7 @@ import static it.academy.utils.constants.LoggerConstants.*;
 @Slf4j
 public class BrandServiceImpl implements BrandService {
     private final TransactionManger transactionManger = new TransactionManger();
-    private final DeviceComponentDAO<Brand, Long> brandDAO = new BrandDAOImpl(transactionManger);
+    private final ComponentDAO<Brand, Long> brandDAO = new BrandDAOImpl(transactionManger);
 
     @Override
     public void createBrand(BrandDTO brandDTO) {

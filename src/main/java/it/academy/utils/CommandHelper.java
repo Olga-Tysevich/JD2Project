@@ -1,6 +1,6 @@
 package it.academy.utils;
 
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.account.AccountDTO;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;

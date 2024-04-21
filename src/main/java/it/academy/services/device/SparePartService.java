@@ -1,9 +1,9 @@
 package it.academy.services.device;
 
-import it.academy.dto.req.ChangeSparePartDTO;
-import it.academy.dto.resp.SparePartDTO;
-import it.academy.dto.resp.SparePartForChangeDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.spare_part.ChangeSparePartDTO;
+import it.academy.dto.spare_part.SparePartDTO;
+import it.academy.dto.spare_part.SparePartForChangeDTO;
+import it.academy.dto.ListForPage;
 
 import java.util.List;
 

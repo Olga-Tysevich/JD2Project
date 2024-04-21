@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.req.ChangeAccountDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.account.ChangeAccountDTO;
+import it.academy.dto.account.AccountDTO;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.ValidationException;
 import it.academy.services.account.AccountService;

@@ -1,7 +1,7 @@
 package it.academy.services.account;
 
-import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.account.ServiceCenterDTO;
+import it.academy.dto.ListForPage;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 
 import java.util.List;

@@ -1,16 +1,16 @@
 package it.academy.services.account.impl;
 
-import it.academy.dao.AccountDAO;
-import it.academy.dao.impl.AccountDAOImpl;
-import it.academy.dto.req.LoginDTO;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.entities.Account;
+import it.academy.dao.account.AccountDAO;
+import it.academy.dao.account.impl.AccountDAOImpl;
+import it.academy.dto.LoginDTO;
+import it.academy.dto.account.AccountDTO;
+import it.academy.entities.account.Account;
 import it.academy.exceptions.auth.IncorrectPassword;
 import it.academy.exceptions.auth.InvalidRole;
 import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;
 import it.academy.services.account.AuthService;
-import it.academy.utils.converters.AccountConverter;
+import it.academy.utils.converters.account.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;

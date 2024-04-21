@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.show.tables;
 
-import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.TableReq;
+import it.academy.dto.ListForPage;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND_TABLE;
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_DEVICE_TYPE_TABLE;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;

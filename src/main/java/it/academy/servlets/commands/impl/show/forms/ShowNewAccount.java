@@ -1,13 +1,11 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.req.CreateAccountDTO;
-import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.req.ServiceCenterDTO;
+import it.academy.dto.account.CreateAccountDTO;
+import it.academy.dto.TableReq;
+import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowAccountTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;

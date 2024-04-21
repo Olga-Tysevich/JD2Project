@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.SparePartForChangeDTO" %>
+<%@ page import="it.academy.dto.spare_part.SparePartForChangeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART_ORDER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>

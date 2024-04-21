@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.resp.ModelForChangeDTO;
+import it.academy.dto.device.ModelForChangeDTO;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.device.ModelService;

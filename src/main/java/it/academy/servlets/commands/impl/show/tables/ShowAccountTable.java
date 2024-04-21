@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.show.tables;
 
-import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.TableReq;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.ListForPage;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

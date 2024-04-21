@@ -2,9 +2,9 @@ package it.academy.services.device.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.resp.ListForPage;
-import it.academy.entities.DeviceType;
+import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.ListForPage;
+import it.academy.entities.device.DeviceType;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.device.DeviceTypeService;

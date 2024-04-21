@@ -1,13 +1,12 @@
 package it.academy.utils;
 
-import it.academy.dto.resp.ListForPage;
-import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.dto.resp.ModelDTO;
-import it.academy.dto.resp.SparePartForChangeDTO;
+import it.academy.dto.ListForPage;
+import it.academy.dto.account.ServiceCenterDTO;
+import it.academy.dto.device.ModelDTO;
+import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.experimental.UtilityClass;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;

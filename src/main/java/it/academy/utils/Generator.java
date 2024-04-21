@@ -1,7 +1,12 @@
 package it.academy.utils;
 
-import it.academy.dto.req.CreateAccountDTO;
-import it.academy.entities.*;
+import it.academy.dto.account.CreateAccountDTO;
+import it.academy.entities.account.ServiceCenter;
+import it.academy.entities.account.embeddable.BankAccount;
+import it.academy.entities.account.embeddable.Requisites;
+import it.academy.entities.device.Brand;
+import it.academy.entities.device.DeviceType;
+import it.academy.entities.spare_part.SparePart;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 

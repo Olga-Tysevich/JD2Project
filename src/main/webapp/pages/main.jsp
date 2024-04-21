@@ -3,11 +3,11 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
-<%@ page import="it.academy.dto.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
+<%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -186,8 +186,13 @@
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Список ремонтов">
                 </form>
-                <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_TYPE_TABLE_PAGE, FIRST_PAGE)%>'">Список типов ремонта</button>
+
+                <form  action="brands" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE_TABLE%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TYPE_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
+                    <input class="button button-fieldset" type="submit" value="Список типов ремонта"/>
+                </form>
             </fieldset>
 
         </div>

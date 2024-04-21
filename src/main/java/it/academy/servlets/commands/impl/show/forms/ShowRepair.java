@@ -1,11 +1,11 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.RepairFormDTO;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.repair.RepairFormDTO;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.ModelNotFound;
-import it.academy.services.RepairService;
-import it.academy.services.impl.RepairServiceImpl;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;

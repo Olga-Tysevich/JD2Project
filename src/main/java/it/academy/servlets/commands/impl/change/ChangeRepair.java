@@ -1,11 +1,11 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.ChangeRepairFormDTO;
-import it.academy.dto.resp.RepairDTO;
-import it.academy.dto.resp.RepairFormDTO;
-import it.academy.services.RepairService;
-import it.academy.services.impl.RepairServiceImpl;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.repair.ChangeRepairFormDTO;
+import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.repair.RepairFormDTO;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.impl.add.AddRepair;
 import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
 import it.academy.servlets.extractors.Extractor;

@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
+<%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
+<%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

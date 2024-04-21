@@ -1,9 +1,9 @@
 package it.academy.services.device;
 
-import it.academy.dto.req.ChangeModelDTO;
-import it.academy.dto.resp.ListForPage;
-import it.academy.dto.resp.ModelDTO;
-import it.academy.dto.resp.ModelForChangeDTO;
+import it.academy.dto.device.ChangeModelDTO;
+import it.academy.dto.ListForPage;
+import it.academy.dto.device.ModelDTO;
+import it.academy.dto.device.ModelForChangeDTO;
 
 import java.util.List;
 

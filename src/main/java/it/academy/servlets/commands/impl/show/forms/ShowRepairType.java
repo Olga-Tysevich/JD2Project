@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.resp.RepairTypeDTO;
-import it.academy.services.RepairTypeService;
-import it.academy.services.impl.RepairTypeServiceImpl;
+import it.academy.dto.repair.RepairTypeDTO;
+import it.academy.services.repair.RepairTypeService;
+import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;

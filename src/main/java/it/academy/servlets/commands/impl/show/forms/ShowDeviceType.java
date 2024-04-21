@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.req.DeviceTypeDTO;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

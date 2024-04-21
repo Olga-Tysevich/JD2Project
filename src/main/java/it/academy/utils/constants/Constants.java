@@ -105,6 +105,12 @@ public class Constants {
     public static final String SPARE_PART_ID = "spare_part_id";
     public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
+    //repair type
+    public static final String REPAIR_TYPE = "repair_type";
+    public static final String REPAIR_TYPE_CODE = "code";
+    public static final String REPAIR_TYPE_LEVEL = "level";
+    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/repair/changeRepairType.jsp";
+    public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair/repairTypeTable.jsp";
     //repair
     public static final String REPAIR_FORM = "repair_form";
     public static final String CHANGE_REPAIR_FORM = "change_repair_form";
@@ -113,8 +119,6 @@ public class Constants {
     public static final String REPAIR_CATEGORY = "category";
     public static final String SERVICE_CENTER_REPAIR_NUMBER = "repairNumber";
     public static final String END_DATE = "endDate";
-    public static final String REPAIR_TYPE_LEVEL = "level";
-    public static final String REPAIR_TYPE_CODE = "code";
     public static final String DEFECT_DESCRIPTION = "defectDescription";
     public static final String CURRENT_BRAND_ID = "currentBrandId";
     public static final String MODEL_ID = "modelId";
@@ -154,6 +158,7 @@ public class Constants {
     public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
     public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
+    public static final String REPAIR_TYPE_ALREADY_EXIST = "Тип ремонта уже добавлен!";
     public static final String DEVICE_TYPE_ALREADY_EXIST = "Данный тип устройства уже добавлен!";
     public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
@@ -221,12 +226,12 @@ public class Constants {
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     //jsp
-    public static final String REPAIR_TYPE = "type";
+//    public static final String REPAIR_TYPE = "type";
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";
     //Paths
     public static final String SHOW_COMMAND = "show_command";
-    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
+//    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
     //show_command
     public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
     public static final String REPAIR_TYPES = "repair_types";

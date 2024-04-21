@@ -5,6 +5,9 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_FORM" %>
 <%@ page import="it.academy.dto.resp.*" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
+<%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
+<%@ page import="it.academy.dto.ListForPage" %>
 <section>
     <div class="container t-container">
 

@@ -1,8 +1,8 @@
 package it.academy.utils;
 
 import it.academy.dao.DAO;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.ListForPage;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.utils.dao.TransactionManger;

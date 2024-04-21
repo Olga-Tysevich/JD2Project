@@ -1,7 +1,8 @@
 package it.academy.dao.device;
 
-import it.academy.entities.Brand;
+import it.academy.dao.ComponentDAO;
+import it.academy.entities.device.Brand;
 
-public interface BrandDAO extends DeviceComponentDAO<Brand, Long> {
+public interface BrandDAO extends ComponentDAO<Brand, Long> {
 
 }

@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
-<%@ page import="it.academy.dto.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.ModelDTO" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE" %>
-<%@ page import="it.academy.dto.resp.ModelForChangeDTO" %>
+<%@ page import="it.academy.dto.device.ModelForChangeDTO" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_PAGE" %>
 <head>

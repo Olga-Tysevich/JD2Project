@@ -1,8 +1,7 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.req.CreateAccountDTO;
-import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.account.CreateAccountDTO;
+import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.account.ValidationException;

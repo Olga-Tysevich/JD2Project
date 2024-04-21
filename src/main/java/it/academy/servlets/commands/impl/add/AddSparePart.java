@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.req.ChangeSparePartDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.SparePartService;
 import it.academy.services.device.impl.SparePartServiceImpl;

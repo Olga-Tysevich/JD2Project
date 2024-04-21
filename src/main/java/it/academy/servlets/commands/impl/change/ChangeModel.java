@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.req.ChangeModelDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.device.ChangeModelDTO;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;

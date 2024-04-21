@@ -1,8 +1,8 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.req.BrandDTO" %>
-<%@ page import="it.academy.dto.resp.AccountDTO" %>
-<%@ page import="it.academy.dto.resp.ModelDTO" %>
-<%@ page import="it.academy.dto.resp.RepairFormDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page import="it.academy.utils.enums.RepairCategory" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>

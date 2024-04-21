@@ -2,11 +2,11 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="it.academy.dto.resp.ModelDTO" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
+<%@ page import="it.academy.dto.ListForPage" %>
 <section>
     <div class="container t-container">
 

@@ -1,5 +1,5 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.req.BrandDTO" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="it.academy.utils.enums.RepairCategory" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
@@ -8,8 +8,13 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_REPAIR" %>
 <%@ page import="it.academy.dto.resp.*" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
-<%@ page import="it.academy.dto.resp.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
+<%@ page import="it.academy.dto.repair.ChangeRepairFormDTO" %>
+<%@ page import="it.academy.dto.repair.RepairDTO" %>
+<%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

@@ -1,10 +1,10 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
+<%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_PAGE" %>
-<%@ page import="it.academy.dto.req.CreateAccountDTO" %>
+<%@ page import="it.academy.dto.account.CreateAccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>

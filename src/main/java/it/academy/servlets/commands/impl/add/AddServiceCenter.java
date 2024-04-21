@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.req.ServiceCenterDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.account.ServiceCenterService;

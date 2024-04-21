@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.show.forms;
 
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.SparePartForChangeDTO;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.services.device.SparePartService;
 import it.academy.services.device.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

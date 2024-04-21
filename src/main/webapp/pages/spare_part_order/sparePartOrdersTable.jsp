@@ -2,9 +2,9 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
+<%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
-<%@ page import="it.academy.dto.req.ChangeSparePartDTO" %>
+<%@ page import="it.academy.dto.spare_part.ChangeSparePartDTO" %>
 <%@ page import="java.util.Map" %>
 <section>
     <div class="container t-container">

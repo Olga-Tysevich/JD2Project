@@ -1,8 +1,12 @@
 package it.academy;
 
-import it.academy.dto.req.*;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.ModelDTO;
+import it.academy.dto.account.CreateAccountDTO;
+import it.academy.dto.account.ServiceCenterDTO;
+import it.academy.dto.device.BrandDTO;
+import it.academy.dto.device.ChangeModelDTO;
+import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.device.ModelDTO;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.AccountServiceImpl;
@@ -16,7 +20,7 @@ import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.utils.Generator;
 import it.academy.utils.converters.device.BrandConverter;
 import it.academy.utils.converters.device.DeviceTypeConverter;
-import it.academy.utils.converters.ServiceCenterConverter;
+import it.academy.utils.converters.account.ServiceCenterConverter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

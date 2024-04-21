@@ -1,7 +1,7 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.entities.DeviceType;
+import it.academy.dto.device.DeviceTypeDTO;
+import it.academy.entities.device.DeviceType;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

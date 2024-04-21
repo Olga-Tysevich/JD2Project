@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.req.BrandDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.device.BrandDTO;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;

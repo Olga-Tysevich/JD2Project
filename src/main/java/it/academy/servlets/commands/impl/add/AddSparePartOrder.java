@@ -2,13 +2,13 @@ package it.academy.servlets.commands.impl.add;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.academy.dto.resp.SparePartForChangeDTO;
-import it.academy.dto.resp.SparePartOrderDTO;
+import it.academy.dto.spare_part.SparePartForChangeDTO;
+import it.academy.dto.spare_part.SparePartOrderDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.forms.ShowConfirmedRepair;
-import it.academy.utils.converters.SparePartConverter;
+import it.academy.utils.converters.spare_part.SparePartConverter;
 import it.academy.utils.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
 

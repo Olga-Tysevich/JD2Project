@@ -1,10 +1,10 @@
 package it.academy.servlets.commands.impl.show.tables;
 
-import it.academy.dto.req.ChangeRepairDTO;
-import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.ListForPage;
-import it.academy.services.RepairService;
-import it.academy.services.impl.RepairServiceImpl;
+import it.academy.dto.repair.ChangeRepairDTO;
+import it.academy.dto.TableReq;
+import it.academy.dto.ListForPage;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.enums.RepairStatus;

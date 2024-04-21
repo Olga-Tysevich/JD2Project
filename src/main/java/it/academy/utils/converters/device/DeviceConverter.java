@@ -1,10 +1,10 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.resp.DeviceDTO;
-import it.academy.entities.Device;
-import it.academy.entities.Buyer;
-import it.academy.entities.Model;
-import it.academy.entities.Salesman;
+import it.academy.dto.device.DeviceDTO;
+import it.academy.entities.device.Device;
+import it.academy.entities.device.embeddable.Buyer;
+import it.academy.entities.device.Model;
+import it.academy.entities.device.embeddable.Salesman;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

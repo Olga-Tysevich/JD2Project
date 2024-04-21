@@ -1,7 +1,6 @@
 package it.academy.servlets.commands.impl.add;
 
-import it.academy.dto.req.DeviceTypeDTO;
-import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;

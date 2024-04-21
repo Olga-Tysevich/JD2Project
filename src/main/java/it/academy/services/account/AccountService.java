@@ -1,9 +1,9 @@
 package it.academy.services.account;
 
-import it.academy.dto.req.ChangeAccountDTO;
-import it.academy.dto.req.CreateAccountDTO;
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.account.ChangeAccountDTO;
+import it.academy.dto.account.CreateAccountDTO;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.ListForPage;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.account.ValidationException;

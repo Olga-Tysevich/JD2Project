@@ -1,5 +1,5 @@
 package it.academy.servlets.commands.impl.show.forms;
-import it.academy.dto.resp.SparePartForChangeDTO;
+import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.model.ModelsNotFound;
 import it.academy.services.device.SparePartService;

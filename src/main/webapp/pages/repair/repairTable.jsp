@@ -2,14 +2,14 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
+<%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
-<%@ page import="it.academy.dto.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
-<%@ page import="it.academy.dto.req.ChangeRepairDTO" %>
-<%@ page import="it.academy.dto.resp.RepairDTO" %>
+<%@ page import="it.academy.dto.repair.ChangeRepairDTO" %>
+<%@ page import="it.academy.dto.repair.RepairDTO" %>
 <section>
     <div class=" container">
 

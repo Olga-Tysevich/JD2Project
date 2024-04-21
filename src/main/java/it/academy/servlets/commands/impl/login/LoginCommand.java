@@ -1,9 +1,9 @@
 package it.academy.servlets.commands.impl.login;
 
-import it.academy.dto.resp.AccountDTO;
-import it.academy.dto.req.LoginDTO;
-import it.academy.dto.resp.ListForPage;
-import it.academy.entities.Account;
+import it.academy.dto.account.AccountDTO;
+import it.academy.dto.LoginDTO;
+import it.academy.dto.ListForPage;
+import it.academy.entities.account.Account;
 import it.academy.exceptions.auth.IncorrectPassword;
 import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;

@@ -1,9 +1,8 @@
 package it.academy.servlets.commands.impl.show.tables;
 
-import it.academy.dto.req.TableReq;
-import it.academy.dto.resp.ListForPage;
-import it.academy.dto.resp.ModelDTO;
-import it.academy.dto.resp.SparePartDTO;
+import it.academy.dto.TableReq;
+import it.academy.dto.ListForPage;
+import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.services.device.SparePartService;
 import it.academy.services.device.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -12,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE;
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;

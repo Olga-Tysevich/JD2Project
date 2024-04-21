@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.req.ChangeSparePartOrderDTO;
+import it.academy.dto.spare_part.ChangeSparePartOrderDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

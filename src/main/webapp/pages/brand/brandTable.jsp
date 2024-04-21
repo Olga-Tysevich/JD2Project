@@ -2,10 +2,10 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.ListForPage" %>
-<%@ page import="it.academy.dto.req.BrandDTO" %>
+<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="it.academy.dto.resp.AccountDTO" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_BRAND" %>
 <section>

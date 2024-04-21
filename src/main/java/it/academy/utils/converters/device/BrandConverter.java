@@ -1,7 +1,7 @@
 package it.academy.utils.converters.device;
 
-import it.academy.dto.req.BrandDTO;
-import it.academy.entities.Brand;
+import it.academy.dto.device.BrandDTO;
+import it.academy.entities.device.Brand;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

@@ -6,22 +6,22 @@
 
     <persistence-unit name="project">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>it.academy.entities.Model</class>
-        <class>it.academy.entities.Brand</class>
-        <class>it.academy.entities.DeviceType</class>
-        <class>it.academy.entities.Buyer</class>
-        <class>it.academy.entities.Salesman</class>
-        <class>it.academy.entities.Device</class>
+        <class>it.academy.entities.device.Model</class>
+        <class>it.academy.entities.device.Brand</class>
+        <class>it.academy.entities.device.DeviceType</class>
+        <class>it.academy.entities.device.embeddable.Buyer</class>
+        <class>it.academy.entities.device.embeddable.Salesman</class>
+        <class>it.academy.entities.device.Device</class>
         <class>it.academy.utils.enums.RepairStatus</class>
         <class>it.academy.utils.enums.RepairCategory</class>
-        <class>it.academy.entities.RepairType</class>
-        <class>it.academy.entities.SparePart</class>
-        <class>it.academy.entities.SparePartOrder</class>
-        <class>it.academy.entities.Repair</class>
-        <class>it.academy.entities.Account</class>
-        <class>it.academy.entities.ServiceCenter</class>
-        <class>it.academy.entities.Requisites</class>
-        <class>it.academy.entities.BankAccount</class>
+        <class>it.academy.entities.repair.RepairType</class>
+        <class>it.academy.entities.spare_part.SparePart</class>
+        <class>it.academy.entities.spare_part.SparePartOrder</class>
+        <class>it.academy.entities.repair.Repair</class>
+        <class>it.academy.entities.account.Account</class>
+        <class>it.academy.entities.account.ServiceCenter</class>
+        <class>it.academy.entities.account.embeddable.Requisites</class>
+        <class>it.academy.entities.account.embeddable.BankAccount</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

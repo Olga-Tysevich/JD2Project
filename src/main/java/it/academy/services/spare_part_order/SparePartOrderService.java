@@ -1,8 +1,8 @@
 package it.academy.services.spare_part_order;
 
-import it.academy.dto.req.ChangeSparePartOrderDTO;
-import it.academy.dto.resp.SparePartOrderDTO;
-import it.academy.dto.resp.ListForPage;
+import it.academy.dto.spare_part.ChangeSparePartOrderDTO;
+import it.academy.dto.spare_part.SparePartOrderDTO;
+import it.academy.dto.ListForPage;
 
 import java.util.List;
 
