@@ -1,21 +1,21 @@
 package it.academy.services.impl;
 
-import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.SparePartDAO;
-import it.academy.dao.device.impl.DeviceTypeDAOImpl;
+import it.academy.dao.device.ModelDAO;
+import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.impl.SparePartDAOImpl;
 import it.academy.dto.req.ChangeSparePartDTO;
-import it.academy.dto.req.DeviceTypeDTO;
 import it.academy.dto.resp.AccountDTO;
 import it.academy.dto.resp.ListForPage;
+import it.academy.dto.resp.ModelDTO;
 import it.academy.dto.resp.SparePartDTO;
-import it.academy.entities.DeviceType;
+import it.academy.entities.Model;
 import it.academy.entities.SparePart;
-import it.academy.exceptions.model.DeviceTypesNotFound;
+import it.academy.exceptions.model.ModelsNotFound;
 import it.academy.services.SparePartService;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.device.DeviceTypeConverter;
 import it.academy.utils.converters.SparePartConverter;
+import it.academy.utils.converters.device.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
@@ -29,7 +29,7 @@ import static it.academy.utils.constants.Constants.*;
 
 public class SparePartServiceImpl implements SparePartService {
     private final TransactionManger transactionManger = new TransactionManger();
-    private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl(transactionManger);
+    private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
     private final SparePartDAO sparePartDAO = new SparePartDAOImpl(transactionManger);
 
     @Override
@@ -64,9 +64,9 @@ public class SparePartServiceImpl implements SparePartService {
             method.accept(result);
         }
         changeSparePartDTO.getDeviceTypeIdList().forEach(dt -> {
-            DeviceType deviceType = deviceTypeDAO.find(dt);
-            deviceType.addSparePart(result);
-            deviceTypeDAO.update(deviceType);
+            Model model = modelDAO.find(dt);
+            model.addSparePart(result);
+            modelDAO.update(model);
         });
 
         sparePartDAO.update(result);
@@ -88,8 +88,8 @@ public class SparePartServiceImpl implements SparePartService {
     public SparePartDTO findSparePart(long id) {
         Supplier<SparePartDTO> find = () -> {
             SparePart sparePart = sparePartDAO.find(id);
-            List<DeviceTypeDTO> deviceTypes = getDeviceTypeList();
-            return SparePartConverter.convertToDTO(sparePart, deviceTypes);
+            List<ModelDTO> models = getModelList();
+            return SparePartConverter.convertToDTO(sparePart, models);
         };
         return transactionManger.execute(find);
     }
@@ -104,7 +104,7 @@ public class SparePartServiceImpl implements SparePartService {
     public ListForPage<SparePartDTO> findSpareParts(AccountDTO accountDTO, int pageNumber, String filter, String input) {
         transactionManger.beginTransaction();
         List<SparePart> spareParts;
-        List<DeviceTypeDTO> deviceTypes = getDeviceTypeList();
+        List<ModelDTO> models = getModelList();
 
         if (!RoleEnum.ADMIN.equals(accountDTO.getRole())) {
             spareParts = sparePartDAO.findActiveObjectsForPage(true, pageNumber, LIST_SIZE, filter, input);
@@ -116,7 +116,7 @@ public class SparePartServiceImpl implements SparePartService {
             SparePart emptySparePart = SparePart.builder()
                     .name(DEFAULT_VALUE)
                     .isActive(true)
-                    .typeSet(new HashSet<>())
+                    .models(new HashSet<>())
                     .build();
             spareParts.add(emptySparePart);
         }
@@ -124,7 +124,7 @@ public class SparePartServiceImpl implements SparePartService {
         ListForPage<SparePartDTO> sparePartsForTable = ServiceHelper.getList(sparePartDAO,
                 () -> spareParts,
                 pageNumber,
-                (l) -> SparePartConverter.convertToDTOList(spareParts, deviceTypes),
+                (l) -> SparePartConverter.convertToDTOList(spareParts, models),
                 FilterManager::getFiltersForSparePart);
         int maxPageNumber = sparePartsForTable.getMaxPageNumber() == 0 ?
                 FIRST_PAGE : sparePartsForTable.getMaxPageNumber();
@@ -133,13 +133,13 @@ public class SparePartServiceImpl implements SparePartService {
         return sparePartsForTable;
     }
 
-    private List<DeviceTypeDTO> getDeviceTypeList() {
-        List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findActiveObjects(true));
+    private List<ModelDTO> getModelList() {
+        List<ModelDTO> models = ModelConverter.convertToDTOList(modelDAO.findActiveObjects(true));
 
-        if (deviceTypes.isEmpty()) {
-            throw new DeviceTypesNotFound();
+        if (models.isEmpty()) {
+            throw new ModelsNotFound();
         }
-        return deviceTypes;
+        return models;
     }
 
 }

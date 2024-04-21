@@ -1,12 +1,12 @@
 package it.academy.utils.converters;
 
-import it.academy.dto.req.DeviceTypeDTO;
 import it.academy.dto.req.ChangeSparePartDTO;
+import it.academy.dto.resp.ModelDTO;
 import it.academy.dto.resp.SparePartDTO;
-import it.academy.entities.DeviceType;
+import it.academy.entities.Model;
 import it.academy.entities.SparePart;
 import it.academy.utils.SparePartForOrder;
-import it.academy.utils.converters.device.DeviceTypeConverter;
+import it.academy.utils.converters.device.ModelConverter;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class SparePartConverter {
 
-    public static SparePartDTO convertToDTO(SparePart sparePart, List<DeviceTypeDTO> deviceTypes) {
-        List<DeviceType> relatedDeviceTypes = new ArrayList<>(sparePart.getTypeSet());
-        List<DeviceTypeDTO> types = DeviceTypeConverter.convertToDTOList(relatedDeviceTypes);
+    public static SparePartDTO convertToDTO(SparePart sparePart, List<ModelDTO> deviceTypes) {
+        List<Model> relatedModels = new ArrayList<>(sparePart.getModels());
+        List<ModelDTO> models = ModelConverter.convertToDTOList(relatedModels);
 
         return SparePartDTO.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
-                .relatedDeviceTypes(types)
-                .allDeviceTypes(deviceTypes)
+                .relatedModels(models)
+                .allModels(deviceTypes)
                 .isActive(sparePart.getIsActive())
                 .build();
     }
@@ -45,9 +45,9 @@ public class SparePartConverter {
                 .build();
     }
 
-    public static List<SparePartDTO> convertToDTOList(List<SparePart> spareParts, List<DeviceTypeDTO> deviceTypes) {
+    public static List<SparePartDTO> convertToDTOList(List<SparePart> spareParts, List<ModelDTO> models) {
         return spareParts.stream()
-                .map(s -> convertToDTO(s, deviceTypes))
+                .map(s -> convertToDTO(s, models))
                 .collect(Collectors.toList());
     }
 

@@ -47,10 +47,12 @@
 
         <% if (tablePage != null) { %>
         <form action="main" method="post" id="search">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
 
             <input type="text" name="<%=COMMAND%>" value="<%=command%>">
+            <input type="text" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+            <input type="text" name="<%=PAGE%>" value="<%=tablePage%>">
 
+            <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
             <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">

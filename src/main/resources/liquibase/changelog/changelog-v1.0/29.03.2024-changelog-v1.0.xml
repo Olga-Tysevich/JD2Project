@@ -14,7 +14,7 @@
     <include file="29.03.2024-create-table-repair-types-v1.0.xml" relativeToChangelogFile="true"/>
     <include file="29.03.2024-create-table-repairs-v1.0.xml" relativeToChangelogFile="true"/>
     <include file="29.03.2024-create-table-spare_parts-v1.0.xml" relativeToChangelogFile="true"/>
-    <include file="29.03.2024-create-table-device_types_spare_parts-v1.0.xml" relativeToChangelogFile="true"/>
+    <include file="29.03.2024-create-table-models_spare_parts-v1.0.xml" relativeToChangelogFile="true"/>
     <include file="29.03.2024-create-table-orders-v1.0.xml" relativeToChangelogFile="true"/>
     <include file="29.03.2024-create-table-spare_parts_orders-v1.0.xml" relativeToChangelogFile="true"/>
 

@@ -31,17 +31,17 @@ public class SparePart implements Serializable {
     @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
     @ManyToMany(mappedBy = "spareParts", cascade = CascadeType.MERGE)
-    private Set<DeviceType> typeSet = new HashSet<>();
+    private Set<Model> models = new HashSet<>();
 
-    public void addDeviceType(DeviceType deviceType) {
-        if (deviceType != null) {
-            typeSet.add(deviceType);
+    public void addModel(Model model) {
+        if (model != null) {
+            models.add(model);
         }
     }
 
-    public void removeDeviceType(DeviceType deviceType) {
-        if (deviceType != null) {
-            typeSet.remove(deviceType);
+    public void removeModel(Model model) {
+        if (model != null) {
+            models.remove(model);
         }
     }
 

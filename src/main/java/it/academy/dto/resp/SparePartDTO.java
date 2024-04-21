@@ -1,6 +1,5 @@
 package it.academy.dto.resp;
 
-import it.academy.dto.req.DeviceTypeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +21,8 @@ public class SparePartDTO {
 
     private Boolean isActive;
 
-    private List<DeviceTypeDTO> relatedDeviceTypes;
+    private List<ModelDTO> relatedModels;
 
-    private List<DeviceTypeDTO> allDeviceTypes;
+    private List<ModelDTO> allModels;
 
 }

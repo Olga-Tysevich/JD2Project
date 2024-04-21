@@ -77,10 +77,6 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     @Override
     public List<ServiceCenterDTO> findServiceCenters() {
         List<ServiceCenter> centers = transactionManger.execute(serviceCenterDAO::findAll);
-        if (centers.isEmpty()) {
-            log.warn(OBJECTS_NOT_FOUND_PATTERN, ServiceCenter.class);
-            throw new ObjectNotFound(SERVICE_CENTERS_NOT_FOUND);
-        }
         return ServiceCenterConverter.convertToDTOList(centers);
     }
 

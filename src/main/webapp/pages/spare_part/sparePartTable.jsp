@@ -18,7 +18,7 @@
             ListForPage<SparePartDTO> data = (ListForPage<SparePartDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             List<SparePartDTO> list = data.getList();
-            List<DeviceTypeDTO> deviceTypes = list.get(0).getAllDeviceTypes();
+            List<DeviceTypeDTO> deviceTypes = list.get(0).getAllModels();
             String currentPage = request.getParameter(PAGE);
         %>
 
@@ -35,7 +35,7 @@
 
             <%
                 for (SparePartDTO sparePart : list) {
-                for (DeviceTypeDTO deviceType : sparePart.getRelatedDeviceTypes()) {
+                for (DeviceTypeDTO deviceType : sparePart.getRelatedModels()) {
             %>
             <tr class="t-tr">
                 <td class="code"><%=deviceType.getName()%></td>

@@ -43,7 +43,7 @@ public class ShowNewAccount implements ActionCommand {
             return NEW_ACCOUNT_PAGE_PATH;
         }
         req.setAttribute(ERROR, SERVICE_CENTERS_NOT_FOUND);
-        return new ShowAccountTable().execute(req);
+        return MAIN_PAGE_PATH;
     }
 
 }

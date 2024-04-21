@@ -16,8 +16,8 @@
             <%
                 int pageNumber = request.getParameter(PAGE_NUMBER) != null? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
                 SparePartDTO sparePart = (SparePartDTO) request.getAttribute(SPARE_PART);
-                List<DeviceTypeDTO> deviceTypes = sparePart.getAllDeviceTypes();
-                List<DeviceTypeDTO> relatedDeviceTypes = sparePart.getRelatedDeviceTypes();
+                List<DeviceTypeDTO> deviceTypes = sparePart.getAllModels();
+                List<DeviceTypeDTO> relatedDeviceTypes = sparePart.getRelatedModels();
             %>
 
             <div class="forms-container lf">

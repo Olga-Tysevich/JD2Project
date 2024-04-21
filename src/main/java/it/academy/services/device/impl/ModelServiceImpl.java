@@ -19,6 +19,7 @@ import it.academy.exceptions.common.AccessDenied;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
+import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
@@ -143,9 +144,12 @@ public class ModelServiceImpl implements ModelService {
     }
 
     private void checkIfComponentsAdded() {
-        if (brandDAO.getNumberOfEntries() == 0 || deviceTypeDAO.getNumberOfEntries() == 0) {
+        if (brandDAO.getNumberOfEntries() == 0) {
             log.warn(LoggerConstants.OBJECTS_NOT_FOUND_PATTERN, Brand.class);
             throw new BrandsNotFound();
+        } else if (deviceTypeDAO.getNumberOfEntries() == 0) {
+            log.warn(LoggerConstants.OBJECTS_NOT_FOUND_PATTERN, DeviceType.class);
+            throw new DeviceTypesNotFound();
         }
     }
 
