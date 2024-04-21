@@ -85,7 +85,7 @@
                 <form  action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=ACCOUNT_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список аккаунтов"/>
                 </form>
             </fieldset>
@@ -101,7 +101,7 @@
                 <form  action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=SERVICE_CENTER_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список сервисных центров"/>
                 </form>
             </fieldset>
@@ -134,7 +134,7 @@
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список моделей"/>
                 </form>
                 <form  action="brands" method="post">
@@ -146,7 +146,7 @@
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_DEVICE_TYPE_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=DEVICE_TYPE_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список типов устройств"/>
                 </form>
             </fieldset>
@@ -156,7 +156,7 @@
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=SPARE_PART_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список запчастей"/>
                 </form>
                 <button class="button button-fieldset"

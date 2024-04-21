@@ -2,6 +2,7 @@ package it.academy;
 
 import it.academy.dto.req.*;
 import it.academy.dto.resp.AccountDTO;
+import it.academy.dto.resp.ModelDTO;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.AccountServiceImpl;
@@ -75,24 +76,21 @@ public class Runner {
                 .mapToObj(i -> DeviceTypeConverter.convertToDTO(Generator.generateDeviceType()))
                 .collect(Collectors.toList());
 
-        deviceTypes.forEach(d -> {
-            deviceTypeService.createDeviceType(d);
+        deviceTypes.forEach(d -> deviceTypeService.createDeviceType(d));
+
+        List<ModelDTO> modelList = modelService.findModels();
+        List<BrandDTO> brandList = brandService.findBrands();
+
+        modelList.forEach(dt -> {
+            BrandDTO brand = brandList.get(RANDOM.nextInt(brandList.size()));
+            ChangeModelDTO changeModelDTO = ChangeModelDTO.builder()
+                    .brandId(brand.getId())
+                    .deviceTypeId(dt.getId())
+                    .isActive(true)
+                    .name(Generator.generateModelName())
+                    .build();
+            modelService.createModel(changeModelDTO);
         });
-
-        List<DeviceTypeDTO> deviceTypeList = deviceTypeService.findDeviceTypes();
-//        List<BrandDTO> brandList = brandService.findBrands(admin);
-
-//        deviceTypeList.forEach(dt -> {
-//            BrandDTO brand = brandList.get(RANDOM.nextInt(brandList.size()));
-//            ChangeModelDTO changeModelDTO = ChangeModelDTO.builder()
-//                    .brandId(brand.getId())
-//                    .currentAccount(admin)
-//                    .deviceTypeId(dt.getId())
-//                    .isActive(true)
-//                    .name(Generator.generateModelName())
-//                    .build();
-//            modelService.createModel(changeModelDTO);
-//        });
 
     }
 
