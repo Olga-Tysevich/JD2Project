@@ -16,8 +16,8 @@
             RoleEnum role = accountDTO.getRole();
             ListForPage<DeviceTypeDTO> data = (ListForPage<DeviceTypeDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
+            String tablePage = data.getPage();
             List<DeviceTypeDTO> list = data.getList();
-            String currentPage = request.getParameter(PAGE);
         %>
 
         <table>
@@ -42,7 +42,7 @@
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_DEVICE_TYPE%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=deviceType.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=deviceType.getIsActive()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
@@ -56,7 +56,7 @@
             <form action="main" method="post" id="addDeviceType">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_DEVICE_TYPE%>">
                 <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">

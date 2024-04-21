@@ -16,7 +16,7 @@
             ListForPage<ModelDTO> data = (ListForPage<ModelDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             List<ModelDTO> models = data.getList();
-            String currentPage = request.getParameter(PAGE);
+            String tablePage = data.getPage();
         %>
 
         <table>
@@ -45,7 +45,7 @@
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=model.getIsActive()%>">
                         <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <input class="choose-button order-btn" type="submit" value="Изменить" >

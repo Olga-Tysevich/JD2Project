@@ -29,13 +29,14 @@ public class LoggerConstants {
     public static final String OBJECTS_NOT_FOUND_PATTERN = "Objects not found, class: {}";
     public static final String OBJECT_CREATION_FAILED_PATTERN = "Object creation failed: {}, cause {}";
     public static final String OBJECT_UPDATE_FAILED_PATTERN = "Object update failed: {}, cause {}";
-    public static final String CURRENT_COMMAND = "Current command: {}";
     public static final String INVALID_ROLE = "Invalid role! {}";
     public static final String WRONG_PASSWORD_ERROR = "Wrong password. Current: {}; Except: {}";
     public static final String USER_IS_BLOCKED_ERROR = "User is blocked {}";
     public static final String UNSUPPORTED_CLASS = "Unsupported field class! Field class {}";
 
     //info
+    public static final String CURRENT_COMMAND = "Current command: {}";
+    public static final String CURRENT_TABLE = "Current table: {}";
     public static final String OBJECT_FOR_SAVE_PATTERN = "Object for save: {}";
     public static final String OBJECT_CREATED_PATTERN = "Object created: {}";
     public static final String OBJECT_FOR_UPDATE_PATTERN = "Object for update: {}";

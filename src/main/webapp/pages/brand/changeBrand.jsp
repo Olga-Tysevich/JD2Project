@@ -3,6 +3,7 @@
 <%@ page import="it.academy.dto.req.BrandDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_BRAND" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -13,6 +14,7 @@
 
     <%
         int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
+        String tablePage = (String) request.getAttribute(PAGE);
         BrandDTO brand = (BrandDTO) request.getAttribute(BRAND);
     %>
 
@@ -24,7 +26,7 @@
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_brand">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_BRAND%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
 
@@ -59,9 +61,10 @@
         </div>
 
         <form action="main" method="post" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+            <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
         </form>
 
     </div>

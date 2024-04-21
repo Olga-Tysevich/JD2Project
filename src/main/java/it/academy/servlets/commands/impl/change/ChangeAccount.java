@@ -7,6 +7,7 @@ import it.academy.exceptions.account.ValidationException;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.commands.impl.show.tables.ShowAccountTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class ChangeAccount implements ActionCommand {
             ChangeAccountDTO forUpdate = Extractor.extract(req, new ChangeAccountDTO());
             log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
             accountService.updateAccount(forUpdate);
-            return MAIN_PAGE_PATH;
+            return new ShowAccountTable().execute(req);
         } catch (EmailAlreadyRegistered | ValidationException e) {
             req.setAttribute(ACCOUNT, currentAccount);
             req.setAttribute(ERROR, e.getMessage());

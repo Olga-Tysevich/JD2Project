@@ -3,8 +3,9 @@
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_ACCOUNT" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.OPEN_PAGE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_PAGE" %>
 <%@ page import="it.academy.dto.req.CreateAccountDTO" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -19,12 +20,14 @@
             List<ServiceCenterDTO> serviceCenters = (List<ServiceCenterDTO>) request.getAttribute(SERVICE_CENTERS);
             CreateAccountDTO account = (CreateAccountDTO) request.getAttribute(ACCOUNT);
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
+            String tablePage = (String) request.getAttribute(PAGE);
         %>
         <div class="lr-container">
             <form action="main" method="post" id="account">
                 <div class="f-input">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_ACCOUNT%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                     <input type="hidden" name="<%=ROLE%>" value="<%=RoleEnum.SERVICE_CENTER%>">
                 </div>
 
@@ -84,9 +87,11 @@
             </form>
 
             <form action="main" method="post" id="cancel">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=OPEN_PAGE%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=MAIN_PAGE_PATH%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+                <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+
             </form>
         </div>
     </div>

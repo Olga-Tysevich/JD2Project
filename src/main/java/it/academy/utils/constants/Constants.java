@@ -68,6 +68,7 @@ public class Constants {
     public static final String FILTER = "filter";
     public static final String USER_INPUT = "input";
     public static final String COMMAND = "command";
+    public static final String DISPLAY_TABLE_COMMAND = "display_table_command";
     public static final String PAGE_NUMBER = "pageNumber";
     public static final String PAGE = "page";
     //jsp pages

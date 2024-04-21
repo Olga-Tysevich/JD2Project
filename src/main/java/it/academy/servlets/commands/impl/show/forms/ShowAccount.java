@@ -17,12 +17,16 @@ public class ShowAccount implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
+
+
         long accountId = Long.parseLong(req.getParameter(OBJECT_ID));
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
+        String tablePage = req.getParameter(PAGE);
 
         AccountDTO account = accountService.findAccount(accountId);
         req.setAttribute(ACCOUNT, account);
         req.setAttribute(PAGE_NUMBER, pageNumber);
+        req.setAttribute(PAGE, tablePage);
 
         return ACCOUNT_PAGE_PATH;
     }

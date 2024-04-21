@@ -3,6 +3,7 @@
 <%@ page import="it.academy.dto.req.DeviceTypeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_DEVICE_TYPE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_DEVICE_TYPE_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -13,6 +14,7 @@
 
     <%
         int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
+        String tablePage = (String) request.getAttribute(PAGE);
         DeviceTypeDTO deviceType = (DeviceTypeDTO) request.getAttribute(DEVICE_TYPE);
     %>
 
@@ -24,7 +26,7 @@
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_device_type_id">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_DEVICE_TYPE%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=deviceType.getId()%>">
 
@@ -51,8 +53,10 @@
         </div>
 
         <form action="main" method="post" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_DEVICE_TYPE_TABLE%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+            <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_DEVICE_TYPE_TABLE%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
         </form>
 
 

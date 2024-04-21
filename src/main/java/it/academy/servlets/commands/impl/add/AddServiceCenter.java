@@ -7,6 +7,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class AddServiceCenter implements ActionCommand {
             ServiceCenterDTO forCreate = Extractor.extract(req, new ServiceCenterDTO());
             log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
             serviceCenterService.addServiceCenter(forCreate);
-            return MAIN_PAGE_PATH;
+            return new ShowServiceCenterTable().execute(req);
         } catch (ObjectAlreadyExist | EmailAlreadyRegistered e) {
             req.setAttribute(ERROR, e.getMessage());
             return SERVICE_CENTER_PAGE_PATH;

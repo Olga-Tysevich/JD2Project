@@ -2,6 +2,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.req.ServiceCenterDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -14,13 +15,14 @@
 
         <%
             int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
+            String tablePage = (String) request.getAttribute(PAGE);
             ServiceCenterDTO serviceCenter = (ServiceCenterDTO) request.getAttribute(SERVICE_CENTER);
         %>
             <div class="lr-container">
                     <form action="main" method="post" id="service_center">
                         <div class="f-input">
                             <input type="hidden" name="<%=COMMAND%>" value="<%=request.getAttribute(COMMAND)%>">
-                            <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         </div>
                         <% if (serviceCenter.getId() != null) {%>
@@ -110,9 +112,10 @@
                     </form>
 
                 <form method="post" action="main" id="cancel">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER_TABLE%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+                    <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_SERVICE_CENTER_TABLE%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 </form>
 
             </div>

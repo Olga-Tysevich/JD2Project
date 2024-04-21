@@ -11,6 +11,7 @@ import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.commands.impl.show.tables.ShowAccountTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class AddAccount implements ActionCommand {
             req.setAttribute(ACCOUNT, forCreate);
             log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
             accountService.createAccount(forCreate);
-            return MAIN_PAGE_PATH;
+            return new ShowAccountTable().execute(req);
         } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
             List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
             req.setAttribute(ERROR, e.getMessage());

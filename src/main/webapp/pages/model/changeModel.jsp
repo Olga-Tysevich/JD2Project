@@ -7,6 +7,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE" %>
 <%@ page import="it.academy.dto.resp.ModelForChangeDTO" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_PAGE" %>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -22,7 +23,7 @@
         List<BrandDTO> brandList = modelData.getBrands();
         List<DeviceTypeDTO> deviceTypes = modelData.getDeviceTypes();
         CommandEnum command = (CommandEnum) request.getAttribute(COMMAND);
-        String pageForDisplay = (String) request.getAttribute(PAGE);
+        String tablePage = (String) request.getAttribute(PAGE);
     %>
 
     <form action="main" method="post">
@@ -33,7 +34,7 @@
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="change_model_id">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                 <% if (model.getId() != null) { %>
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
@@ -89,9 +90,10 @@
         </div>
 
         <form action="main" method="post" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+            <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
         </form>
 
     </div>

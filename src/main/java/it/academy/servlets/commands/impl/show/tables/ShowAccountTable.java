@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
 @Slf4j
 public class ShowAccountTable implements ActionCommand {
@@ -38,7 +40,8 @@ public class ShowAccountTable implements ActionCommand {
         }
 
         accounts.setPage(dataFromPage.getPage());
-        accounts.setCommand(dataFromPage.getCommand());
+        accounts.setCommand(SHOW_ACCOUNT_TABLE.name());
+        log.info(CURRENT_TABLE, accounts);
         req.setAttribute(LIST_FOR_PAGE, accounts);
         return MAIN_PAGE_PATH;
     }

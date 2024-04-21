@@ -7,11 +7,16 @@ import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_DEVICE_TYPE_TABLE;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
+@Slf4j
 public class ShowDeviceTypeTable implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
 
@@ -31,7 +36,8 @@ public class ShowDeviceTypeTable implements ActionCommand {
         }
 
         deviceTypes.setPage(dataFromPage.getPage());
-        deviceTypes.setCommand(dataFromPage.getCommand());
+        deviceTypes.setCommand(SHOW_DEVICE_TYPE_TABLE.name());
+        log.info(CURRENT_TABLE, deviceTypes);
         req.setAttribute(LIST_FOR_PAGE, deviceTypes);
         return MAIN_PAGE_PATH;
     }

@@ -30,7 +30,7 @@
                     int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
                     int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();
                     List<EntityFilter> filters = list.getFiltersForPage();
-                    String pageForDisplay = list.getPage();
+                    String tablePage = list.getPage();
                     String command = list.getCommand();
                     RepairStatus lastStatus = (RepairStatus) request.getAttribute(REPAIR_STATUS);
                 %>
@@ -45,11 +45,14 @@
             </div>
         </div>
 
-        <% if (pageForDisplay != null) { %>
+        <% if (tablePage != null) { %>
         <form action="main" method="post" id="search">
             <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+
+            <input type="text" name="<%=COMMAND%>" value="<%=command%>">
+
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
             <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
             <select class="filter" name="<%=FILTER%>" size="1">
                 <% if (filters != null) {
@@ -89,6 +92,7 @@
                 <legend>Сервисные центры</legend>
                 <form  action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=SERVICE_CENTER_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить сервисный центр"/>
                 </form>
@@ -119,7 +123,7 @@
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_MODEL%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=SHOW_MODEL_TABLE%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить модель"/>
                 </form>
@@ -179,15 +183,15 @@
         </div>
 
         <div class="table-container">
-            <% if (pageForDisplay != null) {
-                pageContext.include(pageForDisplay);
+            <% if (tablePage != null) {
+                pageContext.include(tablePage);
                 if (maxPageNumber > 1) {%>
             <div class="footer">
                 <div class="button-container">
                     <%if (pageNumber != FIRST_PAGE) { %>
                     <form action="main" method="post">
                         <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=lastStatus%>">
                         <%int prevPage = pageNumber - 1;%>
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
@@ -204,7 +208,7 @@
                     <%if (pageNumber != maxPageNumber) { %>
                     <form action="main" method="post">
                         <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=lastStatus%>">
                         <%int nextPage = pageNumber + 1;%>
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">

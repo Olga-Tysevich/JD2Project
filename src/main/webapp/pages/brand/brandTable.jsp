@@ -16,8 +16,8 @@
             RoleEnum role = accountDTO.getRole();
             ListForPage<BrandDTO> data = (ListForPage<BrandDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
+            String tablePage = data.getPage();
             List<BrandDTO> list = data.getList();
-            String currentPage = (String) request.getAttribute(PAGE);
         %>
 
         <table>
@@ -42,7 +42,7 @@
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>">
                         <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
@@ -58,7 +58,7 @@
             <form action="main" method="post" id="addBrand">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_BRAND%>">
                 <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=currentPage%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
 
                 <div class="f-input">

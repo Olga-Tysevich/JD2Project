@@ -20,7 +20,7 @@ import it.academy.servlets.commands.impl.change.ChangeSparePart;
 import it.academy.servlets.commands.impl.show.forms.*;
 
 public enum CommandEnum {
-    OPEN_PAGE(new ShowPageCommand()),
+    SHOW_PAGE(new ShowPageCommand()),
     LOGIN(new LoginCommand()),
     SHOW_NEW_ACCOUNT(new ShowNewAccount()),
     SHOW_ACCOUNT(new ShowAccount()),

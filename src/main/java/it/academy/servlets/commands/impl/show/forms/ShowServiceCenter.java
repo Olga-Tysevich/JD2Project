@@ -17,6 +17,7 @@ public class ShowServiceCenter implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
+        String tablePage = req.getParameter(PAGE);
         ServiceCenterDTO serviceCenterDTO;
         String id = req.getParameter(OBJECT_ID);
 
@@ -30,6 +31,7 @@ public class ShowServiceCenter implements ActionCommand {
         }
 
         req.setAttribute(SERVICE_CENTER, serviceCenterDTO);
+        req.setAttribute(PAGE, tablePage);
         req.setAttribute(PAGE_NUMBER, pageNumber);
 
         return SERVICE_CENTER_PAGE_PATH;

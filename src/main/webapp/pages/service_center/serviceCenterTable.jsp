@@ -11,6 +11,7 @@
         <%
             ListForPage<ServiceCenterDTO> data = (ListForPage<ServiceCenterDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
+            String tablePage = data.getPage();
             List<ServiceCenterDTO> list = data.getList();
         %>
 
@@ -39,7 +40,7 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

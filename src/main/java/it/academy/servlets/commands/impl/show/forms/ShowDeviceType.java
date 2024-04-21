@@ -15,12 +15,12 @@ public class ShowDeviceType implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         long deviceTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
-        String page = req.getParameter(PAGE);
+        String tablePage = req.getParameter(PAGE);
         int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         DeviceTypeDTO deviceType = deviceTypeService.findDeviceType(deviceTypeId);
 
         req.setAttribute(DEVICE_TYPE, deviceType);
-        req.setAttribute(PAGE, page);
+        req.setAttribute(PAGE, tablePage);
         req.setAttribute(PAGE_NUMBER, pageNumber);
 
         return DEVICE_TYPE_PAGE_PATH;

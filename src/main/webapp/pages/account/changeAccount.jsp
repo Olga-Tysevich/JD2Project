@@ -4,6 +4,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_ACCOUNT" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -16,6 +17,7 @@
 
         <%
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
+            String tablePage = (String) request.getAttribute(PAGE);
             AccountDTO account = (AccountDTO) request.getAttribute(ACCOUNT);
         %>
         <div class="lr-container">
@@ -23,7 +25,7 @@
                 <div class="f-input">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_ACCOUNT%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                     <input type="hidden" name="<%=ROLE%>" value="<%=account.getRole()%>">
                     <% if (!RoleEnum.ADMIN.equals(account.getRole())) { %>
                     <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=account.getServiceCenterId()%>">
@@ -84,9 +86,10 @@
             </form>
 
             <form action="main" method="post" id="cancel">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+                <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_ACCOUNT_TABLE%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
             </form>
         </div>
     </div>

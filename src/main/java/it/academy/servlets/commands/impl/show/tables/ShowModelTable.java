@@ -7,12 +7,17 @@ import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
+@Slf4j
 public class ShowModelTable implements ActionCommand {
     private ModelService modelService = new ModelServiceImpl();
 
@@ -20,20 +25,22 @@ public class ShowModelTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         ListForPage<ModelDTO> models;
-        TableReq dataFromPage = Extractor.extract(req, new TableReq());
-        boolean findByFilters = dataFromPage.getFilter() != null && dataFromPage.getInput() != null;
+        TableReq pageData = Extractor.extract(req, new TableReq());
+        log.info(OBJECT_EXTRACTED_PATTERN, pageData);
+        boolean findByFilters = pageData.getFilter() != null && pageData.getInput() != null;
 
         if (findByFilters) {
             models = modelService.findModels(
-                    dataFromPage.getPageNumber(),
-                    dataFromPage.getFilter(),
-                    dataFromPage.getInput());
+                    pageData.getPageNumber(),
+                    pageData.getFilter(),
+                    pageData.getInput());
         } else {
-            models = modelService.findModels(dataFromPage.getPageNumber());
+            models = modelService.findModels(pageData.getPageNumber());
         }
 
         models.setPage(MODEL_TABLE_PAGE_PATH);
         models.setCommand(SHOW_MODEL_TABLE.name());
+        log.info(CURRENT_TABLE, models);
         req.setAttribute(LIST_FOR_PAGE, models);
         return MAIN_PAGE_PATH;
     }

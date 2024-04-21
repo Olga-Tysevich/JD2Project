@@ -35,7 +35,7 @@ public class FilterManager {
 
     public static List<EntityFilter> getFiltersForDeviceType() {
         List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
+        filters.add(new EntityFilter(OBJECT_NAME, DEVICE_TYPE_NAME_DESCRIPTION));
         return filters;
     }
 
