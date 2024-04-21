@@ -13,7 +13,7 @@ public class LoggerConstants {
 
     //logger
     public static final String EXTRACT_ERROR_PATTERN = "Extract error: {}, object {}, field {}";
-    public static final String ERROR_PATTERN = "Error: {}";
+    public static final String ERROR_PATTERN = "Transaction error class: {}, message {}, object {}";
     public static final String UNKNOWN_COMMAND = "Unknown command: {}";
     public static final String VALIDATION_ERROR = "Validation is failed! Object {}";
     public static final String EMAIL_MUST_BE_NOT_NULL = "Email must not be null!";
@@ -27,8 +27,6 @@ public class LoggerConstants {
     public static final String OBJECT_ALREADY_EXIST = "Object already exist! Object: {}";
     public static final String OBJECT_NOT_FOUND_PATTERN = "Object not found id: {}, class: {}";
     public static final String OBJECTS_NOT_FOUND_PATTERN = "Objects not found, class: {}";
-    public static final String OBJECT_CREATION_FAILED_PATTERN = "Object creation failed: {}, cause {}";
-    public static final String OBJECT_UPDATE_FAILED_PATTERN = "Object update failed: {}, cause {}";
     public static final String INVALID_ROLE = "Invalid role! {}";
     public static final String WRONG_PASSWORD_ERROR = "Wrong password. Current: {}; Except: {}";
     public static final String USER_IS_BLOCKED_ERROR = "User is blocked {}";

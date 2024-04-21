@@ -1,12 +1,15 @@
 package it.academy.servlets.commands.impl.add;
 
 import it.academy.dto.req.ChangeSparePartDTO;
-import it.academy.exceptions.common.AccessDenied;
-import it.academy.services.SparePartService;
-import it.academy.services.impl.SparePartServiceImpl;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.exceptions.common.ObjectAlreadyExist;
+import it.academy.services.device.SparePartService;
+import it.academy.services.device.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.commands.impl.show.forms.ShowNewSparePart;
 import it.academy.servlets.commands.impl.show.tables.ShowSparePartTable;
 import it.academy.servlets.extractors.Extractor;
+import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_FOR_SAVE_PATTERN;
 
 @Slf4j
 public class AddSparePart implements ActionCommand {
@@ -23,33 +28,31 @@ public class AddSparePart implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        CommandHelper.checkRole(req);
+        ChangeSparePartDTO forCreate = Extractor.extract(req, new ChangeSparePartDTO());
+        log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
+
         try {
-            ChangeSparePartDTO sparePartDTO = Extractor.extract(req, new ChangeSparePartDTO());
-            List<Long> deviceTypesId = getDeviceTypeId(req);
-            sparePartDTO.setDeviceTypeIdList(deviceTypesId);
-            sparePartService.createSparePart(sparePartDTO);
-
-        } catch (IllegalArgumentException | AccessDenied e) {
+            List<Long> modelsId = getModelsId(req);
+            forCreate.setModelIdList(modelsId);
+            log.info(OBJECT_FOR_SAVE_PATTERN, forCreate);
+            sparePartService.createSparePart(forCreate);
+        } catch (IllegalArgumentException | ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
+            return new ShowNewSparePart().execute(req);
         }
-
-        req.setAttribute(PAGE, req.getParameter(PAGE));
-        req.setAttribute(PAGE_NUMBER, pageNumber);
 
         return new ShowSparePartTable().execute(req);
     }
 
-    protected List<Long> getDeviceTypeId(HttpServletRequest req) {
-        String[] deviceTypesId = req.getParameterValues(DEVICE_TYPE_ID);
-        if (deviceTypesId == null) {
+    protected List<Long> getModelsId(HttpServletRequest req) {
+        String[] modelsIdArray = req.getParameterValues(SPARE_PART_MODEL_ID);
+        if (modelsIdArray == null) {
             return new ArrayList<>();
         }
 
-        List<String> deviceTypeId = List.of(deviceTypesId);
-        deviceTypeId.forEach(System.out::println);
-        return deviceTypeId.stream()
+        List<String> modelsId = List.of(modelsIdArray);
+        return modelsId.stream()
                 .map(Long::parseLong)
                 .collect(Collectors.toList());
 

@@ -2,10 +2,10 @@ package it.academy.servlets.commands.impl.add;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.academy.dto.resp.SparePartDTO;
+import it.academy.dto.resp.SparePartForChangeDTO;
 import it.academy.dto.resp.SparePartOrderDTO;
-import it.academy.services.SparePartOrderService;
-import it.academy.services.impl.SparePartOrderServiceImpl;
+import it.academy.services.spare_part_order.SparePartOrderService;
+import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.forms.ShowConfirmedRepair;
 import it.academy.utils.converters.SparePartConverter;
@@ -39,7 +39,7 @@ public class AddSparePartOrder implements ActionCommand {
             Date departureDate = departureDateString != null ? Date.valueOf(departureDateString) : null;
             Date deliveryDate = deliveryDateString != null ? Date.valueOf(deliveryDateString) : null;
 
-            Map<SparePartDTO, Integer> sparePartsMap = null;
+            Map<SparePartForChangeDTO, Integer> sparePartsMap = null;
             if (orderData != null) {
                 TypeToken<List<SparePartForOrder>> typeToken = new TypeToken<>() {
                 };

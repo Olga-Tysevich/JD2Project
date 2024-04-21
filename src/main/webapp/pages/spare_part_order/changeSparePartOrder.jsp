@@ -3,7 +3,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.resp.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.SparePartDTO" %>
+<%@ page import="it.academy.dto.resp.SparePartForChangeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SPARE_PART_ORDER" %>
 <%@ page import="it.academy.dto.resp.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
@@ -17,7 +17,7 @@
      String pageForDisplay = (String) request.getAttribute(PAGE);
      if (orders != null && !orders.isEmpty()) {
          for (SparePartOrderDTO orderDTO : orders) {
-        Map<SparePartDTO, Integer> spareParts = orderDTO.getSpareParts();%>
+        Map<SparePartForChangeDTO, Integer> spareParts = orderDTO.getSpareParts();%>
 
 <form class="lr-form" action="repair" method="post" id="repair">
     <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_SPARE_PART_ORDER%>">
@@ -73,17 +73,17 @@
                 <th>Количество</th>
             </tr>
 
-            <%     for (SparePartDTO sparePartDTO : spareParts.keySet()) {
+            <%     for (SparePartForChangeDTO sparePartForChangeDTO : spareParts.keySet()) {
             %>
 
             <tr id="data_id" class="spare_part_input">
                 <td class="order-td">
-                    <input type="hidden" name="<%=SPARE_PART_ID%>" value="<%=sparePartDTO.getId()%>" disabled>
-                    <input type="text" name="<%=OBJECT_NAME%>" value="<%=sparePartDTO.getName()%>" disabled>
+                    <input type="hidden" name="<%=SPARE_PART_ID%>" value="<%=sparePartForChangeDTO.getId()%>" disabled>
+                    <input type="text" name="<%=OBJECT_NAME%>" value="<%=sparePartForChangeDTO.getName()%>" disabled>
                 </td>
                 <td class="order-td">
                     <input class="quantity " type="number" name="<%=SPARE_PART_QUANTITY%>"
-                           value="<%=spareParts.get(sparePartDTO)%>" disabled>
+                           value="<%=spareParts.get(sparePartForChangeDTO)%>" disabled>
                 </td>
             </tr>
             <% } %>

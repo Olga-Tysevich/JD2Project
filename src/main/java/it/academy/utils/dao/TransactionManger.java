@@ -34,12 +34,12 @@ public class TransactionManger {
 
     public <T> T execute(Supplier<T> method) {
         beginTransaction();
-        T result;
+        T result = null;
         try {
             result = method.get();
             commit();
         } catch (Exception e) {
-            log.error(ERROR_PATTERN, e.getMessage());
+            log.error(ERROR_PATTERN, e.getClass(), e.getMessage(), result);
             rollback();
             throw e;
         }

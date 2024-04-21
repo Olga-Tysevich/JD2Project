@@ -1,4 +1,4 @@
-package it.academy.services.impl;
+package it.academy.services.spare_part_order.impl;
 
 import it.academy.dao.RepairDAO;
 import it.academy.dao.SparePartOrderDAO;
@@ -10,7 +10,7 @@ import it.academy.dto.resp.ListForPage;
 import it.academy.entities.Repair;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.entities.SparePartOrder;
-import it.academy.services.SparePartOrderService;
+import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.utils.Builder;
 import it.academy.utils.converters.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;

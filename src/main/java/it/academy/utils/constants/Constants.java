@@ -98,7 +98,6 @@ public class Constants {
     public static final String MODEL = "model";
     public static final String BRAND_ID = "brandId";
     public static final String TYPE_ID = "deviceTypeId";
-    public static final String DEVICE_TYPE_ID = "device_type_id";
     public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
     //spare parts
@@ -131,12 +130,13 @@ public class Constants {
     public static final String ADD_REPAIR_PAGE_PATH = "/pages/repair/addRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
     //spare part
+    public static final String SPARE_PART_MODEL_ID = "model_id";
     public static final String ORDER_REPAIR_ID = "repairId";
     public static final String ORDER_DATE = "orderDate";
     public static final String DEPARTURE_DATE = "departureDate";
     public static final String DELIVERY_DATE = "deliveryDate";
     public static final String SPARE_PARTS = "spareParts";
-    public static final String DEVICE_TYPES = "typeSet";
+    public static final String MODELS = "models";
     public static final String REPAIR_NUMBER = "repair_number";
     public static final String SPARE_PART_QUANTITY = "quantity";
     public static final String ORDERS = "orders";
@@ -164,8 +164,9 @@ public class Constants {
     public static final String MODEL_NOT_FOUND = "Модель не найдена!";
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных моделей!";
     public static final String DEVICE_TYPE_NOT_FOUND = "Тип устройства не найден!";
-    public static final String DEVICE_TYPE_NOT_SELECTED = "Не выбраны связанные устройства!";
+    public static final String MODELS_NOT_SELECTED = "Не выбраны связанные модели!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
+    public static final String SPARE_PART_NOT_FOUND = "Запчасть не найдена!";
     public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";
     //description
     //role description

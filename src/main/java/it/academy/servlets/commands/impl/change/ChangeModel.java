@@ -22,8 +22,7 @@ public class ChangeModel implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(accountDTO);
+        CommandHelper.checkRole(req);
         ChangeModelDTO forUpdate = Extractor.extract(req, new ChangeModelDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 

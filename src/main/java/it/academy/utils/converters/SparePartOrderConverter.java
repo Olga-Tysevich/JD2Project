@@ -1,6 +1,6 @@
 package it.academy.utils.converters;
 
-import it.academy.dto.resp.SparePartDTO;
+import it.academy.dto.resp.SparePartForChangeDTO;
 import it.academy.dto.resp.SparePartOrderDTO;
 import it.academy.entities.SparePartOrder;
 import lombok.experimental.UtilityClass;
@@ -20,7 +20,7 @@ public class SparePartOrderConverter {
                 .departureDate(sparePartOrder.getDepartureDate())
                 .deliveryDate(sparePartOrder.getDeliveryDate())
                 .build();
-        Map<SparePartDTO, Integer> spareParts = sparePartOrder.getSpareParts()
+        Map<SparePartForChangeDTO, Integer> spareParts = sparePartOrder.getSpareParts()
                 .entrySet().stream()
                 .collect(Collectors.toMap(entry -> SparePartConverter.convertToDTO(entry.getKey(), null),
                         Map.Entry::getValue));

@@ -55,7 +55,7 @@ public class FilterManager {
 
     public static List<EntityFilter> getFiltersForSparePart() {
         List<EntityFilter> filters = new ArrayList<>();
-        filters.add(new EntityFilter(DEVICE_TYPES, DEVICE_TYPE_NAME_DESCRIPTION));
+        filters.add(new EntityFilter(MODELS, DEVICE_TYPE_NAME_DESCRIPTION));
         filters.add(new EntityFilter(OBJECT_NAME, SPARE_PART_NAME_DESCRIPTION));
         return filters;
     }

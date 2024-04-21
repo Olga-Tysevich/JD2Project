@@ -25,8 +25,7 @@ public class ShowServiceCenterTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(currentAccount);
+        CommandHelper.checkRole(req);
 
         ListForPage<ServiceCenterDTO> serviceCenters;
         TableReq dataFromPage = Extractor.extract(req, new TableReq());

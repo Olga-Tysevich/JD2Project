@@ -23,8 +23,7 @@ public class ShowNewAccount implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(currentAccount);
+        CommandHelper.checkRole(req);
 
         CreateAccountDTO createAccountDTO = CreateAccountDTO.builder()
                 .email(DEFAULT_VALUE)

@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.req.ChangeSparePartOrderDTO;
-import it.academy.services.SparePartOrderService;
-import it.academy.services.impl.SparePartOrderServiceImpl;
+import it.academy.services.spare_part_order.SparePartOrderService;
+import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
 import it.academy.servlets.extractors.Extractor;

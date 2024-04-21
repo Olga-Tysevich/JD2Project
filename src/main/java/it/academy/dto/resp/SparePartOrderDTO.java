@@ -26,6 +26,6 @@ public class SparePartOrderDTO {
 
     private Date deliveryDate;
 
-    private Map<SparePartDTO, Integer> spareParts;
+    private Map<SparePartForChangeDTO, Integer> spareParts;
 
 }

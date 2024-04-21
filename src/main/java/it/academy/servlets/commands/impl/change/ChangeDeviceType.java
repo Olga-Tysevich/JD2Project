@@ -22,8 +22,7 @@ public class ChangeDeviceType implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(accountDTO);
+        CommandHelper.checkRole(req);
         DeviceTypeDTO forUpdate = Extractor.extract(req, new DeviceTypeDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 

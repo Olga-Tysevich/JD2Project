@@ -1,18 +1,24 @@
 package it.academy.servlets.commands.impl.change;
 
 import it.academy.dto.req.ChangeSparePartDTO;
-import it.academy.exceptions.common.AccessDenied;
-import it.academy.services.SparePartService;
-import it.academy.services.impl.SparePartServiceImpl;
+import it.academy.dto.resp.AccountDTO;
+import it.academy.exceptions.common.ObjectAlreadyExist;
+import it.academy.services.device.SparePartService;
+import it.academy.services.device.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.impl.add.AddSparePart;
+import it.academy.servlets.commands.impl.show.forms.ShowNewSparePart;
+import it.academy.servlets.commands.impl.show.forms.ShowSparePart;
 import it.academy.servlets.commands.impl.show.tables.ShowSparePartTable;
 import it.academy.servlets.extractors.Extractor;
+import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_FOR_SAVE_PATTERN;
 
 @Slf4j
 public class ChangeSparePart extends AddSparePart {
@@ -21,29 +27,20 @@ public class ChangeSparePart extends AddSparePart {
     @Override
     public String execute(HttpServletRequest req) {
 
-        int pageNumber = req.getParameter(PAGE_NUMBER) != null ?
-                Integer.parseInt(req.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        CommandHelper.checkRole(req);
+        ChangeSparePartDTO forUpdate = Extractor.extract(req, new ChangeSparePartDTO());
+        log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
+
         try {
-            ChangeSparePartDTO sparePartDTO = Extractor.extract(req, new ChangeSparePartDTO());
-            List<Long> deviceTypesId = getDeviceTypeId(req);
-            sparePartDTO.setDeviceTypeIdList(deviceTypesId);
-            sparePartService.updateSparePart(sparePartDTO);
-        } catch (IllegalArgumentException | AccessDenied e) {
+            List<Long> modelsId = getModelsId(req);
+            forUpdate.setModelIdList(modelsId);
+            log.info(OBJECT_FOR_SAVE_PATTERN, forUpdate);
+            sparePartService.updateSparePart(forUpdate);
+        } catch (IllegalArgumentException | ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
-            long sparePartId = req.getParameter(SPARE_PART_ID) != null ?
-                    Long.parseLong(req.getParameter(SPARE_PART_ID)) : DEFAULT_ID;
-
-            req.setAttribute(SPARE_PART, sparePartService.findSparePart(sparePartId));
-            req.setAttribute(PAGE, SPARE_PART_PAGE_PATH);
-            req.setAttribute(PAGE_NUMBER, pageNumber);
-
-            return SPARE_PART_PAGE_PATH;
+            return new ShowSparePart().execute(req);
         }
-
-        req.setAttribute(PAGE, req.getParameter(PAGE));
-        req.setAttribute(PAGE_NUMBER, pageNumber);
 
         return new ShowSparePartTable().execute(req);
     }
-
 }

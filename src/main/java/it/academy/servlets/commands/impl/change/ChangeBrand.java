@@ -24,8 +24,7 @@ public class ChangeBrand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(accountDTO);
+        CommandHelper.checkRole(req);
         BrandDTO forUpdate = Extractor.extract(req, new BrandDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 

@@ -46,6 +46,7 @@ public enum CommandEnum {
     CHANGE_MODEL(new ChangeModel()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
     ADD_SPARE_PART(new AddSparePart()),
+    SHOW_NEW_SPARE_PART(new ShowNewSparePart()),
     SHOW_SPARE_PART_FORM(new ShowSparePart()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
     SHOW_REPAIR(new ShowRepair()),

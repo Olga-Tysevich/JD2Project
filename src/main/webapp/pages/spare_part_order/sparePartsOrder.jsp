@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.resp.SparePartDTO" %>
+<%@ page import="it.academy.dto.resp.SparePartForChangeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART_ORDER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
@@ -18,7 +18,7 @@
             <%
 
                 int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-                List<SparePartDTO> spareParts = (List<SparePartDTO>) request.getAttribute(SPARE_PARTS);
+                List<SparePartForChangeDTO> spareParts = (List<SparePartForChangeDTO>) request.getAttribute(SPARE_PARTS);
             %>
 
 
@@ -27,7 +27,7 @@
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=request.getAttribute(OBJECT_ID)%>">
-                    <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=request.getAttribute(DEVICE_TYPE_ID)%>">
+                    <input type="hidden" name="<%=SPARE_PART_MODEL_ID%>" value="<%=request.getAttribute(SPARE_PART_MODEL_ID)%>">
                     <input type="hidden" name="page" value="<%=pageNumber%>">
                     <div class="f-input">
                         <div class="form-el">Заказ запчастей для ремонта No.<%=REPAIR_NUMBER%></div>
@@ -36,8 +36,8 @@
                     <div class="f-input">
                         <label class="form-el">Запчасть:</label>
                         <select class="f-form " name="id" size="0">
-                            <%for (SparePartDTO sparePartDTO : spareParts) { %>
-                            <option id="spare_part_id" value="<%=sparePartDTO.getId()%>"><%=sparePartDTO.getName()%></option>
+                            <%for (SparePartForChangeDTO sparePartForChangeDTO : spareParts) { %>
+                            <option id="spare_part_id" value="<%=sparePartForChangeDTO.getId()%>"><%=sparePartForChangeDTO.getName()%></option>
                             <% } %>
                         </select>
                     </div>

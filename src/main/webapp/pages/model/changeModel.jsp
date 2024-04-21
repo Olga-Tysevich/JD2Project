@@ -62,7 +62,6 @@
                 <div class="f-input">
                     <label class="form-el">Тип устройства:</label>
                     <select class="f-form " name="<%=TYPE_ID%>" size="1">
-                        <%=DEVICE_TYPE_ID%>
                         <%for (DeviceTypeDTO deviceTypeDTO : deviceTypes) {%>
                         <option value="<%=deviceTypeDTO.getId()%>" <%if (deviceTypeDTO.getId().equals(model.getDeviceTypeId())) {%>selected<%}%>>
                             <%=deviceTypeDTO.getName()%></option>

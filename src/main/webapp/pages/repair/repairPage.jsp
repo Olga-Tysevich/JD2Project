@@ -239,7 +239,7 @@
             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ORDER_SPARE_PART%>">
             <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
             <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
-            <input type="hidden" name="<%=DEVICE_TYPE_ID%>" value="<%=deviceTypeId%>">
+            <input type="hidden" name="<%=SPARE_PART_MODEL_ID%>" value="<%=deviceTypeId%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
         </form>
 

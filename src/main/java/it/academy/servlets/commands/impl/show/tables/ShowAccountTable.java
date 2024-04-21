@@ -23,8 +23,7 @@ public class ShowAccountTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(currentAccount);
+        CommandHelper.checkRole(req);
 
         ListForPage<AccountDTO> accounts;
         TableReq dataFromPage = Extractor.extract(req, new TableReq());

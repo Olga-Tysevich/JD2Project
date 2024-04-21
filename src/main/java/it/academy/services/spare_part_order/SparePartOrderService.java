@@ -1,4 +1,4 @@
-package it.academy.services;
+package it.academy.services.spare_part_order;
 
 import it.academy.dto.req.ChangeSparePartOrderDTO;
 import it.academy.dto.resp.SparePartOrderDTO;

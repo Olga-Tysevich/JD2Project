@@ -1,7 +1,8 @@
-package it.academy.dao.impl;
+package it.academy.dao.device.impl;
 
-import it.academy.dao.SparePartDAO;
+import it.academy.dao.device.SparePartDAO;
 import it.academy.entities.DeviceType;
+import it.academy.entities.Model;
 import it.academy.entities.SparePart;
 import it.academy.utils.dao.TransactionManger;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
 
-public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SparePartDAO {
+public class SparePartDAOImpl extends DeviceComponentDAOImpl<SparePart, Long> implements SparePartDAO {
 
     public SparePartDAOImpl() {
         super(SparePart.class);
@@ -23,11 +24,11 @@ public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SpareP
     }
 
     @Override
-    public List<SparePart> findByDeviceTypeId(long id) {
+    public List<SparePart> findByModelId(long id) {
         CriteriaQuery<SparePart> find = criteriaBuilder().createQuery(SparePart.class);
         Root<SparePart> root = find.from(SparePart.class);
 
-        Join<SparePart, DeviceType> join = root.join(DEVICE_TYPES);
+        Join<SparePart, Model> join = root.join(MODELS);
         find.select(root).where(criteriaBuilder().equal(join.get(OBJECT_ID), id));
         return entityManager()
                 .createQuery(find)

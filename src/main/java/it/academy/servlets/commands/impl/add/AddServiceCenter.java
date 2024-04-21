@@ -24,8 +24,7 @@ public class AddServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(accountDTO);
+        CommandHelper.checkRole(req);
 
         try {
             ServiceCenterDTO forCreate = Extractor.extract(req, new ServiceCenterDTO());

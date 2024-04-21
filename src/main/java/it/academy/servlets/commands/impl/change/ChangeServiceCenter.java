@@ -21,8 +21,7 @@ public class ChangeServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(currentAccount);
+        CommandHelper.checkRole(req);
 
         try {
             ServiceCenterDTO forUpdate = Extractor.extract(req, new ServiceCenterDTO());

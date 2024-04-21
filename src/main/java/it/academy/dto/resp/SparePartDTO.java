@@ -21,8 +21,4 @@ public class SparePartDTO {
 
     private Boolean isActive;
 
-    private List<ModelDTO> relatedModels;
-
-    private List<ModelDTO> allModels;
-
 }

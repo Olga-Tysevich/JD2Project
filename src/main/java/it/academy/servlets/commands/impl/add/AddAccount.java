@@ -27,8 +27,8 @@ public class AddAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-        AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(currentAccount);
+
+        CommandHelper.checkRole(req);
 
         try {
             CreateAccountDTO forCreate = Extractor.extract(req, new CreateAccountDTO());
