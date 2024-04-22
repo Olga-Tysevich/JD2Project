@@ -39,5 +39,7 @@ public class LoggerConstants {
     public static final String CURRENT_ACCOUNT_PATTERN = "Current account: {}";
     public static final String CURRENT_PAGE_PATTERN = "Current page: {}";
     public static final String OBJECT_EXTRACTED_PATTERN = "Object extracted : {}";
+    public static final String REPAIR_FORM_LAST_BRAND_ID = "Last brand id : {}";
+    public static final String REPAIR_FORM_CURRENT_BRAND_ID = "Current brand id : {}";
 
 }

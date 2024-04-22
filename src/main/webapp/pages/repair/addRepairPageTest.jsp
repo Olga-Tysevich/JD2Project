@@ -7,18 +7,7 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_REPAIR" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <title>Сервисный центр</title>
-</head>
-<body>
-<section>
-
-    <div class="forms-container lf">
 
         <%
             AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
@@ -29,18 +18,9 @@
             List<ModelDTO> models = repairForm.getModels();
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             Long lastBrandId = (long) request.getAttribute(BRAND_ID);
-            String pageForDisplay = (String) request.getAttribute(PAGE);
-            int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-            String tablePage = (String) request.getAttribute(PAGE);
         %>
 
-        <div class="lr-container">
-            <form class="lr-form" action="main" method="post" id="form_for_submit">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_REPAIR%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="<%=BRAND_ID%>" value="<%=lastBrandId%>">
-
+            <input type="hidden" name="<%=BRAND_ID%>" value="<%=lastBrandId%>">
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
@@ -144,35 +124,3 @@
                     <input class="f-form" required type="tel" name="<%=BUYER_PHONE%>"
                            value="" id="buyerPhone">
                 </div>
-
-
-                <div class="f-input">
-                    <%
-                        String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
-                    %>
-                    <p class="error" id="error" style="display: none"><%=errorMessage%></p>
-                </div>
-
-                <div class="button-container">
-                    <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
-                    <input class="button" type="submit" value="Отмена" form="cancel"/>
-                </div>
-
-            </form>
-        </div>
-
-<%--        <%@include file="../included/cancel.jsp"%>--%>
-        <form action="main" method="post" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
-            <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
-            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-        </form>
-
-    </div>
-</section>
-
-<script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>
-<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
-
-</body>
