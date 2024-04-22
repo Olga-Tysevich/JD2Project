@@ -59,8 +59,8 @@ public enum CommandEnum {
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
     SHOW_REPAIR_TYPE_TABLE(new ShowRepairTypeTable()),
     ADD_REPAIR_TYPE(new AddRepairType()),
-    SHOW_REPAIR_TYPE(new ShowBrand()),
-    CHANGE_REPAIR_TYPE(new ChangeBrand());
+    SHOW_REPAIR_TYPE(new ShowRepairType()),
+    CHANGE_REPAIR_TYPE(new ChangeRepairType());
 
 
     private ActionCommand command;

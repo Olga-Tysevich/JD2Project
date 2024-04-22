@@ -5,7 +5,6 @@
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <section>
@@ -35,13 +34,15 @@
             %>
             <tr class="t-tr">
                 <td class="code"><%=repairType.getName()%></td>
+                <td class="code"><%=repairType.getCode()%></td>
+                <td class="code"><%=repairType.getLevel()%></td>
                 <td class="code">
                     <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=repairType.getIsActive()%>"
                            <%if (repairType.getIsActive()) {%>checked<%}%> disabled>
                 </td>
                 <td class="code">
                     <form action="repair" method="post" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairType.getId()%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
