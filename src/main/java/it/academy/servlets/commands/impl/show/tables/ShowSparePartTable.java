@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_TABLE_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 

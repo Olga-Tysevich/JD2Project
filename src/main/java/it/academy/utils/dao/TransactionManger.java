@@ -39,7 +39,7 @@ public class TransactionManger {
             result = method.get();
             commit();
         } catch (Exception e) {
-            log.error(TRANSACTION_ERROR_PATTERN, e.getClass(), e.getMessage(), result);
+            log.error(TRANSACTION_ERROR_PATTERN, e.getClass(), e.getMessage(), e.getStackTrace());
             rollback();
             throw e;
         }

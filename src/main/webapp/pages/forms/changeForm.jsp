@@ -1,6 +1,4 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,8 +13,6 @@
     <div class="forms-container lf">
 
         <%
-            AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
-            RoleEnum role = currentAccount.getRole();
             CommandEnum formCommand = (CommandEnum) request.getAttribute(COMMAND);
             CommandEnum tableCommand = (CommandEnum) request.getAttribute(DISPLAY_TABLE_COMMAND);
             String tablePage = (String) request.getAttribute(PAGE);
@@ -58,7 +54,6 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>
 <script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
 
 </body>

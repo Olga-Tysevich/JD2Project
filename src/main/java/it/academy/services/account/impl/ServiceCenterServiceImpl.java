@@ -18,6 +18,7 @@ import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -39,6 +40,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
         Supplier<ServiceCenter> add = () -> {
             checkServiceCenter(serviceCenter);
             serviceCenter.setIsActive(true);
+            log.info(OBJECT_FOR_SAVE_PATTERN, serviceCenter);
             return serviceCenterDAO.create(serviceCenter);
         };
         transactionManger.execute(add);
@@ -55,6 +57,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
             List<Account> serviceAccounts = accountDAO.findServiceCenterAccounts(serviceCenter.getId());
             serviceAccounts.forEach(a -> {
                 a.setIsActive(isActive);
+                log.info(OBJECT_FOR_UPDATE_PATTERN, serviceCenter);
                 accountDAO.update(a);
             });
             return serviceCenterDAO.update(serviceCenter);
@@ -102,10 +105,12 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     private void checkServiceCenter(ServiceCenter serviceCenter) {
-        if (serviceCenterDAO.checkIfServiceCenterExist(serviceCenter)) {
+        long id = serviceCenter.getId() != null ? serviceCenter.getId() : 0L;
+        String serviceName = serviceCenter.getServiceName();
+        if (serviceCenterDAO.checkIfServiceCenterExist(id, serviceName)) {
             transactionManger.rollback();
             log.warn(OBJECT_ALREADY_EXIST, serviceCenter);
-            throw  new ObjectAlreadyExist(SERVICE_CENTER_ALREADY_EXIST);
+            throw new ObjectAlreadyExist(SERVICE_CENTER_ALREADY_EXIST);
         }
     }
 

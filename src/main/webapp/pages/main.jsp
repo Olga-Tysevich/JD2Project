@@ -10,6 +10,9 @@
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.ACCOUNT_TABLE_PAGE_PATH" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -77,8 +80,6 @@
                 <legend>Компания</legend>
                 <form action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_ACCOUNT%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=ACCOUNT_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
                 </form>
 
@@ -94,8 +95,6 @@
                 <legend>Сервисные центры</legend>
                 <form  action="account" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=SERVICE_CENTER_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить сервисный центр"/>
                 </form>
                 <form  action="account" method="post">
@@ -125,8 +124,6 @@
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_MODEL%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=SHOW_MODEL_TABLE%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить модель"/>
                 </form>
                 <% } %>
@@ -156,8 +153,6 @@
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_SPARE_PART%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=SPARE_PART_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Добавить запчасть"/>
                 </form>
                 <% } %>
@@ -176,8 +171,6 @@
                 <form action="repair" method="post">
                     <input type="hidden" name="<%=SELECTED_BRAND_ID%>" value="<%=DEFAULT_ID%>">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
                 </form>
 

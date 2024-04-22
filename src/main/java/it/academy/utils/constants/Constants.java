@@ -30,7 +30,7 @@ public class Constants {
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
     public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
-    public static final String CHECK_SERVICE_CENTER = "SELECT s FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
+    public static final String CHECK_SERVICE_CENTER = "SELECT count(s) FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
     public static final String CHECK_DEVICE_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String PARAMETER_VALUE = "value";
@@ -79,40 +79,23 @@ public class Constants {
     //login main
     public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
-    //account
-    public static final String SERVICE_CENTERS = "service_centers";
-    public static final String NEW_ACCOUNT_PAGE_PATH = "/pages/account/addAccount.jsp";
-    public static final String ACCOUNT_PAGE_PATH = "/pages/account/changeAccount.jsp";
-    public static final String ACCOUNT_TABLE_PAGE_PATH = "/pages/account/accountTable.jsp";
     //service center
     public static final String SERVICE_CENTER = "service_center";
-    public static final String SERVICE_CENTER_PAGE_PATH = "/pages/service_center/changeServiceCenter.jsp";
-    public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/service_center/serviceCenterTable.jsp";
     //brand
     public static final String BRAND = "brand";
-    public static final String BRAND_PAGE_PATH = "/pages/brand/changeBrand.jsp";
-    public static final String BRAND_TABLE_PAGE_PATH = "/pages/brand/brandTable.jsp";
     //device type
     public static final String DEVICE_TYPE = "device_type";
-    public static final String DEVICE_TYPE_PAGE_PATH = "/pages/device_type/changeDeviceType.jsp";
-    public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/device_type/deviceTypesTable.jsp";
     //model
     public static final String MODEL = "model";
     public static final String BRAND_ID = "brandId";
     public static final String TYPE_ID = "deviceTypeId";
-    public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
-    public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
     //spare parts
     public static final String SPARE_PART = "spare_part";
     public static final String SPARE_PART_ID = "spare_part_id";
-    public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
-    public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
     //repair type
     public static final String REPAIR_TYPE = "repair_type";
     public static final String REPAIR_TYPE_CODE = "code";
     public static final String REPAIR_TYPE_LEVEL = "level";
-    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/repair/changeRepairType.jsp";
-    public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair/repairTypeTable.jsp";
     //repair
     public static final String REPAIR_FORM = "repair_form";
     public static final String CHANGE_REPAIR_FORM = "change_repair_form";
@@ -132,9 +115,6 @@ public class Constants {
     public static final String BUYER_SURNAME = "buyerSurname";
     public static final String BUYER_PHONE = "buyerPhone";
     public static final String DATE_OF_SALE = "dateOfSale";
-    public static final String REPAIR_PAGE_PATH = "/pages/repair/repairPage.jsp";
-    public static final String ADD_REPAIR_PAGE_PATH = "/pages/repair/addRepairPage.jsp";
-    public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
     //spare part
     public static final String SPARE_PART_MODEL_ID = "model_id";
     public static final String ORDER_REPAIR_ID = "repairId";

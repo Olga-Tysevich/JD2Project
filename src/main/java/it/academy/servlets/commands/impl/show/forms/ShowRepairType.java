@@ -4,9 +4,14 @@ import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.utils.CommandHelper;
+
 import javax.servlet.http.HttpServletRequest;
 
+import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.REPAIR_TYPE_PAGE_PATH;
+import static it.academy.utils.constants.JSPConstant.REPAIR_TYPE_TABLE_PAGE_PATH;
 
 public class ShowRepairType implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
@@ -15,14 +20,13 @@ public class ShowRepairType implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         long repairTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
-        String tablePage = req.getParameter(PAGE);
-        int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
         RepairTypeDTO repairType = repairTypeService.findRepairType(repairTypeId);
 
         req.setAttribute(REPAIR_TYPE, repairType);
-        req.setAttribute(PAGE, tablePage);
-        req.setAttribute(PAGE_NUMBER, pageNumber);
-
-        return REPAIR_TYPE_PAGE_PATH;
+        return CommandHelper.insertFormData(req,
+                REPAIR_TYPE_TABLE_PAGE_PATH,
+                REPAIR_TYPE_PAGE_PATH,
+                CHANGE_REPAIR_TYPE,
+                SHOW_REPAIR_TYPE_TABLE);
     }
 }

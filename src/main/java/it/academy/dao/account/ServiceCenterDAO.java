@@ -5,6 +5,6 @@ import it.academy.entities.account.ServiceCenter;
 
 public interface ServiceCenterDAO extends DAO<ServiceCenter, Long> {
 
-    boolean checkIfServiceCenterExist(ServiceCenter serviceCenter);
+    boolean checkIfServiceCenterExist(long id, String name);
 
 }

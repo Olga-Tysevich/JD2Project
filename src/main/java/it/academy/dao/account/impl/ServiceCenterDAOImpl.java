@@ -21,15 +21,11 @@ public class ServiceCenterDAOImpl extends DAOImpl<ServiceCenter, Long> implement
     }
 
     @Override
-    public boolean checkIfServiceCenterExist(ServiceCenter serviceCenter) {
-        TypedQuery<ServiceCenter> find = entityManager().createQuery(CHECK_SERVICE_CENTER, ServiceCenter.class);
-        find.setParameter(OBJECT_ID, serviceCenter.getId());
-        find.setParameter(OBJECT_NAME, serviceCenter.getServiceName());
-        try {
-            ServiceCenter result = find.getSingleResult();
-            return result == null;
-        } catch (NoResultException e) {
-            return false;
-        }
+    public boolean checkIfServiceCenterExist(long id, String name) {
+        TypedQuery<Long> find = entityManager().createQuery(CHECK_SERVICE_CENTER, Long.class);
+        find.setParameter(OBJECT_ID, id);
+        find.setParameter(OBJECT_NAME, name);
+
+        return find.getSingleResult() != 0;
     }
 }

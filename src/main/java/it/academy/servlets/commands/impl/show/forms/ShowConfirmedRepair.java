@@ -10,6 +10,7 @@ import it.academy.servlets.commands.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.REPAIR_PAGE_PATH;
 
 public class ShowConfirmedRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();

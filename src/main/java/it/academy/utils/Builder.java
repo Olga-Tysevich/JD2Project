@@ -1,6 +1,7 @@
 package it.academy.utils;
 
 import it.academy.dto.ListForPage;
+import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairFormDTO;
@@ -21,6 +22,16 @@ public class Builder {
                 .list(list)
                 .maxPageNumber(maxPageNumber)
                 .filtersForPage(filters)
+                .build();
+    }
+
+    public static CreateAccountDTO buildEmptyAccount() {
+        return CreateAccountDTO.builder()
+                .email(DEFAULT_VALUE)
+                .userName(DEFAULT_VALUE)
+                .userSurname(DEFAULT_VALUE)
+                .password(DEFAULT_VALUE)
+                .confirmPassword(DEFAULT_VALUE)
                 .build();
     }
 

@@ -1,15 +1,18 @@
 package it.academy.servlets.commands.impl.show.forms;
+
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.model.ModelsNotFound;
 import it.academy.services.device.SparePartService;
 import it.academy.services.device.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.utils.CommandHelper;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART;
+import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.*;
 
 public class ShowNewSparePart implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();
@@ -17,16 +20,16 @@ public class ShowNewSparePart implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        String page = req.getParameter(PAGE);
-        int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
+        CommandHelper.checkRole(req);
 
         try {
             SparePartForChangeDTO model = sparePartService.getSparePartForm();
             req.setAttribute(SPARE_PART, model);
-            req.setAttribute(PAGE, page);
-            req.setAttribute(COMMAND, ADD_SPARE_PART);
-            req.setAttribute(PAGE_NUMBER, pageNumber);
-            return SPARE_PART_PAGE_PATH;
+            return CommandHelper.insertFormData(req,
+                    SPARE_PART_TABLE_PAGE_PATH,
+                    SPARE_PART_PAGE_PATH,
+                    ADD_SPARE_PART,
+                    SHOW_SPARE_PART_TABLE);
         } catch (IllegalArgumentException | ObjectAlreadyExist | ModelsNotFound e) {
             req.setAttribute(ERROR, e.getMessage());
             return MAIN_PAGE_PATH;

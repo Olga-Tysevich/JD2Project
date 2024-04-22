@@ -57,7 +57,6 @@ public enum CommandEnum {
     SHOW_REPAIR_TYPE(new ShowRepairType()),
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
     SHOW_REPAIR(new ShowRepair()),
-    FIND_MODELS_FOR_REPAIR_FORM(new FindModelsForRepairForm()),
     SHOW_CONFIRMED_REPAIR(new ShowConfirmedRepair()),
     ADD_REPAIR(new AddRepair()),
     CHANGE_REPAIR(new ChangeRepair()),
