@@ -27,16 +27,12 @@ public class ChangeRepair extends AddRepair {
             RepairDTO repairDTO = Extractor.extract(req, new RepairDTO());
             repairDTO.setCurrentAccount(currentAccount);
 
-            if (checkBrand(req, currentAccount, repairDTO)) {
                 RepairFormDTO repairFormDTO = (RepairFormDTO) req.getAttribute(REPAIR_FORM);
                 repairDTO.setBrandId(repairFormDTO.getCurrentBrandId());
                 ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(repairDTO, repairFormDTO, null);
                 req.setAttribute(CHANGE_REPAIR_FORM, changeRepairFormDTO);
                 String page = req.getParameter(PAGE);
                 req.setAttribute(PAGE, page);
-                return REPAIR_PAGE_PATH;
-            }
-
             repairService.updateRepair(repairDTO);
 
             return new ShowRepairTable().execute(req);

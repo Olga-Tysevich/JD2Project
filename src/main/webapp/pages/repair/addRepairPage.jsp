@@ -8,9 +8,9 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_REPAIR" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_REPAIR" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+<%@ page import="static it.academy.utils.enums.RepairStatus.REQUEST" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -29,11 +29,11 @@
             Map<Long, String> serviceCenters = repairForm.getServiceCenters();
             List<BrandDTO> brands = repairForm.getBrands();
             List<ModelDTO> models = repairForm.getModels();
-            List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
-            Long lastBrandId = request.getAttribute(BRAND_ID) != null ? (long) request.getAttribute(BRAND_ID) : brands.get(0).getId();
+            Long lastBrandId = (long) request.getAttribute(BRAND_ID);
             String pageForDisplay = (String) request.getAttribute(PAGE);
-            int pageNumber = request.getParameter(PAGE_NUMBER) != null? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+            int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
+            String tablePage = (String) request.getAttribute(PAGE);
         %>
 
         <div class="lr-container">
@@ -41,7 +41,6 @@
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_REPAIR%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="<%=BRAND_ID%>" value="<%=lastBrandId%>">
 
                 <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <div class="f-input">
@@ -56,18 +55,9 @@
                 </div>
                 <% } else { %>
                 <input type="hidden" name="<%=SERVICE_CENTER_ID%>"
-                       value="<%=currentAccount.getServiceCenter().getId()%>">
+                       value="<%=currentAccount.getServiceCenterId()%>">
                 <% } %>
 
-                <div class="f-input">
-                    <label class="form-el">Статус ремонта:</label>
-                    <select class="f-form " name="<%=REPAIR_STATUS%>" size="1">
-                        <%for (RepairStatus status : statuses) {%>
-                        <option value="<%=status.name()%>">
-                            <%=status.getDescription()%></option>
-                        <%}%>
-                    </select>
-                </div>
                 <div class="f-input">
                     <label class="form-el">Категория ремонта:</label>
                     <select class="f-form " name="<%=REPAIR_CATEGORY%>" size="1">
@@ -80,7 +70,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Бренд:</label>
-                    <select class="f-form " name="<%=CURRENT_BRAND_ID%>" size="1" id="select_send">
+                    <select class="f-form " name="<%=SELECTED_BRAND_ID%>" size="1" id="select_send">
                         <%for (BrandDTO brandDTO : brands) {%>
                         <option value="<%=brandDTO.getId()%>"
                                 <%if(brandDTO.getId().equals(lastBrandId)) {%>selected<%}%>>
@@ -174,9 +164,10 @@
 
 
         <form action="main" method="post" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=request.getParameter(PAGE)%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+            <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
         </form>
 
     </div>

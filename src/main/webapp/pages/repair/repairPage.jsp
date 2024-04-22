@@ -94,7 +94,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Бренд:</label>
-                    <select class="f-form " name="<%=CURRENT_BRAND_ID%>" size="1" id="select_send">
+                    <select class="f-form " name="<%=SELECTED_BRAND_ID%>" size="1" id="select_send">
                         <%for (BrandDTO brandDTO : brands) {%>
                         <option value="<%=brandDTO.getId()%>"
                                 <%if(brandDTO.getId().equals(repairDTO.getBrandId())) {%>selected<%}%>>

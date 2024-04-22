@@ -4,16 +4,11 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class LoggerConstants {
-    public static final int MIN_FIELD_LENGTH = 2;
-    public static final int MAX_FIELD_LENGTH = 20;
 
-    //entity patterns
-    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$";
-    public static final String TEXT_PATTERN = "[A-ZА-Я][a-zа-я]{2,19}";
-
-    //logger
+    //error/warn
+    public static final String ERROR_PATTERN = "Error class: {}, message {}";
     public static final String EXTRACT_ERROR_PATTERN = "Extract error: {}, object {}, field {}";
-    public static final String ERROR_PATTERN = "Transaction error class: {}, message {}, object {}";
+    public static final String TRANSACTION_ERROR_PATTERN = "Transaction error class: {}, message {}, object {}";
     public static final String UNKNOWN_COMMAND = "Unknown command: {}";
     public static final String VALIDATION_ERROR = "Validation is failed! Object {}";
     public static final String EMAIL_MUST_BE_NOT_NULL = "Email must not be null!";
@@ -44,6 +39,5 @@ public class LoggerConstants {
     public static final String CURRENT_ACCOUNT_PATTERN = "Current account: {}";
     public static final String CURRENT_PAGE_PATTERN = "Current page: {}";
     public static final String OBJECT_EXTRACTED_PATTERN = "Object extracted : {}";
-
 
 }

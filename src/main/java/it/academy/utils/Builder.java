@@ -3,6 +3,7 @@ package it.academy.utils;
 import it.academy.dto.ListForPage;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.device.ModelDTO;
+import it.academy.dto.repair.RepairFormDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.experimental.UtilityClass;

@@ -53,6 +53,15 @@ public class FilterManager {
         return filters;
     }
 
+
+    public static List<EntityFilter> getFiltersForRepair() {
+        List<EntityFilter> filters = new ArrayList<>();
+        filters.add(new EntityFilter(REPAIR_TYPE_CODE, REPAIR_TYPE_CODE_FILTER));
+        filters.add(new EntityFilter(REPAIR_TYPE_LEVEL, REPAIR_TYPE_LEVEL_FILTER));
+        filters.add(new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
+        return filters;
+    }
+
     public static List<EntityFilter> getFiltersForSparePart() {
         List<EntityFilter> filters = new ArrayList<>();
         filters.add(new EntityFilter(MODELS, DEVICE_TYPE_NAME_DESCRIPTION));

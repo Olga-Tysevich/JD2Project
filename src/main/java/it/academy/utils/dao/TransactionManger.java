@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.function.Supplier;
 
-import static it.academy.utils.constants.LoggerConstants.ERROR_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.TRANSACTION_ERROR_PATTERN;
 
 @Slf4j
 public class TransactionManger {
@@ -39,7 +39,7 @@ public class TransactionManger {
             result = method.get();
             commit();
         } catch (Exception e) {
-            log.error(ERROR_PATTERN, e.getClass(), e.getMessage(), result);
+            log.error(TRANSACTION_ERROR_PATTERN, e.getClass(), e.getMessage(), result);
             rollback();
             throw e;
         }

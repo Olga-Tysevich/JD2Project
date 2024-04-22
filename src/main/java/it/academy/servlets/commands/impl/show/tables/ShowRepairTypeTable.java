@@ -8,10 +8,8 @@ import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
-
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TYPE_TABLE;
 import static it.academy.utils.constants.Constants.LIST_FOR_PAGE;
 import static it.academy.utils.constants.Constants.MAIN_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
@@ -37,7 +35,7 @@ public class ShowRepairTypeTable implements ActionCommand {
         }
 
         repairTypes.setPage(dataFromPage.getPage());
-        repairTypes.setCommand(SHOW_BRAND_TABLE.name());
+        repairTypes.setCommand(SHOW_REPAIR_TYPE_TABLE.name());
         log.info(CURRENT_TABLE, repairTypes);
         req.setAttribute(LIST_FOR_PAGE, repairTypes);
         return MAIN_PAGE_PATH;

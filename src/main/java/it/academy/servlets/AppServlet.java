@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_COMMAND;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_PAGE_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.*;
 
 @Slf4j
 public class AppServlet extends HttpServlet {
@@ -44,7 +43,7 @@ public class AppServlet extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         } catch (Exception e) {
-            log.error(ERROR_PATTERN, e.getMessage());
+            log.error(ERROR_PATTERN, e.getClass(), e.getMessage());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(ERROR_PAGE_PATH);
             dispatcher.forward(req, resp);
         }

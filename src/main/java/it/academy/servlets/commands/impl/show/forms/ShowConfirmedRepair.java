@@ -22,7 +22,7 @@ public class ShowConfirmedRepair implements ActionCommand {
             long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
             int pageNumber = Integer.parseInt(req.getParameter(PAGE_NUMBER));
             String page = req.getParameter(PAGE);
-            ChangeRepairFormDTO changeRepairForm = repairService.findRepair(currentAccount, repairId);
+            ChangeRepairFormDTO changeRepairForm = repairService.findRepair(repairId);
             long brandId = changeRepairForm.getRepairDTO().getBrandId();
 
             req.setAttribute(BRAND_ID, brandId);

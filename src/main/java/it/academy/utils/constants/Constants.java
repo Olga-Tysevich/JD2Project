@@ -13,25 +13,26 @@ public class Constants {
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
     public static final long DEFAULT_ID = 1L;
     public static final String DEFAULT_VALUE = "";
-    //Log
-    public static final String CURRENT_CLASS = "Class name: %s";
-    public static final String CURRENT_METHOD = "Method name: %s";
-    public static final String CURRENT_ACCOUNT_PATTERN = "Current account: %s";
-    public static final String FORM_EXTRACTED_PATTERN = "form extracted: %s";
-    //ERROR_MESSAGES
+
+    //entity patterns
+    public static final int MIN_FIELD_LENGTH = 2;
+    public static final int MAX_FIELD_LENGTH = 20;
+    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$";
+    public static final String TEXT_PATTERN = "[A-ZА-Я][a-zа-я]{2,19}";
+
     //sql
     public static final String GET_NUMBER_OF_ENTRIES = "SELECT count(s) FROM %s s";
     public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
     public static final String GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value AND active = true";
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
-    public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
-    public static final String CHECK_SERVICE_CENTER = "SELECT s FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
-    public static final String CHECK_DEVICE_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
-    public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
+    public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
+    public static final String CHECK_SERVICE_CENTER = "SELECT s FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
+    public static final String CHECK_DEVICE_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
+    public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String PARAMETER_VALUE = "value";
     //parameters
     //common parameters
@@ -120,7 +121,7 @@ public class Constants {
     public static final String SERVICE_CENTER_REPAIR_NUMBER = "repairNumber";
     public static final String END_DATE = "endDate";
     public static final String DEFECT_DESCRIPTION = "defectDescription";
-    public static final String CURRENT_BRAND_ID = "currentBrandId";
+    public static final String SELECTED_BRAND_ID = "selectedBrandId";
     public static final String MODEL_ID = "modelId";
     public static final String DEVICE_ID = "deviceId";
     public static final String SERIAL_NUMBER = "serialNumber";
@@ -156,7 +157,6 @@ public class Constants {
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
     public static final String SERVICE_CENTER_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
-    public static final String SERVICE_NAME_ALREADY_TAKEN = "Сервисное имя занято!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
     public static final String REPAIR_TYPE_ALREADY_EXIST = "Тип ремонта уже добавлен!";
     public static final String DEVICE_TYPE_ALREADY_EXIST = "Данный тип устройства уже добавлен!";
@@ -193,13 +193,6 @@ public class Constants {
     public static final String PAID_CATEGORY_DESCRIPTION = "Платный";
     public static final String REPEATED_DESCRIPTION = "Повторный";
 
-
-    //info
-    public static final String OBJECT_CREATED_PATTERN = "Object created: {}";
-    public static final String OBJECT_UPDATED_PATTERN = "object updated: {}";
-    public static final String OBJECT_FOUND_PATTERN = "Object found: {}";
-    public static final String ERROR_PATTERN = "Error: {}";
-
     //filters
     //account filters
     public static final String ACCOUNT_USER_NAME = "Имя";
@@ -226,14 +219,7 @@ public class Constants {
     public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
     public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     //jsp
-//    public static final String REPAIR_TYPE = "type";
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";
-    //Paths
-    public static final String SHOW_COMMAND = "show_command";
-//    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/change_pages/changeRepairType.jsp";
-    //show_command
-    public static final String SHOW_SPARE_PART_ORDERS_TABLE = "show_spare_part_orders_table";
-    public static final String REPAIR_TYPES = "repair_types";
 
 }

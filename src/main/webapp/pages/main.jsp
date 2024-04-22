@@ -174,9 +174,10 @@
             <fieldset class="f1">
                 <legend>Ремонты</legend>
                 <form action="repair" method="post">
+                    <input type="hidden" name="<%=SELECTED_BRAND_ID%>" value="<%=DEFAULT_ID%>">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=page%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
                 </form>
 

@@ -31,6 +31,7 @@ import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -126,14 +127,20 @@ public class ModelServiceImpl implements ModelService {
     public ListForPage<ModelDTO> findModels(int pageNumber) {
         long numberOfEntries = modelDAO.getNumberOfEntries();
         int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(() -> modelDAO.findForPage(pageNumber, LIST_SIZE), pageNumber, maxPageNumber);
+        return find(
+                () -> modelDAO.findForPage(pageNumber, LIST_SIZE),
+                pageNumber,
+                maxPageNumber);
     }
 
     @Override
-    public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input)  {
+    public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input) {
         long numberOfEntries = modelDAO.getNumberOfEntriesByFilter(filter, input);
         int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(() -> modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber, maxPageNumber);
+        return find(
+                () -> modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input),
+                pageNumber,
+                maxPageNumber);
     }
 
     private ListForPage<ModelDTO> find(Supplier<List<Model>> methodForSearch, int pageNumber, int maxPageNumber) {

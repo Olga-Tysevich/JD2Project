@@ -1,18 +1,10 @@
 package it.academy.utils;
 
-import it.academy.dao.DAO;
-import it.academy.dto.account.AccountDTO;
-import it.academy.dto.ListForPage;
-import it.academy.exceptions.common.AccessDenied;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.enums.RoleEnum;
-import it.academy.utils.fiterForSearch.EntityFilter;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static it.academy.utils.constants.Constants.LIST_SIZE;
 import static it.academy.utils.constants.Constants.OBJECTS_NOT_FOUND_MESSAGE;
 import static it.academy.utils.constants.LoggerConstants.*;
@@ -41,20 +33,4 @@ public class ServiceHelper {
         }
     }
 
-    public static void checkCurrentAccount(AccountDTO account) throws AccessDenied {
-        if (account == null || !RoleEnum.ADMIN.equals(account.getRole())) {
-            throw new AccessDenied();
-        }
-    }
-
-    public static <T, R, L, S extends DAO<T, L>> ListForPage<R> getList(S dao, Supplier<List<T>> method, int pageNumber,
-                                                                        Function<List<T>, List<R>> converter,
-                                                                        Supplier<List<EntityFilter>> methodForGetFilters) {
-
-        List<EntityFilter> filters = methodForGetFilters.get();
-        List<T> list = method.get();
-        int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
-        List<R> listDTO = converter.apply(list);
-        return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
-    }
 }

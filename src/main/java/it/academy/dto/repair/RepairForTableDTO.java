@@ -15,9 +15,11 @@ import java.sql.Date;
 @AllArgsConstructor
 public class RepairForTableDTO {
 
-    private String serviceCenterName;
-
     private Long id;
+
+    private Long brandId;
+
+    private String serviceCenterName;
 
     private String modelDescription;
 
