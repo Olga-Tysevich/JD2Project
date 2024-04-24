@@ -8,6 +8,7 @@ import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.ListForPage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceCenter;
+import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.impl.ServiceCenterConverter;
@@ -33,7 +34,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 
         ServiceCenter serviceCenter = serviceCenterConverter.convertToEntity(serviceCenterDTO);
         Supplier<ServiceCenter> add = () -> {
-            checkServiceCenter(serviceCenter);
+            checkServiceCenter(ID_FOR_CHECK, serviceCenter.getServiceName());
             serviceCenter.setIsActive(true);
             log.info(OBJECT_FOR_SAVE_PATTERN, serviceCenter);
             return serviceCenterDAO.create(serviceCenter);
@@ -46,7 +47,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     public void updateServiceCenter(ServiceCenterDTO serviceCenterDTO) {
         ServiceCenter serviceCenter = serviceCenterConverter.convertToEntity(serviceCenterDTO);
         Supplier<ServiceCenter> update = () -> {
-            serviceCenterDAO.checkIfExist(serviceCenter.getId(), serviceCenter.getServiceName());
+            checkServiceCenter(serviceCenter.getId(), serviceCenter.getServiceName());
             boolean isActive = serviceCenter.getIsActive();
             List<Account> serviceAccounts = accountDAO.findServiceCenterAccounts(serviceCenter.getId());
             serviceAccounts.forEach(a -> {
@@ -79,6 +80,13 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     @Override
     public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
         return serviceHelper.find(pageNumber, filter, input);
+    }
+
+    private void checkServiceCenter(long id, String serviceName) {
+        if (serviceCenterDAO.checkIfServiceCenterExist(id, serviceName)) {
+            log.warn(OBJECT_ALREADY_EXIST, serviceName);
+            throw new ObjectAlreadyExist(SERVICE_CENTER_ALREADY_EXIST);
+        }
     }
 
 }

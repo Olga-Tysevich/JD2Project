@@ -31,6 +31,7 @@ public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repair.getId())
                 .serviceCenterId(repair.getServiceCenter().getId())
+                .serviceCenterName(repair.getServiceCenter().getServiceName())
                 .deviceDTO(deviceConverter.convertToDTO(device))
                 .category(repair.getCategory())
                 .status(repair.getStatus())

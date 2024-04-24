@@ -27,7 +27,6 @@ public class ShowAccountTable implements ActionCommand {
 
         ListForPage<AccountDTO> accounts;
         TableReq dataFromPage = Extractor.extract(req, new TableReq());
-        boolean findByFilters = dataFromPage.getFilter() != null && dataFromPage.getInput() != null;
 
             accounts = accountService.findAccounts(
                     dataFromPage.getPageNumber(),

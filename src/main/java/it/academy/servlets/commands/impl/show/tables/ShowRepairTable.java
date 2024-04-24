@@ -26,7 +26,7 @@ public class ShowRepairTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
 
-        ListForPage<RepairDTO> repairs = null;
+        ListForPage<RepairDTO> repairs;
         TableReq pageData = Extractor.extract(req, new TableReq());
         log.info(OBJECT_EXTRACTED_PATTERN, pageData);
         RepairStatus status = req.getParameter(REPAIR_STATUS) != null && !req.getParameter(REPAIR_STATUS).equals(ALL_REPAIRS) ?

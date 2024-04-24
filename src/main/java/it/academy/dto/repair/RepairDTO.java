@@ -17,7 +17,7 @@ public class RepairDTO {
 
     private Long serviceCenterId;
 
-    private Long serviceCenterName;
+    private String serviceCenterName;
 
     private Long id;
 
