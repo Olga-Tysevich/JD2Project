@@ -29,14 +29,10 @@ public class ShowAccountTable implements ActionCommand {
         TableReq dataFromPage = Extractor.extract(req, new TableReq());
         boolean findByFilters = dataFromPage.getFilter() != null && dataFromPage.getInput() != null;
 
-        if (findByFilters) {
             accounts = accountService.findAccounts(
                     dataFromPage.getPageNumber(),
                     dataFromPage.getFilter(),
                     dataFromPage.getInput());
-        } else {
-            accounts = accountService.findAccounts(dataFromPage.getPageNumber());
-        }
 
         accounts.setPage(dataFromPage.getPage());
         accounts.setCommand(SHOW_ACCOUNT_TABLE.name());

@@ -5,7 +5,6 @@ import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.utils.dao.TransactionManger;
 
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import static it.academy.utils.constants.Constants.*;

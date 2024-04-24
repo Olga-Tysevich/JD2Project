@@ -15,10 +15,8 @@ public interface RepairService {
 
     ChangeRepairFormDTO findRepair(long id);
 
-    ListForPage<RepairForTableDTO> findRepairs(int pageNumber);
+    ListForPage<RepairDTO> findRepairs(int pageNumber, String filter, String userInput);
 
-    ListForPage<RepairForTableDTO> findRepairs(int pageNumber, String filter, String userInput);
-
-    ListForPage<RepairForTableDTO> findRepairsByStatus(RepairStatus status, int pageNumber);
+    ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber);
 
 }

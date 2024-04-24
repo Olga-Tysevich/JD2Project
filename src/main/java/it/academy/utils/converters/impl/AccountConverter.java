@@ -1,19 +1,17 @@
-package it.academy.utils.converters.account;
+package it.academy.utils.converters.impl;
 
 import it.academy.dto.account.ChangeAccountDTO;
 import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.AccountDTO;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceCenter;
-import lombok.experimental.UtilityClass;
-
+import it.academy.utils.converters.EntityConverter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UtilityClass
-public class AccountConverter {
+public class AccountConverter implements EntityConverter<AccountDTO, Account> {
 
-    public static AccountDTO convertToDTO(Account account) {
+    public AccountDTO convertToDTO(Account account) {
         ServiceCenter serviceCenter = account.getServiceCenter();
         Long serviceCenterId = serviceCenter != null ? serviceCenter.getId() : null;
         String serviceCenterName = serviceCenter != null ? serviceCenter.getServiceName() : "";
@@ -29,7 +27,18 @@ public class AccountConverter {
                 .build();
     }
 
-    public static Account convertToEntity(CreateAccountDTO account) {
+    @Override
+    public Account convertToEntity(AccountDTO dto) {
+        return Account.builder()
+                .isActive(true)
+                .email(dto.getEmail())
+                .userName(dto.getUserName())
+                .userSurname(dto.getUserSurname())
+                .role(dto.getRole())
+                .build();
+    }
+
+    public Account convertToEntity(CreateAccountDTO account) {
         return Account.builder()
                 .isActive(true)
                 .email(account.getEmail())
@@ -40,7 +49,7 @@ public class AccountConverter {
                 .build();
     }
 
-    public static Account convertToEntity(ChangeAccountDTO account) {
+    public Account convertToEntity(ChangeAccountDTO account) {
         return Account.builder()
                 .id(account.getId())
                 .isActive(account.getIsActive())
@@ -53,9 +62,9 @@ public class AccountConverter {
     }
 
 
-    public static List<AccountDTO> convertToDTOList(List<Account> accounts) {
+    public List<AccountDTO> convertToDTOList(List<Account> accounts) {
         return accounts.stream()
-                .map(AccountConverter::convertToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 

@@ -1,16 +1,14 @@
-package it.academy.utils.converters.repair;
+package it.academy.utils.converters.impl;
 
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.repair.RepairType;
-import lombok.experimental.UtilityClass;
-
+import it.academy.utils.converters.EntityConverter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UtilityClass
-public class RepairTypeConverter {
+public class RepairTypeConverter implements EntityConverter<RepairTypeDTO, RepairType> {
 
-    public static RepairTypeDTO convertToDTO(RepairType repairType) {
+    public RepairTypeDTO convertToDTO(RepairType repairType) {
         return RepairTypeDTO.builder()
                 .id(repairType.getId())
                 .name(repairType.getName())
@@ -20,7 +18,7 @@ public class RepairTypeConverter {
                 .build();
     }
 
-    public static RepairType convertToEntity(RepairTypeDTO repairTypeDTO) {
+    public RepairType convertToEntity(RepairTypeDTO repairTypeDTO) {
         return RepairType.builder()
                 .id(repairTypeDTO.getId())
                 .name(repairTypeDTO.getName())
@@ -30,9 +28,9 @@ public class RepairTypeConverter {
                 .build();
     }
 
-    public static List<RepairTypeDTO> convertToDTOList(List<RepairType> repairTypes) {
+    public List<RepairTypeDTO> convertToDTOList(List<RepairType> repairTypes) {
         return repairTypes.stream()
-                .map(RepairTypeConverter::convertToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 

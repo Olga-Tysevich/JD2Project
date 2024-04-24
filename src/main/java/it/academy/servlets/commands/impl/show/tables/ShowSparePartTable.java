@@ -27,16 +27,11 @@ public class ShowSparePartTable implements ActionCommand {
         ListForPage<SparePartDTO> spareParts;
         TableReq pageData = Extractor.extract(req, new TableReq());
         log.info(OBJECT_EXTRACTED_PATTERN, pageData);
-        boolean findByFilters = pageData.getFilter() != null && pageData.getInput() != null;
 
-        if (findByFilters) {
-            spareParts = sparePartService.findSpareParts(
-                    pageData.getPageNumber(),
-                    pageData.getFilter(),
-                    pageData.getInput());
-        } else {
-            spareParts = sparePartService.findSpareParts(pageData.getPageNumber());
-        }
+        spareParts = sparePartService.findSpareParts(
+                pageData.getPageNumber(),
+                pageData.getFilter(),
+                pageData.getInput());
 
         spareParts.setPage(SPARE_PART_TABLE_PAGE_PATH);
         spareParts.setCommand(SHOW_SPARE_PART_TABLE.name());

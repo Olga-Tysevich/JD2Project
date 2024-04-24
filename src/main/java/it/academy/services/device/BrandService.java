@@ -11,11 +11,11 @@ public interface BrandService {
 
     void updateBrand(BrandDTO brand);
 
+    void deleteBrand(long id);
+
     BrandDTO findBrand(long id);
 
     List<BrandDTO> findBrands();
-
-    ListForPage<BrandDTO> findBrands(int pageNumber);
 
     ListForPage<BrandDTO> findBrands(int pageNumber, String filter, String input);
 

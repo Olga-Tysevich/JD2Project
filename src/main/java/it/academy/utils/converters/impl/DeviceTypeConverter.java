@@ -1,16 +1,14 @@
-package it.academy.utils.converters.device;
+package it.academy.utils.converters.impl;
 
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.entities.device.DeviceType;
-import lombok.experimental.UtilityClass;
-
+import it.academy.utils.converters.EntityConverter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UtilityClass
-public class DeviceTypeConverter {
+public class DeviceTypeConverter implements EntityConverter<DeviceTypeDTO, DeviceType> {
 
-    public static DeviceTypeDTO convertToDTO(DeviceType deviceType) {
+    public DeviceTypeDTO convertToDTO(DeviceType deviceType) {
         return DeviceTypeDTO.builder()
                 .id(deviceType.getId())
                 .name(deviceType.getName())
@@ -18,7 +16,7 @@ public class DeviceTypeConverter {
                 .build();
     }
 
-    public static DeviceType convertToEntity(DeviceTypeDTO typeDTO) {
+    public DeviceType convertToEntity(DeviceTypeDTO typeDTO) {
         return DeviceType.builder()
                 .id(typeDTO.getId())
                 .name(typeDTO.getName())
@@ -26,9 +24,9 @@ public class DeviceTypeConverter {
                 .build();
     }
 
-    public static List<DeviceTypeDTO> convertToDTOList(List<DeviceType> brands) {
+    public  List<DeviceTypeDTO> convertToDTOList(List<DeviceType> brands) {
         return brands.stream()
-                .map(DeviceTypeConverter::convertToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 

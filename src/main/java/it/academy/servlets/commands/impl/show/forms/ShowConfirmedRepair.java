@@ -24,7 +24,7 @@ public class ShowConfirmedRepair implements ActionCommand {
         try {
             long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
             ChangeRepairFormDTO changeRepairForm = repairService.findRepair(repairId);
-            long brandId = changeRepairForm.getRepairDTO().getBrandId();
+            long brandId = changeRepairForm.getRepairFormDTO().getSelectedBrandId();
 
             req.setAttribute(BRAND_ID, brandId);
             req.setAttribute(SELECTED_BRAND_ID, brandId);

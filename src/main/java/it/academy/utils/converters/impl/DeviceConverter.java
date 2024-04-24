@@ -1,22 +1,25 @@
-package it.academy.utils.converters.device;
+package it.academy.utils.converters.impl;
 
 import it.academy.dto.device.DeviceDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.embeddable.Buyer;
 import it.academy.entities.device.Model;
 import it.academy.entities.device.embeddable.Salesman;
-import lombok.experimental.UtilityClass;
+import it.academy.utils.converters.EntityConverter;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@UtilityClass
-public class DeviceConverter {
 
-    public static DeviceDTO convertToDTO(Device device) {
+public class DeviceConverter implements EntityConverter<DeviceDTO, Device> {
+    private final ModelConverter modelConverter = new ModelConverter();
+
+    public DeviceDTO convertToDTO(Device device) {
         Model model = device.getModel();
         Salesman salesman = device.getSalesman();
         Buyer buyer = device.getBuyer();
         return DeviceDTO.builder()
                 .id(device.getId())
-                .model(ModelConverter.convertToDTO(model))
+                .model(modelConverter.convertToDTO(model))
                 .serialNumber(device.getSerialNumber())
                 .dateOfSale(device.getDateOfSale())
                 .salesmanName(salesman.getName())
@@ -27,10 +30,11 @@ public class DeviceConverter {
                 .build();
     }
 
-    public static Device convertDTOToEntity(DeviceDTO deviceDTO) {
+    @Override
+    public Device convertToEntity(DeviceDTO deviceDTO) {
         return Device.builder()
                 .id(deviceDTO.getId())
-                .model(ModelConverter.convertToEntity(deviceDTO.getModel()))
+                .model(modelConverter.convertToEntity(deviceDTO.getModel()))
                 .serialNumber(deviceDTO.getSerialNumber())
                 .dateOfSale(deviceDTO.getDateOfSale())
                 .buyer(Buyer.builder()
@@ -43,6 +47,13 @@ public class DeviceConverter {
                         .phone(deviceDTO.getSalesmanPhone())
                         .build())
                 .build();
+    }
+
+    @Override
+    public List<DeviceDTO> convertToDTOList(List<Device> deviceList) {
+        return deviceList.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
 }

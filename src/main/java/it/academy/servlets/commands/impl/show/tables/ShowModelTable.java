@@ -27,16 +27,11 @@ public class ShowModelTable implements ActionCommand {
         ListForPage<ModelDTO> models;
         TableReq pageData = Extractor.extract(req, new TableReq());
         log.info(OBJECT_EXTRACTED_PATTERN, pageData);
-        boolean findByFilters = pageData.getFilter() != null && pageData.getInput() != null;
 
-        if (findByFilters) {
-            models = modelService.findModels(
-                    pageData.getPageNumber(),
-                    pageData.getFilter(),
-                    pageData.getInput());
-        } else {
-            models = modelService.findModels(pageData.getPageNumber());
-        }
+        models = modelService.findModels(
+                pageData.getPageNumber(),
+                pageData.getFilter(),
+                pageData.getInput());
 
         models.setPage(MODEL_TABLE_PAGE_PATH);
         models.setCommand(SHOW_MODEL_TABLE.name());

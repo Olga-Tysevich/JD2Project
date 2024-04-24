@@ -10,7 +10,7 @@ import it.academy.exceptions.auth.InvalidRole;
 import it.academy.exceptions.auth.UserIsBlocked;
 import it.academy.exceptions.auth.UserNotFound;
 import it.academy.services.account.AuthService;
-import it.academy.utils.converters.account.AccountConverter;
+import it.academy.utils.converters.impl.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +23,20 @@ import static it.academy.utils.constants.LoggerConstants.*;
 public class AuthServiceImpl implements AuthService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
+    private final AccountConverter accountConverter = new AccountConverter();
 
     @Override
     public AccountDTO loginUser(LoginDTO loginDTO) throws UserNotFound, IncorrectPassword, UserIsBlocked, InvalidRole {
         transactionManger.beginTransaction();
-        if (!isUserExists(loginDTO.getEmail())) {
+
+        Account account = accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail());
+
+        if (account == null) {
             log.warn(OBJECTS_NOT_FOUND_PATTERN, loginDTO.getEmail());
             throw new UserNotFound();
         }
 
-        Account account = accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail());
+        log.info(OBJECT_FOUND_PATTERN, account);
 
         if (!account.getIsActive()) {
             log.warn(USER_IS_BLOCKED_ERROR, account);
@@ -51,12 +55,7 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidRole();
         }
 
-        return AccountConverter.convertToDTO(account);
-    }
-
-
-    private boolean isUserExists(String email) {
-        return accountDAO.findByUniqueParameter(EMAIL, email) != null;
+        return accountConverter.convertToDTO(account);
     }
 
 }

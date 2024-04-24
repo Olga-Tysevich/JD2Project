@@ -13,13 +13,13 @@ public interface ModelService {
 
     void updateModel(ChangeModelDTO model);
 
+    void deleteModel(long id);
+
     ModelForChangeDTO getModelForm();
 
     ModelForChangeDTO getModelForm(long id);
 
     List<ModelDTO> findModels();
-
-    ListForPage<ModelDTO> findModels(int pageNumber);
 
     ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input);
 }

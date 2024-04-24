@@ -24,17 +24,13 @@ import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.constants.LoggerConstants;
-import it.academy.utils.converters.device.BrandConverter;
-import it.academy.utils.converters.device.DeviceTypeConverter;
-import it.academy.utils.converters.device.ModelConverter;
+import it.academy.utils.converters.impl.BrandConverter;
+import it.academy.utils.converters.impl.DeviceTypeConverter;
+import it.academy.utils.converters.impl.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 import java.util.function.Supplier;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -43,11 +39,16 @@ public class ModelServiceImpl implements ModelService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
     private final DeviceTypeDAO deviceTypeDAO = new DeviceTypeDAOImpl(transactionManger);
+    private final DeviceTypeConverter deviceTypeConverter = new DeviceTypeConverter();
     private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
+    private final BrandConverter brandConverter = new BrandConverter();
+    private final ModelConverter modelConverter = new ModelConverter();
+    private ServiceHelper<Model, ModelDTO> modelHelper =
+            new ServiceHelper<>(modelDAO, Model.class, modelConverter, transactionManger);
 
     @Override
     public void createModel(ChangeModelDTO modelDTO) throws AccessDenied {
-        Model model = ModelConverter.convertToEntity(modelDTO);
+        Model model = modelConverter.convertToEntity(modelDTO);
         Supplier<Model> create = () -> {
             Brand brand = brandDAO.find(modelDTO.getBrandId());
             DeviceType deviceType = deviceTypeDAO.find(modelDTO.getDeviceTypeId());
@@ -63,7 +64,7 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public void updateModel(ChangeModelDTO modelDTO) throws AccessDenied {
-        Model model = ModelConverter.convertToEntity(modelDTO);
+        Model model = modelConverter.convertToEntity(modelDTO);
         Supplier<Model> create = () -> {
             Brand brand = brandDAO.find(modelDTO.getBrandId());
             DeviceType deviceType = deviceTypeDAO.find(modelDTO.getDeviceTypeId());
@@ -74,6 +75,11 @@ public class ModelServiceImpl implements ModelService {
         };
         transactionManger.execute(create);
         log.info(LoggerConstants.OBJECT_CREATED_PATTERN, model);
+    }
+
+    @Override
+    public void deleteModel(long id) {
+        modelHelper.delete(id);
     }
 
     @Override
@@ -95,7 +101,7 @@ public class ModelServiceImpl implements ModelService {
                 log.warn(OBJECT_NOT_FOUND_PATTERN, id, Model.class);
                 throw new ObjectNotFound(MODEL_NOT_FOUND);
             }
-            ModelDTO modelDTO = ModelConverter.convertToDTO(model);
+            ModelDTO modelDTO = modelConverter.convertToDTO(model);
             ModelForChangeDTO modelForChangeDTO = findDataForForm();
             modelForChangeDTO.setModelDTO(modelDTO);
             log.info(LoggerConstants.OBJECT_FOUND_PATTERN, modelDTO);
@@ -105,8 +111,8 @@ public class ModelServiceImpl implements ModelService {
 
     private ModelForChangeDTO findDataForForm() {
         checkIfComponentsAdded();
-        List<DeviceTypeDTO> deviceTypes = DeviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
-        List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findAll());
+        List<DeviceTypeDTO> deviceTypes = deviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
+        List<BrandDTO> brands = brandConverter.convertToDTOList(brandDAO.findAll());
         return ModelForChangeDTO.builder()
                 .brands(brands)
                 .deviceTypes(deviceTypes)
@@ -115,40 +121,15 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public List<ModelDTO> findModels() {
-        List<Model> models = transactionManger.execute(modelDAO::findAll);
-        if (models.isEmpty()) {
-            log.warn(OBJECTS_NOT_FOUND_PATTERN, Model.class);
-            throw new ObjectNotFound(MODELS_NOT_FOUND);
-        }
-        return ModelConverter.convertToDTOList(models);
+        return modelHelper.findAll();
     }
 
-    @Override
-    public ListForPage<ModelDTO> findModels(int pageNumber) {
-        long numberOfEntries = modelDAO.getNumberOfEntries();
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(
-                () -> modelDAO.findForPage(pageNumber, LIST_SIZE),
-                pageNumber,
-                maxPageNumber);
-    }
 
     @Override
     public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input) {
-        long numberOfEntries = modelDAO.getNumberOfEntriesByFilter(filter, input);
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(
-                () -> modelDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input),
-                pageNumber,
-                maxPageNumber);
+        return modelHelper.find(pageNumber, filter, input);
     }
 
-    private ListForPage<ModelDTO> find(Supplier<List<Model>> methodForSearch, int pageNumber, int maxPageNumber) {
-        List<Model> models = ServiceHelper.getList(transactionManger, methodForSearch, Model.class);
-        List<EntityFilter> filters = FilterManager.getFiltersForModel();
-        List<ModelDTO> modelsDTO = ModelConverter.convertToDTOList(models);
-        return Builder.buildListForPage(modelsDTO, pageNumber, maxPageNumber, filters);
-    }
 
     private void checkIfComponentsAdded() {
         if (brandDAO.getNumberOfEntries() == 0) {

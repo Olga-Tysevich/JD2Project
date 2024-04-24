@@ -16,18 +16,12 @@ import it.academy.exceptions.account.ValidationException;
 import it.academy.exceptions.common.ObjectCreationFailed;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.AccountService;
-import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.account.AccountConverter;
+import it.academy.utils.converters.impl.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
-import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 import static it.academy.utils.EntityValidator.validateEntity;
 import static it.academy.utils.constants.Constants.*;
@@ -41,13 +35,16 @@ public class AccountServiceImpl implements AccountService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
+    private final AccountConverter accountConverter = new AccountConverter();
+    private final ServiceHelper<Account, AccountDTO> accountHelper =
+            new ServiceHelper<>(accountDAO, Account.class, accountConverter, transactionManger);
 
     @Override
     public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch,
             EmailAlreadyRegistered, ValidationException, ObjectCreationFailed, ObjectNotFound {
 
         checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
-        Account account = AccountConverter.convertToEntity(createAccountDTO);
+        Account account = accountConverter.convertToEntity(createAccountDTO);
         account.setIsActive(true);
         transactionManger.beginTransaction();
 
@@ -69,7 +66,7 @@ public class AccountServiceImpl implements AccountService {
     public void updateAccount(ChangeAccountDTO changeAccount) throws EmailAlreadyRegistered,
             ObjectNotFound, ValidationException {
 
-        Account account = AccountConverter.convertToEntity(changeAccount);
+        Account account = accountConverter.convertToEntity(changeAccount);
         transactionManger.beginTransaction();
         Account temp = accountDAO.find(changeAccount.getId());
 
@@ -96,42 +93,21 @@ public class AccountServiceImpl implements AccountService {
         accountDAO.update(account);
         log.info(OBJECT_UPDATED_PATTERN, changeAccount);
         transactionManger.commit();
+    }
 
+    @Override
+    public void deleteAccount(long id) {
+        accountHelper.delete(id);
     }
 
     @Override
     public AccountDTO findAccount(long id) {
-        return transactionManger.execute(() -> {
-            try {
-                Account account = accountDAO.find(id);
-                log.info(OBJECT_FOUND_PATTERN, account);
-                return AccountConverter.convertToDTO(account);
-            } catch (Exception e) {
-                log.error(OBJECT_NOT_FOUND_PATTERN, id, Account.class);
-                throw new ObjectNotFound(USER_NOT_FOUND);
-            }
-        });
-    }
-
-    @Override
-    public ListForPage<AccountDTO> findAccounts(int pageNumber) {
-        long numberOfEntries = accountDAO.getNumberOfEntries();
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(() -> accountDAO.findForPage(pageNumber, LIST_SIZE), pageNumber, maxPageNumber);
+        return accountHelper.find(id);
     }
 
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
-        long numberOfEntries = accountDAO.getNumberOfEntriesByFilter(filter, input);
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(() -> accountDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber, maxPageNumber);
-    }
-
-    private ListForPage<AccountDTO> find(Supplier<List<Account>> methodForSearch, int pageNumber, int maxPageNumber) {
-        List<Account> accounts = ServiceHelper.getList(transactionManger, methodForSearch, Account.class);
-        List<EntityFilter> filters = FilterManager.getFiltersForAccount();
-        List<AccountDTO> listDTO = AccountConverter.convertToDTOList(accounts);
-        return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
+       return accountHelper.find(pageNumber, filter, input);
     }
 
     private void encodePassword(Account account) {

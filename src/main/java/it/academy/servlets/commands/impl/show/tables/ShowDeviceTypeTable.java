@@ -23,16 +23,11 @@ public class ShowDeviceTypeTable implements ActionCommand {
     public String execute(HttpServletRequest req) {
         ListForPage<DeviceTypeDTO> deviceTypes;
         TableReq dataFromPage = Extractor.extract(req, new TableReq());
-        boolean findByFilters = dataFromPage.getFilter() != null && dataFromPage.getInput() != null;
 
-        if (findByFilters) {
-            deviceTypes = deviceTypeService.findDeviceTypes(
-                    dataFromPage.getPageNumber(),
-                    dataFromPage.getFilter(),
-                    dataFromPage.getInput());
-        } else {
-            deviceTypes = deviceTypeService.findDeviceTypes(dataFromPage.getPageNumber());
-        }
+        deviceTypes = deviceTypeService.findDeviceTypes(
+                dataFromPage.getPageNumber(),
+                dataFromPage.getFilter(),
+                dataFromPage.getInput());
 
         deviceTypes.setPage(dataFromPage.getPage());
         deviceTypes.setCommand(SHOW_DEVICE_TYPE_TABLE.name());

@@ -1,20 +1,18 @@
-package it.academy.utils.converters.device;
+package it.academy.utils.converters.impl;
 
 import it.academy.dto.device.ChangeModelDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.DeviceType;
 import it.academy.entities.device.Model;
-import lombok.experimental.UtilityClass;
+import it.academy.utils.converters.EntityConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UtilityClass
-public class ModelConverter {
+public class ModelConverter implements EntityConverter<ModelDTO, Model> {
 
-
-    public static ModelDTO convertToDTO(Model model) {
+    public ModelDTO convertToDTO(Model model) {
         return ModelDTO.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -26,7 +24,7 @@ public class ModelConverter {
                 .build();
     }
 
-    public static Model convertToEntity(ModelDTO model) {
+    public Model convertToEntity(ModelDTO model) {
         return Model.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -42,7 +40,7 @@ public class ModelConverter {
                 .build();
     }
 
-    public static Model convertToEntity(ChangeModelDTO model) {
+    public Model convertToEntity(ChangeModelDTO model) {
         return Model.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -50,9 +48,9 @@ public class ModelConverter {
                 .build();
     }
 
-    public static List<ModelDTO> convertToDTOList(List<Model> models) {
+    public List<ModelDTO> convertToDTOList(List<Model> models) {
         return models.stream()
-                .map(ModelConverter::convertToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 

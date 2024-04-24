@@ -8,6 +8,9 @@ public class JSPConstant {
     // page paths
     public static final String CHANGE_FORM_PAGE_PATH = "/pages/forms/changeForm.jsp";
 
+    //admin
+    public static final String ADMIN_MAIN_PAGE_PATH = "/pages/admin/adminMainPage.jsp";
+
     //account
     public static final String SERVICE_CENTERS = "service_centers";
     public static final String NEW_ACCOUNT_PAGE_PATH = "/pages/account/addAccount.jsp";
@@ -47,6 +50,9 @@ public class JSPConstant {
     //sparePartOrder
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/sparePartOrder.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
+
+    //user
+    public static final String USER_MAIN_PAGE_PATH = "/pages/user/main.jsp";
 
 
 }

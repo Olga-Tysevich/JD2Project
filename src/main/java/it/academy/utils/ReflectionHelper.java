@@ -10,10 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import static it.academy.utils.constants.LoggerConstants.EXTRACT_ERROR_PATTERN;
-import static it.academy.utils.constants.LoggerConstants.UNSUPPORTED_CLASS;
+import static it.academy.utils.constants.LoggerConstants.*;
 
 @UtilityClass
 @Slf4j

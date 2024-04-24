@@ -17,9 +17,9 @@ public interface AccountService {
 
     void updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered, ObjectNotFound, ValidationException;
 
-    AccountDTO findAccount(long id);
+    void deleteAccount(long id);
 
-    ListForPage<AccountDTO> findAccounts(int pageNumber);
+    AccountDTO findAccount(long id);
 
     ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input);
 

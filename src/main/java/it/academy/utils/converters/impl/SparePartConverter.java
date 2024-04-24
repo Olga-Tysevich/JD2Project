@@ -1,25 +1,23 @@
-package it.academy.utils.converters.spare_part;
+package it.academy.utils.converters.impl;
 
-import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.dto.device.ModelDTO;
+import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.entities.device.Model;
 import it.academy.entities.spare_part.SparePart;
-import it.academy.utils.SparePartForOrder;
-import it.academy.utils.converters.device.ModelConverter;
-import lombok.experimental.UtilityClass;
+import it.academy.utils.converters.EntityConverter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UtilityClass
-public class SparePartConverter {
+public class SparePartConverter implements EntityConverter<SparePartDTO, SparePart> {
+    private final ModelConverter modelConverter = new ModelConverter();
 
-    public static SparePartForChangeDTO convertToDTO(SparePart sparePart, List<ModelDTO> deviceTypes) {
+    public SparePartForChangeDTO convertToDTO(SparePart sparePart, List<ModelDTO> deviceTypes) {
         List<Model> relatedModels = new ArrayList<>(sparePart.getModels());
-        List<ModelDTO> models = ModelConverter.convertToDTOList(relatedModels);
+        List<ModelDTO> models = modelConverter.convertToDTOList(relatedModels);
 
         return SparePartForChangeDTO.builder()
                 .id(sparePart.getId())
@@ -30,7 +28,7 @@ public class SparePartConverter {
                 .build();
     }
 
-    public static SparePartDTO convertToDTO(SparePart sparePart) {
+    public SparePartDTO convertToDTO(SparePart sparePart) {
         return SparePartDTO.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
@@ -38,7 +36,7 @@ public class SparePartConverter {
                 .build();
     }
 
-    public static SparePartForChangeDTO convertToChangeDTO(SparePart sparePart) {
+    public SparePartForChangeDTO convertToChangeDTO(SparePart sparePart) {
         return SparePartForChangeDTO.builder()
                 .id(sparePart.getId())
                 .name(sparePart.getName())
@@ -46,8 +44,16 @@ public class SparePartConverter {
                 .build();
     }
 
+    @Override
+    public SparePart convertToEntity(SparePartDTO dto) {
+        return SparePart.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .isActive(dto.getIsActive())
+                .build();
+    }
 
-    public static SparePart convertToEntity(ChangeSparePartDTO partDTO) {
+    public SparePart convertToEntity(ChangeSparePartDTO partDTO) {
         return SparePart.builder()
                 .id(partDTO.getId())
                 .name(partDTO.getName())
@@ -55,7 +61,7 @@ public class SparePartConverter {
                 .build();
     }
 
-    public static SparePart convertToEntity(SparePartForChangeDTO partDTO) {
+    public SparePart convertToEntity(SparePartForChangeDTO partDTO) {
         return SparePart.builder()
                 .id(partDTO.getId())
                 .name(partDTO.getName())
@@ -63,17 +69,10 @@ public class SparePartConverter {
                 .build();
     }
 
-    public static List<SparePartDTO> convertToDTOList(List<SparePart> spareParts) {
+    public List<SparePartDTO> convertToDTOList(List<SparePart> spareParts) {
         return spareParts.stream()
-                .map(SparePartConverter::convertToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public static SparePartForChangeDTO convertToSparePartDTO(SparePartForOrder sparePart) {
-        return SparePartForChangeDTO.builder()
-                .id(sparePart.getId())
-//                .name(sparePart.getName())
-                .isActive(true)
-                .build();
-    }
 }

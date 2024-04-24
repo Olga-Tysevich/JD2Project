@@ -11,11 +11,11 @@ public interface DeviceTypeService {
 
     void updateDeviceType(DeviceTypeDTO deviceType);
 
+    void deleteDeviceType(long id);
+
     DeviceTypeDTO findDeviceType(long id);
 
     List<DeviceTypeDTO> findDeviceTypes();
-
-    ListForPage<DeviceTypeDTO> findDeviceTypes(int pageNumber);
 
     ListForPage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input);
 

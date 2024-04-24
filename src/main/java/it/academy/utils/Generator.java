@@ -6,6 +6,7 @@ import it.academy.entities.account.embeddable.BankAccount;
 import it.academy.entities.account.embeddable.Requisites;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.DeviceType;
+import it.academy.entities.repair.RepairType;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
@@ -23,7 +24,6 @@ public class Generator {
     private List<String> emails = Arrays.asList("account%s@mail.ru", "admin%s@mail.ru", "user%s@gmail.com", "user%s@yahoo.com", "user%s@outlook.com");
     private List<String> names = Arrays.asList("Александр", "Иван", "Екатерина", "Ольга", "Дмитрий", "Михаил", "Татьяна", "Светлана", "Николай", "Мария");
     private List<String> surnames = Arrays.asList("Иванович", "Петрович", "Сидорович", "Васильевич", "Попович", "Соколович", "Михайлович");
-    private List<String> roles = Arrays.asList("Owner", "Admin", "Service owner", "Service manager", "Service engineer");
     private List<String> addresses = Arrays.asList("Улица Ленина, дом 10, квартира 5", "Проспект Победы, дом 25", "Шоссе Южное, дом 7, офис 3",
             "Переулок Садовый, дом 3, квартира 12", "Улица Центральная, дом 15");
     private List<String> phones = Arrays.asList("+375 29 123-45-58", "+375 29 154-45-58", "+375 29 758-55-56",
@@ -37,9 +37,6 @@ public class Generator {
     private List<String> deviceTypes = Arrays.asList("Наушники", "Мобильный телефон", "Акустика", "Ноутбук", "Диктофон");
     private List<String> models = Arrays.asList("S-FIT", "IPC-240B-Tuya", "Q3", "RDM-169", "DK2001");
     private String serialNumber = "SN%d";
-    private List<String> defects = Arrays.asList("Неисправен трансформатор", "Неисправность не обнаружена", "Неисправна плата",
-            "Не гарантийный случай", "Неисправен динамик");
-    private List<String> repairCategories = Arrays.asList("Гарантийный", "Предпродажный", "Платный");
     private List<String> repairTypes = Arrays.asList("Замена динамика", "Без ремонта", "Замена платы", "Проверка качества", "Замена мотора");
     private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
     private List<String> dates = Arrays.asList("2024-04-01", "2024-04-15", "2024-04-24", "2024-04-12", "2024-04-07");
@@ -100,9 +97,16 @@ public class Generator {
     }
 
 
-    public static SparePart generateSparePart() {
-        return SparePart.builder()
-                .name(spareParts.get(RANDOM.nextInt(spareParts.size())) + RANDOM.nextInt(BOUND))
+    public static String generateSparePartName() {
+        return spareParts.get(RANDOM.nextInt(spareParts.size())) + RANDOM.nextInt(BOUND);
+    }
+
+    public static RepairType generateRepairType() {
+        return RepairType.builder()
+                .name(repairTypes.get(RANDOM.nextInt(repairTypes.size())) + RANDOM.nextInt(BOUND))
+                .code("CODE" + RANDOM.nextInt(BOUND))
+                .level("LEVEL" + RANDOM.nextInt(BOUND))
+                .isActive(true)
                 .build();
     }
 

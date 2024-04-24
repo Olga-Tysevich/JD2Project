@@ -33,4 +33,6 @@ public interface DAO<T, R> {
 
     public long getNumberOfActiveEntriesByFilter(String filter, String value);
 
+    boolean checkIfExist(R id, String name);
+
 }

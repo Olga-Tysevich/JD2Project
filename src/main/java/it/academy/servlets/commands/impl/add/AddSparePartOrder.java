@@ -4,23 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.academy.dto.spare_part.CreateOrderDTO;
 import it.academy.dto.spare_part.OrderItemDTO;
-import it.academy.dto.spare_part.SparePartForChangeDTO;
-import it.academy.dto.spare_part.SparePartOrderDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.forms.ShowConfirmedRepair;
 import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
-import it.academy.utils.converters.spare_part.SparePartConverter;
 import it.academy.utils.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static it.academy.utils.constants.Constants.*;
@@ -53,19 +46,6 @@ public class AddSparePartOrder implements ActionCommand {
                     .orderItems(orderItems)
                     .build();
             sparePartOrderService.createSparePartOrder(forCreate);
-
-
-
-//
-//            SparePartOrderDTO sparePartOrderDTO = SparePartOrderDTO.builder()
-//                    .spareParts(sparePartsMap)
-//                    .repairId(repairId)
-//                    .orderDate(orderDate)
-//                    .deliveryDate(deliveryDate)
-//                    .departureDate(departureDate)
-//                    .build();
-//
-//            sparePartOrderService.addSparePartOrder(sparePartOrderDTO);
 
             return new ShowRepairTable().execute(req);
         } catch (Exception e) {

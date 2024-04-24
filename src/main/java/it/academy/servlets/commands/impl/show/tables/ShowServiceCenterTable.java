@@ -30,14 +30,10 @@ public class ShowServiceCenterTable implements ActionCommand {
         TableReq dataFromPage = Extractor.extract(req, new TableReq());
         boolean findByFilters = dataFromPage.getFilter() != null && dataFromPage.getInput() != null;
 
-        if (findByFilters) {
             serviceCenters = serviceCenterService.findServiceCenters(
                     dataFromPage.getPageNumber(),
                     dataFromPage.getFilter(),
                     dataFromPage.getInput());
-        } else {
-            serviceCenters = serviceCenterService.findServiceCenters(dataFromPage.getPageNumber());
-        }
 
         serviceCenters.setPage(dataFromPage.getPage());
         serviceCenters.setCommand(SHOW_SERVICE_CENTER_TABLE.name());

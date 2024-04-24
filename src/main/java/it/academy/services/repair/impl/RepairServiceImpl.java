@@ -10,31 +10,26 @@ import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
-import it.academy.dao.spare_part.SparePartOrderDAO;
-import it.academy.dao.spare_part.impl.SparePartOrderDAOImpl;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.*;
-import it.academy.dto.spare_part.SparePartOrderDTO;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
 import it.academy.entities.repair.Repair;
-import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.ModelNotFound;
 import it.academy.services.repair.RepairService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
-import it.academy.utils.converters.device.BrandConverter;
-import it.academy.utils.converters.device.DeviceConverter;
-import it.academy.utils.converters.device.ModelConverter;
-import it.academy.utils.converters.repair.RepairConverter;
-import it.academy.utils.converters.spare_part.SparePartOrderConverter;
+import it.academy.utils.converters.impl.DeviceConverter;
+import it.academy.utils.converters.impl.BrandConverter;
+import it.academy.utils.converters.impl.ModelConverter;
+import it.academy.utils.converters.impl.RepairConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.fiterForSearch.EntityFilter;
@@ -54,9 +49,15 @@ public class RepairServiceImpl implements RepairService {
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
     private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
     private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
+    private final BrandConverter brandConverter = new BrandConverter();
     private final DeviceDAO deviceDAO = new DeviceDAOImpl(transactionManger);
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
-    private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl(transactionManger);
+    private final ModelConverter modelConverter = new ModelConverter();
+    private final DeviceConverter deviceConverter = new DeviceConverter();
+    private final RepairConverter repairConverter = new RepairConverter();
+    private final ServiceHelper<Repair, RepairDTO> repairHelper =
+            new ServiceHelper<>(repairDAO, Repair.class, repairConverter, transactionManger);
+
 
     @Override
     public RepairFormDTO getRepairFormData(long brandId) {
@@ -72,8 +73,8 @@ public class RepairServiceImpl implements RepairService {
                 throw new ModelNotFound();
             }
 
-            List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findBrandsWithModels());
-            List<ModelDTO> modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findAllByBrandId(brandId));
+            List<BrandDTO> brands = brandConverter.convertToDTOList(brandDAO.findBrandsWithModels());
+            List<ModelDTO> modelsForBrand = modelConverter.convertToDTOList(modelDAO.findAllByBrandId(brandId));
             Map<Long, String> serviceCenters = serviceCenterDAO.findAll().stream()
                     .collect(Collectors.toMap(ServiceCenter::getId, ServiceCenter::getServiceName));
 
@@ -94,7 +95,7 @@ public class RepairServiceImpl implements RepairService {
     public void addRepair(CreateRepairDTO repairDTO) {
 
         Supplier<Repair> create = () -> {
-            Repair repair = RepairConverter.convertToEntity(repairDTO);
+            Repair repair = repairConverter.convertToEntity(repairDTO);
 
             long serviceCenterId = repairDTO.getServiceCenterId();
             String serialNumber = repairDTO.getSerialNumber();
@@ -126,15 +127,9 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public void updateRepair(RepairDTO repairDTO) {
 
-        Repair repair = RepairConverter.convertToEntity(repairDTO);
+        Repair repair = repairConverter.convertToEntity(repairDTO);
 
         transactionManger.beginTransaction();
-
-        Device device = deviceDAO.findByUniqueParameter(SERIAL_NUMBER, repairDTO.getSerialNumber());
-        repair.getDevice().setId(device.getId());
-        Model model = modelDAO.find(repairDTO.getModelId());
-        device.setModel(model);
-        repair.getDevice().setModel(device.getModel());
         ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
         repair.setServiceCenter(serviceCenter);
 
@@ -154,9 +149,10 @@ public class RepairServiceImpl implements RepairService {
 
         transactionManger.beginTransaction();
         Repair repair = repairDAO.find(id);
-        RepairDTO repairDTO = RepairConverter.convertToRepairDTO(repair);
-        RepairFormDTO repairFormDTO = getRepairFormData(repairDTO.getBrandId());
-        DeviceDTO device = DeviceConverter.convertToDTO(repair.getDevice());
+        RepairDTO repairDTO = repairConverter.convertToDTO(repair);
+        long modelId = repair.getDevice().getModel().getId();
+        RepairFormDTO repairFormDTO = getRepairFormData(modelId);
+        DeviceDTO device = deviceConverter.convertToDTO(repair.getDevice());
         repairFormDTO.setDevice(device);
         ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO);
 
@@ -166,40 +162,18 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public ListForPage<RepairForTableDTO> findRepairs(int pageNumber) {
-        long numberOfEntries = repairDAO.getNumberOfEntries();
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(
-                () -> repairDAO.findForPage(pageNumber, LIST_SIZE),
-                pageNumber,
-                maxPageNumber);
+    public ListForPage<RepairDTO> findRepairs(int pageNumber, String filter, String userInput) {
+        return repairHelper.find(pageNumber, filter, userInput);
     }
 
     @Override
-    public ListForPage<RepairForTableDTO> findRepairs(int pageNumber, String filter, String userInput) {
-        long numberOfEntries = repairDAO.getNumberOfEntriesByFilter(filter, userInput);
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(
-                () -> repairDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, userInput),
-                pageNumber,
-                maxPageNumber);
-    }
-
-    @Override
-    public ListForPage<RepairForTableDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
+    public ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
+        List<Repair> result = repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE);
+        List<EntityFilter> filters = FilterManager.getFilters(Repair.class);
+        List<RepairDTO> listDTO = repairConverter.convertToDTOList(result);
         long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status).intValue();
-        int maxPageNumber = ServiceHelper.countMaxPageNumber(numberOfEntries);
-        return find(
-                () -> repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE),
-                pageNumber,
-                maxPageNumber);
-    }
-
-    private ListForPage<RepairForTableDTO> find(Supplier<List<Repair>> methodForSearch, int pageNumber, int maxPageNumber) {
-        List<Repair> repairs = ServiceHelper.getList(transactionManger, methodForSearch, Repair.class);
-        List<EntityFilter> filters = FilterManager.getFiltersForRepair();
-        List<RepairForTableDTO> repairsDTO = RepairConverter.convertToDTOList(repairs);
-        return Builder.buildListForPage(repairsDTO, pageNumber, maxPageNumber, filters);
+        int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
+        return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
     }
 
 }

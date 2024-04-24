@@ -1,7 +1,7 @@
 package it.academy.dao.device.impl;
 
 import it.academy.dao.device.BrandDAO;
-import it.academy.dao.impl.ComponentDAOImpl;
+import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.Model;
 import it.academy.utils.dao.TransactionManger;
@@ -12,7 +12,7 @@ import java.util.List;
 import static it.academy.utils.constants.Constants.BRAND;
 import static it.academy.utils.constants.Constants.OBJECT_ID;
 
-public class BrandDAOImpl extends ComponentDAOImpl<Brand, Long> implements BrandDAO {
+public class BrandDAOImpl extends DAOImpl<Brand, Long> implements BrandDAO {
 
     public BrandDAOImpl(TransactionManger manger) {
         super(manger, Brand.class);

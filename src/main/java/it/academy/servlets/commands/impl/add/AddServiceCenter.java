@@ -30,9 +30,9 @@ public class AddServiceCenter implements ActionCommand {
         req.setAttribute(SERVICE_CENTER, forCreate);
 
         try {
-            serviceCenterService.addServiceCenter(forCreate);
+            serviceCenterService.createServiceCenter(forCreate);
             return new ShowServiceCenterTable().execute(req);
-        } catch (ObjectAlreadyExist | EmailAlreadyRegistered e) {
+        } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             return CommandHelper.insertFormData(req,
                     SERVICE_CENTER_TABLE_PAGE_PATH,

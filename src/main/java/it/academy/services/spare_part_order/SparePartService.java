@@ -13,13 +13,13 @@ public interface SparePartService {
 
     void updateSparePart(ChangeSparePartDTO sparePartDTO);
 
+    void deleteSparePart(long id);
+
     SparePartForChangeDTO getSparePartForm();
 
     SparePartForChangeDTO getSparePartForm(long id);
 
     SparePartForChangeDTO findSparePart(long id);
-
-    ListForPage<SparePartDTO> findSpareParts(int pageNumber);
 
     ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
 

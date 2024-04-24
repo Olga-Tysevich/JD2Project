@@ -1,4 +1,4 @@
-package it.academy.utils.converters.repair;
+package it.academy.utils.converters.impl;
 
 import it.academy.dto.repair.ChangeRepairDTO;
 import it.academy.dto.repair.CreateRepairDTO;
@@ -12,58 +12,26 @@ import it.academy.entities.device.embeddable.Buyer;
 import it.academy.entities.device.embeddable.Salesman;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.RepairType;
+import it.academy.utils.converters.EntityConverter;
 import it.academy.utils.enums.RepairStatus;
 import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;
 import static it.academy.utils.constants.Constants.DEVICE_DESCRIPTION_PATTERN;
 
-@UtilityClass
-public class RepairConverter {
+public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
+    private DeviceConverter deviceConverter = new DeviceConverter();
 
-    public static RepairForTableDTO convertToDTO(Repair repair) {
-        Device device = repair.getDevice();
-        Model model = device.getModel();
-        DeviceType deviceType = model.getType();
-        Brand brand = model.getBrand();
-
-        RepairForTableDTO repairDTO = RepairForTableDTO.builder()
-                .id(repair.getId())
-                .brandId(brand.getId())
-                .serviceCenterName(repair.getServiceCenter().getServiceName())
-                .modelDescription(String.format(DEVICE_DESCRIPTION_PATTERN, deviceType.getName(),
-                        brand.getName(), model.getName()))
-                .category(repair.getCategory())
-                .status(repair.getStatus())
-                .serialNumber(device.getSerialNumber())
-                .dateOfSale(device.getDateOfSale())
-                .defectDescription(repair.getDefectDescription())
-                .repairNumber(repair.getRepairNumber())
-                .startDate(repair.getStartDate())
-                .build();
-
-        if (repair.getStatus().isFinishedStatus() && repair.getRepairType() != null) {
-            repairDTO.setRepairTypeName(repair.getRepairType().getName());
-            repairDTO.setEndDate(repair.getEndDate());
-        }
-
-        return repairDTO;
-    }
-
-    public static RepairDTO convertToRepairDTO(Repair repair) {
+    public RepairDTO convertToDTO(Repair repair) {
         Device device = repair.getDevice();
         Salesman salesman = device.getSalesman();
         Buyer buyer = device.getBuyer();
-        Model model = device.getModel();
-        Brand brand = model.getBrand();
         RepairType repairType = repair.getRepairType();
 
         RepairDTO repairDTO = RepairDTO.builder()
                 .id(repair.getId())
                 .serviceCenterId(repair.getServiceCenter().getId())
-                .deviceId(device.getId())
-                .brandId(brand.getId())
-                .modelId(model.getId())
+                .deviceDTO(deviceConverter.convertToDTO(device))
                 .category(repair.getCategory())
                 .status(repair.getStatus())
                 .serialNumber(device.getSerialNumber())
@@ -86,8 +54,7 @@ public class RepairConverter {
     }
 
 
-
-    public static Repair convertToEntity(ChangeRepairDTO repairDTO) {
+    public Repair convertToEntity(ChangeRepairDTO repairDTO) {
 
         return Repair.builder()
                 .id(repairDTO.getId())
@@ -100,7 +67,7 @@ public class RepairConverter {
                 .build();
     }
 
-    public static Repair convertToEntity(CreateRepairDTO repairDTO) {
+    public Repair convertToEntity(CreateRepairDTO repairDTO) {
 
         return Repair.builder()
                 .status(RepairStatus.REQUEST)
@@ -123,7 +90,7 @@ public class RepairConverter {
                 .build();
     }
 
-    public static Repair convertToEntity(RepairDTO repairDTO) {
+    public Repair convertToEntity(RepairDTO repairDTO) {
         return Repair.builder()
                 .id(repairDTO.getId())
                 .category(repairDTO.getCategory())
@@ -148,11 +115,10 @@ public class RepairConverter {
                 .build();
     }
 
-    public static List<RepairForTableDTO> convertToDTOList(List<Repair> repairs) {
+    public List<RepairDTO> convertToDTOList(List<Repair> repairs) {
         return repairs.stream()
-                .map(RepairConverter::convertToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
-
 
 }

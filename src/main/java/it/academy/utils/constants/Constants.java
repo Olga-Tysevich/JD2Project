@@ -12,6 +12,7 @@ public class Constants {
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
     public static final long DEFAULT_ID = 1L;
+    public static final long ID_FOR_CHECK = 0L;
     public static final String DEFAULT_VALUE = "";
 
     //entity patterns
@@ -31,7 +32,7 @@ public class Constants {
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
     public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
     public static final String CHECK_SERVICE_CENTER = "SELECT count(s) FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
-    public static final String CHECK_DEVICE_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
+    public static final String CHECK_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String PARAMETER_VALUE = "value";
     //parameters
@@ -81,20 +82,20 @@ public class Constants {
     public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     //service center
-    public static final String SERVICE_CENTER = "service_center";
+    public static final String SERVICE_CENTER = "servicecenter";
     //brand
     public static final String BRAND = "brand";
     //device type
-    public static final String DEVICE_TYPE = "device_type";
+    public static final String DEVICE_TYPE = "devicetype";
     //model
     public static final String MODEL = "model";
     public static final String BRAND_ID = "brandId";
     public static final String TYPE_ID = "deviceTypeId";
     //spare parts
-    public static final String SPARE_PART = "spare_part";
+    public static final String SPARE_PART = "sparepart";
     public static final String SPARE_PART_ID = "spare_part_id";
     //repair type
-    public static final String REPAIR_TYPE = "repair_type";
+    public static final String REPAIR_TYPE = "repairtype";
     public static final String REPAIR_TYPE_CODE = "code";
     public static final String REPAIR_TYPE_LEVEL = "level";
     //repair

@@ -31,17 +31,16 @@ public class ChangeRepair extends AddRepair {
         long selectedBrandId = Long.parseLong(req.getParameter(SELECTED_BRAND_ID));
         log.info(REPAIR_FORM_CURRENT_BRAND_ID, selectedBrandId);
 
+
         RepairDTO forUpdate = Extractor.extract(req, new RepairDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
-
             if (selectedBrandId == lastBrandId) {
                 repairService.updateRepair(forUpdate);
                 return new ShowRepairTable().execute(req);
             }
 
-            forUpdate.setBrandId(selectedBrandId);
             RepairFormDTO repairForm = repairService.getRepairFormData(selectedBrandId);
             ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(forUpdate, repairForm);
 

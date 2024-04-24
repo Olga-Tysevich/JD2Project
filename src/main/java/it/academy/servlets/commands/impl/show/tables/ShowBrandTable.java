@@ -24,17 +24,10 @@ public class ShowBrandTable implements ActionCommand {
 
         ListForPage<BrandDTO> brands;
         TableReq dataFromPage = Extractor.extract(req, new TableReq());
-        boolean findByFilters = dataFromPage.getFilter() != null && dataFromPage.getInput() != null;
-
-        if (findByFilters) {
-            brands = brandService.findBrands(
-                    dataFromPage.getPageNumber(),
-                    dataFromPage.getFilter(),
-                    dataFromPage.getInput());
-        } else {
-            brands = brandService.findBrands(dataFromPage.getPageNumber());
-        }
-
+        brands = brandService.findBrands(
+                dataFromPage.getPageNumber(),
+                dataFromPage.getFilter(),
+                dataFromPage.getInput());
         brands.setPage(dataFromPage.getPage());
         brands.setCommand(SHOW_BRAND_TABLE.name());
         log.info(CURRENT_TABLE, brands);
