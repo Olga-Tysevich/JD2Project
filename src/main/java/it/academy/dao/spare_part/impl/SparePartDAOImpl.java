@@ -15,10 +15,6 @@ import static it.academy.utils.constants.Constants.*;
 
 public class SparePartDAOImpl extends ComponentDAOImpl<SparePart, Long> implements SparePartDAO {
 
-    public SparePartDAOImpl() {
-        super(SparePart.class);
-    }
-
     public SparePartDAOImpl(TransactionManger manger) {
         super(manger, SparePart.class);
     }

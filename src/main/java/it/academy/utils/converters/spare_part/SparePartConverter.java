@@ -72,7 +72,7 @@ public class SparePartConverter {
     public static SparePartForChangeDTO convertToSparePartDTO(SparePartForOrder sparePart) {
         return SparePartForChangeDTO.builder()
                 .id(sparePart.getId())
-                .name(sparePart.getName())
+//                .name(sparePart.getName())
                 .isActive(true)
                 .build();
     }

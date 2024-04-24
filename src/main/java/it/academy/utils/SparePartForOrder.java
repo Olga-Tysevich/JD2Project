@@ -15,10 +15,6 @@ public class SparePartForOrder implements Serializable {
     @Expose
     private Long id;
 
-    @SerializedName(value = "name")
-    @Expose
-    private String name;
-
     @SerializedName(value = "quantity")
     @Expose
     private Integer quantity;

@@ -54,7 +54,7 @@
                 <%for (BrandDTO brandDTO : brands) {%>
                 <option value="<%=brandDTO.getId()%>"
                         <%if(brandDTO.getId().equals(lastBrandId)) {%>selected<%}%>>
-                    <%=brandDTO.getName() + " " + brandDTO.getId()%></option>
+                    <%=brandDTO.getName()%></option>
                 <%}%>
             </select>
         </div>

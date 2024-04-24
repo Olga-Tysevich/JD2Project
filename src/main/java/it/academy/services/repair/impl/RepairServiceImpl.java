@@ -137,13 +137,12 @@ public class RepairServiceImpl implements RepairService {
         repair.getDevice().setModel(device.getModel());
         ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
         repair.setServiceCenter(serviceCenter);
-        repair.setDevice(device);
 
         try {
             repairDAO.update(repair);
-            log.info(String.format(OBJECT_CREATED_PATTERN, repair));
+            log.info(OBJECT_CREATED_PATTERN, repair);
         } catch (Exception e) {
-            log.error(String.format(ERROR_PATTERN, e.getMessage(), repair));
+            log.error(ERROR_PATTERN, e.getMessage(), repair);
             throw e;
         }
 
@@ -151,7 +150,7 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public ChangeRepairFormDTO findRepair( long id) {
+    public ChangeRepairFormDTO findRepair(long id) {
 
         transactionManger.beginTransaction();
         Repair repair = repairDAO.find(id);
@@ -159,10 +158,7 @@ public class RepairServiceImpl implements RepairService {
         RepairFormDTO repairFormDTO = getRepairFormData(repairDTO.getBrandId());
         DeviceDTO device = DeviceConverter.convertToDTO(repair.getDevice());
         repairFormDTO.setDevice(device);
-        List<SparePartOrder> orders = sparePartOrderDAO.findSparePartOrdersByRepairId(repair.getId());
-        List<SparePartOrderDTO> ordersDTO = SparePartOrderConverter.convertListToDTO(orders);
-
-        ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO, ordersDTO);
+        ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO);
 
         transactionManger.commit();
 

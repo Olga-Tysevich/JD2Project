@@ -49,7 +49,7 @@ public enum CommandEnum {
     SHOW_NEW_SPARE_PART(new ShowNewSparePart()),
     SHOW_SPARE_PART_FORM(new ShowSparePart()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
-    SHOW_ORDER_SPARE_PART(new ShowOrderSparePart()),
+    SHOW_SPARE_PART_ORDER(new ShowSparePartOrder()),
     ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
     CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
     SHOW_REPAIR_TYPE_TABLE(new ShowRepairTypeTable()),

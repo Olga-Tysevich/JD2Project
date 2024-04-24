@@ -27,7 +27,7 @@ public class ShowRepairTable implements ActionCommand {
         TableReq pageData = Extractor.extract(req, new TableReq());
         log.info(OBJECT_EXTRACTED_PATTERN, pageData);
         boolean findByFilters = pageData.getFilter() != null && pageData.getInput() != null;
-        RepairStatus status = req.getParameter(REPAIR_STATUS) != null ?
+        RepairStatus status = req.getParameter(REPAIR_STATUS) != null && !req.getParameter(REPAIR_STATUS).equals(ALL_REPAIRS) ?
                 RepairStatus.valueOf(req.getParameter(REPAIR_STATUS)) : null;
 
         if (findByFilters) {

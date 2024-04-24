@@ -19,10 +19,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger;
     private Class<T> clazz;
 
-    public DAOImpl(Class<T> clazz) {
-        this.clazz = clazz;
-    }
-
     public DAOImpl(TransactionManger manger, Class<T> clazz) {
         this.manger = manger;
         this.clazz = clazz;

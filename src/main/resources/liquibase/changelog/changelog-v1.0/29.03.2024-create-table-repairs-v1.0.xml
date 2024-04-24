@@ -43,8 +43,6 @@
 
             <column name="repair_type_id" type="bigint"/>
 
-            <column name="delivery_date" type="date"/>
-
         </createTable>
 
     </changeSet>

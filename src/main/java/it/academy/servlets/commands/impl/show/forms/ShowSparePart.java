@@ -1,8 +1,8 @@
 package it.academy.servlets.commands.impl.show.forms;
 
 import it.academy.dto.spare_part.SparePartForChangeDTO;
-import it.academy.services.device.SparePartService;
-import it.academy.services.device.impl.SparePartServiceImpl;
+import it.academy.services.spare_part_order.SparePartService;
+import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.CommandHelper;
 

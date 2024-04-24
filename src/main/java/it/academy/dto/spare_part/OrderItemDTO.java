@@ -1,4 +1,4 @@
-package it.academy.dto.repair;
+package it.academy.dto.spare_part;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeRepairFormDTO {
+public class OrderItemDTO {
 
-    private RepairDTO repairDTO;
+    private Long orderId;
 
-    private RepairFormDTO repairFormDTO;
+    private Long sparePartId;
+
+    private Integer quantity;
 
 }

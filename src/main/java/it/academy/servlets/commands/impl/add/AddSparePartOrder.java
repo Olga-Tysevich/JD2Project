@@ -2,12 +2,15 @@ package it.academy.servlets.commands.impl.add;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.academy.dto.spare_part.CreateOrderDTO;
+import it.academy.dto.spare_part.OrderItemDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.dto.spare_part.SparePartOrderDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.forms.ShowConfirmedRepair;
+import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
 import it.academy.utils.converters.spare_part.SparePartConverter;
 import it.academy.utils.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,38 +34,40 @@ public class AddSparePartOrder implements ActionCommand {
     public String execute(HttpServletRequest req) {
 
         try {
-            long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
+            long repairId = Long.parseLong(req.getParameter(ORDER_REPAIR_ID));
             String orderData = req.getParameter(ORDER_DATA);
-            String orderDateString = req.getParameter(ORDER_DATE);
-            String departureDateString = req.getParameter(DEPARTURE_DATE);
-            String deliveryDateString = req.getParameter(DELIVERY_DATE);
-            Date orderDate = orderDateString != null ? Date.valueOf(orderDateString) : null;
-            Date departureDate = departureDateString != null ? Date.valueOf(departureDateString) : null;
-            Date deliveryDate = deliveryDateString != null ? Date.valueOf(deliveryDateString) : null;
 
-            Map<SparePartForChangeDTO, Integer> sparePartsMap = null;
+            List<OrderItemDTO> orderItems = new ArrayList<>();
             if (orderData != null) {
                 TypeToken<List<SparePartForOrder>> typeToken = new TypeToken<>() {
                 };
                 Type type = typeToken.getType();
                 List<SparePartForOrder> spareParts = gson.fromJson(orderData, type);
-
-                sparePartsMap = spareParts.stream()
-                        .collect(Collectors.toMap(SparePartConverter::convertToSparePartDTO,
-                                SparePartForOrder::getQuantity));
+                orderItems = spareParts.stream()
+                        .map(sp -> new OrderItemDTO(repairId, sp.getId(), sp.getQuantity()))
+                        .collect(Collectors.toList());
             }
 
-            SparePartOrderDTO sparePartOrderDTO = SparePartOrderDTO.builder()
-                    .spareParts(sparePartsMap)
+            CreateOrderDTO forCreate = CreateOrderDTO.builder()
                     .repairId(repairId)
-                    .orderDate(orderDate)
-                    .deliveryDate(deliveryDate)
-                    .departureDate(departureDate)
+                    .orderItems(orderItems)
                     .build();
+            sparePartOrderService.createSparePartOrder(forCreate);
 
-            sparePartOrderService.addSparePartOrder(sparePartOrderDTO);
 
-            return new ShowConfirmedRepair().execute(req);
+
+//
+//            SparePartOrderDTO sparePartOrderDTO = SparePartOrderDTO.builder()
+//                    .spareParts(sparePartsMap)
+//                    .repairId(repairId)
+//                    .orderDate(orderDate)
+//                    .deliveryDate(deliveryDate)
+//                    .departureDate(departureDate)
+//                    .build();
+//
+//            sparePartOrderService.addSparePartOrder(sparePartOrderDTO);
+
+            return new ShowRepairTable().execute(req);
         } catch (Exception e) {
             req.setAttribute(ERROR, ERROR_MESSAGE);
             return ERROR_PAGE_PATH;

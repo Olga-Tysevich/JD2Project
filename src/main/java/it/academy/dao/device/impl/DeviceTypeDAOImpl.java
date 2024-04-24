@@ -7,10 +7,6 @@ import it.academy.utils.dao.TransactionManger;
 
 public class DeviceTypeDAOImpl extends ComponentDAOImpl<DeviceType, Long> implements DeviceTypeDAO {
 
-    public DeviceTypeDAOImpl() {
-        super(DeviceType.class);
-    }
-
     public DeviceTypeDAOImpl(TransactionManger manger) {
         super(manger, DeviceType.class);
     }

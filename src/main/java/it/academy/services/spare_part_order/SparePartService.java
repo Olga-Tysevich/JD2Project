@@ -1,4 +1,4 @@
-package it.academy.services.device;
+package it.academy.services.spare_part_order;
 
 import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.dto.spare_part.SparePartDTO;
@@ -23,6 +23,6 @@ public interface SparePartService {
 
     ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
 
-    List<SparePartDTO> findSparePartsByModelId(long id);
+    List<SparePartDTO> findSparePartsByRepairId(long id);
 
 }

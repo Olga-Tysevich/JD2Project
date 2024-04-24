@@ -10,11 +10,6 @@ import static it.academy.utils.constants.Constants.*;
 public abstract class ComponentDAOImpl<T, R> extends DAOImpl<T, R> implements ComponentDAO<T, R> {
     private Class<T> clazz;
 
-    public ComponentDAOImpl(Class<T> clazz) {
-        super(clazz);
-        this.clazz = clazz;
-    }
-
     public ComponentDAOImpl(TransactionManger manger, Class<T> clazz) {
         super(manger, clazz);
         this.clazz = clazz;

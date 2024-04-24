@@ -1,6 +1,5 @@
 package it.academy.dto.repair;
 
-import it.academy.dto.account.AccountDTO;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import lombok.AllArgsConstructor;
@@ -14,8 +13,6 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RepairDTO {
-
-    private AccountDTO currentAccount;
 
     private Long serviceCenterId;
 
@@ -52,8 +49,6 @@ public class RepairDTO {
     private Date startDate;
 
     private Date endDate;
-
-    private Date deliveryDate;
 
     private Long repairTypeId;
 

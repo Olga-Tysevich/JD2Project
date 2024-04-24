@@ -12,10 +12,6 @@ import static it.academy.utils.constants.Constants.*;
 
 public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
 
-    public ModelDAOImpl() {
-        super(Model.class);
-    }
-
     public ModelDAOImpl(TransactionManger manger) {
         super(manger, Model.class);
     }

@@ -47,9 +47,6 @@ public class RepairConverter {
             repairDTO.setEndDate(repair.getEndDate());
         }
 
-        if (repair.getStatus().isDeliveredStatus()) {
-            repairDTO.setDeliveryDate(repair.getDeliveryDate());
-        }
         return repairDTO;
     }
 
@@ -85,10 +82,6 @@ public class RepairConverter {
             repairDTO.setRepairTypeName(repairType.getName());
             repairDTO.setEndDate(repair.getEndDate());
         }
-
-        if (repair.getStatus().isDeliveredStatus()) {
-            repairDTO.setDeliveryDate(repair.getDeliveryDate());
-        }
         return repairDTO;
     }
 
@@ -104,7 +97,6 @@ public class RepairConverter {
                 .repairNumber(repairDTO.getRepairNumber())
                 .startDate(repairDTO.getStartDate())
                 .endDate(repairDTO.getEndDate())
-                .deliveryDate(repairDTO.getDeliveryDate())
                 .build();
     }
 
@@ -153,7 +145,6 @@ public class RepairConverter {
                 .repairNumber(repairDTO.getRepairNumber())
                 .startDate(repairDTO.getStartDate())
                 .endDate(repairDTO.getEndDate())
-                .deliveryDate(repairDTO.getDeliveryDate())
                 .build();
     }
 

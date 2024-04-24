@@ -71,6 +71,7 @@ public class Constants {
     public static final String COMMAND = "command";
     public static final String FORM_PAGE = "form_page";
     public static final String DISPLAY_TABLE_COMMAND = "display_table_command";
+    public static final String DISPLAY_PAGE_COMMAND = "display_page_command";
     public static final String PAGE_NUMBER = "pageNumber";
     public static final String PAGE = "page";
     //jsp pages
@@ -127,8 +128,6 @@ public class Constants {
     public static final String SPARE_PART_QUANTITY = "quantity";
     public static final String ORDERS = "orders";
     public static final String ORDER_DATA = "order_data";
-    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part/sparePartsOrder.jsp";
-    public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part/changeSparePartOrder.jsp";
     //for pages
     public static final String EMAIL_ALREADY_EXISTS = "Email: %s уже зарегистрирован!";
     public static final String PASSWORDS_NOT_MATCH = "Введенные пароли не совпадают!";
@@ -153,6 +152,7 @@ public class Constants {
     public static final String MODELS_NOT_SELECTED = "Не выбраны связанные модели!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
     public static final String SPARE_PART_NOT_FOUND = "Запчасть не найдена!";
+    public static final String REPAIR_NOT_FOUND = "Ремонт не найден!";
     public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";
     //description
     //role description
@@ -167,7 +167,7 @@ public class Constants {
     public static final String PAID_DESCRIPTION = "Оплачен";
     public static final String DELIVERED_DESCRIPTION = "Выдан";
     public static final String REJECTED_DESCRIPTION = "Отклонен";
-    public static final String ALL_DESCRIPTION = "Все ремонты";
+    public static final String ALL_REPAIRS = "Все ремонты";
     //repair categories description
     public static final String WARRANTY_DESCRIPTION = "Гарантийный";
     public static final String PRE_SALE_DESCRIPTION = "Предпродажный";

@@ -1,18 +1,19 @@
-package it.academy.dto.repair;
+package it.academy.dto.spare_part;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeRepairFormDTO {
+public class CreateOrderDTO {
 
-    private RepairDTO repairDTO;
+    private Long repairId;
 
-    private RepairFormDTO repairFormDTO;
-
+    private List<OrderItemDTO> orderItems;
 }

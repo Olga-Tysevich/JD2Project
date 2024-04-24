@@ -12,10 +12,6 @@ import static it.academy.utils.constants.Constants.*;
 
 public class ServiceCenterDAOImpl extends DAOImpl<ServiceCenter, Long> implements ServiceCenterDAO {
 
-    public ServiceCenterDAOImpl() {
-        super(ServiceCenter.class);
-    }
-
     public ServiceCenterDAOImpl(TransactionManger manger) {
         super(manger, ServiceCenter.class);
     }

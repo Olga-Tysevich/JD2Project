@@ -22,6 +22,7 @@
     <url-pattern>/brands</url-pattern>
     <url-pattern>/models</url-pattern>
     <url-pattern>/repair</url-pattern>
+    <url-pattern>/order</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

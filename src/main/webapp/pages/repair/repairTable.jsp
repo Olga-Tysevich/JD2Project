@@ -34,6 +34,9 @@
                     </div>
                 <% } %>
                     <div>
+                        <input name="<%=REPAIR_STATUS%>" type="radio" value="<%=ALL_REPAIRS%>"> <%=ALL_REPAIRS%>
+                    </div>
+                    <div>
                     <input class="choose-button" type="submit" value="Выбрать">
                     </div>
                 </div>
@@ -69,12 +72,28 @@
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="post">
-                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL%>">
+                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_CONFIRMED_REPAIR%>">
                                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
-                                <input type="hidden" name="<%=SELECTED_BRAND_ID%>" value="<%=repair.getBrandId()%>">
                                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                                 <input class="choose-button btn-table" type="submit" value="Изменить">
+                            </form>
+                            <form action="order" method="post" id="order">
+                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_ORDER%>">
+                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
+                                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repair.getRepairNumber()%>">
+                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                                <input class="choose-button btn-table" type="submit" value="Заказать запчасти" form="order"/>
+                            </form>
+
+                            <form action="repair" method="post" id="completed">
+                                <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
+                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
+                                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repair.getRepairNumber()%>">
+                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                                <input class="choose-button btn-table" type="submit" value="Сообщить о выполнении" form="completed"/>
                             </form>
                         </div>
                     </td>

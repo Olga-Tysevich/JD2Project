@@ -56,7 +56,4 @@ public class Repair implements Serializable {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "delivery_date")
-    private Date deliveryDate;
-
 }

@@ -1,5 +1,7 @@
-package it.academy.services.device.impl;
+package it.academy.services.spare_part_order.impl;
 
+import it.academy.dao.repair.RepairDAO;
+import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_part.SparePartDAO;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.ModelDAOImpl;
@@ -10,11 +12,12 @@ import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.entities.device.Model;
+import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.ModelsNotFound;
-import it.academy.services.device.SparePartService;
+import it.academy.services.spare_part_order.SparePartService;
 import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.constants.LoggerConstants;
@@ -35,6 +38,7 @@ import static it.academy.utils.constants.LoggerConstants.*;
 public class SparePartServiceImpl implements SparePartService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
+    private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
     private final SparePartDAO sparePartDAO = new SparePartDAOImpl(transactionManger);
 
     @Override
@@ -119,9 +123,11 @@ public class SparePartServiceImpl implements SparePartService {
     }
 
     @Override
-    public List<SparePartDTO> findSparePartsByModelId(long id) {
+    public List<SparePartDTO> findSparePartsByRepairId(long id) {
         Supplier<List<SparePartDTO>> find = () -> {
-            List<SparePart> spareParts = sparePartDAO.findByModelId(id);
+            Repair repair = repairDAO.find(id);
+            long modelId = repair.getDevice().getModel().getId();
+            List<SparePart> spareParts = sparePartDAO.findByModelId(modelId);
             log.info(OBJECTS_FOUND_PATTERN, spareParts.size(), SparePart.class);
             return SparePartConverter.convertToDTOList(spareParts);
         };

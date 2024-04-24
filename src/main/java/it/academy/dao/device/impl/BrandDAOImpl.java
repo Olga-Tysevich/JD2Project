@@ -14,10 +14,6 @@ import static it.academy.utils.constants.Constants.OBJECT_ID;
 
 public class BrandDAOImpl extends ComponentDAOImpl<Brand, Long> implements BrandDAO {
 
-    public BrandDAOImpl() {
-        super(Brand.class);
-    }
-
     public BrandDAOImpl(TransactionManger manger) {
         super(manger, Brand.class);
     }

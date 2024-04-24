@@ -20,11 +20,11 @@ public class SparePartOrderConverter {
                 .departureDate(sparePartOrder.getDepartureDate())
                 .deliveryDate(sparePartOrder.getDeliveryDate())
                 .build();
-        Map<SparePartForChangeDTO, Integer> spareParts = sparePartOrder.getSpareParts()
-                .entrySet().stream()
-                .collect(Collectors.toMap(entry -> SparePartConverter.convertToDTO(entry.getKey(), null),
-                        Map.Entry::getValue));
-        order.setSpareParts(spareParts);
+//        Map<SparePartForChangeDTO, Integer> spareParts = sparePartOrder.getSpareParts()
+//                .entrySet().stream()
+//                .collect(Collectors.toMap(entry -> SparePartConverter.convertToDTO(entry.getKey(), null),
+//                        Map.Entry::getValue));
+//        order.setSpareParts(spareParts);
         return order;
     }
 
@@ -35,8 +35,8 @@ public class SparePartOrderConverter {
                 .departureDate(partOrderDTO.getDepartureDate())
                 .deliveryDate(partOrderDTO.getDeliveryDate())
                 .build();
-        partOrderDTO.getSpareParts().forEach((key, value) ->
-                order.addSparePart(SparePartConverter.convertToEntity(key), value));
+//        partOrderDTO.getSpareParts().forEach((key, value) ->
+//                order.addSparePart(SparePartConverter.convertToEntity(key), value));
         return order;
     }
 
@@ -45,5 +45,7 @@ public class SparePartOrderConverter {
                 .map(SparePartOrderConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+
 
 }

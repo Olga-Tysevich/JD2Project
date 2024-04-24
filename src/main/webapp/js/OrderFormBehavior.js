@@ -57,12 +57,10 @@ function send() {
     for (let i = 0; i < sparePartInputs.length; i++) {
         const element = sparePartInputs[i];
         const idInput = element.querySelector('input[type="hidden"]');
-        const nameInput = element.querySelector('input[type="text"]');
         const quantityInput = element.querySelector('input[type="number"]');
 
-        if (idInput && nameInput && quantityInput) {
+        if (idInput && quantityInput) {
             const id = idInput.value;
-            const name = nameInput.value;
             const quantity = quantityInput.value;
 
             keyValueMap.push({ id, name, quantity });
