@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.ERROR_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.*;
 
 @Slf4j
@@ -35,7 +36,7 @@ public class AppServlet extends HttpServlet {
             ActionCommand actionCommand = actionFactory.defineCommand(req);
             log.info(CURRENT_COMMAND, actionCommand);
 
-            page = actionCommand.execute(req);
+            page = actionCommand.execute(req, resp);
             log.info(CURRENT_PAGE_PATTERN, page);
 
             if (page != null) {

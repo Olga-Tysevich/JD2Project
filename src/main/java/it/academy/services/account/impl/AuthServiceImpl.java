@@ -16,6 +16,8 @@ import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.function.Supplier;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -28,8 +30,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AccountDTO loginUser(LoginDTO loginDTO) throws UserNotFound, IncorrectPassword, UserIsBlocked, InvalidRole {
         transactionManger.beginTransaction();
-
-        Account account = accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail());
+        Account account = transactionManger.execute(() -> accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail()));
 
         if (account == null) {
             log.warn(OBJECTS_NOT_FOUND_PATTERN, loginDTO.getEmail());
@@ -54,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
             log.warn(INVALID_ROLE, account.getRole());
             throw new InvalidRole();
         }
+
 
         return accountConverter.convertToDTO(account);
     }

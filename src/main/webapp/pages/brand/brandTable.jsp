@@ -8,6 +8,7 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_BRAND" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_BRAND" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <section>
     <div class="container t-container">
 
@@ -44,16 +45,20 @@
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=brand.getIsActive()%>">
-                        <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
-                        <% } %>
+                    </form>
+                    <form action="repair" method="post" >
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_BRAND%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                 </td>
             </tr>
             <% }%>
         </table>
 
-        <% if (RoleEnum.ADMIN.equals(role)) {%>
         <div class="add-form">
             <form action="main" method="post" id="addBrand">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_BRAND%>">
@@ -71,6 +76,5 @@
                 </div>
             </form>
         </div>
-        <% }%>
     </div>
 </section>

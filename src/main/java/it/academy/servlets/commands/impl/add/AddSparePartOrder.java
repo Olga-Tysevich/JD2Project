@@ -11,6 +11,7 @@ import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
 import it.academy.utils.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,8 @@ public class AddSparePartOrder implements ActionCommand {
     private Gson gson = new Gson();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        try {
             long repairId = Long.parseLong(req.getParameter(ORDER_REPAIR_ID));
             String orderData = req.getParameter(ORDER_DATA);
 
@@ -46,12 +46,7 @@ public class AddSparePartOrder implements ActionCommand {
                     .orderItems(orderItems)
                     .build();
             sparePartOrderService.createSparePartOrder(forCreate);
-
-            return new ShowRepairTable().execute(req);
-        } catch (Exception e) {
-            req.setAttribute(ERROR, ERROR_MESSAGE);
-            return ERROR_PAGE_PATH;
-        }
+            return new ShowRepairTable().execute(req, resp);
 
     }
 

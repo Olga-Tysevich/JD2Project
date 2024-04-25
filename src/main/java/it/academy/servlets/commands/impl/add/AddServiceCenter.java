@@ -11,6 +11,8 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.SERVICE_CENTER_PAGE_PATH;
@@ -22,7 +24,7 @@ public class AddServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         CommandHelper.checkRole(req);
         ServiceCenterDTO forCreate = Extractor.extract(req, new ServiceCenterDTO());
@@ -31,7 +33,7 @@ public class AddServiceCenter implements ActionCommand {
 
         try {
             serviceCenterService.createServiceCenter(forCreate);
-            return new ShowServiceCenterTable().execute(req);
+            return new ShowServiceCenterTable().execute(req, resp);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             return CommandHelper.insertFormData(req,

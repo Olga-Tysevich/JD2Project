@@ -8,6 +8,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_DEVICE_TYPE" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <section>
     <div class="container t-container">
 
@@ -45,6 +46,13 @@
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=deviceType.getIsActive()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
+                    </form>
+                    <form action="repair" method="post" >
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_DEVICE_TYPE%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=deviceType.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                 </td>
             </tr>

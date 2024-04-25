@@ -10,7 +10,7 @@ public interface DAO<T, R> {
 
     T find(R id);
 
-    <S> T findByUniqueParameter(String filter, S parameters);
+    <S> T findByUniqueParameter(String filter, S input);
 
     boolean delete(R id);
 
@@ -18,21 +18,19 @@ public interface DAO<T, R> {
 
     List<T> findForPage(int pageNumber, int listSize);
 
-    List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value);
+    List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String input);
 
-    List<T> findActiveObjects(boolean isActive);
+    List<T> findActiveObjects();
 
-    List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize);
+    List<T> findActiveObjectsForPage(int pageNumber, int listSize);
 
-    List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize,
-                                     String filter, String value);
+    List<T> findActiveObjectsForPage(int pageNumber, int listSize,
+                                     String filter, String input);
 
     long getNumberOfEntries();
 
-    public long getNumberOfEntriesByFilter(String filter, String value);
+    long getNumberOfEntriesByFilter(String filter, String value);
 
-    public long getNumberOfActiveEntriesByFilter(String filter, String value);
-
-    boolean checkIfExist(R id, String name);
+    long getNumberOfActiveEntriesByFilter(String filter, String value);
 
 }

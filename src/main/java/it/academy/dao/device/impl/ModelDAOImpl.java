@@ -2,10 +2,13 @@ package it.academy.dao.device.impl;
 
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.impl.DAOImpl;
+import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.device.Model;
 import it.academy.utils.dao.TransactionManger;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
@@ -42,5 +45,29 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
                 .setParameter(BRAND_ID, model.getBrand().getId())
                 .setParameter(FIND_MODEL_DEVICE_TYPE_ID, model.getType().getId())
                 .getSingleResult() != 0;
+    }
+
+    @Override
+    public List<Model> findAccountsByComponent(String componentName, String input, int pageNumber, int listSize) {
+        CriteriaQuery<Model> find = criteriaBuilder().createQuery(Model.class);
+        Root<Model> root = find.from(Model.class);
+
+        find.select(root)
+                .where(criteriaBuilder()
+                        .like(root.get(componentName)
+                                .get(OBJECT_NAME), String.format(LIKE_QUERY_PATTERN, input)));
+
+        return entityManager().createQuery(find)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public long getNumberOfEntriesByComponent(String componentName, String input) {
+        String query = String.format(GET_NUMBER_OF_MODELS_BY_COMPONENT, componentName);
+        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
+        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, input));
+        return count.getSingleResult();
     }
 }

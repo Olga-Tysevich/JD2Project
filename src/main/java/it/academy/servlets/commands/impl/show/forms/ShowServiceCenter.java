@@ -8,6 +8,8 @@ import it.academy.servlets.commands.factory.CommandEnum;
 import it.academy.utils.Builder;
 import it.academy.utils.CommandHelper;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.SERVICE_CENTER_PAGE_PATH;
@@ -17,7 +19,7 @@ public class ShowServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         ServiceCenterDTO serviceCenterDTO;
         String id = req.getParameter(OBJECT_ID);

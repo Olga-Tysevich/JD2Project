@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.LOGIN_PAGE_PATH;
 
 @WebFilter(urlPatterns = {"/main"})
 public class AuthFilter implements Filter {

@@ -9,28 +9,19 @@ import it.academy.servlets.extractors.Extractor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static it.academy.utils.constants.Constants.*;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 public class ChangeSparePartOrder implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        try {
+        ChangeSparePartOrderDTO order = Extractor.extract(req, new ChangeSparePartOrderDTO());
+        sparePartOrderService.changeSparePartOrder(order);
+        return new ShowRepairTable().execute(req, resp);
 
-            ChangeSparePartOrderDTO order = Extractor.extract(req, new ChangeSparePartOrderDTO());
-
-            sparePartOrderService.changeSparePartOrder(order);
-
-            return new ShowRepairTable().execute(req);
-
-        } catch (Exception e) {
-            req.setAttribute(ERROR, ERROR_MESSAGE);
-            return ERROR_PAGE_PATH;
-        }
     }
 
 }

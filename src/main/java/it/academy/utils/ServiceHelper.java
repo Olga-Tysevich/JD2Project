@@ -105,7 +105,6 @@ public class ServiceHelper<T, R> {
                 long numberOfEntries = dao.getNumberOfEntriesByFilter(filter, input);
                 int maxPageNumber = countMaxPageNumber(numberOfEntries);
                 return find(() -> dao.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input), pageNumber, maxPageNumber);
-
             }
         });
     }
@@ -117,7 +116,7 @@ public class ServiceHelper<T, R> {
         return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
     }
 
-    private List<T> getList(Supplier<List<T>> methodForSearch,
+    public List<T> getList(Supplier<List<T>> methodForSearch,
                             Class<T> objectClass) {
         try {
             List<T> list = methodForSearch.get();

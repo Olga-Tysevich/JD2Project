@@ -7,6 +7,7 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.CommandHelper;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
@@ -17,7 +18,7 @@ public class ShowDeviceType implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         long deviceTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
         DeviceTypeDTO deviceType = deviceTypeService.findDeviceType(deviceTypeId);

@@ -13,4 +13,8 @@ public interface ModelDAO extends DAO<Model, Long> {
 
     boolean checkIfExist(Model model);
 
+    List<Model> findAccountsByComponent(String componentName, String input,int pageNumber, int listSize);
+
+    long getNumberOfEntriesByComponent(String componentName, String input);
+
 }

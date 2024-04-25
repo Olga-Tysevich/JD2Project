@@ -8,18 +8,16 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
-<%@ page import="it.academy.dto.repair.RepairDTO" %>
-<%@ page import="it.academy.dto.device.DeviceDTO" %>
-<%@ page import="it.academy.dto.device.ModelDTO" %>
+<%@ page import="it.academy.dto.repair.RepairForTableDTO" %>
 <section>
     <div class=" container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<RepairDTO> data = (ListForPage<RepairDTO>) request.getAttribute(LIST_FOR_PAGE);
+            ListForPage<RepairForTableDTO> data = (ListForPage<RepairForTableDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            List<RepairDTO> list = data.getList();
+            List<RepairForTableDTO> list = data.getList();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             String tablePage = data.getPage();
         %>
@@ -59,18 +57,13 @@
                     <% } %>
                 </tr>
 
-            <% for (RepairDTO repair : list) {
-                DeviceDTO deviceDTO = repair.getDeviceDTO();
-                ModelDTO modelDTO = deviceDTO.getModel();
-            %>
-
+            <% for (RepairForTableDTO repair : list) { %>
 
                 <tr>
                     <td class="date"><%=repair.getServiceCenterName()%></td>
                     <td class="date"><%=repair.getStartDate()%></td>
                     <td class="number"><%=repair.getRepairNumber()%></td>
-                    <td class="number"><%=String.format(DEVICE_DESCRIPTION_PATTERN, modelDTO.getDeviceTypeName(),
-                            modelDTO.getBrandName(), modelDTO.getName())%></td>
+                    <td class="number"><%=repair.getModelDescription()%></td>
                     <td><%=repair.getSerialNumber()%></td>
                     <td class="defect"><%=repair.getDefectDescription()%></td>
                     <td><%=repair.getStatus().getDescription()%></td>

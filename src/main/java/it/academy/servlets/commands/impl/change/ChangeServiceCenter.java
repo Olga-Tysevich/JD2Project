@@ -10,6 +10,7 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
@@ -22,7 +23,7 @@ public class ChangeServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         CommandHelper.checkRole(req);
         ServiceCenterDTO forUpdate = Extractor.extract(req, new ServiceCenterDTO());
@@ -31,7 +32,7 @@ public class ChangeServiceCenter implements ActionCommand {
 
         try {
             serviceCenterService.updateServiceCenter(forUpdate);
-            return new ShowServiceCenterTable().execute(req);
+            return new ShowServiceCenterTable().execute(req, resp);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             return CommandHelper.insertFormData(req,

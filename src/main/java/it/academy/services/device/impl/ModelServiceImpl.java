@@ -12,6 +12,7 @@ import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.ListForPage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.device.ModelForChangeDTO;
+import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.DeviceType;
 import it.academy.entities.device.Model;
@@ -28,6 +29,8 @@ import it.academy.utils.converters.impl.BrandConverter;
 import it.academy.utils.converters.impl.DeviceTypeConverter;
 import it.academy.utils.converters.impl.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.fiterForSearch.EntityFilter;
+import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.function.Supplier;
@@ -127,6 +130,16 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input) {
+        if (BRAND.equals(filter) || DEVICE_TYPE_FILTER.equals(filter)) {
+            long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);
+            int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
+            Supplier<List<Model>> find = () -> modelDAO.findAccountsByComponent(filter, input, pageNumber, LIST_SIZE);
+            List<Model> serviceCenter = modelHelper.getList(find, Model.class);
+            List<EntityFilter> filters = FilterManager.getFiltersForModel();
+            List<ModelDTO> listDTO = modelConverter.convertToDTOList(serviceCenter);
+            log.info(OBJECTS_FOUND_PATTERN, serviceCenter.size(), ServiceCenter.class);
+            return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
+        }
         return modelHelper.find(pageNumber, filter, input);
     }
 

@@ -4,6 +4,8 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.account.Account;
 import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.enums.RepairStatus;
+
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -17,16 +19,11 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
     }
 
     @Override
-    public boolean checkIfEmailExist(Account account) {
-        TypedQuery<Account> find = entityManager().createQuery(CHECK_ACCOUNT, Account.class);
-        find.setParameter(OBJECT_ID, account.getId());
-        find.setParameter(EMAIL, account.getEmail());
-        try {
-            Account result = find.getSingleResult();
-            return result == null;
-        } catch (NoResultException e) {
-            return false;
-        }
+    public boolean checkIfEmailExist(long id, String email) {
+        TypedQuery<Long> find = entityManager().createQuery(CHECK_ACCOUNT, Long.class);
+        find.setParameter(OBJECT_ID, id);
+        find.setParameter(EMAIL, email);
+        return find.getSingleResult() != 0;
     }
 
     @Override
@@ -36,5 +33,24 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
 
         return find.getResultList();
     }
+
+    @Override
+    public List<Account> findAccountsByServiceCenter(String serviceCenterName, int pageNumber, int listSize) {
+        TypedQuery<Account> find = entityManager().createQuery(FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME, Account.class);
+        find.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, serviceCenterName));
+
+        return find
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public long getNumberOfEntriesByServiceCenter(String serviceCenter) {
+        TypedQuery<Long> count = entityManager().createQuery(GET_NUMBER_OF_ACCOUNTS_BY_SERVICE_CENTER, Long.class);
+        count.setParameter(PARAMETER_VALUE, serviceCenter);
+        return count.getSingleResult();
+    }
+
 
 }

@@ -7,6 +7,7 @@
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL" %>
 <%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_MODEL" %>
 <section>
     <div class="container t-container">
 
@@ -51,6 +52,16 @@
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                         <% } %>
                     </form>
+
+                    <% if (RoleEnum.ADMIN.equals(role)) {%>
+                    <form action="repair" method="post" >
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_MODEL%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input class="choose-button order-btn" type="submit" value="Удалить" >
+                    </form>
+                    <% } %>
                 </td>
             </tr>
             <% }%>

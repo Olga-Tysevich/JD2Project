@@ -10,7 +10,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Objects;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.Constants.IS_ACTIVE;
 
@@ -41,11 +40,11 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public <S> T findByUniqueParameter(String filter, S parameter) {
+    public <S> T findByUniqueParameter(String filter, S input) {
         CriteriaQuery<T> findByParameter = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameter.from(clazz);
         findByParameter.select(root)
-                .where(criteriaBuilder().equal(root.get(filter), parameter))
+                .where(criteriaBuilder().equal(root.get(filter), input))
                 .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
         return entityManager().createQuery(findByParameter)
                 .getResultStream()
@@ -60,7 +59,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         if (object != null) {
             entityManager().remove(object);
         }
-
         return entityManager().find(clazz, id) == null;
     }
 
@@ -92,7 +90,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String value) {
+    public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String input) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
@@ -100,7 +98,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
             return findForPage(pageNumber, listSize);
         }
 
-        Predicate predicate = createLikePredicate(root, filter, value);
+        Predicate predicate = createLikePredicate(root, filter, input);
 
         findByParameters.select(root)
                 .where(predicate)
@@ -114,19 +112,19 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findActiveObjects(boolean isActive) {
+    public List<T> findActiveObjects() {
         String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
         TypedQuery<T> find = entityManager().createQuery(query, clazz);
-        find.setParameter(IS_ACTIVE, 1);
+        find.setParameter(IS_ACTIVE, true);
 
         return find.getResultList();
     }
 
     @Override
-    public List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize) {
+    public List<T> findActiveObjectsForPage(int pageNumber, int listSize) {
         String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
         TypedQuery<T> find = entityManager().createQuery(query, clazz);
-        find.setParameter(IS_ACTIVE, isActive);
+        find.setParameter(IS_ACTIVE, true);
 
         return find.setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
@@ -134,17 +132,17 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findActiveObjectsForPage(boolean isActive, int pageNumber, int listSize, String filter, String value) {
+    public List<T> findActiveObjectsForPage(int pageNumber, int listSize, String filter, String input) {
         CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
         Root<T> root = findByParameters.from(clazz);
 
-        if (filter == null) {
-            return findActiveObjectsForPage(isActive, pageNumber, listSize);
+        if (filter == null || filter.isBlank() || input == null || input.isBlank()) {
+            return findActiveObjectsForPage(pageNumber, listSize);
         }
-        Predicate predicate = createLikePredicate(root, filter, value);
+        Predicate predicate = createLikePredicate(root, filter, input);
 
         findByParameters.select(root)
-                .where(predicate, criteriaBuilder().equal(root.get(IS_ACTIVE), isActive))
+                .where(predicate, criteriaBuilder().equal(root.get(IS_ACTIVE), true))
                 .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
         return entityManager()
                 .createQuery(findByParameters)
@@ -172,18 +170,8 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public long getNumberOfEntriesByFilter(String filter, String value) {
         String query = String.format(GET_NUMBER_OF_ENTRIES_BY_FILTER, clazz.getSimpleName(), filter);
         TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        count.setParameter(PARAMETER_VALUE, value);
+        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, value));
         return count.getSingleResult();
-    }
-
-    @Override
-    public boolean checkIfExist(R id, String name) {
-        String checkQuery = String.format(CHECK_COMPONENT, clazz.getSimpleName());
-        TypedQuery<Long> find = entityManager().createQuery(checkQuery, Long.class);
-        find.setParameter(OBJECT_ID, id);
-        find.setParameter(OBJECT_NAME, name);
-        return find.getSingleResult() != 0;
-
     }
 
     protected EntityManager entityManager() {
@@ -197,6 +185,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     protected Predicate createLikePredicate(Root<T> root, String filter, String value) {
         return criteriaBuilder()
                 .like(root.get(filter).as(String.class),
-                        String.format(LIKE_QUERY_PATTERN,value));
+                        String.format(LIKE_QUERY_PATTERN, value));
     }
 }

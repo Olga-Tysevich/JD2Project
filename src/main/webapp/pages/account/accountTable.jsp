@@ -5,6 +5,7 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
     <div class="container t-container">
@@ -49,6 +50,14 @@
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
+                    </form>
+
+                    <form action="repair" method="post" >
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_ACCOUNT%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                     <% } %>
                 </td>

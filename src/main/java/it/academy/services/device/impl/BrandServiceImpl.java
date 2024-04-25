@@ -1,6 +1,7 @@
 package it.academy.services.device.impl;
 
 import it.academy.dao.DAO;
+import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.ListForPage;
@@ -16,7 +17,7 @@ import static it.academy.utils.constants.Constants.*;
 @Slf4j
 public class BrandServiceImpl implements BrandService {
     private final TransactionManger transactionManger = new TransactionManger();
-    private final DAO<Brand, Long> brandDAO = new BrandDAOImpl(transactionManger);
+    private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
     private final BrandConverter brandConverter = new BrandConverter();
     private final ServiceHelper<Brand, BrandDTO> brandHelper =
             new ServiceHelper<>(brandDAO, Brand.class, brandConverter, transactionManger);

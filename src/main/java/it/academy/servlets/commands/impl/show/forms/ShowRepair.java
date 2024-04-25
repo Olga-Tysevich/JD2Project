@@ -10,6 +10,7 @@ import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.servlets.commands.factory.CommandEnum.ADD_REPAIR;
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE;
@@ -22,7 +23,7 @@ public class ShowRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
             long brandId = Long.parseLong(req.getParameter(SELECTED_BRAND_ID));
@@ -40,9 +41,6 @@ public class ShowRepair implements ActionCommand {
         } catch (BrandsNotFound | ModelNotFound e) {
             req.setAttribute(ERROR, e.getMessage());
             return MAIN_PAGE_PATH;
-        } catch (Exception e) {
-            req.setAttribute(ERROR, ERROR_MESSAGE);
-            return ERROR_PAGE_PATH;
         }
 
     }

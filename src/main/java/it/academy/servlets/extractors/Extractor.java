@@ -14,7 +14,7 @@ public class Extractor {
     public <T> T extract(HttpServletRequest request, T object) {
 
         int pageNumber = request.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        String page = request.getParameter(PAGE) != null ? request.getParameter(PAGE) : MAIN_PAGE_PATH;
+        String page = request.getParameter(PAGE);
         T result = ReflectionHelper.setFieldValues(request, object);
         request.setAttribute(PAGE_NUMBER, pageNumber);
         request.setAttribute(PAGE, page);

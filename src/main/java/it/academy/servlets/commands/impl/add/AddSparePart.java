@@ -5,18 +5,22 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.spare_part_order.SparePartService;
 import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.forms.ShowNewSparePart;
 import it.academy.servlets.commands.impl.show.tables.ShowSparePartTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_PAGE_PATH;
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_TABLE_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_FOR_SAVE_PATTERN;
 
@@ -25,7 +29,7 @@ public class AddSparePart implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         CommandHelper.checkRole(req);
         ChangeSparePartDTO forCreate = Extractor.extract(req, new ChangeSparePartDTO());
@@ -38,10 +42,15 @@ public class AddSparePart implements ActionCommand {
             sparePartService.createSparePart(forCreate);
         } catch (IllegalArgumentException | ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
-            return new ShowNewSparePart().execute(req);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return CommandHelper.insertFormData(req,
+                    SPARE_PART_TABLE_PAGE_PATH,
+                    SPARE_PART_PAGE_PATH,
+                    ADD_SPARE_PART,
+                    SHOW_SPARE_PART_TABLE);
         }
 
-        return new ShowSparePartTable().execute(req);
+        return new ShowSparePartTable().execute(req, resp);
     }
 
     protected List<Long> getModelsId(HttpServletRequest req) {

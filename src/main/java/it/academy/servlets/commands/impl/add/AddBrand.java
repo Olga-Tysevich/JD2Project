@@ -9,10 +9,9 @@ import it.academy.servlets.commands.impl.show.tables.ShowBrandTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import static it.academy.utils.constants.Constants.BRAND_ALREADY_EXIST;
 import static it.academy.utils.constants.Constants.ERROR;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
@@ -21,7 +20,7 @@ public class AddBrand implements ActionCommand {
     private BrandService brandService = new BrandServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         CommandHelper.checkRole(req);
         BrandDTO forCreate = Extractor.extract(req, new BrandDTO());
@@ -30,9 +29,9 @@ public class AddBrand implements ActionCommand {
         try {
             brandService.createBrand(forCreate);
         } catch (ObjectAlreadyExist e) {
-            req.setAttribute(ERROR, BRAND_ALREADY_EXIST);
+            req.setAttribute(ERROR, e.getMessage());
         }
-        return new ShowBrandTable().execute(req);
+        return new ShowBrandTable().execute(req, resp);
     }
 
 }

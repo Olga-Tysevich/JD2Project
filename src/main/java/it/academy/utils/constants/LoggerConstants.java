@@ -26,6 +26,7 @@ public class LoggerConstants {
     public static final String WRONG_PASSWORD_ERROR = "Wrong password. Current: {}; Except: {}";
     public static final String USER_IS_BLOCKED_ERROR = "User is blocked {}";
     public static final String UNSUPPORTED_CLASS = "Unsupported field class! Field class {}";
+    public static final String DELETE_FAILED = "Removal is not possible! There are related posts! id: {}, class {}";
 
     //info
     public static final String CURRENT_COMMAND = "Current command: {}";

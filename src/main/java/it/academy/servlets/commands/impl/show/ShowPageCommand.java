@@ -4,6 +4,8 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.factory.CommandEnum;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -11,7 +13,7 @@ import static it.academy.utils.constants.LoggerConstants.*;
 public class ShowPageCommand implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         String displayTable = req.getParameter(DISPLAY_TABLE_COMMAND);
         log.info(OBJECT_EXTRACTED_PATTERN, displayTable);
@@ -20,7 +22,7 @@ public class ShowPageCommand implements ActionCommand {
         if (displayTable != null) {
             displayTableCommand = CommandEnum.valueOf(displayTable).getCurrentCommand();
             log.info(CURRENT_COMMAND, displayTableCommand);
-            return displayTableCommand.execute(req);
+            return displayTableCommand.execute(req,resp);
         }
 
         req.setAttribute(PAGE_NUMBER, FIRST_PAGE);

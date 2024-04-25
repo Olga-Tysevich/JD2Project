@@ -28,7 +28,6 @@
                     ListForPage list = request.getAttribute(LIST_FOR_PAGE) != null?
                             (ListForPage) request.getAttribute(LIST_FOR_PAGE) : new ListForPage();
                     int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
-                    int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();
                     List<EntityFilter> filters = list.getFiltersForPage();
                     String tablePage = list.getPage();
                     String command = list.getCommand();
@@ -176,44 +175,9 @@
 
         </div>
 
-        <div class="table-container">
-            <% if (tablePage != null) {
-                pageContext.include(tablePage);
-                if (maxPageNumber > 1) {%>
-            <div class="footer">
-                <div class="button-container">
-                    <%if (pageNumber != FIRST_PAGE) { %>
-                    <form action="main" method="post">
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <%int prevPage = pageNumber - 1;%>
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                        <input class="button light" type="submit" name="button" value="Предыдущая">
-                    </form>
-                    <% } %>
-
-                    <p><%=pageNumber%>
-                        из
-                        <%=maxPageNumber%>
-                    </p>
-
-
-                    <%if (pageNumber != maxPageNumber) { %>
-                    <form action="main" method="post">
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <%int nextPage = pageNumber + 1;%>
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                        <input class="button light" type="submit" name="button" value="Следующая">
-                    </form>
-                    <% }
-                    } %>
-
-                </div>
-            </div>
-            <% } %>
-
-        </div>
+        <% if (tablePage != null) {
+            pageContext.include(PAGINATION_PAGE_PATH);
+        } %>
 
     </div>
 

@@ -10,7 +10,6 @@
 <%@ page import="it.academy.dto.repair.ChangeRepairFormDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
-<%@ page import="it.academy.dto.device.DeviceDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
         <%
@@ -24,8 +23,6 @@
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             RepairDTO repairDTO = changeRepairForm.getRepairDTO();
-            DeviceDTO deviceDTO = repairDTO.getDeviceDTO();
-            ModelDTO currentModelDTO = deviceDTO.getModel();
             Long lastBrandId = (long) request.getAttribute(BRAND_ID);
             Long repairId = repairDTO.getId();
         %>
@@ -77,7 +74,7 @@
                     <select class="f-form " name="<%=SELECTED_BRAND_ID%>" size="1" id="select_send">
                         <%for (BrandDTO brandDTO : brands) {%>
                         <option value="<%=brandDTO.getId()%>"
-                                <%if(brandDTO.getId().equals(repairForm.getSelectedBrandId())) {%>selected<%}%>>
+                                <%if(brandDTO.getId().equals(repairDTO.getBrandId())) {%>selected<%}%>>
                             <%=brandDTO.getName()%></option>
                         <%}%>
                     </select>
@@ -88,7 +85,7 @@
                     <select class="f-form " name="<%=MODEL_ID%>" size="1">
                         <%for (ModelDTO modelDTO : models) {%>
                         <option value="<%=modelDTO.getId()%>"
-                                <%if(modelDTO.getId().equals(currentModelDTO.getId())) {%>selected<%}%>>
+                                <%if(modelDTO.getId().equals(repairDTO.getModelId())) {%>selected<%}%>>
                             <%=modelDTO.getName()%></option>
                         <%}%>
                     </select>

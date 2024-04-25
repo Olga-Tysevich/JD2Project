@@ -7,6 +7,7 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.CommandHelper;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
@@ -17,7 +18,7 @@ public class ShowRepairType implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         long repairTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
         RepairTypeDTO repairType = repairTypeService.findRepairType(repairTypeId);

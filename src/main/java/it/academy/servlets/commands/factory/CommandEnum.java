@@ -6,6 +6,7 @@ import it.academy.servlets.commands.impl.change.ChangeRepair;
 import it.academy.servlets.commands.impl.change.ChangeBrand;
 import it.academy.servlets.commands.impl.add.AddDeviceType;
 import it.academy.servlets.commands.impl.change.ChangeDeviceType;
+import it.academy.servlets.commands.impl.delete.*;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
@@ -22,32 +23,38 @@ import it.academy.servlets.commands.impl.show.forms.*;
 public enum CommandEnum {
     SHOW_PAGE(new ShowPageCommand()),
     LOGIN(new LoginCommand()),
-    SHOW_NEW_ACCOUNT(new ShowNewAccount()),
+    SHOW_NEW_ACCOUNT(new ShowAccount()),
     SHOW_ACCOUNT(new ShowAccount()),
+    DELETE_ACCOUNT(new DeleteAccount()),
     ADD_ACCOUNT(new AddAccount()),
     CHANGE_ACCOUNT(new ChangeAccount()),
     SHOW_ACCOUNT_TABLE(new ShowAccountTable()),
     SHOW_SERVICE_CENTER_TABLE(new ShowServiceCenterTable()),
     SHOW_SERVICE_CENTER(new ShowServiceCenter()),
     ADD_SERVICE_CENTER(new AddServiceCenter()),
+    DELETE_SERVICE_CENTER(new DeleteServiceCenter()),
     CHANGE_SERVICE_CENTER(new ChangeServiceCenter()),
     SHOW_BRAND_TABLE(new ShowBrandTable()),
     ADD_BRAND(new AddBrand()),
+    DELETE_BRAND(new DeleteBrand()),
     SHOW_BRAND(new ShowBrand()),
     CHANGE_BRAND(new ChangeBrand()),
     SHOW_DEVICE_TYPE_TABLE(new ShowDeviceTypeTable()),
     ADD_DEVICE_TYPE(new AddDeviceType()),
+    DELETE_DEVICE_TYPE(new DeleteDeviceType()),
     SHOW_DEVICE_TYPE(new ShowDeviceType()),
     CHANGE_DEVICE_TYPE(new ChangeDeviceType()),
     SHOW_MODEL_TABLE(new ShowModelTable()),
     ADD_MODEL(new AddModel()),
+    DELETE_MODEL(new DeleteModel()),
     SHOW_MODEL(new ShowModel()),
-    SHOW_NEW_MODEL(new ShowNewModel()),
+    SHOW_NEW_MODEL(new ShowModel()),
     CHANGE_MODEL(new ChangeModel()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
     ADD_SPARE_PART(new AddSparePart()),
-    SHOW_NEW_SPARE_PART(new ShowNewSparePart()),
-    SHOW_SPARE_PART_FORM(new ShowSparePart()),
+    DELETE_SPARE_PART(new DeleteSparePart()),
+    SHOW_NEW_SPARE_PART(new ShowSparePart()),
+    SHOW_SPARE_PART(new ShowSparePart()),
     CHANGE_SPARE_PART(new ChangeSparePart()),
     SHOW_SPARE_PART_ORDER(new ShowSparePartOrder()),
     ADD_SPARE_PART_ORDER(new AddSparePartOrder()),

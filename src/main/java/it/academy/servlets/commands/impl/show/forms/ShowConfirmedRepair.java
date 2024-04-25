@@ -9,6 +9,8 @@ import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.CommandHelper;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
@@ -17,14 +19,14 @@ public class ShowConfirmedRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
 
         try {
             long repairId = Long.parseLong(req.getParameter(OBJECT_ID));
             ChangeRepairFormDTO changeRepairForm = repairService.findRepair(repairId);
-            long brandId = changeRepairForm.getRepairFormDTO().getSelectedBrandId();
+            long brandId = changeRepairForm.getRepairDTO().getDeviceDTO().getId();
 
             req.setAttribute(BRAND_ID, brandId);
             req.setAttribute(SELECTED_BRAND_ID, brandId);

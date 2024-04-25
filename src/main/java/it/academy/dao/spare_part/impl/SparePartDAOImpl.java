@@ -1,7 +1,7 @@
 package it.academy.dao.spare_part.impl;
 
-import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.spare_part.SparePartDAO;
+import it.academy.dao.impl.ComponentDAOImpl;
 import it.academy.entities.device.Model;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.utils.dao.TransactionManger;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
 
-public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SparePartDAO {
+public class SparePartDAOImpl extends ComponentDAOImpl<SparePart, Long> implements SparePartDAO {
 
     public SparePartDAOImpl(TransactionManger manger) {
         super(manger, SparePart.class);
@@ -29,5 +29,13 @@ public class SparePartDAOImpl extends DAOImpl<SparePart, Long> implements SpareP
         return entityManager()
                 .createQuery(find)
                 .getResultList();
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        entityManager().createNativeQuery(DELETE_FROM_SPARE_PART)
+                .setParameter(1, id)
+                .executeUpdate();
+        return super.delete(id);
     }
 }

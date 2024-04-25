@@ -12,9 +12,14 @@ import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+import static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SPARE_PART;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_PAGE_PATH;
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_TABLE_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_FOR_SAVE_PATTERN;
 
@@ -23,7 +28,7 @@ public class ChangeSparePart extends AddSparePart {
     private SparePartService sparePartService = new SparePartServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         CommandHelper.checkRole(req);
         ChangeSparePartDTO forUpdate = Extractor.extract(req, new ChangeSparePartDTO());
@@ -36,9 +41,13 @@ public class ChangeSparePart extends AddSparePart {
             sparePartService.updateSparePart(forUpdate);
         } catch (IllegalArgumentException | ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
-            return new ShowSparePart().execute(req);
+            return CommandHelper.insertFormData(req,
+                    SPARE_PART_TABLE_PAGE_PATH,
+                    SPARE_PART_PAGE_PATH,
+                    CHANGE_SPARE_PART,
+                    SHOW_SPARE_PART_TABLE);
         }
 
-        return new ShowSparePartTable().execute(req);
+        return new ShowSparePartTable().execute(req, resp);
     }
 }

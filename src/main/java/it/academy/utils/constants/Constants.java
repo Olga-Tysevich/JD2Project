@@ -12,8 +12,8 @@ public class Constants {
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
     public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
     public static final long DEFAULT_ID = 1L;
-    public static final long ID_FOR_CHECK = 0L;
     public static final String DEFAULT_VALUE = "";
+    public static final long ID_FOR_CHECK = 0L;
 
     //entity patterns
     public static final int MIN_FIELD_LENGTH = 2;
@@ -24,17 +24,22 @@ public class Constants {
     //sql
     public static final String GET_NUMBER_OF_ENTRIES = "SELECT count(s) FROM %s s";
     public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
+    public static final String GET_NUMBER_OF_ACCOUNTS_BY_SERVICE_CENTER = "SELECT count(a) FROM Account a WHERE a.serviceCenter.serviceName LIKE :value";
+    public static final String GET_NUMBER_OF_SERVICE_CENTERS_BY_REQUISITES = "SELECT count(s) FROM ServiceCenter s WHERE s.requisites.%s LIKE :value";
+    public static final String GET_NUMBER_OF_MODELS_BY_COMPONENT = "SELECT count(m) FROM Model m WHERE m.%s.name LIKE :value";
     public static final String GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value AND active = true";
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
+    public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME = "SELECT a FROM Account a WHERE serviceCenter.serviceName LIKE :value ORDER BY a.id DESC";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
-    public static final String CHECK_ACCOUNT = "SELECT a FROM Account a WHERE a.id != :id AND a.email = :email";
+    public static final String CHECK_ACCOUNT = "SELECT count(a) FROM Account a WHERE a.id != :id AND a.email = :email";
     public static final String CHECK_SERVICE_CENTER = "SELECT count(s) FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
     public static final String CHECK_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String PARAMETER_VALUE = "value";
+    public static final String DELETE_FROM_SPARE_PART = "delete from models_spare_parts where spare_part_id = ?";
     //parameters
     //common parameters
     public static final String OBJECT_ID = "id";
@@ -54,6 +59,7 @@ public class Constants {
     public static final String PASSWORD = "password";
     public static final String PASSWORD_CONFIRM = "confirmPassword";
     //service center
+    public static final String SERVICE_CENTER_REQUISITES = "requisites";
     public static final String SERVICE_CENTER_NAME = "serviceName";
     public static final String SERVICE_CENTER_BANK_NAME = "bankName";
     public static final String SERVICE_CENTER_BANK_ACCOUNT = "bankAccount";
@@ -75,27 +81,23 @@ public class Constants {
     public static final String DISPLAY_PAGE_COMMAND = "display_page_command";
     public static final String PAGE_NUMBER = "pageNumber";
     public static final String PAGE = "page";
-    //jsp pages
-    //error page
-    public static final String ERROR_PAGE_PATH = "/pages/error.jsp";
-    //login main
-    public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
+
     public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     //service center
-    public static final String SERVICE_CENTER = "servicecenter";
+    public static final String SERVICE_CENTER = "serviceCenter";
     //brand
     public static final String BRAND = "brand";
     //device type
-    public static final String DEVICE_TYPE = "devicetype";
+    public static final String DEVICE_TYPE = "device_type";
     //model
     public static final String MODEL = "model";
     public static final String BRAND_ID = "brandId";
     public static final String TYPE_ID = "deviceTypeId";
     //spare parts
-    public static final String SPARE_PART = "sparepart";
+    public static final String SPARE_PART = "spare_part";
     public static final String SPARE_PART_ID = "spare_part_id";
     //repair type
-    public static final String REPAIR_TYPE = "repairtype";
+    public static final String REPAIR_TYPE = "repair_type";
     public static final String REPAIR_TYPE_CODE = "code";
     public static final String REPAIR_TYPE_LEVEL = "level";
     //repair
@@ -155,6 +157,7 @@ public class Constants {
     public static final String SPARE_PART_NOT_FOUND = "Запчасть не найдена!";
     public static final String REPAIR_NOT_FOUND = "Ремонт не найден!";
     public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";
+    public static final String DELETE_FAILED_MESSAGE = "Удаление невозможно! Есть связанные записи!";
     //description
     //role description
     public static final String ADMIN_DESCRIPTION = "Администатор";
@@ -177,8 +180,16 @@ public class Constants {
 
     //filters
     //account filters
+    public static final String ACCOUNT_SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
     public static final String ACCOUNT_USER_NAME = "Имя";
     public static final String ACCOUNT_USER_SURNAME = "Фамилия";
+    //serviceCenter filters
+    public static final String SERVICE_CENTER_FILTER = "servicecenter";
+    public static final String SERVICE_CENTER_NAME_DESCRIPTION = "Название";
+    public static final String SERVICE_CENTER_ACTUAL_ADDRESS_DESCRIPTION = "Фактический адрес";
+    public static final String SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION = "Юридический адрес";
+    public static final String SERVICE_CENTER_PHONE_DESCRIPTION = "Телефон";
+
     //repairType filters
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";
     public static final String REPAIR_TYPE_LEVEL_FILTER = "Уровень ремонта";
@@ -194,6 +205,7 @@ public class Constants {
     //Brand filters
     public static final String BRAND_NAME_DESCRIPTION = "Название бренда";
     //Model filters
+    public static final String DEVICE_TYPE_FILTER = "type";
     public static final String MODEL_NAME_FILTER = "Название модели";
     //open commands
     public static final String OPEN_REPAIR_TYPE_TABLE_PAGE = "main?command=show_repair_type_table&&page=%d";

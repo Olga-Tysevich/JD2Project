@@ -6,15 +6,10 @@ import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import static it.academy.utils.constants.LoggerConstants.*;
 
 @UtilityClass

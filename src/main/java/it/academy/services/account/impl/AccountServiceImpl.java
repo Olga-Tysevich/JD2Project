@@ -16,12 +16,18 @@ import it.academy.exceptions.account.ValidationException;
 import it.academy.exceptions.common.ObjectCreationFailed;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.AccountService;
+import it.academy.utils.Builder;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.impl.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
+import it.academy.utils.fiterForSearch.EntityFilter;
+import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 import static it.academy.utils.EntityValidator.validateEntity;
 import static it.academy.utils.constants.Constants.*;
@@ -48,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
         account.setIsActive(true);
         transactionManger.beginTransaction();
 
-        checkEmail(account);
+        checkEmail(ID_FOR_CHECK, account.getEmail());
 
         long serviceCenterId = createAccountDTO.getServiceCenterId();
         setServiceCenter(account, serviceCenterId);
@@ -79,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
             changeAccount.setServiceCenterId(null);
         }
 
-        checkEmail(account);
+        checkEmail(account.getId(), account.getEmail());
 
         Long serviceCenterId = changeAccount.getServiceCenterId();
         setServiceCenter(account, serviceCenterId);
@@ -97,7 +103,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteAccount(long id) {
-        accountHelper.delete(id);
+        try {
+            accountHelper.delete(id);
+        } catch (Exception e) {
+            log.warn(DELETE_FAILED, id, Account.class);
+        }
     }
 
     @Override
@@ -107,7 +117,19 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
-       return accountHelper.find(pageNumber, filter, input);
+        boolean findByFilters = filter != null && !filter.isBlank() && input != null && !input.isBlank();
+        if (findByFilters && SERVICE_CENTER.equals(filter)) {
+            long numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
+            int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
+            Supplier<List<Account>> find = () -> accountDAO.findAccountsByServiceCenter(input, pageNumber, LIST_SIZE);
+            List<Account> accounts = accountHelper.getList(find, Account.class);
+            List<EntityFilter> filters = FilterManager.getFiltersForAccount();
+            List<AccountDTO> listDTO = accountConverter.convertToDTOList(accounts);
+            log.info(OBJECTS_FOUND_PATTERN, accounts.size(), ServiceCenter.class);
+            return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
+        } else {
+            return accountHelper.find(pageNumber, filter, input);
+        }
     }
 
     private void encodePassword(Account account) {
@@ -148,10 +170,10 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    private void checkEmail(Account account) throws EmailAlreadyRegistered {
-        if (accountDAO.checkIfEmailExist(account)) {
+    private void checkEmail(long id, String email) throws EmailAlreadyRegistered {
+        if (accountDAO.checkIfEmailExist(id, email)) {
             transactionManger.rollback();
-            throw new EmailAlreadyRegistered(account.getEmail());
+            throw new EmailAlreadyRegistered(email);
         }
     }
 
