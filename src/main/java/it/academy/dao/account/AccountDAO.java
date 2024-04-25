@@ -2,8 +2,6 @@ package it.academy.dao.account;
 
 import it.academy.dao.DAO;
 import it.academy.entities.account.Account;
-import it.academy.utils.enums.RepairStatus;
-
 import java.util.List;
 
 public interface AccountDAO extends DAO<Account, Long> {

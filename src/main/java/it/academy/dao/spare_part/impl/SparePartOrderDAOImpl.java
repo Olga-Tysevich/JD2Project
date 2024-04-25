@@ -5,7 +5,6 @@ import it.academy.dao.spare_part.SparePartOrderDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.utils.dao.TransactionManger;
-
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;

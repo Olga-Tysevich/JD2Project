@@ -1,6 +1,5 @@
 package it.academy.services.device.impl;
 
-import it.academy.dao.DAO;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.device.BrandDTO;

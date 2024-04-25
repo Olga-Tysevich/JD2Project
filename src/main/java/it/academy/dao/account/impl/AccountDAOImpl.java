@@ -4,9 +4,6 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.account.Account;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.enums.RepairStatus;
-
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 

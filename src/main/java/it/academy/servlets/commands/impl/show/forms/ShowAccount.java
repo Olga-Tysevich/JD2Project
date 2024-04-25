@@ -4,6 +4,7 @@ import it.academy.dto.TableReq;
 import it.academy.dto.account.AccountDTO;
 import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
+import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.AccountServiceImpl;
@@ -18,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
-
 import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
@@ -34,13 +33,19 @@ public class ShowAccount implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        CommandHelper.checkRole(req);
-        CommandEnum command = CommandEnum.valueOf(req.getParameter(COMMAND));
-        switch (command) {
-            case SHOW_NEW_ACCOUNT: return showNewAccount(req);
-            case SHOW_ACCOUNT: return showAccount(req);
-            default: return ADMIN_MAIN_PAGE_PATH;
+        try {
+            CommandHelper.checkRole(req);
+            CommandEnum command = CommandEnum.valueOf(req.getParameter(COMMAND));
+            switch (command) {
+                case SHOW_NEW_ACCOUNT: return showNewAccount(req);
+                case SHOW_ACCOUNT: return showAccount(req);
+                default: return ADMIN_MAIN_PAGE_PATH;
+            }
+        } catch (ObjectNotFound e) {
+            req.setAttribute(ERROR, SERVICE_CENTERS_NOT_FOUND);
+            return ADMIN_MAIN_PAGE_PATH;
         }
+
     }
 
     private String showNewAccount(HttpServletRequest req) {
@@ -48,15 +53,11 @@ public class ShowAccount implements ActionCommand {
         CreateAccountDTO createAccountDTO = Builder.buildEmptyAccount();
 
         List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
-        if (!serviceCenterList.isEmpty()) {
             TableReq pageData = Extractor.extract(req, new TableReq());
             log.info(OBJECT_EXTRACTED_PATTERN, pageData);
             req.setAttribute(ACCOUNT, createAccountDTO);
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);
             return insertAttributes(req, NEW_ACCOUNT_PAGE_PATH, ADD_ACCOUNT);
-        }
-        req.setAttribute(ERROR, SERVICE_CENTERS_NOT_FOUND);
-        return ADMIN_MAIN_PAGE_PATH;
     }
 
     private String showAccount(HttpServletRequest req) {

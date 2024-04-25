@@ -54,11 +54,4 @@ public class Model implements Serializable {
         }
     }
 
-    public void removeSparePart(SparePart sparePart) {
-        if (sparePart != null) {
-            spareParts.remove(sparePart);
-            sparePart.removeModel(this);
-        }
-    }
-
 }

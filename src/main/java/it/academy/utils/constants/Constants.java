@@ -144,7 +144,7 @@ public class Constants {
     public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
     public static final String MODELS_NOT_FOUND = "Нет добавленных моделей!";
     public static final String MODEL_NOT_FOUND = "Модель не найдена!";
-    public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных моделей!";
+    public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных типов устройств!";
     public static final String MODELS_NOT_SELECTED = "Не выбраны связанные модели!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
     public static final String SPARE_PART_NOT_FOUND = "Запчасть не найдена!";

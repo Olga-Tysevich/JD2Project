@@ -1,8 +1,5 @@
 package it.academy.dto.device;
 
-import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.device.ModelDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

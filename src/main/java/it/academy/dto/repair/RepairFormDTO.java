@@ -4,7 +4,6 @@ import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import lombok.*;
-
 import java.util.List;
 import java.util.Map;
 

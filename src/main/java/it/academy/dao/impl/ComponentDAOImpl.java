@@ -1,11 +1,8 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.ComponentDAO;
-import it.academy.dao.impl.DAOImpl;
 import it.academy.utils.dao.TransactionManger;
-
 import javax.persistence.TypedQuery;
-
 import static it.academy.utils.constants.Constants.*;
 
 public abstract class ComponentDAOImpl<T, R> extends DAOImpl<T, R> implements ComponentDAO<T, R> {

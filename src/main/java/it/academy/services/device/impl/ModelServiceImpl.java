@@ -114,7 +114,8 @@ public class ModelServiceImpl implements ModelService {
 
     private ModelForChangeDTO findDataForForm() {
         checkIfComponentsAdded();
-        List<DeviceTypeDTO> deviceTypes = deviceTypeConverter.convertToDTOList(deviceTypeDAO.findAll());
+        List<DeviceType> deviceTypeList = transactionManger.execute(deviceTypeDAO::findAll);
+        List<DeviceTypeDTO> deviceTypes = deviceTypeConverter.convertToDTOList(deviceTypeList);
         List<BrandDTO> brands = brandConverter.convertToDTOList(brandDAO.findAll());
         return ModelForChangeDTO.builder()
                 .brands(brands)
@@ -131,6 +132,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input) {
         if (BRAND.equals(filter) || DEVICE_TYPE_FILTER.equals(filter)) {
+            transactionManger.beginTransaction();
             long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);
             int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
             Supplier<List<Model>> find = () -> modelDAO.findAccountsByComponent(filter, input, pageNumber, LIST_SIZE);
@@ -138,6 +140,7 @@ public class ModelServiceImpl implements ModelService {
             List<EntityFilter> filters = FilterManager.getFiltersForModel();
             List<ModelDTO> listDTO = modelConverter.convertToDTOList(serviceCenter);
             log.info(OBJECTS_FOUND_PATTERN, serviceCenter.size(), ServiceCenter.class);
+            transactionManger.commit();
             return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
         }
         return modelHelper.find(pageNumber, filter, input);

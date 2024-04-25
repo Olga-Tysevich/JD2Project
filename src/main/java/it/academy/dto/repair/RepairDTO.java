@@ -49,12 +49,6 @@ public class RepairDTO {
 
     private Date endDate;
 
-    private Long repairTypeId;
-
-    private String repairTypeName;
-
-    private String repairTypeCode;
-
-    private String repairTypeLevel;
+    private RepairTypeDTO repairType;
 
 }

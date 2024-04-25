@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -126,63 +125,60 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public void updateRepair(RepairDTO repairDTO) {
+        transactionManger.execute(() -> {
+            Repair repair = repairConverter.convertToEntity(repairDTO);
 
-        Repair repair = repairConverter.convertToEntity(repairDTO);
+            ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
+            repair.setServiceCenter(serviceCenter);
 
-        transactionManger.beginTransaction();
-        ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
-        repair.setServiceCenter(serviceCenter);
-
-        try {
-            repairDAO.update(repair);
-            log.info(OBJECT_CREATED_PATTERN, repair);
-        } catch (Exception e) {
-            log.error(ERROR_PATTERN, e.getMessage(), repair);
-            throw e;
-        }
-
-        transactionManger.commit();
+            try {
+                repairDAO.update(repair);
+                log.info(OBJECT_CREATED_PATTERN, repair);
+            } catch (Exception e) {
+                log.error(ERROR_PATTERN, e.getMessage(), repair);
+                throw e;
+            }
+            return repair;
+        });
     }
 
     @Override
     public ChangeRepairFormDTO findRepair(long id) {
 
-        transactionManger.beginTransaction();
-        Repair repair = repairDAO.find(id);
-        RepairDTO repairDTO = repairConverter.convertToDTO(repair);
-        long modelId = repair.getDevice().getModel().getId();
-        RepairFormDTO repairFormDTO = getRepairFormData(modelId);
-        DeviceDTO device = deviceConverter.convertToDTO(repair.getDevice());
-        repairFormDTO.setDevice(device);
-        ChangeRepairFormDTO result = new ChangeRepairFormDTO(repairDTO, repairFormDTO);
-
-        transactionManger.commit();
-
-        return result;
+        return transactionManger.execute(() -> {
+            Repair repair = repairDAO.find(id);
+            RepairDTO repairDTO = repairConverter.convertToDTO(repair);
+            long modelId = repair.getDevice().getModel().getId();
+            RepairFormDTO repairFormDTO = getRepairFormData(modelId);
+            DeviceDTO device = deviceConverter.convertToDTO(repair.getDevice());
+            repairFormDTO.setDevice(device);
+           return new ChangeRepairFormDTO(repairDTO, repairFormDTO);
+        });
     }
 
     @Override
     public ListForPage<RepairDTO> findRepairs(int pageNumber, String filter, String userInput) {
-        return repairHelper.find(pageNumber, filter, userInput);
+        return transactionManger.execute(() -> repairHelper.find(pageNumber, filter, userInput));
     }
 
     @Override
     public ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
-        return findRepairs(() -> repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE),
-                () -> repairDAO.getNumberOfEntriesByStatus(status), pageNumber);
+        return transactionManger.execute(() -> findRepairs(() -> repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE),
+                () -> repairDAO.getNumberOfEntriesByStatus(status), pageNumber));
     }
 
     @Override
     public ListForPage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber, String filter, String userInput) {
-        return findRepairs(() -> repairDAO.findRepairsByServiceId(serviceCenterId, pageNumber, LIST_SIZE),
-                () -> repairDAO.getNumberOfEntriesByServiceId(serviceCenterId), pageNumber);
+        return transactionManger.execute(() -> findRepairs(() -> repairDAO.findRepairsByServiceId(serviceCenterId, pageNumber, LIST_SIZE),
+                () -> repairDAO.getNumberOfEntriesByServiceId(serviceCenterId), pageNumber));
     }
 
 
     @Override
     public ListForPage<RepairDTO> findRepairsByStatusForUser(long serviceCenterId, RepairStatus status, int pageNumber) {
-        return findRepairs(() -> repairDAO.findRepairsByStatusAndServiceId(serviceCenterId,status, pageNumber, LIST_SIZE),
-                () -> repairDAO.getNumberOfEntriesByStatusAndServiceId(serviceCenterId, status), pageNumber);
+        return transactionManger.execute(() ->
+                findRepairs(() -> repairDAO.findRepairsByStatusAndServiceId(serviceCenterId,status, pageNumber, LIST_SIZE),
+                () -> repairDAO.getNumberOfEntriesByStatusAndServiceId(serviceCenterId, status), pageNumber));
     }
 
     private ListForPage<RepairDTO> findRepairs(Supplier<List<Repair>> methodForSearch,

@@ -1,8 +1,8 @@
 package it.academy.utils.converters.impl;
 
-import it.academy.dto.repair.ChangeRepairDTO;
 import it.academy.dto.repair.CreateRepairDTO;
 import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.embeddable.Buyer;
 import it.academy.entities.device.embeddable.Salesman;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
     private DeviceConverter deviceConverter = new DeviceConverter();
+    private RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
 
     public RepairDTO convertToDTO(Repair repair) {
         Device device = repair.getDevice();
@@ -42,24 +43,11 @@ public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
                 .build();
 
         if (repair.getStatus().isFinishedStatus() && repairType != null) {
-            repairDTO.setRepairTypeName(repairType.getName());
+            RepairTypeDTO repairTypeDTO = repairTypeConverter.convertToDTO(repair.getRepairType());
+            repairDTO.setRepairType(repairTypeDTO);
             repairDTO.setEndDate(repair.getEndDate());
         }
         return repairDTO;
-    }
-
-
-    public Repair convertToEntity(ChangeRepairDTO repairDTO) {
-
-        return Repair.builder()
-                .id(repairDTO.getId())
-                .status(repairDTO.getStatus())
-                .category(repairDTO.getCategory())
-                .defectDescription(repairDTO.getDefectDescription())
-                .repairNumber(repairDTO.getRepairNumber())
-                .startDate(repairDTO.getStartDate())
-                .endDate(repairDTO.getEndDate())
-                .build();
     }
 
     public Repair convertToEntity(CreateRepairDTO repairDTO) {
@@ -86,7 +74,7 @@ public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
     }
 
     public Repair convertToEntity(RepairDTO repairDTO) {
-        return Repair.builder()
+        Repair repair = Repair.builder()
                 .id(repairDTO.getId())
                 .category(repairDTO.getCategory())
                 .status(repairDTO.getStatus())
@@ -108,6 +96,14 @@ public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
                 .startDate(repairDTO.getStartDate())
                 .endDate(repairDTO.getEndDate())
                 .build();
+
+        if (repairDTO.getStatus().isFinishedStatus() && repairDTO.getRepairType() != null) {
+            RepairType repairType = repairTypeConverter.convertToEntity(repairDTO.getRepairType());
+            repair.setRepairType(repairType);
+            repair.setEndDate(repair.getEndDate());
+        }
+        return repair;
+
     }
 
     public List<RepairDTO> convertToDTOList(List<Repair> repairs) {

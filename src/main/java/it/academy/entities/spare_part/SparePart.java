@@ -40,10 +40,4 @@ public class SparePart implements Serializable {
         }
     }
 
-    public void removeModel(Model model) {
-        if (model != null) {
-            models.remove(model);
-        }
-    }
-
 }

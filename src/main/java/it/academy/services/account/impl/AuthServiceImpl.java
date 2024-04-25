@@ -15,9 +15,6 @@ import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.function.Supplier;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 

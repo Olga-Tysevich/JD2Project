@@ -40,5 +40,4 @@ public class CreateRepairDTO {
 
     private String buyerPhone;
 
-
 }

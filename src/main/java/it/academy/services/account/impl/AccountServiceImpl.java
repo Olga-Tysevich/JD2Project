@@ -119,6 +119,7 @@ public class AccountServiceImpl implements AccountService {
     public ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
         boolean findByFilters = filter != null && !filter.isBlank() && input != null && !input.isBlank();
         if (findByFilters && SERVICE_CENTER.equals(filter)) {
+            transactionManger.beginTransaction();
             long numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
             int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
             Supplier<List<Account>> find = () -> accountDAO.findAccountsByServiceCenter(input, pageNumber, LIST_SIZE);
@@ -126,6 +127,7 @@ public class AccountServiceImpl implements AccountService {
             List<EntityFilter> filters = FilterManager.getFiltersForAccount();
             List<AccountDTO> listDTO = accountConverter.convertToDTOList(accounts);
             log.info(OBJECTS_FOUND_PATTERN, accounts.size(), ServiceCenter.class);
+            transactionManger.commit();
             return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
         } else {
             return accountHelper.find(pageNumber, filter, input);
@@ -151,7 +153,6 @@ public class AccountServiceImpl implements AccountService {
         if (RoleEnum.ADMIN.equals(account.getRole())) {
             return;
         }
-
         ServiceCenter serviceCenter = serviceCenterDAO.find(serviceCenterId);
         if (serviceCenter != null) {
             log.info(OBJECT_FOUND_PATTERN, serviceCenter);

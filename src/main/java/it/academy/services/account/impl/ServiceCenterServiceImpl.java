@@ -4,7 +4,6 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.ServiceCenterDAO;
 import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.ServiceCenterDAOImpl;
-import it.academy.dto.account.AccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.ListForPage;
 import it.academy.entities.account.Account;
@@ -84,6 +83,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     @Override
     public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
         if (!SERVICE_CENTER_NAME.equals(filter) && input != null && !input.isBlank()) {
+            transactionManger.beginTransaction();
             long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByRequisites(filter, input);
             int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
             Supplier<List<ServiceCenter>> find = () -> serviceCenterDAO.findByRequisites(filter, input, pageNumber, LIST_SIZE);
@@ -91,6 +91,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
             List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
             List<ServiceCenterDTO> listDTO = serviceCenterConverter.convertToDTOList(serviceCenter);
             log.info(OBJECTS_FOUND_PATTERN, serviceCenter.size(), ServiceCenter.class);
+            transactionManger.commit();
             return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
         }
         return serviceHelper.find(pageNumber, filter, input);

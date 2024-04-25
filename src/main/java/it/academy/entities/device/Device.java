@@ -3,7 +3,6 @@ package it.academy.entities.device;
 import it.academy.entities.device.embeddable.Buyer;
 import it.academy.entities.device.embeddable.Salesman;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;

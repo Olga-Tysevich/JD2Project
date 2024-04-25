@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Objects;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.Constants.IS_ACTIVE;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
     private TransactionManger manger;

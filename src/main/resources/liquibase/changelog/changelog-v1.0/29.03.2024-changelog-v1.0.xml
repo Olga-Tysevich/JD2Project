@@ -16,6 +16,7 @@
     <include file="29.03.2024-create-table-spare_parts-v1.0.xml" relativeToChangelogFile="true"/>
     <include file="29.03.2024-create-table-models_spare_parts-v1.0.xml" relativeToChangelogFile="true"/>
     <include file="29.03.2024-create-table-orders-v1.0.xml" relativeToChangelogFile="true"/>
-    <include file="29.03.2024-create-table-spare_parts_orders-v1.0.xml" relativeToChangelogFile="true"/>
+    <include file="29.03.2024-create-table-order-items-v1.0.xml" relativeToChangelogFile="true"/>
+    <include file="29.03.2024-create-table-hibernate_sequence-v1.0.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

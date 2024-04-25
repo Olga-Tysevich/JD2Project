@@ -2,7 +2,6 @@ package it.academy.services.device;
 
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.ListForPage;
-
 import java.util.List;
 
 public interface DeviceTypeService {

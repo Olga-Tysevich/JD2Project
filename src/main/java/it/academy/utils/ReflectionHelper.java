@@ -3,13 +3,13 @@ package it.academy.utils;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
-import it.academy.utils.interfaces.wrappers.ThrowingConsumerWrapper;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.List;
+
 import static it.academy.utils.constants.LoggerConstants.*;
 
 @UtilityClass
@@ -20,23 +20,24 @@ public class ReflectionHelper {
 
         Class<?> tClass = result.getClass();
         List<Field> fieldList = List.of(tClass.getDeclaredFields());
-        fieldList.forEach(f -> {
+        for (Field f : fieldList) {
             f.setAccessible(true);
             String value = request.getParameter(f.getName());
             if (value != null) {
                 try {
-                    ThrowingConsumerWrapper.apply(() -> f.set(result,
-                            ReflectionHelper.defineParameterType(value, f.getType())));
-                } catch (Exception e) {
+                    f.set(result, ReflectionHelper.defineParameterType(value, f.getType()));
+                } catch (IllegalArgumentException e) {
                     log.error(EXTRACT_ERROR_PATTERN, e.getMessage(), result, f.getName());
                     throw e;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
             }
-        });
+        }
         return result;
     }
 
-    public static Object defineParameterType(String parameter, Class<?> fieldClass) {
+    public static Object defineParameterType(String parameter, Class<?> fieldClass) throws IllegalArgumentException {
         if (parameter == null) {
             return null;
         } else if (fieldClass == Integer.class || fieldClass == int.class) {

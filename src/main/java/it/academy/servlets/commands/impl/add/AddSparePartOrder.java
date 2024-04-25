@@ -8,7 +8,7 @@ import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
-import it.academy.utils.SparePartForOrder;
+import it.academy.utils.converters.spare_part.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

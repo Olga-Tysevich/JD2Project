@@ -5,7 +5,6 @@ import it.academy.dao.impl.ComponentDAOImpl;
 import it.academy.entities.device.Model;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.utils.dao.TransactionManger;
-
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
