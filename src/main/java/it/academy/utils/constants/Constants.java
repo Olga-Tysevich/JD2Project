@@ -27,8 +27,12 @@ public class Constants {
     public static final String GET_NUMBER_OF_ACCOUNTS_BY_SERVICE_CENTER = "SELECT count(a) FROM Account a WHERE a.serviceCenter.serviceName LIKE :value";
     public static final String GET_NUMBER_OF_SERVICE_CENTERS_BY_REQUISITES = "SELECT count(s) FROM ServiceCenter s WHERE s.requisites.%s LIKE :value";
     public static final String GET_NUMBER_OF_MODELS_BY_COMPONENT = "SELECT count(m) FROM Model m WHERE m.%s.name LIKE :value";
-    public static final String GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value AND active = true";
-    public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
+    public static final String GET_NUMBER_OF_REPAIRS_BY_STATUS = "SELECT count(r) FROM Repair r WHERE r.status = :status";
+    public static final String GET_NUMBER_OF_REPAIRS_BY_STATUS_AND_SERVICE_ID = "SELECT count(r) FROM Repair r WHERE r.status = :status AND r.serviceCenter.id = :id";
+    public static final String GET_NUMBER_OF_REPAIRS_BY_SERVICE_ID = "SELECT count(r) FROM Repair r WHERE r.serviceCenter.id = :id";
+    public static final String FIND_REPAIRS_BY_STATUS = "from Repair r where r.status = :status";
+    public static final String FIND_REPAIRS_BY_SERVICE_ID = "from Repair r where r.serviceCenter.id = :id";
+    public static final String FIND_REPAIRS_BY_STATUS_AND_SERVICE_ID = "from Repair r where r.status = :status AND r.serviceCenter.id = :id";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME = "SELECT a FROM Account a WHERE serviceCenter.serviceName LIKE :value ORDER BY a.id DESC";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and m.isActive = true";
@@ -102,7 +106,6 @@ public class Constants {
     public static final String REPAIR_STATUS = "status";
     public static final String REPAIR_CATEGORY = "category";
     public static final String SERVICE_CENTER_REPAIR_NUMBER = "repairNumber";
-    public static final String END_DATE = "endDate";
     public static final String DEFECT_DESCRIPTION = "defectDescription";
     public static final String SELECTED_BRAND_ID = "selectedBrandId";
     public static final String MODEL_ID = "modelId";

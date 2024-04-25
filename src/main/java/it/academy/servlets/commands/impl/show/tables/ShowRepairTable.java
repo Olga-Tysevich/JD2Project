@@ -11,8 +11,10 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
@@ -27,18 +29,16 @@ public class ShowRepairTable implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
+        RoleEnum role = accountDTO.getRole();
 
-        ListForPage<RepairDTO> repairs;
         TableReq dataFromPage = Extractor.extract(req, new TableReq());
         log.info(OBJECT_EXTRACTED_PATTERN, dataFromPage);
         RepairStatus status = req.getParameter(REPAIR_STATUS) != null && !req.getParameter(REPAIR_STATUS).equals(ALL_REPAIRS) ?
                 RepairStatus.valueOf(req.getParameter(REPAIR_STATUS)) : null;
 
-        if (status != null) {
-            repairs = repairService.findRepairsByStatus(status, dataFromPage.getPageNumber());
-        } else {
-            repairs = repairService.findRepairs(dataFromPage.getPageNumber(), dataFromPage.getFilter(), dataFromPage.getInput());
-        }
+
+        ListForPage<RepairDTO> repairs = RoleEnum.ADMIN.equals(role) ? findRepairForAdmin(status, dataFromPage)
+                : findRepairForUser(status, dataFromPage, accountDTO.getServiceCenterId());
 
         repairs.setPage(REPAIR_TABLE_PAGE_PATH);
         repairs.setCommand(SHOW_REPAIR_TABLE.name());
@@ -49,6 +49,16 @@ public class ShowRepairTable implements ActionCommand {
 
         return RoleEnum.ADMIN.equals(accountDTO.getRole()) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
 
+    }
+
+    private ListForPage<RepairDTO> findRepairForAdmin(RepairStatus status, TableReq dataFromPage) {
+        return status != null ? repairService.findRepairsByStatus(status, dataFromPage.getPageNumber())
+                : repairService.findRepairs(dataFromPage.getPageNumber(), dataFromPage.getFilter(), dataFromPage.getInput());
+    }
+
+    private ListForPage<RepairDTO> findRepairForUser(RepairStatus status, TableReq dataFromPage, long serviceCenterId) {
+        return status != null ? repairService.findRepairsByStatusForUser(serviceCenterId, status, dataFromPage.getPageNumber())
+                : repairService.findRepairsForUser(serviceCenterId, dataFromPage.getPageNumber(), dataFromPage.getFilter(), dataFromPage.getInput());
     }
 
 }

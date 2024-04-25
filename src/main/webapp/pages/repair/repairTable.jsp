@@ -54,9 +54,7 @@
                     <th>Серийный номер</th>
                     <th>Заявленный дефект</th>
                     <th>Статус ремонта</th>
-                    <% if (RoleEnum.ADMIN.equals(role)) {%>
                     <th class="menu">Управление</th>
-                    <% } %>
                 </tr>
 
             <% for (RepairDTO repair : list) {

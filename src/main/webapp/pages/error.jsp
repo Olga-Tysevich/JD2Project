@@ -14,7 +14,7 @@
 
         <form action="main" method="post">
             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=MAIN_PAGE_PATH%>">
+            <input type="hidden" name="<%=PAGE%>" value="<%=request.getAttribute(PAGE)%>">
             <input class="button add" type="submit" value="Вернуться на главную">
         </form>
 

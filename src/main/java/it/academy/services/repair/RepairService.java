@@ -1,6 +1,5 @@
 package it.academy.services.repair;
 
-
 import it.academy.dto.ListForPage;
 import it.academy.dto.repair.*;
 import it.academy.utils.enums.RepairStatus;
@@ -18,5 +17,9 @@ public interface RepairService {
     ListForPage<RepairDTO> findRepairs(int pageNumber, String filter, String userInput);
 
     ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber);
+
+    ListForPage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber, String filter, String userInput);
+
+    ListForPage<RepairDTO> findRepairsByStatusForUser(long serviceCenterId, RepairStatus status, int pageNumber);
 
 }

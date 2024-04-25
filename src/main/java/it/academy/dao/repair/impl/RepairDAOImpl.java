@@ -1,15 +1,10 @@
 package it.academy.dao.repair.impl;
 
-
 import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.repair.RepairDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
-
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.math.BigInteger;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
@@ -22,30 +17,52 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
 
     @Override
     public List<Repair> findRepairsByStatus(RepairStatus status, int page, int listSize) {
-        CriteriaQuery<Repair> find = criteriaBuilder().createQuery(Repair.class);
-        Root<Repair> root = find.from(Repair.class);
-
-        find.select(root)
-                .where(criteriaBuilder().equal(root.get(REPAIR_STATUS), status));
-
-        return entityManager()
-                .createQuery(find)
+        return entityManager().createQuery(FIND_REPAIRS_BY_STATUS, Repair.class)
+                .setParameter(REPAIR_STATUS, status)
                 .setFirstResult((page - 1) * listSize)
                 .setMaxResults(listSize)
                 .getResultList();
     }
 
     @Override
-    public BigInteger getNumberOfEntriesByStatus(RepairStatus status) {
-        CriteriaQuery<Long> getNumberOfEntries = criteriaBuilder().createQuery(Long.class);
-        Root<Repair> root = getNumberOfEntries.from(Repair.class);
-
-        getNumberOfEntries.select(criteriaBuilder()
-                .count(root))
-                .where(criteriaBuilder().equal(root.get(REPAIR_STATUS), status));
-        long result = entityManager()
-                .createQuery(getNumberOfEntries)
-                .getSingleResult();
-        return new BigInteger(String.valueOf(result));
+    public List<Repair> findRepairsByStatusAndServiceId(long serviceCenterId, RepairStatus status, int page, int listSize) {
+        return entityManager().createQuery(FIND_REPAIRS_BY_STATUS_AND_SERVICE_ID, Repair.class)
+                .setParameter(REPAIR_STATUS, status)
+                .setParameter(OBJECT_ID, serviceCenterId)
+                .setFirstResult((page - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
     }
+
+    @Override
+    public long getNumberOfEntriesByStatusAndServiceId(long serviceCenterId, RepairStatus status) {
+        return entityManager().createQuery(GET_NUMBER_OF_REPAIRS_BY_STATUS_AND_SERVICE_ID, Long.class)
+                .setParameter(REPAIR_STATUS, status)
+                .setParameter(OBJECT_ID, serviceCenterId)
+                .getSingleResult();
+    }
+
+    @Override
+    public long getNumberOfEntriesByStatus(RepairStatus status) {
+        return entityManager().createQuery(GET_NUMBER_OF_REPAIRS_BY_STATUS, Long.class)
+                .setParameter(REPAIR_STATUS, status)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<Repair> findRepairsByServiceId(long serviceCenterId, int page, int listSize) {
+        return entityManager().createQuery(FIND_REPAIRS_BY_SERVICE_ID, Repair.class)
+                .setParameter(OBJECT_ID, serviceCenterId)
+                .setFirstResult((page - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public long getNumberOfEntriesByServiceId(long serviceCenterId) {
+        return entityManager().createQuery(GET_NUMBER_OF_REPAIRS_BY_SERVICE_ID, Long.class)
+                .setParameter(OBJECT_ID, serviceCenterId)
+                .getSingleResult();
+    }
+
 }

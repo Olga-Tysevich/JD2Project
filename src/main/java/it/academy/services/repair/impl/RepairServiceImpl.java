@@ -168,12 +168,30 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
-        List<Repair> result = repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE);
+        return findRepairs(() -> repairDAO.findRepairsByStatus(status, pageNumber, LIST_SIZE),
+                () -> repairDAO.getNumberOfEntriesByStatus(status), pageNumber);
+    }
+
+    @Override
+    public ListForPage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber, String filter, String userInput) {
+        return findRepairs(() -> repairDAO.findRepairsByServiceId(serviceCenterId, pageNumber, LIST_SIZE),
+                () -> repairDAO.getNumberOfEntriesByServiceId(serviceCenterId), pageNumber);
+    }
+
+
+    @Override
+    public ListForPage<RepairDTO> findRepairsByStatusForUser(long serviceCenterId, RepairStatus status, int pageNumber) {
+        return findRepairs(() -> repairDAO.findRepairsByStatusAndServiceId(serviceCenterId,status, pageNumber, LIST_SIZE),
+                () -> repairDAO.getNumberOfEntriesByStatusAndServiceId(serviceCenterId, status), pageNumber);
+    }
+
+    private ListForPage<RepairDTO> findRepairs(Supplier<List<Repair>> methodForSearch,
+                                               Supplier<Long> methodForGetEntriesCount, int pageNumber) {
+        List<Repair> result = methodForSearch.get();
         List<EntityFilter> filters = FilterManager.getFilters(Repair.class);
         List<RepairDTO> listDTO = repairConverter.convertToDTOList(result);
-        long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status).intValue();
+        long numberOfEntries = methodForGetEntriesCount.get();
         int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
         return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
     }
-
 }

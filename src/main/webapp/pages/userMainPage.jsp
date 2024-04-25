@@ -30,11 +30,9 @@
                     ListForPage list = request.getAttribute(LIST_FOR_PAGE) != null?
                             (ListForPage) request.getAttribute(LIST_FOR_PAGE) : new ListForPage();
                     int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
-                    int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();
                     List<EntityFilter> filters = list.getFiltersForPage();
                     String tablePage = list.getPage();
                     String command = list.getCommand();
-                    RepairStatus lastStatus = (RepairStatus) request.getAttribute(REPAIR_STATUS);
                 %>
 
         <div class="header-container">

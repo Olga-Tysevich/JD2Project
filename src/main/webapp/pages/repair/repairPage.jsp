@@ -12,6 +12,7 @@
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page import="it.academy.dto.device.DeviceDTO" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_ORDER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -47,6 +48,8 @@
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
             RepairDTO repairDTO = changeRepairForm.getRepairDTO();
+            DeviceDTO deviceDTO = repairDTO.getDeviceDTO();
+            ModelDTO modelDTO = deviceDTO.getModel();
             Long lastBrandId = (long) request.getAttribute(BRAND_ID);
             Long repairId = repairDTO.getId();
         %>
@@ -98,7 +101,7 @@
                     <select class="f-form " name="<%=SELECTED_BRAND_ID%>" size="1" id="select_send">
                         <%for (BrandDTO brandDTO : brands) {%>
                         <option value="<%=brandDTO.getId()%>"
-                                <%if(brandDTO.getId().equals(repairDTO.getBrandId())) {%>selected<%}%>>
+                                <%if(brandDTO.getId().equals(modelDTO.getBrandId())) {%>selected<%}%>>
                             <%=brandDTO.getName()%></option>
                         <%}%>
                     </select>
@@ -107,10 +110,10 @@
                 <div class="f-input">
                     <label class="form-el">Модель:</label>
                     <select class="f-form " name="<%=MODEL_ID%>" size="1">
-                        <%for (ModelDTO modelDTO : models) {%>
-                        <option value="<%=modelDTO.getId()%>"
-                                <%if(modelDTO.getId().equals(repairDTO.getModelId())) {%>selected<%}%>>
-                            <%=modelDTO.getName()%></option>
+                        <%for (ModelDTO model : models) {%>
+                        <option value="<%=model.getId()%>"
+                                <%if(model.getId().equals(modelDTO.getId())) {%>selected<%}%>>
+                            <%=model.getName()%></option>
                         <%}%>
                     </select>
                 </div>
@@ -172,24 +175,25 @@
                            value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
                 </div>
 
+                <div class="button-container">
+                    <form action="order" method="post" id="order">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_ORDER%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
+                        <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input class="choose-button btn-table" type="submit" value="Заказать запчасти" form="order"/>
+                    </form>
 
-                <%--                            <form action="order" method="post" id="order">--%>
-                <%--                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_ORDER%>">--%>
-                <%--                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">--%>
-                <%--                                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repair.getRepairNumber()%>">--%>
-                <%--                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
-                <%--                                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
-                <%--                                <input class="choose-button btn-table" type="submit" value="Заказать запчасти" form="order"/>--%>
-                <%--                            </form>--%>
-
-                <%--                            <form action="repair" method="post" id="completed">--%>
-                <%--                                <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">--%>
-                <%--                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">--%>
-                <%--                                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repair.getRepairNumber()%>">--%>
-                <%--                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
-                <%--                                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
-                <%--                                <input class="choose-button btn-table" type="submit" value="Сообщить о выполнении" form="completed"/>--%>
-                <%--                            </form>--%>
+                    <form action="repair" method="post" id="completed">
+                        <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
+                        <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input class="choose-button btn-table" type="submit" value="Сообщить о выполнении" form="completed"/>
+                    </form>
+                </div>
 
             </form>
         </div>

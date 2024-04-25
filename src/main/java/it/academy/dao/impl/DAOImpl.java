@@ -112,57 +112,9 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public List<T> findActiveObjects() {
-        String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
-        TypedQuery<T> find = entityManager().createQuery(query, clazz);
-        find.setParameter(IS_ACTIVE, true);
-
-        return find.getResultList();
-    }
-
-    @Override
-    public List<T> findActiveObjectsForPage(int pageNumber, int listSize) {
-        String query = String.format(FIND_BY_ACTIVE_FIELD, clazz.getSimpleName());
-        TypedQuery<T> find = entityManager().createQuery(query, clazz);
-        find.setParameter(IS_ACTIVE, true);
-
-        return find.setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
-    }
-
-    @Override
-    public List<T> findActiveObjectsForPage(int pageNumber, int listSize, String filter, String input) {
-        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findByParameters.from(clazz);
-
-        if (filter == null || filter.isBlank() || input == null || input.isBlank()) {
-            return findActiveObjectsForPage(pageNumber, listSize);
-        }
-        Predicate predicate = createLikePredicate(root, filter, input);
-
-        findByParameters.select(root)
-                .where(predicate, criteriaBuilder().equal(root.get(IS_ACTIVE), true))
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
-        return entityManager()
-                .createQuery(findByParameters)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
-    }
-
-    @Override
     public long getNumberOfEntries() {
         String query = String.format(GET_NUMBER_OF_ENTRIES, clazz.getSimpleName());
         TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        return count.getSingleResult();
-    }
-
-    @Override
-    public long getNumberOfActiveEntriesByFilter(String filter, String value) {
-        String query = String.format(GET_NUMBER_OF_ACTIVE_ENTRIES_BY_FILTER, clazz.getSimpleName(), filter);
-        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        count.setParameter(PARAMETER_VALUE, value);
         return count.getSingleResult();
     }
 
