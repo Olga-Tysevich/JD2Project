@@ -134,7 +134,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     }
 
     @Override
-    public void removeSparePartOrder(long id) {
+    public void deleteSparePartOrder(long id) {
         transactionManger.execute(() -> sparePartOrderDAO.delete(id));
     }
 

@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
-import static it.academy.utils.constants.JSPConstant.SPARE_PART_TABLE_PAGE_PATH;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
+import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
 @Slf4j
@@ -41,7 +39,7 @@ public class ShowSparePartTable implements ActionCommand {
         req.getSession().setAttribute(FILTER, dataFromPage.getFilter());
         req.getSession().setAttribute(USER_INPUT, dataFromPage.getInput());
 
-        return RoleEnum.ADMIN.equals(accountDTO.getRole()) ? ADMIN_MAIN_PAGE_PATH : MAIN_PAGE_PATH;
+        return RoleEnum.ADMIN.equals(accountDTO.getRole()) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
 
     }
 }

@@ -3,21 +3,15 @@ package it.academy.utils.converters.impl;
 import it.academy.dto.repair.ChangeRepairDTO;
 import it.academy.dto.repair.CreateRepairDTO;
 import it.academy.dto.repair.RepairDTO;
-import it.academy.dto.repair.RepairForTableDTO;
-import it.academy.entities.device.Brand;
 import it.academy.entities.device.Device;
-import it.academy.entities.device.DeviceType;
-import it.academy.entities.device.Model;
 import it.academy.entities.device.embeddable.Buyer;
 import it.academy.entities.device.embeddable.Salesman;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.RepairType;
 import it.academy.utils.converters.EntityConverter;
 import it.academy.utils.enums.RepairStatus;
-import lombok.experimental.UtilityClass;
 import java.util.List;
 import java.util.stream.Collectors;
-import static it.academy.utils.constants.Constants.DEVICE_DESCRIPTION_PATTERN;
 
 public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
     private DeviceConverter deviceConverter = new DeviceConverter();

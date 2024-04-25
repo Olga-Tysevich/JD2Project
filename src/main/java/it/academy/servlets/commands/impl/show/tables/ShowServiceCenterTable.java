@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER_TABLE;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.Constants.MAIN_PAGE_PATH;
 import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 

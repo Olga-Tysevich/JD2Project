@@ -45,11 +45,6 @@
 
         <% if (tablePage != null) { %>
         <form action="main" method="post" id="search">
-
-            <input type="text" name="<%=COMMAND%>" value="<%=command%>">
-            <input type="text" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-            <input type="text" name="<%=PAGE%>" value="<%=tablePage%>">
-
             <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
@@ -171,6 +166,16 @@
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список типов ремонта"/>
                 </form>
+            </fieldset>
+
+            <fieldset class="f1">
+                <legend>Выход</legend>
+
+                <form action="repair" method="post">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=LOGOUT%>">
+                    <input class="button button-fieldset" type="submit" value="Выйти из авторизованного режима">
+                </form>
+
             </fieldset>
 
         </div>

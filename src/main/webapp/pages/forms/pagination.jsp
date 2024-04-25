@@ -40,12 +40,12 @@
 
             <%if (pageNumber != maxPageNumber) { %>
             <form action="main" method="post">
-                <input type="text" name="<%=COMMAND%>" value="<%=command%>">
-                <input type="text" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="text" name="<%=FILTER%>" value="<%=filter%>">
-                <input type="text" name="<%=USER_INPUT%>" value="<%=input%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
+                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                <input type="hidden" name="<%=FILTER%>" value="<%=filter%>">
+                <input type="hidden" name="<%=USER_INPUT%>" value="<%=input%>">
                 <%int nextPage = pageNumber + 1;%>
-                <input type="text" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
+                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
                 <input class="button light" type="submit" name="button" value="Следующая">
             </form>
             <% }

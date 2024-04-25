@@ -1,7 +1,7 @@
 package it.academy.servlets.commands.impl.add;
 
+import it.academy.dto.account.AccountDTO;
 import it.academy.dto.repair.CreateRepairDTO;
-import it.academy.dto.repair.RepairFormDTO;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
@@ -28,6 +28,7 @@ public class AddRepair implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+
         long lastBrandId = req.getParameter(BRAND_ID) != null ?
                 Long.parseLong(req.getParameter(BRAND_ID)) : DEFAULT_ID;
         log.info(REPAIR_FORM_LAST_BRAND_ID, lastBrandId);
@@ -43,11 +44,8 @@ public class AddRepair implements ActionCommand {
             repairService.addRepair(forCreate);
             return new ShowRepairTable().execute(req, resp);
         }
-        return CommandHelper.insertFormData(req,
-                REPAIR_TABLE_PAGE_PATH,
-                ADD_REPAIR_PAGE_PATH,
-                ADD_REPAIR,
-                SHOW_REPAIR_TABLE);
+
+        return new ShowRepair().execute(req, resp);
 
     }
 }

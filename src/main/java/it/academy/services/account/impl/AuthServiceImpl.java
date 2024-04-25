@@ -56,8 +56,10 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidRole();
         }
 
+        AccountDTO accountDTO = accountConverter.convertToDTO(account);
+        transactionManger.commit();
 
-        return accountConverter.convertToDTO(account);
+        return accountDTO;
     }
 
 }

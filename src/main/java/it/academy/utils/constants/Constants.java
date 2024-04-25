@@ -31,7 +31,7 @@ public class Constants {
     public static final String FIND_BY_ACTIVE_FIELD = "SELECT s FROM %s s WHERE active = :isActive ORDER BY s.id DESC";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME = "SELECT a FROM Account a WHERE serviceCenter.serviceName LIKE :value ORDER BY a.id DESC";
-    public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId";
+    public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and m.isActive = true";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
     public static final String CHECK_ACCOUNT = "SELECT count(a) FROM Account a WHERE a.id != :id AND a.email = :email";
@@ -47,11 +47,9 @@ public class Constants {
     public static final String OBJECT_NAME = "name";
     //common
     public static final String ERROR = "error";
-    public static final String CURRENT_ACCOUNT = "currentAccount";
     //account parameters
     public static final String ACCOUNT = "account";
     public static final String ROLE = "role";
-    public static final String ACCOUNT_SERVICE_CENTER = "serviceCenter";
     public static final String EMAIL = "email";
     public static final String SERVICE_CENTER_ID = "serviceCenterId";
     public static final String USER_NAME = "userName";
@@ -78,11 +76,8 @@ public class Constants {
     public static final String COMMAND = "command";
     public static final String FORM_PAGE = "form_page";
     public static final String DISPLAY_TABLE_COMMAND = "display_table_command";
-    public static final String DISPLAY_PAGE_COMMAND = "display_page_command";
     public static final String PAGE_NUMBER = "pageNumber";
     public static final String PAGE = "page";
-
-    public static final String MAIN_PAGE_PATH = "/pages/main.jsp";
     //service center
     public static final String SERVICE_CENTER = "serviceCenter";
     //brand
@@ -140,18 +135,13 @@ public class Constants {
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
     public static final String SERVICE_CENTER_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
-    public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
-    public static final String REPAIR_TYPE_ALREADY_EXIST = "Тип ремонта уже добавлен!";
-    public static final String DEVICE_TYPE_ALREADY_EXIST = "Данный тип устройства уже добавлен!";
     public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
-    public static final String BRAND_NOT_FOUND = "Бренд не найден!";
     public static final String BRANDS_NOT_FOUND = "Нет добавленных брендов!";
     public static final String MODELS_NOT_FOUND = "Нет добавленных моделей!";
     public static final String MODEL_NOT_FOUND = "Модель не найдена!";
     public static final String DEVICE_TYPES_NOT_FOUND = "Нет добавленных добавленных моделей!";
-    public static final String DEVICE_TYPE_NOT_FOUND = "Тип устройства не найден!";
     public static final String MODELS_NOT_SELECTED = "Не выбраны связанные модели!";
     public static final String SPARE_PART_ALREADY_EXIST = "Запчасть уже добавлена!";
     public static final String SPARE_PART_NOT_FOUND = "Запчасть не найдена!";
@@ -167,9 +157,7 @@ public class Constants {
     public static final String CURRENT_DESCRIPTION = "Текущий ремонт";
     public static final String WAITING_SP_DESCRIPTION = "Заказаны запчасти";
     public static final String COMPLETED_DESCRIPTION = "Завершен";
-    public static final String DECOMMISSIONED_DESCRIPTION = "Списан";
     public static final String PAID_DESCRIPTION = "Оплачен";
-    public static final String DELIVERED_DESCRIPTION = "Выдан";
     public static final String REJECTED_DESCRIPTION = "Отклонен";
     public static final String ALL_REPAIRS = "Все ремонты";
     //repair categories description
@@ -208,10 +196,7 @@ public class Constants {
     public static final String DEVICE_TYPE_FILTER = "type";
     public static final String MODEL_NAME_FILTER = "Название модели";
     //open commands
-    public static final String OPEN_REPAIR_TYPE_TABLE_PAGE = "main?command=show_repair_type_table&&page=%d";
     public static final String OPEN_SPARE_PART_ORDERS_TABLE_PAGE = "main?command=show_spare_part_orders_table&&page=%d";
-    public static final String OPEN_REPAIR_PAGE = "/repair?command=show_confirmed_repair&&repair_id=%d";
-    public static final String OPEN_START_PAGE = "main?command=open_page&&page=1";
     //jsp
     public static final String REPAIR_TYPE_ID = "type_id";
     public static final String REPAIR_TYPE_NAME = "type_name";

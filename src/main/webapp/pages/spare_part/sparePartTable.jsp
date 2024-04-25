@@ -4,7 +4,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART" %>
-<%@ page import="it.academy.dto.resp.*" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
 <%@ page import="it.academy.dto.ListForPage" %>
@@ -39,6 +38,8 @@
                 <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=sparePart.getIsActive()%>"
                        <%if (sparePart.getIsActive()) {%>checked<%}%> disabled>
             </td>
+
+                <% if (RoleEnum.ADMIN.equals(role)) {%>
                 <td>
                     <div class="button-table-container">
                         <form action="repair" method="post">
@@ -47,12 +48,9 @@
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                             <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                             <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=sparePart.getIsActive()%>">
-                            <% if (RoleEnum.ADMIN.equals(role)) {%>
                             <input class="choose-button order-btn" type="submit" value="Изменить" >
-                            <% } %>
                         </form>
 
-                        <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <form action="repair" method="post" >
                             <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_SPARE_PART%>">
                             <input type="hidden" name="<%=OBJECT_ID%>" value="<%=sparePart.getId()%>">
@@ -60,9 +58,9 @@
                             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                             <input class="choose-button order-btn" type="submit" value="Удалить" >
                         </form>
-                        <% } %>
                     </div>
                 </td>
+                <% } %>
             </tr>
             <% }%>
         </table>

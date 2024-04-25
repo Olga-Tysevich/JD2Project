@@ -40,6 +40,8 @@
                     <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=repairType.getIsActive()%>"
                            <%if (repairType.getIsActive()) {%>checked<%}%> disabled>
                 </td>
+
+                <% if (RoleEnum.ADMIN.equals(role)) {%>
                 <td class="code">
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE%>">
@@ -47,11 +49,18 @@
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=repairType.getIsActive()%>">
-                        <% if (RoleEnum.ADMIN.equals(role)) {%>
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
-                        <% } %>
+                    </form>
+
+                    <form action="repair" method="post" >
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_REPAIR_TYPE%>">
+                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairType.getId()%>">
+                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                 </td>
+                <% } %>
             </tr>
             <% }%>
         </table>

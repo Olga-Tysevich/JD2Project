@@ -8,16 +8,18 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
-<%@ page import="it.academy.dto.repair.RepairForTableDTO" %>
+<%@ page import="it.academy.dto.repair.RepairDTO" %>
+<%@ page import="it.academy.dto.device.DeviceDTO" %>
+<%@ page import="it.academy.dto.device.ModelDTO" %>
 <section>
     <div class=" container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<RepairForTableDTO> data = (ListForPage<RepairForTableDTO>) request.getAttribute(LIST_FOR_PAGE);
+            ListForPage<RepairDTO> data = (ListForPage<RepairDTO>) request.getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
-            List<RepairForTableDTO> list = data.getList();
+            List<RepairDTO> list = data.getList();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             String tablePage = data.getPage();
         %>
@@ -57,18 +59,23 @@
                     <% } %>
                 </tr>
 
-            <% for (RepairForTableDTO repair : list) { %>
+            <% for (RepairDTO repair : list) {
+                DeviceDTO deviceDTO = repair.getDeviceDTO();
+                ModelDTO modelDTO = deviceDTO.getModel();
+                String deviceDescription = String.format(DEVICE_DESCRIPTION_PATTERN, modelDTO.getBrandName(),
+                        modelDTO.getDeviceTypeName(), modelDTO.getName());
+            %>
 
                 <tr>
                     <td class="date"><%=repair.getServiceCenterName()%></td>
                     <td class="date"><%=repair.getStartDate()%></td>
                     <td class="number"><%=repair.getRepairNumber()%></td>
-                    <td class="number"><%=repair.getModelDescription()%></td>
+                    <td class="number"><%=deviceDescription%></td>
                     <td><%=repair.getSerialNumber()%></td>
                     <td class="defect"><%=repair.getDefectDescription()%></td>
                     <td><%=repair.getStatus().getDescription()%></td>
 
-                    <% if (RoleEnum.ADMIN.equals(role)) { %>
+
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="post">
@@ -76,28 +83,14 @@
                                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
                                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                                <input class="choose-button btn-table" type="submit" value="Изменить">
-                            </form>
-                            <form action="order" method="post" id="order">
-                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_ORDER%>">
-                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
-                                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repair.getRepairNumber()%>">
-                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                                <input class="choose-button btn-table" type="submit" value="Заказать запчасти" form="order"/>
-                            </form>
-
-                            <form action="repair" method="post" id="completed">
-                                <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
-                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
-                                <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repair.getRepairNumber()%>">
-                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                                <input class="choose-button btn-table" type="submit" value="Сообщить о выполнении" form="completed"/>
+                                <% if (RoleEnum.ADMIN.equals(role)) { %>
+                                    <input class="choose-button btn-table" type="submit" value="Изменить">
+                                <% } else {%>
+                                    <input class="choose-button btn-table" type="submit" value="Открыть">
+                                <% } %>
                             </form>
                         </div>
                     </td>
-                    <% } %>
 
                 </tr>
                 <% } %>

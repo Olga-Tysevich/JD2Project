@@ -9,8 +9,7 @@ import it.academy.utils.dao.TransactionManger;
 import javax.persistence.criteria.*;
 import java.util.List;
 
-import static it.academy.utils.constants.Constants.BRAND;
-import static it.academy.utils.constants.Constants.OBJECT_ID;
+import static it.academy.utils.constants.Constants.*;
 
 public class BrandDAOImpl extends ComponentDAOImpl<Brand, Long> implements BrandDAO {
 
@@ -26,7 +25,8 @@ public class BrandDAOImpl extends ComponentDAOImpl<Brand, Long> implements Brand
         Join<Model, Brand> modelJoin = modelRoot.join(BRAND, JoinType.INNER);
 
         query.select(modelJoin)
-                .where(criteriaBuilder().equal(modelJoin.get(OBJECT_ID), brandRoot.get(OBJECT_ID)));
+                .where(criteriaBuilder().equal(modelJoin.get(OBJECT_ID), brandRoot.get(OBJECT_ID)),
+                        criteriaBuilder().equal(brandRoot.get(IS_ACTIVE), true));
 
        return entityManager()
                .createQuery(query)

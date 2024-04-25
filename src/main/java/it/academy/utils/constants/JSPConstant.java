@@ -12,6 +12,7 @@ public class JSPConstant {
     public static final String USER_MAIN_PAGE_PATH = "/pages/userMainPage.jsp";
     public static final String ERROR_PAGE_PATH = "/pages/error.jsp";
     public static final String LOGIN_PAGE_PATH = "/pages/index.jsp";
+    public static final String MAIN_PAGE_PATH = "/pages/index.jsp";
 
     //account
     public static final String SERVICE_CENTERS = "service_centers";
@@ -35,6 +36,11 @@ public class JSPConstant {
     public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
 
+    //sparePartOrder
+    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
+    public static final String SPARE_PART_ORDER_TABLE_PAGE_PATH = "/pages/spare_part_order/sparePartOrdersTable.jsp";
+
+
     //repairType
     public static final String REPAIR_TYPE_PAGE_PATH = "/pages/repair/changeRepairType.jsp";
     public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair/repairTypeTable.jsp";
@@ -50,7 +56,6 @@ public class JSPConstant {
     public static final String REPAIR_TYPE_FORM_PAGE_PATH = "/pages/repair/included/repairTypeData.jsp";
 
     //sparePartOrder
-    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/sparePartOrder.jsp";
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
 
 

@@ -13,7 +13,7 @@ public interface SparePartOrderService {
 
     void changeSparePartOrder(ChangeSparePartOrderDTO partDTO);
 
-    void removeSparePartOrder(long id);
+    void deleteSparePartOrder(long id);
 
     SparePartOrderDTO findSparePartOrder(long id);
 

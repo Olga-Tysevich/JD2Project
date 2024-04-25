@@ -12,6 +12,7 @@ import it.academy.services.account.impl.AuthServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,12 +39,7 @@ public class LoginCommand implements ActionCommand {
             list.setPageNumber(FIRST_PAGE);
             req.setAttribute(LIST_FOR_PAGE, list);
 
-            if (RoleEnum.ADMIN.equals(accountDTO.getRole())) {
-                return ADMIN_MAIN_PAGE_PATH;
-            } else {
-                return USER_MAIN_PAGE_PATH;
-            }
-
+            return RoleEnum.ADMIN.equals(accountDTO.getRole()) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
         } catch (UserNotFound | IncorrectPassword | UserIsBlocked e) {
             req.setAttribute(ERROR, e.getMessage());
             return LOGIN_PAGE_PATH;

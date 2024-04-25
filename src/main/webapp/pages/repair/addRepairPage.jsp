@@ -4,16 +4,12 @@
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page import="it.academy.utils.enums.RepairCategory" %>
-<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
         <%
             AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
-            RoleEnum role = currentAccount.getRole();
             RepairFormDTO repairForm = (RepairFormDTO) request.getAttribute(REPAIR_FORM);
-            Map<Long, String> serviceCenters = repairForm.getServiceCenters();
             List<BrandDTO> brands = repairForm.getBrands();
             List<ModelDTO> models = repairForm.getModels();
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
@@ -22,21 +18,8 @@
 
         <input type="hidden" name="<%=BRAND_ID%>" value="<%=lastBrandId%>">
 
-        <% if (RoleEnum.ADMIN.equals(role)) { %>
-        <div class="f-input">
-            <label class="form-el">Сервисный центр:</label>
-            <select class="f-form " name="<%=SERVICE_CENTER_ID%>" size="1">
-                <%for (Map.Entry<Long, String> serviceCenter : serviceCenters.entrySet()) {%>
-                <option value="<%=serviceCenter.getKey()%>">
-                    <%=serviceCenter.getValue()%>
-                </option>
-                <%}%>
-            </select>
-        </div>
-        <% } else { %>
         <input type="hidden" name="<%=SERVICE_CENTER_ID%>"
                value="<%=currentAccount.getServiceCenterId()%>">
-        <% } %>
 
         <div class="f-input">
             <label class="form-el">Категория ремонта:</label>
