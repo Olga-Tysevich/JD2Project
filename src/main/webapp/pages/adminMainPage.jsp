@@ -31,6 +31,8 @@
                     List<EntityFilter> filters = list.getFiltersForPage();
                     String tablePage = list.getPage();
                     String command = list.getCommand();
+                    String lastInput = list.getLastInput();
+                    String lastFilter = list.getLastFilter();
                 %>
 
         <div class="header-container">
@@ -48,11 +50,12 @@
             <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-            <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
+            <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск" <%if (!lastInput.isBlank()) {%>value="<%=lastInput%>"<%}%>>
             <select class="filter" name="<%=FILTER%>" size="1">
                 <% if (filters != null) {
                     for (EntityFilter filter: filters) { %>
-                <option selected value="<%=filter.getFieldName()%>"><%=filter.getDescription()%></option>
+                <option value="<%=filter.getFieldName()%>" <%if (filter.getFieldName().equals(lastFilter)) {%>selected<%}%>>
+                    <%=filter.getDescription()%></option>
                 <% }
                 } %>
             </select>
@@ -180,9 +183,10 @@
 
         </div>
 
-        <% if (tablePage != null) {
-            pageContext.include(PAGINATION_PAGE_PATH);
-        } %>
+<%--        <% if (tablePage != null) {--%>
+<%--            pageContext.include(PAGINATION_PAGE_PATH);--%>
+<%--        } %>--%>
+        <%@include file="forms/pagination.jsp"%>
 
     </div>
 

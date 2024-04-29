@@ -1,8 +1,11 @@
 package it.academy.utils;
 
+import it.academy.dto.ListForPage;
+import it.academy.dto.TableReq;
 import it.academy.dto.account.AccountDTO;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.servlets.commands.factory.CommandEnum;
+import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -24,22 +27,24 @@ public class CommandHelper {
         }
     }
 
+    public static <T> void setTableData(HttpServletRequest req, TableReq dataForPage, ListForPage<T> listForTable) {
+        listForTable.setPage(dataForPage.getPage());
+        listForTable.setCommand(dataForPage.getCommand());
+        listForTable.setLastFilter(dataForPage.getFilter());
+        listForTable.setLastInput(dataForPage.getInput());
+        req.setAttribute(LIST_FOR_PAGE, listForTable);
+    }
+
     public static String insertFormData(HttpServletRequest request, String tablePagePath, String formPagePath,
                                       CommandEnum commandForChange, CommandEnum displayTableCommand) {
 
-        int pageNumber = request.getParameter(PAGE_NUMBER) != null?
-                Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+        int pageNumber = Extractor.extractIntVal(request, PAGE_NUMBER, FIRST_PAGE);
 
         request.setAttribute(PAGE, tablePagePath);
-        log.info(CURRENT_PAGE_PATTERN, tablePagePath);
         request.setAttribute(FORM_PAGE, formPagePath);
-        log.info(FORM_PAGE_PATTERN, formPagePath);
         request.setAttribute(COMMAND, commandForChange);
-        log.info(CURRENT_COMMAND, commandForChange);
         request.setAttribute(DISPLAY_TABLE_COMMAND, displayTableCommand);
-        log.info(DISPLAY_TABLE_PATTERN, displayTableCommand);
         request.setAttribute(PAGE_NUMBER, pageNumber);
-        log.info(CURRENT_PAGE_NUMBER_PATTERN, pageNumber);
         return CHANGE_FORM_PAGE_PATH;
     }
 }

@@ -19,6 +19,7 @@ public class LoggerConstants {
     public static final String INVALID_SURNAME_ERROR = "Invalid surname!";
     public static final String INVALID_PASSWORD_ERROR = "Password must be not null!";
     public static final String INVALID_ROLE_ERROR = "Role is empty!";
+    public static final String INVALID_NUMBER_FORMAT_ERROR = "Invalid number format, input: {}";
     public static final String OBJECT_ALREADY_EXIST = "Object already exist! Object: {}";
     public static final String OBJECT_NOT_FOUND_PATTERN = "Object not found id: {}, class: {}";
     public static final String OBJECTS_NOT_FOUND_PATTERN = "Objects not found, class: {}";

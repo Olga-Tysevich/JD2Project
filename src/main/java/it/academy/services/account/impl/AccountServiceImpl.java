@@ -4,6 +4,7 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.ServiceCenterDAO;
 import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.ServiceCenterDAOImpl;
+import it.academy.dto.account.AccountFormDTO;
 import it.academy.dto.account.ChangeAccountDTO;
 import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.AccountDTO;
@@ -13,7 +14,6 @@ import it.academy.entities.account.ServiceCenter;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
 import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.account.ValidationException;
-import it.academy.exceptions.common.ObjectCreationFailed;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.AccountService;
 import it.academy.utils.Builder;
@@ -21,8 +21,7 @@ import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.impl.AccountConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
-import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
+import it.academy.utils.interfaces.ThrowingSupplier;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -46,59 +45,56 @@ public class AccountServiceImpl implements AccountService {
             new ServiceHelper<>(accountDAO, Account.class, accountConverter, transactionManger);
 
     @Override
-    public void createAccount(CreateAccountDTO createAccountDTO) throws EnteredPasswordsNotMatch,
-            EmailAlreadyRegistered, ValidationException, ObjectCreationFailed, ObjectNotFound {
+    public AccountFormDTO createAccount(CreateAccountDTO createAccountDTO) throws Exception {
 
-        checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
-        Account account = accountConverter.convertToEntity(createAccountDTO);
-        account.setIsActive(true);
-        transactionManger.beginTransaction();
+        try {
+            checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
+            Account account = accountConverter.convertToEntity(createAccountDTO);
+            validateAccount(account);
+            encodePassword(account);
 
-        checkEmail(ID_FOR_CHECK, account.getEmail());
+            Supplier<Account> create = () -> {
+                checkEmail(ID_FOR_CHECK, account.getEmail());
+                long serviceCenterId = createAccountDTO.getServiceCenterId();
+                setServiceCenter(account, serviceCenterId);
+                log.info(OBJECT_FOR_SAVE_PATTERN, account);
+                return accountDAO.create(account);
+            };
 
-        long serviceCenterId = createAccountDTO.getServiceCenterId();
-        setServiceCenter(account, serviceCenterId);
-        log.info(OBJECT_FOR_SAVE_PATTERN, account);
+            transactionManger.execute(create);
+        } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
 
-        validateAccount(account);
-        encodePassword(account);
-        accountDAO.create(account);
+        }
+
         log.info(OBJECT_CREATED_PATTERN, account);
-
-        transactionManger.commit();
+        return new AccountFormDTO(createAccountDTO);
     }
 
     @Override
-    public void updateAccount(ChangeAccountDTO changeAccount) throws EmailAlreadyRegistered,
-            ObjectNotFound, ValidationException {
+    public void updateAccount(ChangeAccountDTO changeAccount) throws Exception {
 
         Account account = accountConverter.convertToEntity(changeAccount);
-        transactionManger.beginTransaction();
-        Account temp = accountDAO.find(changeAccount.getId());
+        ThrowingSupplier<Account> update = () -> {
+            Account temp = accountDAO.find(changeAccount.getId());
+            if (temp == null) {
+                throw new ObjectNotFound(USER_NOT_FOUND);
+            }
 
-        if (temp == null) {
-            transactionManger.rollback();
-            throw new ObjectNotFound(USER_NOT_FOUND);
-        }
+            checkEmail(account.getId(), account.getEmail());
 
-        if (RoleEnum.ADMIN.equals(changeAccount.getRole())) {
-            changeAccount.setServiceCenterId(null);
-        }
+            Long serviceCenterId = changeAccount.getServiceCenterId();
+            setServiceCenter(account, serviceCenterId);
+            log.info(OBJECT_FOR_UPDATE_PATTERN, account);
 
-        checkEmail(account.getId(), account.getEmail());
+            if (changeAccount.getPassword() == null || changeAccount.getPassword().isBlank()) {
+                account.setPassword(temp.getPassword());
+            }
+            return accountDAO.update(account);
+        };
 
-        Long serviceCenterId = changeAccount.getServiceCenterId();
-        setServiceCenter(account, serviceCenterId);
-        log.info(OBJECT_FOR_UPDATE_PATTERN, account);
-
-        if (changeAccount.getPassword() == null || changeAccount.getPassword().isBlank()) {
-            account.setPassword(temp.getPassword());
-        }
-
+        transactionManger.execute(update, "");
         validateAccount(account);
-        accountDAO.update(account);
         log.info(OBJECT_UPDATED_PATTERN, changeAccount);
-        transactionManger.commit();
     }
 
     @Override
@@ -121,14 +117,12 @@ public class AccountServiceImpl implements AccountService {
         if (findByFilters && SERVICE_CENTER.equals(filter)) {
             transactionManger.beginTransaction();
             long numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
-            int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
             Supplier<List<Account>> find = () -> accountDAO.findAccountsByServiceCenter(input, pageNumber, LIST_SIZE);
             List<Account> accounts = accountHelper.getList(find, Account.class);
-            List<EntityFilter> filters = FilterManager.getFiltersForAccount();
             List<AccountDTO> listDTO = accountConverter.convertToDTOList(accounts);
             log.info(OBJECTS_FOUND_PATTERN, accounts.size(), ServiceCenter.class);
             transactionManger.commit();
-            return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
+            return Builder.buildListForPage(listDTO, pageNumber, numberOfEntries, Account.class);
         } else {
             return accountHelper.find(pageNumber, filter, input);
         }
@@ -143,7 +137,6 @@ public class AccountServiceImpl implements AccountService {
     private void validateAccount(Account account) throws ValidationException {
         String validationResult = validateEntity(account);
         if (!validationResult.isEmpty()) {
-            transactionManger.rollback();
             log.warn(VALIDATION_ERROR, validationResult);
             throw new ValidationException(validationResult);
         }
@@ -166,14 +159,12 @@ public class AccountServiceImpl implements AccountService {
 
     private void checkPassword(String password, String passwordConfirm) throws EnteredPasswordsNotMatch {
         if (!password.equals(passwordConfirm)) {
-            transactionManger.rollback();
             throw new EnteredPasswordsNotMatch();
         }
     }
 
     private void checkEmail(long id, String email) throws EmailAlreadyRegistered {
         if (accountDAO.checkIfEmailExist(id, email)) {
-            transactionManger.rollback();
             throw new EmailAlreadyRegistered(email);
         }
     }

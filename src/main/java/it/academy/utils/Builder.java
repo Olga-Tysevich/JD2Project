@@ -4,24 +4,22 @@ import it.academy.dto.ListForPage;
 import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.device.ModelDTO;
-import it.academy.dto.repair.RepairFormDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
-import it.academy.utils.fiterForSearch.EntityFilter;
+import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.experimental.UtilityClass;
-
 import java.util.List;
-
 import static it.academy.utils.constants.Constants.*;
 
 @UtilityClass
 public class Builder {
 
-    public static <T> ListForPage<T> buildListForPage(List<T> list, int pageNumber, int maxPageNumber, List<EntityFilter> filters) {
+
+    public static <T, R> ListForPage<T> buildListForPage(List<T> list, int pageNumber, long numberOfEntries, Class<R> entityClass) {
         return ListForPage.<T>builder()
                 .pageNumber(pageNumber)
                 .list(list)
-                .maxPageNumber(maxPageNumber)
-                .filtersForPage(filters)
+                .countOfEntries(numberOfEntries)
+                .filtersForPage(FilterManager.getFilters(entityClass))
                 .build();
     }
 

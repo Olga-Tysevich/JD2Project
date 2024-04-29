@@ -3,16 +3,17 @@
 <%@ page import="static it.academy.utils.constants.Constants.FIRST_PAGE" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
+<%--<%--%>
 
-    ListForPage list = (ListForPage) request.getAttribute(LIST_FOR_PAGE);
-    int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
-    int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();
-    String tablePage = list.getPage();
-    String command = list.getCommand();
-    String filter = request.getSession().getAttribute(FILTER) == null? "" : (String) request.getSession().getAttribute(FILTER);
-    String input = request.getSession().getAttribute(USER_INPUT) == null? "" : (String) request.getSession().getAttribute(USER_INPUT);
-%>
+<%--    ListForPage list = (ListForPage) request.getAttribute(LIST_FOR_PAGE);--%>
+<%--    int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();--%>
+<%--    int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();--%>
+<%--    String tablePage = list.getPage();--%>
+<%--    String command = list.getCommand();--%>
+<%--    String filter = request.getSession().getAttribute(FILTER) == null? "" : (String) request.getSession().getAttribute(FILTER);--%>
+<%--    String input = request.getSession().getAttribute(USER_INPUT) == null? "" : (String) request.getSession().getAttribute(USER_INPUT);--%>
+<%--%>--%>
+
 
 <div class="table-container">
     <% if (tablePage != null) {
@@ -24,8 +25,8 @@
             <form action="main" method="post">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="hidden" name="<%=FILTER%>" value="<%=filter%>">
-                <input type="hidden" name="<%=USER_INPUT%>" value="<%=input%>">
+                <input type="hidden" name="<%=FILTER%>" value="<%=lastFilter%>">
+                <input type="hidden" name="<%=USER_INPUT%>" value="<%=lastInput%>">
                 <%int prevPage = pageNumber - 1;%>
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
                 <input class="button light" type="submit" name="button" value="Предыдущая">
@@ -42,17 +43,16 @@
             <form action="main" method="post">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="hidden" name="<%=FILTER%>" value="<%=filter%>">
-                <input type="hidden" name="<%=USER_INPUT%>" value="<%=input%>">
+                <input type="hidden" name="<%=FILTER%>" value="<%=lastFilter%>">
+                <input type="hidden" name="<%=USER_INPUT%>" value="<%=lastInput%>">
                 <%int nextPage = pageNumber + 1;%>
                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
                 <input class="button light" type="submit" name="button" value="Следующая">
             </form>
             <% }
-            } %>
+            }%>
 
         </div>
     </div>
     <% } %>
-
 </div>

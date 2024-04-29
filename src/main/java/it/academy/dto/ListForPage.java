@@ -16,7 +16,7 @@ public class ListForPage<T> {
 
     private Integer pageNumber;
 
-    private Integer maxPageNumber;
+    private Long countOfEntries;
 
     private List<T> list;
 
@@ -25,5 +25,9 @@ public class ListForPage<T> {
     private String command;
 
     private String page;
+
+    private String lastFilter;
+
+    private String lastInput;
 
 }
