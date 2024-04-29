@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
             new ServiceHelper<>(accountDAO, Account.class, accountConverter, transactionManger);
 
     @Override
-    public AccountFormDTO createAccount(CreateAccountDTO createAccountDTO) throws Exception {
+    public AccountFormDTO createAccount(CreateAccountDTO createAccountDTO) {
 
         try {
             checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
@@ -114,18 +114,23 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public ListForPage<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
         boolean findByFilters = filter != null && !filter.isBlank() && input != null && !input.isBlank();
-        if (findByFilters && SERVICE_CENTER.equals(filter)) {
-            transactionManger.beginTransaction();
-            long numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
-            Supplier<List<Account>> find = () -> accountDAO.findAccountsByServiceCenter(input, pageNumber, LIST_SIZE);
-            List<Account> accounts = accountHelper.getList(find, Account.class);
+
+        long numberOfEntries;
+        Supplier<List<Account>> find = () -> {
+            if (findByFilters && SERVICE_CENTER.equals(filter)) {
+                transactionManger.beginTransaction();
+                numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
+                find = () -> accountDAO.findAccountsByServiceCenter(input, pageNumber, LIST_SIZE);
+
+
+
+                transactionManger.commit();
+        }
+            List<Account> accounts = transactionManger.execute(find);
             List<AccountDTO> listDTO = accountConverter.convertToDTOList(accounts);
             log.info(OBJECTS_FOUND_PATTERN, accounts.size(), ServiceCenter.class);
-            transactionManger.commit();
+
             return Builder.buildListForPage(listDTO, pageNumber, numberOfEntries, Account.class);
-        } else {
-            return accountHelper.find(pageNumber, filter, input);
-        }
     }
 
     private void encodePassword(Account account) {
