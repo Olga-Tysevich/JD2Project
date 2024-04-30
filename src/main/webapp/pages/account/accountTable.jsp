@@ -12,7 +12,7 @@
 
         <%
             RoleEnum role = ((AccountDTO) request.getSession().getAttribute(ACCOUNT)).getRole();
-            ListForPage<AccountDTO> data = (ListForPage<AccountDTO>) request.getAttribute(LIST_FOR_PAGE);
+            ListForPage<AccountDTO> data = (ListForPage<AccountDTO>) request.getSession().getAttribute(LIST_FOR_PAGE);
             int pageNumber = data.getPageNumber();
             List<AccountDTO> list = data.getList();
             String tablePage = data.getPage();

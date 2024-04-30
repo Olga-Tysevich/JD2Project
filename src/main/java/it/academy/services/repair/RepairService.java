@@ -14,11 +14,15 @@ public interface RepairService {
 
     ChangeRepairFormDTO findRepair(long id);
 
-    ListForPage<RepairDTO> findRepairs(int pageNumber, String filter, String userInput);
+    ListForPage<RepairDTO> findRepairs(int pageNumber);
+
+    ListForPage<RepairDTO> findRepairsByFilter(int pageNumber, String filter, String userInput);
 
     ListForPage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber);
 
-    ListForPage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber, String filter, String userInput);
+    ListForPage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber);
+
+    ListForPage<RepairDTO> findRepairsByFilterForUser(long serviceCenterId, int pageNumber, String filter, String userInput);
 
     ListForPage<RepairDTO> findRepairsByStatusForUser(long serviceCenterId, RepairStatus status, int pageNumber);
 

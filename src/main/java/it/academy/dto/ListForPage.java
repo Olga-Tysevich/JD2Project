@@ -16,7 +16,7 @@ public class ListForPage<T> {
 
     private Integer pageNumber;
 
-    private Long countOfEntries;
+    private Integer maxPageNumber;
 
     private List<T> list;
 

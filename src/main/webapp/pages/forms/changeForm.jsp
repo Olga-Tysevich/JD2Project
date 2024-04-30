@@ -17,6 +17,8 @@
             CommandEnum tableCommand = (CommandEnum) request.getAttribute(DISPLAY_TABLE_COMMAND);
             String tablePage = (String) request.getAttribute(PAGE);
             String formPage = (String) request.getAttribute(FORM_PAGE);
+            String lastInput = (String) request.getAttribute(USER_INPUT);
+            String lastFilter = (String) request.getAttribute(FILTER);
             int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
         %>
 

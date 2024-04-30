@@ -23,10 +23,12 @@ public class ShowAccountTable implements ActionCommand {
 
         CommandHelper.checkRole(req);
         TableReq dataForPage = Extractor.extractDataForTable(req);
+
         ListForPage<AccountDTO> accounts = accountService.findAccounts(
                 dataForPage.getPageNumber(),
                 dataForPage.getFilter(),
                 dataForPage.getInput());
+
         CommandHelper.setTableData(req, dataForPage, accounts);
         log.info(CURRENT_TABLE, accounts);
         return ADMIN_MAIN_PAGE_PATH;

@@ -21,7 +21,13 @@ public class RepairDTO {
 
     private Long id;
 
-    private DeviceDTO deviceDTO;
+    private Long deviceId;
+
+    private Long modelId;
+
+    private Long brandId;
+
+//    private DeviceDTO deviceDTO;
 
     private RepairCategory category;
 
@@ -50,5 +56,7 @@ public class RepairDTO {
     private Date endDate;
 
     private RepairTypeDTO repairType;
+
+    private String deviceDescription;
 
 }

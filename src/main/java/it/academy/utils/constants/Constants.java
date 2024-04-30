@@ -62,7 +62,7 @@ public class Constants {
     public static final String PASSWORD_CONFIRM = "confirmPassword";
     //service center
     public static final String SERVICE_CENTER_REQUISITES = "requisites";
-    public static final String SERVICE_CENTER_NAME = "serviceName";
+    public static final String SERVICE_CENTER_NAME = "serviceCenterName";
     public static final String SERVICE_CENTER_BANK_NAME = "bankName";
     public static final String SERVICE_CENTER_BANK_ACCOUNT = "bankAccount";
     public static final String SERVICE_CENTER_BANK_CODE = "bankCode";
@@ -101,6 +101,7 @@ public class Constants {
     public static final String REPAIR_TYPE_LEVEL = "level";
     //repair
     public static final String REPAIR_FORM = "repair_form";
+    public static final String CREATE_REPAIR_FORM = "create_repair_form";
     public static final String CHANGE_REPAIR_FORM = "change_repair_form";
     public static final String REPAIR = "repair";
     public static final String REPAIR_STATUS = "status";

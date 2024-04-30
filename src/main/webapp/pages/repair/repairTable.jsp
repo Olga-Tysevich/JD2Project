@@ -58,17 +58,17 @@
                 </tr>
 
             <% for (RepairDTO repair : list) {
-                DeviceDTO deviceDTO = repair.getDeviceDTO();
-                ModelDTO modelDTO = deviceDTO.getModel();
-                String deviceDescription = String.format(DEVICE_DESCRIPTION_PATTERN, modelDTO.getBrandName(),
-                        modelDTO.getDeviceTypeName(), modelDTO.getName());
+//                DeviceDTO deviceDTO = repair.getDeviceDTO();
+//                ModelDTO modelDTO = deviceDTO.getModel();
+//                String deviceDescription = String.format(DEVICE_DESCRIPTION_PATTERN, modelDTO.getBrandName(),
+//                        modelDTO.getDeviceTypeName(), modelDTO.getName());
             %>
 
                 <tr>
                     <td class="date"><%=repair.getServiceCenterName()%></td>
                     <td class="date"><%=repair.getStartDate()%></td>
                     <td class="number"><%=repair.getRepairNumber()%></td>
-                    <td class="number"><%=deviceDescription%></td>
+                    <td class="number"><%=repair.getDeviceDescription()%></td>
                     <td><%=repair.getSerialNumber()%></td>
                     <td class="defect"><%=repair.getDefectDescription()%></td>
                     <td><%=repair.getStatus().getDescription()%></td>
@@ -81,7 +81,7 @@
                                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
                                 <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                                <% if (RoleEnum.ADMIN.equals(role)) { %>
+                                <% if (RoleEnum.ADMIN.equals(role) || RepairStatus.REQUEST.equals(repair.getStatus())) { %>
                                     <input class="choose-button btn-table" type="submit" value="Изменить">
                                 <% } else {%>
                                     <input class="choose-button btn-table" type="submit" value="Открыть">

@@ -19,4 +19,8 @@ public interface RepairDAO extends DAO<Repair,Long> {
 
     long getNumberOfEntriesByStatusAndServiceId(long serviceCenterId, RepairStatus status);
 
+    List<Repair> findRepairsByFilterAndServiceId(long serviceCenterId, int page, int listSize, String filter, String input);
+
+    long getNumberOfEntriesByFilterAndServiceId(long serviceCenterId, String filter, String input);
+
 }

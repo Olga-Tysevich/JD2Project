@@ -2,9 +2,17 @@ package it.academy.dao.repair.impl;
 
 import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.repair.RepairDAO;
+import it.academy.entities.account.ServiceCenter;
+import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.repair.Repair;
+import it.academy.entities.repair.Repair_;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
+
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
@@ -65,4 +73,40 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
                 .getSingleResult();
     }
 
+    @Override
+    public List<Repair> findRepairsByFilterAndServiceId(long serviceCenterId, int page, int listSize, String filter, String input) {
+        CriteriaQuery<Repair> find = criteriaBuilder().createQuery(Repair.class);
+        Root<Repair> repairRoot = find.from(Repair.class);
+        Join<Repair, ServiceCenter> join = repairRoot.join(Repair_.SERVICE_CENTER);
+
+        Predicate findPredicate = criteriaBuilder().conjunction();
+        findPredicate.getExpressions().add(criteriaBuilder().equal(join.get(ServiceCenter_.ID), serviceCenterId));
+
+        Predicate findByAnyMatch = createLikePredicate(repairRoot, filter, input);
+
+        find.select(repairRoot)
+                .where(findPredicate, findByAnyMatch);
+
+        return entityManager().createQuery(find)
+                .setFirstResult((page - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public long getNumberOfEntriesByFilterAndServiceId(long serviceCenterId, String filter, String input) {
+        CriteriaQuery<Long> find = criteriaBuilder().createQuery(Long.class);
+        Root<Repair> repairRoot = find.from(Repair.class);
+        Join<Repair, ServiceCenter> join = repairRoot.join(Repair_.SERVICE_CENTER);
+
+        Predicate findPredicate = criteriaBuilder().conjunction();
+        findPredicate.getExpressions().add(criteriaBuilder().equal(join.get(ServiceCenter_.ID), serviceCenterId));
+        Predicate findByAnyMatch = createLikePredicate(repairRoot, filter, input);
+
+        find.select(criteriaBuilder().count(repairRoot))
+                .where(findPredicate, findByAnyMatch);
+
+        return entityManager().createQuery(find)
+                .getSingleResult();
+    }
 }

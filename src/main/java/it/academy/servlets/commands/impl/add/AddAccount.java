@@ -1,27 +1,18 @@
 package it.academy.servlets.commands.impl.add;
 
+import it.academy.dto.account.AccountFormDTO;
 import it.academy.dto.account.CreateAccountDTO;
-import it.academy.dto.account.ServiceCenterDTO;
-import it.academy.exceptions.account.EmailAlreadyRegistered;
-import it.academy.exceptions.account.EnteredPasswordsNotMatch;
-import it.academy.exceptions.account.ValidationException;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowAccountTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
 
-import static it.academy.servlets.commands.factory.CommandEnum.ADD_ACCOUNT;
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
@@ -38,21 +29,12 @@ public class AddAccount implements ActionCommand {
         CreateAccountDTO forCreate = Extractor.extract(req, new CreateAccountDTO());
         req.setAttribute(ACCOUNT, forCreate);
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
+        AccountFormDTO accountFormDTO = accountService.createAccount(forCreate);
 
-        try {
-            accountService.createAccount(forCreate);
-            return new ShowAccountTable().execute(req, resp);
-        } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
-            List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
-            req.setAttribute(SERVICE_CENTERS, serviceCenterList);
-            req.setAttribute(ERROR, e.getMessage());
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return CommandHelper.insertFormData(req,
-                    ACCOUNT_TABLE_PAGE_PATH,
-                    NEW_ACCOUNT_PAGE_PATH,
-                    ADD_ACCOUNT,
-                    SHOW_ACCOUNT_TABLE);
-        }
+        req.setAttribute(ERROR, accountFormDTO.getMessage());
+        req.setAttribute(SERVICE_CENTERS, accountFormDTO.getServiceCenters());
+
+        return NEW_ACCOUNT_PAGE_PATH;
     }
 
 }

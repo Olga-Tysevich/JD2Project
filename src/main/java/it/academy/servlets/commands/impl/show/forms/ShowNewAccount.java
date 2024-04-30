@@ -29,10 +29,11 @@ public class ShowNewAccount implements ActionCommand {
 
         CreateAccountDTO createAccountDTO = Builder.buildEmptyAccount();
         List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
-        AccountFormDTO accountFormDTO = new AccountFormDTO(serviceCenterList, createAccountDTO, DEFAULT_VALUE);
+//        AccountFormDTO accountFormDTO = new AccountFormDTO(serviceCenterList, createAccountDTO, DEFAULT_VALUE);
 
-        req.setAttribute(ACCOUNT, accountFormDTO);
-        return CommandHelper.insertFormData(req, NEW_ACCOUNT_PAGE_PATH, ADD_ACCOUNT);
+//        req.setAttribute(ACCOUNT, accountFormDTO);
+//        return CommandHelper.insertFormData(req, NEW_ACCOUNT_PAGE_PATH, ADD_ACCOUNT);
+        return null;
 
     }
 

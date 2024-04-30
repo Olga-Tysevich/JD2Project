@@ -51,7 +51,6 @@ public class ShowAccount implements ActionCommand {
     private String showNewAccount(HttpServletRequest req) {
 
         CreateAccountDTO createAccountDTO = Builder.buildEmptyAccount();
-
         List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
             TableReq pageData = Extractor.extract(req, new TableReq());
             log.info(OBJECT_EXTRACTED_PATTERN, pageData);

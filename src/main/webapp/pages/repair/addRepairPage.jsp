@@ -5,11 +5,13 @@
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page import="it.academy.utils.enums.RepairCategory" %>
 <%@ page import="java.util.List" %>
+<%@ page import="it.academy.dto.repair.CreateRepairDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
         <%
             AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
             RepairFormDTO repairForm = (RepairFormDTO) request.getAttribute(REPAIR_FORM);
+            CreateRepairDTO createRepairDTO = (CreateRepairDTO) request.getAttribute(CREATE_REPAIR_FORM);
             List<BrandDTO> brands = repairForm.getBrands();
             List<ModelDTO> models = repairForm.getModels();
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
@@ -55,26 +57,26 @@
         <div class="f-input">
             <label class="form-el" for="sn">Серийный номер:</label>
             <input class="f-form" required type="text" name="<%=SERIAL_NUMBER%>"
-                   value="" id="sn">
+                   value="<%=createRepairDTO.getSerialNumber()%>" id="sn">
         </div>
 
         <div class="f-input">
             <label class="form-el" for="defectDescription">Причина обращения:</label>
             <input class="f-form" required type="text" name="<%=DEFECT_DESCRIPTION%>"
-                   value="" id="defectDescription">
+                   value="<%=createRepairDTO.getDefectDescription()%>" id="defectDescription">
         </div>
 
         <div class="f-input">
             <label class="form-el" for="serviceNumber">Номер заказ-наряда:</label>
             <input class="f-form" required type="text" name="<%=SERVICE_CENTER_REPAIR_NUMBER%>"
-                   value="" id="serviceNumber">
+                   value="<%=createRepairDTO.getRepairNumber()%>" id="serviceNumber">
         </div>
 
         <div class="f-input">
             <label class="date-label" for="saleDate">Дата продажи: </label>
             <div class="date-container">
                 <input class="f-form" required type="date" id="saleDate" name="<%=DATE_OF_SALE%>"
-                       value=""/>
+                       value="<%=createRepairDTO.getDateOfSale()%>"/>
             </div>
         </div>
 
@@ -82,31 +84,31 @@
         <div class="f-input">
             <label class="form-el" for="salesman">Продавец:</label>
             <input class="f-form" required type="text" name="<%=SALESMAN_NAME%>"
-                   value="" id="salesman">
+                   value="<%=createRepairDTO.getSalesmanName()%>" id="salesman">
         </div>
 
         <div class="f-input">
             <label class="form-el" for="salesmanPhone">Телефон продавца:</label>
             <input class="f-form" required type="tel" name="<%=SALESMAN_PHONE%>"
-                   value="" id="salesmanPhone">
+                   value="<%=createRepairDTO.getSalesmanPhone()%>" id="salesmanPhone">
         </div>
 
         <div class="f-input">
             <label class="form-el" for="buyerName">Имя владельца:</label>
             <input class="f-form" required type="text" name="<%=BUYER_NAME%>"
-                   value="" id="buyerName">
+                   value="<%=createRepairDTO.getBuyerName()%>" id="buyerName">
         </div>
 
         <div class="f-input">
             <label class="form-el" for="buyerSurname">Фамилия владельца:</label>
             <input class="f-form" required type="text" name="<%=BUYER_SURNAME%>"
-                   value="" id="buyerSurname">
+                   value="<%=createRepairDTO.getBuyerSurname()%>" id="buyerSurname">
         </div>
 
         <div class="f-input">
             <label class="form-el" for="buyerPhone">Телефон владельца:</label>
             <input class="f-form" required type="tel" name="<%=BUYER_PHONE%>"
-                   value="" id="buyerPhone">
+                   value="<%=createRepairDTO.getBuyerPhone()%>" id="buyerPhone">
         </div>
 
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>

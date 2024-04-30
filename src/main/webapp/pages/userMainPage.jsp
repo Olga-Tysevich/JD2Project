@@ -4,13 +4,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
-<%@ page import="it.academy.utils.enums.RepairStatus" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.ACCOUNT_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -30,9 +25,12 @@
                     ListForPage list = request.getAttribute(LIST_FOR_PAGE) != null?
                             (ListForPage) request.getAttribute(LIST_FOR_PAGE) : new ListForPage();
                     int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
+                    int maxPageNumber = list.getMaxPageNumber() == null? FIRST_PAGE : list.getMaxPageNumber();
                     List<EntityFilter> filters = list.getFiltersForPage();
                     String tablePage = list.getPage();
                     String command = list.getCommand();
+                    String lastInput = list.getLastInput();
+                    String lastFilter = list.getLastFilter();
                 %>
 
         <div class="header-container">
@@ -50,11 +48,12 @@
             <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-            <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск">
+            <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск" <%if (!lastInput.isBlank()) {%>value="<%=lastInput%>"<%}%>>
             <select class="filter" name="<%=FILTER%>" size="1">
                 <% if (filters != null) {
                     for (EntityFilter filter: filters) { %>
-                <option selected value="<%=filter.getFieldName()%>"><%=filter.getDescription()%></option>
+                <option value="<%=filter.getFieldName()%>" <%if (filter.getFieldName().equals(lastFilter)) {%>selected<%}%>>
+                    <%=filter.getDescription()%></option>
                 <% }
                 } %>
             </select>
@@ -105,6 +104,8 @@
                 <legend>Ремонты</legend>
                 <form action="repair" method="post">
                     <input type="hidden" name="<%=SELECTED_BRAND_ID%>" value="<%=DEFAULT_ID%>">
+                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
+                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
                     <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
                 </form>
@@ -138,9 +139,10 @@
         </div>
 
 
-        <% if (tablePage != null) {
-            pageContext.include(PAGINATION_PAGE_PATH);
-        } %>
+<%--        <% if (tablePage != null) {--%>
+<%--            pageContext.include(PAGINATION_PAGE_PATH);--%>
+<%--        } %>--%>
+        <%@include file="forms/pagination.jsp"%>
 
     </div>
 

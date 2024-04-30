@@ -70,6 +70,7 @@ public enum CommandEnum {
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
     SHOW_REPAIR(new ShowRepair()),
     SHOW_CONFIRMED_REPAIR(new ShowRepair()),
+    FIND_MODELS_FOR_REPAIR(new FindModelsForRepair()),
     ADD_REPAIR(new AddRepair()),
     CHANGE_REPAIR(new ChangeRepair()),
     SHOW_REPAIR_TABLE(new ShowRepairTable());

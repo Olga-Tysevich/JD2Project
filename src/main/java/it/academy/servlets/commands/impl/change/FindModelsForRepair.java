@@ -1,0 +1,51 @@
+package it.academy.servlets.commands.impl.change;
+
+import it.academy.dto.repair.ChangeRepairFormDTO;
+import it.academy.dto.repair.RepairDTO;
+import it.academy.dto.repair.RepairFormDTO;
+import it.academy.services.repair.RepairService;
+import it.academy.services.repair.impl.RepairServiceImpl;
+import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.extractors.Extractor;
+import it.academy.utils.CommandHelper;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import static it.academy.servlets.commands.factory.CommandEnum.CHANGE_REPAIR;
+import static it.academy.servlets.commands.factory.CommandEnum.SHOW_REPAIR_TABLE;
+import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.Constants.CHANGE_REPAIR_FORM;
+import static it.academy.utils.constants.JSPConstant.REPAIR_PAGE_PATH;
+import static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
+
+@Slf4j
+public class FindModelsForRepair implements ActionCommand {
+    private RepairService repairService = new RepairServiceImpl();
+
+    @Override
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+
+
+        RepairDTO forUpdate = Extractor.extract(req, new RepairDTO());
+        long brandId = forUpdate.getBrandId();
+        log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
+
+        RepairFormDTO repairForm = repairService.getRepairFormData(brandId);
+        ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(forUpdate, repairForm);
+
+        req.setAttribute(BRAND_ID, brandId);
+        req.setAttribute(SELECTED_BRAND_ID, brandId);
+        req.setAttribute(CHANGE_REPAIR_FORM, changeRepairFormDTO);
+
+        CommandHelper.insertFormData(req,
+                REPAIR_TABLE_PAGE_PATH,
+                REPAIR_PAGE_PATH,
+                CHANGE_REPAIR,
+                SHOW_REPAIR_TABLE);
+
+        return REPAIR_PAGE_PATH;
+    }
+}
