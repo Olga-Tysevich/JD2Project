@@ -7,7 +7,7 @@ import it.academy.dto.spare_part.OrderItemDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
+import it.academy.servlets.commands.impl.get.tables.GetRepairs;
 import it.academy.utils.converters.spare_part.SparePartForOrder;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class AddSparePartOrder implements ActionCommand {
                     .orderItems(orderItems)
                     .build();
             sparePartOrderService.createSparePartOrder(forCreate);
-            return new ShowRepairTable().execute(req, resp);
+            return new GetRepairs().execute(req, resp);
 
     }
 

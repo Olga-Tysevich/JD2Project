@@ -1,23 +1,11 @@
-<%@ page import="it.academy.dto.ListForPage" %>
-<%@ page import="static it.academy.utils.constants.Constants.LIST_FOR_PAGE" %>
 <%@ page import="static it.academy.utils.constants.Constants.FIRST_PAGE" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%--%>
-
-<%--    ListForPage list = (ListForPage) request.getAttribute(LIST_FOR_PAGE);--%>
-<%--    int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();--%>
-<%--    int maxPageNumber = list.getMaxPageNumber() == null ? FIRST_PAGE : list.getMaxPageNumber();--%>
-<%--    String tablePage = list.getPage();--%>
-<%--    String command = list.getCommand();--%>
-<%--    String filter = request.getSession().getAttribute(FILTER) == null? "" : (String) request.getSession().getAttribute(FILTER);--%>
-<%--    String input = request.getSession().getAttribute(USER_INPUT) == null? "" : (String) request.getSession().getAttribute(USER_INPUT);--%>
-<%--%>--%>
 
 
-<div class="table-container">
-    <% if (tablePage != null) {
-        pageContext.include(tablePage);
+    <%
+        Long numberOfEntries = pageData.getNumberOfEntries();
+        int maxPageNumber = numberOfEntries != null? (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE) : FIRST_PAGE;
         if (maxPageNumber > 1) {%>
     <div class="footer">
         <div class="button-container">
@@ -54,5 +42,3 @@
 
         </div>
     </div>
-    <% } %>
-</div>

@@ -16,15 +16,11 @@ public class RepairFormDTO {
     @ToString.Exclude
     private Map<Long, String> serviceCenters;
 
-    private Long selectedBrandId;
-
     @ToString.Exclude
     private List<BrandDTO> brands;
 
     @ToString.Exclude
     private List<ModelDTO> models;
-
-    private DeviceDTO device;
 
     private Long currentBrandId;
 

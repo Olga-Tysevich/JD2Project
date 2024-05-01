@@ -10,10 +10,10 @@
 <%@ page import="it.academy.dto.repair.ChangeRepairFormDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
-<%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
-<%@ page import="it.academy.dto.device.DeviceDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_ORDER" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_PAGE" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_PAGE_PATH" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -26,12 +26,6 @@
     <div class="forms-container lf">
 
             <%
-            CommandEnum formCommand = (CommandEnum) request.getAttribute(COMMAND);
-            CommandEnum tableCommand = (CommandEnum) request.getAttribute(DISPLAY_TABLE_COMMAND);
-            String tablePage = (String) request.getAttribute(PAGE);
-            String formPage = (String) request.getAttribute(FORM_PAGE);
-            int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-
             AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
             RoleEnum role = currentAccount.getRole();
             ChangeRepairFormDTO changeRepairForm = (ChangeRepairFormDTO) request.getAttribute(CHANGE_REPAIR_FORM);
@@ -46,9 +40,8 @@
 
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="form_for_submit">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=formCommand%>" id="command_id">
-                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_REPAIR%>" id="command_id">
+                <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_PAGE_PATH%>">
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
                 <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
 
@@ -96,7 +89,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Бренд:</label>
-                    <select class="f-form " name="<%=BRAND_ID%>" size="1" id="select_send">
+                    <select class="f-form " name="<%=BRAND_ID%>" size="1" id="select_send" onchange="getModelsForForm()">
                         <%for (BrandDTO brandDTO : brands) {%>
                         <option value="<%=brandDTO.getId()%>"
                                 <%if(brandDTO.getId().equals(repairDTO.getBrandId())) {%>selected<%}%>>
@@ -173,23 +166,23 @@
                            value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
                 </div>
 
-                <div class="button-container">
+                <div class="lf-button-container">
                     <form action="order" method="post" id="order">
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_ORDER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
                         <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input class="choose-button btn-table" type="submit" value="Заказать запчасти" form="order"/>
+<%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
+<%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
+                        <input class="choose-button lf-button" type="submit" value="Заказать запчасти" form="order"/>
                     </form>
 
                     <form action="repair" method="post" id="completed">
                         <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
                         <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input class="choose-button btn-table" type="submit" value="Сообщить о выполнении" form="completed"/>
+<%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
+<%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
+                        <input class="choose-button lf-button" type="submit" value="Сообщить о выполнении" form="completed"/>
                     </form>
                 </div>
 
@@ -202,17 +195,11 @@
 
                 <div class="button-container">
                     <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
-                    <input class="button" type="submit" value="Отмена" form="cancel"/>
+                    <button class="button"
+                            onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
                 </div>
 
             </form>
-
-        <form action="main" method="post" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
-            <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=tableCommand%>">
-            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-        </form>
     </div>
 </section>
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>

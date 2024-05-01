@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.entities.device.DeviceType;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.utils.ServiceHelper;
@@ -49,7 +49,7 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     }
 
    @Override
-    public ListForPage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input) {
+    public TablePage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input) {
        return deviceTypeHelper.find(pageNumber, filter, input);
     }
 

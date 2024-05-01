@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.show.forms;
+package it.academy.servlets.commands.impl.get.forms;
 
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.services.repair.RepairTypeService;

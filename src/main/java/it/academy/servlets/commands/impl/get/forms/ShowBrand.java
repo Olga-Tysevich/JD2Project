@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.show.forms;
+package it.academy.servlets.commands.impl.get.forms;
 
 import it.academy.dto.device.BrandDTO;
 import it.academy.services.device.BrandService;

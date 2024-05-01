@@ -12,17 +12,17 @@ import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.change.*;
 import it.academy.servlets.commands.impl.change.ChangeModel;
-import it.academy.servlets.commands.impl.show.ShowPageCommand;
-import it.academy.servlets.commands.impl.show.tables.*;
+import it.academy.servlets.commands.impl.get.ShowMainPageCommand;
+import it.academy.servlets.commands.impl.get.tables.*;
 import it.academy.servlets.commands.impl.add.AddServiceCenter;
-import it.academy.servlets.commands.impl.show.forms.ShowServiceCenter;
-import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.get.forms.ShowServiceCenter;
+import it.academy.servlets.commands.impl.get.tables.ShowServiceCenterTable;
 import it.academy.servlets.commands.impl.add.AddSparePart;
 import it.academy.servlets.commands.impl.change.ChangeSparePart;
-import it.academy.servlets.commands.impl.show.forms.*;
+import it.academy.servlets.commands.impl.get.forms.*;
 
 public enum CommandEnum {
-    SHOW_PAGE(new ShowPageCommand()),
+    SHOW_MAIN_PAGE(new ShowMainPageCommand()),
     LOGIN(new LoginCommand()),
     LOGOUT(new LogOutCommand()),
     SHOW_NEW_ACCOUNT(new ShowAccount()),
@@ -68,12 +68,14 @@ public enum CommandEnum {
     DELETE_REPAIR_TYPE(new DeleteObject()),
     SHOW_REPAIR_TYPE(new ShowRepairType()),
     CHANGE_REPAIR_TYPE(new ChangeRepairType()),
-    SHOW_REPAIR(new ShowRepair()),
-    SHOW_CONFIRMED_REPAIR(new ShowRepair()),
+    GET_NEW_REPAIR(new GetNewRepair()),
+    GET_REPAIR(new GetRepair()),
     FIND_MODELS_FOR_REPAIR(new FindModelsForRepair()),
     ADD_REPAIR(new AddRepair()),
     CHANGE_REPAIR(new ChangeRepair()),
-    SHOW_REPAIR_TABLE(new ShowRepairTable());
+    GET_REPAIRS(new GetRepairs()),
+    GET_REPAIRS_BY_FILTER(new GetRepairsByFilter()),
+    GET_REPAIRS_BY_STATUS(new GetRepairsByStatus());
 
 
     private ActionCommand command;

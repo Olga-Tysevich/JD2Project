@@ -1,7 +1,7 @@
-document.getElementById('select_send').addEventListener('change', function() {
-    let command = document.getElementById('command_id');
-    console.log('command ' + command);
-    command.value = "FIND_MODELS_FOR_REPAIR";
-    console.log('command val ' + command.value);
+function getModelsForForm() {
+    let commandField = document.getElementById('command_id');
+    commandField.value = "FIND_MODELS_FOR_REPAIR";
     document.getElementById('form_for_submit').submit();
-});
+}
+
+

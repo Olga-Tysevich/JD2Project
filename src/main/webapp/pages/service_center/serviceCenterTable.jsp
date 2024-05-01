@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SERVICE_CENTER" %>
@@ -10,7 +10,7 @@
     <div class="container t-container">
 
         <%
-            ListForPage<ServiceCenterDTO> data = (ListForPage<ServiceCenterDTO>) request.getAttribute(LIST_FOR_PAGE);
+            TablePage<ServiceCenterDTO> data = (TablePage<ServiceCenterDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             String tablePage = data.getPage();
             List<ServiceCenterDTO> list = data.getList();

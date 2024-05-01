@@ -4,7 +4,7 @@ import it.academy.dto.spare_part.ChangeSparePartOrderDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowRepairTable;
+import it.academy.servlets.commands.impl.get.tables.GetRepairs;
 import it.academy.servlets.extractors.Extractor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +20,7 @@ public class ChangeSparePartOrder implements ActionCommand {
 
         ChangeSparePartOrderDTO order = Extractor.extract(req, new ChangeSparePartOrderDTO());
         sparePartOrderService.changeSparePartOrder(order);
-        return new ShowRepairTable().execute(req, resp);
+        return new GetRepairs().execute(req, resp);
 
     }
 

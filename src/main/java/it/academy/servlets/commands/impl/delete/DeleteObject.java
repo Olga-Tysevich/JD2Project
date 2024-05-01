@@ -18,7 +18,7 @@ import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.factory.CommandEnum;
-import it.academy.servlets.commands.impl.show.tables.*;
+import it.academy.servlets.commands.impl.get.tables.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;

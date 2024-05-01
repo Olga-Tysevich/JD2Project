@@ -74,7 +74,7 @@ public class Constants {
     public static final String SERVICE_CENTER_TAXPAYER_NUMBER = "taxpayerNumber";
     public static final String SERVICE_CENTER_REGISTRATION_NUMBER = "registrationNumber";
     //jsp
-    public static final String LIST_FOR_PAGE = "table";
+    public static final String TABLE_PAGE = "table";
     public static final String FILTER = "filter";
     public static final String USER_INPUT = "input";
     public static final String COMMAND = "command";

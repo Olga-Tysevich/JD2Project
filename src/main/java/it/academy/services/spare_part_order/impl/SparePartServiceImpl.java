@@ -6,7 +6,7 @@ import it.academy.dao.spare_part.SparePartDAO;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.spare_part.impl.SparePartDAOImpl;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
@@ -142,7 +142,7 @@ public class SparePartServiceImpl implements SparePartService {
     }
 
     @Override
-    public ListForPage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input) {
+    public TablePage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input) {
        return sparePartHelper.find(pageNumber, filter, input);
     }
 

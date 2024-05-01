@@ -3,7 +3,7 @@ package it.academy.services.repair.impl;
 import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.entities.repair.RepairType;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.utils.ServiceHelper;
@@ -52,7 +52,7 @@ public class RepairTypeServiceImpl implements RepairTypeService {
     }
 
     @Override
-    public ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input) {
+    public TablePage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input) {
         return repairTypeHelper.find(pageNumber, filter, input);
     }
 

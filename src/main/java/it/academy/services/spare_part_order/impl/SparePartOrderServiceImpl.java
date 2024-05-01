@@ -11,7 +11,7 @@ import it.academy.dao.spare_part.impl.SparePartOrderDAOImpl;
 import it.academy.dto.spare_part.ChangeSparePartOrderDTO;
 import it.academy.dto.spare_part.CreateOrderDTO;
 import it.academy.dto.spare_part.SparePartOrderDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_part.OrderItem;
 import it.academy.entities.spare_part.SparePart;
@@ -100,10 +100,10 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     }
 
     @Override
-    public ListForPage<SparePartOrderDTO> findSparePartOrders(int pageNumber) {
+    public TablePage<SparePartOrderDTO> findSparePartOrders(int pageNumber) {
         List<EntityFilter> filters = FilterManager.getFiltersForSparePartOrder();
 
-        Supplier<ListForPage<SparePartOrderDTO>> find = () -> {
+        Supplier<TablePage<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> repairs = sparePartOrderDAO.findForPage(pageNumber, LIST_SIZE);
             int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
             List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
@@ -114,10 +114,10 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     }
 
     @Override
-    public ListForPage<SparePartOrderDTO> findSparePartOrders(int pageNumber, String filter, String input) {
+    public TablePage<SparePartOrderDTO> findSparePartOrders(int pageNumber, String filter, String input) {
         List<EntityFilter> filters = FilterManager.getFiltersForSparePartOrder();
 
-        Supplier<ListForPage<SparePartOrderDTO>> find = () -> {
+        Supplier<TablePage<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> repairs = sparePartOrderDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
             int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
             List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);

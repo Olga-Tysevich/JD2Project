@@ -6,7 +6,7 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.ACCOUNT_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
@@ -25,8 +25,8 @@
                 <%
                     AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
                     String userEmail = accountDTO.getEmail();
-                    ListForPage list = request.getAttribute(LIST_FOR_PAGE) != null?
-                            (ListForPage) request.getAttribute(LIST_FOR_PAGE) : new ListForPage();
+                    TablePage list = request.getAttribute(TABLE_PAGE) != null?
+                            (TablePage) request.getAttribute(TABLE_PAGE) : new TablePage();
                     int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
                     int maxPageNumber = list.getMaxPageNumber() == null? FIRST_PAGE : list.getMaxPageNumber();
                     List<EntityFilter> filters = list.getFiltersForPage();
@@ -158,7 +158,7 @@
                 <legend>Ремонты</legend>
 
                 <form action="repair" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_REPAIRS%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список ремонтов">

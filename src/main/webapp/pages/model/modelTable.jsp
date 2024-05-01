@@ -6,7 +6,7 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_MODEL" %>
 <section>
     <div class="container t-container">
@@ -14,7 +14,7 @@
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<ModelDTO> data = (ListForPage<ModelDTO>) request.getAttribute(LIST_FOR_PAGE);
+            TablePage<ModelDTO> data = (TablePage<ModelDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             List<ModelDTO> models = data.getList();
             String tablePage = data.getPage();

@@ -6,7 +6,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowModelTable;
+import it.academy.servlets.commands.impl.get.tables.ShowModelTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;

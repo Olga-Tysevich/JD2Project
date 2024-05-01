@@ -1,7 +1,7 @@
 package it.academy.utils;
 
 import it.academy.dao.DAO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.utils.constants.LoggerConstants;
@@ -94,7 +94,7 @@ public class ServiceHelper<T, R> {
     }
 
 
-    public ListForPage<R> find(int pageNumber, String filter, String input) {
+    public TablePage<R> find(int pageNumber, String filter, String input) {
         return transactionManger.execute(() -> {
 
             if (filter == null || input == null || filter.isBlank() || input.isBlank()) {
@@ -109,7 +109,7 @@ public class ServiceHelper<T, R> {
         });
     }
 
-    private ListForPage<R> find(Supplier<List<T>> methodForSearch, int pageNumber, int maxPageNumber) {
+    private TablePage<R> find(Supplier<List<T>> methodForSearch, int pageNumber, int maxPageNumber) {
         List<T> result = getList(methodForSearch, entityClass);
         List<EntityFilter> filters = FilterManager.getFilters(entityClass);
         List<R> listDTO = converter.convertToDTOList(result);

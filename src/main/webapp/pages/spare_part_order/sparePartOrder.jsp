@@ -70,8 +70,8 @@
             <div class="button-container">
                 <input id="submit_id" class="button" type="button" value="Подтвердить" onclick="send()"/>
                 <form action="main" method="post" id="cancel">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
-                    <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MAIN_PAGE%>">
+                    <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=GET_REPAIRS%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button" type="submit" value="Отмена" form="cancel"/>

@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="it.academy.dto.device.DeviceTypeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_DEVICE_TYPE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_DEVICE_TYPE" %>
@@ -15,7 +15,7 @@
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<DeviceTypeDTO> data = (ListForPage<DeviceTypeDTO>) request.getAttribute(LIST_FOR_PAGE);
+            TablePage<DeviceTypeDTO> data = (TablePage<DeviceTypeDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             String tablePage = data.getPage();
             List<DeviceTypeDTO> list = data.getList();

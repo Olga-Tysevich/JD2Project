@@ -1,7 +1,7 @@
 package it.academy.services.device;
 
 import it.academy.dto.device.ChangeModelDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.device.ModelForChangeDTO;
 
@@ -21,5 +21,5 @@ public interface ModelService {
 
     List<ModelDTO> findModels();
 
-    ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input);
+    TablePage<ModelDTO> findModels(int pageNumber, String filter, String input);
 }

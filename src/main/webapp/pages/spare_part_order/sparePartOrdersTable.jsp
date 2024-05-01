@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
 <%@ page import="it.academy.dto.spare_part.ChangeSparePartDTO" %>
 <%@ page import="java.util.Map" %>
@@ -10,7 +10,7 @@
     <div class="container t-container">
 
         <%
-            ListForPage<SparePartOrderDTO> data = (ListForPage<SparePartOrderDTO>) request.getAttribute(LIST_FOR_PAGE);
+            TablePage<SparePartOrderDTO> data = (TablePage<SparePartOrderDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             int maxPageNumber = data.getMaxPageNumber();
             List<SparePartOrderDTO> list = data.getDto();

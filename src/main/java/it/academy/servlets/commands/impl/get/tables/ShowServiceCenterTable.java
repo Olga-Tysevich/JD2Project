@@ -1,8 +1,8 @@
-package it.academy.servlets.commands.impl.show.tables;
+package it.academy.servlets.commands.impl.get.tables;
 
 import it.academy.dto.account.ServiceCenterDTO;
-import it.academy.dto.TableReq;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePageReq;
+import it.academy.dto.TablePage;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.extractors.Extractor;
@@ -22,8 +22,8 @@ public class ShowServiceCenterTable extends ShowTable {
 
         CommandHelper.checkRole(req);
 
-        TableReq dataForPage = Extractor.extractDataForTable(req);
-        ListForPage<ServiceCenterDTO> serviceCenters = serviceCenterService.findServiceCenters(
+        TablePageReq dataForPage = Extractor.extractDataForTable(req);
+        TablePage<ServiceCenterDTO> serviceCenters = serviceCenterService.findServiceCenters(
                 dataForPage.getPageNumber(),
                 dataForPage.getFilter(),
                 dataForPage.getInput());

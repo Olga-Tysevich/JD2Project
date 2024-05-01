@@ -3,7 +3,7 @@ package it.academy.services.device.impl;
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dto.device.BrandDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.entities.device.Brand;
 import it.academy.services.device.BrandService;
 import it.academy.utils.ServiceHelper;
@@ -49,7 +49,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public ListForPage<BrandDTO> findBrands(int pageNumber, String filter, String input) {
+    public TablePage<BrandDTO> findBrands(int pageNumber, String filter, String input) {
        return brandHelper.find(pageNumber, filter, input);
     }
 

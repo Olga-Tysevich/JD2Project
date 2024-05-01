@@ -5,7 +5,7 @@ import it.academy.dao.account.ServiceCenterDAO;
 import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.ServiceCenterDAOImpl;
 import it.academy.dto.account.ServiceCenterDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.exceptions.common.ObjectAlreadyExist;
@@ -81,7 +81,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
+    public TablePage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
         if (!SERVICE_CENTER_NAME.equals(filter) && input != null && !input.isBlank()) {
             transactionManger.beginTransaction();
             long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByRequisites(filter, input);

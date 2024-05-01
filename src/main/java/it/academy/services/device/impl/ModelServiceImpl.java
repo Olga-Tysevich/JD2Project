@@ -9,7 +9,7 @@ import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ChangeModelDTO;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.device.ModelForChangeDTO;
 import it.academy.entities.account.ServiceCenter;
@@ -130,7 +130,7 @@ public class ModelServiceImpl implements ModelService {
 
 
     @Override
-    public ListForPage<ModelDTO> findModels(int pageNumber, String filter, String input) {
+    public TablePage<ModelDTO> findModels(int pageNumber, String filter, String input) {
         if (BRAND.equals(filter) || DEVICE_TYPE_FILTER.equals(filter)) {
             transactionManger.beginTransaction();
             long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);

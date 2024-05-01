@@ -1,7 +1,7 @@
 package it.academy.services.account;
 
 import it.academy.dto.account.ServiceCenterDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 
 import java.util.List;
 
@@ -17,6 +17,6 @@ public interface ServiceCenterService{
 
     List<ServiceCenterDTO> findServiceCenters();
 
-    ListForPage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input);
+    TablePage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input);
 
 }

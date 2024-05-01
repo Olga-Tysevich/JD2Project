@@ -5,6 +5,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JSPConstant {
 
+    //common
+    public static final String LAST_PAGE = "last_page";
+
     // page paths
     public static final String CHANGE_FORM_PAGE_PATH = "/pages/forms/changeForm.jsp";
     public static final String PAGINATION_PAGE_PATH = "/pages/forms/pagination.jsp";
@@ -57,6 +60,9 @@ public class JSPConstant {
 
     //sparePartOrder
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
+
+    public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d&&filter=%s&&input=%s";
+    public static final String OPEN_FORM_PAGE = "main?command=%s";
 
 
 }

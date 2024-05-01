@@ -1,4 +1,4 @@
-package it.academy.servlets.commands.impl.show.forms;
+package it.academy.servlets.commands.impl.get.forms;
 
 import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.services.spare_part_order.SparePartService;

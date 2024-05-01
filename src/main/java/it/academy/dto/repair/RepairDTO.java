@@ -1,6 +1,5 @@
 package it.academy.dto.repair;
 
-import it.academy.dto.device.DeviceDTO;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import lombok.AllArgsConstructor;
@@ -26,8 +25,6 @@ public class RepairDTO {
     private Long modelId;
 
     private Long brandId;
-
-//    private DeviceDTO deviceDTO;
 
     private RepairCategory category;
 

@@ -4,10 +4,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="it.academy.dto.ListForPage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
+<%@ page import="it.academy.utils.fiterForSearch.FilterManager" %>
+<%@ page import="it.academy.dto.TablePage2" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -22,16 +25,23 @@
                 <%
                     AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
                     String userEmail = accountDTO.getEmail();
-                    ListForPage list = request.getAttribute(LIST_FOR_PAGE) != null?
-                            (ListForPage) request.getAttribute(LIST_FOR_PAGE) : new ListForPage();
-                    int pageNumber = list.getPageNumber() == null ? FIRST_PAGE : list.getPageNumber();
-                    int maxPageNumber = list.getMaxPageNumber() == null? FIRST_PAGE : list.getMaxPageNumber();
-                    List<EntityFilter> filters = list.getFiltersForPage();
-                    String tablePage = list.getPage();
-                    String command = list.getCommand();
-                    String lastInput = list.getLastInput();
-                    String lastFilter = list.getLastFilter();
+                    TablePage2 pageData = request.getAttribute(TABLE_PAGE) != null?
+                            (TablePage2) request.getAttribute(TABLE_PAGE) : new TablePage2();
+
+                    int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
+                    String tablePage = StringUtils.defaultIfBlank((String) request.getAttribute(PAGE), StringUtils.EMPTY);
+                    String command = StringUtils.defaultIfBlank((String) request.getAttribute(COMMAND), SHOW_MAIN_PAGE.name());
+                    String lastInput = StringUtils.defaultIfBlank((String) request.getAttribute(USER_INPUT), StringUtils.EMPTY);
+                    String lastFilter = StringUtils.defaultIfBlank((String) request.getAttribute(FILTER), StringUtils.EMPTY);
+
+                    String currentPage = String.format(OPEN_TABLE_PAGE, command, tablePage, pageNumber, lastFilter, lastInput);
+                    request.getSession().setAttribute(LAST_PAGE, currentPage);
                 %>
+
+
+       <%=pageData%>
+        <br>
+       <%=currentPage%>
 
         <div class="header-container">
             <%
@@ -43,7 +53,9 @@
             </div>
         </div>
 
-        <% if (tablePage != null) { %>
+        <% if (!tablePage.isBlank()) {
+            List<EntityFilter> filters = FilterManager.getFiltersForPage(tablePage);
+        %>
         <form action="main" method="post" id="search">
             <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
@@ -102,20 +114,14 @@
 
             <fieldset class="f1">
                 <legend>Ремонты</legend>
-                <form action="repair" method="post">
-                    <input type="hidden" name="<%=SELECTED_BRAND_ID%>" value="<%=DEFAULT_ID%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR%>">
-                    <input class="button button-fieldset" type="submit" value="Создание нового ремонта">
-                </form>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_FORM_PAGE, GET_NEW_REPAIR)%>'">Создание нового ремонта</button>
 
-                <form action="repair" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TABLE%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
-                    <input class="button button-fieldset" type="submit" value="Список ремонтов">
-                </form>
+
+                <%CommandEnum repairTableCommand = StringUtils.isBlank(lastInput)? GET_REPAIRS: GET_REPAIRS_BY_FILTER;%>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, repairTableCommand, REPAIR_TABLE_PAGE_PATH,
+                        pageNumber, lastFilter, lastInput)%>'">Список ремонтов</button>
 
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE_TABLE%>">
@@ -139,10 +145,12 @@
         </div>
 
 
-<%--        <% if (tablePage != null) {--%>
-<%--            pageContext.include(PAGINATION_PAGE_PATH);--%>
-<%--        } %>--%>
-        <%@include file="forms/pagination.jsp"%>
+        <div class="table-container">
+            <% if (!StringUtils.isBlank(tablePage)) {
+                pageContext.include(tablePage);
+            }%>
+            <%@include file="forms/pagination.jsp"%>
+        </div>
 
     </div>
 

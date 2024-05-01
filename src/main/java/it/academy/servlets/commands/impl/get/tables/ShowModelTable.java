@@ -1,7 +1,7 @@
-package it.academy.servlets.commands.impl.show.tables;
+package it.academy.servlets.commands.impl.get.tables;
 
-import it.academy.dto.TableReq;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePageReq;
+import it.academy.dto.TablePage;
 import it.academy.dto.account.AccountDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.services.device.ModelService;
@@ -24,8 +24,8 @@ public class ShowModelTable extends ShowTable {
 
         AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
 
-        TableReq dataForPage = Extractor.extractDataForTable(req);
-        ListForPage<ModelDTO> models = modelService.findModels(
+        TablePageReq dataForPage = Extractor.extractDataForTable(req);
+        TablePage<ModelDTO> models = modelService.findModels(
                 dataForPage.getPageNumber(),
                 dataForPage.getFilter(),
                 dataForPage.getInput());

@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 import static it.academy.utils.constants.Constants.DEVICE_DESCRIPTION_PATTERN;
 
 public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
-    private DeviceConverter deviceConverter = new DeviceConverter();
     private RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
 
     public RepairDTO convertToDTO(Repair repair) {
@@ -37,7 +36,6 @@ public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
                 .id(repair.getId())
                 .serviceCenterId(repair.getServiceCenter().getId())
                 .serviceCenterName(repair.getServiceCenter().getServiceName())
-//                .deviceDTO(deviceConverter.convertToDTO(device))
                 .deviceId(device.getId())
                 .modelId(model.getId())
                 .brandId(brand.getId())

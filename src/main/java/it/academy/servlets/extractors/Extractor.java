@@ -1,12 +1,13 @@
 package it.academy.servlets.extractors;
 
-import it.academy.dto.TableReq;
-import it.academy.servlets.commands.factory.CommandEnum;
+import it.academy.dto.TablePageReq;
+import it.academy.dto.account.AccountDTO;
 import it.academy.utils.ReflectionHelper;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,23 +22,23 @@ public class Extractor {
 
     public <T> T extract(HttpServletRequest request, T object) {
 
-        int pageNumber = request.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-        String page = request.getParameter(PAGE);
+//        int pageNumber = request.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
+//        String page = request.getParameter(PAGE);
         T result = ReflectionHelper.setFieldValues(request, object);
-        request.setAttribute(PAGE_NUMBER, pageNumber);
-        request.setAttribute(PAGE, page);
+//        request.setAttribute(PAGE_NUMBER, pageNumber);
+//        request.setAttribute(PAGE, page);
 
         return result;
     }
 
-    public TableReq extractDataForTable(HttpServletRequest request) {
-        String command = extractString(request, COMMAND, DEFAULT_VALUE);
+    public TablePageReq extractDataForTable(HttpServletRequest request) {
+        String command = extractString(request, COMMAND, StringUtils.EMPTY);
         int pageNumber = extractIntVal(request, PAGE_NUMBER, FIRST_PAGE);
-        String page = extractString(request, PAGE, DEFAULT_VALUE);
-        String userInput = extractString(request, USER_INPUT, DEFAULT_VALUE);
-        String filter = extractString(request, FILTER, DEFAULT_VALUE);
+        String page = extractString(request, PAGE,  StringUtils.EMPTY);
+        String userInput = extractString(request, USER_INPUT,  StringUtils.EMPTY);
+        String filter = extractString(request, FILTER,  StringUtils.EMPTY);
 
-        return TableReq.builder()
+        return TablePageReq.builder()
                 .command(command)
                 .pageNumber(pageNumber)
                 .page(page)
@@ -45,6 +46,7 @@ public class Extractor {
                 .filter(filter)
                 .build();
     }
+
 
     public String extractString(HttpServletRequest request, String parameterName, String defaultValue) {
         String result = request.getParameter(parameterName);

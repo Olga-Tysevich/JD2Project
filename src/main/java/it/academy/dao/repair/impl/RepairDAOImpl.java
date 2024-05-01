@@ -79,13 +79,10 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
         Root<Repair> repairRoot = find.from(Repair.class);
         Join<Repair, ServiceCenter> join = repairRoot.join(Repair_.SERVICE_CENTER);
 
-        Predicate findPredicate = criteriaBuilder().conjunction();
-        findPredicate.getExpressions().add(criteriaBuilder().equal(join.get(ServiceCenter_.ID), serviceCenterId));
-
         Predicate findByAnyMatch = createLikePredicate(repairRoot, filter, input);
 
         find.select(repairRoot)
-                .where(findPredicate, findByAnyMatch);
+                .where(criteriaBuilder().equal(join.get(ServiceCenter_.ID), serviceCenterId), findByAnyMatch);
 
         return entityManager().createQuery(find)
                 .setFirstResult((page - 1) * listSize)
@@ -99,14 +96,13 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
         Root<Repair> repairRoot = find.from(Repair.class);
         Join<Repair, ServiceCenter> join = repairRoot.join(Repair_.SERVICE_CENTER);
 
-        Predicate findPredicate = criteriaBuilder().conjunction();
-        findPredicate.getExpressions().add(criteriaBuilder().equal(join.get(ServiceCenter_.ID), serviceCenterId));
         Predicate findByAnyMatch = createLikePredicate(repairRoot, filter, input);
 
         find.select(criteriaBuilder().count(repairRoot))
-                .where(findPredicate, findByAnyMatch);
+                .where(criteriaBuilder().equal(join.get(ServiceCenter_.ID), serviceCenterId), findByAnyMatch);
 
         return entityManager().createQuery(find)
                 .getSingleResult();
     }
+
 }

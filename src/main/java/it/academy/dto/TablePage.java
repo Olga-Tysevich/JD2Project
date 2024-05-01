@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListForPage<T> {
+public class TablePage<T> {
 
     private Integer pageNumber;
 

@@ -1,7 +1,7 @@
 package it.academy.services.device;
 
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 import java.util.List;
 
 public interface DeviceTypeService {
@@ -16,6 +16,6 @@ public interface DeviceTypeService {
 
     List<DeviceTypeDTO> findDeviceTypes();
 
-    ListForPage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input);
+    TablePage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input);
 
 }

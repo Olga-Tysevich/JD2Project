@@ -1,9 +1,12 @@
 package it.academy.utils.fiterForSearch;
 
 import lombok.experimental.UtilityClass;
+
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
+import static it.academy.utils.constants.JSPConstant.*;
 
 @UtilityClass
 public class FilterManager {
@@ -26,6 +29,29 @@ public class FilterManager {
             case SERVICE_CENTER_FILTER:
                 return getFiltersForServiceCenter();
             case REPAIR:
+                return getFiltersForRepair();
+            default:
+                return null;
+        }
+    }
+
+    public static <T> List<EntityFilter> getFiltersForPage(@NotNull String pagePath) {
+        switch (pagePath) {
+            case ACCOUNT_TABLE_PAGE_PATH:
+                return getFiltersForAccount();
+            case BRAND_TABLE_PAGE_PATH:
+                return getFiltersForBrand();
+            case DEVICE_TYPE_TABLE_PAGE_PATH:
+                return getFiltersForDeviceType();
+            case MODEL_TABLE_PAGE_PATH:
+                return getFiltersForModel();
+            case REPAIR_TYPE_TABLE_PAGE_PATH:
+                return getFiltersForRepairType();
+            case SPARE_PART_TABLE_PAGE_PATH:
+                return getFiltersForSparePart();
+            case SERVICE_CENTER_TABLE_PAGE_PATH:
+                return getFiltersForServiceCenter();
+            case REPAIR_TABLE_PAGE_PATH:
                 return getFiltersForRepair();
             default:
                 return null;

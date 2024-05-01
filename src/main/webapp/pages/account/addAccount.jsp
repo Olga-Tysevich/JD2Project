@@ -5,7 +5,6 @@
 <%@ page import="it.academy.dto.account.CreateAccountDTO" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.SERVICE_CENTERS" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -96,7 +95,7 @@
         </div>
 
         <form action="main" method="get" id="cancel">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_PAGE%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MAIN_PAGE%>">
             <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=tableCommand%>">
             <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
             <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">

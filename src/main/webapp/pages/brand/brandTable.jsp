@@ -2,7 +2,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
@@ -15,7 +15,7 @@
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<BrandDTO> data = (ListForPage<BrandDTO>) request.getAttribute(LIST_FOR_PAGE);
+            TablePage<BrandDTO> data = (TablePage<BrandDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             String tablePage = data.getPage();
             List<BrandDTO> list = data.getList();

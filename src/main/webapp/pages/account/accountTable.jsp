@@ -1,6 +1,6 @@
 <%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT" %>
@@ -12,7 +12,7 @@
 
         <%
             RoleEnum role = ((AccountDTO) request.getSession().getAttribute(ACCOUNT)).getRole();
-            ListForPage<AccountDTO> data = (ListForPage<AccountDTO>) request.getSession().getAttribute(LIST_FOR_PAGE);
+            TablePage<AccountDTO> data = (TablePage<AccountDTO>) request.getSession().getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             List<AccountDTO> list = data.getList();
             String tablePage = data.getPage();

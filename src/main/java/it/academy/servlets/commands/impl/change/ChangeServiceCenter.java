@@ -5,7 +5,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.get.tables.ShowServiceCenterTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;

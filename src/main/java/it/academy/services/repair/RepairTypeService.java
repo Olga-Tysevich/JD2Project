@@ -1,7 +1,7 @@
 package it.academy.services.repair;
 
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.dto.ListForPage;
+import it.academy.dto.TablePage;
 
 import java.util.List;
 
@@ -17,6 +17,6 @@ public interface RepairTypeService {
 
     List<RepairTypeDTO> findRepairTypes();
 
-    ListForPage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input);
+    TablePage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input);
 
 }

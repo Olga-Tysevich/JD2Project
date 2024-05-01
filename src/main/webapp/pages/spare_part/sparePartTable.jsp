@@ -6,7 +6,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
-<%@ page import="it.academy.dto.ListForPage" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SPARE_PART" %>
 <section>
     <div class="container t-container">
@@ -14,7 +14,7 @@
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            ListForPage<SparePartDTO> data = (ListForPage<SparePartDTO>) request.getAttribute(LIST_FOR_PAGE);
+            TablePage<SparePartDTO> data = (TablePage<SparePartDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = data.getPageNumber();
             List<SparePartDTO> spareParts = data.getList();
             String tablePage = data.getPage();

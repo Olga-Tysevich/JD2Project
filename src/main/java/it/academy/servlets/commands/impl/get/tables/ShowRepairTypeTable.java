@@ -1,7 +1,7 @@
-package it.academy.servlets.commands.impl.show.tables;
+package it.academy.servlets.commands.impl.get.tables;
 
-import it.academy.dto.ListForPage;
-import it.academy.dto.TableReq;
+import it.academy.dto.TablePage;
+import it.academy.dto.TablePageReq;
 import it.academy.dto.account.AccountDTO;
 import it.academy.dto.repair.RepairTypeDTO;
 import it.academy.services.repair.RepairTypeService;
@@ -25,8 +25,8 @@ public class ShowRepairTypeTable extends ShowTable {
 
         AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
 
-        TableReq dataForPage = Extractor.extractDataForTable(req);
-        ListForPage<RepairTypeDTO> repairTypes = repairTypeService.findRepairTypes(
+        TablePageReq dataForPage = Extractor.extractDataForTable(req);
+        TablePage<RepairTypeDTO> repairTypes = repairTypeService.findRepairTypes(
                 dataForPage.getPageNumber(),
                 dataForPage.getFilter(),
                 dataForPage.getInput());

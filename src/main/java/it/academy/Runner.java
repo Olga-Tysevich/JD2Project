@@ -29,6 +29,7 @@ import it.academy.utils.converters.impl.DeviceTypeConverter;
 import it.academy.utils.converters.impl.RepairTypeConverter;
 import it.academy.utils.converters.impl.ServiceCenterConverter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;

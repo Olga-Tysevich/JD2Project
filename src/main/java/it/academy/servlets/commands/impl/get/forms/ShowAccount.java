@@ -1,6 +1,6 @@
-package it.academy.servlets.commands.impl.show.forms;
+package it.academy.servlets.commands.impl.get.forms;
 
-import it.academy.dto.TableReq;
+import it.academy.dto.TablePageReq;
 import it.academy.dto.account.AccountDTO;
 import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
@@ -52,7 +52,7 @@ public class ShowAccount implements ActionCommand {
 
         CreateAccountDTO createAccountDTO = Builder.buildEmptyAccount();
         List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
-            TableReq pageData = Extractor.extract(req, new TableReq());
+            TablePageReq pageData = Extractor.extract(req, new TablePageReq());
             log.info(OBJECT_EXTRACTED_PATTERN, pageData);
             req.setAttribute(ACCOUNT, createAccountDTO);
             req.setAttribute(SERVICE_CENTERS, serviceCenterList);
