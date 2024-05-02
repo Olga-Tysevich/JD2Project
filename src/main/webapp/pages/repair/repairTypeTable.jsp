@@ -2,20 +2,18 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+<%@ page import="it.academy.dto.TablePage2" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage<RepairTypeDTO> data = (TablePage<RepairTypeDTO>) request.getAttribute(TABLE_PAGE);
-            int pageNumber = data.getPageNumber();
-            String tablePage = data.getPage();
+            TablePage2<RepairTypeDTO> data = (TablePage2<RepairTypeDTO>) request.getAttribute(TABLE_PAGE);
             List<RepairTypeDTO> list = data.getList();
         %>
 
@@ -46,8 +44,8 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairType.getId()%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
+<%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
+<%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=repairType.getIsActive()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
@@ -55,8 +53,8 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_REPAIR_TYPE%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairType.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+<%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
+<%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
                         <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                 </td>
@@ -70,8 +68,8 @@
             <form action="main" method="post" id="addRepairType">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_REPAIR_TYPE%>">
                 <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=true%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+<%--                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
+<%--                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
 
                 <div class="f-input">
                     <label class="form-el">Описание</label>

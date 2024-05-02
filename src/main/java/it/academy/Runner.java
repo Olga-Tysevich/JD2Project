@@ -29,7 +29,6 @@ import it.academy.utils.converters.impl.DeviceTypeConverter;
 import it.academy.utils.converters.impl.RepairTypeConverter;
 import it.academy.utils.converters.impl.ServiceCenterConverter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -107,16 +106,16 @@ public class Runner {
                     .isActive(true)
                     .name(Generator.generateModelName())
                     .build();
-            modelService.createModel(changeModelDTO);
+            modelService.create(changeModelDTO);
         });
 
         IntStream.range(0, MAX_SIZE)
                 .forEach(i -> {
                     RepairTypeDTO repairTypeDTO = repairTypeConverter.convertToDTO(Generator.generateRepairType());
-                    repairTypeService.createRepairType(repairTypeDTO);
+                    repairTypeService.create(repairTypeDTO);
                 });
 
-        List<ModelDTO> modelList = modelService.findModels();
+        List<ModelDTO> modelList = modelService.findAll();
 
         IntStream.range(0, MAX_SIZE)
                 .forEach(i -> {

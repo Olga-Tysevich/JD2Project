@@ -26,7 +26,7 @@ import static it.academy.utils.constants.JSPConstant.NEW_ACCOUNT_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
 @Slf4j
-public class ShowAccount implements ActionCommand {
+public class GetAccount implements ActionCommand {
     private AccountService accountService = new AccountServiceImpl();
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
@@ -34,11 +34,10 @@ public class ShowAccount implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
-            CommandHelper.checkRole(req);
             CommandEnum command = CommandEnum.valueOf(req.getParameter(COMMAND));
             switch (command) {
-                case SHOW_NEW_ACCOUNT: return showNewAccount(req);
-                case SHOW_ACCOUNT: return showAccount(req);
+                case GET_NEW_ACCOUNT: return showNewAccount(req);
+                case GET_ACCOUNT: return showAccount(req);
                 default: return ADMIN_MAIN_PAGE_PATH;
             }
         } catch (ObjectNotFound e) {
@@ -49,7 +48,8 @@ public class ShowAccount implements ActionCommand {
     }
 
     private String showNewAccount(HttpServletRequest req) {
-
+        System.out.println("in get new account");
+        CommandHelper.checkRole(req);
         CreateAccountDTO createAccountDTO = Builder.buildEmptyAccount();
         List<ServiceCenterDTO> serviceCenterList = serviceCenterService.findServiceCenters();
             TablePageReq pageData = Extractor.extract(req, new TablePageReq());
@@ -60,11 +60,11 @@ public class ShowAccount implements ActionCommand {
     }
 
     private String showAccount(HttpServletRequest req) {
+        System.out.println("in get account");
         long accountId = Long.parseLong(req.getParameter(OBJECT_ID));
-
         AccountDTO account = accountService.findAccount(accountId);
         req.setAttribute(ACCOUNT, account);
-        return insertAttributes(req, ACCOUNT_PAGE_PATH, CHANGE_ACCOUNT);
+        return CommandHelper.insertFormData(req, ACCOUNT_PAGE_PATH, CHANGE_ACCOUNT);
     }
 
     private String insertAttributes(HttpServletRequest req, String pagePath, CommandEnum command) {

@@ -34,7 +34,6 @@ public class LoginCommand implements ActionCommand {
 
             req.getSession().setAttribute(ACCOUNT, accountDTO);
             req.getSession().setAttribute(ROLE, accountDTO.getRole());
-            req.getSession().setAttribute(MAIN_PAGE_PATH, mainPagePath);
 
             return mainPagePath;
         } catch (UserNotFound | IncorrectPassword | UserIsBlocked e) {

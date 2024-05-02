@@ -30,7 +30,7 @@ public class AddSparePart implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in add spare pert");
         CommandHelper.checkRole(req);
         ChangeSparePartDTO forCreate = Extractor.extract(req, new ChangeSparePartDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);

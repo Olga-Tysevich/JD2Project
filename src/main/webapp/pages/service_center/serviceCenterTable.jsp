@@ -3,7 +3,7 @@
 <%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
 <%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="java.util.List" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SERVICE_CENTER" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_SERVICE_CENTER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SERVICE_CENTER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
@@ -39,7 +39,7 @@
                 </td>
                 <td class="code">
                     <form action="repair" method="post" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">

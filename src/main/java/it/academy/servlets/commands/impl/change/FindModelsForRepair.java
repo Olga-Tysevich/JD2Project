@@ -1,6 +1,5 @@
 package it.academy.servlets.commands.impl.change;
 
-import it.academy.dto.repair.ChangeRepairFormDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.repair.RepairFormDTO;
 import it.academy.services.repair.RepairService;
@@ -10,8 +9,8 @@ import it.academy.servlets.extractors.Extractor;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static it.academy.utils.constants.Constants.CHANGE_REPAIR_FORM;
-import static it.academy.utils.constants.Constants.PAGE;
+
+import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
 @Slf4j
@@ -27,9 +26,9 @@ public class FindModelsForRepair implements ActionCommand {
         log.info(OBJECT_EXTRACTED_PATTERN, repair);
 
         RepairFormDTO repairForm = repairService.getRepairFormData(brandId);
-        ChangeRepairFormDTO changeRepairFormDTO = new ChangeRepairFormDTO(repair, repairForm);
+        repairForm.setRepairDTO(repair);
 
-        req.setAttribute(CHANGE_REPAIR_FORM, changeRepairFormDTO);
+        req.setAttribute(REPAIR_FORM, repairForm);
 
         return formPagePath;
     }

@@ -14,12 +14,11 @@ import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
 @Slf4j
-public class ShowDeviceTypeTable extends ShowTable {
+public class GetDeviceTypeTable extends ShowTable {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
 
         TablePageReq dataForPage = Extractor.extractDataForTable(req);

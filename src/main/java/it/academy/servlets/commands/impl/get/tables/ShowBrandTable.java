@@ -20,7 +20,7 @@ public class ShowBrandTable extends ShowTable {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in show brand table");
         CommandHelper.checkRole(req);
 
         TablePageReq dataForPage = Extractor.extractDataForTable(req);

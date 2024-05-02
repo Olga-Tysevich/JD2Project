@@ -1,4 +1,3 @@
-<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
@@ -6,18 +5,16 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL" %>
-<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_MODEL" %>
+<%@ page import="it.academy.dto.TablePage2" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage<ModelDTO> data = (TablePage<ModelDTO>) request.getAttribute(TABLE_PAGE);
-            int pageNumber = data.getPageNumber();
+            TablePage2<ModelDTO> data = (TablePage2<ModelDTO>) request.getAttribute(TABLE_PAGE);
             List<ModelDTO> models = data.getList();
-            String tablePage = data.getPage();
         %>
 
         <table>
@@ -47,8 +44,6 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=model.getIsActive()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
@@ -56,8 +51,6 @@
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_MODEL%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                 </td>

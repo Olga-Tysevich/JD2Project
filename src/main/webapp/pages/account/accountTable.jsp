@@ -3,7 +3,7 @@
 <%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_ACCOUNT" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_ACCOUNT" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -45,7 +45,7 @@
                 <td class="code">
                     <% if (RoleEnum.ADMIN.equals(role)) { %>
                     <form action="repair" method="post" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_ACCOUNT%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=GET_ACCOUNT%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
                         <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                         <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">

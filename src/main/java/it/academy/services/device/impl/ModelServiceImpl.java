@@ -6,13 +6,12 @@ import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
+import it.academy.dto.TablePage2;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ChangeModelDTO;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.TablePage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.device.ModelForChangeDTO;
-import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.DeviceType;
 import it.academy.entities.device.Model;
@@ -23,17 +22,18 @@ import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.DeviceTypesNotFound;
 import it.academy.services.device.ModelService;
 import it.academy.utils.Builder;
+import it.academy.utils.PageCounter;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.constants.LoggerConstants;
 import it.academy.utils.converters.impl.BrandConverter;
 import it.academy.utils.converters.impl.DeviceTypeConverter;
 import it.academy.utils.converters.impl.ModelConverter;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.function.Supplier;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -50,7 +50,7 @@ public class ModelServiceImpl implements ModelService {
             new ServiceHelper<>(modelDAO, Model.class, modelConverter, transactionManger);
 
     @Override
-    public void createModel(ChangeModelDTO modelDTO) throws AccessDenied {
+    public void create(ChangeModelDTO modelDTO) throws AccessDenied {
         Model model = modelConverter.convertToEntity(modelDTO);
         Supplier<Model> create = () -> {
             Brand brand = brandDAO.find(modelDTO.getBrandId());
@@ -66,7 +66,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public void updateModel(ChangeModelDTO modelDTO) throws AccessDenied {
+    public void update(ChangeModelDTO modelDTO) throws AccessDenied {
         Model model = modelConverter.convertToEntity(modelDTO);
         Supplier<Model> create = () -> {
             Brand brand = brandDAO.find(modelDTO.getBrandId());
@@ -81,12 +81,12 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public void deleteModel(long id) {
+    public void delete(long id) {
         modelHelper.delete(id);
     }
 
     @Override
-    public ModelForChangeDTO getModelForm() {
+    public ModelForChangeDTO getForm() {
         return transactionManger.execute(() -> {
             ModelDTO modelDTO = Builder.buildEmptyModel();
             ModelForChangeDTO modelForChangeDTO = findDataForForm();
@@ -97,7 +97,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public ModelForChangeDTO getModelForm(long id) {
+    public ModelForChangeDTO getForm(long id) {
         return transactionManger.execute(() -> {
             Model model = modelDAO.find(id);
             if (model == null) {
@@ -124,28 +124,46 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public List<ModelDTO> findModels() {
+    public List<ModelDTO> findAll() {
         return modelHelper.findAll();
     }
 
 
     @Override
-    public TablePage<ModelDTO> findModels(int pageNumber, String filter, String input) {
-        if (BRAND.equals(filter) || DEVICE_TYPE_FILTER.equals(filter)) {
-            transactionManger.beginTransaction();
-            long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
-            Supplier<List<Model>> find = () -> modelDAO.findAccountsByComponent(filter, input, pageNumber, LIST_SIZE);
-            List<Model> serviceCenter = modelHelper.getList(find, Model.class);
-            List<EntityFilter> filters = FilterManager.getFiltersForModel();
-            List<ModelDTO> listDTO = modelConverter.convertToDTOList(serviceCenter);
-            log.info(OBJECTS_FOUND_PATTERN, serviceCenter.size(), ServiceCenter.class);
-            transactionManger.commit();
-            return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
-        }
-        return modelHelper.find(pageNumber, filter, input);
+    public TablePage2<ModelDTO> findForPage(int pageNumber) {
+        Supplier<TablePage2<ModelDTO>> find = () -> {
+            long numberOfEntries = modelDAO.getNumberOfEntries();
+            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<Model> models = modelDAO.findForPage(pageNumberForSearch, LIST_SIZE);
+            List<ModelDTO> listDTO = modelConverter.convertToDTOList(models);
+            return new TablePage2<>(listDTO, numberOfEntries);
+        };
+        return transactionManger.execute(find);
     }
 
+    @Override
+    public TablePage2<ModelDTO> findByName(int pageNumber, String input) {
+        Supplier<TablePage2<ModelDTO>> find = () -> {
+            long numberOfEntries = modelDAO.getNumberOfEntriesByFilter(OBJECT_NAME, input);
+            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<Model> models = modelDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, OBJECT_NAME, input);
+            List<ModelDTO> listDTO = modelConverter.convertToDTOList(models);
+            return new TablePage2<>(listDTO, numberOfEntries);
+        };
+        return transactionManger.execute(find);
+    }
+
+    @Override
+    public TablePage2<ModelDTO> findByComponentName(int pageNumber, String filter, String input) {
+        Supplier<TablePage2<ModelDTO>> find = () -> {
+            long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);
+            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<Model> models = modelDAO.findByComponent(filter, input, pageNumberForSearch, LIST_SIZE);
+            List<ModelDTO> listDTO = modelConverter.convertToDTOList(models);
+            return new TablePage2<>(listDTO, numberOfEntries);
+        };
+        return transactionManger.execute(find);
+    }
 
     private void checkIfComponentsAdded() {
         if (brandDAO.getNumberOfEntries() == 0) {

@@ -1,6 +1,6 @@
 package it.academy.servlets.commands.impl.get.forms;
 
-import it.academy.dto.repair.ChangeRepairFormDTO;
+import it.academy.dto.repair.RepairFormDTO;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.ModelNotFound;
 import it.academy.services.repair.RepairService;
@@ -21,11 +21,11 @@ public class GetRepair implements ActionCommand {
 
         try {
             long repairId = Extractor.extractLongVal(req, OBJECT_ID, DEFAULT_ID);
-            ChangeRepairFormDTO changeRepairForm = repairService.findRepair(repairId);
+            RepairFormDTO changeRepairForm = repairService.findRepair(repairId);
             long brandId = changeRepairForm.getRepairDTO().getBrandId();
 
             req.setAttribute(BRAND_ID, brandId);
-            req.setAttribute(CHANGE_REPAIR_FORM, changeRepairForm);
+            req.setAttribute(REPAIR_FORM, changeRepairForm);
 
             return REPAIR_PAGE_PATH;
 

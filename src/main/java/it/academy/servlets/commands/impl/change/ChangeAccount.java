@@ -26,9 +26,8 @@ public class ChangeAccount implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in change account");
         AccountDTO currentAccount = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        CommandHelper.checkRole(req);
 
         try {
             ChangeAccountDTO forUpdate = Extractor.extract(req, new ChangeAccountDTO());

@@ -19,7 +19,7 @@ public class ShowBrand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in show brand");
         CommandHelper.checkRole(req);
 
         long brandId = Long.parseLong(req.getParameter(OBJECT_ID));

@@ -21,7 +21,7 @@ public class ShowModel implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in show Model");
         CommandHelper.checkRole(req);
         CommandEnum command = CommandEnum.valueOf(req.getParameter(COMMAND));
         switch (command) {
@@ -36,7 +36,7 @@ public class ShowModel implements ActionCommand {
 
     private String showNewModel(HttpServletRequest req) {
         try {
-            ModelForChangeDTO model = modelService.getModelForm();
+            ModelForChangeDTO model = modelService.getForm();
             req.setAttribute(MODEL, model);
             req.setAttribute(COMMAND, ADD_MODEL);
             return insertAttributes(req, ADD_MODEL);
@@ -48,7 +48,7 @@ public class ShowModel implements ActionCommand {
 
     private String showModel(HttpServletRequest req) {
         long modelId = Long.parseLong(req.getParameter(OBJECT_ID));
-        ModelForChangeDTO model = modelService.getModelForm(modelId);
+        ModelForChangeDTO model = modelService.getForm(modelId);
 
         req.setAttribute(MODEL, model);
         req.setAttribute(COMMAND, CHANGE_MODEL);
@@ -61,7 +61,7 @@ public class ShowModel implements ActionCommand {
                 MODEL_TABLE_PAGE_PATH,
                 MODEL_PAGE_PATH,
                 command,
-                SHOW_MODEL_TABLE);
+                GET_MODELS);
     }
 
 }

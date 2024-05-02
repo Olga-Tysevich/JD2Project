@@ -1,5 +1,6 @@
 package it.academy.servlets.commands.impl.get.tables;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.TablePageReq;
 import it.academy.dto.account.AccountDTO;
 import it.academy.dto.TablePage;
@@ -20,16 +21,16 @@ public class ShowAccountTable implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in show account table");
         CommandHelper.checkRole(req);
         TablePageReq dataForPage = Extractor.extractDataForTable(req);
 
-        TablePage<AccountDTO> accounts = accountService.findAccounts(
+        TablePage2<AccountDTO> accounts = accountService.findAccounts(
                 dataForPage.getPageNumber(),
                 dataForPage.getFilter(),
                 dataForPage.getInput());
 
-        CommandHelper.setTableData(req, dataForPage, accounts);
+        CommandHelper.insertTableData(req, dataForPage, accounts);
         log.info(CURRENT_TABLE, accounts);
         return ADMIN_MAIN_PAGE_PATH;
     }

@@ -28,7 +28,7 @@ public class ChangeSparePart extends AddSparePart {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in change spare part");
         CommandHelper.checkRole(req);
         ChangeSparePartDTO forUpdate = Extractor.extract(req, new ChangeSparePartDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);

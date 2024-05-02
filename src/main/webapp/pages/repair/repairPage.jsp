@@ -7,7 +7,6 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="it.academy.dto.repair.ChangeRepairFormDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_ORDER" %>
@@ -28,14 +27,13 @@
             <%
             AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
             RoleEnum role = currentAccount.getRole();
-            ChangeRepairFormDTO changeRepairForm = (ChangeRepairFormDTO) request.getAttribute(CHANGE_REPAIR_FORM);
-            RepairFormDTO repairForm = changeRepairForm.getRepairFormDTO();
+            RepairFormDTO repairForm = (RepairFormDTO) request.getAttribute(REPAIR_FORM);
             Map<Long, String> serviceCenters = repairForm.getServiceCenters();
             List<BrandDTO> brands = repairForm.getBrands();
             List<ModelDTO> models = repairForm.getModels();
             List<RepairStatus> statuses = List.of(RepairStatus.values());
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
-            RepairDTO repairDTO = changeRepairForm.getRepairDTO();
+            RepairDTO repairDTO = repairForm.getRepairDTO();
         %>
 
         <div class="lr-container">
@@ -192,14 +190,13 @@
                     %>
                     <p class="error" id="error" style="display: none"><%=errorMessage%></p>
                 </div>
+            </form>
 
                 <div class="button-container">
                     <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
                     <button class="button"
                             onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
                 </div>
-
-            </form>
     </div>
 </section>
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>

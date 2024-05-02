@@ -19,7 +19,7 @@ public class ShowServiceCenterTable extends ShowTable {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in show service center table");
         CommandHelper.checkRole(req);
 
         TablePageReq dataForPage = Extractor.extractDataForTable(req);

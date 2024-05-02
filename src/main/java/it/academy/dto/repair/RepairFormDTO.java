@@ -1,7 +1,6 @@
 package it.academy.dto.repair;
 
 import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.device.ModelDTO;
 import lombok.*;
 import java.util.List;
@@ -23,5 +22,7 @@ public class RepairFormDTO {
     private List<ModelDTO> models;
 
     private Long currentBrandId;
+
+    private RepairDTO repairDTO;
 
 }

@@ -1,22 +1,24 @@
 package it.academy.services.repair;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.dto.TablePage;
 
 import java.util.List;
 
 public interface RepairTypeService {
 
-    void createRepairType(RepairTypeDTO repairTypeDTO);
+    void create(RepairTypeDTO repairTypeDTO);
 
-    void updateRepairType(RepairTypeDTO repairTypeDTO);
+    void update(RepairTypeDTO repairTypeDTO);
 
-    void deleteRepairType(long id);
+    void delete(long id);
 
-    RepairTypeDTO findRepairType(long id);
+    RepairTypeDTO find(long id);
 
-    List<RepairTypeDTO> findRepairTypes();
+    List<RepairTypeDTO> findAll();
 
-    TablePage<RepairTypeDTO> findRepairTypes(int pageNumber, String filter, String input);
+    TablePage2<RepairTypeDTO> findForPage(int pageNumber);
+
+    TablePage2<RepairTypeDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

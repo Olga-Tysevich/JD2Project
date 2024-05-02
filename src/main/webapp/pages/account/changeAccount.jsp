@@ -7,21 +7,23 @@
             AccountDTO account = (AccountDTO) request.getAttribute(ACCOUNT);
         %>
 
+
+            <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=account.getServiceCenterId()%>">
              <input type="hidden" name="<%=ROLE%>" value="<%=account.getRole()%>">
-                    <% if (!RoleEnum.ADMIN.equals(account.getRole())) { %>
-                    <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=account.getServiceCenterId()%>">
-                    <% } %>
-                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
-                </div>
-                <div class="f-input">
-                    <div class="radio-container-rp">
-                        <label >Активный: </label>
-                        <label >да: </label>
-                        <input type="radio" name="<%=IS_ACTIVE%>"  value="true" <%if (account.getIsActive()) {%>checked<%}%> />
-                        <label >нет: </label>
-                        <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!account.getIsActive()) {%>checked<%}%>/>
+                    <% if (RoleEnum.ADMIN.equals(account.getRole())) { %>
                     </div>
-                </div>
+                    <div class="f-input">
+                        <div class="radio-container-rp">
+                            <label >Активный: </label>
+                            <label >да: </label>
+                            <input type="radio" name="<%=IS_ACTIVE%>"  value="true" <%if (account.getIsActive()) {%>checked<%}%> />
+                            <label >нет: </label>
+                            <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!account.getIsActive()) {%>checked<%}%>/>
+                        </div>
+                    </div>
+                    <% }%>
+                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
+
 
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
@@ -49,5 +51,11 @@
                 <div class="f-input">
                     <label class="form-el">Установить новый пароль:</label>
                     <input class="f-form" type="password" placeholder="Введите пароль" name="<%=PASSWORD%>" value=""
+                           pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
+                </div>
+
+                <div class="f-input">
+                    <label class="form-el">Подтвердить пароль:</label>
+                    <input class="f-form" type="password" placeholder="Подтвердите пароль" name="<%=PASSWORD%>" value=""
                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
                 </div>

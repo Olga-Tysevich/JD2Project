@@ -12,7 +12,7 @@ public interface RepairService {
 
     void updateRepair(RepairDTO repairDTO);
 
-    ChangeRepairFormDTO findRepair(long id);
+    RepairFormDTO findRepair(long id);
 
     TablePage2<RepairDTO> findRepairs(int pageNumber);
 

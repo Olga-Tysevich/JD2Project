@@ -1,7 +1,7 @@
 package it.academy.services.device;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.device.ChangeModelDTO;
-import it.academy.dto.TablePage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.device.ModelForChangeDTO;
 
@@ -9,17 +9,21 @@ import java.util.List;
 
 public interface ModelService {
 
-    void createModel(ChangeModelDTO model);
+    void create(ChangeModelDTO model);
 
-    void updateModel(ChangeModelDTO model);
+    void update(ChangeModelDTO model);
 
-    void deleteModel(long id);
+    void delete(long id);
 
-    ModelForChangeDTO getModelForm();
+    ModelForChangeDTO getForm();
 
-    ModelForChangeDTO getModelForm(long id);
+    ModelForChangeDTO getForm(long id);
 
-    List<ModelDTO> findModels();
+    List<ModelDTO> findAll();
 
-    TablePage<ModelDTO> findModels(int pageNumber, String filter, String input);
+    TablePage2<ModelDTO> findForPage(int pageNumber);
+
+    TablePage2<ModelDTO> findByName(int pageNumber, String input);
+
+    TablePage2<ModelDTO> findByComponentName(int pageNumber, String filter, String input);
 }

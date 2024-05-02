@@ -1,5 +1,4 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -25,23 +24,21 @@
 
                 <%pageContext.include(formPage);%>
 
-
                 <div class="f-input">
                     <%
                         String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
                     %>
                     <p class="error" id="error" style="display: none"><%=errorMessage%></p>
                 </div>
+            </form>
 
                 <div class="button-container">
                     <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
+
                     <button class="button"
                             onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
                 </div>
-
-            </form>
         </div>
-
 
     </div>
 </section>

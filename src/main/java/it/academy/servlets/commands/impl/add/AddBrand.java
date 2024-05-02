@@ -21,7 +21,7 @@ public class AddBrand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in add brand");
         CommandHelper.checkRole(req);
         BrandDTO forCreate = Extractor.extract(req, new BrandDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);

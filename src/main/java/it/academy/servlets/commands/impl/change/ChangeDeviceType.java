@@ -5,7 +5,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.DeviceTypeService;
 import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.tables.ShowDeviceTypeTable;
+import it.academy.servlets.commands.impl.get.tables.GetDeviceTypeTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class ChangeDeviceType implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in change device type");
         CommandHelper.checkRole(req);
         DeviceTypeDTO forUpdate = Extractor.extract(req, new DeviceTypeDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
@@ -40,7 +40,7 @@ public class ChangeDeviceType implements ActionCommand {
                     CHANGE_DEVICE_TYPE,
                     SHOW_DEVICE_TYPE_TABLE);
         }
-        return new ShowDeviceTypeTable().execute(req, resp);
+        return new GetDeviceTypeTable().execute(req, resp);
 
     }
 

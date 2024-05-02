@@ -6,14 +6,14 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.device.ModelService;
 import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.tables.ShowModelTable;
+import it.academy.servlets.commands.impl.get.tables.GetModels;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.servlets.commands.factory.CommandEnum.ADD_MODEL;
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_MODEL_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.GET_MODELS;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.MODEL_PAGE_PATH;
 import static it.academy.utils.constants.JSPConstant.MODEL_TABLE_PAGE_PATH;
@@ -25,25 +25,25 @@ public class AddModel implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in add model");
         CommandHelper.checkRole(req);
 
         ChangeModelDTO forCreate = Extractor.extract(req, new ChangeModelDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
 
         try {
-            modelService.createModel(forCreate);
+            modelService.create(forCreate);
         } catch (ObjectAlreadyExist e) {
-            ModelForChangeDTO model = modelService.getModelForm();
+            ModelForChangeDTO model = modelService.getForm();
             req.setAttribute(MODEL, model);
             req.setAttribute(ERROR, e.getMessage());
             return CommandHelper.insertFormData(req,
                     MODEL_TABLE_PAGE_PATH,
                     MODEL_PAGE_PATH,
                     ADD_MODEL,
-                    SHOW_MODEL_TABLE);
+                    GET_MODELS);
         }
-        return new ShowModelTable().execute(req, resp);
+        return new GetModels().execute(req, resp);
     }
 
 }

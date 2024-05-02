@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_NEW_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_ACCOUNT_TABLE" %>
 <%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
@@ -72,7 +72,7 @@
             <fieldset class="f1">
                 <legend>Компания</legend>
                 <form action="account" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_ACCOUNT%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_NEW_ACCOUNT%>">
                     <input class="button button-fieldset" type="submit" value="Добавить аккаунт"/>
                 </form>
 
@@ -87,7 +87,7 @@
             <fieldset class="f1">
                 <legend>Сервисные центры</legend>
                 <form  action="account" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTER%>">
                     <input class="button button-fieldset" type="submit" value="Добавить сервисный центр"/>
                 </form>
                 <form  action="account" method="post">
@@ -101,7 +101,7 @@
             <fieldset class="f1">
                 <legend>Текущий аккаунт</legend>
                 <form  action="account" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTER%>">
 <%--                    <input type="hidden" name="<%=OBJECT_ID%>>" value="<%=accountDTO.getServiceCenter().getId()%>">--%>
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                     <input class="button button-fieldset" type="submit" value="Изменить учетные данные"/>
@@ -119,7 +119,7 @@
                 </form>
 
                 <form  action="brands" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MODEL_TABLE%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_MODELS%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список моделей"/>
@@ -165,7 +165,7 @@
                 </form>
 
                 <form  action="brands" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE_TABLE%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_REPAIR_TYPE_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TYPE_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список типов ремонта"/>

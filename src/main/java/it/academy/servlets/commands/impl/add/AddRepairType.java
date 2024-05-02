@@ -5,7 +5,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.repair.RepairTypeService;
 import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.tables.ShowRepairTypeTable;
+import it.academy.servlets.commands.impl.get.tables.GetRepairTypeTable;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,17 +22,17 @@ public class AddRepairType implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in add repairType");
         CommandHelper.checkRole(req);
         RepairTypeDTO forCreate = Extractor.extract(req, new RepairTypeDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
 
         try {
-            repairTypeService.createRepairType(forCreate);
+            repairTypeService.create(forCreate);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
         }
-        return new ShowRepairTypeTable().execute(req, resp);
+        return new GetRepairTypeTable().execute(req, resp);
     }
 
 }

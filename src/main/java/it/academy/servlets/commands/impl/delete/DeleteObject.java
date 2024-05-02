@@ -65,19 +65,19 @@ public class DeleteObject implements ActionCommand {
     private String deleteDeviceType(long id, HttpServletRequest req, HttpServletResponse resp) {
         DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
         deviceTypeService.deleteDeviceType(id);
-        return new ShowDeviceTypeTable().execute(req, resp);
+        return new GetDeviceTypeTable().execute(req, resp);
     }
 
     private String deleteModel(long id, HttpServletRequest req, HttpServletResponse resp) {
         ModelService modelService = new ModelServiceImpl();
-        modelService.deleteModel(id);
-        return new ShowModelTable().execute(req, resp);
+        modelService.delete(id);
+        return new GetModels().execute(req, resp);
     }
 
     private String deleteRepairType(long id, HttpServletRequest req, HttpServletResponse resp) {
         RepairTypeService repairTypeService = new RepairTypeServiceImpl();
-        repairTypeService.deleteRepairType(id);
-        return new ShowRepairTypeTable().execute(req, resp);
+        repairTypeService.delete(id);
+        return new GetRepairTypeTable().execute(req, resp);
     }
 
     private String deleteServiceCenter(long id, HttpServletRequest req, HttpServletResponse resp) {

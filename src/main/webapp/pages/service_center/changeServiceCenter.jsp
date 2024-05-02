@@ -1,12 +1,15 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
     <%
         ServiceCenterDTO serviceCenter = (ServiceCenterDTO) request.getAttribute(SERVICE_CENTER);
+        RoleEnum role = (RoleEnum) request.getSession().getAttribute(ROLE);
     %>
 
-    <% if (serviceCenter.getId() != null) {%>
+    <% if (serviceCenter.getId() != null && RoleEnum.ADMIN.equals(role)) {%>
     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
     <div class="f-input">
         <div class="radio-container-rp">
@@ -17,11 +20,16 @@
             <input type="radio" name="<%=IS_ACTIVE%>"  value="false" <%if (!serviceCenter.getIsActive()) {%>checked<%}%>/>
         </div>
     </div>
-    <%} %>
+
     <div class="f-input">
         <label class="form-el">Сервисное имя:</label>
         <input class="f-form" required type="text" name="<%=SERVICE_CENTER_NAME%>" value="<%=serviceCenter.getServiceName()%>">
     </div>
+    <%} else {%>
+        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
+        <input type="hidden" name="<%=SERVICE_CENTER_NAME%>" value="<%=serviceCenter.getServiceName()%>">
+        <input type="hidden" name="<%=IS_ACTIVE%>"  value="<%=serviceCenter.getIsActive()%>">
+    <%}%>
 
     <div class="f-input">
         <label class="form-el">Банк:</label>

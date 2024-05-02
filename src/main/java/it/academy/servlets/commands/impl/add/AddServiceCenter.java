@@ -24,7 +24,7 @@ public class AddServiceCenter implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+        System.out.println("in add serviceCenter");
         CommandHelper.checkRole(req);
         ServiceCenterDTO forCreate = Extractor.extract(req, new ServiceCenterDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);

@@ -21,13 +21,13 @@ public class ShowRepairType implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         long repairTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
-        RepairTypeDTO repairType = repairTypeService.findRepairType(repairTypeId);
+        RepairTypeDTO repairType = repairTypeService.find(repairTypeId);
 
         req.setAttribute(REPAIR_TYPE, repairType);
         return CommandHelper.insertFormData(req,
                 REPAIR_TYPE_TABLE_PAGE_PATH,
                 REPAIR_TYPE_PAGE_PATH,
                 CHANGE_REPAIR_TYPE,
-                SHOW_REPAIR_TYPE_TABLE);
+                GET_REPAIR_TYPE_TABLE);
     }
 }

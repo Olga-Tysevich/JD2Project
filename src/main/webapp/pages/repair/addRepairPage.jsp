@@ -6,7 +6,6 @@
 <%@ page import="it.academy.utils.enums.RepairCategory" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.ADD_REPAIR_PAGE_PATH" %>
-<%@ page import="it.academy.dto.repair.ChangeRepairFormDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_REPAIR" %>
@@ -23,9 +22,8 @@
 
         <%
             AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
-            ChangeRepairFormDTO changeRepairForm = (ChangeRepairFormDTO) request.getAttribute(CHANGE_REPAIR_FORM);
-            RepairFormDTO repairForm = changeRepairForm.getRepairFormDTO();
-            RepairDTO repairDTO = changeRepairForm.getRepairDTO();
+            RepairFormDTO repairForm = (RepairFormDTO) request.getAttribute(REPAIR_FORM);
+            RepairDTO repairDTO = repairForm.getRepairDTO();
             List<BrandDTO> brands = repairForm.getBrands();
             List<ModelDTO> models = repairForm.getModels();
             List<RepairCategory> categoryList = List.of(RepairCategory.values());
@@ -132,6 +130,7 @@
             %>
             <p class="error" id="error" style="display: none"><%=errorMessage%></p>
         </div>
+     </form>
 
         <div class="button-container">
             <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
@@ -139,7 +138,6 @@
                     onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
         </div>
 
-        </form>
     </div>
 </section>
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>

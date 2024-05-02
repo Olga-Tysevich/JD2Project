@@ -18,14 +18,6 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     }
 
     @Override
-    public List<Model> findAllByBrandId(long brandId) {
-        return entityManager()
-                .createQuery(FIND_MODEL_BY_BRAND_ID, Model.class)
-                .setParameter(BRAND_ID, brandId)
-                .getResultList();
-    }
-
-    @Override
     public List<Model> findActiveByBrandId(long brandId) {
         return entityManager()
                 .createQuery(FIND_ACTIVE_MODEL_BY_BRAND_ID, Model.class)
@@ -46,7 +38,7 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     }
 
     @Override
-    public List<Model> findAccountsByComponent(String componentName, String input, int pageNumber, int listSize) {
+    public List<Model> findByComponent(String componentName, String input, int pageNumber, int listSize) {
         CriteriaQuery<Model> find = criteriaBuilder().createQuery(Model.class);
         Root<Model> root = find.from(Model.class);
 
