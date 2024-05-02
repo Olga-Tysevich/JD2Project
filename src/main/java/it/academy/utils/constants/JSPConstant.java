@@ -40,6 +40,7 @@ public class JSPConstant {
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
 
     //sparePartOrder
+    public static final String ADD_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/addSparePartOrder.jsp";
     public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
     public static final String SPARE_PART_ORDER_TABLE_PAGE_PATH = "/pages/spare_part_order/sparePartOrdersTable.jsp";
 
@@ -63,6 +64,7 @@ public class JSPConstant {
 
     public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d&&filter=%s&&input=%s";
     public static final String OPEN_FORM_PAGE = "main?command=%s";
+    public static final String OPEN_REPAIR_FORM = "repair?command=%s&&id=%d";
 
 
 }

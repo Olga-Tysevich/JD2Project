@@ -1,9 +1,9 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART_ORDER" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_REPAIR_FORM" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -19,20 +19,17 @@
 
             <%
                 long repairId = (long) request.getAttribute(OBJECT_ID);
-                String tablePage = (String) request.getAttribute(PAGE);
-                int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
                 List<SparePartDTO> spareParts = (List<SparePartDTO>) request.getAttribute(SPARE_PARTS);
+                String repairNumber = (String) request.getAttribute(REPAIR_NUMBER);
             %>
 
 
             <div class="form-container r-form">
                 <form class="rc-form" action="repair" method="post" id="addSparePartOrder">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                    <input type="hidden" name="<%=ORDER_REPAIR_ID%>" value="<%=repairId%>">
+                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>" id="repairId">
                     <div class="f-input">
-                        <div class="form-el">Заказ запчастей для ремонта No.<%=REPAIR_NUMBER%></div>
+                        <div class="form-el">Заказ запчастей для ремонта No.<%=repairNumber%></div>
                     </div>
 
                     <div class="f-input">
@@ -60,6 +57,7 @@
                             <tr>
                                 <th>Наименование</th>
                                 <th>Количество</th>
+                                <th>Управление</th>
                             </tr>
                         </table>
                     </div>
@@ -69,13 +67,8 @@
 
             <div class="button-container">
                 <input id="submit_id" class="button" type="button" value="Подтвердить" onclick="send()"/>
-                <form action="main" method="post" id="cancel">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_MAIN_PAGE%>">
-                    <input type="hidden" name="<%=DISPLAY_TABLE_COMMAND%>" value="<%=GET_REPAIRS%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                    <input class="button" type="submit" value="Отмена" form="cancel"/>
-                </form>
+                <button class="button"
+                        onclick="location.href='<%=String.format(OPEN_REPAIR_FORM, GET_REPAIR, repairId)%>'">Отмена</button>
             </div>
 
         </div>

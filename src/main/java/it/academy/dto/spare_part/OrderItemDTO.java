@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderItemDTO {
 
-    private Long orderId;
-
-    private Long sparePartId;
+    private Long id;
 
     private Integer quantity;
 

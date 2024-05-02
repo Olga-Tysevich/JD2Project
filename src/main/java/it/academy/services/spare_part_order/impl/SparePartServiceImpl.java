@@ -129,11 +129,9 @@ public class SparePartServiceImpl implements SparePartService {
     }
 
     @Override
-    public List<SparePartDTO> findSparePartsByRepairId(long id) {
+    public List<SparePartDTO> findSparePartsByModelId(long id) {
         Supplier<List<SparePartDTO>> find = () -> {
-            Repair repair = repairDAO.find(id);
-            long modelId = repair.getDevice().getModel().getId();
-            List<SparePart> spareParts = sparePartDAO.findByModelId(modelId);
+            List<SparePart> spareParts = sparePartDAO.findByModelId(id);
             log.info(OBJECTS_FOUND_PATTERN, spareParts.size(), SparePart.class);
             return sparePartConverter.convertToDTOList(spareParts);
         };

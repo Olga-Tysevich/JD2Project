@@ -63,7 +63,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
 
             Set<OrderItem> orderItems = createOrderDTO.getOrderItems().stream()
                     .map(i -> {
-                        SparePart sparePart = sparePartDAO.find(i.getSparePartId());
+                        SparePart sparePart = sparePartDAO.find(i.getId());
                         return OrderItem.builder()
                                 .sparePartOrder(sparePartOrder)
                                 .sparePart(sparePart)

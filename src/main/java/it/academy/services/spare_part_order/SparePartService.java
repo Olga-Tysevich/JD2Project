@@ -23,6 +23,6 @@ public interface SparePartService {
 
     TablePage<SparePartDTO> findSpareParts(int pageNumber, String filter, String input);
 
-    List<SparePartDTO> findSparePartsByRepairId(long id);
+    List<SparePartDTO> findSparePartsByModelId(long id);
 
 }

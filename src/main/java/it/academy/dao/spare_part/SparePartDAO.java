@@ -8,4 +8,5 @@ import java.util.List;
 public interface SparePartDAO extends ComponentDAO<SparePart, Long> {
 
     List<SparePart> findByModelId(long id);
+
 }

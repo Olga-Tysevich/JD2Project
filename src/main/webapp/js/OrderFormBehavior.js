@@ -37,6 +37,21 @@ function addRowToTable() {
         sparePartQuantity.name = 'quantity';
         sparePartQuantity.value = quantity;
         cell2.appendChild(sparePartQuantity);
+
+        let cell3 = newRow.insertCell(2);
+        let deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.id = selectedSparePart.value;
+        deleteButton.textContent = '-';
+
+        deleteButton.addEventListener('click', function () {
+            const row = this.parentElement.parentElement;
+            console.log(row);
+            row.remove();
+        });
+
+        cell3.appendChild(deleteButton);
+
     } else {
         let sparePart = existingRow.querySelector('input[type="text"]');
         let id = existingRow.querySelector('input[type="hidden"]');

@@ -9,6 +9,7 @@
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_REPAIR" %>
+<%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -34,6 +35,7 @@
         <input type="hidden" name="<%=PAGE%>" value="<%=ADD_REPAIR_PAGE_PATH%>">
         <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_REPAIR%>" id="command_id">
         <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=currentAccount.getServiceCenterId()%>">
+        <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=RepairStatus.REQUEST%>">
 
         <div class="f-input">
             <label class="form-el">Категория ремонта:</label>

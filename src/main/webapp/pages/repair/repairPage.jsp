@@ -9,7 +9,7 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_ORDER" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_NEW_SPARE_PART_ORDER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_PAGE_PATH" %>
@@ -70,7 +70,7 @@
                 <% } else { %>
                 <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=currentAccount.getServiceCenterId()%>">
                 <input type="hidden" name="<%=SERVICE_CENTER_NAME%>" value="<%=serviceCenters.get(currentAccount.getServiceCenterId())%>">
-                <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=RepairStatus.REQUEST%>">
+                <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repairDTO.getStatus()%>">
                 <% } %>
 
 
@@ -163,26 +163,12 @@
                     <input class="f-form" required type="tel" name="<%=BUYER_PHONE%>"
                            value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
                 </div>
+            </form>
 
-                <div class="lf-button-container">
-                    <form action="order" method="post" id="order">
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART_ORDER%>">
-                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
-                        <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
-<%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
-<%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
-                        <input class="choose-button lf-button" type="submit" value="Заказать запчасти" form="order"/>
-                    </form>
-
-                    <form action="repair" method="post" id="completed">
-                        <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
-                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
-                        <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
-<%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
-<%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
-                        <input class="choose-button lf-button" type="submit" value="Сообщить о выполнении" form="completed"/>
-                    </form>
-                </div>
+              <%if (!RepairStatus.REQUEST.equals(repairDTO.getStatus())
+                    && !repairDTO.getStatus().isFinishedStatus()) {%>
+                    <%@include file="included/controlButtons.jsp"%>
+              <%}%>
 
                 <div class="f-input">
                     <%
@@ -190,7 +176,6 @@
                     %>
                     <p class="error" id="error" style="display: none"><%=errorMessage%></p>
                 </div>
-            </form>
 
                 <div class="button-container">
                     <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
