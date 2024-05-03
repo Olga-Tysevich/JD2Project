@@ -28,6 +28,8 @@
                 <form class="rc-form" action="repair" method="post" id="addSparePartOrder">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>" id="repairId">
+                    <input type="hidden" name="<%=REPAIR_FORM%>" value="<%=request.getAttribute(REPAIR_FORM)%>">
+                    <input type="text" name="<%=REPAIR_FORM%>" value="<%=request.getAttribute(REPAIR_FORM)%>">
                     <div class="f-input">
                         <div class="form-el">Заказ запчастей для ремонта No.<%=repairNumber%></div>
                     </div>

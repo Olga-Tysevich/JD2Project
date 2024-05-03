@@ -6,13 +6,15 @@ import it.academy.utils.enums.RepairStatus;
 
 public interface RepairService {
 
-    RepairFormDTO getRepairFormData(long brandId);
+    RepairFormDTO getRepairForm(long brandId);
 
     void addRepair(CreateRepairDTO repairDTO);
 
     void updateRepair(RepairDTO repairDTO);
 
     RepairFormDTO findRepair(long id);
+
+    UserRepairFormDTO findRepairForUser(long id);
 
     TablePage2<RepairDTO> findRepairs(int pageNumber);
 

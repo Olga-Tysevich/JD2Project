@@ -7,6 +7,7 @@
         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
         <input type="hidden" name="<%=MODEL_ID%>" value="<%=repairDTO.getModelId()%>">
         <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
+        <input type="hidden" name="<%=REPAIR_FORM%>" value="<%=repairForm%>">
         <%--                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">--%>
         <%--                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">--%>
         <input class="choose-button lf-button" type="submit" value="Заказать запчасти" form="order"/>

@@ -9,7 +9,6 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_NEW_SPARE_PART_ORDER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_PAGE_PATH" %>

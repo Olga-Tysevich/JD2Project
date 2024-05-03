@@ -108,4 +108,5 @@ public class Extractor {
         RoleEnum role = (RoleEnum) request.getSession().getAttribute(ROLE);
         return RoleEnum.ADMIN.equals(role) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
     }
+
 }

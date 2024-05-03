@@ -25,10 +25,12 @@ public class GetNewSparePartOrder implements ActionCommand {
         long modelId = Extractor.extractLongVal(req, MODEL_ID, DEFAULT_ID);
         String repairNumber = Extractor.extractString(req, REPAIR_NUMBER, StringUtils.EMPTY);
         List<SparePartDTO> dtoList = sparePartService.findSparePartsByModelId(modelId);
+        String repairForm = Extractor.extractString(req, REPAIR_FORM, null);
 
         req.setAttribute(SPARE_PARTS, dtoList);
         req.setAttribute(OBJECT_ID, repairId);
         req.setAttribute(REPAIR_NUMBER, repairNumber);
+        req.setAttribute(REPAIR_FORM, repairForm);
 
         return ADD_SPARE_PART_ORDER_PAGE_PATH;
     }

@@ -1,31 +1,26 @@
 <%@ page import="static it.academy.utils.constants.Constants.ORDERS" %>
-<%@ page import="java.util.Map" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.spare_part.SparePartForChangeDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SPARE_PART_ORDER" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="it.academy.dto.spare_part.OrderItemDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
      AccountDTO accountDTO = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
      RoleEnum role = accountDTO.getRole();
      List<SparePartOrderDTO> orders = (List<SparePartOrderDTO>) request.getAttribute(ORDERS);
-     int pageNumber = (int) request.getAttribute(PAGE_NUMBER);
-     String pageForDisplay = (String) request.getAttribute(PAGE);
-     if (orders != null && !orders.isEmpty()) {
-         for (SparePartOrderDTO orderDTO : orders) {
-        Map<SparePartForChangeDTO, Integer> spareParts = orderDTO.getSpareParts();%>
 
-<form class="lr-form" action="repair" method="post" id="repair">
-    <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_SPARE_PART_ORDER%>">
-    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-    <input type="hidden" name="<%=PAGE%>" value="<%=pageForDisplay%>">
-    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=orderDTO.getId()%>">
-    <input type="hidden" name="<%=ORDER_REPAIR_ID%>" value="<%=request.getAttribute(ORDER_REPAIR_ID)%>">
-    <div class="order-container">
+     for (SparePartOrderDTO orderDTO : orders) {
+       List<OrderItemDTO> spareParts = orderDTO.getSpareParts();%>
+
+    <form class="lr-form" action="repair" method="post" id="repair">
+        <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_SPARE_PART_ORDER%>">
+        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=orderDTO.getId()%>">
+        <input type="hidden" name="<%=ORDER_REPAIR_ID%>" value="<%=request.getAttribute(ORDER_REPAIR_ID)%>">
+        <div class="order-container">
 
         <div class="f-input change-order">
                 <input id="change_id" class="choose-button btn-table" type="submit" value="Изменить"/>
@@ -73,17 +68,16 @@
                 <th>Количество</th>
             </tr>
 
-            <%     for (SparePartForChangeDTO sparePartForChangeDTO : spareParts.keySet()) {
-            %>
+            <%for (OrderItemDTO itemDTO : spareParts) {%>
 
             <tr id="data_id" class="spare_part_input">
                 <td class="order-td">
-                    <input type="hidden" name="<%=SPARE_PART_ID%>" value="<%=sparePartForChangeDTO.getId()%>" disabled>
-                    <input type="text" name="<%=OBJECT_NAME%>" value="<%=sparePartForChangeDTO.getName()%>" disabled>
+                    <input type="hidden" name="<%=SPARE_PART_ID%>" value="<%=itemDTO.getId()%>" disabled>
+                    <input type="text" name="<%=OBJECT_NAME%>" value="<%=itemDTO.getName()%>" disabled>
                 </td>
                 <td class="order-td">
                     <input class="quantity " type="number" name="<%=SPARE_PART_QUANTITY%>"
-                           value="<%=spareParts.get(sparePartForChangeDTO)%>" disabled>
+                           value="<%=spareParts.get(itemDTO)%>" disabled>
                 </td>
             </tr>
             <% } %>

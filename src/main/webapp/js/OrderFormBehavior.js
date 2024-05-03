@@ -45,7 +45,7 @@ function addRowToTable() {
         deleteButton.textContent = '-';
 
         deleteButton.addEventListener('click', function () {
-            const row = this.parentElement.parentElement;
+            const row = this.closest('tr');
             console.log(row);
             row.remove();
         });

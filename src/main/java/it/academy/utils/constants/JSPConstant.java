@@ -57,10 +57,12 @@ public class JSPConstant {
     public static final String ADD_REPAIR_PAGE_PATH = "/pages/repair/addRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
     public static final String REPAIR_PAGE_PATH = "/pages/repair/repairPage.jsp";
+    public static final String USER_REPAIR_PAGE_PATH = "/pages/repair/userRepairPage.jsp";
     public static final String REPAIR_TYPE_FORM_PAGE_PATH = "/pages/repair/included/repairTypeData.jsp";
 
     //sparePartOrder
     public static final String CHANGE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
+    public static final String USER_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/sparePartOrderForUser.jsp";
 
     public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d&&filter=%s&&input=%s";
     public static final String OPEN_FORM_PAGE = "main?command=%s";

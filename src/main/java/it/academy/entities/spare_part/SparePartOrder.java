@@ -34,6 +34,8 @@ public class SparePartOrder implements Serializable {
     @Column(name = "delivery_date")
     private Date deliveryDate;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "sparePartOrder")
     private Set<OrderItem> orderItems;
 

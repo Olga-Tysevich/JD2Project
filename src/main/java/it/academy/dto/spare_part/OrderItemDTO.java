@@ -13,6 +13,8 @@ public class OrderItemDTO {
 
     private Long id;
 
+    private String name;
+
     private Integer quantity;
 
 }

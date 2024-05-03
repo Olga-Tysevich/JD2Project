@@ -25,7 +25,7 @@ public class FindModelsForRepair implements ActionCommand {
         long brandId = repair.getBrandId();
         log.info(OBJECT_EXTRACTED_PATTERN, repair);
 
-        RepairFormDTO repairForm = repairService.getRepairFormData(brandId);
+        RepairFormDTO repairForm = repairService.getRepairForm(brandId);
         repairForm.setRepairDTO(repair);
 
         req.setAttribute(REPAIR_FORM, repairForm);

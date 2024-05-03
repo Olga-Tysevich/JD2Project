@@ -117,6 +117,18 @@ td, th {
     margin: auto auto auto auto;
 }
 
+.cancel-button-container {
+    text-align: end;
+ }
+
+.cancel-button {
+    width: 30px;
+    height: 30px;
+    font-size: large;
+    border-radius: 5px;
+    background-color: white;
+}
+
 .button-table-container{
     text-align: center;
 }
@@ -291,7 +303,7 @@ fieldset.f1 {
 }
 
 .lf-button-container{
-    margin: 20px 10px 20px 10px;
+    margin: 20px 60px 20px 60px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -320,6 +332,7 @@ fieldset.f1 {
     padding: 20px;
     border: ridge;
     box-shadow: 3px 2px 5px #473f3fa6;
+    margin: 30px;
 }
 
 .change-order{

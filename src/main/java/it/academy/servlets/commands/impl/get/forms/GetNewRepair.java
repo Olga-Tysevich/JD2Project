@@ -24,7 +24,7 @@ public class GetNewRepair implements ActionCommand {
             AccountDTO accountDTO = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
             long serviceCenterId = accountDTO.getServiceCenterId();
 
-            RepairFormDTO repairForm = repairService.getRepairFormData(DEFAULT_ID);
+            RepairFormDTO repairForm = repairService.getRepairForm(DEFAULT_ID);
             RepairDTO repairDTO = Builder.buildEmptyRepair(serviceCenterId);
             repairForm.setRepairDTO(repairDTO);
             req.setAttribute(REPAIR_FORM, repairForm);

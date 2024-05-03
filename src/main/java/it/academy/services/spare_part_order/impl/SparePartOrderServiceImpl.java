@@ -94,7 +94,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     public List<SparePartOrderDTO> findSparePartOrdersByRepairId(long id) {
         Supplier<List<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> sparePart = sparePartOrderDAO.findSparePartOrdersByRepairId(id);
-            return SparePartOrderConverter.convertListToDTO(sparePart);
+            return SparePartOrderConverter.convertToDTOList(sparePart);
         };
         return transactionManger.execute(find);
     }
@@ -106,7 +106,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         Supplier<TablePage<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> repairs = sparePartOrderDAO.findForPage(pageNumber, LIST_SIZE);
             int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
-            List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
+            List<SparePartOrderDTO> list = SparePartOrderConverter.convertToDTOList(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 
@@ -120,7 +120,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         Supplier<TablePage<SparePartOrderDTO>> find = () -> {
             List<SparePartOrder> repairs = sparePartOrderDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
             int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
-            List<SparePartOrderDTO> list = SparePartOrderConverter.convertListToDTO(repairs);
+            List<SparePartOrderDTO> list = SparePartOrderConverter.convertToDTOList(repairs);
             return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
         };
 
