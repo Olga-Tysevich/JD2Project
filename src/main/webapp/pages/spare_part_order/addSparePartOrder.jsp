@@ -4,6 +4,8 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_REPAIR_FORM" %>
+<%@ page import="it.academy.dto.spare_part.CreateOrderDTO" %>
+<%@ page import="it.academy.dto.spare_part.OrderItemDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -19,8 +21,10 @@
 
             <%
                 long repairId = (long) request.getAttribute(OBJECT_ID);
+                long modelId = (long) request.getAttribute(MODEL_ID);
                 List<SparePartDTO> spareParts = (List<SparePartDTO>) request.getAttribute(SPARE_PARTS);
                 String repairNumber = (String) request.getAttribute(REPAIR_NUMBER);
+                CreateOrderDTO createOrderDTO = (CreateOrderDTO) request.getAttribute(ORDER_DATA);
             %>
 
 
@@ -28,8 +32,7 @@
                 <form class="rc-form" action="repair" method="post" id="addSparePartOrder">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>" id="repairId">
-                    <input type="hidden" name="<%=REPAIR_FORM%>" value="<%=request.getAttribute(REPAIR_FORM)%>">
-                    <input type="text" name="<%=REPAIR_FORM%>" value="<%=request.getAttribute(REPAIR_FORM)%>">
+                    <input type="hidden" name="<%=MODEL_ID%>" value="<%=modelId%>">
                     <div class="f-input">
                         <div class="form-el">Заказ запчастей для ремонта No.<%=repairNumber%></div>
                     </div>
@@ -61,11 +64,25 @@
                                 <th>Количество</th>
                                 <th>Управление</th>
                             </tr>
-                        </table>
+                            <%  if (createOrderDTO != null && !createOrderDTO.getOrderItems().isEmpty()) {
+                                for (OrderItemDTO orderItem: createOrderDTO.getOrderItems()) {%>
+                                <tr>
+                                    <th><%=orderItem.getName()%></th>
+                                    <th><%=orderItem.getQuantity()%></th>
+                                    <th>
+                                        <input id="delete_btn" type="button" value="-" />
+                                    </th>
+                                </tr>
+                            <%}
+                            }%>
+
+                         </table>
                     </div>
 
                 </form>
             </div>
+
+            <%@include file="../forms/errorContainer.jsp"%>
 
             <div class="button-container">
                 <input id="submit_id" class="button" type="button" value="Подтвердить" onclick="send()"/>

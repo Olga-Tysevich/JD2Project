@@ -16,7 +16,7 @@ import it.academy.utils.enums.RepairStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static it.academy.utils.constants.Constants.DEVICE_DESCRIPTION_PATTERN;
+import static it.academy.utils.constants.Constants.COMPONENT_DESCRIPTION_PATTERN;
 
 public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
     private RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
@@ -29,7 +29,7 @@ public class RepairConverter implements EntityConverter<RepairDTO, Repair> {
         Salesman salesman = device.getSalesman();
         Buyer buyer = device.getBuyer();
         RepairType repairType = repair.getRepairType();
-        String deviceDescription = String.format(DEVICE_DESCRIPTION_PATTERN, brand.getName(),
+        String deviceDescription = String.format(COMPONENT_DESCRIPTION_PATTERN, brand.getName(),
                 deviceType.getName(), model.getName());
 
         RepairDTO repairDTO = RepairDTO.builder()

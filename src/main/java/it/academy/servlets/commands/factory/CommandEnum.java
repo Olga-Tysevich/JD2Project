@@ -76,7 +76,8 @@ public enum CommandEnum {
     CHANGE_REPAIR(new ChangeRepair()),
     GET_REPAIRS(new GetRepairs()),
     GET_REPAIRS_BY_FILTER(new GetRepairsByFilter()),
-    GET_REPAIRS_BY_STATUS(new GetRepairsByStatus());
+    GET_REPAIRS_BY_STATUS(new GetRepairsByStatus()),
+    COMPLETE_REPAIR(new CompleteRepair());
 
 
     private ActionCommand command;

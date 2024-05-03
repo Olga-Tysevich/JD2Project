@@ -9,7 +9,9 @@ import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.device.impl.DeviceDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.repair.RepairDAO;
+import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
+import it.academy.dao.repair.impl.RepairTypeDAOImpl;
 import it.academy.dao.spare_part.SparePartOrderDAO;
 import it.academy.dao.spare_part.impl.SparePartOrderDAOImpl;
 import it.academy.dto.TablePage2;
@@ -22,17 +24,17 @@ import it.academy.entities.device.Brand;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
 import it.academy.entities.repair.Repair;
+import it.academy.entities.repair.RepairType;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.ModelNotFound;
 import it.academy.services.repair.RepairService;
-import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.utils.PageCounter;
 import it.academy.utils.converters.impl.BrandConverter;
 import it.academy.utils.converters.impl.ModelConverter;
 import it.academy.utils.converters.impl.RepairConverter;
-import it.academy.utils.converters.impl.SparePartConverter;
+import it.academy.utils.converters.impl.RepairTypeConverter;
 import it.academy.utils.converters.spare_part.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
@@ -58,6 +60,8 @@ public class RepairServiceImpl implements RepairService {
     private final ModelConverter modelConverter = new ModelConverter();
     private final RepairConverter repairConverter = new RepairConverter();
     private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl(transactionManger);
+    private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl(transactionManger);
+    private final RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
 
     @Override
     public RepairFormDTO getRepairForm(long brandId) {
@@ -161,17 +165,27 @@ public class RepairServiceImpl implements RepairService {
     public UserRepairFormDTO findRepairForUser(long id) {
         return transactionManger.execute(() -> {
             Repair repair = repairDAO.find(id);
+            RepairStatus status = repair.getStatus();
             RepairDTO repairDTO = repairConverter.convertToDTO(repair);
             List<SparePartOrderDTO> orderDTOList = null;
+            List<RepairTypeDTO> repairTypes = null;
 
-            if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())) {
+            if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())
+                    || status.isFinishedStatus()) {
                 List<SparePartOrder> orders = sparePartOrderDAO.findSparePartOrdersByRepairId(id);
                 orderDTOList = SparePartOrderConverter.convertToDTOList(orders);
+            }
+
+            if (RepairStatus.CURRENT.equals(status)
+                    || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(status)) {
+                List<RepairType> typeList = repairTypeDAO.findAllActive();
+                repairTypes = repairTypeConverter.convertToDTOList(typeList);
             }
 
             return UserRepairFormDTO.builder()
                     .repairDTO(repairDTO)
                     .orders(orderDTOList)
+                    .repairTypes(repairTypes)
                     .build();
         });
     }

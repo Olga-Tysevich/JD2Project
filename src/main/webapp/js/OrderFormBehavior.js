@@ -27,6 +27,7 @@ function addRowToTable() {
         id.type = 'hidden';
         id.name = 'spare_part_id';
         id.value = selectedSparePart.value;
+        id.disabled = true;
 
         cell1.appendChild(sparePart);
         cell1.appendChild(id);
@@ -36,6 +37,7 @@ function addRowToTable() {
         sparePartQuantity.type = 'number';
         sparePartQuantity.name = 'quantity';
         sparePartQuantity.value = quantity;
+        sparePartQuantity.disabled = true;
         cell2.appendChild(sparePartQuantity);
 
         let cell3 = newRow.insertCell(2);

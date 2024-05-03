@@ -10,7 +10,7 @@ public class Constants {
     public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
-    public static final String DEVICE_DESCRIPTION_PATTERN = "%s\n %s %s";
+    public static final String COMPONENT_DESCRIPTION_PATTERN = "%s %s %s";
     public static final long DEFAULT_ID = 1L;
     public static final String DEFAULT_VALUE = "";
     public static final long ID_FOR_CHECK = 0L;
@@ -37,6 +37,7 @@ public class Constants {
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME = "SELECT a FROM Account a WHERE serviceCenter.serviceName LIKE :value ORDER BY a.id DESC";
     public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and m.isActive = true";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
+    public static final String FIND_ACTIVE_REPAIR_TYPES = "SELECT rt FROM RepairType rt WHERE active = true";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
     public static final String CHECK_ACCOUNT = "SELECT count(a) FROM Account a WHERE a.id != :id AND a.email = :email";
     public static final String CHECK_SERVICE_CENTER = "SELECT count(s) FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
@@ -118,7 +119,7 @@ public class Constants {
     public static final String DATE_OF_SALE = "dateOfSale";
     //spare part
     public static final String SPARE_PART_MODEL_ID = "model_id";
-    public static final String ORDER_REPAIR_ID = "repairId";
+    public static final String REPAIR_ID = "repairId";
     public static final String ORDER_DATE = "orderDate";
     public static final String DEPARTURE_DATE = "departureDate";
     public static final String DELIVERY_DATE = "deliveryDate";
@@ -150,6 +151,7 @@ public class Constants {
     public static final String REPAIR_NOT_FOUND = "Ремонт не найден!";
     public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";
     public static final String DELETE_FAILED_MESSAGE = "Удаление невозможно! Есть связанные записи!";
+    public static final String EMPTY_ORDER_DATA_MESSAGE = "Нельзя создать пустой заказ!";
     //description
     //role description
     public static final String ADMIN_DESCRIPTION = "Администатор";

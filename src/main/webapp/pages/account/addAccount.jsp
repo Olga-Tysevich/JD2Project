@@ -104,6 +104,6 @@
     </div>
 </section>
 
-<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
+<script rel="script" src="${pageContext.request.contextPath}/js/ErrorBlock.js"></script>
 
 </body>

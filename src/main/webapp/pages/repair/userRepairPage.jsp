@@ -1,11 +1,12 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="it.academy.dto.repair.UserRepairFormDTO" %>
 <%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
+<%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,6 @@
         </div>
 
             <%
-                AccountDTO currentAccount = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
                 UserRepairFormDTO repairFormDTO = (UserRepairFormDTO) request.getAttribute(REPAIR_FORM);
                 RepairDTO repairDTO = repairFormDTO.getRepairDTO();
                 List<SparePartOrderDTO> orders = repairFormDTO.getOrders();
@@ -88,6 +88,27 @@
                 </div>
             </form>
 
+            <% if(repairDTO.getStatus().isFinishedStatus()) {
+                RepairTypeDTO repairType = repairDTO.getRepairType();
+            %>
+            <div class="f-input">
+                <label class="date-label">Дата завершения: </label>
+                <div class="date-container">
+                    <input class="f-form" type="date" value="<%=repairDTO.getStartDate()%>" disabled/>
+                </div>
+            </div>
+
+            <div class="f-input">
+                    Выполненный ремонт:
+                    <label >Код:</label>
+                    <div><%=repairType.getCode()%></div>
+                    <label>Уровень:</label>
+                    <div><%=repairType.getLevel()%></div>
+                    <label>Описание:</label>
+                    <div><%=repairType.getName()%></div>
+            </div>
+            <% } %>
+
 <%--            <% if(repairDTO.getStatus().isFinishedStatus()) {%>--%>
 <%--            <div class="f-input">--%>
 <%--                <p>--%>
@@ -115,6 +136,11 @@
 <%--            </div>--%>
 <%--            <% } %>--%>
 
+            <%if (RepairStatus.CURRENT.equals(repairDTO.getStatus())
+                    || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {%>
+                <%@include file="included/repairTypeList.jsp"%>
+            <%}%>
+
             <%if (!repairDTO.getStatus().isFinishedStatus()) {%>
             <div class="lf-button-container">
                 <form action="order" method="get" id="order">
@@ -125,14 +151,10 @@
                     <input class="choose-button lf-button" type="submit" value="Заказать запчасти" form="order"/>
                 </form>
 
-                <form action="repair" method="get" id="completed">
-                    <input type="hidden" name="<%=COMMAND%>" value="show_repair_type_list">
-                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
-                    <input type="hidden" name="<%=REPAIR_NUMBER%>" value="<%=repairDTO.getRepairNumber()%>">
-                    <input class="choose-button lf-button" type="submit" value="Сообщить о выполнении" form="completed"/>
-                </form>
+                <button class="choose-button lf-button" type="button" onclick="showRepairTypes()">Сообщить о выполнении</button>
             </div>
             <%}%>
+
 
 
             <% if (orders != null && !orders.isEmpty()) { %>
@@ -142,5 +164,5 @@
         </div>
 
 </section>
-
+<script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>
 </body>

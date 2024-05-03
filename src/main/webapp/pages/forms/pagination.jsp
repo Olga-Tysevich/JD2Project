@@ -10,7 +10,7 @@
     <div class="footer">
         <div class="button-container">
             <%if (pageNumber != FIRST_PAGE) { %>
-            <form action="main" method="post">
+            <form action="main" method="get">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=FILTER%>" value="<%=lastFilter%>">
@@ -28,7 +28,7 @@
 
 
             <%if (pageNumber != maxPageNumber) { %>
-            <form action="main" method="post">
+            <form action="main" method="get">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
                 <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                 <input type="hidden" name="<%=FILTER%>" value="<%=lastFilter%>">

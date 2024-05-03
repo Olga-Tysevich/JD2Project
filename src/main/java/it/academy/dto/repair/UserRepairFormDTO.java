@@ -15,4 +15,6 @@ public class UserRepairFormDTO {
 
     private List<SparePartOrderDTO> orders;
 
+    private List<RepairTypeDTO> repairTypes;
+
 }

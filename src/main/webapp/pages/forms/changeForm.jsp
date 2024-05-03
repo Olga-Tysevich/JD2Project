@@ -24,12 +24,8 @@
 
                 <%pageContext.include(formPage);%>
 
-                <div class="f-input">
-                    <%
-                        String errorMessage = request.getAttribute(ERROR) == null ? "" : (String) request.getAttribute(ERROR);
-                    %>
-                    <p class="error" id="error" style="display: none"><%=errorMessage%></p>
-                </div>
+                <%@include file="errorContainer.jsp"%>
+
             </form>
 
                 <div class="button-container">
@@ -42,7 +38,4 @@
 
     </div>
 </section>
-
-<script rel="script" src="${pageContext.request.contextPath}/js/ChangeFormBehavior.js"></script>
-
 </body>

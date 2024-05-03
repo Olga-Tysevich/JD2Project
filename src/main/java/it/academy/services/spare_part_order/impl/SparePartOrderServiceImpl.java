@@ -25,12 +25,10 @@ import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_CREATED_PATTERN;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_NOT_FOUND_PATTERN;
@@ -42,7 +40,6 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     private final SparePartDAO sparePartDAO = new SparePartDAOImpl(transactionManger);
     private final OrderItemDAO orderItemDAO = new OrderItemDAOImpl(transactionManger);
     private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
-
 
     @Override
     public void createSparePartOrder(CreateOrderDTO createOrderDTO) {

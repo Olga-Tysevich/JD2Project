@@ -19,7 +19,7 @@
     <form class="lr-form" action="repair" method="post" id="repair">
         <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_SPARE_PART_ORDER%>">
         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=orderDTO.getId()%>">
-        <input type="hidden" name="<%=ORDER_REPAIR_ID%>" value="<%=request.getAttribute(ORDER_REPAIR_ID)%>">
+        <input type="hidden" name="<%=REPAIR_ID%>" value="<%=request.getAttribute(REPAIR_ID)%>">
         <div class="order-container">
 
         <div class="f-input change-order">
