@@ -6,7 +6,6 @@ import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.ServiceCenterDAOImpl;
 import it.academy.dto.TablePage2;
 import it.academy.dto.account.*;
-import it.academy.dto.TablePage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.exceptions.account.EmailAlreadyRegistered;
@@ -14,117 +13,109 @@ import it.academy.exceptions.account.EnteredPasswordsNotMatch;
 import it.academy.exceptions.account.ValidationException;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.AccountService;
-import it.academy.utils.Builder;
 import it.academy.utils.PageCounter;
 import it.academy.utils.ServiceHelper;
 import it.academy.utils.converters.impl.AccountConverter;
-import it.academy.utils.converters.impl.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
 import java.util.function.Supplier;
-
+import java.util.stream.Collectors;
 import static it.academy.utils.EntityValidator.validateEntity;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_CREATED_PATTERN;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_FOUND_PATTERN;
-import static it.academy.utils.constants.LoggerConstants.OBJECT_UPDATED_PATTERN;
 
 @Slf4j
 public class AccountServiceImpl implements AccountService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
-    private final ServiceCenterConverter serviceCenterConverter = new ServiceCenterConverter();
     private final AccountConverter accountConverter = new AccountConverter();
     private final ServiceHelper<Account, AccountDTO> accountHelper =
             new ServiceHelper<>(accountDAO, Account.class, accountConverter, transactionManger);
 
     @Override
-    public AccountFormDTO createAccount(CreateAccountDTO createAccountDTO) {
+    public AccountFormDTO create(CreateAccountDTO createAccountDTO) {
 
-        AtomicReference<List<ServiceCenterDTO>> serviceCenters = new AtomicReference<>();
-        String message;
         try {
-            checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
             Account account = accountConverter.convertToEntity(createAccountDTO);
+            checkPassword(createAccountDTO.getPassword(), createAccountDTO.getConfirmPassword());
             validateAccount(account);
             encodePassword(account);
 
             Supplier<Account> create = () -> {
-                serviceCenters.set(serviceCenterConverter.convertToDTOList(serviceCenterDAO.findAll()));
-                if (accountDAO.checkIfEmailExist(ID_FOR_CHECK, account.getEmail())) {
-                    throw new EmailAlreadyRegistered(account.getEmail());
-                }
+                checkEmail(ID_FOR_CHECK, account.getEmail());
                 long serviceCenterId = createAccountDTO.getServiceCenterId();
                 setServiceCenter(account, serviceCenterId);
-                log.info(OBJECT_FOR_SAVE_PATTERN, account);
                 return accountDAO.create(account);
             };
 
             transactionManger.execute(create);
-            message = "Successfully created";
             log.info(OBJECT_CREATED_PATTERN, account);
         } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
-            message = e.getMessage();
+            return new AccountFormDTO(getServiceCentersForAccountForm(), e.getMessage());
         }
 
-        return new AccountFormDTO(serviceCenters.get(), message);
+        return new AccountFormDTO(null, StringUtils.EMPTY);
     }
 
     @Override
-    public AccountFormDTO updateAccount(ChangeAccountDTO changeAccount) {
+    public String update(ChangeAccountDTO changeAccount) {
 
-        Account account = accountConverter.convertToEntity(changeAccount);
-        Supplier<Account> update = () -> {
-            Account temp = accountDAO.find(changeAccount.getId());
-            if (temp == null) {
-                throw new ObjectNotFound(USER_NOT_FOUND);
+        try {
+            Account account = accountConverter.convertToEntity(changeAccount);
+
+            if (!StringUtils.isBlank(changeAccount.getPassword())) {
+                account.setPassword(changeAccount.getPassword());
+                checkPassword(changeAccount.getPassword(), changeAccount.getConfirmPassword());
+                validateAccount(account);
+                encodePassword(account);
             }
 
-            checkEmail(account.getId(), account.getEmail());
-
-            Long serviceCenterId = changeAccount.getServiceCenterId();
-            setServiceCenter(account, serviceCenterId);
-            log.info(OBJECT_FOR_UPDATE_PATTERN, account);
-
-            if (changeAccount.getPassword() == null || changeAccount.getPassword().isBlank()) {
-                account.setPassword(temp.getPassword());
-            }
-            return accountDAO.update(account);
-        };
-
-        transactionManger.execute(update);
-        try {
-            validateAccount(account);
-        } catch (ValidationException e) {
-            e.printStackTrace();
+            Supplier<Account> update = () -> {
+                Account temp = accountDAO.find(account.getId());
+                if (StringUtils.isBlank(changeAccount.getPassword())) {
+                    account.setPassword(temp.getPassword());
+                }
+                checkEmail(account.getId(), account.getEmail());
+                Long serviceCenterId = changeAccount.getServiceCenterId();
+                setServiceCenter(account, serviceCenterId);
+                return accountDAO.update(account);
+            };
+            transactionManger.execute(update);
+            log.info(OBJECT_CREATED_PATTERN, account);
+        } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
+            return e.getMessage();
         }
-        log.info(OBJECT_UPDATED_PATTERN, changeAccount);
-        return new AccountFormDTO();
+
+        return StringUtils.EMPTY;
+    }
+
+    public Map<Long, String> getServiceCentersForAccountForm() {
+        Supplier<List<ServiceCenter>> findAll = serviceCenterDAO::findAll;
+        List<ServiceCenter> serviceCenters = transactionManger.execute(findAll);
+        return serviceCenters.stream()
+                .collect(Collectors.toMap(ServiceCenter::getId, ServiceCenter::getServiceName));
     }
 
     @Override
-    public void deleteAccount(long id) {
-        try {
-            accountHelper.delete(id);
-        } catch (Exception e) {
-            log.warn(DELETE_FAILED, id, Account.class);
-        }
+    public void delete(long id) {
+       transactionManger.execute(() -> accountDAO.delete(id));
     }
 
     @Override
-    public AccountDTO findAccount(long id) {
+    public AccountDTO find(long id) {
         return accountHelper.find(id);
     }
 
     @Override
-    public TablePage2<AccountDTO> findAccounts(int pageNumber) {
+    public TablePage2<AccountDTO> findForPage(int pageNumber) {
         Supplier<TablePage2<AccountDTO>> find = () -> {
             long numberOfEntries = accountDAO.getNumberOfEntries();
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
@@ -136,7 +127,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public TablePage2<AccountDTO> findAccounts(int pageNumber, String filter, String input) {
+    public TablePage2<AccountDTO> findForPageByFilter(int pageNumber, String filter, String input) {
         Supplier<TablePage2<AccountDTO>> find = () -> {
             long numberOfEntries = accountDAO.getNumberOfEntriesByFilter(filter, input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
@@ -148,7 +139,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public TablePage2<AccountDTO> findAccountsByServiceCenter(int pageNumber, String input) {
+    public TablePage2<AccountDTO> findForPageByServiceCenter(int pageNumber, String input) {
         Supplier<TablePage2<AccountDTO>> find = () -> {
             long numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);

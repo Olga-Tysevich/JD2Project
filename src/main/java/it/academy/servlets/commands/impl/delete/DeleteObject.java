@@ -19,10 +19,10 @@ import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.factory.CommandEnum;
 import it.academy.servlets.commands.impl.get.tables.*;
+import it.academy.servlets.extractors.Extractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
 
 public class DeleteObject implements ActionCommand {
 
@@ -34,26 +34,34 @@ public class DeleteObject implements ActionCommand {
 
         try {
             switch (command) {
-                case DELETE_ACCOUNT: return deleteAccount(id, req, resp);
-                case DELETE_BRAND: return deleteBrand(id, req, resp);
-                case DELETE_DEVICE_TYPE: return deleteDeviceType(id, req, resp);
-                case DELETE_MODEL: return deleteModel(id, req, resp);
-                case DELETE_REPAIR_TYPE: return deleteRepairType(id, req, resp);
-                case DELETE_SERVICE_CENTER: return deleteServiceCenter(id, req, resp);
-                case DELETE_SPARE_PART: return deleteSparePart(id, req, resp);
-                case DELETE_SPARE_PART_ORDER: return deleteSparePartOrder(id, req, resp);
+                case DELETE_ACCOUNT:
+                    deleteAccount(id, req, resp);
+                    break;
+                case DELETE_BRAND:
+                    return deleteBrand(id, req, resp);
+                case DELETE_DEVICE_TYPE:
+                    return deleteDeviceType(id, req, resp);
+                case DELETE_MODEL:
+                    return deleteModel(id, req, resp);
+                case DELETE_REPAIR_TYPE:
+                    return deleteRepairType(id, req, resp);
+                case DELETE_SERVICE_CENTER:
+                    return deleteServiceCenter(id, req, resp);
+                case DELETE_SPARE_PART:
+                    return deleteSparePart(id, req, resp);
+                case DELETE_SPARE_PART_ORDER:
+                    return deleteSparePartOrder(id, req, resp);
             }
 
         } catch (Exception e) {
             req.setAttribute(ERROR, DELETE_FAILED_MESSAGE);
         }
-        return ADMIN_MAIN_PAGE_PATH;
+        return Extractor.extractLastPage(req);
     }
 
-    private String deleteAccount(long id, HttpServletRequest req, HttpServletResponse resp) {
+    private void deleteAccount(long id, HttpServletRequest req, HttpServletResponse resp) {
         AccountService accountService = new AccountServiceImpl();
-        accountService.deleteAccount(id);
-        return new ShowAccountTable().execute(req, resp);
+        accountService.delete(id);
     }
 
     private String deleteBrand(long id, HttpServletRequest req, HttpServletResponse resp) {

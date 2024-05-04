@@ -38,7 +38,7 @@ public class GetRepairsByStatus implements ActionCommand {
         CommandHelper.insertTableData(req, tableReq, table);
         log.info(CURRENT_TABLE, table);
 
-        return RoleEnum.ADMIN.equals(account.getRole()) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
+        return Extractor.extractMainPagePath(req);
 
     }
 }

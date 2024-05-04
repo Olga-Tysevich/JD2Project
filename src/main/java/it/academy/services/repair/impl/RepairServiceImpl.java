@@ -25,6 +25,7 @@ import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.RepairType;
+import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
@@ -244,9 +245,9 @@ public class RepairServiceImpl implements RepairService {
     public TablePage2<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
 
         Supplier<TablePage2<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status);
+            long numberOfEntries = repairDAO.getNumberOfEntriesByFilter(Repair_.STATUS, status.name());
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumberForSearch, LIST_SIZE);
+            List<Repair> repairs = repairDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE,Repair_.STATUS, status.name());
             List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };

@@ -17,7 +17,7 @@
                        pattern="^[a-zA-Z0-9-.]+@([a-zA-Z-]+\\.)+[a-zA-Z-]{2,4}$">
 
                 <label class="form-el" for="password">Пароль:</label>
-                <input class="form-el" required type="password" name="password" placeholder="Введите пароль" value="Igor8707!"
+                <input class="form-el" required type="password" name="password" placeholder="Введите пароль" value="User8707!"
                        id="password"
                        pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
 

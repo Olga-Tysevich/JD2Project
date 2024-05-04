@@ -1,14 +1,11 @@
 <%@ page import="static it.academy.utils.constants.Constants.ACCOUNT" %>
 <%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="java.util.List" %>
-<%@ page import="it.academy.utils.fiterForSearch.EntityFilter" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="it.academy.utils.fiterForSearch.FilterManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -41,26 +38,7 @@
                 <p><%=userEmail%></p>
             </div>
         </div>
-
-        <% if (!tablePage.isBlank()) {
-            List<EntityFilter> filters = FilterManager.getFiltersForPage(tablePage);
-        %>
-        <form action="main" method="post" id="search">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-            <input class="search" type="search" name="<%=USER_INPUT%>" placeholder="Поиск" <%if (!lastInput.isBlank()) {%>value="<%=lastInput%>"<%}%>>
-            <select class="filter" name="<%=FILTER%>" size="1">
-                <% if (filters != null) {
-                    for (EntityFilter filter: filters) { %>
-                <option value="<%=filter.getFieldName()%>" <%if (filter.getFieldName().equals(lastFilter)) {%>selected<%}%>>
-                    <%=filter.getDescription()%></option>
-                <% }
-                } %>
-            </select>
-            <input class="button light" type="submit" value="Найти" form="search">
-        </form>
-        <% } %>
+            <%@include file="forms/filters.jsp"%>
     </div>
 
     <div class="container main">
@@ -96,7 +74,7 @@
             <fieldset class="f1">
                 <legend>Ремонты</legend>
                 <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_NEW_OBJECT_FORM_PAGE, GET_NEW_REPAIR)%>'">Создание нового ремонта</button>
+                        onclick="location.href='<%=String.format(OPEN_NEW_OBJECT_FORM_PAGE, REPAIR, GET_NEW_REPAIR)%>'">Создание нового ремонта</button>
 
 
                 <button class="button button-fieldset"
@@ -112,7 +90,7 @@
             <fieldset class="f1">
                 <legend>Выход</legend>
 
-                <form action="repair" method="post">
+                <form action="repair" method="get">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=LOGOUT%>">
                     <input class="button button-fieldset" type="submit" value="Выйти из авторизованного режима">
                 </form>

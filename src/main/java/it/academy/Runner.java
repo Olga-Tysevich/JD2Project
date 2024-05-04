@@ -53,7 +53,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        AccountDTO admin = accountService.findAccount(1L);
+        AccountDTO admin = accountService.find(1L);
         log.info(admin.toString());
 
         List<ServiceCenterDTO> serviceCenters = IntStream.range(0, MAX_SIZE)
@@ -76,7 +76,7 @@ public class Runner {
         for (CreateAccountDTO createAccountDTO : account) {
             createAccountDTO.setServiceCenterId(serviceCenterDTOS.get(RANDOM.nextInt(serviceCenterDTOS.size())).getId());
             try {
-                accountService.createAccount(createAccountDTO);
+                accountService.create(createAccountDTO);
             } catch (Exception ignored) {
             }
         }

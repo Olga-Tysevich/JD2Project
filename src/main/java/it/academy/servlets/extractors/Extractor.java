@@ -1,7 +1,6 @@
 package it.academy.servlets.extractors;
 
 import it.academy.dto.TablePageReq;
-import it.academy.dto.account.AccountDTO;
 import it.academy.utils.ReflectionHelper;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
@@ -9,36 +8,29 @@ import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
-
 import java.sql.Date;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.INVALID_NUMBER_FORMAT_ERROR;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
 @UtilityClass
 @Slf4j
 public class Extractor {
 
     public <T> T extract(HttpServletRequest request, T object) {
-
-//        int pageNumber = request.getParameter(PAGE_NUMBER) != null ? Integer.parseInt(request.getParameter(PAGE_NUMBER)) : FIRST_PAGE;
-//        String page = request.getParameter(PAGE);
         T result = ReflectionHelper.setFieldValues(request, object);
-//        request.setAttribute(PAGE_NUMBER, pageNumber);
-//        request.setAttribute(PAGE, page);
-
+        log.info(OBJECT_EXTRACTED_PATTERN, result);
         return result;
     }
 
     public TablePageReq extractDataForTable(HttpServletRequest request) {
         String command = extractString(request, COMMAND, StringUtils.EMPTY);
         int pageNumber = extractIntVal(request, PAGE_NUMBER, FIRST_PAGE);
-        String page = extractString(request, PAGE,  StringUtils.EMPTY);
-        String userInput = extractString(request, USER_INPUT,  StringUtils.EMPTY);
-        String filter = extractString(request, FILTER,  StringUtils.EMPTY);
+        String page = extractString(request, PAGE, StringUtils.EMPTY);
+        String userInput = extractString(request, USER_INPUT, StringUtils.EMPTY);
+        String filter = extractString(request, FILTER, StringUtils.EMPTY);
 
         return TablePageReq.builder()
                 .command(command)
@@ -110,7 +102,7 @@ public class Extractor {
 
     public String extractLastPage(HttpServletRequest request) {
         String lastPage = (String) request.getSession().getAttribute(LAST_PAGE);
-        return StringUtils.isBlank(lastPage)? extractMainPagePath(request) : SLASH + lastPage;
+        return StringUtils.isBlank(lastPage) ? extractMainPagePath(request) : SLASH + lastPage;
     }
 
 }

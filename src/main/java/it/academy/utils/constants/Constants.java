@@ -14,6 +14,7 @@ public class Constants {
     public static final long DEFAULT_ID = 1L;
     public static final String DEFAULT_VALUE = "";
     public static final String SLASH = "/";
+    public static final String POINT = ".";
     public static final long ID_FOR_CHECK = 0L;
 
     //entity patterns
@@ -190,6 +191,8 @@ public class Constants {
     //repair
     public static final String REPAIR_SERVICE_CENTER = "repair.service.serviceName";
     public static final String REPAIR_SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
+    public static final String REPAIR_NUMBER_DESCRIPTION = "Номер ремонта";
+    public static final String DEVICE_SERIAL_NUMBER_DESCRIPTION = "Серийный номер";
     public static final String REPAIR_CATEGORY_DESCRIPTION = "Категория ремонта";
 
     //repairType filters

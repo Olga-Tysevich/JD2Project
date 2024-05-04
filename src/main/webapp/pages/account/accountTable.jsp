@@ -1,21 +1,19 @@
-<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_ACCOUNT" %>
-<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_ACCOUNT" %>
+<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.entities.account.ServiceCenter_" %>
+<%@ page import="it.academy.entities.account.Account_" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
     <div class="container t-container">
 
         <%
-            RoleEnum role = ((AccountDTO) request.getSession().getAttribute(ACCOUNT)).getRole();
-            TablePage<AccountDTO> data = (TablePage<AccountDTO>) request.getSession().getAttribute(TABLE_PAGE);
-            int pageNumber = data.getPageNumber();
+            TablePage2<AccountDTO> data = (TablePage2<AccountDTO>) request.getAttribute(TABLE_PAGE);
             List<AccountDTO> list = data.getList();
-            String tablePage = data.getPage();
         %>
 
         <table>
@@ -25,13 +23,11 @@
                 <th>Имя</th>
                 <th>Фамилия</th>
                 <th>Активно</th>
-                <% if (RoleEnum.ADMIN.equals(role)) { %>
                 <th class="menu">Управление</th>
-                <% } %>
             </tr>
 
             <% for (AccountDTO account : list) {
-                String serviceName = account.getServiceCenterName() != null? account.getServiceCenterName() : "";
+                String serviceName = StringUtils.defaultIfBlank(account.getServiceCenterName(), StringUtils.EMPTY);
             %>
             <tr class="t-tr">
                 <td class="code"><%=serviceName%></td>
@@ -39,27 +35,21 @@
                 <td class="code"><%=account.getUserName()%></td>
                 <td class="code"><%=account.getUserSurname()%></td>
                 <td class="code">
-                    <input type="checkbox" name="<%=IS_ACTIVE%>" value="<%=account.getIsActive()%>"
+                    <input type="checkbox" value="<%=account.getIsActive()%>"
                            <%if (account.getIsActive()) {%>checked<%}%> disabled>
                 </td>
                 <td class="code">
-                    <% if (RoleEnum.ADMIN.equals(role)) { %>
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=GET_ACCOUNT%>">
-                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input type="hidden" name="<%=Account_.ID%>" value="<%=account.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
 
                     <form action="repair" method="post" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_ACCOUNT%>">
-                        <input type="hidden" name="<%=OBJECT_ID%>" value="<%=account.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
+                        <input type="hidden" name="<%=Account_.ID%>" value="<%=account.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
-                    <% } %>
                 </td>
             </tr>
             <% }%>

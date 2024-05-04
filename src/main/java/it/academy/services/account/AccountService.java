@@ -5,24 +5,24 @@ import it.academy.dto.account.AccountFormDTO;
 import it.academy.dto.account.ChangeAccountDTO;
 import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.AccountDTO;
-import it.academy.exceptions.account.EmailAlreadyRegistered;
-import it.academy.exceptions.account.ValidationException;
-import it.academy.exceptions.common.ObjectNotFound;
+import java.util.Map;
 
 public interface AccountService {
 
-    AccountFormDTO createAccount(CreateAccountDTO account);
+    AccountFormDTO create(CreateAccountDTO account);
 
-    AccountFormDTO updateAccount(ChangeAccountDTO account) throws EmailAlreadyRegistered, ObjectNotFound, ValidationException;
+    String update(ChangeAccountDTO account);
 
-    void deleteAccount(long id);
+    Map<Long, String> getServiceCentersForAccountForm();
 
-    AccountDTO findAccount(long id);
+    void delete(long id);
 
-    TablePage2<AccountDTO> findAccounts(int pageNumber);
+    AccountDTO find(long id);
 
-    TablePage2<AccountDTO> findAccounts(int pageNumber, String filter, String input);
+    TablePage2<AccountDTO> findForPage(int pageNumber);
 
-    TablePage2<AccountDTO> findAccountsByServiceCenter(int pageNumber, String input);
+    TablePage2<AccountDTO> findForPageByFilter(int pageNumber, String filter, String input);
+
+    TablePage2<AccountDTO> findForPageByServiceCenter(int pageNumber, String input);
 
 }

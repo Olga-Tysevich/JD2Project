@@ -8,6 +8,7 @@ import it.academy.dto.repair.CreateRepairDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.utils.enums.RepairCategory;
+import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.EntityFilter;
 import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.experimental.UtilityClass;
@@ -59,6 +60,7 @@ public class Builder {
 
     public static CreateAccountDTO buildEmptyAccount() {
         return CreateAccountDTO.builder()
+                .role(RoleEnum.SERVICE_CENTER)
                 .email(StringUtils.EMPTY)
                 .userName(StringUtils.EMPTY)
                 .userSurname(StringUtils.EMPTY)

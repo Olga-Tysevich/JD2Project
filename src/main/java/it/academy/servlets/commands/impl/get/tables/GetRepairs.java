@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
 @Slf4j
@@ -42,7 +41,7 @@ public class GetRepairs extends ShowTable {
         CommandHelper.insertTableData(req, reqData, table);
         log.info(CURRENT_TABLE, table);
 
-        return RoleEnum.ADMIN.equals(account.getRole()) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
+        return Extractor.extractMainPagePath(req);
 
     }
 

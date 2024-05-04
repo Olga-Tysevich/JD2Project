@@ -1,5 +1,10 @@
 package it.academy.utils.fiterForSearch;
 
+import it.academy.entities.account.Account;
+import it.academy.entities.account.Account_;
+import it.academy.entities.device.Device;
+import it.academy.entities.device.Device_;
+import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
@@ -61,10 +66,10 @@ public class FilterManager {
     }
 
     public static List<EntityFilter> getFiltersForAccount() {
-        return List.of(new EntityFilter(EMAIL, EMAIL),
-                new EntityFilter(USER_NAME, ACCOUNT_USER_NAME),
-                new EntityFilter(USER_SURNAME, ACCOUNT_USER_SURNAME),
-                new EntityFilter(SERVICE_CENTER, ACCOUNT_SERVICE_CENTER_DESCRIPTION));
+        return List.of(new EntityFilter(Account_.EMAIL, EMAIL),
+                new EntityFilter(Account_.USER_NAME, ACCOUNT_USER_NAME),
+                new EntityFilter(Account_.USER_SURNAME, ACCOUNT_USER_SURNAME),
+                new EntityFilter(Account_.SERVICE_CENTER, ACCOUNT_SERVICE_CENTER_DESCRIPTION));
     }
 
     public static List<EntityFilter> getFiltersForServiceCenter() {
@@ -99,8 +104,8 @@ public class FilterManager {
     }
 
     public static List<EntityFilter> getFiltersForRepair() {
-        return List.of(new EntityFilter(REPAIR_SERVICE_CENTER, REPAIR_SERVICE_CENTER_DESCRIPTION),
-                new EntityFilter(REPAIR_CATEGORY, REPAIR_CATEGORY_DESCRIPTION),
+        return List.of(new EntityFilter(Repair_.REPAIR_NUMBER, REPAIR_NUMBER_DESCRIPTION),
+                new EntityFilter(Repair_.DEVICE + POINT + Device_.SERIAL_NUMBER, DEVICE_SERIAL_NUMBER_DESCRIPTION),
                 new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
     }
 

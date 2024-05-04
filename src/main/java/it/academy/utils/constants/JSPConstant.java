@@ -61,7 +61,7 @@ public class JSPConstant {
 
     public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d";
     public static final String OPEN_TABLE_PAGE_BY_FILTER = "main?command=%s&&page=%s&&pageNumber=%d&&filter=%s&&input=%s";
-    public static final String OPEN_NEW_OBJECT_FORM_PAGE = "main?command=%s";
+    public static final String OPEN_NEW_OBJECT_FORM_PAGE = "%s?command=%s";
     public static final String OPEN_FORM = "%s?command=%s&&id=%d";
 
 

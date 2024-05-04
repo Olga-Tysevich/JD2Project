@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -13,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class AccountFormDTO {
 
-    private List<ServiceCenterDTO> serviceCenters;
+    private Map<Long, String> serviceCenters;
 
     private String message;
 

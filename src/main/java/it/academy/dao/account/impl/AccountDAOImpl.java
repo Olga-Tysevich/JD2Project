@@ -3,7 +3,9 @@ package it.academy.dao.account.impl;
 import it.academy.dao.account.AccountDAO;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.account.Account;
+import it.academy.entities.account.ServiceCenter_;
 import it.academy.utils.dao.TransactionManger;
+
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
     @Override
     public List<Account> findServiceCenterAccounts(long serviceCenterId) {
         TypedQuery<Account> find = entityManager().createQuery(FIND_ACCOUNTS_BY_SERVICE_CENTER_ID, Account.class);
-        find.setParameter(OBJECT_ID, serviceCenterId);
+        find.setParameter(ServiceCenter_.ID, serviceCenterId);
 
         return find.getResultList();
     }
@@ -36,8 +38,7 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
         TypedQuery<Account> find = entityManager().createQuery(FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME, Account.class);
         find.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, serviceCenterName));
 
-        return find
-                .setFirstResult((pageNumber - 1) * listSize)
+        return find.setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
                 .getResultList();
     }
@@ -45,7 +46,7 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
     @Override
     public long getNumberOfEntriesByServiceCenter(String serviceCenter) {
         TypedQuery<Long> count = entityManager().createQuery(GET_NUMBER_OF_ACCOUNTS_BY_SERVICE_CENTER, Long.class);
-        count.setParameter(PARAMETER_VALUE, serviceCenter);
+        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, serviceCenter));
         return count.getSingleResult();
     }
 
