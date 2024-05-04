@@ -9,6 +9,7 @@
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
 <section>
     <div class=" container">
 
@@ -46,7 +47,10 @@
 
             <table>
                 <tr>
+                    <%if (RoleEnum.ADMIN.equals(role)) {%>
                     <th>Сервисный центр</th>
+                    <%}%>
+                    <th>Категория ремонта</th>
                     <th class="date">Дата приема</th>
                     <th>No. заказа</th>
                     <th>Модель</th>
@@ -59,7 +63,10 @@
             <% for (RepairDTO repair : list) {%>
 
                 <tr>
-                    <td class="date"><%=repair.getServiceCenterName()%></td>
+                    <%if (RoleEnum.ADMIN.equals(role)) {%>
+                    <td><%=repair.getServiceCenterName()%></td>
+                    <%}%>
+                    <td><%=repair.getCategory().getDescription()%></td>
                     <td class="date"><%=repair.getStartDate()%></td>
                     <td class="number"><%=repair.getRepairNumber()%></td>
                     <td class="number"><%=repair.getDeviceDescription()%></td>
@@ -73,6 +80,7 @@
                             <form action="repair" method="get">
                                 <input type="hidden" name="<%=COMMAND%>" value="<%=GET_REPAIR%>">
                                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
+                                <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repair.getStatus()%>">
                                 <% if (RoleEnum.ADMIN.equals(role) || RepairStatus.REQUEST.equals(repair.getStatus())) { %>
                                     <input class="choose-button btn-table" type="submit" value="Изменить">
                                 <% } else {%>

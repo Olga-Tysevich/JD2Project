@@ -34,7 +34,7 @@ public class TransactionManger {
 
     public <T> T execute(Supplier<T> method) {
         beginTransaction();
-        T result = null;
+        T result;
         try {
             result = method.get();
             commit();

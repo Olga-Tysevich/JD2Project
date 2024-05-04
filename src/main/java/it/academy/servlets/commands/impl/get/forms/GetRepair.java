@@ -6,6 +6,7 @@ import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
+import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +21,10 @@ public class GetRepair implements ActionCommand {
 
         RoleEnum role = (RoleEnum) req.getSession().getAttribute(ROLE);
         long repairId = Extractor.extractLongVal(req, OBJECT_ID, DEFAULT_ID);
+        RepairStatus status = Extractor.extractRepairStatus(req);
 
-        return RoleEnum.ADMIN.equals(role) ? getRepairForAdmin(req, repairId)
+        return RoleEnum.ADMIN.equals(role) || RepairStatus.REQUEST.equals(status) ?
+                getRepairForAdmin(req, repairId)
                 : getRepairForUser(req, repairId);
 
     }
@@ -37,7 +40,6 @@ public class GetRepair implements ActionCommand {
 
     private String getRepairForUser(HttpServletRequest req, long repairId) {
         UserRepairFormDTO userRepairFormDTO = repairService.findRepairForUser(repairId);
-
         req.setAttribute(REPAIR_FORM, userRepairFormDTO);
         return USER_REPAIR_PAGE_PATH;
     }

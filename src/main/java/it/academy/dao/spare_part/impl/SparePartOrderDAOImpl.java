@@ -4,6 +4,7 @@ import it.academy.dao.impl.DAOImpl;
 import it.academy.dao.spare_part.SparePartOrderDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_part.SparePartOrder;
+import it.academy.entities.spare_part.SparePartOrder_;
 import it.academy.utils.dao.TransactionManger;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -19,12 +20,12 @@ public class SparePartOrderDAOImpl extends DAOImpl<SparePartOrder, Long> impleme
     }
 
     @Override
-    public List<SparePartOrder> findSparePartOrdersByRepairId(long id) {
+    public List<SparePartOrder> findByRepairId(long id) {
         CriteriaQuery<SparePartOrder> find = criteriaBuilder().createQuery(SparePartOrder.class);
         Root<SparePartOrder> root = find.from(SparePartOrder.class);
 
-        Join<SparePartOrder, Repair> join = root.join(REPAIR);
-        find.select(root).where(criteriaBuilder().equal(join.get(OBJECT_ID), id));
+        Join<SparePartOrder, Repair> join = root.join(SparePartOrder_.REPAIR);
+        find.select(root).where(criteriaBuilder().equal(join.get(SparePartOrder_.ID), id));
         return entityManager()
                 .createQuery(find)
                 .getResultList();

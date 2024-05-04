@@ -39,12 +39,14 @@ import it.academy.utils.converters.spare_part.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -150,6 +152,19 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
+    public void completeRepair(CompleteRepairDTO repairDTO) {
+        Supplier<Repair> complete = () -> {
+            Repair repair = repairDAO.find(repairDTO.getRepairId());
+            RepairType repairType = repairTypeDAO.find(repairDTO.getRepairTypeId());
+            repair.setRepairType(repairType);
+            repair.setStatus(RepairStatus.COMPLETED);
+            repair.setEndDate(Date.valueOf(LocalDate.now()));
+            return repairDAO.update(repair);
+        };
+        transactionManger.execute(complete);
+    }
+
+    @Override
     public RepairFormDTO findRepair(long id) {
         return transactionManger.execute(() -> {
             Repair repair = repairDAO.find(id);
@@ -172,7 +187,7 @@ public class RepairServiceImpl implements RepairService {
 
             if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())
                     || status.isFinishedStatus()) {
-                List<SparePartOrder> orders = sparePartOrderDAO.findSparePartOrdersByRepairId(id);
+                List<SparePartOrder> orders = sparePartOrderDAO.findByRepairId(id);
                 orderDTOList = SparePartOrderConverter.convertToDTOList(orders);
             }
 
@@ -210,8 +225,20 @@ public class RepairServiceImpl implements RepairService {
             List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
-        return transactionManger.execute(find);
+        return StringUtils.isBlank(userInput)? findRepairs(pageNumber) : transactionManger.execute(find);
     }
+
+//    @Override
+//    public TablePage2<RepairDTO> findRepairsByFilter(int pageNumber, String filter, String userInput) {
+//        Supplier<TablePage2<RepairDTO>> find = () -> {
+//            long numberOfEntries = repairDAO.getNumberOfEntriesByFilter(filter, userInput);
+//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+//            List<Repair> repairs = repairDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, userInput);
+//            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+//            return new TablePage2<>(dtoList, numberOfEntries);
+//        };
+//        return transactionManger.execute(find);
+//    }
 
     @Override
     public TablePage2<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
@@ -247,7 +274,8 @@ public class RepairServiceImpl implements RepairService {
             List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
-        return transactionManger.execute(find);
+        return StringUtils.isBlank(userInput)? findRepairsForUser(serviceCenterId, pageNumber):
+                transactionManger.execute(find);
     }
 
 

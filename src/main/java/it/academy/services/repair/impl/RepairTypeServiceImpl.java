@@ -10,10 +10,13 @@ import it.academy.utils.PageCounter;
 import it.academy.utils.converters.impl.RepairTypeConverter;
 import it.academy.utils.dao.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 import java.util.function.Supplier;
 import static it.academy.utils.constants.Constants.LIST_SIZE;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_CREATED_PATTERN;
+import static it.academy.utils.constants.LoggerConstants.OBJECT_UPDATED_PATTERN;
 
 @Slf4j
 public class RepairTypeServiceImpl implements RepairTypeService {
@@ -32,6 +35,7 @@ public class RepairTypeServiceImpl implements RepairTypeService {
     public void update(RepairTypeDTO repairTypeDTO) {
         RepairType repairType = repairTypeConverter.convertToEntity(repairTypeDTO);
         transactionManger.execute(() -> repairTypeDAO.update(repairType));
+        log.info(OBJECT_UPDATED_PATTERN, repairTypeDTO);
     }
 
     @Override
@@ -72,7 +76,7 @@ public class RepairTypeServiceImpl implements RepairTypeService {
             List<RepairTypeDTO> dtoList = repairTypeConverter.convertToDTOList(result);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
-        return transactionManger.execute(find);
+        return StringUtils.isBlank(input)? findForPage(pageNumber) : transactionManger.execute(find);
     }
 
 }

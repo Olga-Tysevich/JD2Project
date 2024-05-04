@@ -34,6 +34,7 @@ public class LoggerConstants {
     public static final String CURRENT_TABLE = "Current table: {}";
     public static final String OBJECT_FOR_SAVE_PATTERN = "Object for save: {}";
     public static final String OBJECT_CREATED_PATTERN = "Object created: {}";
+    public static final String OBJECT_DELETED_PATTERN = "Object deleted id: {}, class: {}";
     public static final String OBJECT_FOR_UPDATE_PATTERN = "Object for update: {}";
     public static final String OBJECT_UPDATED_PATTERN = "object updated: {}";
     public static final String OBJECT_FOUND_PATTERN = "Object found: {}";

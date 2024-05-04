@@ -22,15 +22,13 @@ public class ChangeServiceCenter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        String mainPagePath = Extractor.extractMainPagePath(req);
-
         ServiceCenterDTO forUpdate = Extractor.extract(req, new ServiceCenterDTO());
         req.setAttribute(SERVICE_CENTER, forUpdate);
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
             serviceCenterService.updateServiceCenter(forUpdate);
-            return mainPagePath;
+            return Extractor.extractLastPage(req);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             return CommandHelper.insertFormData(req, SERVICE_CENTER_PAGE_PATH, CHANGE_SERVICE_CENTER);

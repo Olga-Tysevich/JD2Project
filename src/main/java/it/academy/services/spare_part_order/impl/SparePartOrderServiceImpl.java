@@ -8,23 +8,22 @@ import it.academy.dao.repair.impl.RepairDAOImpl;
 import it.academy.dao.spare_part.impl.OrderItemDAOImpl;
 import it.academy.dao.spare_part.impl.SparePartDAOImpl;
 import it.academy.dao.spare_part.impl.SparePartOrderDAOImpl;
+import it.academy.dto.TablePage2;
 import it.academy.dto.spare_part.ChangeSparePartOrderDTO;
 import it.academy.dto.spare_part.CreateOrderDTO;
 import it.academy.dto.spare_part.SparePartOrderDTO;
-import it.academy.dto.TablePage;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_part.OrderItem;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.exceptions.common.ObjectNotFound;
+import it.academy.utils.PageCounter;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.services.spare_part_order.SparePartOrderService;
-import it.academy.utils.Builder;
 import it.academy.utils.converters.spare_part.SparePartOrderConverter;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -42,13 +41,13 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
 
     @Override
-    public void createSparePartOrder(CreateOrderDTO createOrderDTO) {
+    public void create(CreateOrderDTO createOrderDTO) {
         transactionManger.execute(() -> {
             Repair repair = repairDAO.find(createOrderDTO.getRepairId());
 
             if (repair == null) {
                 log.info(OBJECT_NOT_FOUND_PATTERN, createOrderDTO.getRepairId(), Repair.class);
-                throw  new ObjectNotFound(REPAIR_NOT_FOUND);
+                throw new ObjectNotFound(REPAIR_NOT_FOUND);
             }
             repair.setStatus(RepairStatus.WAITING_FOR_SPARE_PARTS);
 
@@ -78,7 +77,7 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
 
 
     @Override
-    public void changeSparePartOrder(ChangeSparePartOrderDTO partDTO) {
+    public void update(ChangeSparePartOrderDTO partDTO) {
         transactionManger.execute(() -> {
             SparePartOrder order = sparePartOrderDAO.find(partDTO.getId());
             order.setDepartureDate(partDTO.getDepartureDate());
@@ -88,50 +87,48 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
     }
 
     @Override
-    public List<SparePartOrderDTO> findSparePartOrdersByRepairId(long id) {
+    public List<SparePartOrderDTO> findAllByRepairId(long id) {
         Supplier<List<SparePartOrderDTO>> find = () -> {
-            List<SparePartOrder> sparePart = sparePartOrderDAO.findSparePartOrdersByRepairId(id);
+            List<SparePartOrder> sparePart = sparePartOrderDAO.findByRepairId(id);
             return SparePartOrderConverter.convertToDTOList(sparePart);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage<SparePartOrderDTO> findSparePartOrders(int pageNumber) {
-        List<EntityFilter> filters = FilterManager.getFiltersForSparePartOrder();
-
-        Supplier<TablePage<SparePartOrderDTO>> find = () -> {
-            List<SparePartOrder> repairs = sparePartOrderDAO.findForPage(pageNumber, LIST_SIZE);
-            int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
-            List<SparePartOrderDTO> list = SparePartOrderConverter.convertToDTOList(repairs);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+    public TablePage2<SparePartOrderDTO> findForPage(int pageNumber) {
+        Supplier<TablePage2<SparePartOrderDTO>> find = () -> {
+            long numberOfEntries = sparePartOrderDAO.getNumberOfEntries();
+            List<SparePartOrder> orders = sparePartOrderDAO.findForPage(pageNumber, LIST_SIZE);
+            List<SparePartOrderDTO> result = SparePartOrderConverter.convertToDTOList(orders);
+            return new TablePage2<>(result, numberOfEntries);
         };
 
         return transactionManger.execute(find);
     }
 
-    @Override
-    public TablePage<SparePartOrderDTO> findSparePartOrders(int pageNumber, String filter, String input) {
-        List<EntityFilter> filters = FilterManager.getFiltersForSparePartOrder();
 
-        Supplier<TablePage<SparePartOrderDTO>> find = () -> {
-            List<SparePartOrder> repairs = sparePartOrderDAO.findForPageByAnyMatch(pageNumber, LIST_SIZE, filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) 2) / LIST_SIZE);
-            List<SparePartOrderDTO> list = SparePartOrderConverter.convertToDTOList(repairs);
-            return Builder.buildListForPage(list, pageNumber, maxPageNumber, filters);
+    @Override
+    public TablePage2<SparePartOrderDTO> findForPageByFilter(int pageNumber, String filter, String input) {
+        Supplier<TablePage2<SparePartOrderDTO>> find = () -> {
+            long numberOfEntries = sparePartOrderDAO.getNumberOfEntriesByFilter(filter, input);
+            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<SparePartOrder> repairs = sparePartOrderDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
+            List<SparePartOrderDTO> result = SparePartOrderConverter.convertToDTOList(repairs);
+            return new TablePage2<>(result, numberOfEntries);
         };
 
-        return transactionManger.execute(find);
+        return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
     }
 
     @Override
-    public SparePartOrderDTO findSparePartOrder(long id) {
+    public SparePartOrderDTO find(long id) {
         return transactionManger.execute(() ->
                 SparePartOrderConverter.convertToDTO(sparePartOrderDAO.find(id)));
     }
 
     @Override
-    public void deleteSparePartOrder(long id) {
+    public void delete(long id) {
         transactionManger.execute(() -> sparePartOrderDAO.delete(id));
     }
 

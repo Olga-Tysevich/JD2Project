@@ -1,28 +1,17 @@
-<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.TablePage" %>
-<%@ page import="it.academy.dto.repair.spare_parts.SparePartOrderDTO" %>
-<%@ page import="it.academy.dto.spare_part.ChangeSparePartDTO" %>
-<%@ page import="java.util.Map" %>
+<%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_REPAIR" %>
 <section>
     <div class="container t-container">
 
         <%
-            TablePage<SparePartOrderDTO> data = (TablePage<SparePartOrderDTO>) request.getAttribute(TABLE_PAGE);
-            int pageNumber = data.getPageNumber();
-            int maxPageNumber = data.getMaxPageNumber();
-            List<SparePartOrderDTO> list = data.getDto();
+            TablePage2<SparePartOrderDTO> data = (TablePage2<SparePartOrderDTO>) request.getAttribute(TABLE_PAGE);
+            List<SparePartOrderDTO> list = data.getList();
         %>
-
-
-        <div class="radio-container">
-            <form class="status-form" action="main" method="post" id="find_spare_part_orders">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="command" value="show_spare_part_orders_table">
-            </form>
-        </div>
 
 
             <table>
@@ -31,64 +20,27 @@
                     <th>Дата заказа</th>
                     <th>Дата отправки</th>
                     <th>Дата доставки</th>
-                    <th>Наименование запчасти</th>
                     <th class="menu">Управление</th>
                 </tr>
 
             <%
                 for (SparePartOrderDTO sparePartOrder : list) {
-                Map<ChangeSparePartDTO, Integer> spareParts = sparePartOrder.getSpareParts();
-                for (ChangeSparePartDTO sparePart : spareParts.keySet()) {
+                    long repairId = sparePartOrder.getRepairId();
+                    String repairNumber = sparePartOrder.getServiceCenterRepairNumber();
             %>
                 <tr class="t-tr">
-                    <td class="code"><%=sparePartOrder.getRepairWorkshopNumber()%></td>
-                    <td class="level"><%=sparePartOrder.getOrderDate() != null? sparePartOrder.getOrderDate() : ""%></td>
-                    <td class="name"><%=sparePartOrder.getDepartureDate() != null? sparePartOrder.getDepartureDate() : ""%></td>
-                    <td class="name"><%=sparePartOrder.getDeliveryDate() != null? sparePartOrder.getDeliveryDate() : ""%></td>
-                    <td class="name"><%=sparePart.getName()%></td>
+                    <td><%=repairNumber%></td>
+                    <td><%=sparePartOrder.getOrderDate() != null? sparePartOrder.getOrderDate() : ""%></td>
+                    <td><%=sparePartOrder.getDepartureDate() != null? sparePartOrder.getDepartureDate() : ""%></td>
+                    <td><%=sparePartOrder.getDeliveryDate() != null? sparePartOrder.getDeliveryDate() : ""%></td>
                     <td>
                         <div class="button-table-container">
-                            <form action="repair" method="post">
-                                <input type="hidden" name="command" value="show_confirmed_repair">
-                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                                <input type="hidden" name="<%=OBJECT_ID%>" value="<%=sparePartOrder.getRepairId()%>">
-                                <input class="choose-button order-btn" type="submit" value="Перейти в ремонт">
-                            </form>
+                            <button class="choose-button order-btn" onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, GET_REPAIR, repairId)%>'">
+                                Перейти в ремонт</button>
                         </div>
                     </td>
                 </tr>
-                <% } } %>
+                <% } %>
             </table>
-
-        <%if (data.getMaxPageNumber() != 1) {%>
-        <div class="footer">
-        <div class="button-container">
-            <%if (pageNumber != FIRST_PAGE) { %>
-            <form action="main" method="post">
-                <input type="hidden" name="command" value="show_spare_part_orders_table">
-                <%int prevPage = pageNumber - 1;%>
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                <input class="button light" type="submit" name="button" value="Предыдущая">
-            </form>
-            <% } %>
-
-            <p><%=pageNumber%>
-                из
-                <%=maxPageNumber%>
-            </p>
-
-
-            <%if (pageNumber != maxPageNumber) { %>
-            <form action="main" method="post">
-                <input type="hidden" name="command" value="show_spare_part_orders_table">
-                <%int nextPage = pageNumber + 1;%>
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                <input class="button light" type="submit" name="button" value="Следующая">
-            </form>
-            <% } %>
-
-        </div>
-        </div>
-        <% } %>
     </div>
 </section>

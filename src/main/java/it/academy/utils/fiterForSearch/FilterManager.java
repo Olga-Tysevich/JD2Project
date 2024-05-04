@@ -1,5 +1,7 @@
 package it.academy.utils.fiterForSearch;
 
+import it.academy.entities.spare_part.SparePart;
+import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
 
 import javax.validation.constraints.NotNull;
@@ -35,7 +37,7 @@ public class FilterManager {
         }
     }
 
-    public static <T> List<EntityFilter> getFiltersForPage(@NotNull String pagePath) {
+    public static List<EntityFilter> getFiltersForPage(@NotNull String pagePath) {
         switch (pagePath) {
             case ACCOUNT_TABLE_PAGE_PATH:
                 return getFiltersForAccount();
@@ -97,14 +99,14 @@ public class FilterManager {
     }
 
     public static List<EntityFilter> getFiltersForRepair() {
-        return List.of(new EntityFilter(REPAIR_TYPE_CODE, REPAIR_TYPE_CODE_FILTER),
-                new EntityFilter(REPAIR_TYPE_LEVEL, REPAIR_TYPE_LEVEL_FILTER),
+        return List.of(new EntityFilter(REPAIR_SERVICE_CENTER, REPAIR_SERVICE_CENTER_DESCRIPTION),
+                new EntityFilter(REPAIR_CATEGORY, REPAIR_CATEGORY_DESCRIPTION),
                 new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
     }
 
     public static List<EntityFilter> getFiltersForSparePart() {
-        return List.of(new EntityFilter(MODELS, DEVICE_TYPE_NAME_DESCRIPTION),
-                new EntityFilter(OBJECT_NAME, SPARE_PART_NAME_DESCRIPTION));
+        return List.of(new EntityFilter(SparePart_.MODELS, MODEL_NAME_FILTER),
+                new EntityFilter(SparePart_.NAME, SPARE_PART_NAME_DESCRIPTION));
     }
 
     public List<EntityFilter> getFiltersForSparePartOrder() {

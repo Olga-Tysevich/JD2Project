@@ -88,13 +88,13 @@ public class DeleteObject implements ActionCommand {
 
     private String deleteSparePart(long id, HttpServletRequest req, HttpServletResponse resp) {
         SparePartService sparePartService = new SparePartServiceImpl();
-        sparePartService.deleteSparePart(id);
-        return new ShowSparePartTable().execute(req, resp);
+        sparePartService.delete(id);
+        return new GetSpareParts().execute(req, resp);
     }
 
     private String deleteSparePartOrder(long id, HttpServletRequest req, HttpServletResponse resp) {
         SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
-        sparePartOrderService.deleteSparePartOrder(id);
-        return new ShowSparePartOrderTable().execute(req, resp);
+        sparePartOrderService.delete(id);
+        return new GetSparePartOrders().execute(req, resp);
     }
 }

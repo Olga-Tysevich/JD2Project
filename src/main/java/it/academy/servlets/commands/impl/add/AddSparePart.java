@@ -5,7 +5,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.spare_part_order.SparePartService;
 import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.tables.ShowSparePartTable;
+import it.academy.servlets.commands.impl.get.tables.GetSpareParts;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART;
-import static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_TABLE;
+import static it.academy.servlets.commands.factory.CommandEnum.GET_SPARE_PARTS;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.SPARE_PART_PAGE_PATH;
 import static it.academy.utils.constants.JSPConstant.SPARE_PART_TABLE_PAGE_PATH;
@@ -39,7 +39,7 @@ public class AddSparePart implements ActionCommand {
             List<Long> modelsId = getModelsId(req);
             forCreate.setModelIdList(modelsId);
             log.info(OBJECT_FOR_SAVE_PATTERN, forCreate);
-            sparePartService.createSparePart(forCreate);
+            sparePartService.create(forCreate);
         } catch (IllegalArgumentException | ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -47,10 +47,10 @@ public class AddSparePart implements ActionCommand {
                     SPARE_PART_TABLE_PAGE_PATH,
                     SPARE_PART_PAGE_PATH,
                     ADD_SPARE_PART,
-                    SHOW_SPARE_PART_TABLE);
+                    GET_SPARE_PARTS);
         }
 
-        return new ShowSparePartTable().execute(req, resp);
+        return new GetSpareParts().execute(req, resp);
     }
 
     protected List<Long> getModelsId(HttpServletRequest req) {

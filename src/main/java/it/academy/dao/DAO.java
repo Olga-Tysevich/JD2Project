@@ -20,8 +20,12 @@ public interface DAO<T, R> {
 
     List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String input);
 
+    List<T> findForPageByFilter(int pageNumber, int listSize, String filter, String input);
+
     long getNumberOfEntries();
 
     long getNumberOfEntriesByFilter(String filter, String value);
+
+    long getNumberOfEntriesByFilter(String filter, String value, boolean strictMatch);
 
 }

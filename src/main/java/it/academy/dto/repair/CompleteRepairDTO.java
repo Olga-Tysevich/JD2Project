@@ -13,4 +13,6 @@ public class CompleteRepairDTO {
 
     private Long repairId;
 
+    private Long repairTypeId;
+
 }

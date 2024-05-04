@@ -16,7 +16,7 @@ section {
     padding: 0 20px 0 20px;
 }
 
-.repair-type-container{
+.included-container{
     display: none;
     position: fixed;
     z-index: 1;
@@ -128,6 +128,7 @@ td, th {
     width: 60%;
     margin: auto auto auto auto;
 }
+
 
 .cancel-button-container {
     text-align: end;

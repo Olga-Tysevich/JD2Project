@@ -6,18 +6,16 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
-<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SPARE_PART" %>
+<%@ page import="it.academy.dto.TablePage2" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage<SparePartDTO> data = (TablePage<SparePartDTO>) request.getAttribute(TABLE_PAGE);
-            int pageNumber = data.getPageNumber();
+            TablePage2<SparePartDTO> data = (TablePage2<SparePartDTO>) request.getAttribute(TABLE_PAGE);
             List<SparePartDTO> spareParts = data.getList();
-            String tablePage = data.getPage();
         %>
 
 
@@ -45,8 +43,6 @@
                         <form action="repair" method="post">
                             <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SPARE_PART%>">
                             <input type="hidden" name="<%=OBJECT_ID%>" value="<%=sparePart.getId()%>">
-                            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
                             <input type="hidden" name="<%=IS_ACTIVE%>" value="<%=sparePart.getIsActive()%>">
                             <input class="choose-button order-btn" type="submit" value="Изменить" >
                         </form>
@@ -54,8 +50,6 @@
                         <form action="repair" method="post" >
                             <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_SPARE_PART%>">
                             <input type="hidden" name="<%=OBJECT_ID%>" value="<%=sparePart.getId()%>">
-                            <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                            <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                             <input class="choose-button order-btn" type="submit" value="Удалить" >
                         </form>
                     </div>

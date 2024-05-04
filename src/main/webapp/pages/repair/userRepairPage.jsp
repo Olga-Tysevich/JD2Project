@@ -86,28 +86,39 @@
                     <label class="form-el">Телефон владельца:</label>
                     <div class="f-form"><%=repairDTO.getBuyerPhone()%></div>
                 </div>
+
+                <% if(repairDTO.getStatus().isFinishedStatus()) {
+                    RepairTypeDTO repairType = repairDTO.getRepairType();
+                %>
+                <div class="f-input">
+                    <label class="date-label">Дата завершения: </label>
+                    <div class="date-container">
+                        <input class="f-form" type="date" value="<%=repairDTO.getStartDate()%>" disabled/>
+                    </div>
+                </div>
+
+                <div class="f-input">
+                    Выполненный ремонт:
+                    <div class="f-input">
+                        <label >Код:</label>
+                        <br>
+                        <%=repairType.getCode()%>
+                    </div>
+                    <div class="f-input">
+                        <label>Уровень:</label>
+                        <br>
+                        <%=repairType.getLevel()%>
+                    </div>
+                    <div class="f-input">
+                        <label>Описание:</label>
+                        <br>
+                        <%=repairType.getName()%>
+                    </div>
+                </div>
+                <% } %>
+
             </form>
 
-            <% if(repairDTO.getStatus().isFinishedStatus()) {
-                RepairTypeDTO repairType = repairDTO.getRepairType();
-            %>
-            <div class="f-input">
-                <label class="date-label">Дата завершения: </label>
-                <div class="date-container">
-                    <input class="f-form" type="date" value="<%=repairDTO.getStartDate()%>" disabled/>
-                </div>
-            </div>
-
-            <div class="f-input">
-                    Выполненный ремонт:
-                    <label >Код:</label>
-                    <div><%=repairType.getCode()%></div>
-                    <label>Уровень:</label>
-                    <div><%=repairType.getLevel()%></div>
-                    <label>Описание:</label>
-                    <div><%=repairType.getName()%></div>
-            </div>
-            <% } %>
 
 <%--            <% if(repairDTO.getStatus().isFinishedStatus()) {%>--%>
 <%--            <div class="f-input">--%>
@@ -139,9 +150,6 @@
             <%if (RepairStatus.CURRENT.equals(repairDTO.getStatus())
                     || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {%>
                 <%@include file="included/repairTypeList.jsp"%>
-            <%}%>
-
-            <%if (!repairDTO.getStatus().isFinishedStatus()) {%>
             <div class="lf-button-container">
                 <form action="order" method="get" id="order">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=GET_NEW_SPARE_PART_ORDER%>">
@@ -154,8 +162,6 @@
                 <button class="choose-button lf-button" type="button" onclick="showRepairTypes()">Сообщить о выполнении</button>
             </div>
             <%}%>
-
-
 
             <% if (orders != null && !orders.isEmpty()) { %>
                  <%@include file="included/sparePartOrderForUser.jsp"%>

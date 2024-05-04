@@ -6,11 +6,12 @@ function getModelsForForm() {
 
 function showRepairTypes() {
     let repairTypesBlock = document.getElementById('repairTypesBlockId');
+    console.log(repairTypesBlock)
     repairTypesBlock.style.display = "flex";
 }
 
 function hideRepairTypes() {
-    let repairTypesBlock = document.getElementById('closeRepairTypes');
+    let repairTypesBlock = document.getElementById('repairTypesBlockId');
     repairTypesBlock.style.display = "none";
 }
 

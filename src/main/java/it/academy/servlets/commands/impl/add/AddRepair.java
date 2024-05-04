@@ -6,11 +6,8 @@ import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
 @Slf4j
@@ -24,6 +21,6 @@ public class AddRepair implements ActionCommand {
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
         repairService.addRepair(forCreate);
 
-        return USER_MAIN_PAGE_PATH;
+        return Extractor.extractLastPage(req);
     }
 }

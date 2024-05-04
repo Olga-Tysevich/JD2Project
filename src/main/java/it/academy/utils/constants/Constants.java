@@ -13,6 +13,7 @@ public class Constants {
     public static final String COMPONENT_DESCRIPTION_PATTERN = "%s %s %s";
     public static final long DEFAULT_ID = 1L;
     public static final String DEFAULT_VALUE = "";
+    public static final String SLASH = "/";
     public static final long ID_FOR_CHECK = 0L;
 
     //entity patterns
@@ -23,7 +24,12 @@ public class Constants {
 
     //sql
     public static final String GET_NUMBER_OF_ENTRIES = "SELECT count(s) FROM %s s";
-    public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
+    public static final String GET_NUMBER_OF_ENTRIES_BY_ANY_MATCH = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
+    public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s = :value";
+    public static final String GET_LIST = "SELECT s FROM %s s ORDER BY s.id DESC";
+    public static final String GET_LIST_BY_ANY_MATCH = "SELECT s FROM %s s WHERE %s LIKE :value ORDER BY s.id DESC";
+    public static final String GET_LIST_BY_FILTER = "SELECT s FROM %s s WHERE %s = :value ORDER BY s.id DESC";
+
     public static final String GET_NUMBER_OF_ACCOUNTS_BY_SERVICE_CENTER = "SELECT count(a) FROM Account a WHERE a.serviceCenter.serviceName LIKE :value";
     public static final String GET_NUMBER_OF_SERVICE_CENTERS_BY_REQUISITES = "SELECT count(s) FROM ServiceCenter s WHERE s.requisites.%s LIKE :value";
     public static final String GET_NUMBER_OF_MODELS_BY_COMPONENT = "SELECT count(m) FROM Model m WHERE m.%s.name LIKE :value";
@@ -181,6 +187,10 @@ public class Constants {
     public static final String SERVICE_CENTER_ACTUAL_ADDRESS_DESCRIPTION = "Фактический адрес";
     public static final String SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION = "Юридический адрес";
     public static final String SERVICE_CENTER_PHONE_DESCRIPTION = "Телефон";
+    //repair
+    public static final String REPAIR_SERVICE_CENTER = "repair.service.serviceName";
+    public static final String REPAIR_SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
+    public static final String REPAIR_CATEGORY_DESCRIPTION = "Категория ремонта";
 
     //repairType filters
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";

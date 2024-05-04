@@ -7,6 +7,7 @@ import it.academy.entities.device.Model_;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.entities.spare_part.SparePart_;
 import it.academy.utils.dao.TransactionManger;
+
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
@@ -31,6 +32,35 @@ public class SparePartDAOImpl extends ComponentDAOImpl<SparePart, Long> implemen
         return entityManager()
                 .createQuery(find)
                 .getResultList();
+    }
+
+    @Override
+    public List<SparePart> findForPageByModelName(int pageNumber, int listSize, String name) {
+        CriteriaQuery<SparePart> find = criteriaBuilder().createQuery(SparePart.class);
+        Root<SparePart> root = find.from(SparePart.class);
+
+        Join<SparePart, Model> join = root.join(SparePart_.MODELS);
+        find.select(root)
+                .where(criteriaBuilder().equal(join.get(Model_.NAME), name))
+                .orderBy(criteriaBuilder().desc(join.get(SparePart_.ID)));
+        return entityManager()
+                .createQuery(find)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public long getNumberOfEntriesByModelName(String name) {
+        CriteriaQuery<Long> count = criteriaBuilder().createQuery(Long.class);
+        Root<SparePart> root = count.from(SparePart.class);
+
+        Join<SparePart, Model> join = root.join(SparePart_.MODELS);
+        count.select(criteriaBuilder().count(root))
+                .where(criteriaBuilder().equal(join.get(Model_.NAME), name));
+        return entityManager()
+                .createQuery(count)
+                .getSingleResult();
     }
 
     @Override

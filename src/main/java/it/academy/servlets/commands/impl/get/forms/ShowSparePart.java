@@ -37,7 +37,7 @@ public class ShowSparePart implements ActionCommand {
 
     private String showSparePart(HttpServletRequest req) {
         long sparePartId = Long.parseLong(req.getParameter(OBJECT_ID));
-        SparePartForChangeDTO sparePart = sparePartService.findSparePart(sparePartId);
+        SparePartForChangeDTO sparePart = sparePartService.find(sparePartId);
 
         req.setAttribute(SPARE_PART, sparePart);
         return insertAttributes(req, CHANGE_SPARE_PART);
@@ -48,7 +48,7 @@ public class ShowSparePart implements ActionCommand {
                 SPARE_PART_TABLE_PAGE_PATH,
                 SPARE_PART_PAGE_PATH,
                 command,
-                SHOW_SPARE_PART_TABLE);
+                GET_SPARE_PARTS);
     }
 
 }

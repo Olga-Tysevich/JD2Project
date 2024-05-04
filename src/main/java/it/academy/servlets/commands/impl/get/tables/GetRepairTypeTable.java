@@ -26,8 +26,7 @@ public class GetRepairTypeTable extends ShowTable {
 
         TablePage2<RepairTypeDTO> repairTypes = StringUtils.EMPTY.equals(filter) ?
                 repairTypeService.findForPage(reqData.getPageNumber())
-                : repairTypeService.findForPageByFilter(reqData.getPageNumber(),
-                reqData.getFilter(), reqData.getInput());
+                : repairTypeService.findForPageByFilter(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
 
         CommandHelper.insertTableData(req, reqData, repairTypes);
         log.info(CURRENT_TABLE, repairTypes);

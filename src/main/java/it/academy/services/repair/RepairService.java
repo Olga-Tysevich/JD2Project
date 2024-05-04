@@ -12,6 +12,8 @@ public interface RepairService {
 
     void updateRepair(RepairDTO repairDTO);
 
+    void completeRepair(CompleteRepairDTO repairDTO);
+
     RepairFormDTO findRepair(long id);
 
     UserRepairFormDTO findRepairForUser(long id);

@@ -128,7 +128,7 @@ public class Runner {
                             .name(Generator.generateSparePartName())
                             .modelIdList(modelsId)
                             .build();
-                    sparePartService.createSparePart(sparePartDTO);
+                    sparePartService.create(sparePartDTO);
                 });
 
     }

@@ -39,7 +39,7 @@ public class AddSparePartOrder implements ActionCommand {
                     .repairId(repairId)
                     .orderItems(orderItems)
                     .build();
-            sparePartOrderService.createSparePartOrder(forCreate);
+            sparePartOrderService.create(forCreate);
             return new GetRepair().execute(req, resp);
         }
 

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SparePartOrderDAO extends DAO<SparePartOrder, Long> {
 
-    List<SparePartOrder> findSparePartOrdersByRepairId(long id);
+    List<SparePartOrder> findByRepairId(long id);
 
 }

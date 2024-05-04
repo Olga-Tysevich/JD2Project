@@ -17,7 +17,6 @@
             String formPage = (String) request.getAttribute(FORM_PAGE);
         %>
 
-        <%=request.getSession().getAttribute(LAST_PAGE)%>
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="form_for_submit">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=formCommand%>" id="command_id">

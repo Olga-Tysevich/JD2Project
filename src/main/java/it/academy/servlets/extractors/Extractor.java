@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
-import static it.academy.utils.constants.JSPConstant.USER_MAIN_PAGE_PATH;
+import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.INVALID_NUMBER_FORMAT_ERROR;
 
 @UtilityClass
@@ -107,6 +106,11 @@ public class Extractor {
     public String extractMainPagePath(HttpServletRequest request) {
         RoleEnum role = (RoleEnum) request.getSession().getAttribute(ROLE);
         return RoleEnum.ADMIN.equals(role) ? ADMIN_MAIN_PAGE_PATH : USER_MAIN_PAGE_PATH;
+    }
+
+    public String extractLastPage(HttpServletRequest request) {
+        String lastPage = (String) request.getSession().getAttribute(LAST_PAGE);
+        return StringUtils.isBlank(lastPage)? extractMainPagePath(request) : SLASH + lastPage;
     }
 
 }

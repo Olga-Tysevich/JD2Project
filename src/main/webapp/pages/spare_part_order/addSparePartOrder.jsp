@@ -3,7 +3,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_SPARE_PART_ORDER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_REPAIR_FORM" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
 <%@ page import="it.academy.dto.spare_part.CreateOrderDTO" %>
 <%@ page import="it.academy.dto.spare_part.OrderItemDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -87,7 +87,7 @@
             <div class="button-container">
                 <input id="submit_id" class="button" type="button" value="Подтвердить" onclick="send()"/>
                 <button class="button"
-                        onclick="location.href='<%=String.format(OPEN_REPAIR_FORM, GET_REPAIR, repairId)%>'">Отмена</button>
+                        onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, GET_REPAIR, repairId)%>'">Отмена</button>
             </div>
 
         </div>

@@ -19,7 +19,7 @@ public class ChangeSparePartOrder implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         ChangeSparePartOrderDTO order = Extractor.extract(req, new ChangeSparePartOrderDTO());
-        sparePartOrderService.changeSparePartOrder(order);
+        sparePartOrderService.update(order);
         return new GetRepairs().execute(req, resp);
 
     }

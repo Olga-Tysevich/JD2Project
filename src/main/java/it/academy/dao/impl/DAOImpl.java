@@ -2,6 +2,7 @@ package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
 import it.academy.utils.dao.TransactionManger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,6 +11,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Objects;
+
 import static it.academy.utils.constants.Constants.*;
 
 public abstract class DAOImpl<T, R> implements DAO<T, R> {
@@ -63,26 +65,29 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     @Override
     public List<T> findAll() {
-        CriteriaQuery<T> findAll = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findAll.from(clazz);
-
-        findAll.select(root)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
-
-        return entityManager().createQuery(findAll)
+        String query = String.format(GET_LIST, clazz.getSimpleName());
+//        CriteriaQuery<T> findAll = criteriaBuilder().createQuery(clazz);
+//        Root<T> root = findAll.from(clazz);
+//
+//        findAll.select(root)
+//                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+        return entityManager().createQuery(query, clazz)
                 .getResultList();
     }
 
 
     @Override
     public List<T> findForPage(int pageNumber, int listSize) {
-        CriteriaQuery<T> findList = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findList.from(clazz);
+        String query = String.format(GET_LIST, clazz.getSimpleName());
+//
+//        CriteriaQuery<T> findList = criteriaBuilder().createQuery(clazz);
+//        Root<T> root = findList.from(clazz);
+//
+//        findList.select(root)
+//                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
 
-        findList.select(root)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
         return entityManager()
-                .createQuery(findList)
+                .createQuery(query, clazz)
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
                 .getResultList();
@@ -90,21 +95,38 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
 
     @Override
     public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String input) {
-        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
-        Root<T> root = findByParameters.from(clazz);
+        String query = String.format(GET_LIST_BY_ANY_MATCH, clazz.getSimpleName(), filter);
+        String parameterVal = String.format(LIKE_QUERY_PATTERN, input);
 
-        if (filter == null) {
-            return findForPage(pageNumber, listSize);
-        }
-
-        Predicate predicate = createLikePredicate(root, filter, input);
-
-        findByParameters.select(root)
-                .where(predicate)
-                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
+//        CriteriaQuery<T> findByParameters = criteriaBuilder().createQuery(clazz);
+//        Root<T> root = findByParameters.from(clazz);
+//
+//        if (filter == null) {
+//            return findForPage(pageNumber, listSize);
+//        }
+//
+//        Predicate predicate = criteriaBuilder()
+//                .like(root.get(filter).as(String.class),
+//                        String.format(LIKE_QUERY_PATTERN, input));
+//
+//        findByParameters.select(root)
+//                .where(predicate)
+//                .orderBy(criteriaBuilder().desc(root.get(OBJECT_ID)));
 
         return entityManager()
-                .createQuery(findByParameters)
+                .createQuery(query, clazz)
+                .setParameter(PARAMETER_VALUE, parameterVal)
+                .setFirstResult((pageNumber - 1) * listSize)
+                .setMaxResults(listSize)
+                .getResultList();
+    }
+
+    @Override
+    public List<T> findForPageByFilter(int pageNumber, int listSize, String filter, String input) {
+        String query = String.format(GET_LIST_BY_FILTER, clazz.getSimpleName(), filter);
+        return entityManager()
+                .createQuery(query, clazz)
+                .setParameter(PARAMETER_VALUE, input)
                 .setFirstResult((pageNumber - 1) * listSize)
                 .setMaxResults(listSize)
                 .getResultList();
@@ -117,11 +139,21 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return count.getSingleResult();
     }
 
-    @Override
+
     public long getNumberOfEntriesByFilter(String filter, String value) {
-        String query = String.format(GET_NUMBER_OF_ENTRIES_BY_FILTER, clazz.getSimpleName(), filter);
+        String query = String.format(GET_NUMBER_OF_ENTRIES_BY_ANY_MATCH, clazz.getSimpleName(), filter);
         TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
         count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, value));
+        return count.getSingleResult();
+    }
+
+    @Override
+    public long getNumberOfEntriesByFilter(String filter, String value, boolean strictMatch) {
+        String query = strictMatch ? String.format(GET_NUMBER_OF_ENTRIES_BY_FILTER, clazz.getSimpleName(), filter)
+                : String.format(GET_NUMBER_OF_ENTRIES_BY_ANY_MATCH, clazz.getSimpleName(), filter);
+        String parameterValue = strictMatch ? value : String.format(LIKE_QUERY_PATTERN, value);
+        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
+        count.setParameter(PARAMETER_VALUE, parameterValue);
         return count.getSingleResult();
     }
 
