@@ -16,7 +16,7 @@ import it.academy.servlets.commands.impl.get.ShowMainPageCommand;
 import it.academy.servlets.commands.impl.get.tables.*;
 import it.academy.servlets.commands.impl.add.AddServiceCenter;
 import it.academy.servlets.commands.impl.get.forms.GetServiceCenter;
-import it.academy.servlets.commands.impl.get.tables.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.get.tables.GetServiceCenters;
 import it.academy.servlets.commands.impl.add.AddSparePart;
 import it.academy.servlets.commands.impl.change.ChangeSparePart;
 import it.academy.servlets.commands.impl.get.forms.*;
@@ -25,21 +25,22 @@ public enum CommandEnum {
     SHOW_MAIN_PAGE(new ShowMainPageCommand()),
     LOGIN(new LoginCommand()),
     LOGOUT(new LogOutCommand()),
-    GET_NEW_ACCOUNT(new GetAccount()),
+    GET_NEW_ACCOUNT(new GetNewAccount()),
     GET_ACCOUNT(new GetAccount()),
     DELETE_ACCOUNT(new DeleteAccount()),
     ADD_ACCOUNT(new AddAccount()),
     CHANGE_ACCOUNT(new ChangeAccount()),
     GET_ACCOUNT_TABLE(new GetAccountTable()),
-    SHOW_SERVICE_CENTER_TABLE(new ShowServiceCenterTable()),
+    GET_SERVICE_CENTERS(new GetServiceCenters()),
+    GET_NEW_SERVICE_CENTER(new GetNewServiceCenter()),
     GET_SERVICE_CENTER(new GetServiceCenter()),
     ADD_SERVICE_CENTER(new AddServiceCenter()),
-    DELETE_SERVICE_CENTER(new DeleteObject()),
+    DELETE_SERVICE_CENTER(new DeleteServiceCenter()),
     CHANGE_SERVICE_CENTER(new ChangeServiceCenter()),
-    SHOW_BRAND_TABLE(new ShowBrandTable()),
+    GET_BRANDS(new GetBrands()),
     ADD_BRAND(new AddBrand()),
     DELETE_BRAND(new DeleteObject()),
-    SHOW_BRAND(new ShowBrand()),
+    GET_BRAND(new GetBrand()),
     CHANGE_BRAND(new ChangeBrand()),
     SHOW_DEVICE_TYPE_TABLE(new GetDeviceTypeTable()),
     ADD_DEVICE_TYPE(new AddDeviceType()),
@@ -49,8 +50,8 @@ public enum CommandEnum {
     GET_MODELS(new GetModels()),
     ADD_MODEL(new AddModel()),
     DELETE_MODEL(new DeleteObject()),
-    SHOW_MODEL(new ShowModel()),
-    SHOW_NEW_MODEL(new ShowModel()),
+    GET_MODEL(new GetModel()),
+    GET_NEW_MODEL(new GetNewModel()),
     CHANGE_MODEL(new ChangeModel()),
     GET_SPARE_PARTS(new GetSpareParts()),
     SHOW_SPARE_PART_ORDER_TABLE(new GetSpareParts()),

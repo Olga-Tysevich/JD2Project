@@ -104,7 +104,7 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     public long getNumberOfEntriesByFilter(String filter, String value) {
         String query = String.format(GET_NUMBER_OF_ENTRIES_BY_ANY_MATCH, clazz.getSimpleName(), filter);
         TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, value));
+        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, value).trim());
         return count.getSingleResult();
     }
 
@@ -120,6 +120,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
     protected Predicate createLikePredicate(Root<T> root, String filter, String value) {
         return criteriaBuilder()
                 .like(root.get(filter).as(String.class),
-                        String.format(LIKE_QUERY_PATTERN, value));
+                        String.format(LIKE_QUERY_PATTERN, value).trim());
     }
 }

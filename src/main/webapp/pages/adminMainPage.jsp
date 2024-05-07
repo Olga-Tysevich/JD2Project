@@ -1,15 +1,9 @@
-<%@ page import="static it.academy.utils.constants.Constants.ACCOUNT" %>
-<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
-<%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_NEW_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_ACCOUNT_TABLE" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.ACCOUNT_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -17,30 +11,10 @@
 </head>
 <body>
 <section>
-    <div class=" container">
 
+    <%@include file="forms/header.jsp"%>
 
-        <%
-            AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
-            String userEmail = accountDTO.getEmail();
-            int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-            String tablePage = StringUtils.defaultIfBlank((String) request.getAttribute(PAGE), StringUtils.EMPTY);
-            String command = StringUtils.defaultIfBlank((String) request.getAttribute(COMMAND), SHOW_MAIN_PAGE.name());
-            String lastInput = StringUtils.defaultIfBlank((String) request.getAttribute(USER_INPUT), StringUtils.EMPTY);
-            String lastFilter = StringUtils.defaultIfBlank((String) request.getAttribute(FILTER), StringUtils.EMPTY);
-            String currentPage = String.format(OPEN_TABLE_PAGE_BY_FILTER, command, tablePage, pageNumber, lastFilter, lastInput);
-            request.getSession().setAttribute(LAST_PAGE, currentPage);
-        %>
-
-        <div class="header-container">
-            <div class="header-el">
-                <p><%=userEmail%></p>
-            </div>
-        </div>
-            <%@include file="forms/filters.jsp"%>
-    </div>
-
-    <div class="container main">
+    <div class="container main" id="main_container_id">
 
         <div class="menu-container">
 
@@ -56,12 +30,11 @@
 
             <fieldset class="f1">
                 <legend>Сервисные центры</legend>
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_NEW_OBJECT_FORM_PAGE, SERVICE_CENTER, GET_NEW_SERVICE_CENTER)%>'">
+                    Добавить сервисный центр</button>
                 <form  action="account" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTER%>">
-                    <input class="button button-fieldset" type="submit" value="Добавить сервисный центр"/>
-                </form>
-                <form  action="account" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_SERVICE_CENTER_TABLE%>">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTERS%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=SERVICE_CENTER_TABLE_PAGE_PATH%>">
                     <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
                     <input class="button button-fieldset" type="submit" value="Список сервисных центров"/>
@@ -83,23 +56,20 @@
 
             <fieldset class="f1">
                 <legend>Устройства</legend>
-                <form  action="brands" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_NEW_MODEL%>">
-                    <input class="button button-fieldset" type="submit" value="Добавить модель"/>
-                </form>
 
-                <form  action="brands" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=GET_MODELS%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=MODEL_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
-                    <input class="button button-fieldset" type="submit" value="Список моделей"/>
-                </form>
-                <form  action="brands" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_BRAND_TABLE%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=BRAND_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                    <input class="button button-fieldset" type="submit" value="Список брендов"/>
-                </form>
+                <button class="button button-fieldset" onclick="">Добавить модель</button>
+
+
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, GET_MODELS, MODEL_TABLE_PAGE_PATH, pageNumber)%>'">Список моделей</button>
+
+                <button class="button button-fieldset" onclick="">Добавить бренд</button>
+
+<%--                <%@include file="brand/AddBrand.jsp"%>--%>
+
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, GET_BRANDS, BRAND_TABLE_PAGE_PATH, pageNumber)%>'">Список брендов</button>
+
                 <form  action="brands" method="post">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_DEVICE_TYPE_TABLE%>">
                     <input type="hidden" name="<%=PAGE%>" value="<%=DEVICE_TYPE_TABLE_PAGE_PATH%>">
@@ -155,11 +125,17 @@
         </div>
 
         <div class="table-container">
-            <%@include file="forms/errorContainer.jsp"%>
+
+            <%if (!StringUtils.isBlank(form)) {
+                pageContext.include(form);
+            }%>
+
             <% if (!StringUtils.isBlank(tablePage)) {
                 pageContext.include(tablePage);
             }%>
+
             <%@include file="forms/pagination.jsp"%>
+
         </div>
 
     </div>

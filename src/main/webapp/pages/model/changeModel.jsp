@@ -11,6 +11,8 @@
         ModelDTO model = modelData.getModelDTO();
         List<BrandDTO> brandList = modelData.getBrands();
         List<DeviceTypeDTO> deviceTypes = modelData.getDeviceTypes();
+        pageContext.getRequest().setAttribute("BRANDS", brandList);
+        request.setAttribute("BRANDS", brandList);
     %>
 
         <% if (model.getId() != null) { %>

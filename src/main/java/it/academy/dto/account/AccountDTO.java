@@ -22,10 +22,16 @@ public class AccountDTO {
 
     private String userSurname;
 
+    private String password;
+
+    private String confirmPassword;
+
     private RoleEnum role;
 
     private Long serviceCenterId;
 
     private String serviceCenterName;
+
+    private String errorMessage;
 
 }

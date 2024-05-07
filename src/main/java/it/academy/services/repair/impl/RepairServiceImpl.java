@@ -25,7 +25,6 @@ import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.RepairType;
-import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
@@ -57,10 +56,8 @@ public class RepairServiceImpl implements RepairService {
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
     private final RepairDAO repairDAO = new RepairDAOImpl(transactionManger);
     private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
-    private final BrandConverter brandConverter = new BrandConverter();
     private final DeviceDAO deviceDAO = new DeviceDAOImpl(transactionManger);
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
-    private final ModelConverter modelConverter = new ModelConverter();
     private final RepairConverter repairConverter = new RepairConverter();
     private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl(transactionManger);
     private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl(transactionManger);
@@ -80,8 +77,8 @@ public class RepairServiceImpl implements RepairService {
                 throw new ModelNotFound();
             }
 
-            List<BrandDTO> brands = brandConverter.convertToDTOList(brandDAO.findBrandsWithModels());
-            List<ModelDTO> modelsForBrand = modelConverter.convertToDTOList(modelDAO.findActiveByBrandId(brandId));
+            List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findBrandsWithModels());
+            List<ModelDTO> modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findActiveByBrandId(brandId));
             Map<Long, String> serviceCenters = serviceCenterDAO.findAll().stream()
                     .collect(Collectors.toMap(ServiceCenter::getId, ServiceCenter::getServiceName));
 
@@ -245,9 +242,9 @@ public class RepairServiceImpl implements RepairService {
     public TablePage2<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
 
         Supplier<TablePage2<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByFilter(Repair_.STATUS, status.name());
+            long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE,Repair_.STATUS, status.name());
+            List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumberForSearch, LIST_SIZE);
             List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };

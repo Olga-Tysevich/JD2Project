@@ -1,6 +1,5 @@
 package it.academy;
 
-import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ChangeModelDTO;
@@ -41,9 +40,7 @@ public class Runner {
     public static final int MAX_SIZE = 30;
     private static AccountService accountService = new AccountServiceImpl();
     private static ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
-    private static ServiceCenterConverter serviceCenterConverter = new ServiceCenterConverter();
     private static BrandService brandService = new BrandServiceImpl();
-    private static BrandConverter brandConverter = new BrandConverter();
     private static DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
     private static DeviceTypeConverter deviceTypeConverter = new DeviceTypeConverter();
     private static ModelService modelService = new ModelServiceImpl();
@@ -57,23 +54,23 @@ public class Runner {
         log.info(admin.toString());
 
         List<ServiceCenterDTO> serviceCenters = IntStream.range(0, MAX_SIZE)
-                .mapToObj(i -> serviceCenterConverter.convertToDTO(Generator.generateServiceCenter()))
+                .mapToObj(i -> ServiceCenterConverter.convertToDTO(Generator.generateServiceCenter()))
                 .collect(Collectors.toList());
 
         for (ServiceCenterDTO serviceCenter : serviceCenters) {
             try {
-                serviceCenterService.createServiceCenter(serviceCenter);
+                serviceCenterService.create(serviceCenter);
             } catch (Exception ignored) {
             }
         }
 
-        List<CreateAccountDTO> account = IntStream.range(0, MAX_SIZE)
+        List<AccountDTO> account = IntStream.range(0, MAX_SIZE)
                 .mapToObj(i -> Generator.generateAccount())
                 .collect(Collectors.toList());
 
-        List<ServiceCenterDTO> serviceCenterDTOS = serviceCenterService.findServiceCenters();
+        List<ServiceCenterDTO> serviceCenterDTOS = serviceCenterService.findAll();
 
-        for (CreateAccountDTO createAccountDTO : account) {
+        for (AccountDTO createAccountDTO : account) {
             createAccountDTO.setServiceCenterId(serviceCenterDTOS.get(RANDOM.nextInt(serviceCenterDTOS.size())).getId());
             try {
                 accountService.create(createAccountDTO);
@@ -83,8 +80,8 @@ public class Runner {
 
         IntStream.range(0, MAX_SIZE)
                 .forEach(i -> {
-                    BrandDTO brandDTO = brandConverter.convertToDTO(Generator.generateBrand());
-                    brandService.createBrand(brandDTO);
+                    BrandDTO brandDTO = BrandConverter.convertToDTO(Generator.generateBrand());
+                    brandService.create(brandDTO);
                 });
 
         IntStream.range(0, MAX_SIZE)
@@ -94,7 +91,7 @@ public class Runner {
                 });
 
 
-        List<BrandDTO> brandList = brandService.findBrands();
+        List<BrandDTO> brandList = brandService.findAll();
         List<DeviceTypeDTO> deviceTypeList = deviceTypeService.findDeviceTypes();
 
         IntStream.range(0, MAX_SIZE).forEach(i -> {

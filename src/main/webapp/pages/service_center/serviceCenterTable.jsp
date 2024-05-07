@@ -1,18 +1,15 @@
-<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
-<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_SERVICE_CENTER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SERVICE_CENTER" %>
+<%@ page import="it.academy.dto.TablePage2" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
     <div class="container t-container">
 
         <%
-            TablePage<ServiceCenterDTO> data = (TablePage<ServiceCenterDTO>) request.getAttribute(TABLE_PAGE);
-            int pageNumber = data.getPageNumber();
-            String tablePage = data.getPage();
+            TablePage2<ServiceCenterDTO> data = (TablePage2<ServiceCenterDTO>) request.getAttribute(TABLE_PAGE);
             List<ServiceCenterDTO> list = data.getList();
         %>
 
@@ -38,18 +35,15 @@
                            <%if (serviceCenter.getIsActive()) {%>checked<%}%> disabled>
                 </td>
                 <td class="code">
-                    <form action="repair" method="post" >
+
+                    <form action="repair" method="get" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
-                    <form action="repair" method="post" >
+                    <form action="repair" method="get" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_SERVICE_CENTER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
-                        <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                        <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                         <input class="choose-button order-btn" type="submit" value="Удалить" >
                     </form>
                 </td>

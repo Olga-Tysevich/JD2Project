@@ -3,10 +3,13 @@ package it.academy.utils.converters.impl;
 import it.academy.dto.device.BrandDTO;
 import it.academy.entities.device.Brand;
 import it.academy.utils.converters.EntityConverter;
+import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BrandConverter implements EntityConverter<BrandDTO, Brand> {
+@UtilityClass
+public class BrandConverter {
 
     public BrandDTO convertToDTO(Brand brand) {
         return BrandDTO.builder()
@@ -26,7 +29,7 @@ public class BrandConverter implements EntityConverter<BrandDTO, Brand> {
 
     public List<BrandDTO> convertToDTOList(List<Brand> brands) {
         return brands.stream()
-                .map(this::convertToDTO)
+                .map(BrandConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ModelService {
 
-    void create(ChangeModelDTO model);
+    ModelForChangeDTO create(ChangeModelDTO model);
 
-    void update(ChangeModelDTO model);
+    ModelForChangeDTO update(ChangeModelDTO model);
 
     void delete(long id);
 

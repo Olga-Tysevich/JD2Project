@@ -18,4 +18,6 @@ public class ModelForChangeDTO {
 
     private ModelDTO modelDTO;
 
+    private String errorMessage;
+
 }

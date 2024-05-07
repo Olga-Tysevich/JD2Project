@@ -2,13 +2,13 @@
 <%@ page import="it.academy.servlets.commands.factory.CommandEnum" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <title>Сервисный центр</title>
-</head>
-<body>
-<section>
+<%--<head>--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">--%>
+<%--    <title>Сервисный центр</title>--%>
+<%--</head>--%>
+<%--<body>--%>
+<%--<section>--%>
 
     <div class="forms-container lf">
 
@@ -23,12 +23,15 @@
 
                 <%pageContext.include(formPage);%>
 
-                <%@include file="errorContainer.jsp"%>
+<%--                <%@include file="errorContainer.jsp"%>--%>
 
+
+             <%@include file="../forms/errorContainer.jsp"%>
             </form>
 
                 <div class="button-container">
                     <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
+<%--                    <button class="button" id="save_btn_id" onclick="save()">Сохранить</button>--%>
 
                     <button class="button"
                             onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
@@ -36,5 +39,6 @@
         </div>
 
     </div>
-</section>
-</body>
+<%--</section>--%>
+<%--</body>--%>
+<script rel="script" src="${pageContext.request.contextPath}/js/FormBehavior.js"></script>

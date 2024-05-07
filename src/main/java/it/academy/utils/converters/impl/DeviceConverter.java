@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 
 public class DeviceConverter implements EntityConverter<DeviceDTO, Device> {
-    private final ModelConverter modelConverter = new ModelConverter();
 
     public DeviceDTO convertToDTO(Device device) {
         Model model = device.getModel();
@@ -19,7 +18,7 @@ public class DeviceConverter implements EntityConverter<DeviceDTO, Device> {
         Buyer buyer = device.getBuyer();
         return DeviceDTO.builder()
                 .id(device.getId())
-                .model(modelConverter.convertToDTO(model))
+                .model(ModelConverter.convertToDTO(model))
                 .serialNumber(device.getSerialNumber())
                 .dateOfSale(device.getDateOfSale())
                 .salesmanName(salesman.getName())
@@ -34,7 +33,7 @@ public class DeviceConverter implements EntityConverter<DeviceDTO, Device> {
     public Device convertToEntity(DeviceDTO deviceDTO) {
         return Device.builder()
                 .id(deviceDTO.getId())
-                .model(modelConverter.convertToEntity(deviceDTO.getModel()))
+                .model(ModelConverter.convertToEntity(deviceDTO.getModel()))
                 .serialNumber(deviceDTO.getSerialNumber())
                 .dateOfSale(deviceDTO.getDateOfSale())
                 .buyer(Buyer.builder()

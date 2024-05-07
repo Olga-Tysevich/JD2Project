@@ -66,8 +66,8 @@ public class DeleteObject implements ActionCommand {
 
     private String deleteBrand(long id, HttpServletRequest req, HttpServletResponse resp) {
         BrandService brandService = new BrandServiceImpl();
-        brandService.deleteBrand(id);
-        return new ShowBrandTable().execute(req, resp);
+        brandService.delete(id);
+        return new GetBrands().execute(req, resp);
     }
 
     private String deleteDeviceType(long id, HttpServletRequest req, HttpServletResponse resp) {
@@ -90,8 +90,8 @@ public class DeleteObject implements ActionCommand {
 
     private String deleteServiceCenter(long id, HttpServletRequest req, HttpServletResponse resp) {
         ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
-        serviceCenterService.deleteServiceCenter(id);
-        return new ShowServiceCenterTable().execute(req, resp);
+        serviceCenterService.delete(id);
+        return new GetServiceCenters().execute(req, resp);
     }
 
     private String deleteSparePart(long id, HttpServletRequest req, HttpServletResponse resp) {

@@ -1,21 +1,23 @@
 package it.academy.services.device;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.device.BrandDTO;
-import it.academy.dto.TablePage;
 import java.util.List;
 
 public interface BrandService {
 
-    void createBrand(BrandDTO brand);
+    BrandDTO create(BrandDTO brand);
 
-    void updateBrand(BrandDTO brand);
+    BrandDTO update(BrandDTO brand);
 
-    void deleteBrand(long id);
+    void delete(long id);
 
-    BrandDTO findBrand(long id);
+    BrandDTO find(long id);
 
-    List<BrandDTO> findBrands();
+    List<BrandDTO> findAll();
 
-    TablePage<BrandDTO> findBrands(int pageNumber, String filter, String input);
+    TablePage2<BrandDTO> findForPage(int pageNumber);
+
+    TablePage2<BrandDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

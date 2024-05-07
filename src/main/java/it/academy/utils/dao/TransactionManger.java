@@ -43,7 +43,6 @@ public class TransactionManger {
             rollback();
             throw e;
         }
-        closeManager();
         return result;
     }
 

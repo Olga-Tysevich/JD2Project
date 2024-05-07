@@ -1,16 +1,14 @@
 package it.academy.utils;
 
 import it.academy.dto.TablePage;
-import it.academy.dto.account.CreateAccountDTO;
+import it.academy.dto.account.AccountDTO;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.device.ModelDTO;
-import it.academy.dto.repair.CreateRepairDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.dto.spare_part.SparePartForChangeDTO;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
@@ -58,8 +56,8 @@ public class Builder {
 
     }
 
-    public static CreateAccountDTO buildEmptyAccount() {
-        return CreateAccountDTO.builder()
+    public static AccountDTO buildEmptyAccount() {
+        return AccountDTO.builder()
                 .role(RoleEnum.SERVICE_CENTER)
                 .email(StringUtils.EMPTY)
                 .userName(StringUtils.EMPTY)

@@ -9,8 +9,4 @@ public interface ServiceCenterDAO extends DAO<ServiceCenter, Long> {
 
     boolean checkIfServiceCenterExist(long id, String name);
 
-    List<ServiceCenter> findByRequisites(String filter, String input, int pageNumber, int listSize);
-
-    long getNumberOfEntriesByRequisites(String filter, String input);
-
 }

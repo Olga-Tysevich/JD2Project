@@ -13,11 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SparePartConverter implements EntityConverter<SparePartDTO, SparePart> {
-    private final ModelConverter modelConverter = new ModelConverter();
 
     public SparePartForChangeDTO convertToDTO(SparePart sparePart, List<ModelDTO> deviceTypes) {
         List<Model> relatedModels = new ArrayList<>(sparePart.getModels());
-        List<ModelDTO> models = modelConverter.convertToDTOList(relatedModels);
+        List<ModelDTO> models = ModelConverter.convertToDTOList(relatedModels);
 
         return SparePartForChangeDTO.builder()
                 .id(sparePart.getId())

@@ -1,6 +1,8 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_ACCOUNT" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
         <%
@@ -9,10 +11,21 @@
         %>
 
 
+<div class="included-container">
+
+<div class="forms-container lf">
+
+    <div class="lr-container">
+        <h1>Изменение аккаунта</h1>
+    </div>
+
+    <div class="lr-container">
+        <form class="lr-form" action="main" method="post" id="form_for_submit">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_ACCOUNT%>">
+
             <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=account.getServiceCenterId()%>">
              <input type="hidden" name="<%=ROLE%>" value="<%=account.getRole()%>">
                     <% if (RoleEnum.ADMIN.equals(currentUser.getRole())) { %>
-                    </div>
                     <div class="f-input">
                         <div class="radio-container-rp">
                             <label >Активный: </label>
@@ -63,3 +76,15 @@
                     <input class="f-form" type="password" placeholder="Подтвердите пароль" name="<%=PASSWORD_CONFIRM%>" value=""
                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
                 </div>
+            <%@include file="../forms/errorContainer.jsp"%>
+        </form>
+</div>
+
+    <div class="button-container">
+        <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
+        <button class="button"
+                onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
+    </div>
+
+</div>
+</div>

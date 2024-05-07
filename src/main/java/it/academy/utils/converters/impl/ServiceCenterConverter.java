@@ -4,12 +4,13 @@ import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.account.embeddable.BankAccount;
 import it.academy.entities.account.embeddable.Requisites;
-import it.academy.utils.converters.EntityConverter;
-
+import lombok.experimental.UtilityClass;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ServiceCenterConverter implements EntityConverter<ServiceCenterDTO, ServiceCenter> {
+@UtilityClass
+public class ServiceCenterConverter {
 
     public ServiceCenterDTO convertToDTO(ServiceCenter serviceCenter) {
         return ServiceCenterDTO.builder()
@@ -49,13 +50,13 @@ public class ServiceCenterConverter implements EntityConverter<ServiceCenterDTO,
                         .bankAddress(serviceCenterDTO.getBankAddress())
                         .bankCode(serviceCenterDTO.getBankCode())
                         .build())
-                .isActive(serviceCenterDTO.getIsActive())
+                .isActive(Objects.requireNonNullElse(serviceCenterDTO.getIsActive(), true))
                 .build();
     }
 
     public List<ServiceCenterDTO> convertToDTOList(List<ServiceCenter> serviceCenters) {
         return serviceCenters.stream()
-                .map(this::convertToDTO)
+                .map(ServiceCenterConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 

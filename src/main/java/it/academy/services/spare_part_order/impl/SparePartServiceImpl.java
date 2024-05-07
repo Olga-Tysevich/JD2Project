@@ -35,7 +35,6 @@ import static it.academy.utils.constants.LoggerConstants.*;
 public class SparePartServiceImpl implements SparePartService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
-    private final ModelConverter modelConverter = new ModelConverter();
     private final SparePartDAO sparePartDAO = new SparePartDAOImpl(transactionManger);
     private final SparePartConverter sparePartConverter = new SparePartConverter();
 
@@ -85,7 +84,7 @@ public class SparePartServiceImpl implements SparePartService {
         return transactionManger.execute(() -> {
             SparePartForChangeDTO sparePartDTO = Builder.buildEmptySparePart();
             List<Model> models = getModelList();
-            List<ModelDTO> modelDTOList = modelConverter.convertToDTOList(models);
+            List<ModelDTO> modelDTOList = ModelConverter.convertToDTOList(models);
             sparePartDTO.setAllModels(modelDTOList);
             return sparePartDTO;
         });
@@ -102,10 +101,10 @@ public class SparePartServiceImpl implements SparePartService {
             }
             SparePartForChangeDTO result = sparePartConverter.convertToChangeDTO(sparePart);
             List<Model> models = getModelList();
-            List<ModelDTO> modelDTOList = modelConverter.convertToDTOList(models);
+            List<ModelDTO> modelDTOList = ModelConverter.convertToDTOList(models);
             List<ModelDTO> relatedModels = models.stream()
                     .filter(m -> m.getSpareParts().contains(sparePart))
-                    .map(modelConverter::convertToDTO)
+                    .map(ModelConverter::convertToDTO)
                     .collect(Collectors.toList());
 
             result.setAllModels(modelDTOList);
@@ -122,7 +121,7 @@ public class SparePartServiceImpl implements SparePartService {
                 log.warn(OBJECT_NOT_FOUND_PATTERN, id, SparePart.class);
                 throw new ObjectNotFound(SPARE_PART_NOT_FOUND);
             }
-            List<ModelDTO> models = modelConverter.convertToDTOList(getModelList());
+            List<ModelDTO> models = ModelConverter.convertToDTOList(getModelList());
             return sparePartConverter.convertToDTO(sparePart, models);
         };
         return transactionManger.execute(find);

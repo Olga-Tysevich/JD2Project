@@ -6,11 +6,9 @@ import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
-import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static it.academy.servlets.commands.factory.CommandEnum.*;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
@@ -27,12 +25,15 @@ public class ChangeServiceCenter implements ActionCommand {
         log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
-            serviceCenterService.updateServiceCenter(forUpdate);
-            return Extractor.extractLastPage(req);
+            serviceCenterService.update(forUpdate);
         } catch (ObjectAlreadyExist e) {
             req.setAttribute(ERROR, e.getMessage());
-            return CommandHelper.insertFormData(req, SERVICE_CENTER_PAGE_PATH, CHANGE_SERVICE_CENTER);
+            req.setAttribute(SERVICE_CENTER, forUpdate);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.setAttribute(FORM_PAGE, SERVICE_CENTER_PAGE_PATH);
         }
+
+        return Extractor.extractLastPage(req);
     }
 
 }

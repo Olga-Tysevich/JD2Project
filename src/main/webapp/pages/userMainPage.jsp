@@ -15,31 +15,8 @@
 </head>
 <body>
 <section>
-    <div class=" container">
 
-                <%
-                    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
-                    String serviceCenter = accountDTO.getServiceCenterName();
-                    String userEmail = accountDTO.getEmail();
-                    int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-                    String tablePage = StringUtils.defaultIfBlank((String) request.getAttribute(PAGE), StringUtils.EMPTY);
-                    String command = StringUtils.defaultIfBlank((String) request.getAttribute(COMMAND), SHOW_MAIN_PAGE.name());
-                    String lastInput = StringUtils.defaultIfBlank((String) request.getAttribute(USER_INPUT), StringUtils.EMPTY);
-                    String lastFilter = StringUtils.defaultIfBlank((String) request.getAttribute(FILTER), StringUtils.EMPTY);
-                    String currentPage = String.format(OPEN_TABLE_PAGE_BY_FILTER, command, tablePage, pageNumber, lastFilter, lastInput);
-                    request.getSession().setAttribute(LAST_PAGE, currentPage);
-                %>
-
-        <div class="header-container">
-            <div class="header-el">
-                <p><%=serviceCenter%></p>
-            </div>
-            <div class="header-el">
-                <p><%=userEmail%></p>
-            </div>
-        </div>
-            <%@include file="forms/filters.jsp"%>
-    </div>
+    <%@include file="forms/header.jsp"%>
 
     <div class="container main">
 

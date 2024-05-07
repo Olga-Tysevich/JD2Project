@@ -4,7 +4,6 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_ACCOUNT" %>
 <%@ page import="it.academy.dto.TablePage2" %>
-<%@ page import="it.academy.entities.account.ServiceCenter_" %>
 <%@ page import="it.academy.entities.account.Account_" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,13 +38,13 @@
                            <%if (account.getIsActive()) {%>checked<%}%> disabled>
                 </td>
                 <td class="code">
-                    <form action="repair" method="post" >
+                    <form action="repair" method="get" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=GET_ACCOUNT%>">
                         <input type="hidden" name="<%=Account_.ID%>" value="<%=account.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>
 
-                    <form action="repair" method="post" >
+                    <form action="repair" method="get" >
                         <input type="hidden" name="<%=COMMAND%>" value="<%=DELETE_ACCOUNT%>">
                         <input type="hidden" name="<%=Account_.ID%>" value="<%=account.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Удалить" >

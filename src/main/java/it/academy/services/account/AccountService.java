@@ -1,17 +1,14 @@
 package it.academy.services.account;
 
 import it.academy.dto.TablePage2;
-import it.academy.dto.account.AccountFormDTO;
-import it.academy.dto.account.ChangeAccountDTO;
-import it.academy.dto.account.CreateAccountDTO;
 import it.academy.dto.account.AccountDTO;
 import java.util.Map;
 
 public interface AccountService {
 
-    AccountFormDTO create(CreateAccountDTO account);
+    AccountDTO create(AccountDTO account);
 
-    String update(ChangeAccountDTO account);
+    AccountDTO update(AccountDTO account);
 
     Map<Long, String> getServiceCentersForAccountForm();
 

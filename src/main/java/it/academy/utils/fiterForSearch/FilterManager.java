@@ -2,6 +2,9 @@ package it.academy.utils.fiterForSearch;
 
 import it.academy.entities.account.Account;
 import it.academy.entities.account.Account_;
+import it.academy.entities.account.ServiceCenter;
+import it.academy.entities.account.ServiceCenter_;
+import it.academy.entities.account.embeddable.Requisites_;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.Device_;
 import it.academy.entities.repair.Repair_;
@@ -73,11 +76,11 @@ public class FilterManager {
     }
 
     public static List<EntityFilter> getFiltersForServiceCenter() {
-        return List.of(new EntityFilter(SERVICE_CENTER_NAME, SERVICE_CENTER_NAME_DESCRIPTION),
-                new EntityFilter(EMAIL, EMAIL),
-                new EntityFilter(SERVICE_CENTER_ACTUAL_ADDRESS, SERVICE_CENTER_ACTUAL_ADDRESS_DESCRIPTION),
-                new EntityFilter(SERVICE_CENTER_LEGAL_ADDRESS, SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION),
-                new EntityFilter(SERVICE_CENTER_PHONE, SERVICE_CENTER_PHONE_DESCRIPTION));
+        return List.of(new EntityFilter(ServiceCenter_.SERVICE_NAME, SERVICE_CENTER_NAME_DESCRIPTION),
+                new EntityFilter(Requisites_.EMAIL, EMAIL),
+                new EntityFilter(SERVICE_CENTER_ACTUAL_ADDRESS_FILTER, SERVICE_CENTER_ACTUAL_ADDRESS_DESCRIPTION),
+                new EntityFilter(SERVICE_CENTER_LEGAL_ADDRESS_FILTER, SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION),
+                new EntityFilter(Requisites_.PHONE, SERVICE_CENTER_PHONE_DESCRIPTION));
     }
 
 

@@ -41,7 +41,6 @@ public class Extractor {
                 .build();
     }
 
-
     public String extractString(HttpServletRequest request, String parameterName, String defaultValue) {
         String result = request.getParameter(parameterName);
         return result != null ? result : defaultValue;
@@ -70,6 +69,7 @@ public class Extractor {
         }
         return defaultValue;
     }
+
 
     public Date extractDate(HttpServletRequest request, String parameterName) {
         try {

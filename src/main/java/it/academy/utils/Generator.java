@@ -1,13 +1,12 @@
 package it.academy.utils;
 
-import it.academy.dto.account.CreateAccountDTO;
+import it.academy.dto.account.AccountDTO;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.account.embeddable.BankAccount;
 import it.academy.entities.account.embeddable.Requisites;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.DeviceType;
 import it.academy.entities.repair.RepairType;
-import it.academy.entities.spare_part.SparePart;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 
@@ -41,9 +40,9 @@ public class Generator {
     private List<String> spareParts = Arrays.asList("Динамик", "Плата", "Трансформатор", "Предохранитель", "Мотор");
     private List<String> dates = Arrays.asList("2024-04-01", "2024-04-15", "2024-04-24", "2024-04-12", "2024-04-07");
 
-    public static CreateAccountDTO generateAccount() {
+    public static AccountDTO generateAccount() {
         String password = generateValidPasswords();
-        return CreateAccountDTO.builder()
+        return AccountDTO.builder()
                 .email(String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(BOUND)))
                 .password(password)
                 .confirmPassword(password)

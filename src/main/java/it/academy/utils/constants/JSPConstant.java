@@ -50,6 +50,7 @@ public class JSPConstant {
     public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair/repairTypeTable.jsp";
 
     //serviceCenter
+    public static final String NEW_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/addServiceCenter.jsp";
     public static final String SERVICE_CENTER_PAGE_PATH = "/pages/service_center/changeServiceCenter.jsp";
     public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/service_center/serviceCenterTable.jsp";
 

@@ -1,5 +1,6 @@
 package it.academy.services.account;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.TablePage;
 
@@ -7,16 +8,18 @@ import java.util.List;
 
 public interface ServiceCenterService{
 
-    void createServiceCenter(ServiceCenterDTO serviceCenterDTO);
+    void create(ServiceCenterDTO serviceCenterDTO);
 
-    void updateServiceCenter(ServiceCenterDTO serviceCenterDTO);
+    void update(ServiceCenterDTO serviceCenterDTO);
 
-    void deleteServiceCenter(long id);
+    void delete(long id);
 
-    ServiceCenterDTO findServiceCenter(long id);
+    ServiceCenterDTO find(long id);
 
-    List<ServiceCenterDTO> findServiceCenters();
+    List<ServiceCenterDTO> findAll();
 
-    TablePage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input);
+    TablePage2<ServiceCenterDTO> findForPage(int pageNumber);
+
+    TablePage2<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

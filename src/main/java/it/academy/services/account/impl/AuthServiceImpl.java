@@ -22,12 +22,11 @@ import static it.academy.utils.constants.LoggerConstants.*;
 public class AuthServiceImpl implements AuthService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
-    private final AccountConverter accountConverter = new AccountConverter();
 
     @Override
     public AccountDTO loginUser(LoginDTO loginDTO) throws UserNotFound, IncorrectPassword, UserIsBlocked, InvalidRole {
-        transactionManger.beginTransaction();
-        Account account = transactionManger.execute(() -> accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail()));
+        Account account = transactionManger.execute(() ->
+                accountDAO.findByUniqueParameter(EMAIL, loginDTO.getEmail()));
 
         if (account == null) {
             log.warn(OBJECTS_NOT_FOUND_PATTERN, loginDTO.getEmail());
@@ -53,10 +52,7 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidRole();
         }
 
-        AccountDTO accountDTO = accountConverter.convertToDTO(account);
-        transactionManger.commit();
-
-        return accountDTO;
+        return AccountConverter.convertToDTO(account);
     }
 
 }

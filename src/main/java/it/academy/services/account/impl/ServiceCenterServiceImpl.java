@@ -4,21 +4,21 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.ServiceCenterDAO;
 import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.ServiceCenterDAOImpl;
+import it.academy.dto.TablePage2;
 import it.academy.dto.account.ServiceCenterDTO;
-import it.academy.dto.TablePage;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.exceptions.common.ObjectAlreadyExist;
+import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.ServiceCenterService;
-import it.academy.utils.Builder;
-import it.academy.utils.ServiceHelper;
+import it.academy.utils.PageCounter;
 import it.academy.utils.converters.impl.ServiceCenterConverter;
 import it.academy.utils.dao.TransactionManger;
-import it.academy.utils.fiterForSearch.EntityFilter;
-import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.function.Supplier;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_UPDATED_PATTERN;
@@ -28,17 +28,12 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     private final TransactionManger transactionManger = new TransactionManger();
     private final ServiceCenterDAO serviceCenterDAO = new ServiceCenterDAOImpl(transactionManger);
     private final AccountDAO accountDAO = new AccountDAOImpl(transactionManger);
-    private final ServiceCenterConverter serviceCenterConverter = new ServiceCenterConverter();
-    private final ServiceHelper<ServiceCenter, ServiceCenterDTO> serviceHelper =
-            new ServiceHelper<>(serviceCenterDAO, ServiceCenter.class, serviceCenterConverter, transactionManger);
 
     @Override
-    public void createServiceCenter(ServiceCenterDTO serviceCenterDTO) {
-
-        ServiceCenter serviceCenter = serviceCenterConverter.convertToEntity(serviceCenterDTO);
+    public void create(ServiceCenterDTO serviceCenterDTO) {
+        ServiceCenter serviceCenter = ServiceCenterConverter.convertToEntity(serviceCenterDTO);
         Supplier<ServiceCenter> add = () -> {
             checkServiceCenter(ID_FOR_CHECK, serviceCenter.getServiceName());
-            serviceCenter.setIsActive(true);
             log.info(OBJECT_FOR_SAVE_PATTERN, serviceCenter);
             return serviceCenterDAO.create(serviceCenter);
         };
@@ -47,8 +42,8 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public void updateServiceCenter(ServiceCenterDTO serviceCenterDTO) {
-        ServiceCenter serviceCenter = serviceCenterConverter.convertToEntity(serviceCenterDTO);
+    public void update(ServiceCenterDTO serviceCenterDTO) {
+        ServiceCenter serviceCenter = ServiceCenterConverter.convertToEntity(serviceCenterDTO);
         Supplier<ServiceCenter> update = () -> {
             checkServiceCenter(serviceCenter.getId(), serviceCenter.getServiceName());
             boolean isActive = serviceCenter.getIsActive();
@@ -66,35 +61,50 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public void deleteServiceCenter(long id) {
-        serviceHelper.delete(id);
+    public void delete(long id) {
+        transactionManger.execute(() -> serviceCenterDAO.delete(id));
     }
 
     @Override
-    public ServiceCenterDTO findServiceCenter(long id) {
-        return serviceHelper.find(id);
+    public ServiceCenterDTO find(long id) {
+        ServiceCenter result = transactionManger.execute(() -> {
+            ServiceCenter serviceCenter = serviceCenterDAO.find(id);
+            if (serviceCenter == null) {
+                log.warn(OBJECT_NOT_FOUND_PATTERN, id, Account.class);
+                throw new ObjectNotFound();
+            }
+            return serviceCenter;
+        });
+        return ServiceCenterConverter.convertToDTO(result);
     }
 
     @Override
-    public List<ServiceCenterDTO> findServiceCenters() {
-        return serviceHelper.findAll();
+    public List<ServiceCenterDTO> findAll() {
+        List<ServiceCenter> result = transactionManger.execute(serviceCenterDAO::findAll);
+        return ServiceCenterConverter.convertToDTOList(result);
     }
 
     @Override
-    public TablePage<ServiceCenterDTO> findServiceCenters(int pageNumber, String filter, String input) {
-        if (!SERVICE_CENTER_NAME.equals(filter) && input != null && !input.isBlank()) {
-            transactionManger.beginTransaction();
-            long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByRequisites(filter, input);
-            int maxPageNumber = (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE);
-            Supplier<List<ServiceCenter>> find = () -> serviceCenterDAO.findByRequisites(filter, input, pageNumber, LIST_SIZE);
-            List<ServiceCenter> serviceCenter = serviceHelper.getList(find, ServiceCenter.class);
-            List<EntityFilter> filters = FilterManager.getFiltersForServiceCenter();
-            List<ServiceCenterDTO> listDTO = serviceCenterConverter.convertToDTOList(serviceCenter);
-            log.info(OBJECTS_FOUND_PATTERN, serviceCenter.size(), ServiceCenter.class);
-            transactionManger.commit();
-            return Builder.buildListForPage(listDTO, pageNumber, maxPageNumber, filters);
-        }
-        return serviceHelper.find(pageNumber, filter, input);
+    public TablePage2<ServiceCenterDTO> findForPage(int pageNumber) {
+        Supplier<TablePage2<ServiceCenterDTO>> find = () -> {
+            long numberOfEntries = serviceCenterDAO.getNumberOfEntries();
+            List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
+            List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
+            return new TablePage2<>(result, numberOfEntries);
+        };
+        return transactionManger.execute(find);
+    }
+
+    @Override
+    public TablePage2<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input) {
+        Supplier<TablePage2<ServiceCenterDTO>> find = () -> {
+            long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByFilter(filter, input);
+            int pageForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPageByAnyMatch(pageForSearch, LIST_SIZE, filter, input);
+            List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
+            return new TablePage2<>(result, numberOfEntries);
+        };
+        return transactionManger.execute(find);
     }
 
     private void checkServiceCenter(long id, String serviceName) {

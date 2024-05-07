@@ -1,36 +1,36 @@
 package it.academy.servlets.commands.impl.get.tables;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.TablePageReq;
-import it.academy.dto.TablePage;
 import it.academy.services.device.BrandService;
 import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
 @Slf4j
-public class ShowBrandTable extends ShowTable {
+public class GetBrands extends ShowTable {
     private BrandService brandService = new BrandServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("in show brand table");
         CommandHelper.checkRole(req);
 
-        TablePageReq dataForPage = Extractor.extractDataForTable(req);
-        TablePage<BrandDTO> brands = brandService.findBrands(
-                dataForPage.getPageNumber(),
-                dataForPage.getFilter(),
-                dataForPage.getInput());
-        setTableData(req, dataForPage, brands);
+        TablePageReq reqData = Extractor.extractDataForTable(req);
+        String filter = StringUtils.defaultIfBlank(reqData.getFilter(), StringUtils.EMPTY);
+
+        TablePage2<BrandDTO> brands = StringUtils.isBlank(filter) ?
+                brandService.findForPage(reqData.getPageNumber())
+                : brandService.findForPageByFilter(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
+
+        CommandHelper.insertTableData(req, reqData, brands);
         log.info(CURRENT_TABLE, brands);
-        return ADMIN_MAIN_PAGE_PATH;
+        return Extractor.extractMainPagePath(req);
     }
 
 }

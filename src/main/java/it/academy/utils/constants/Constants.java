@@ -26,13 +26,10 @@ public class Constants {
     //sql
     public static final String GET_NUMBER_OF_ENTRIES = "SELECT count(s) FROM %s s";
     public static final String GET_NUMBER_OF_ENTRIES_BY_ANY_MATCH = "SELECT count(s) FROM %s s WHERE %s LIKE :value";
-    public static final String GET_NUMBER_OF_ENTRIES_BY_FILTER = "SELECT count(s) FROM %s s WHERE %s = :value";
     public static final String GET_LIST = "SELECT s FROM %s s ORDER BY s.id DESC";
     public static final String GET_LIST_BY_ANY_MATCH = "SELECT s FROM %s s WHERE %s LIKE :value ORDER BY s.id DESC";
-    public static final String GET_LIST_BY_FILTER = "SELECT s FROM %s s WHERE %s = :value ORDER BY s.id DESC";
 
     public static final String GET_NUMBER_OF_ACCOUNTS_BY_SERVICE_CENTER = "SELECT count(a) FROM Account a WHERE a.serviceCenter.serviceName LIKE :value";
-    public static final String GET_NUMBER_OF_SERVICE_CENTERS_BY_REQUISITES = "SELECT count(s) FROM ServiceCenter s WHERE s.requisites.%s LIKE :value";
     public static final String GET_NUMBER_OF_MODELS_BY_COMPONENT = "SELECT count(m) FROM Model m WHERE m.%s.name LIKE :value";
     public static final String GET_NUMBER_OF_REPAIRS_BY_STATUS = "SELECT count(r) FROM Repair r WHERE r.status = :status";
     public static final String GET_NUMBER_OF_REPAIRS_BY_STATUS_AND_SERVICE_ID = "SELECT count(r) FROM Repair r WHERE r.status = :status AND r.serviceCenter.id = :id";
@@ -42,12 +39,11 @@ public class Constants {
     public static final String FIND_REPAIRS_BY_STATUS_AND_SERVICE_ID = "from Repair r where r.status = :status AND r.serviceCenter.id = :id";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_ID = "SELECT a FROM Account a WHERE serviceCenter.id = :id ORDER BY a.id DESC";
     public static final String FIND_ACCOUNTS_BY_SERVICE_CENTER_NAME = "SELECT a FROM Account a WHERE serviceCenter.serviceName LIKE :value ORDER BY a.id DESC";
-    public static final String FIND_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and m.isActive = true";
     public static final String FIND_ACTIVE_MODEL_BY_BRAND_ID = "SELECT m FROM Model m WHERE m.brand.id = :brandId and active = :isActive";
     public static final String FIND_ACTIVE_REPAIR_TYPES = "SELECT rt FROM RepairType rt WHERE active = true";
     public static final String FIND_MODEL_DEVICE_TYPE_ID = "typeId";
     public static final String CHECK_ACCOUNT = "SELECT count(a) FROM Account a WHERE a.id != :id AND a.email = :email";
-    public static final String CHECK_SERVICE_CENTER = "SELECT count(s) FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :name";
+    public static final String CHECK_SERVICE_CENTER = "SELECT count(s) FROM ServiceCenter s WHERE s.id != :id AND s.serviceName = :serviceName";
     public static final String CHECK_COMPONENT = "SELECT count(s) FROM %s s WHERE s.id != :id AND s.name = :name";
     public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String PARAMETER_VALUE = "value";
@@ -69,7 +65,6 @@ public class Constants {
     public static final String PASSWORD = "password";
     public static final String PASSWORD_CONFIRM = "confirmPassword";
     //service center
-    public static final String SERVICE_CENTER_REQUISITES = "requisites";
     public static final String SERVICE_CENTER_NAME = "serviceName";
     public static final String SERVICE_CENTER_BANK_NAME = "bankName";
     public static final String SERVICE_CENTER_BANK_ACCOUNT = "bankAccount";
@@ -137,6 +132,7 @@ public class Constants {
     public static final String ORDERS = "orders";
     public static final String ORDER_DATA = "order_data";
     //for pages
+    public static final String NAME_IS_EMPTY = "Имя не может быть пустым!";
     public static final String EMAIL_ALREADY_EXISTS = "Email: %s уже зарегистрирован!";
     public static final String PASSWORDS_NOT_MATCH = "Введенные пароли не совпадают!";
     public static final String USER_NOT_FOUND = "Пользователь не существует!";
@@ -145,6 +141,7 @@ public class Constants {
     public static final String SERVICE_CENTERS_NOT_FOUND = "Сервисные центры еще не добавлены!";
     public static final String SERVICE_CENTER_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
+    public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
     public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";
@@ -185,11 +182,12 @@ public class Constants {
     //serviceCenter filters
     public static final String SERVICE_CENTER_FILTER = "servicecenter";
     public static final String SERVICE_CENTER_NAME_DESCRIPTION = "Название";
+    public static final String SERVICE_CENTER_ACTUAL_ADDRESS_FILTER = "actual_address";
     public static final String SERVICE_CENTER_ACTUAL_ADDRESS_DESCRIPTION = "Фактический адрес";
+    public static final String SERVICE_CENTER_LEGAL_ADDRESS_FILTER = "legal_address";
     public static final String SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION = "Юридический адрес";
     public static final String SERVICE_CENTER_PHONE_DESCRIPTION = "Телефон";
     //repair
-    public static final String REPAIR_SERVICE_CENTER = "repair.service.serviceName";
     public static final String REPAIR_SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
     public static final String REPAIR_NUMBER_DESCRIPTION = "Номер ремонта";
     public static final String DEVICE_SERIAL_NUMBER_DESCRIPTION = "Серийный номер";

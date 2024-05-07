@@ -6,11 +6,13 @@ import it.academy.entities.device.Brand;
 import it.academy.entities.device.DeviceType;
 import it.academy.entities.device.Model;
 import it.academy.utils.converters.EntityConverter;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModelConverter implements EntityConverter<ModelDTO, Model> {
+@UtilityClass
+public class ModelConverter {
 
     public ModelDTO convertToDTO(Model model) {
         return ModelDTO.builder()
@@ -50,7 +52,7 @@ public class ModelConverter implements EntityConverter<ModelDTO, Model> {
 
     public List<ModelDTO> convertToDTOList(List<Model> models) {
         return models.stream()
-                .map(this::convertToDTO)
+                .map(ModelConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 

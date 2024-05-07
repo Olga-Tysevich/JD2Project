@@ -7,5 +7,3 @@ function setVisibility() {
     console.log("error field text equals : " + errorField.textContent.valueOf() === "");
     errorField.style.display = errorField.textContent.valueOf() === "" ? "none" : "block";
 }
-
-
