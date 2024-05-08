@@ -6,30 +6,26 @@ import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
-import lombok.extern.slf4j.Slf4j;
+import it.academy.utils.enums.RoleEnum;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
+import static it.academy.utils.constants.JSPConstant.*;
 
-@Slf4j
 public class FindModelsForRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        RoleEnum role = (RoleEnum) req.getSession().getAttribute(ROLE);
+        String formPage = RoleEnum.ADMIN.equals(role) ? ADMIN_REPAIR_PAGE_PATH : ADD_REPAIR_PAGE_PATH;
         RepairDTO repair = Extractor.extractObject(req, new RepairDTO());
-        String formPagePath = Extractor.extractString(req, PAGE, null);
         long brandId = repair.getBrandId();
-        log.info(OBJECT_EXTRACTED_PATTERN, repair);
-
         RepairFormDTO repairForm = repairService.getRepairForm(brandId);
         repairForm.setRepairDTO(repair);
-
         req.setAttribute(REPAIR_FORM, repairForm);
-
-        return formPagePath;
+        req.setAttribute(FORM_PAGE, formPage);
+        return Extractor.extractLastPage(req);
     }
 }

@@ -44,9 +44,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -77,14 +75,13 @@ public class RepairServiceImpl implements RepairService {
 
             List<BrandDTO> brands = BrandConverter.convertToDTOList(brandDAO.findBrandsWithModels());
             List<ModelDTO> modelsForBrand = ModelConverter.convertToDTOList(modelDAO.findActiveByBrandId(brandId));
-            Map<Long, String> serviceCenters = serviceCenterDAO.findAll().stream()
-                    .collect(Collectors.toMap(ServiceCenter::getId, ServiceCenter::getServiceName));
+            List<RepairTypeDTO> repairTypes = RepairTypeConverter.convertToDTOList(repairTypeDAO.findAllActive());
 
             RepairFormDTO repairFormDTO = RepairFormDTO.builder()
-                    .serviceCenters(serviceCenters)
                     .currentBrandId(brandId)
                     .brands(brands)
                     .models(modelsForBrand)
+                    .repairTypes(repairTypes)
                     .build();
             log.info(OBJECT_CREATED_PATTERN, repairFormDTO);
             return repairFormDTO;

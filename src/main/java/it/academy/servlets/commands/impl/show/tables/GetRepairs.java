@@ -10,15 +10,11 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import it.academy.utils.enums.RoleEnum;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class GetRepairs implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
@@ -40,7 +36,6 @@ public class GetRepairs implements ActionCommand {
                 : repairService.findRepairsForUser(account.getServiceCenterId(), reqData.getPageNumber());
 
         CommandHelper.insertTableData(req, reqData, table);
-        log.info(CURRENT_TABLE, table);
 
         return Extractor.extractMainPagePath(req);
 

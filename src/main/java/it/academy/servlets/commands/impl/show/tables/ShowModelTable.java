@@ -8,15 +8,12 @@ import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class ShowModelTable implements ActionCommand {
     private ModelService modelService = new ModelServiceImpl();
 
@@ -39,7 +36,6 @@ public class ShowModelTable implements ActionCommand {
         }
 
         CommandHelper.insertTableData(req, reqData, models);
-        log.info(CURRENT_TABLE, models);
         return Extractor.extractMainPagePath(req);
     }
 

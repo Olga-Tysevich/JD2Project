@@ -6,7 +6,7 @@
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TYPE_ID" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-    <div class="included-container" id="repairTypesBlockId">
+    <div class="rt-container" id="repairTypesBlockId">
 
         <div class=" forms-container">
 

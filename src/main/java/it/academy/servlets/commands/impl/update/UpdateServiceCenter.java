@@ -6,14 +6,11 @@ import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
-import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
-import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
-@Slf4j
 public class UpdateServiceCenter implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
@@ -22,7 +19,6 @@ public class UpdateServiceCenter implements ActionCommand {
 
         ServiceCenterDTO forUpdate = Extractor.extractObject(req, new ServiceCenterDTO());
         req.setAttribute(SERVICE_CENTER, forUpdate);
-        log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
             serviceCenterService.update(forUpdate);

@@ -48,6 +48,7 @@ public class Constants {
     public static final String CHECK_MODEL = "SELECT count(m) FROM Model m WHERE m.id != :id AND m.name = :name AND m.brand.id = :brandId AND m.type.id = :typeId";
     public static final String PARAMETER_VALUE = "value";
     public static final String DELETE_FROM_SPARE_PART = "delete from models_spare_parts where spare_part_id = ?";
+    public static final String DELETE_FROM_ORDER_ITEMS = "delete from order_items where order_id = ?";
     //parameters
     //common parameters
     public static final String OBJECT_ID = "id";
@@ -154,6 +155,7 @@ public class Constants {
     public static final String SPARE_PART_NOT_FOUND = "Запчасть не найдена!";
     public static final String REPAIR_NOT_FOUND = "Ремонт не найден!";
     public static final String OBJECTS_NOT_FOUND_MESSAGE = "Ничего не найдено!";
+    public static final String ORDER_DELETE_FAILED_MESSAGE = "Заказ уже отправлен!";
     public static final String DELETE_FAILED_MESSAGE = "Удаление невозможно! Есть связанные записи!";
     public static final String EMPTY_ORDER_DATA_MESSAGE = "Нельзя создать пустой заказ!";
     //description

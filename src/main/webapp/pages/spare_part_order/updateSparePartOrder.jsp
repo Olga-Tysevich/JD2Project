@@ -24,7 +24,7 @@
 
                 <div class="f-input">
                     <label class="form-el">Дата отправки</label>
-                    <input class="f-form" required type="date" name="<%=ORDER_DEPARTURE_DATE%>" value="<%=order.getDepartureDate()%>">
+                    <input class="f-form" type="date" name="<%=ORDER_DEPARTURE_DATE%>" value="<%=order.getDepartureDate()%>">
                 </div>
 
                 <div class="f-input">

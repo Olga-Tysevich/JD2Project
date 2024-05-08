@@ -77,7 +77,7 @@
                     <td>
                         <div class="button-table-container">
                             <form action="repair" method="get">
-                                <input type="hidden" name="<%=COMMAND%>" value="<%=GET_REPAIR%>">
+                                <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_UPDATE_REPAIR%>">
                                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
                                 <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repair.getStatus()%>">
                                 <% if (RoleEnum.ADMIN.equals(role) || RepairStatus.REQUEST.equals(repair.getStatus())) { %>

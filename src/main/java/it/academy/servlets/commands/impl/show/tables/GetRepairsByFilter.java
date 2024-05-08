@@ -10,14 +10,11 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import it.academy.utils.enums.RoleEnum;
-import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.constants.Constants.ACCOUNT;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class GetRepairsByFilter implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
@@ -35,7 +32,6 @@ public class GetRepairsByFilter implements ActionCommand {
                 tableReq.getPageNumber(), tableReq.getFilter(), tableReq.getInput());
 
         CommandHelper.insertTableData(req, tableReq, table);
-        log.info(CURRENT_TABLE, table);
 
         return Extractor.extractMainPagePath(req);
     }

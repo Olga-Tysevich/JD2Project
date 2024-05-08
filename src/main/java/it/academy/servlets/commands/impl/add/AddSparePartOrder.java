@@ -8,17 +8,14 @@ import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.forms.GetNewSparePartOrder;
-import it.academy.servlets.commands.impl.show.forms.GetRepair;
+import it.academy.servlets.commands.impl.show.forms.ShowUpdateRepair;
 import it.academy.servlets.extractors.Extractor;
-import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
 import java.util.List;
-
 import static it.academy.utils.constants.Constants.*;
 
-@Slf4j
 public class AddSparePartOrder implements ActionCommand {
     private SparePartOrderService sparePartOrderService = new SparePartOrderServiceImpl();
     private Gson gson = new Gson();
@@ -40,7 +37,7 @@ public class AddSparePartOrder implements ActionCommand {
                     .orderItems(orderItems)
                     .build();
             sparePartOrderService.create(forCreate);
-            return new GetRepair().execute(req, resp);
+            return new ShowUpdateRepair().execute(req, resp);
         }
 
         req.setAttribute(ERROR, EMPTY_ORDER_DATA_MESSAGE);

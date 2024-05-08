@@ -5,7 +5,6 @@ import it.academy.dto.device.ModelDTO;
 import it.academy.dto.spare_part_order.SparePartOrderDTO;
 import lombok.*;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Builder
@@ -13,19 +12,17 @@ import java.util.Map;
 @AllArgsConstructor
 public class RepairFormDTO {
 
-    @ToString.Exclude
-    private Map<Long, String> serviceCenters;
-
-    @ToString.Exclude
     private List<BrandDTO> brands;
 
-    @ToString.Exclude
     private List<ModelDTO> models;
+
+    private List<RepairTypeDTO> repairTypes;
 
     private Long currentBrandId;
 
     private RepairDTO repairDTO;
 
     private List<SparePartOrderDTO> orders;
+
 
 }

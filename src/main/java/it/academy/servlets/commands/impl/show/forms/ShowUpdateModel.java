@@ -18,13 +18,11 @@ public class ShowUpdateModel implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
         Long id = Extractor.extractLongVal(req, OBJECT_ID, null);
         ModelDTO model = modelService.find(id);
         req.setAttribute(MODEL, model);
         return new ShowModelForm(UPDATE_MODEL_PAGE_PATH).execute(req, resp);
-
     }
 
 }

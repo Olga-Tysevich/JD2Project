@@ -80,7 +80,7 @@ public enum CommandEnum {
     SHOW_UPDATE_REPAIR_TYPE(new ShowUpdateRepairType()),
     UPDATE_REPAIR_TYPE(new UpdateRepairType()),
     GET_NEW_REPAIR(new GetNewRepair()),
-    GET_REPAIR(new GetRepair()),
+    SHOW_UPDATE_REPAIR(new ShowUpdateRepair()),
     FIND_MODELS_FOR_REPAIR(new FindModelsForRepair()),
     ADD_REPAIR(new AddRepair()),
     CHANGE_REPAIR(new ChangeRepair()),

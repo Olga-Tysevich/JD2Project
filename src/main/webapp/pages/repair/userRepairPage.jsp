@@ -93,7 +93,7 @@
                 <div class="f-input">
                     <label class="date-label">Дата завершения: </label>
                     <div class="date-container">
-                        <input class="f-form" type="date" value="<%=repairDTO.getStartDate()%>" disabled/>
+                        <input class="f-form" type="date" value="<%=repairDTO.getEndDate()%>" disabled/>
                     </div>
                 </div>
 
@@ -119,37 +119,9 @@
 
             </form>
 
-
-<%--            <% if(repairDTO.getStatus().isFinishedStatus()) {%>--%>
-<%--            <div class="f-input">--%>
-<%--                <p>--%>
-<%--                    <label class="date-label" for="endDate">Дата завершения: </label>--%>
-<%--                <div class="date-container">--%>
-<%--                    <input class="f-form" required type="date" id="endDate" name="<%=END_DATE%>"  value="<%=repairDTO.getStartDate()%>"/>--%>
-<%--                </div>--%>
-<%--                </p>--%>
-<%--            </div>--%>
-
-<%--            <div class="f-input">--%>
-<%--                <p>--%>
-<%--                    Выполненный ремонт:--%>
-<%--                    <label for="repairCode">Код:</label>--%>
-<%--                    <input type="hidden" name="<%=REPAIR_TYPE_ID%>" value="<%=repairTypeDTO.getId()%>">--%>
-<%--                    <input type="text" id="repairCode" name="<%=REPAIR_TYPE_CODE%>"--%>
-<%--                           value="<%=repairTypeDTO.getCode() == null? "" : repairTypeDTO.getCode()%>"/>--%>
-<%--                    <label for="repairLevel">Уровень:</label>--%>
-<%--                    <input type="text" id="repairLevel" name="<%=REPAIR_TYPE_LEVEL%>"--%>
-<%--                           value="<%=repairTypeDTO.getLevel() == null? "" : repairTypeDTO.getLevel()%>"/>--%>
-<%--                    <label for="repairName">Описание:</label>--%>
-<%--                    <input type="text" id="repairName" name="<%=REPAIR_TYPE_NAME%>"--%>
-<%--                           value="<%=repairTypeDTO.getName() == null? "" : repairTypeDTO.getName()%>"/>--%>
-<%--                </p>--%>
-<%--            </div>--%>
-<%--            <% } %>--%>
-
             <%if (RepairStatus.CURRENT.equals(repairDTO.getStatus())
                     || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {%>
-                <%@include file="included/repairTypeList.jsp"%>
+                <%@include file="included/userRepairTypeList.jsp"%>
             <div class="lf-button-container">
                 <form action="order" method="get" id="order">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=GET_NEW_SPARE_PART_ORDER%>">
@@ -164,7 +136,7 @@
             <%}%>
 
             <% if (orders != null && !orders.isEmpty()) { %>
-                 <%@include file="included/sparePartOrderForUser.jsp"%>
+                 <%@include file="included/sparePartOrders.jsp"%>
             <%}%>
 
         </div>

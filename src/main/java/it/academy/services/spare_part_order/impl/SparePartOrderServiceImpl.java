@@ -129,7 +129,13 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
 
     @Override
     public void delete(long id) {
-        transactionManger.execute(() -> sparePartOrderDAO.delete(id));
+        transactionManger.execute(() -> {
+            SparePartOrder order = sparePartOrderDAO.find(id);
+            if (order.getDepartureDate() != null) {
+                throw new IllegalArgumentException();
+            }
+            return sparePartOrderDAO.delete(id);
+        });
     }
 
 }

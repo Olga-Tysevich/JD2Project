@@ -14,16 +14,13 @@ import static it.academy.utils.constants.JSPConstant.UPDATE_REPAIR_TYPE_PAGE_PAT
 public class ShowUpdateBrand implements ActionCommand {
     private BrandService brandService = new BrandServiceImpl();
 
-
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
         Long brandId = Extractor.extractLongVal(req, OBJECT_ID, null);
         BrandDTO brand = brandService.find(brandId);
         req.setAttribute(BRAND, brand);
         return new ShowForm(UPDATE_REPAIR_TYPE_PAGE_PATH).execute(req,resp);
-
     }
 
 }

@@ -8,13 +8,10 @@ import it.academy.services.device.impl.BrandServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class ShowBrandTable implements ActionCommand {
     private BrandService brandService = new BrandServiceImpl();
 
@@ -30,7 +27,6 @@ public class ShowBrandTable implements ActionCommand {
                 : brandService.findForPageByFilter(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
 
         CommandHelper.insertTableData(req, reqData, brands);
-        log.info(CURRENT_TABLE, brands);
         return Extractor.extractMainPagePath(req);
     }
 

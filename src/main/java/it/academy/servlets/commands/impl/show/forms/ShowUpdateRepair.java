@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
 
-public class GetRepair implements ActionCommand {
+public class ShowUpdateRepair implements ActionCommand {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override
@@ -24,23 +24,22 @@ public class GetRepair implements ActionCommand {
         RepairStatus status = Extractor.extractRepairStatus(req);
 
         return RoleEnum.ADMIN.equals(role) || RepairStatus.REQUEST.equals(status) ?
-                getRepairForAdmin(req, repairId)
-                : getRepairForUser(req, repairId);
+                getRepairForAdmin(req, resp, repairId)
+                : getRepairForUser(req, resp, repairId);
 
     }
 
-    private String getRepairForAdmin(HttpServletRequest req, long repairId) {
-        RepairFormDTO changeRepairForm = repairService.findRepair(repairId);
-        long brandId = changeRepairForm.getRepairDTO().getBrandId();
-
+    private String getRepairForAdmin(HttpServletRequest req, HttpServletResponse resp, long repairId) {
+        RepairFormDTO adminRepairForm = repairService.findRepair(repairId);
+        long brandId = adminRepairForm.getRepairDTO().getBrandId();
         req.setAttribute(BRAND_ID, brandId);
-        req.setAttribute(REPAIR_FORM, changeRepairForm);
-        return REPAIR_PAGE_PATH;
+        req.setAttribute(REPAIR_FORM, adminRepairForm);
+        return new ShowForm(ADMIN_REPAIR_PAGE_PATH).execute(req, resp);
     }
 
-    private String getRepairForUser(HttpServletRequest req, long repairId) {
+    private String getRepairForUser(HttpServletRequest req, HttpServletResponse resp, long repairId) {
         UserRepairFormDTO userRepairFormDTO = repairService.findRepairForUser(repairId);
         req.setAttribute(REPAIR_FORM, userRepairFormDTO);
-        return USER_REPAIR_PAGE_PATH;
+        return new ShowForm(USER_REPAIR_PAGE_PATH).execute(req, resp);
     }
 }

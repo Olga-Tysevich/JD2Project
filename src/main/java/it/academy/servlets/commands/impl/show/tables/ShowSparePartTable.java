@@ -8,15 +8,12 @@ import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class ShowSparePartTable implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();
 
@@ -39,7 +36,6 @@ public class ShowSparePartTable implements ActionCommand {
         }
 
         CommandHelper.insertTableData(req, reqData, spareParts);
-        log.info(CURRENT_TABLE, spareParts);
         return Extractor.extractMainPagePath(req);
 
     }

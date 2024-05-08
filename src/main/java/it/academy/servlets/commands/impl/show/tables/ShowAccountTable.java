@@ -9,15 +9,12 @@ import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class ShowAccountTable implements ActionCommand {
     private AccountService accountService = new AccountServiceImpl();
 
@@ -43,7 +40,6 @@ public class ShowAccountTable implements ActionCommand {
         }
 
         CommandHelper.insertTableData(req, reqData, accounts);
-        log.info(CURRENT_TABLE, accounts);
         return ADMIN_MAIN_PAGE_PATH;
     }
 

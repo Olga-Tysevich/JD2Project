@@ -16,13 +16,11 @@ public class ShowUpdateSparePartOrder implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
         Long orderId = Extractor.extractLongVal(req, OBJECT_ID, null);
         SparePartOrderDTO order = orderService.find(orderId);
         req.setAttribute(ORDER, order);
         return new ShowForm(UPDATE_SPARE_PART_ORDER_PAGE_PATH).execute(req,resp);
-
     }
 
 }

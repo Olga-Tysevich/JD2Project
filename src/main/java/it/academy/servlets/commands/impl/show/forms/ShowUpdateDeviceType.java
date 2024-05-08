@@ -14,7 +14,6 @@ public class ShowUpdateDeviceType implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         long deviceTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
         DeviceTypeDTO deviceType = deviceTypeService.find(deviceTypeId);
         req.setAttribute(DEVICE_TYPE, deviceType);

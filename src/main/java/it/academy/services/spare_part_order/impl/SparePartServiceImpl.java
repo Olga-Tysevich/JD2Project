@@ -8,6 +8,7 @@ import it.academy.dto.TablePage;
 import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.entities.device.Model;
 import it.academy.entities.spare_part.SparePart;
+import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.entities.spare_part.SparePart_;
 import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.spare_part_order.SparePartService;

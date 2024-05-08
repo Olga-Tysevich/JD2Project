@@ -11,6 +11,9 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+import static it.academy.utils.constants.Constants.DELETE_FROM_ORDER_ITEMS;
+import static it.academy.utils.constants.Constants.DELETE_FROM_SPARE_PART;
+
 public class SparePartOrderDAOImpl extends DAOImpl<SparePartOrder, Long> implements SparePartOrderDAO {
 
     public SparePartOrderDAOImpl(TransactionManger manger) {
@@ -27,6 +30,14 @@ public class SparePartOrderDAOImpl extends DAOImpl<SparePartOrder, Long> impleme
         return entityManager()
                 .createQuery(find)
                 .getResultList();
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        entityManager().createNativeQuery(DELETE_FROM_ORDER_ITEMS)
+                .setParameter(1, id)
+                .executeUpdate();
+        return super.delete(id);
     }
 
 }

@@ -7,14 +7,11 @@ import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
-import static it.academy.utils.constants.LoggerConstants.OBJECT_EXTRACTED_PATTERN;
 
-@Slf4j
 public class UpdateRepairType implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
 
@@ -23,7 +20,6 @@ public class UpdateRepairType implements ActionCommand {
 
         CommandHelper.checkRole(req);
         RepairTypeDTO forUpdate = Extractor.extractObject(req, new RepairTypeDTO());
-        log.info(OBJECT_EXTRACTED_PATTERN, forUpdate);
 
         try {
             repairTypeService.update(forUpdate);

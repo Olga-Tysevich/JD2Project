@@ -29,9 +29,10 @@
                 <p><%=accountDTO.getServiceCenterName()%></p>
             </div>
             <%}%>
+
             <div class="header-el">
                 <p><%=userEmail%></p>
             </div>
+
         </div>
-        <%@include file="filters.jsp"%>
     </div>

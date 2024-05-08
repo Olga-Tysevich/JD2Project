@@ -87,7 +87,7 @@
             <div class="button-container">
                 <input id="submit_id" class="button" type="button" value="Подтвердить" onclick="send()"/>
                 <button class="button"
-                        onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, GET_REPAIR, repairId)%>'">Отмена</button>
+                        onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, SHOW_UPDATE_REPAIR, repairId)%>'">Отмена</button>
             </div>
 
         </div>

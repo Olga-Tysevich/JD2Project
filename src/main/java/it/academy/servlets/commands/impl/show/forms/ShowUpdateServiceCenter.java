@@ -15,7 +15,6 @@ public class ShowUpdateServiceCenter implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         Long id = Extractor.extractLongVal(req, OBJECT_ID, null);
         ServiceCenterDTO serviceCenterDTO = serviceCenterService.find(id);
         req.setAttribute(SERVICE_CENTER, serviceCenterDTO);

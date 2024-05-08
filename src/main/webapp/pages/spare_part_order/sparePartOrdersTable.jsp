@@ -4,10 +4,14 @@
 <%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
 <%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_REPAIR" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_REPAIR" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.ORDER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_ORDER" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
+
+
 <section>
+    <%@include file="../forms/errorContainer.jsp"%>
     <div class="container t-container">
 
         <%
@@ -37,11 +41,15 @@
                     <td><%=sparePartOrder.getDeliveryDate() != null? sparePartOrder.getDeliveryDate() : ""%></td>
                     <td>
                         <div class="button-table-container">
-                            <button class="choose-button order-btn" onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, GET_REPAIR, repairId)%>'">
+                            <button class="choose-button order-btn" onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, SHOW_UPDATE_REPAIR, repairId)%>'">
                                 Перейти в ремонт</button>
 
                             <button class="choose-button order-btn"
                                     onclick="location.href='<%=String.format(OPEN_FORM, ORDER, SHOW_SPARE_PART_ORDER, sparePartOrder.getId())%>'">Отправка</button>
+
+
+                            <button class="choose-button order-btn"
+                                    onclick="location.href='<%=String.format(OPEN_FORM, ORDER, DELETE_SPARE_PART_ORDER, sparePartOrder.getId())%>'">Удалить</button>
                         </div>
                     </td>
                 </tr>

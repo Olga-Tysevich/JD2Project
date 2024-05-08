@@ -16,7 +16,6 @@ public class ShowUpdateRepairType implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
         long repairTypeId = Extractor.extractLongVal(req, OBJECT_ID, null);
         RepairTypeDTO repairType = repairTypeService.find(repairTypeId);

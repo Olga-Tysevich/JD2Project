@@ -8,13 +8,10 @@ import it.academy.services.device.impl.DeviceTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
-@Slf4j
 public class ShowDeviceTypeTable implements ActionCommand {
     private DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
 
@@ -30,7 +27,6 @@ public class ShowDeviceTypeTable implements ActionCommand {
                 : deviceTypeService.findForPageByFilter(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
 
         CommandHelper.insertTableData(req, reqData, brands);
-        log.info(CURRENT_TABLE, brands);
         return Extractor.extractMainPagePath(req);
     }
 

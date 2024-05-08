@@ -7,23 +7,18 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.commands.impl.show.forms.ShowAddAccount;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.LoggerConstants.OBJECT_FOR_SAVE_PATTERN;
 
-@Slf4j
 public class AddAccount implements ActionCommand {
     private AccountService accountService = new AccountServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
         AccountDTO forCreate = Extractor.extractObject(req, new AccountDTO());
-        log.info(OBJECT_FOR_SAVE_PATTERN, forCreate);
         req.setAttribute(ACCOUNT, forCreate);
         AccountDTO accountForm = accountService.create(forCreate);
         String message = accountForm.getErrorMessage();
