@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_ACCOUNT" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_ACCOUNT" %>
 <%@ page import="it.academy.dto.TablePage2" %>
 <%@ page import="it.academy.entities.account.Account_" %>
@@ -39,7 +39,7 @@
                 </td>
                 <td class="code">
                     <form action="repair" method="get" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=GET_ACCOUNT%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_UPDATE_ACCOUNT%>">
                         <input type="hidden" name="<%=Account_.ID%>" value="<%=account.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

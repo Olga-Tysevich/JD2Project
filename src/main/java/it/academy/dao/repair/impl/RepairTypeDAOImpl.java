@@ -3,7 +3,7 @@ package it.academy.dao.repair.impl;
 import it.academy.dao.impl.ComponentDAOImpl;
 import it.academy.dao.repair.RepairTypeDAO;
 import it.academy.entities.repair.RepairType;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 
 import java.util.List;
 

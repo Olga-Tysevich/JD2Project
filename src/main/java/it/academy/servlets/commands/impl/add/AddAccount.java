@@ -4,7 +4,7 @@ import it.academy.dto.account.AccountDTO;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.forms.GetNewAccount;
+import it.academy.servlets.commands.impl.get.forms.ShowAddAccount;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,17 +22,17 @@ public class AddAccount implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         CommandHelper.checkRole(req);
-        AccountDTO forCreate = Extractor.extract(req, new AccountDTO());
+        AccountDTO forCreate = Extractor.extractObject(req, new AccountDTO());
         log.info(OBJECT_FOR_SAVE_PATTERN, forCreate);
         req.setAttribute(ACCOUNT, forCreate);
         AccountDTO accountForm = accountService.create(forCreate);
         String message = accountForm.getErrorMessage();
 
         if (!StringUtils.isBlank(message)) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             req.setAttribute(ERROR, accountForm.getErrorMessage());
             req.setAttribute(ACCOUNT, accountForm);
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return new GetNewAccount().execute(req, resp);
+            return new ShowAddAccount().execute(req, resp);
         }
 
         return Extractor.extractLastPage(req);

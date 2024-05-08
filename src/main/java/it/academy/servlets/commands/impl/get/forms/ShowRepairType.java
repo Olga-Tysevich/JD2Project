@@ -19,7 +19,6 @@ public class ShowRepairType implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         long repairTypeId = Long.parseLong(req.getParameter(OBJECT_ID));
         RepairTypeDTO repairType = repairTypeService.find(repairTypeId);
 
@@ -28,6 +27,6 @@ public class ShowRepairType implements ActionCommand {
                 REPAIR_TYPE_TABLE_PAGE_PATH,
                 REPAIR_TYPE_PAGE_PATH,
                 CHANGE_REPAIR_TYPE,
-                GET_REPAIR_TYPE_TABLE);
+                SHOW_REPAIR_TYPE_TABLE);
     }
 }

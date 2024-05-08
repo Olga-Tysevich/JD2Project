@@ -1,21 +1,23 @@
 package it.academy.services.device;
 
+import it.academy.dto.TablePage2;
 import it.academy.dto.device.DeviceTypeDTO;
-import it.academy.dto.TablePage;
 import java.util.List;
 
 public interface DeviceTypeService {
 
-    void createDeviceType(DeviceTypeDTO deviceType);
+    void create(DeviceTypeDTO deviceType);
 
-    void updateDeviceType(DeviceTypeDTO deviceType);
+    void update(DeviceTypeDTO deviceType);
 
-    void deleteDeviceType(long id);
+    void delete(long id);
 
-    DeviceTypeDTO findDeviceType(long id);
+    DeviceTypeDTO find(long id);
 
-    List<DeviceTypeDTO> findDeviceTypes();
+    List<DeviceTypeDTO> findAll();
 
-    TablePage<DeviceTypeDTO> findDeviceTypes(int pageNumber, String filter, String input);
+    TablePage2<DeviceTypeDTO> findForPage(int pageNumber);
+
+    TablePage2<DeviceTypeDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

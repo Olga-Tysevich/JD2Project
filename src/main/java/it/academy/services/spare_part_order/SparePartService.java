@@ -1,25 +1,19 @@
 package it.academy.services.spare_part_order;
 
 import it.academy.dto.TablePage2;
-import it.academy.dto.spare_part.ChangeSparePartDTO;
 import it.academy.dto.spare_part.SparePartDTO;
-import it.academy.dto.spare_part.SparePartForChangeDTO;
 
 import java.util.List;
 
 public interface SparePartService {
 
-    void create(ChangeSparePartDTO sparePartDTO);
+    void create(SparePartDTO sparePartDTO);
 
-    void update(ChangeSparePartDTO sparePartDTO);
+    void update(SparePartDTO sparePartDTO);
 
     void delete(long id);
 
-    SparePartForChangeDTO getSparePartForm();
-
-    SparePartForChangeDTO getSparePartForm(long id);
-
-    SparePartForChangeDTO find(long id);
+    SparePartDTO find(long id);
 
     TablePage2<SparePartDTO> findForPage(int pageNumber);
 

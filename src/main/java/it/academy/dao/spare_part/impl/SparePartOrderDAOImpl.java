@@ -5,13 +5,11 @@ import it.academy.dao.spare_part.SparePartOrderDAO;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.entities.spare_part.SparePartOrder_;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
-
-import static it.academy.utils.constants.Constants.*;
 
 public class SparePartOrderDAOImpl extends DAOImpl<SparePartOrder, Long> implements SparePartOrderDAO {
 

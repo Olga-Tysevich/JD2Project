@@ -1,9 +1,9 @@
 package it.academy.services.spare_part_order;
 
 import it.academy.dto.TablePage2;
-import it.academy.dto.spare_part.ChangeSparePartOrderDTO;
-import it.academy.dto.spare_part.CreateOrderDTO;
-import it.academy.dto.spare_part.SparePartOrderDTO;
+import it.academy.dto.spare_part_order.ChangeSparePartOrderDTO;
+import it.academy.dto.spare_part_order.CreateOrderDTO;
+import it.academy.dto.spare_part_order.SparePartOrderDTO;
 
 import java.util.List;
 

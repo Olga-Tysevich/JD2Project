@@ -45,7 +45,7 @@ public class Generator {
         return AccountDTO.builder()
                 .email(String.format(emails.get(RANDOM.nextInt(emails.size() - 1) + 1), RANDOM.nextInt(BOUND)))
                 .password(password)
-                .confirmPassword(password)
+                .passwordConfirm(password)
                 .userName(names.get(RANDOM.nextInt(names.size())))
                 .userSurname(surnames.get(RANDOM.nextInt(surnames.size())))
                 .role(RoleEnum.SERVICE_CENTER)

@@ -24,7 +24,7 @@ public class AccountDTO {
 
     private String password;
 
-    private String confirmPassword;
+    private String passwordConfirm;
 
     private RoleEnum role;
 

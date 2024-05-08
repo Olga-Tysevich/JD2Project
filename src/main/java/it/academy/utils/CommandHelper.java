@@ -6,7 +6,6 @@ import it.academy.dto.TablePageReq;
 import it.academy.dto.account.AccountDTO;
 import it.academy.exceptions.common.AccessDenied;
 import it.academy.servlets.commands.factory.CommandEnum;
-import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.Constants.DISPLAY_TABLE_COMMAND;
 import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -29,6 +27,8 @@ public class CommandHelper {
             throw new AccessDenied();
         }
     }
+
+
 
     public static <T> void setTableData(HttpServletRequest req, TablePageReq dataForPage, TablePage<T> listForTable) {
         listForTable.setPage(dataForPage.getPage());

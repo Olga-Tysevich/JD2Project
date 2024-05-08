@@ -10,7 +10,7 @@ public class Constants {
     public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
     public static final String LIKE_QUERY_PATTERN = "%%%s%%";
-    public static final String COMPONENT_DESCRIPTION_PATTERN = "%s %s %s";
+    public static final String MODEL_DESCRIPTION_PATTERN = "%s %s %s";
     public static final long DEFAULT_ID = 1L;
     public static final String DEFAULT_VALUE = "";
     public static final String SLASH = "/";
@@ -90,13 +90,12 @@ public class Constants {
     //brand
     public static final String BRAND = "brand";
     //device type
-    public static final String DEVICE_TYPE = "device_type";
+    public static final String DEVICE_TYPE = "deviceType";
     //model
     public static final String MODEL = "model";
     public static final String BRAND_ID = "brandId";
     public static final String TYPE_ID = "deviceTypeId";
     //spare parts
-    public static final String SPARE_PART = "spare_part";
     public static final String SPARE_PART_ID = "spare_part_id";
     //repair type
     public static final String REPAIR_TYPE = "repair_type";
@@ -142,6 +141,7 @@ public class Constants {
     public static final String SERVICE_CENTER_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
+    public static final String DEVICE_TYPE_ALREADY_EXIST = "Тип устройства уже добавлен!";
     public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";
     public static final String ACCESS_IS_DENIED = "У вас нет доступа к данной операции, обратитесь к администратору!";

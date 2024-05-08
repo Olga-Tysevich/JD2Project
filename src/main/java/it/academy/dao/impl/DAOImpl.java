@@ -1,7 +1,7 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

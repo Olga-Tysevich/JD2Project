@@ -4,7 +4,7 @@ import it.academy.dao.account.ServiceCenterDAO;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.account.ServiceCenter_;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 import javax.persistence.TypedQuery;
 import static it.academy.utils.constants.Constants.*;
 

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.device.BrandDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_BRAND" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_BRAND" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.TablePage2" %>
 <section>
@@ -31,7 +31,7 @@
                 </td>
                 <td class="code">
                     <form action="repair" method="get" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=GET_BRAND%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_UPDATE_BRAND%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=brand.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

@@ -6,7 +6,7 @@ import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.Repair_;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 
 import javax.persistence.criteria.CriteriaQuery;

@@ -12,8 +12,8 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.utils.PageCounter;
-import it.academy.utils.converters.impl.ServiceCenterConverter;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.converters.ServiceCenterConverter;
+import it.academy.utils.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

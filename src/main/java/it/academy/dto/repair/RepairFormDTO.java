@@ -2,7 +2,7 @@ package it.academy.dto.repair;
 
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ModelDTO;
-import it.academy.dto.spare_part.SparePartOrderDTO;
+import it.academy.dto.spare_part_order.SparePartOrderDTO;
 import lombok.*;
 import java.util.List;
 import java.util.Map;

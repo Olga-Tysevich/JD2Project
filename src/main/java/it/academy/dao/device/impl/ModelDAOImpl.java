@@ -3,7 +3,7 @@ package it.academy.dao.device.impl;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.impl.DAOImpl;
 import it.academy.entities.device.Model;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;

@@ -2,8 +2,8 @@ package it.academy.servlets.commands.impl.add;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.academy.dto.spare_part.CreateOrderDTO;
-import it.academy.dto.spare_part.OrderItemDTO;
+import it.academy.dto.spare_part_order.CreateOrderDTO;
+import it.academy.dto.spare_part_order.OrderItemDTO;
 import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;

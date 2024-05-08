@@ -25,25 +25,25 @@
                 <fieldset class="f1">
                 <legend>Текущий аккаунт</legend>
                     <button class="button button-fieldset"
-                            onclick="location.href='<%=String.format(OPEN_FORM, ACCOUNT, GET_ACCOUNT, accountDTO.getId())%>'">
+                            onclick="location.href='<%=String.format(OPEN_FORM, ACCOUNT, SHOW_UPDATE_ACCOUNT, accountDTO.getId())%>'">
                         Изменить данные аккаунта</button>
 
                     <button class="button button-fieldset"
-                            onclick="location.href='<%=String.format(OPEN_FORM, ACCOUNT, GET_SERVICE_CENTER, accountDTO.getServiceCenterId())%>'">
+                            onclick="location.href='<%=String.format(OPEN_FORM, ACCOUNT, SHOW_UPDATE_SERVICE_CENTER, accountDTO.getServiceCenterId())%>'">
                         Изменить учетные данные</button>
             </fieldset>
 
             <fieldset class="f1">
                 <legend>Устройства</legend>
                 <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, GET_MODELS, MODEL_TABLE_PAGE_PATH,
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_MODEL_TABLE, MODEL_TABLE_PAGE_PATH,
                         pageNumber)%>'">Список моделей</button>
             </fieldset>
 
             <fieldset class="f1">
                 <legend>Запчасти</legend>
                 <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, GET_SPARE_PARTS, SPARE_PART_TABLE_PAGE_PATH,
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_SPARE_PART_TABLE, SPARE_PART_TABLE_PAGE_PATH,
                         pageNumber)%>'">Список запчастей</button>
 
             </fieldset>
@@ -59,7 +59,7 @@
                         FIRST_PAGE)%>'">Список ремонтов</button>
 
                 <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, GET_REPAIR_TYPE_TABLE, REPAIR_TYPE_TABLE_PAGE_PATH,
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_REPAIR_TYPE_TABLE, REPAIR_TYPE_TABLE_PAGE_PATH,
                         pageNumber)%>'">Список типов ремонта</button>
 
             </fieldset>

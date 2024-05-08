@@ -404,5 +404,6 @@ fieldset.f1 {
 
 .model_container{
     overflow: auto;
-    height: 200px;
+    height: 600px;
+    width: 80%;
 }

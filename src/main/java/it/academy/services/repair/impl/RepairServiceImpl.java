@@ -18,7 +18,7 @@ import it.academy.dto.TablePage2;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.*;
-import it.academy.dto.spare_part.SparePartOrderDTO;
+import it.academy.dto.spare_part_order.SparePartOrderDTO;
 import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.Device;
@@ -31,12 +31,12 @@ import it.academy.exceptions.model.BrandsNotFound;
 import it.academy.exceptions.model.ModelNotFound;
 import it.academy.services.repair.RepairService;
 import it.academy.utils.PageCounter;
-import it.academy.utils.converters.impl.BrandConverter;
-import it.academy.utils.converters.impl.ModelConverter;
-import it.academy.utils.converters.impl.RepairConverter;
-import it.academy.utils.converters.impl.RepairTypeConverter;
-import it.academy.utils.converters.spare_part.SparePartOrderConverter;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.converters.BrandConverter;
+import it.academy.utils.converters.ModelConverter;
+import it.academy.utils.converters.RepairConverter;
+import it.academy.utils.converters.RepairTypeConverter;
+import it.academy.utils.converters.SparePartOrderConverter;
+import it.academy.utils.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -58,10 +58,8 @@ public class RepairServiceImpl implements RepairService {
     private final BrandDAO brandDAO = new BrandDAOImpl(transactionManger);
     private final DeviceDAO deviceDAO = new DeviceDAOImpl(transactionManger);
     private final ModelDAO modelDAO = new ModelDAOImpl(transactionManger);
-    private final RepairConverter repairConverter = new RepairConverter();
     private final SparePartOrderDAO sparePartOrderDAO = new SparePartOrderDAOImpl(transactionManger);
     private final RepairTypeDAO repairTypeDAO = new RepairTypeDAOImpl(transactionManger);
-    private final RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
 
     @Override
     public RepairFormDTO getRepairForm(long brandId) {
@@ -99,7 +97,7 @@ public class RepairServiceImpl implements RepairService {
     public void addRepair(CreateRepairDTO repairDTO) {
 
         Supplier<Repair> create = () -> {
-            Repair repair = repairConverter.convertToEntity(repairDTO);
+            Repair repair = RepairConverter.convertToEntity(repairDTO);
 
             long serviceCenterId = repairDTO.getServiceCenterId();
             String serialNumber = repairDTO.getSerialNumber();
@@ -131,7 +129,7 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public void updateRepair(RepairDTO repairDTO) {
         transactionManger.execute(() -> {
-            Repair repair = repairConverter.convertToEntity(repairDTO);
+            Repair repair = RepairConverter.convertToEntity(repairDTO);
 
             ServiceCenter serviceCenter = serviceCenterDAO.find(repairDTO.getServiceCenterId());
             repair.setServiceCenter(serviceCenter);
@@ -166,7 +164,7 @@ public class RepairServiceImpl implements RepairService {
     public RepairFormDTO findRepair(long id) {
         return transactionManger.execute(() -> {
             Repair repair = repairDAO.find(id);
-            RepairDTO repairDTO = repairConverter.convertToDTO(repair);
+            RepairDTO repairDTO = RepairConverter.convertToDTO(repair);
             long brandId = repair.getDevice().getModel().getBrand().getId();
             RepairFormDTO repairFormDTO = getRepairForm(brandId);
             repairFormDTO.setRepairDTO(repairDTO);
@@ -179,7 +177,7 @@ public class RepairServiceImpl implements RepairService {
         return transactionManger.execute(() -> {
             Repair repair = repairDAO.find(id);
             RepairStatus status = repair.getStatus();
-            RepairDTO repairDTO = repairConverter.convertToDTO(repair);
+            RepairDTO repairDTO = RepairConverter.convertToDTO(repair);
             List<SparePartOrderDTO> orderDTOList = null;
             List<RepairTypeDTO> repairTypes = null;
 
@@ -192,7 +190,7 @@ public class RepairServiceImpl implements RepairService {
             if (RepairStatus.CURRENT.equals(status)
                     || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(status)) {
                 List<RepairType> typeList = repairTypeDAO.findAllActive();
-                repairTypes = repairTypeConverter.convertToDTOList(typeList);
+                repairTypes = RepairTypeConverter.convertToDTOList(typeList);
             }
 
             return UserRepairFormDTO.builder()
@@ -208,7 +206,7 @@ public class RepairServiceImpl implements RepairService {
         Supplier<TablePage2<RepairDTO>> find = () -> {
             long numberOfEntries = repairDAO.getNumberOfEntries();
             List<Repair> repairs = repairDAO.findForPage(pageNumber, LIST_SIZE);
-            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
@@ -220,7 +218,7 @@ public class RepairServiceImpl implements RepairService {
             long numberOfEntries = repairDAO.getNumberOfEntriesByFilter(filter, userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Repair> repairs = repairDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, userInput);
-            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
         return StringUtils.isBlank(userInput)? findRepairs(pageNumber) : transactionManger.execute(find);
@@ -245,7 +243,7 @@ public class RepairServiceImpl implements RepairService {
             long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumberForSearch, LIST_SIZE);
-            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
         return status != null ? transactionManger.execute(find) : findRepairs(pageNumber);
@@ -257,7 +255,7 @@ public class RepairServiceImpl implements RepairService {
             long numberOfEntries = repairDAO.getNumberOfEntriesByServiceId(serviceCenterId);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Repair> repairs = repairDAO.findRepairsByServiceId(serviceCenterId, pageNumberForSearch, LIST_SIZE);
-            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
@@ -269,7 +267,7 @@ public class RepairServiceImpl implements RepairService {
             long numberOfEntries = repairDAO.getNumberOfEntriesByFilterAndServiceId(serviceCenterId, filter, userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Repair> repairs = repairDAO.findRepairsByFilterAndServiceId(serviceCenterId, pageNumberForSearch, LIST_SIZE, filter, userInput);
-            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
         return StringUtils.isBlank(userInput)? findRepairsForUser(serviceCenterId, pageNumber):
@@ -283,7 +281,7 @@ public class RepairServiceImpl implements RepairService {
             long numberOfEntries = repairDAO.getNumberOfEntriesByStatusAndServiceId(serviceCenterId, status);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Repair> repairs = repairDAO.findRepairsByStatusAndServiceId(serviceCenterId, status, pageNumberForSearch, LIST_SIZE);
-            List<RepairDTO> dtoList = repairConverter.convertToDTOList(repairs);
+            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage2<>(dtoList, numberOfEntries);
         };
         return status != null ? transactionManger.execute(find) : findRepairsForUser(serviceCenterId, pageNumber);

@@ -1,23 +1,22 @@
 package it.academy.services.device;
 
 import it.academy.dto.TablePage2;
-import it.academy.dto.device.ChangeModelDTO;
 import it.academy.dto.device.ModelDTO;
-import it.academy.dto.device.ModelForChangeDTO;
+import it.academy.dto.device.ModelFormDTO;
 
 import java.util.List;
 
 public interface ModelService {
 
-    ModelForChangeDTO create(ChangeModelDTO model);
+    ModelDTO create(ModelDTO model);
 
-    ModelForChangeDTO update(ChangeModelDTO model);
+    ModelDTO update(ModelDTO model);
 
     void delete(long id);
 
-    ModelForChangeDTO getForm();
+    ModelFormDTO getForm();
 
-    ModelForChangeDTO getForm(long id);
+    ModelDTO find(long id);
 
     List<ModelDTO> findAll();
 

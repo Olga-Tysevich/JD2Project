@@ -4,7 +4,7 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="it.academy.dto.device.ModelDTO" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_MODEL" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_MODEL" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_MODEL" %>
 <%@ page import="it.academy.dto.TablePage2" %>
 <section>
@@ -43,7 +43,7 @@
                 <% if (RoleEnum.ADMIN.equals(role)) {%>
                 <td class="code">
                     <form action="repair" method="get" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=GET_MODEL%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_UPDATE_MODEL%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=model.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

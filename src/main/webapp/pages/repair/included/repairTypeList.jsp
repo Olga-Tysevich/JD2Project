@@ -27,7 +27,7 @@
                         <label class="form-el">Тип ремонта:</label>
                         <select class="f-form " name="<%=REPAIR_TYPE_ID%>" size="0">
                             <%for (RepairTypeDTO repairTypeDTO : repairTypes) {
-                                String repairTypeDescription = String.format(COMPONENT_DESCRIPTION_PATTERN, repairTypeDTO.getLevel(),
+                                String repairTypeDescription = String.format(MODEL_DESCRIPTION_PATTERN, repairTypeDTO.getLevel(),
                                         repairTypeDTO.getName(), repairTypeDTO.getCode());
                             %>
                             <option value="<%=repairTypeDTO.getId()%>"><%=repairTypeDescription%></option>

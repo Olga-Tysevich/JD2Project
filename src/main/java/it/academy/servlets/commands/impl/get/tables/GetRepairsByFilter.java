@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static it.academy.utils.constants.Constants.ACCOUNT;
-import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
-import static it.academy.utils.constants.JSPConstant.USER_MAIN_PAGE_PATH;
 import static it.academy.utils.constants.LoggerConstants.CURRENT_TABLE;
 
 @Slf4j

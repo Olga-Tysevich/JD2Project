@@ -17,7 +17,7 @@ public class AddRepair implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        CreateRepairDTO forCreate = Extractor.extract(req, new CreateRepairDTO());
+        CreateRepairDTO forCreate = Extractor.extractObject(req, new CreateRepairDTO());
         log.info(OBJECT_EXTRACTED_PATTERN, forCreate);
         repairService.addRepair(forCreate);
 

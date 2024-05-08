@@ -26,6 +26,7 @@
             <form class="lr-form" action="main" method="post" id="form_for_submit">
                 <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_ACCOUNT%>">
                <input type="hidden" name="<%=ROLE%>" value="<%=RoleEnum.SERVICE_CENTER%>">
+               <input type="hidden" name="<%=SERVICE_CENTER_NAME%>" value="<%=account != null? account.getServiceCenterName() :StringUtils.EMPTY%>">
 
                 <div class="f-input">
                     <label class="form-el">Сервисный центр:</label>
@@ -64,7 +65,7 @@
                 <div class="f-input">
                     <label class="form-el">Введите пароль:</label>
                     <input class="f-form" required type="password" placeholder="Подтвердите пароль"
-                           name="<%=PASSWORD_CONFIRM%>" value="<%=account != null? account.getConfirmPassword() :StringUtils.EMPTY%>"
+                           name="<%=PASSWORD_CONFIRM%>" value="<%=account != null? account.getPasswordConfirm() :StringUtils.EMPTY%>"
                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$">
                 </div>
                  <%@include file="../forms/errorContainer.jsp"%>

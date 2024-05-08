@@ -14,8 +14,8 @@ import it.academy.exceptions.account.ValidationException;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.account.AccountService;
 import it.academy.utils.PageCounter;
-import it.academy.utils.converters.impl.AccountConverter;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.converters.AccountConverter;
+import it.academy.utils.TransactionManger;
 import it.academy.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
 
         try {
             Account account = AccountConverter.convertToEntity(accountDTO);
-            checkPassword(accountDTO.getPassword(), accountDTO.getConfirmPassword());
+            checkPassword(accountDTO.getPassword(), accountDTO.getPasswordConfirm());
             validateAccount(account);
             encodePassword(account);
 
@@ -70,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
 
             if (!StringUtils.isBlank(accountDTO.getPassword())) {
                 account.setPassword(accountDTO.getPassword());
-                checkPassword(accountDTO.getPassword(), accountDTO.getConfirmPassword());
+                checkPassword(accountDTO.getPassword(), accountDTO.getPasswordConfirm());
                 validateAccount(account);
                 encodePassword(account);
             }

@@ -41,10 +41,7 @@ public class Model implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Setter(AccessLevel.PROTECTED)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "models_spare_parts",
-            joinColumns = {@JoinColumn(name = "model_id")},
-            inverseJoinColumns = {@JoinColumn(name = "spare_part_id")})
+    @ManyToMany(mappedBy = "models", cascade = CascadeType.MERGE)
     private Set<SparePart> spareParts = new HashSet<>();
 
     public void addSparePart(SparePart sparePart) {

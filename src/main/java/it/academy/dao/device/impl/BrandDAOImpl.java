@@ -6,12 +6,10 @@ import it.academy.entities.device.Brand;
 import it.academy.entities.device.Brand_;
 import it.academy.entities.device.Model;
 import it.academy.entities.device.Model_;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 
 import javax.persistence.criteria.*;
 import java.util.List;
-
-import static it.academy.utils.constants.Constants.*;
 
 public class BrandDAOImpl extends ComponentDAOImpl<Brand, Long> implements BrandDAO {
 

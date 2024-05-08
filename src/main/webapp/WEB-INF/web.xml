@@ -20,8 +20,10 @@
     <url-pattern>/account</url-pattern>
     <url-pattern>/serviceCenter</url-pattern>
     <url-pattern>/main</url-pattern>
-    <url-pattern>/brands</url-pattern>
-    <url-pattern>/models</url-pattern>
+    <url-pattern>/brand</url-pattern>
+    <url-pattern>/model</url-pattern>
+    <url-pattern>/deviceType</url-pattern>
+    <url-pattern>/sparePart</url-pattern>
     <url-pattern>/repair</url-pattern>
     <url-pattern>/order</url-pattern>
   </servlet-mapping>

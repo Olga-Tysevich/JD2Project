@@ -10,8 +10,8 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.services.device.BrandService;
 import it.academy.utils.PageCounter;
-import it.academy.utils.converters.impl.BrandConverter;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.converters.BrandConverter;
+import it.academy.utils.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import java.util.List;
@@ -27,36 +27,28 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public BrandDTO create(BrandDTO brandDTO) {
         Brand brand = BrandConverter.convertToEntity(brandDTO);
-        try {
-            checkBrandName(brand.getName());
-            Supplier<Brand> create = () -> {
-                checkBrand(ID_FOR_CHECK, brand.getName());
-                Brand result = brandDAO.create(brand);
-                log.info(OBJECT_CREATED_PATTERN, result);
-                return result;
-            };
-            transactionManger.execute(create);
-        } catch (ValidationException | ObjectAlreadyExist e) {
-            brandDTO.setErrorMessage(e.getMessage());
-        }
+        checkBrandName(brand.getName());
+        Supplier<Brand> create = () -> {
+            checkBrand(ID_FOR_CHECK, brand.getName());
+            Brand result = brandDAO.create(brand);
+            log.info(OBJECT_CREATED_PATTERN, result);
+            return result;
+        };
+        transactionManger.execute(create);
         return brandDTO;
     }
 
     @Override
     public BrandDTO update(BrandDTO brandDTO) {
         Brand brand = BrandConverter.convertToEntity(brandDTO);
-        try {
-            checkBrandName(brand.getName());
-            Supplier<Brand> create = () -> {
-                checkBrand(brand.getId(), brand.getName());
-                Brand result = brandDAO.update(brand);
-                log.info(OBJECT_UPDATED_PATTERN, result);
-                return result;
-            };
-            transactionManger.execute(create);
-        } catch (ValidationException | ObjectAlreadyExist e) {
-            brandDTO.setErrorMessage(e.getMessage());
-        }
+        checkBrandName(brand.getName());
+        Supplier<Brand> create = () -> {
+            checkBrand(brand.getId(), brand.getName());
+            Brand result = brandDAO.update(brand);
+            log.info(OBJECT_UPDATED_PATTERN, result);
+            return result;
+        };
+        transactionManger.execute(create);
         return brandDTO;
     }
 

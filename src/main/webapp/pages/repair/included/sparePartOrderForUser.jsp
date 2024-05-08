@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.spare_part.OrderItemDTO" %>
+<%@ page import="it.academy.dto.spare_part_order.OrderItemDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%

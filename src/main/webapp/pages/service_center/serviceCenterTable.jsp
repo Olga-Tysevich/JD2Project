@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page import="it.academy.dto.account.ServiceCenterDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_SERVICE_CENTER" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_SERVICE_CENTER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SERVICE_CENTER" %>
 <%@ page import="it.academy.dto.TablePage2" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -37,7 +37,7 @@
                 <td class="code">
 
                     <form action="repair" method="get" >
-                        <input type="hidden" name="<%=COMMAND%>" value="<%=GET_SERVICE_CENTER%>">
+                        <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_UPDATE_SERVICE_CENTER%>">
                         <input type="hidden" name="<%=OBJECT_ID%>" value="<%=serviceCenter.getId()%>">
                         <input class="choose-button order-btn" type="submit" value="Изменить" >
                     </form>

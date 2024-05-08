@@ -3,7 +3,7 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="it.academy.dto.repair.UserRepairFormDTO" %>
-<%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>

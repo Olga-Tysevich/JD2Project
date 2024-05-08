@@ -1,7 +1,7 @@
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
 <%@ page import="it.academy.dto.TablePage2" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_REPAIR" %>

@@ -1,7 +1,7 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.ComponentDAO;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 import javax.persistence.TypedQuery;
 import static it.academy.utils.constants.Constants.*;
 

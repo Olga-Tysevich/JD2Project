@@ -1,11 +1,11 @@
 <%@ page import="static it.academy.utils.constants.Constants.ORDERS" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.spare_part.SparePartOrderDTO" %>
+<%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.CHANGE_SPARE_PART_ORDER" %>
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
-<%@ page import="it.academy.dto.spare_part.OrderItemDTO" %>
+<%@ page import="it.academy.dto.spare_part_order.OrderItemDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%

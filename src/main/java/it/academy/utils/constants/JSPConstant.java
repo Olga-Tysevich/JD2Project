@@ -19,24 +19,30 @@ public class JSPConstant {
 
     //account
     public static final String SERVICE_CENTERS = "service_centers";
-    public static final String NEW_ACCOUNT_PAGE_PATH = "/pages/account/addAccount.jsp";
-    public static final String ACCOUNT_PAGE_PATH = "/pages/account/changeAccount.jsp";
+    public static final String ADD_ACCOUNT_PAGE_PATH = "/pages/account/addAccount.jsp";
+    public static final String UPDATE_ACCOUNT_PAGE_PATH = "/pages/account/updateAccount.jsp";
     public static final String ACCOUNT_TABLE_PAGE_PATH = "/pages/account/accountTable.jsp";
 
     //brand
-    public static final String BRAND_PAGE_PATH = "/pages/brand/changeBrand.jsp";
+    public static final String ADD_BRAND_PAGE_PATH = "/pages/brand/addBrand.jsp";
+    public static final String UPDATE_BRAND_PAGE_PATH = "/pages/brand/updateBrand.jsp";
     public static final String BRAND_TABLE_PAGE_PATH = "/pages/brand/brandTable.jsp";
 
     //deviceType
-    public static final String DEVICE_TYPE_PAGE_PATH = "/pages/device_type/changeDeviceType.jsp";
-    public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/device_type/deviceTypesTable.jsp";
+    public static final String ADD_DEVICE_TYPE_PAGE_PATH = "/pages/device_type/addDeviceType.jsp";
+    public static final String UPDATE_DEVICE_TYPE_PAGE_PATH = "/pages/device_type/updateDeviceType.jsp";
+    public static final String DEVICE_TYPE_TABLE_PAGE_PATH = "/pages/device_type/deviceTypeTable.jsp";
 
     //model
-    public static final String MODEL_PAGE_PATH = "/pages/model/changeModel.jsp";
+    public static final String MODEL_FORM = "model_form";
+    public static final String ADD_MODEL_PAGE_PATH = "/pages/model/addModel.jsp";
+    public static final String UPDATE_MODEL_PAGE_PATH = "/pages/model/updateModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
 
     //sparePart
-    public static final String SPARE_PART_PAGE_PATH = "/pages/spare_part/changeSparePart.jsp";
+    public static final String SPARE_PART = "sparePart";
+    public static final String ADD_SPARE_PART_PAGE_PATH = "/pages/spare_part/addSparePart.jsp";
+    public static final String UPDATE_SPARE_PART_PAGE_PATH = "/pages/spare_part/updateSparePart.jsp";
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
 
     //sparePartOrder
@@ -50,8 +56,8 @@ public class JSPConstant {
     public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair/repairTypeTable.jsp";
 
     //serviceCenter
-    public static final String NEW_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/addServiceCenter.jsp";
-    public static final String SERVICE_CENTER_PAGE_PATH = "/pages/service_center/changeServiceCenter.jsp";
+    public static final String ADD_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/addServiceCenter.jsp";
+    public static final String UPDATE_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/updateServiceCenter.jsp";
     public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/service_center/serviceCenterTable.jsp";
 
     // repair

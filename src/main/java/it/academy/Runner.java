@@ -2,12 +2,11 @@ package it.academy;
 
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.device.BrandDTO;
-import it.academy.dto.device.ChangeModelDTO;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.account.AccountDTO;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.RepairTypeDTO;
-import it.academy.dto.spare_part.ChangeSparePartDTO;
+import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.ServiceCenterService;
 import it.academy.services.account.impl.AccountServiceImpl;
@@ -23,10 +22,10 @@ import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.services.spare_part_order.SparePartService;
 import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.utils.Generator;
-import it.academy.utils.converters.impl.BrandConverter;
-import it.academy.utils.converters.impl.DeviceTypeConverter;
-import it.academy.utils.converters.impl.RepairTypeConverter;
-import it.academy.utils.converters.impl.ServiceCenterConverter;
+import it.academy.utils.converters.BrandConverter;
+import it.academy.utils.converters.DeviceTypeConverter;
+import it.academy.utils.converters.RepairTypeConverter;
+import it.academy.utils.converters.ServiceCenterConverter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -42,7 +41,6 @@ public class Runner {
     private static ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
     private static BrandService brandService = new BrandServiceImpl();
     private static DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
-    private static DeviceTypeConverter deviceTypeConverter = new DeviceTypeConverter();
     private static ModelService modelService = new ModelServiceImpl();
     private static RepairTypeService repairTypeService = new RepairTypeServiceImpl();
     private static RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
@@ -86,24 +84,24 @@ public class Runner {
 
         IntStream.range(0, MAX_SIZE)
                 .forEach(i -> {
-                    DeviceTypeDTO deviceType = deviceTypeConverter.convertToDTO(Generator.generateDeviceType());
-                    deviceTypeService.createDeviceType(deviceType);
+                    DeviceTypeDTO deviceType = DeviceTypeConverter.convertToDTO(Generator.generateDeviceType());
+                    deviceTypeService.create(deviceType);
                 });
 
 
         List<BrandDTO> brandList = brandService.findAll();
-        List<DeviceTypeDTO> deviceTypeList = deviceTypeService.findDeviceTypes();
+        List<DeviceTypeDTO> deviceTypeList = deviceTypeService.findAll();
 
         IntStream.range(0, MAX_SIZE).forEach(i -> {
             BrandDTO brand = brandList.get(RANDOM.nextInt(brandList.size()));
             DeviceTypeDTO deviceTypeDTO = deviceTypeList.get(RANDOM.nextInt(deviceTypeList.size()));
-            ChangeModelDTO changeModelDTO = ChangeModelDTO.builder()
+            ModelDTO modelDTO = ModelDTO.builder()
                     .brandId(brand.getId())
                     .deviceTypeId(deviceTypeDTO.getId())
                     .isActive(true)
                     .name(Generator.generateModelName())
                     .build();
-            modelService.create(changeModelDTO);
+            modelService.create(modelDTO);
         });
 
         IntStream.range(0, MAX_SIZE)
@@ -120,7 +118,7 @@ public class Runner {
                             .stream()
                             .map(ModelDTO::getId)
                             .collect(Collectors.toList());
-                    ChangeSparePartDTO sparePartDTO = ChangeSparePartDTO.builder()
+                    SparePartDTO sparePartDTO = SparePartDTO.builder()
                             .isActive(true)
                             .name(Generator.generateSparePartName())
                             .modelIdList(modelsId)

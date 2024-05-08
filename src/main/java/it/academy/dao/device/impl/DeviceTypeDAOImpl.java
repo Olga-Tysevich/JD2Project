@@ -3,7 +3,7 @@ package it.academy.dao.device.impl;
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.impl.ComponentDAOImpl;
 import it.academy.entities.device.DeviceType;
-import it.academy.utils.dao.TransactionManger;
+import it.academy.utils.TransactionManger;
 
 public class DeviceTypeDAOImpl extends ComponentDAOImpl<DeviceType, Long> implements DeviceTypeDAO {
 

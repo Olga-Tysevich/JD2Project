@@ -1,6 +1,5 @@
 package it.academy.servlets.extractors;
 
-import it.academy.dto.device.DeviceDTO;
 import it.academy.dto.repair.RepairDTO;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
