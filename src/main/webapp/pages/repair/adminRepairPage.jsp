@@ -8,7 +8,6 @@
 <%@ page import="it.academy.dto.repair.RepairFormDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.ADMIN_REPAIR_PAGE_PATH" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
@@ -30,8 +29,7 @@
             <h1>Ремонт No.<%=repairDTO.getRepairNumber()%></h1>
         </div>
         <form class="lr-form" action="main" method="post" id="form_for_submit">
-            <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_REPAIR%>" id="command_id">
-            <input type="hidden" name="<%=PAGE%>" value="<%=ADMIN_REPAIR_PAGE_PATH%>">
+            <input type="hidden" name="<%=COMMAND%>" value="<%=UPDATE_REPAIR%>" id="command_id">
             <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
             <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
             <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=repairDTO.getServiceCenterId()%>">
@@ -154,21 +152,15 @@
                 </div>
             </div>
             <div class="f-input">
-                Выполненный ремонт:
-                <br>
-                <label >Код:</label>
-                <br>
-                <%=repairType != null? repairType.getCode() : StringUtils.EMPTY%>
-                <br>
-                <label>Уровень:</label>
-                <br>
-                <%=repairType != null? repairType.getLevel() : StringUtils.EMPTY%>
-
-                <br>
-                <label>Описание:</label>
-
-                <br>
-                <%=repairType != null? repairType.getName() : StringUtils.EMPTY%>
+                <label class="form-el" >Выполненный ремонт:</label>
+                <div class="f-form">
+                    <br>
+                    Код: <%=repairType != null? repairType.getCode() : StringUtils.EMPTY%>
+                    <br>
+                    Уровень: <%=repairType != null? repairType.getLevel() : StringUtils.EMPTY%>
+                    <br>
+                    Описание: <%=repairType != null? repairType.getName() : StringUtils.EMPTY%>
+                </div>
             </div>
 
             <%@include file="../forms/errorContainer.jsp"%>

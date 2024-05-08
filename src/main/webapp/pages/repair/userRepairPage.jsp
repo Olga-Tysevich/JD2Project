@@ -31,7 +31,7 @@
 
         <div class="lr-container">
             <form class="lr-form" action="main" method="post" id="form_for_submit">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=CHANGE_REPAIR%>" id="command_id">
+                <input type="hidden" name="<%=COMMAND%>" value="<%=UPDATE_REPAIR%>" id="command_id">
                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairDTO.getId()%>">
 
                 <div class="f-input">

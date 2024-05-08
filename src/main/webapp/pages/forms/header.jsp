@@ -33,6 +33,5 @@
             <div class="header-el">
                 <p><%=userEmail%></p>
             </div>
-
         </div>
     </div>

@@ -3,7 +3,7 @@ package it.academy.servlets.commands.factory;
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.add.AddBrand;
 import it.academy.servlets.commands.impl.show.forms.ShowSparePartForm;
-import it.academy.servlets.commands.impl.update.ChangeRepair;
+import it.academy.servlets.commands.impl.update.UpdateRepair;
 import it.academy.servlets.commands.impl.update.UpdateBrand;
 import it.academy.servlets.commands.impl.add.AddDeviceType;
 import it.academy.servlets.commands.impl.update.UpdateDeviceType;
@@ -83,7 +83,7 @@ public enum CommandEnum {
     SHOW_UPDATE_REPAIR(new ShowUpdateRepair()),
     FIND_MODELS_FOR_REPAIR(new FindModelsForRepair()),
     ADD_REPAIR(new AddRepair()),
-    CHANGE_REPAIR(new ChangeRepair()),
+    UPDATE_REPAIR(new UpdateRepair()),
     GET_REPAIRS(new GetRepairs()),
     GET_REPAIRS_BY_FILTER(new GetRepairsByFilter()),
     GET_REPAIRS_BY_STATUS(new GetRepairsByStatus()),

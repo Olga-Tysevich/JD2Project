@@ -8,7 +8,7 @@ import it.academy.servlets.extractors.Extractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ChangeRepair extends AddRepair {
+public class UpdateRepair extends AddRepair {
     private RepairService repairService = new RepairServiceImpl();
 
     @Override

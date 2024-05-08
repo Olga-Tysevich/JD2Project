@@ -1,7 +1,5 @@
 <%@ page import="static it.academy.utils.constants.Constants.ACCOUNT" %>
-<%@ page import="static it.academy.utils.constants.Constants.PAGE_NUMBER" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
