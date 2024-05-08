@@ -2,7 +2,7 @@ package it.academy.services.device.impl;
 
 import it.academy.dao.device.DeviceTypeDAO;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.entities.device.DeviceType;
 import it.academy.exceptions.account.ValidationException;
@@ -67,24 +67,24 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     }
 
     @Override
-    public TablePage2<DeviceTypeDTO> findForPage(int pageNumber) {
-        Supplier<TablePage2<DeviceTypeDTO>> find = () -> {
+    public TablePage<DeviceTypeDTO> findForPage(int pageNumber) {
+        Supplier<TablePage<DeviceTypeDTO>> find = () -> {
             long numberOfEntries = deviceTypeDAO.getNumberOfEntries();
             List<DeviceType> typeList = deviceTypeDAO.findForPage(pageNumber, LIST_SIZE);
             List<DeviceTypeDTO> listDTO = DeviceTypeConverter.convertToDTOList(typeList);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<DeviceTypeDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage2<DeviceTypeDTO>> find = () -> {
+    public TablePage<DeviceTypeDTO> findForPageByFilter(int pageNumber, String filter, String input) {
+        Supplier<TablePage<DeviceTypeDTO>> find = () -> {
             long numberOfEntries = deviceTypeDAO.getNumberOfEntriesByFilter(filter, input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<DeviceType> typeList = deviceTypeDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
             List<DeviceTypeDTO> listDTO = DeviceTypeConverter.convertToDTOList(typeList);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

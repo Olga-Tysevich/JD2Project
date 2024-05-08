@@ -1,6 +1,6 @@
 package it.academy.services.account;
 
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.account.AccountDTO;
 import java.util.Map;
 
@@ -16,10 +16,10 @@ public interface AccountService {
 
     AccountDTO find(long id);
 
-    TablePage2<AccountDTO> findForPage(int pageNumber);
+    TablePage<AccountDTO> findForPage(int pageNumber);
 
-    TablePage2<AccountDTO> findForPageByFilter(int pageNumber, String filter, String input);
+    TablePage<AccountDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
-    TablePage2<AccountDTO> findForPageByServiceCenter(int pageNumber, String input);
+    TablePage<AccountDTO> findForPageByServiceCenter(int pageNumber, String input);
 
 }

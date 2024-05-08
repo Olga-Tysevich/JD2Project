@@ -4,7 +4,7 @@ import it.academy.dto.repair.CompleteRepairDTO;
 import it.academy.services.repair.RepairService;
 import it.academy.services.repair.impl.RepairServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.forms.GetRepair;
+import it.academy.servlets.commands.impl.show.forms.GetRepair;
 import it.academy.servlets.extractors.Extractor;
 
 import javax.servlet.http.HttpServletRequest;

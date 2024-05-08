@@ -6,14 +6,14 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage2<DeviceTypeDTO> data = (TablePage2<DeviceTypeDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<DeviceTypeDTO> data = (TablePage<DeviceTypeDTO>) request.getAttribute(TABLE_PAGE);
             List<DeviceTypeDTO> list = data.getList();
         %>
 

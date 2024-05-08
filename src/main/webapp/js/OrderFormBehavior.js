@@ -67,7 +67,7 @@ function addRowToTable() {
 document.getElementById('add_id').onclick = addRowToTable;
 
 function send() {
-    const orderTable = document.getElementById("addSparePartOrder");
+    const orderTable = document.getElementById("sparePartOrder");
     const sparePartInputs = document.querySelectorAll('.spare_part_input');
     const keyValueMap = [];
 

@@ -46,14 +46,19 @@ public class JSPConstant {
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
 
     //sparePartOrder
+    public static final String ORDER = "order";
+    public static final String ORDER_DEPARTURE_DATE = "departureDate";
+    public static final String ORDER_DELIVERY_DATE = "deliveryDate";
     public static final String ADD_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/addSparePartOrder.jsp";
-    public static final String SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/changeSparePartOrder.jsp";
+    public static final String UPDATE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/updateSparePartOrder.jsp";
     public static final String SPARE_PART_ORDER_TABLE_PAGE_PATH = "/pages/spare_part_order/sparePartOrdersTable.jsp";
 
     //repairType
     public static final String REPAIR_TYPE_ID = "repair_type_id";
-    public static final String REPAIR_TYPE_PAGE_PATH = "/pages/repair/changeRepairType.jsp";
-    public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair/repairTypeTable.jsp";
+    public static final String REPAIR_TYPE = "repairType";
+    public static final String ADD_REPAIR_TYPE_PAGE_PATH = "/pages/repair_type/addRepairType.jsp";
+    public static final String UPDATE_REPAIR_TYPE_PAGE_PATH = "/pages/repair_type/updateRepairType.jsp";
+    public static final String REPAIR_TYPE_TABLE_PAGE_PATH = "/pages/repair_type/repairTypeTable.jsp";
 
     //serviceCenter
     public static final String ADD_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/addServiceCenter.jsp";

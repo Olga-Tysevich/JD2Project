@@ -4,7 +4,7 @@ import it.academy.dao.spare_part.SparePartDAO;
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.ModelDAOImpl;
 import it.academy.dao.spare_part.impl.SparePartDAOImpl;
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.spare_part.SparePartDTO;
 import it.academy.entities.device.Model;
 import it.academy.entities.spare_part.SparePart;
@@ -90,36 +90,36 @@ public class SparePartServiceImpl implements SparePartService {
     }
 
     @Override
-    public TablePage2<SparePartDTO> findForPage(int pageNumber) {
-        Supplier<TablePage2<SparePartDTO>> find = () -> {
+    public TablePage<SparePartDTO> findForPage(int pageNumber) {
+        Supplier<TablePage<SparePartDTO>> find = () -> {
             long numberOfEntries = sparePartDAO.getNumberOfEntries();
             List<SparePart> spareParts = sparePartDAO.findForPage(pageNumber, LIST_SIZE);
             List<SparePartDTO> result = SparePartConverter.convertToDTOList(spareParts);
-            return new TablePage2<>(result, numberOfEntries);
+            return new TablePage<>(result, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<SparePartDTO> findForPageByName(int pageNumber, String input) {
-        Supplier<TablePage2<SparePartDTO>> find = () -> {
+    public TablePage<SparePartDTO> findForPageByName(int pageNumber, String input) {
+        Supplier<TablePage<SparePartDTO>> find = () -> {
             long numberOfEntries = sparePartDAO.getNumberOfEntriesByFilter(SparePart_.NAME, input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<SparePart> spareParts = sparePartDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, SparePart_.NAME, input);
             List<SparePartDTO> result = SparePartConverter.convertToDTOList(spareParts);
-            return new TablePage2<>(result, numberOfEntries);
+            return new TablePage<>(result, numberOfEntries);
         };
         return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<SparePartDTO> findForPageByModelName(int pageNumber, String input) {
-        Supplier<TablePage2<SparePartDTO>> find = () -> {
+    public TablePage<SparePartDTO> findForPageByModelName(int pageNumber, String input) {
+        Supplier<TablePage<SparePartDTO>> find = () -> {
             long numberOfEntries = sparePartDAO.getNumberOfEntriesByModelName(input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<SparePart> spareParts = sparePartDAO.findForPageByModelName(pageNumberForSearch, LIST_SIZE, input);
             List<SparePartDTO> result = SparePartConverter.convertToDTOList(spareParts);
-            return new TablePage2<>(result, numberOfEntries);
+            return new TablePage<>(result, numberOfEntries);
         };
         return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
     }

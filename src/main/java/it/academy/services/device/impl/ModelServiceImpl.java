@@ -6,7 +6,7 @@ import it.academy.dao.device.ModelDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
 import it.academy.dao.device.impl.DeviceTypeDAOImpl;
 import it.academy.dao.device.impl.ModelDAOImpl;
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.BrandDTO;
 import it.academy.dto.device.DeviceTypeDTO;
 import it.academy.dto.device.ModelDTO;
@@ -111,37 +111,37 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public TablePage2<ModelDTO> findForPage(int pageNumber) {
-        Supplier<TablePage2<ModelDTO>> find = () -> {
+    public TablePage<ModelDTO> findForPage(int pageNumber) {
+        Supplier<TablePage<ModelDTO>> find = () -> {
             long numberOfEntries = modelDAO.getNumberOfEntries();
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Model> models = modelDAO.findForPage(pageNumberForSearch, LIST_SIZE);
             List<ModelDTO> listDTO = ModelConverter.convertToDTOList(models);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<ModelDTO> findByName(int pageNumber, String input) {
-        Supplier<TablePage2<ModelDTO>> find = () -> {
+    public TablePage<ModelDTO> findByName(int pageNumber, String input) {
+        Supplier<TablePage<ModelDTO>> find = () -> {
             long numberOfEntries = modelDAO.getNumberOfEntriesByFilter(OBJECT_NAME, input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Model> models = modelDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, OBJECT_NAME, input);
             List<ModelDTO> listDTO = ModelConverter.convertToDTOList(models);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<ModelDTO> findByComponentName(int pageNumber, String filter, String input) {
-        Supplier<TablePage2<ModelDTO>> find = () -> {
+    public TablePage<ModelDTO> findByComponentName(int pageNumber, String filter, String input) {
+        Supplier<TablePage<ModelDTO>> find = () -> {
             long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Model> models = modelDAO.findByComponent(filter, input, pageNumberForSearch, LIST_SIZE);
             List<ModelDTO> listDTO = ModelConverter.convertToDTOList(models);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

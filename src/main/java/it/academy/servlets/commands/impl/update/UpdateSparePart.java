@@ -5,7 +5,7 @@ import it.academy.exceptions.common.ObjectAlreadyExist;
 import it.academy.services.spare_part_order.SparePartService;
 import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.impl.add.AddSparePart;
-import it.academy.servlets.commands.impl.get.forms.ShowSparePartForm;
+import it.academy.servlets.commands.impl.show.forms.ShowSparePartForm;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;

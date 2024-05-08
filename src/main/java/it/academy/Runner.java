@@ -43,7 +43,6 @@ public class Runner {
     private static DeviceTypeService deviceTypeService = new DeviceTypeServiceImpl();
     private static ModelService modelService = new ModelServiceImpl();
     private static RepairTypeService repairTypeService = new RepairTypeServiceImpl();
-    private static RepairTypeConverter repairTypeConverter = new RepairTypeConverter();
     private static SparePartService sparePartService = new SparePartServiceImpl();
 
     public static void main(String[] args) {
@@ -106,7 +105,7 @@ public class Runner {
 
         IntStream.range(0, MAX_SIZE)
                 .forEach(i -> {
-                    RepairTypeDTO repairTypeDTO = repairTypeConverter.convertToDTO(Generator.generateRepairType());
+                    RepairTypeDTO repairTypeDTO = RepairTypeConverter.convertToDTO(Generator.generateRepairType());
                     repairTypeService.create(repairTypeDTO);
                 });
 

@@ -4,7 +4,7 @@ import it.academy.dao.account.AccountDAO;
 import it.academy.dao.account.ServiceCenterDAO;
 import it.academy.dao.account.impl.AccountDAOImpl;
 import it.academy.dao.account.impl.ServiceCenterDAOImpl;
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.entities.account.Account;
 import it.academy.entities.account.ServiceCenter;
@@ -85,24 +85,24 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public TablePage2<ServiceCenterDTO> findForPage(int pageNumber) {
-        Supplier<TablePage2<ServiceCenterDTO>> find = () -> {
+    public TablePage<ServiceCenterDTO> findForPage(int pageNumber) {
+        Supplier<TablePage<ServiceCenterDTO>> find = () -> {
             long numberOfEntries = serviceCenterDAO.getNumberOfEntries();
             List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
             List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
-            return new TablePage2<>(result, numberOfEntries);
+            return new TablePage<>(result, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage2<ServiceCenterDTO>> find = () -> {
+    public TablePage<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input) {
+        Supplier<TablePage<ServiceCenterDTO>> find = () -> {
             long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByFilter(filter, input);
             int pageForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPageByAnyMatch(pageForSearch, LIST_SIZE, filter, input);
             List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
-            return new TablePage2<>(result, numberOfEntries);
+            return new TablePage<>(result, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

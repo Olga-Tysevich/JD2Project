@@ -7,14 +7,14 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="it.academy.dto.spare_part.SparePartDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SPARE_PART" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <section>
     <div class="container t-container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage2<SparePartDTO> data = (TablePage2<SparePartDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<SparePartDTO> data = (TablePage<SparePartDTO>) request.getAttribute(TABLE_PAGE);
             List<SparePartDTO> spareParts = data.getList();
         %>
 

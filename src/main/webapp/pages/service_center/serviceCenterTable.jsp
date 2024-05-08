@@ -3,13 +3,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_SERVICE_CENTER" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_SERVICE_CENTER" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <section>
     <div class="container t-container">
 
         <%
-            TablePage2<ServiceCenterDTO> data = (TablePage2<ServiceCenterDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<ServiceCenterDTO> data = (TablePage<ServiceCenterDTO>) request.getAttribute(TABLE_PAGE);
             List<ServiceCenterDTO> list = data.getList();
         %>
 

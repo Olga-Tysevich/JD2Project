@@ -1,6 +1,6 @@
 package it.academy.services.spare_part_order;
 
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.spare_part_order.ChangeSparePartOrderDTO;
 import it.academy.dto.spare_part_order.CreateOrderDTO;
 import it.academy.dto.spare_part_order.SparePartOrderDTO;
@@ -19,8 +19,8 @@ public interface SparePartOrderService {
 
     List<SparePartOrderDTO> findAllByRepairId(long id);
 
-    TablePage2<SparePartOrderDTO> findForPage(int pageNumber);
+    TablePage<SparePartOrderDTO> findForPage(int pageNumber);
 
-    TablePage2<SparePartOrderDTO> findForPageByFilter(int pageNumber, String filter, String input);
+    TablePage<SparePartOrderDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

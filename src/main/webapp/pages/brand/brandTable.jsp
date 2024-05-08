@@ -4,13 +4,13 @@
 <%@ page import="it.academy.dto.device.BrandDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_BRAND" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <section>
     <%@include file="../forms/errorContainer.jsp"%>
     <div class="container t-container">
 
         <%
-            TablePage2<BrandDTO> data = (TablePage2<BrandDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<BrandDTO> data = (TablePage<BrandDTO>) request.getAttribute(TABLE_PAGE);
             List<BrandDTO> list = data.getList();
         %>
 

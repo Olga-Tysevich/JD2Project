@@ -98,7 +98,6 @@ public class Constants {
     //spare parts
     public static final String SPARE_PART_ID = "spare_part_id";
     //repair type
-    public static final String REPAIR_TYPE = "repair_type";
     public static final String REPAIR_TYPE_CODE = "code";
     public static final String REPAIR_TYPE_LEVEL = "level";
     //repair
@@ -141,6 +140,7 @@ public class Constants {
     public static final String SERVICE_CENTER_ALREADY_EXIST = "Сервисный центр уже существует!";
     public static final String SERVICE_CENTER_NOT_FOUND = "Сервисный центр не найден!";
     public static final String BRAND_ALREADY_EXIST = "Бренд уже добавлен!";
+    public static final String REPAIR_TYPE_ALREADY_EXIST = "Тип ремонта уже добавлен!";
     public static final String DEVICE_TYPE_ALREADY_EXIST = "Тип устройства уже добавлен!";
     public static final String MODEL_ALREADY_EXIST = "Модель уже добавлена!";
     public static final String ERROR_MESSAGE = "Что-то пошло не так ...";

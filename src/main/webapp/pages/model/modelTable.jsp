@@ -6,7 +6,7 @@
 <%@ page import="it.academy.dto.device.ModelDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_MODEL" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_MODEL" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <section>
     <%@include file="../forms/errorContainer.jsp"%>
     <div class="container t-container">
@@ -14,7 +14,7 @@
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage2<ModelDTO> data = (TablePage2<ModelDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<ModelDTO> data = (TablePage<ModelDTO>) request.getAttribute(TABLE_PAGE);
             List<ModelDTO> models = data.getList();
         %>
 

@@ -2,7 +2,7 @@ package it.academy.services.device.impl;
 
 import it.academy.dao.device.BrandDAO;
 import it.academy.dao.device.impl.BrandDAOImpl;
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.BrandDTO;
 import it.academy.entities.device.Brand;
 import it.academy.exceptions.account.ValidationException;
@@ -77,24 +77,24 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public TablePage2<BrandDTO> findForPage(int pageNumber) {
-        Supplier<TablePage2<BrandDTO>> find = () -> {
+    public TablePage<BrandDTO> findForPage(int pageNumber) {
+        Supplier<TablePage<BrandDTO>> find = () -> {
             long numberOfEntries = brandDAO.getNumberOfEntries();
             List<Brand> brands = brandDAO.findForPage(pageNumber, LIST_SIZE);
             List<BrandDTO> listDTO = BrandConverter.convertToDTOList(brands);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
 
     @Override
-    public TablePage2<BrandDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage2<BrandDTO>> find = () -> {
+    public TablePage<BrandDTO> findForPageByFilter(int pageNumber, String filter, String input) {
+        Supplier<TablePage<BrandDTO>> find = () -> {
             long numberOfEntries = brandDAO.getNumberOfEntriesByFilter(filter, input);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
             List<Brand> brands = brandDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
             List<BrandDTO> listDTO = BrandConverter.convertToDTOList(brands);
-            return new TablePage2<>(listDTO, numberOfEntries);
+            return new TablePage<>(listDTO, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

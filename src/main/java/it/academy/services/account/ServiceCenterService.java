@@ -1,8 +1,7 @@
 package it.academy.services.account;
 
-import it.academy.dto.TablePage2;
-import it.academy.dto.account.ServiceCenterDTO;
 import it.academy.dto.TablePage;
+import it.academy.dto.account.ServiceCenterDTO;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ public interface ServiceCenterService{
 
     List<ServiceCenterDTO> findAll();
 
-    TablePage2<ServiceCenterDTO> findForPage(int pageNumber);
+    TablePage<ServiceCenterDTO> findForPage(int pageNumber);
 
-    TablePage2<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input);
+    TablePage<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

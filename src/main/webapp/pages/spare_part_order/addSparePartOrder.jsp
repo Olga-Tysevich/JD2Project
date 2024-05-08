@@ -29,7 +29,7 @@
 
 
             <div class="form-container r-form">
-                <form class="rc-form" action="repair" method="post" id="addSparePartOrder">
+                <form class="rc-form" action="repair" method="post" id="sparePartOrder">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>" id="repairId">
                     <input type="hidden" name="<%=MODEL_ID%>" value="<%=modelId%>">

@@ -2,14 +2,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.GET_REPAIR" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.ORDER" %>
+<%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_SPARE_PART_ORDER" %>
 <section>
     <div class="container t-container">
 
         <%
-            TablePage2<SparePartOrderDTO> data = (TablePage2<SparePartOrderDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<SparePartOrderDTO> data = (TablePage<SparePartOrderDTO>) request.getAttribute(TABLE_PAGE);
             List<SparePartOrderDTO> list = data.getList();
         %>
 
@@ -37,6 +39,9 @@
                         <div class="button-table-container">
                             <button class="choose-button order-btn" onclick="location.href='<%=String.format(OPEN_FORM, REPAIR, GET_REPAIR, repairId)%>'">
                                 Перейти в ремонт</button>
+
+                            <button class="choose-button order-btn"
+                                    onclick="location.href='<%=String.format(OPEN_FORM, ORDER, SHOW_SPARE_PART_ORDER, sparePartOrder.getId())%>'">Отправка</button>
                         </div>
                     </td>
                 </tr>

@@ -8,15 +8,14 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
-<%@ page import="it.academy.dto.TablePage2" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.OPEN_FORM" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <section>
     <div class=" container">
 
         <%
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
-            TablePage2<RepairDTO> data = (TablePage2<RepairDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<RepairDTO> data = (TablePage<RepairDTO>) request.getAttribute(TABLE_PAGE);
             int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             List<RepairDTO> list = data.getList();
             List<RepairStatus> statuses = List.of(RepairStatus.values());

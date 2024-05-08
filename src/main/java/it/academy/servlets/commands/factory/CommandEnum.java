@@ -2,27 +2,27 @@ package it.academy.servlets.commands.factory;
 
 import it.academy.servlets.commands.*;
 import it.academy.servlets.commands.impl.add.AddBrand;
-import it.academy.servlets.commands.impl.get.forms.ShowSparePartForm;
+import it.academy.servlets.commands.impl.show.forms.ShowSparePartForm;
 import it.academy.servlets.commands.impl.update.ChangeRepair;
 import it.academy.servlets.commands.impl.update.UpdateBrand;
 import it.academy.servlets.commands.impl.add.AddDeviceType;
 import it.academy.servlets.commands.impl.update.UpdateDeviceType;
 import it.academy.servlets.commands.impl.delete.*;
-import it.academy.servlets.commands.impl.get.forms.formComponents.FindModelsForRepair;
-import it.academy.servlets.commands.impl.get.forms.ShowModelForm;
+import it.academy.servlets.commands.impl.show.forms.formComponents.FindModelsForRepair;
+import it.academy.servlets.commands.impl.show.forms.ShowModelForm;
 import it.academy.servlets.commands.impl.login.LogOutCommand;
 import it.academy.servlets.commands.impl.login.LoginCommand;
 import it.academy.servlets.commands.impl.add.*;
 import it.academy.servlets.commands.impl.update.*;
 import it.academy.servlets.commands.impl.update.UpdateModel;
-import it.academy.servlets.commands.impl.get.ShowMainPageCommand;
-import it.academy.servlets.commands.impl.get.tables.*;
+import it.academy.servlets.commands.impl.show.ShowMainPageCommand;
+import it.academy.servlets.commands.impl.show.tables.*;
 import it.academy.servlets.commands.impl.add.AddServiceCenter;
-import it.academy.servlets.commands.impl.get.forms.ShowUpdateServiceCenter;
-import it.academy.servlets.commands.impl.get.tables.ShowServiceCenterTable;
+import it.academy.servlets.commands.impl.show.forms.ShowUpdateServiceCenter;
+import it.academy.servlets.commands.impl.show.tables.ShowServiceCenterTable;
 import it.academy.servlets.commands.impl.add.AddSparePart;
 import it.academy.servlets.commands.impl.update.UpdateSparePart;
-import it.academy.servlets.commands.impl.get.forms.*;
+import it.academy.servlets.commands.impl.show.forms.*;
 
 import static it.academy.utils.constants.JSPConstant.*;
 
@@ -48,7 +48,7 @@ public enum CommandEnum {
     SHOW_ADD_BRAND(new ShowForm(ADD_BRAND_PAGE_PATH)),
     SHOW_UPDATE_BRAND(new ShowUpdateBrand()),
     UPDATE_BRAND(new UpdateBrand()),
-    SHOW_DEVICE_TYPE_TABLE(new GetDeviceTypeTable()),
+    SHOW_DEVICE_TYPE_TABLE(new ShowDeviceTypeTable()),
     ADD_DEVICE_TYPE(new AddDeviceType()),
     DELETE_DEVICE_TYPE(new DeleteDeviceType()),
     SHOW_ADD_DEVICE_TYPE(new ShowForm(ADD_DEVICE_TYPE_PAGE_PATH)),
@@ -61,7 +61,6 @@ public enum CommandEnum {
     SHOW_ADD_MODEL(new ShowModelForm(ADD_MODEL_PAGE_PATH)),
     UPDATE_MODEL(new UpdateModel()),
     SHOW_SPARE_PART_TABLE(new ShowSparePartTable()),
-    SHOW_SPARE_PART_ORDER_TABLE(new ShowSparePartTable()),
     ADD_SPARE_PART(new AddSparePart()),
     DELETE_SPARE_PART(new DeleteSparePart()),
     SHOW_ADD_SPARE_PART(new ShowSparePartForm(ADD_SPARE_PART_PAGE_PATH)),
@@ -69,15 +68,17 @@ public enum CommandEnum {
     SHOW_SPARE_PART(new ShowUpdateSparePart()),
     UPDATE_SPARE_PART(new UpdateSparePart()),
     GET_NEW_SPARE_PART_ORDER(new GetNewSparePartOrder()),
-    GET_SPARE_PART_ORDER(new GetSparePartOrder()),
+    SHOW_SPARE_PART_ORDER(new ShowUpdateSparePartOrder()),
     ADD_SPARE_PART_ORDER(new AddSparePartOrder()),
-    DELETE_SPARE_PART_ORDER(new DeleteObject()),
-    CHANGE_SPARE_PART_ORDER(new ChangeSparePartOrder()),
+    DELETE_SPARE_PART_ORDER(new DeleteSparePartOrder()),
+    UPDATE_SPARE_PART_ORDER(new UpdateSparePartOrder()),
+    SHOW_SPARE_PART_ORDER_TABLE(new ShowSparePartOrderTable()),
     SHOW_REPAIR_TYPE_TABLE(new ShowRepairTypeTable()),
     ADD_REPAIR_TYPE(new AddRepairType()),
-    DELETE_REPAIR_TYPE(new DeleteObject()),
-    SHOW_REPAIR_TYPE(new ShowRepairType()),
-    CHANGE_REPAIR_TYPE(new ChangeRepairType()),
+    DELETE_REPAIR_TYPE(new DeleteRepairType()),
+    SHOW_ADD_REPAIR_TYPE(new ShowForm(ADD_REPAIR_TYPE_PAGE_PATH)),
+    SHOW_UPDATE_REPAIR_TYPE(new ShowUpdateRepairType()),
+    UPDATE_REPAIR_TYPE(new UpdateRepairType()),
     GET_NEW_REPAIR(new GetNewRepair()),
     GET_REPAIR(new GetRepair()),
     FIND_MODELS_FOR_REPAIR(new FindModelsForRepair()),

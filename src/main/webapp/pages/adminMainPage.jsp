@@ -62,7 +62,6 @@
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_BRAND_TABLE, BRAND_TABLE_PAGE_PATH, pageNumber)%>'">Список брендов</button>
 
-
                 <button class="button button-fieldset"
                         onclick="location.href='<%=String.format(OPEN_NEW_OBJECT_FORM_PAGE, DEVICE_TYPE, SHOW_ADD_DEVICE_TYPE)%>'">Добавить тип устройства</button>
 
@@ -82,7 +81,8 @@
                     Список запчастей</button>
 
                 <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_SPARE_PART_ORDERS_TABLE_PAGE, FIRST_PAGE)%>'"> Список заказов запчатей</button>
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_SPARE_PART_ORDER_TABLE, SPARE_PART_ORDER_TABLE_PAGE_PATH, pageNumber)%>'">
+                    Список заказов запчатей</button>
             </fieldset>
 
             <fieldset class="f1">
@@ -95,12 +95,14 @@
                     <input class="button button-fieldset" type="submit" value="Список ремонтов">
                 </form>
 
-                <form  action="brands" method="post">
-                    <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_REPAIR_TYPE_TABLE%>">
-                    <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TYPE_TABLE_PAGE_PATH%>">
-                    <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=FIRST_PAGE%>">
-                    <input class="button button-fieldset" type="submit" value="Список типов ремонта"/>
-                </form>
+
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_NEW_OBJECT_FORM_PAGE, REPAIR_TYPE, SHOW_ADD_REPAIR_TYPE)%>'">Добавить тип ремонта</button>
+
+                <button class="button button-fieldset"
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_REPAIR_TYPE_TABLE, REPAIR_TYPE_TABLE_PAGE_PATH, pageNumber)%>'">
+                    Список типов ремонта</button>
+
             </fieldset>
 
             <fieldset class="f1">

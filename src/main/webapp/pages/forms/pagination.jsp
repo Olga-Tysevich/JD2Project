@@ -1,12 +1,12 @@
 <%@ page import="static it.academy.utils.constants.Constants.FIRST_PAGE" %>
 <%@ page import="static it.academy.utils.constants.Constants.*" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
     <%
-        TablePage2 pageData = request.getAttribute(TABLE_PAGE) != null?
-                (TablePage2) request.getAttribute(TABLE_PAGE) : new TablePage2();
+        TablePage pageData = request.getAttribute(TABLE_PAGE) != null?
+                (TablePage) request.getAttribute(TABLE_PAGE) : new TablePage();
         Long numberOfEntries = pageData.getNumberOfEntries();
         int maxPageNumber = numberOfEntries != null? (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE) : FIRST_PAGE;
         if (maxPageNumber > 1) {%>

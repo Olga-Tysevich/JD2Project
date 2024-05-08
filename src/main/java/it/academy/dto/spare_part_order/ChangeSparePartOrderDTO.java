@@ -14,8 +14,6 @@ public class ChangeSparePartOrderDTO {
 
     private Long id;
 
-    private Date orderDate;
-
     private Date departureDate;
 
     private Date deliveryDate;

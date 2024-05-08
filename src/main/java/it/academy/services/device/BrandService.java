@@ -1,6 +1,6 @@
 package it.academy.services.device;
 
-import it.academy.dto.TablePage2;
+import it.academy.dto.TablePage;
 import it.academy.dto.device.BrandDTO;
 import java.util.List;
 
@@ -16,8 +16,8 @@ public interface BrandService {
 
     List<BrandDTO> findAll();
 
-    TablePage2<BrandDTO> findForPage(int pageNumber);
+    TablePage<BrandDTO> findForPage(int pageNumber);
 
-    TablePage2<BrandDTO> findForPageByFilter(int pageNumber, String filter, String input);
+    TablePage<BrandDTO> findForPageByFilter(int pageNumber, String filter, String input);
 
 }

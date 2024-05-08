@@ -4,7 +4,7 @@ import it.academy.dto.account.AccountDTO;
 import it.academy.services.account.AccountService;
 import it.academy.services.account.impl.AccountServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
-import it.academy.servlets.commands.impl.get.forms.ShowAddAccount;
+import it.academy.servlets.commands.impl.show.forms.ShowAddAccount;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import lombok.extern.slf4j.Slf4j;

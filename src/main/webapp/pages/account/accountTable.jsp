@@ -3,7 +3,7 @@
 <%@ page import="it.academy.dto.account.AccountDTO" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.SHOW_UPDATE_ACCOUNT" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.DELETE_ACCOUNT" %>
-<%@ page import="it.academy.dto.TablePage2" %>
+<%@ page import="it.academy.dto.TablePage" %>
 <%@ page import="it.academy.entities.account.Account_" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,7 +11,7 @@
     <div class="container t-container">
 
         <%
-            TablePage2<AccountDTO> data = (TablePage2<AccountDTO>) request.getAttribute(TABLE_PAGE);
+            TablePage<AccountDTO> data = (TablePage<AccountDTO>) request.getAttribute(TABLE_PAGE);
             List<AccountDTO> list = data.getList();
         %>
 

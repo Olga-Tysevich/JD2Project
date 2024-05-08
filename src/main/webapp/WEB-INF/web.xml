@@ -25,6 +25,7 @@
     <url-pattern>/deviceType</url-pattern>
     <url-pattern>/sparePart</url-pattern>
     <url-pattern>/repair</url-pattern>
+    <url-pattern>/repairType</url-pattern>
     <url-pattern>/order</url-pattern>
   </servlet-mapping>
 
