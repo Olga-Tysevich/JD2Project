@@ -9,7 +9,6 @@ public class JSPConstant {
     public static final String LAST_PAGE = "last_page";
 
     // page paths
-    public static final String CHANGE_FORM_PAGE_PATH = "/pages/forms/changeForm.jsp";
     public static final String PAGINATION_PAGE_PATH = "/pages/forms/pagination.jsp";
     public static final String ADMIN_MAIN_PAGE_PATH = "/pages/adminMainPage.jsp";
     public static final String USER_MAIN_PAGE_PATH = "/pages/userMainPage.jsp";

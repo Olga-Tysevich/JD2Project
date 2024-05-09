@@ -5,7 +5,6 @@ import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.account.embeddable.Requisites_;
 import it.academy.entities.device.Device_;
 import it.academy.entities.device.Model_;
-import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
 
@@ -48,12 +47,10 @@ public class FilterManager {
         }
     }
 
-    public boolean isBrandFilter(String filter) {
+    public boolean isServiceCenterFilter(String filter) {
         switch (filter) {
-            case BRAND_NAME_DESCRIPTION:
-            case Device_.DATE_OF_SALE:
-            case Device_.SALESMAN:
-            case Device_.MODEL:
+            case SERVICE_CENTER_ID:
+            case ServiceCenter_.SERVICE_NAME:
                 return true;
             default:
                 return false;
@@ -126,7 +123,9 @@ public class FilterManager {
                 BUYER_SURNAME,
                 SALESMAN_NAME,
                 Device_.DATE_OF_SALE,
-                Device_.MODEL);
+                Device_.MODEL,
+                ServiceCenter_.SERVICE_NAME,
+                SERVICE_CENTER_ID);
     }
 
     public static List<EntityFilter> getFiltersForSparePart() {

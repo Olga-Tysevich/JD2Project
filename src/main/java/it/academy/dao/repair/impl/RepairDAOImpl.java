@@ -187,5 +187,15 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
         addSimpleAttributes(predicates, modelJoin, fClass, filter, input);
     }
 
+    private void addServiceCenterPredicate(From<?, ?> root, String filter, String input, List<Predicate> predicates) {
+        Join<Repair, ServiceCenter> serviceCenterJoin = root.join(Repair_.SERVICE_CENTER);
+        if (SERVICE_CENTER_ID.equals(filter)) {
+            Class<?> fClass = serviceCenterJoin.get(ServiceCenter_.ID).getJavaType();
+            addSimpleAttributes(predicates, serviceCenterJoin, fClass, ServiceCenter_.ID, input);
+            return;
+        }
+        Class<?> fClass = serviceCenterJoin.get(ServiceCenter_.SERVICE_NAME).getJavaType();
+        addSimpleAttributes(predicates, serviceCenterJoin, fClass, ServiceCenter_.SERVICE_NAME, input);
+    }
 
 }
