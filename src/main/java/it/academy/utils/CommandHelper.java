@@ -27,8 +27,8 @@ public class CommandHelper {
         req.setAttribute(COMMAND, dataForPage.getCommand());
         req.setAttribute(PAGE, dataForPage.getPage());
         req.setAttribute(PAGE_NUMBER, dataForPage.getPageNumber());
-        req.setAttribute(FILTER, dataForPage.getFilter());
-        req.setAttribute(USER_INPUT, dataForPage.getInput());
+        req.setAttribute(FILTER_PAGE, dataForPage.getFilterPage());
+        req.setAttribute(USER_INPUT, dataForPage.getUserInput());
         req.setAttribute(TABLE_PAGE, listForTable);
     }
 }

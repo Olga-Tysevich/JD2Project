@@ -25,6 +25,7 @@ import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.RepairType;
+import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
@@ -44,7 +45,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
 
@@ -210,15 +213,25 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public TablePage<RepairDTO> findRepairsByFilter(int pageNumber, String filter, String userInput) {
+    public TablePage<RepairDTO> findForPage(int pageNumber, Map<String, String> userInput) {
+        return find(pageNumber, userInput);
+    }
+
+    @Override
+    public TablePage<RepairDTO> findForPageByUserId(long serviceCenterId, int pageNumber, Map<String, String> userInput) {
+        userInput.put(Repair_.SERVICE_CENTER, String.valueOf(serviceCenterId));
+        return find(pageNumber, userInput);
+    }
+
+    private TablePage<RepairDTO> find(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByFilter(filter, userInput);
+            long numberOfEntries = repairDAO.getCountBySearch(pageNumber, LIST_SIZE, userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, userInput);
+            List<Repair> repairs = repairDAO.findAllByPageAndSearch(pageNumberForSearch, LIST_SIZE, userInput);
             List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage<>(dtoList, numberOfEntries);
         };
-        return StringUtils.isBlank(userInput)? findRepairs(pageNumber) : transactionManger.execute(find);
+        return transactionManger.execute(find);
     }
 
 //    @Override
@@ -267,7 +280,7 @@ public class RepairServiceImpl implements RepairService {
             List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
             return new TablePage<>(dtoList, numberOfEntries);
         };
-        return StringUtils.isBlank(userInput)? findRepairsForUser(serviceCenterId, pageNumber):
+        return StringUtils.isBlank(userInput) ? findRepairsForUser(serviceCenterId, pageNumber) :
                 transactionManger.execute(find);
     }
 

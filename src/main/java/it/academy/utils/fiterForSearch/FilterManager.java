@@ -1,49 +1,65 @@
 package it.academy.utils.fiterForSearch;
 
-import it.academy.entities.account.Account;
 import it.academy.entities.account.Account_;
-import it.academy.entities.account.ServiceCenter;
 import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.account.embeddable.Requisites_;
-import it.academy.entities.device.Device;
 import it.academy.entities.device.Device_;
+import it.academy.entities.device.Model_;
 import it.academy.entities.repair.Repair_;
-import it.academy.entities.spare_part.SparePart;
 import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
 import static it.academy.utils.constants.JSPConstant.*;
+import static it.academy.utils.constants.JSPConstant.BUYER_SURNAME;
 
 @UtilityClass
 public class FilterManager {
 
-    public static <T> List<EntityFilter> getFilters(Class<T> objectClass) {
-        String className = objectClass.getSimpleName().toLowerCase();
-        switch (className) {
-            case ACCOUNT:
-                return getFiltersForAccount();
-            case BRAND:
-                return getFiltersForBrand();
-            case DEVICE_TYPE:
-                return getFiltersForDeviceType();
-            case MODEL:
-                return getFiltersForModel();
-            case REPAIR_TYPE:
-                return getFiltersForRepairType();
-            case SPARE_PART:
-                return getFiltersForSparePart();
-            case SERVICE_CENTER_FILTER:
-                return getFiltersForServiceCenter();
-            case REPAIR:
-                return getFiltersForRepair();
+    public boolean isDeviceFilter(String filter) {
+        switch (filter) {
+            case Device_.SERIAL_NUMBER:
+            case Device_.BUYER:
+            case Device_.DATE_OF_SALE:
+            case SALESMAN_NAME:
+            case BUYER_SURNAME:
+            case Device_.MODEL:
+            case Model_.NAME:
+            case Model_.BRAND:
+            case Model_.TYPE:
+                return true;
             default:
-                return null;
+                return false;
         }
     }
+
+    public boolean isModelFilter(String filter) {
+        switch (filter) {
+            case Model_.NAME:
+            case Model_.BRAND:
+            case Model_.TYPE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public boolean isBrandFilter(String filter) {
+        switch (filter) {
+            case BRAND_NAME_DESCRIPTION:
+            case Device_.DATE_OF_SALE:
+            case Device_.SALESMAN:
+            case Device_.MODEL:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
     public static List<EntityFilter> getFiltersForPage(@NotNull String pagePath) {
         switch (pagePath) {
@@ -62,7 +78,6 @@ public class FilterManager {
             case SERVICE_CENTER_TABLE_PAGE_PATH:
                 return getFiltersForServiceCenter();
             case REPAIR_TABLE_PAGE_PATH:
-                return getFiltersForRepair();
             default:
                 return null;
         }
@@ -85,7 +100,7 @@ public class FilterManager {
 
 
     public static List<EntityFilter> getFiltersForModel() {
-        return List.of(new EntityFilter(OBJECT_NAME, MODEL_NAME_FILTER),
+        return List.of(new EntityFilter(OBJECT_NAME, MODEL_NAME_DESCRIPTION),
                 new EntityFilter(BRAND, BRAND_NAME_DESCRIPTION),
                 new EntityFilter(DEVICE_TYPE_FILTER, DEVICE_TYPE_NAME_DESCRIPTION));
     }
@@ -106,14 +121,16 @@ public class FilterManager {
                 new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
     }
 
-    public static List<EntityFilter> getFiltersForRepair() {
-        return List.of(new EntityFilter(Repair_.REPAIR_NUMBER, REPAIR_NUMBER_DESCRIPTION),
-                new EntityFilter(Repair_.DEVICE + POINT + Device_.SERIAL_NUMBER, DEVICE_SERIAL_NUMBER_DESCRIPTION),
-                new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
+    public static List<String> getFiltersForRepair() {
+        return List.of(Device_.SERIAL_NUMBER,
+                BUYER_SURNAME,
+                SALESMAN_NAME,
+                Device_.DATE_OF_SALE,
+                Device_.MODEL);
     }
 
     public static List<EntityFilter> getFiltersForSparePart() {
-        return List.of(new EntityFilter(SparePart_.MODELS, MODEL_NAME_FILTER),
+        return List.of(new EntityFilter(SparePart_.MODELS, MODEL_NAME_DESCRIPTION),
                 new EntityFilter(SparePart_.NAME, SPARE_PART_NAME_DESCRIPTION));
     }
 

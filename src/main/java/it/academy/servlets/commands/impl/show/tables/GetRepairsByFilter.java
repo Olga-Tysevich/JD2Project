@@ -21,18 +21,19 @@ public class GetRepairsByFilter implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        AccountDTO account = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
-        RoleEnum role = account.getRole();
-
-        TablePageReq tableReq = Extractor.extractDataForTable(req);
-
-        TablePage<RepairDTO> table = RoleEnum.ADMIN.equals(role) ?
-                repairService.findRepairsByFilter(tableReq.getPageNumber(), tableReq.getFilter(), tableReq.getInput())
-                : repairService.findRepairsByFilterForUser(account.getServiceCenterId(),
-                tableReq.getPageNumber(), tableReq.getFilter(), tableReq.getInput());
-
-        CommandHelper.insertTableData(req, tableReq, table);
-
-        return Extractor.extractMainPagePath(req);
+//        AccountDTO account = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
+//        RoleEnum role = account.getRole();
+//
+//        TablePageReq tableReq = Extractor.extractDataForTable(req);
+//
+//        TablePage<RepairDTO> table = RoleEnum.ADMIN.equals(role) ?
+//                repairService.findForPage(tableReq.getPageNumber(), tableReq.getFilter(), tableReq.getInput())
+//                : repairService.findRepairsByFilterForUser(account.getServiceCenterId(),
+//                tableReq.getPageNumber(), tableReq.getFilter(), tableReq.getInput());
+//
+//        CommandHelper.insertTableData(req, tableReq, table);
+//
+//        return Extractor.extractMainPagePath(req);
+        return null;
     }
 }

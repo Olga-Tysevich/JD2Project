@@ -4,6 +4,8 @@ import it.academy.dto.TablePage;
 import it.academy.dto.repair.*;
 import it.academy.utils.enums.RepairStatus;
 
+import java.util.Map;
+
 public interface RepairService {
 
     RepairFormDTO getRepairForm(long brandId);
@@ -20,7 +22,9 @@ public interface RepairService {
 
     TablePage<RepairDTO> findRepairs(int pageNumber);
 
-    TablePage<RepairDTO> findRepairsByFilter(int pageNumber, String filter, String userInput);
+    TablePage<RepairDTO> findForPage(int pageNumber, Map<String, String> userInput);
+
+    TablePage<RepairDTO> findForPageByUserId(long serviceCenterId, int pageNumber, Map<String, String> userInput);
 
     TablePage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber);
 

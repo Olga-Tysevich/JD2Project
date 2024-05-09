@@ -39,6 +39,10 @@ public class JSPConstant {
     public static final String UPDATE_MODEL_PAGE_PATH = "/pages/model/updateModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
 
+    //Device
+    public static final String SALESMAN_NAME = "salesman_name";
+    public static final String BUYER_SURNAME = "buyerSurname";
+
     //sparePart
     public static final String SPARE_PART = "sparePart";
     public static final String ADD_SPARE_PART_PAGE_PATH = "/pages/spare_part/addSparePart.jsp";
@@ -70,11 +74,26 @@ public class JSPConstant {
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
     public static final String ADMIN_REPAIR_PAGE_PATH = "/pages/repair/adminRepairPage.jsp";
     public static final String USER_REPAIR_PAGE_PATH = "/pages/repair/userRepairPage.jsp";
+    public static final String REPAIR_FILTERS_PAGE_PATH = "/pages/forms/repairFilters.jsp";
+
+    //filters
+    public static final String DEVICE_SERIAL_NUMBER_DESCRIPTION = "Серийный номер";
+    public static final String BUYER_NAME_DESCRIPTION = "Фамилия покупателя";
+    public static final String SALESMAN_NAME_DESCRIPTION = "Название продавца";
+    public static final String MODEL_NAME_DESCRIPTION = "Название модели";
+    public static final String REPAIR_NUMBER_DESCRIPTION = "Номер ремонта";
+    public static final String DATE_OF_SALE_DESCRIPTION = "Дата продажи";
+
+    public static final String REPAIR_SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
+    public static final String REPAIR_CATEGORY_DESCRIPTION = "Категория ремонта";
+
 
     public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d";
-    public static final String OPEN_TABLE_PAGE_BY_FILTER = "main?command=%s&&page=%s&&pageNumber=%d&&filter=%s&&input=%s";
+//    public static final String OPEN_TABLE_PAGE_BY_FILTER = "main?command=%s&&page=%s&&pageNumber=%d&&%s";
+    public static final String OPEN_TABLE_PAGE_BY_FILTER2 = "main?command=%s&&page=%s";
     public static final String OPEN_NEW_OBJECT_FORM_PAGE = "%s?command=%s";
     public static final String OPEN_FORM = "%s?command=%s&&id=%d";
+    public static final String PARAMETER_PATTERN = "&&%s=%s&&";
 
 
 }

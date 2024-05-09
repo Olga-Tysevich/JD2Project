@@ -1,16 +1,22 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
+import it.academy.entities.repair.RepairType;
 import it.academy.utils.TransactionManger;
+import it.academy.utils.enums.RepairStatus;
+import it.academy.utils.enums.RoleEnum;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.SingularAttribute;
+import java.sql.Date;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static it.academy.utils.constants.Constants.*;
 
@@ -121,5 +127,167 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return criteriaBuilder()
                 .like(root.get(filter).as(String.class),
                         String.format(LIKE_QUERY_PATTERN, value).trim());
+    }
+
+
+    @Override
+    public List<T> findAllByPageAndSearch(Integer currentPage, Integer itemsPerPage, String searchQuery) {
+        EntityManager em = entityManager();
+        em.getTransaction().begin();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteria = cb.createQuery(clazz);
+        Root<T> root = criteria.from(clazz);
+
+        criteria.select(root);
+
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            Predicate searchPredicate = createSearchPredicate2(cb, root, searchQuery);
+            criteria.where(searchPredicate);
+        }
+
+        criteria.orderBy(cb.asc(root.get(OBJECT_ID)));
+        TypedQuery<T> typedQuery = em.createQuery(criteria);
+        int offset = (currentPage - 1) * itemsPerPage;
+        typedQuery.setFirstResult(offset);
+        typedQuery.setMaxResults(itemsPerPage);
+        List<T> resultList = typedQuery.getResultList();
+
+        em.getTransaction().commit();
+        em.close();
+        return resultList;
+    }
+
+    @Override
+    public Integer getNumberOfRows(String searchQuery) {
+        EntityManager em = entityManager();
+        em.getTransaction().begin();
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<T> root = criteria.from(clazz);
+
+        criteria.select(builder.count(root));
+
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            Predicate searchPredicate = createSearchPredicate(builder, root, searchQuery);
+            criteria.where(searchPredicate);
+        }
+
+        Long count = em.createQuery(criteria).getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
+        return count.intValue();
+    }
+
+    /**
+     * Creates a search predicate to search for entities that match any of the given search terms in their
+     * string or number fields.
+     *
+     * @param cb          the criteria builder to use to create the predicates
+     * @param root        the root of the criteria query
+     * @param searchQuery the search query containing the search terms
+     * @return a predicate that can be used to filter entities based on the search terms
+     */
+    private Predicate createSearchPredicate(CriteriaBuilder cb, Root<T> root, String searchQuery) {
+        String[] searchTerms = searchQuery.split(REGEX);
+        List<Predicate> searchPredicates = new ArrayList<>();
+        for (String term : searchTerms) {
+            List<Predicate> fieldPredicates = new ArrayList<>();
+
+            Set<SingularAttribute<T, ?>> a = root.getModel().getDeclaredSingularAttributes();
+            for (SingularAttribute<? super T, ?> attribute : root.getModel().getDeclaredSingularAttributes()) {
+                Class<?> attributeType = attribute.getJavaType();
+                if (attributeType.equals(String.class)) {
+                    fieldPredicates.add(cb.like(cb.lower(root.get(attribute.getName())),
+                            LIKE_EXPRESSION + term.toLowerCase() + LIKE_EXPRESSION));
+                } else if (Number.class.isAssignableFrom(attributeType)) {
+                    try {
+                        Number number = NumberFormat.getInstance().parse(term);
+                        fieldPredicates.add(cb.equal(root.get(attribute.getName()), number));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            searchPredicates.add(cb.or(fieldPredicates.toArray(new Predicate[0])));
+        }
+        return cb.and(searchPredicates.toArray(new Predicate[0]));
+    }
+
+    protected <S extends Enum<S>> Predicate createSearchPredicate2(CriteriaBuilder cb, Root<?> root, String searchQuery) {
+        String[] searchTerms = searchQuery.split(REGEX);
+        List<Predicate> searchPredicates = new ArrayList<>();
+
+        for (String term : searchTerms) {
+            List<Predicate> fieldPredicates = new ArrayList<>();
+            Set<? extends SingularAttribute<?, ?>> attributes = root.getModel().getDeclaredSingularAttributes();
+
+            for (SingularAttribute attribute : attributes) {
+                Class<?> attributeType = attribute.getJavaType();
+                addSimpleAttributes(fieldPredicates, attribute, root, attributeType, term);
+            }
+
+            searchPredicates.add(criteriaBuilder().or(fieldPredicates.toArray(new Predicate[0])));
+        }
+
+        return criteriaBuilder().and(searchPredicates.toArray(new Predicate[0]));
+    }
+
+    protected void addSimpleAttributes(List<Predicate> predicates, SingularAttribute attribute, Root<?> root, Class<?> attributeType, String term) {
+        CriteriaBuilder cb = criteriaBuilder();
+        if (attributeType.equals(String.class)) {
+            predicates.add(cb.like(cb.lower(root.get(attribute.getName())), LIKE_EXPRESSION + term.toLowerCase() + LIKE_EXPRESSION));
+        } else if (Number.class.isAssignableFrom(attributeType)) {
+            try {
+                Number number = NumberFormat.getInstance().parse(term);
+                predicates.add(cb.equal(root.get(attribute.getName()), number));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else if (attributeType.equals(Boolean.class)) {
+            try {
+                Boolean booleanAttr = Boolean.valueOf(term);
+                predicates.add(cb.equal(root.get(attribute.getName()), booleanAttr));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (attributeType.equals(Date.class)) {
+            try {
+                Date dateAttr = Date.valueOf(term);
+                predicates.add(cb.equal(root.get(attribute.getName()), dateAttr));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void addSimpleAttributes(List<Predicate> predicates, From<?, ?> root, Class<?> attributeType, String filter, String input) {
+        CriteriaBuilder cb = criteriaBuilder();
+        if (attributeType.equals(String.class)) {
+            predicates.add(cb.like(cb.lower(root.get(filter)), String.format(LIKE_QUERY_PATTERN, input)));
+        } else if (Number.class.isAssignableFrom(attributeType)) {
+            try {
+                Number number = NumberFormat.getInstance().parse(input);
+                predicates.add(cb.equal(root.get(filter), number));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else if (attributeType.equals(Boolean.class)) {
+            try {
+                Boolean booleanAttr = Boolean.valueOf(input);
+                predicates.add(cb.equal(root.get(filter), booleanAttr));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (attributeType.equals(Date.class)) {
+            try {
+                Date dateAttr = Date.valueOf(input);
+                predicates.add(cb.equal(root.get(filter), dateAttr));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

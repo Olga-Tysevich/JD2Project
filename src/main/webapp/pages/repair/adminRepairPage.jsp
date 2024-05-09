@@ -11,6 +11,7 @@
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%

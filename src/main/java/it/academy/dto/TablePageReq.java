@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,6 +18,10 @@ public class TablePageReq {
     private String page;
 
     private String filter;
+
+    private Map<String, String> userInput;
+
+    private String filterPage;
 
     private String input;
 

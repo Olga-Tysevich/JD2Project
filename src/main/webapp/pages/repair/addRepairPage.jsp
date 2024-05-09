@@ -10,6 +10,7 @@
 <%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.ADD_REPAIR" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">

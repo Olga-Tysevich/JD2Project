@@ -6,6 +6,10 @@ import java.util.Random;
 
 @UtilityClass
 public class Constants {
+
+    public static final String REGEX = " ";
+    public static final String LIKE_EXPRESSION = "%";
+
     public static final Random RANDOM = new Random();
     public static final int LIST_SIZE = 20;
     public static final int FIRST_PAGE = 1;
@@ -79,7 +83,7 @@ public class Constants {
     public static final String SERVICE_CENTER_REGISTRATION_NUMBER = "registrationNumber";
     //jsp
     public static final String TABLE_PAGE = "table";
-    public static final String FILTER = "filter";
+    public static final String FILTER_PAGE = "filter_page";
     public static final String USER_INPUT = "input";
     public static final String COMMAND = "command";
     public static final String FORM_PAGE = "form_page";
@@ -112,10 +116,8 @@ public class Constants {
     public static final String MODEL_ID = "modelId";
     public static final String DEVICE_ID = "deviceId";
     public static final String SERIAL_NUMBER = "serialNumber";
-    public static final String SALESMAN_NAME = "salesmanName";
     public static final String SALESMAN_PHONE = "salesmanPhone";
     public static final String BUYER_NAME = "buyerName";
-    public static final String BUYER_SURNAME = "buyerSurname";
     public static final String BUYER_PHONE = "buyerPhone";
     public static final String DATE_OF_SALE = "dateOfSale";
     //spare part
@@ -189,12 +191,6 @@ public class Constants {
     public static final String SERVICE_CENTER_LEGAL_ADDRESS_FILTER = "legal_address";
     public static final String SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION = "Юридический адрес";
     public static final String SERVICE_CENTER_PHONE_DESCRIPTION = "Телефон";
-    //repair
-    public static final String REPAIR_SERVICE_CENTER_DESCRIPTION = "Сервисный центр";
-    public static final String REPAIR_NUMBER_DESCRIPTION = "Номер ремонта";
-    public static final String DEVICE_SERIAL_NUMBER_DESCRIPTION = "Серийный номер";
-    public static final String REPAIR_CATEGORY_DESCRIPTION = "Категория ремонта";
-
     //repairType filters
     public static final String REPAIR_TYPE_CODE_FILTER = "Код ремонта";
     public static final String REPAIR_TYPE_LEVEL_FILTER = "Уровень ремонта";
@@ -211,7 +207,6 @@ public class Constants {
     public static final String BRAND_NAME_DESCRIPTION = "Название бренда";
     //Model filters
     public static final String DEVICE_TYPE_FILTER = "type";
-    public static final String MODEL_NAME_FILTER = "Название модели";
     //open commands
     public static final String OPEN_SPARE_PART_ORDERS_TABLE_PAGE = "main?command=show_spare_part_orders_table&&page=%d";
 

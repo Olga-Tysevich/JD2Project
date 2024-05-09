@@ -6,12 +6,14 @@ import it.academy.utils.ReflectionHelper;
 import it.academy.utils.enums.RepairCategory;
 import it.academy.utils.enums.RepairStatus;
 import it.academy.utils.enums.RoleEnum;
+import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
@@ -32,16 +34,26 @@ public class Extractor {
         String command = extractString(request, COMMAND, StringUtils.EMPTY);
         int pageNumber = extractIntVal(request, PAGE_NUMBER, FIRST_PAGE);
         String page = extractString(request, PAGE, StringUtils.EMPTY);
-        String userInput = extractString(request, USER_INPUT, StringUtils.EMPTY);
-        String filter = extractString(request, FILTER, StringUtils.EMPTY);
+        String filters = extractString(request, USER_INPUT, StringUtils.EMPTY);
+        String filter = extractString(request, FILTER_PAGE, StringUtils.EMPTY);
 
         return TablePageReq.builder()
                 .command(command)
                 .pageNumber(pageNumber)
                 .page(page)
-                .input(userInput)
+                .input(filters)
                 .filter(filter)
                 .build();
+    }
+
+    public Map<String, String> extractParameterList(HttpServletRequest request, List<String> parameterNames) {
+        return parameterNames.stream()
+                .filter(filter -> StringUtils.isNotBlank(request.getParameter(filter)))
+                .collect(Collectors.toMap(
+                        filter -> filter,
+                        request::getParameter
+                ));
+
     }
 
     public String extractString(HttpServletRequest request, String parameterName, String defaultValue) {

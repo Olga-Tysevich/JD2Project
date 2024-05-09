@@ -9,19 +9,19 @@
                 (TablePage) request.getAttribute(TABLE_PAGE) : new TablePage();
         Long numberOfEntries = pageData.getNumberOfEntries();
         int maxPageNumber = numberOfEntries != null? (int) Math.ceil(((double) numberOfEntries) / LIST_SIZE) : FIRST_PAGE;
+        String lastPage = (String) request.getSession().getAttribute(LAST_PAGE);
+
         if (maxPageNumber > 1) {%>
     <div class="footer">
         <div class="button-container">
-            <%if (pageNumber != FIRST_PAGE) { %>
-            <form action="main" method="get">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="hidden" name="<%=FILTER%>" value="<%=lastFilter%>">
-                <input type="hidden" name="<%=USER_INPUT%>" value="<%=lastInput%>">
-                <%int prevPage = pageNumber - 1;%>
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=prevPage%>">
-                <input class="button light" type="submit" name="button" value="Предыдущая">
-            </form>
+
+            <%if (pageNumber != FIRST_PAGE) {
+                int prevPage = pageNumber - 1;
+            %>
+
+
+            <button class="button light"
+                    onclick="location.href='<%=lastPage + String.format(PARAMETER_PATTERN, PAGE_NUMBER, prevPage)%>'">Предыдущая</button>
             <% } %>
 
             <p><%=pageNumber%>
@@ -30,16 +30,12 @@
             </p>
 
 
-            <%if (pageNumber != maxPageNumber) { %>
-            <form action="main" method="get">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=command%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=tablePage%>">
-                <input type="hidden" name="<%=FILTER%>" value="<%=lastFilter%>">
-                <input type="hidden" name="<%=USER_INPUT%>" value="<%=lastInput%>">
-                <%int nextPage = pageNumber + 1;%>
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=nextPage%>">
-                <input class="button light" type="submit" name="button" value="Следующая">
-            </form>
+            <%if (pageNumber != maxPageNumber) {
+                int nextPage = pageNumber + 1;
+            %>
+
+            <button class="button light"
+                    onclick="location.href='<%=lastPage + String.format(PARAMETER_PATTERN, PAGE_NUMBER, nextPage)%>'">Следующая</button>
             <% }
             }%>
 

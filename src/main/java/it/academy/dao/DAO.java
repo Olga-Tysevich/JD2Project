@@ -1,6 +1,7 @@
 package it.academy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DAO<T, R> {
 
@@ -23,4 +24,8 @@ public interface DAO<T, R> {
     long getNumberOfEntries();
 
     long getNumberOfEntriesByFilter(String filter, String value);
+
+    List<T> findAllByPageAndSearch(Integer currentPage, Integer itemsPerPage, String searchQuery);
+
+    Integer getNumberOfRows(String searchQuery);
 }

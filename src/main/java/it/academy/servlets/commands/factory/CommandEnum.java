@@ -84,7 +84,7 @@ public enum CommandEnum {
     FIND_MODELS_FOR_REPAIR(new FindModelsForRepair()),
     ADD_REPAIR(new AddRepair()),
     UPDATE_REPAIR(new UpdateRepair()),
-    GET_REPAIRS(new GetRepairs()),
+    SHOW_REPAIR_TABLE(new ShowRepairTable()),
     GET_REPAIRS_BY_FILTER(new GetRepairsByFilter()),
     GET_REPAIRS_BY_STATUS(new GetRepairsByStatus()),
     COMPLETE_REPAIR(new CompleteRepair());

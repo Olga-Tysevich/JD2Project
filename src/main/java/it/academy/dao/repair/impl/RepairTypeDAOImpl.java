@@ -20,4 +20,5 @@ public class RepairTypeDAOImpl extends ComponentDAOImpl<RepairType, Long> implem
         return entityManager().createQuery(FIND_ACTIVE_REPAIR_TYPES, RepairType.class)
                 .getResultList();
     }
+
 }

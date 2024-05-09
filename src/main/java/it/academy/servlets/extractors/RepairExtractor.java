@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.BUYER_SURNAME;
+import static it.academy.utils.constants.JSPConstant.SALESMAN_NAME;
 
 @UtilityClass
 public class RepairExtractor {

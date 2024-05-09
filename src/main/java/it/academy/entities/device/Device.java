@@ -41,8 +41,8 @@ public class Device implements Serializable {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "name", column = @Column(name = "saleman_name")),
-            @AttributeOverride(name = "phone", column = @Column(name = "saleman_phone"))
+            @AttributeOverride(name = "name", column = @Column(name = "salesman_name")),
+            @AttributeOverride(name = "phone", column = @Column(name = "salesman_phone"))
     })
     private Salesman salesman;
 }

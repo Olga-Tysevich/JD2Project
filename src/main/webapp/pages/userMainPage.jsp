@@ -53,7 +53,7 @@
 
 
                 <button class="button button-fieldset"
-                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, GET_REPAIRS, REPAIR_TABLE_PAGE_PATH,
+                        onclick="location.href='<%=String.format(OPEN_TABLE_PAGE, SHOW_REPAIR_TABLE, REPAIR_TABLE_PAGE_PATH,
                         FIRST_PAGE)%>'">Список ремонтов</button>
 
                 <button class="button button-fieldset"
