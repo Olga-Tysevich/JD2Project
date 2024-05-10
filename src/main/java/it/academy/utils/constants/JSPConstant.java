@@ -54,6 +54,7 @@ public class JSPConstant {
     public static final String ADD_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/addSparePartOrder.jsp";
     public static final String UPDATE_SPARE_PART_ORDER_PAGE_PATH = "/pages/spare_part_order/updateSparePartOrder.jsp";
     public static final String SPARE_PART_ORDER_TABLE_PAGE_PATH = "/pages/spare_part_order/sparePartOrdersTable.jsp";
+    public static final String SPARE_PART_ORDER_FILTERS_PAGE_PATH = "/pages/forms/filters/sparePartOrderFilters.jsp";
 
     //repairType
     public static final String REPAIR_TYPE_ID = "repair_type_id";

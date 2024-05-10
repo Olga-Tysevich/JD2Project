@@ -87,41 +87,6 @@ public class SparePartServiceImpl implements SparePartService {
         return transactionManger.execute(find);
     }
 
-//    @Override
-//    public TablePage<SparePartDTO> findForPage(int pageNumber) {
-//        Supplier<TablePage<SparePartDTO>> find = () -> {
-//            long numberOfEntries = sparePartDAO.getNumberOfEntries();
-//            List<SparePart> spareParts = sparePartDAO.findForPage(pageNumber, LIST_SIZE);
-//            List<SparePartDTO> result = SparePartConverter.convertToDTOList(spareParts);
-//            return new TablePage<>(result, numberOfEntries);
-//        };
-//        return transactionManger.execute(find);
-//    }
-
-//    @Override
-//    public TablePage<SparePartDTO> findForPageByName(int pageNumber, String input) {
-//        Supplier<TablePage<SparePartDTO>> find = () -> {
-//            long numberOfEntries = sparePartDAO.getNumberOfEntriesByFilter(SparePart_.NAME, input);
-//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-//            List<SparePart> spareParts = sparePartDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, SparePart_.NAME, input);
-//            List<SparePartDTO> result = SparePartConverter.convertToDTOList(spareParts);
-//            return new TablePage<>(result, numberOfEntries);
-//        };
-//        return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
-//    }
-//
-//    @Override
-//    public TablePage<SparePartDTO> findForPageByModelName(int pageNumber, String input) {
-//        Supplier<TablePage<SparePartDTO>> find = () -> {
-//            long numberOfEntries = sparePartDAO.getNumberOfEntriesByModelName(input);
-//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-//            List<SparePart> spareParts = sparePartDAO.findForPageByModelName(pageNumberForSearch, LIST_SIZE, input);
-//            List<SparePartDTO> result = SparePartConverter.convertToDTOList(spareParts);
-//            return new TablePage<>(result, numberOfEntries);
-//        };
-//        return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
-//    }
-
     @Override
     public TablePage<SparePartDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<SparePartDTO>> find = () -> {

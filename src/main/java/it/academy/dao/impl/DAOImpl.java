@@ -1,18 +1,12 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
-import it.academy.entities.repair.Repair;
-import it.academy.entities.repair.RepairType;
 import it.academy.entities.repair.Repair_;
 import it.academy.utils.TransactionManger;
-import it.academy.utils.enums.RepairStatus;
-import it.academy.utils.enums.RoleEnum;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.persistence.metamodel.SingularAttribute;
 import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.ParseException;

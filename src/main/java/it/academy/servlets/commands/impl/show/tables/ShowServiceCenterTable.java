@@ -26,8 +26,8 @@ public class ShowServiceCenterTable implements ActionCommand {
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);
         reqData.setFilterPage(SERVICE_CENTER_FILTERS_PAGE_PATH);
-        TablePage<ServiceCenterDTO> brands = serviceCenterService.findForPage(reqData.getPageNumber(), userInput);
-        CommandHelper.insertTableData(req, reqData, brands);
+        TablePage<ServiceCenterDTO> serviceCenters = serviceCenterService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, serviceCenters);
         return Extractor.extractMainPagePath(req);
 
     }

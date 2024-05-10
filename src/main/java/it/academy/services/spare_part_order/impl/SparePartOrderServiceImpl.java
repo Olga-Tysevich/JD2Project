@@ -23,8 +23,8 @@ import it.academy.services.spare_part_order.SparePartOrderService;
 import it.academy.utils.converters.SparePartOrderConverter;
 import it.academy.utils.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -86,39 +86,17 @@ public class SparePartOrderServiceImpl implements SparePartOrderService {
         });
     }
 
-    @Override
-    public List<SparePartOrderDTO> findAllByRepairId(long id) {
-        Supplier<List<SparePartOrderDTO>> find = () -> {
-            List<SparePartOrder> sparePart = sparePartOrderDAO.findByRepairId(id);
-            return SparePartOrderConverter.convertToDTOList(sparePart);
-        };
-        return transactionManger.execute(find);
-    }
 
     @Override
-    public TablePage<SparePartOrderDTO> findForPage(int pageNumber) {
+    public TablePage<SparePartOrderDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<SparePartOrderDTO>> find = () -> {
-            long numberOfEntries = sparePartOrderDAO.getNumberOfEntries();
-            List<SparePartOrder> orders = sparePartOrderDAO.findForPage(pageNumber, LIST_SIZE);
-            List<SparePartOrderDTO> result = SparePartOrderConverter.convertToDTOList(orders);
-            return new TablePage<>(result, numberOfEntries);
-        };
-
-        return transactionManger.execute(find);
-    }
-
-
-    @Override
-    public TablePage<SparePartOrderDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage<SparePartOrderDTO>> find = () -> {
-            long numberOfEntries = sparePartOrderDAO.getNumberOfEntriesByFilter(filter, input);
+            long numberOfEntries = sparePartOrderDAO.getNumberOfEntries(userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<SparePartOrder> repairs = sparePartOrderDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
-            List<SparePartOrderDTO> result = SparePartOrderConverter.convertToDTOList(repairs);
-            return new TablePage<>(result, numberOfEntries);
+            List<SparePartOrder> orders = sparePartOrderDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<SparePartOrderDTO> dtoList = SparePartOrderConverter.convertToDTOList(orders);
+            return new TablePage<>(dtoList, numberOfEntries);
         };
-
-        return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
+        return transactionManger.execute(find);
     }
 
     @Override

@@ -4,9 +4,8 @@ import it.academy.entities.account.Account_;
 import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.device.Device_;
 import it.academy.entities.device.Model_;
-import it.academy.entities.repair.RepairType_;
 import it.academy.entities.repair.Repair_;
-import it.academy.entities.spare_part.SparePart;
+import it.academy.entities.spare_part.SparePartOrder_;
 import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
 
@@ -116,10 +115,12 @@ public class FilterManager {
         return List.of(SparePart_.NAME, SparePart_.MODELS);
     }
 
-    public List<EntityFilter> getFiltersForSparePartOrder() {
-        return List.of(new EntityFilter(ORDER_DATE, ORDER_DATE_DESCRIPTION),
-                new EntityFilter(DEPARTURE_DATE, ORDER_DEPARTURE_DATE_DESCRIPTION),
-                new EntityFilter(DELIVERY_DATE, ORDER_DELIVERY_DATE_DESCRIPTION));
+    public List<String> getFiltersForSparePartOrder() {
+        return List.of(Repair_.REPAIR_NUMBER,
+                ServiceCenter_.SERVICE_NAME,
+                SparePartOrder_.ORDER_DATE,
+                SparePartOrder_.DEPARTURE_DATE,
+                SparePartOrder_.DELIVERY_DATE);
     }
 
 }

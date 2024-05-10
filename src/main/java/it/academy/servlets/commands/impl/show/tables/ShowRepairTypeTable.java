@@ -24,8 +24,8 @@ public class ShowRepairTypeTable implements ActionCommand {
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);
         reqData.setFilterPage(COMPONENT_FILTERS_PAGE_PATH);
-        TablePage<RepairTypeDTO> brands = repairTypeService.findForPage(reqData.getPageNumber(), userInput);
-        CommandHelper.insertTableData(req, reqData, brands);
+        TablePage<RepairTypeDTO> repairTypes = repairTypeService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, repairTypes);
         return Extractor.extractMainPagePath(req);
     }
 

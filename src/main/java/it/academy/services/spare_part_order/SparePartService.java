@@ -16,12 +16,6 @@ public interface SparePartService {
 
     SparePartDTO find(long id);
 
-//    TablePage<SparePartDTO> findForPage(int pageNumber);
-//
-//    TablePage<SparePartDTO> findForPageByName(int pageNumber, String input);
-//
-//    TablePage<SparePartDTO> findForPageByModelName(int pageNumber, String input);
-
     List<SparePartDTO> findSparePartsByModelId(long id);
 
     TablePage<SparePartDTO> findForPage(int pageNumber, Map<String, String> userInput);

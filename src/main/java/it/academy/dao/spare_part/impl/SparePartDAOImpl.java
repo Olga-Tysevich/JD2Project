@@ -2,15 +2,12 @@ package it.academy.dao.spare_part.impl;
 
 import it.academy.dao.spare_part.SparePartDAO;
 import it.academy.dao.impl.ComponentDAOImpl;
-import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.device.Model;
 import it.academy.entities.device.Model_;
 import it.academy.entities.spare_part.SparePart;
 import it.academy.entities.spare_part.SparePart_;
 import it.academy.utils.TransactionManger;
-import it.academy.utils.fiterForSearch.FilterManager;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,35 +33,6 @@ public class SparePartDAOImpl extends ComponentDAOImpl<SparePart, Long> implemen
                 .createQuery(find)
                 .getResultList();
     }
-
-//    @Override
-//    public List<SparePart> findForPageByModelName(int pageNumber, int listSize, String name) {
-//        CriteriaQuery<SparePart> find = criteriaBuilder().createQuery(SparePart.class);
-//        Root<SparePart> root = find.from(SparePart.class);
-//
-//        Join<SparePart, Model> join = root.join(SparePart_.MODELS);
-//        find.select(root)
-//                .where(criteriaBuilder().equal(join.get(Model_.NAME), name))
-//                .orderBy(criteriaBuilder().desc(join.get(SparePart_.ID)));
-//        return entityManager()
-//                .createQuery(find)
-//                .setFirstResult((pageNumber - 1) * listSize)
-//                .setMaxResults(listSize)
-//                .getResultList();
-//    }
-//
-//    @Override
-//    public long getNumberOfEntriesByModelName(String name) {
-//        CriteriaQuery<Long> count = criteriaBuilder().createQuery(Long.class);
-//        Root<SparePart> root = count.from(SparePart.class);
-//
-//        Join<SparePart, Model> join = root.join(SparePart_.MODELS);
-//        count.select(criteriaBuilder().count(root))
-//                .where(criteriaBuilder().equal(join.get(Model_.NAME), name));
-//        return entityManager()
-//                .createQuery(count)
-//                .getSingleResult();
-//    }
 
     @Override
     public boolean delete(Long id) {

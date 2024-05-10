@@ -26,8 +26,8 @@ public class ShowModelTable implements ActionCommand {
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);
         reqData.setFilterPage(MODEL_FILTERS_PAGE_PATH);
-        TablePage<ModelDTO> brands = modelService.findForPage(reqData.getPageNumber(), userInput);
-        CommandHelper.insertTableData(req, reqData, brands);
+        TablePage<ModelDTO> models = modelService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, models);
         return Extractor.extractMainPagePath(req);
     }
 

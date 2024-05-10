@@ -4,8 +4,7 @@ import it.academy.dto.TablePage;
 import it.academy.dto.spare_part_order.ChangeSparePartOrderDTO;
 import it.academy.dto.spare_part_order.CreateOrderDTO;
 import it.academy.dto.spare_part_order.SparePartOrderDTO;
-
-import java.util.List;
+import java.util.Map;
 
 public interface SparePartOrderService {
 
@@ -17,10 +16,6 @@ public interface SparePartOrderService {
 
     SparePartOrderDTO find(long id);
 
-    List<SparePartOrderDTO> findAllByRepairId(long id);
-
-    TablePage<SparePartOrderDTO> findForPage(int pageNumber);
-
-    TablePage<SparePartOrderDTO> findForPageByFilter(int pageNumber, String filter, String input);
+    TablePage<SparePartOrderDTO> findForPage(int pageNumber, Map<String, String> userInput);
 
 }

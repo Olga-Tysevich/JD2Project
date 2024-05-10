@@ -8,10 +8,13 @@ import it.academy.services.spare_part_order.impl.SparePartOrderServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import org.apache.commons.lang3.StringUtils;
-
+import it.academy.utils.fiterForSearch.FilterManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_ORDER_FILTERS_PAGE_PATH;
 
 
 public class ShowSparePartOrderTable implements ActionCommand {
@@ -20,13 +23,12 @@ public class ShowSparePartOrderTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        List<String> modelFilters = FilterManager.getFiltersForSparePartOrder();
+        Map<String, String> userInput = Extractor.extractParameterMap(req, modelFilters);
         TablePageReq reqData = Extractor.extractDataForTable(req);
-        String filter = StringUtils.defaultIfBlank(reqData.getFilter(), StringUtils.EMPTY);
-
-        TablePage<SparePartOrderDTO> orders = StringUtils.isBlank(filter) ?
-                orderService.findForPage(reqData.getPageNumber())
-                : orderService.findForPageByFilter(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
-
+        reqData.setUserInput(userInput);
+        reqData.setFilterPage(SPARE_PART_ORDER_FILTERS_PAGE_PATH);
+        TablePage<SparePartOrderDTO> orders = orderService.findForPage(reqData.getPageNumber(), userInput);
         CommandHelper.insertTableData(req, reqData, orders);
         return Extractor.extractMainPagePath(req);
 

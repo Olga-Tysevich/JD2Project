@@ -27,8 +27,8 @@ public class ShowDeviceTypeTable implements ActionCommand {
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);
         reqData.setFilterPage(COMPONENT_FILTERS_PAGE_PATH);
-        TablePage<DeviceTypeDTO> brands = deviceTypeService.findForPage(reqData.getPageNumber(),userInput);
-        CommandHelper.insertTableData(req, reqData, brands);
+        TablePage<DeviceTypeDTO> deviceTypes = deviceTypeService.findForPage(reqData.getPageNumber(),userInput);
+        CommandHelper.insertTableData(req, reqData, deviceTypes);
         return Extractor.extractMainPagePath(req);
     }
 

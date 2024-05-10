@@ -26,8 +26,8 @@ public class ShowSparePartTable implements ActionCommand {
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);
         reqData.setFilterPage(SPARE_PART_FILTERS_PAGE_PATH);
-        TablePage<SparePartDTO> brands = sparePartService.findForPage(reqData.getPageNumber(), userInput);
-        CommandHelper.insertTableData(req, reqData, brands);
+        TablePage<SparePartDTO> spareParts = sparePartService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, spareParts);
         return Extractor.extractMainPagePath(req);
 
     }

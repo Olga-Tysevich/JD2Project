@@ -26,8 +26,8 @@ public class ShowAccountTable implements ActionCommand {
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);
         reqData.setFilterPage(ACCOUNT_FILTERS_PAGE_PATH);
-        TablePage<AccountDTO> brands = accountService.findForPage(reqData.getPageNumber(), userInput);
-        CommandHelper.insertTableData(req, reqData, brands);
+        TablePage<AccountDTO> accounts = accountService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, accounts);
         return Extractor.extractMainPagePath(req);
     }
 
