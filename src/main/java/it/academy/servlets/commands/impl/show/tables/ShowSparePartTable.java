@@ -8,11 +8,12 @@ import it.academy.services.spare_part_order.impl.SparePartServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import org.apache.commons.lang3.StringUtils;
+import it.academy.utils.fiterForSearch.FilterManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
-import static it.academy.utils.constants.Constants.*;
+import java.util.List;
+import java.util.Map;
+import static it.academy.utils.constants.JSPConstant.SPARE_PART_FILTERS_PAGE_PATH;
 
 public class ShowSparePartTable implements ActionCommand {
     private SparePartService sparePartService = new SparePartServiceImpl();
@@ -20,22 +21,13 @@ public class ShowSparePartTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        List<String> modelFilters = FilterManager.getFiltersForSparePart();
+        Map<String, String> userInput = Extractor.extractParameterMap(req, modelFilters);
         TablePageReq reqData = Extractor.extractDataForTable(req);
-        String filter = Objects.toString(reqData.getFilter(), StringUtils.EMPTY);
-
-        TablePage<SparePartDTO> spareParts = null;
-        switch (filter) {
-            case StringUtils.EMPTY:
-                spareParts = sparePartService.findForPage(reqData.getPageNumber());
-                break;
-            case MODELS:
-                spareParts = sparePartService.findForPageByModelName(reqData.getPageNumber(), reqData.getInput());
-                break;
-            case OBJECT_NAME:
-                spareParts = sparePartService.findForPageByName(reqData.getPageNumber(), reqData.getInput());
-        }
-
-        CommandHelper.insertTableData(req, reqData, spareParts);
+        reqData.setUserInput(userInput);
+        reqData.setFilterPage(SPARE_PART_FILTERS_PAGE_PATH);
+        TablePage<SparePartDTO> brands = sparePartService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, brands);
         return Extractor.extractMainPagePath(req);
 
     }

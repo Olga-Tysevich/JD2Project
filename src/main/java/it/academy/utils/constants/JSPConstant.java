@@ -45,6 +45,7 @@ public class JSPConstant {
     public static final String ADD_SPARE_PART_PAGE_PATH = "/pages/spare_part/addSparePart.jsp";
     public static final String UPDATE_SPARE_PART_PAGE_PATH = "/pages/spare_part/updateSparePart.jsp";
     public static final String SPARE_PART_TABLE_PAGE_PATH = "/pages/spare_part/sparePartTable.jsp";
+    public static final String SPARE_PART_FILTERS_PAGE_PATH = "/pages/forms/filters/sparePartFilters.jsp";
 
     //sparePartOrder
     public static final String ORDER = "order";

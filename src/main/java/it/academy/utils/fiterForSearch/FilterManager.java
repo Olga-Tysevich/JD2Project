@@ -6,6 +6,8 @@ import it.academy.entities.device.Device_;
 import it.academy.entities.device.Model_;
 import it.academy.entities.repair.RepairType_;
 import it.academy.entities.repair.Repair_;
+import it.academy.entities.spare_part.SparePart;
+import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -110,25 +112,8 @@ public class FilterManager {
                 Model_.TYPE);
     }
 
-
-    public List<String> getFiltersForBrand() {
-        return List.of(OBJECT_NAME);
-    }
-
-    public List<String> getFiltersForDeviceType() {
-        return List.of(OBJECT_NAME);
-    }
-
-
-    public List<String> getFiltersForRepairType() {
-        return List.of(RepairType_.CODE,
-                RepairType_.NAME,
-                RepairType_.LEVEL);
-    }
-
-
-    public List<EntityFilter> getFiltersForSparePart() {
-        return List.of();
+    public List<String> getFiltersForSparePart() {
+        return List.of(SparePart_.NAME, SparePart_.MODELS);
     }
 
     public List<EntityFilter> getFiltersForSparePartOrder() {

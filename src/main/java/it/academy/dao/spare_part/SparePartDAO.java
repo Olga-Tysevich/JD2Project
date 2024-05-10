@@ -9,8 +9,8 @@ public interface SparePartDAO extends ComponentDAO<SparePart, Long> {
 
     List<SparePart> findByModelId(long id);
 
-    List<SparePart> findForPageByModelName(int pageNumber, int listSize, String name);
-
-    long getNumberOfEntriesByModelName(String name);
+//    List<SparePart> findForPageByModelName(int pageNumber, int listSize, String name);
+//
+//    long getNumberOfEntriesByModelName(String name);
 
 }

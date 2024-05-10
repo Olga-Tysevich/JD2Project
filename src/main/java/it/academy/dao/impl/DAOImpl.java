@@ -128,10 +128,15 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         CriteriaQuery<T> find = criteriaBuilder().createQuery(clazz);
         Root<T> root = find.from(clazz);
         Predicate[] predicates = createPredicate(root, searchParam);
+
         if (predicates.length != 0) {
             find.select(root).where(criteriaBuilder().and(predicates));
         }
         find.orderBy(criteriaBuilder().desc(root.get(Repair_.ID)));
+
+        if (page == null || listSize == null) {
+            return entityManager().createQuery(find).getResultList();
+        }
 
         return entityManager().createQuery(find)
                 .setFirstResult((page - 1) * listSize)
