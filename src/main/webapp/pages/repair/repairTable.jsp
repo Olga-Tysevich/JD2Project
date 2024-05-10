@@ -7,8 +7,8 @@
 <%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TABLE_PAGE_PATH" %>
 <%@ page import="it.academy.dto.TablePage" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <section>
     <div class=" container">
 
@@ -16,34 +16,9 @@
             AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
             RoleEnum role = accountDTO.getRole();
             TablePage<RepairDTO> data = (TablePage<RepairDTO>) request.getAttribute(TABLE_PAGE);
-            int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
             List<RepairDTO> list = data.getList();
-            List<RepairStatus> statuses = List.of(RepairStatus.values());
+            int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
         %>
-
-        <div class="radio-container">
-            <form class="status-form" action="main" method="post" id="find_repairs">
-                <input type="hidden" name="<%=COMMAND%>" value="<%=GET_REPAIRS_BY_STATUS%>">
-                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
-                <input type="hidden" name="<%=PAGE%>" value="<%=REPAIR_TABLE_PAGE_PATH%>">
-                <div class="radio-container">
-
-                <div>Статус ремонта: </div>
-                <%for (RepairStatus status: statuses) { %>
-                    <div>
-                    <input name="<%=REPAIR_STATUS%>" type="radio" value="<%=status%>"> <%=status.getDescription()%>
-                    </div>
-                <% } %>
-                    <div>
-                        <input name="<%=REPAIR_STATUS%>" type="radio" value="<%=ALL_REPAIRS%>"> <%=ALL_REPAIRS%>
-                    </div>
-                    <div>
-                    <input class="choose-button" type="submit" value="Выбрать">
-                    </div>
-                </div>
-            </form>
-        </div>
-
             <table>
                 <tr>
                     <%if (RoleEnum.ADMIN.equals(role)) {%>
@@ -80,6 +55,7 @@
                                 <input type="hidden" name="<%=COMMAND%>" value="<%=SHOW_UPDATE_REPAIR%>">
                                 <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repair.getId()%>">
                                 <input type="hidden" name="<%=REPAIR_STATUS%>" value="<%=repair.getStatus()%>">
+                                <input type="hidden" name="<%=PAGE_NUMBER%>" value="<%=pageNumber%>">
                                 <% if (RoleEnum.ADMIN.equals(role) || RepairStatus.REQUEST.equals(repair.getStatus())) { %>
                                     <input class="choose-button btn-table" type="submit" value="Изменить">
                                 <% } else {%>

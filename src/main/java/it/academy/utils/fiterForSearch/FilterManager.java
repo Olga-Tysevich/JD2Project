@@ -5,9 +5,9 @@ import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.account.embeddable.Requisites_;
 import it.academy.entities.device.Device_;
 import it.academy.entities.device.Model_;
+import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
-
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -26,7 +26,6 @@ public class FilterManager {
             case Device_.DATE_OF_SALE:
             case SALESMAN_NAME:
             case BUYER_SURNAME:
-            case Device_.MODEL:
             case Model_.NAME:
             case Model_.BRAND:
             case Model_.TYPE:
@@ -49,7 +48,7 @@ public class FilterManager {
 
     public boolean isServiceCenterFilter(String filter) {
         switch (filter) {
-            case SERVICE_CENTER_ID:
+            case ServiceCenter_.ID:
             case ServiceCenter_.SERVICE_NAME:
                 return true;
             default:
@@ -57,6 +56,27 @@ public class FilterManager {
         }
     }
 
+    public boolean isRepairTypeFilter(String filter) {
+        return REPAIR_TYPE.equals(filter);
+    }
+
+
+    public static List<String> getFiltersForRepair() {
+        return List.of(REPAIR_STATUS,
+                REPAIR_CATEGORY,
+                ServiceCenter_.SERVICE_NAME,
+                Repair_.REPAIR_NUMBER,
+                Device_.SERIAL_NUMBER,
+                BUYER_SURNAME,
+                SALESMAN_NAME,
+                Device_.DATE_OF_SALE,
+                Repair_.START_DATE,
+                Repair_.END_DATE,
+                Model_.BRAND,
+                Model_.TYPE,
+                Device_.MODEL,
+                REPAIR_TYPE);
+    }
 
     public static List<EntityFilter> getFiltersForPage(@NotNull String pagePath) {
         switch (pagePath) {
@@ -88,27 +108,21 @@ public class FilterManager {
     }
 
     public static List<EntityFilter> getFiltersForServiceCenter() {
-        return List.of(new EntityFilter(ServiceCenter_.SERVICE_NAME, SERVICE_CENTER_NAME_DESCRIPTION),
-                new EntityFilter(Requisites_.EMAIL, EMAIL),
-                new EntityFilter(SERVICE_CENTER_ACTUAL_ADDRESS_FILTER, SERVICE_CENTER_ACTUAL_ADDRESS_DESCRIPTION),
-                new EntityFilter(SERVICE_CENTER_LEGAL_ADDRESS_FILTER, SERVICE_CENTER_LEGAL_ADDRESS_DESCRIPTION),
-                new EntityFilter(Requisites_.PHONE, SERVICE_CENTER_PHONE_DESCRIPTION));
+        return List.of();
     }
 
 
     public static List<EntityFilter> getFiltersForModel() {
-        return List.of(new EntityFilter(OBJECT_NAME, MODEL_NAME_DESCRIPTION),
-                new EntityFilter(BRAND, BRAND_NAME_DESCRIPTION),
-                new EntityFilter(DEVICE_TYPE_FILTER, DEVICE_TYPE_NAME_DESCRIPTION));
+        return List.of();
     }
 
 
     public static List<EntityFilter> getFiltersForBrand() {
-        return List.of(new EntityFilter(OBJECT_NAME, BRAND_NAME_DESCRIPTION));
+        return List.of();
     }
 
     public static List<EntityFilter> getFiltersForDeviceType() {
-        return List.of(new EntityFilter(OBJECT_NAME, DEVICE_TYPE_NAME_DESCRIPTION));
+        return List.of();
     }
 
 
@@ -118,19 +132,9 @@ public class FilterManager {
                 new EntityFilter(OBJECT_NAME, REPAIR_TYPE_DESCRIPTION_FILTER));
     }
 
-    public static List<String> getFiltersForRepair() {
-        return List.of(Device_.SERIAL_NUMBER,
-                BUYER_SURNAME,
-                SALESMAN_NAME,
-                Device_.DATE_OF_SALE,
-                Device_.MODEL,
-                ServiceCenter_.SERVICE_NAME,
-                SERVICE_CENTER_ID);
-    }
 
     public static List<EntityFilter> getFiltersForSparePart() {
-        return List.of(new EntityFilter(SparePart_.MODELS, MODEL_NAME_DESCRIPTION),
-                new EntityFilter(SparePart_.NAME, SPARE_PART_NAME_DESCRIPTION));
+        return List.of();
     }
 
     public List<EntityFilter> getFiltersForSparePartOrder() {

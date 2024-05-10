@@ -20,6 +20,7 @@ import it.academy.dto.device.ModelDTO;
 import it.academy.dto.repair.*;
 import it.academy.dto.spare_part_order.SparePartOrderDTO;
 import it.academy.entities.account.ServiceCenter;
+import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.device.Brand;
 import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
@@ -201,16 +202,16 @@ public class RepairServiceImpl implements RepairService {
         });
     }
 
-    @Override
-    public TablePage<RepairDTO> findRepairs(int pageNumber) {
-        Supplier<TablePage<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntries();
-            List<Repair> repairs = repairDAO.findForPage(pageNumber, LIST_SIZE);
-            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
+//    @Override
+//    public TablePage<RepairDTO> findRepairs(int pageNumber) {
+//        Supplier<TablePage<RepairDTO>> find = () -> {
+//            long numberOfEntries = repairDAO.getNumberOfEntries();
+//            List<Repair> repairs = repairDAO.findForPage(pageNumber, LIST_SIZE);
+//            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
+//            return new TablePage<>(dtoList, numberOfEntries);
+//        };
+//        return transactionManger.execute(find);
+//    }
 
     @Override
     public TablePage<RepairDTO> findForPage(int pageNumber, Map<String, String> userInput) {
@@ -219,7 +220,7 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public TablePage<RepairDTO> findForPageByUserId(long serviceCenterId, int pageNumber, Map<String, String> userInput) {
-        userInput.put(Repair_.SERVICE_CENTER, String.valueOf(serviceCenterId));
+        userInput.put(ServiceCenter_.ID, String.valueOf(serviceCenterId));
         return find(pageNumber, userInput);
     }
 
@@ -246,55 +247,55 @@ public class RepairServiceImpl implements RepairService {
 //        return transactionManger.execute(find);
 //    }
 
-    @Override
-    public TablePage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
-
-        Supplier<TablePage<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumberForSearch, LIST_SIZE);
-            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return status != null ? transactionManger.execute(find) : findRepairs(pageNumber);
-    }
-
-    @Override
-    public TablePage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber) {
-        Supplier<TablePage<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByServiceId(serviceCenterId);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findRepairsByServiceId(serviceCenterId, pageNumberForSearch, LIST_SIZE);
-            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<RepairDTO> findRepairsByFilterForUser(long serviceCenterId, int pageNumber, String filter, String userInput) {
-        Supplier<TablePage<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByFilterAndServiceId(serviceCenterId, filter, userInput);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findRepairsByFilterAndServiceId(serviceCenterId, pageNumberForSearch, LIST_SIZE, filter, userInput);
-            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return StringUtils.isBlank(userInput) ? findRepairsForUser(serviceCenterId, pageNumber) :
-                transactionManger.execute(find);
-    }
-
-
-    @Override
-    public TablePage<RepairDTO> findRepairsByStatusForUser(long serviceCenterId, RepairStatus status, int pageNumber) {
-        Supplier<TablePage<RepairDTO>> find = () -> {
-            long numberOfEntries = repairDAO.getNumberOfEntriesByStatusAndServiceId(serviceCenterId, status);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Repair> repairs = repairDAO.findRepairsByStatusAndServiceId(serviceCenterId, status, pageNumberForSearch, LIST_SIZE);
-            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return status != null ? transactionManger.execute(find) : findRepairsForUser(serviceCenterId, pageNumber);
-    }
+//    @Override
+//    public TablePage<RepairDTO> findRepairsByStatus(RepairStatus status, int pageNumber) {
+//
+//        Supplier<TablePage<RepairDTO>> find = () -> {
+//            long numberOfEntries = repairDAO.getNumberOfEntriesByStatus(status);
+//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+//            List<Repair> repairs = repairDAO.findRepairsByStatus(status, pageNumberForSearch, LIST_SIZE);
+//            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
+//            return new TablePage<>(dtoList, numberOfEntries);
+//        };
+//        return status != null ? transactionManger.execute(find) : findRepairs(pageNumber);
+//    }
+//
+//    @Override
+//    public TablePage<RepairDTO> findRepairsForUser(long serviceCenterId, int pageNumber) {
+//        Supplier<TablePage<RepairDTO>> find = () -> {
+//            long numberOfEntries = repairDAO.getNumberOfEntriesByServiceId(serviceCenterId);
+//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+//            List<Repair> repairs = repairDAO.findRepairsByServiceId(serviceCenterId, pageNumberForSearch, LIST_SIZE);
+//            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
+//            return new TablePage<>(dtoList, numberOfEntries);
+//        };
+//        return transactionManger.execute(find);
+//    }
+//
+//    @Override
+//    public TablePage<RepairDTO> findRepairsByFilterForUser(long serviceCenterId, int pageNumber, String filter, String userInput) {
+//        Supplier<TablePage<RepairDTO>> find = () -> {
+//            long numberOfEntries = repairDAO.getNumberOfEntriesByFilterAndServiceId(serviceCenterId, filter, userInput);
+//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+//            List<Repair> repairs = repairDAO.findRepairsByFilterAndServiceId(serviceCenterId, pageNumberForSearch, LIST_SIZE, filter, userInput);
+//            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
+//            return new TablePage<>(dtoList, numberOfEntries);
+//        };
+//        return StringUtils.isBlank(userInput) ? findRepairsForUser(serviceCenterId, pageNumber) :
+//                transactionManger.execute(find);
+//    }
+//
+//
+//    @Override
+//    public TablePage<RepairDTO> findRepairsByStatusForUser(long serviceCenterId, RepairStatus status, int pageNumber) {
+//        Supplier<TablePage<RepairDTO>> find = () -> {
+//            long numberOfEntries = repairDAO.getNumberOfEntriesByStatusAndServiceId(serviceCenterId, status);
+//            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+//            List<Repair> repairs = repairDAO.findRepairsByStatusAndServiceId(serviceCenterId, status, pageNumberForSearch, LIST_SIZE);
+//            List<RepairDTO> dtoList = RepairConverter.convertToDTOList(repairs);
+//            return new TablePage<>(dtoList, numberOfEntries);
+//        };
+//        return status != null ? transactionManger.execute(find) : findRepairsForUser(serviceCenterId, pageNumber);
+//    }
 
 }

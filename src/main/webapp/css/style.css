@@ -84,6 +84,7 @@ section {
 }
 
 .f-input{
+    margin: 10px 0 10px 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -316,6 +317,13 @@ fieldset.f1 {
 .date-container{
     min-width: 250px;
     margin-left: auto;
+    width: 250px;
+    text-align: end;
+}
+
+.search-date-container{
+    margin: 10px 0 10px 0;
+    min-width: 250px;
     width: 250px;
     text-align: end;
 }

@@ -19,9 +19,8 @@
                 int prevPage = pageNumber - 1;
             %>
 
-
             <button class="button light"
-                    onclick="location.href='<%=lastPage + String.format(PARAMETER_PATTERN, PAGE_NUMBER, prevPage)%>'">Предыдущая</button>
+                    onclick="location.href='<%=lastPage.replaceFirst(PAGE_NUMBER_REGEX,  PAGE_NUMBER_PATTERN + prevPage)%>'">Предыдущая</button>
             <% } %>
 
             <p><%=pageNumber%>
@@ -35,7 +34,7 @@
             %>
 
             <button class="button light"
-                    onclick="location.href='<%=lastPage + String.format(PARAMETER_PATTERN, PAGE_NUMBER, nextPage)%>'">Следующая</button>
+                    onclick="location.href='<%=lastPage.replaceFirst(PAGE_NUMBER_REGEX, PAGE_NUMBER_PATTERN + nextPage)%>'">Следующая</button>
             <% }
             }%>
 

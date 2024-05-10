@@ -8,8 +8,8 @@ public enum RepairStatus {
     WAITING_FOR_SPARE_PARTS(WAITING_SP_DESCRIPTION, false),
     COMPLETED(COMPLETED_DESCRIPTION, true),
     PAID(PAID_DESCRIPTION, true),
-    REJECTED(REJECTED_DESCRIPTION, false),
-    ALL(ALL_REPAIRS, false);
+    REJECTED(REJECTED_DESCRIPTION, false);
+//    ALL(ALL_REPAIRS, false);
 
     private String description;
     private boolean isFinishedStatus;

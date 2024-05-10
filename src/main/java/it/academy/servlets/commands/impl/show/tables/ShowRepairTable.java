@@ -11,13 +11,10 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import it.academy.utils.enums.RoleEnum;
 import it.academy.utils.fiterForSearch.FilterManager;
-import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.REPAIR_FILTERS_PAGE_PATH;
 

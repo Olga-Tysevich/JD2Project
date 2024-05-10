@@ -36,7 +36,6 @@ public class Extractor {
         String page = extractString(request, PAGE, StringUtils.EMPTY);
         String filters = extractString(request, USER_INPUT, StringUtils.EMPTY);
         String filter = extractString(request, FILTER_PAGE, StringUtils.EMPTY);
-
         return TablePageReq.builder()
                 .command(command)
                 .pageNumber(pageNumber)
