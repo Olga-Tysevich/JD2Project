@@ -3,18 +3,14 @@ package it.academy.utils.fiterForSearch;
 import it.academy.entities.account.Account_;
 import it.academy.entities.account.ServiceCenter_;
 import it.academy.entities.device.Device_;
-import it.academy.entities.device.Model;
 import it.academy.entities.device.Model_;
-import it.academy.entities.repair.RepairType;
 import it.academy.entities.repair.RepairType_;
 import it.academy.entities.repair.Repair_;
 import lombok.experimental.UtilityClass;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
 import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.JSPConstant.BUYER_SURNAME_FILTER;
 
@@ -62,9 +58,20 @@ public class FilterManager {
         return REPAIR_TYPE.equals(filter);
     }
 
+    public boolean isRequisitesFilter(String filter) {
+        switch (filter) {
+            case EMAIL:
+            case SERVICE_CENTER_LEGAL_ADDRESS:
+            case SERVICE_CENTER_ACTUAL_ADDRESS:
+            case SERVICE_CENTER_PHONE:
+                return true;
+            default:
+                return false;
+        }
+    }
 
 
-    public static List<String> getFiltersForRepair() {
+    public List<String> getFiltersForRepair() {
         return List.of(REPAIR_STATUS,
                 REPAIR_CATEGORY,
                 ServiceCenter_.SERVICE_NAME,
@@ -81,32 +88,14 @@ public class FilterManager {
                 REPAIR_TYPE);
     }
 
-    public static List<String> getFiltersForPage(@NotNull String pagePath) {
-        switch (pagePath) {
-            case ACCOUNT_TABLE_PAGE_PATH:
-                return getFiltersForAccount();
-            case BRAND_TABLE_PAGE_PATH:
-                return getFiltersForBrand();
-            case DEVICE_TYPE_TABLE_PAGE_PATH:
-                return getFiltersForDeviceType();
-            case MODEL_TABLE_PAGE_PATH:
-                return getFiltersForModel();
-            case REPAIR_TYPE_TABLE_PAGE_PATH:
-                return getFiltersForRepairType();
-
-            default:
-                return null;
-        }
-    }
-
-    public static List<String> getFiltersForAccount() {
+    public List<String> getFiltersForAccount() {
         return List.of(Account_.EMAIL,
                 Account_.USER_NAME,
                 Account_.USER_SURNAME,
                 Account_.SERVICE_CENTER);
     }
 
-    public static List<String> getFiltersForServiceCenter() {
+    public List<String> getFiltersForServiceCenter() {
         return List.of(ServiceCenter_.SERVICE_NAME,
                 EMAIL,
                 SERVICE_CENTER_ACTUAL_ADDRESS,
@@ -115,30 +104,30 @@ public class FilterManager {
     }
 
 
-    public static List<String> getFiltersForModel() {
+    public List<String> getFiltersForModel() {
         return List.of(Model_.NAME,
                 Model_.BRAND,
                 Model_.TYPE);
     }
 
 
-    public static List<String> getFiltersForBrand() {
+    public List<String> getFiltersForBrand() {
         return List.of(OBJECT_NAME);
     }
 
-    public static List<String> getFiltersForDeviceType() {
+    public List<String> getFiltersForDeviceType() {
         return List.of(OBJECT_NAME);
     }
 
 
-    public static List<String> getFiltersForRepairType() {
+    public List<String> getFiltersForRepairType() {
         return List.of(RepairType_.CODE,
                 RepairType_.NAME,
                 RepairType_.LEVEL);
     }
 
 
-    public static List<EntityFilter> getFiltersForSparePart() {
+    public List<EntityFilter> getFiltersForSparePart() {
         return List.of();
     }
 

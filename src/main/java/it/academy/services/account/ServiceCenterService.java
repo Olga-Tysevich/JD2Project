@@ -17,10 +17,6 @@ public interface ServiceCenterService{
 
     List<ServiceCenterDTO> findAll();
 
-//    TablePage<ServiceCenterDTO> findForPage(int pageNumber);
-//
-//    TablePage<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input);
-
     TablePage<ServiceCenterDTO> findForPage(int pageNumber, Map<String, String> userInput);
 
 }
