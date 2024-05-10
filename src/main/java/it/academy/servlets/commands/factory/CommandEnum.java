@@ -85,8 +85,6 @@ public enum CommandEnum {
     ADD_REPAIR(new AddRepair()),
     UPDATE_REPAIR(new UpdateRepair()),
     SHOW_REPAIR_TABLE(new ShowRepairTable()),
-    GET_REPAIRS_BY_FILTER(new GetRepairsByFilter()),
-//    GET_REPAIRS_BY_STATUS(new GetRepairsByStatus()),
     COMPLETE_REPAIR(new CompleteRepair());
 
 

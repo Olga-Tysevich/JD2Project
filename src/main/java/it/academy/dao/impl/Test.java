@@ -2,7 +2,6 @@ package it.academy.dao.impl;
 
 import it.academy.dao.repair.RepairDAO;
 import it.academy.dao.repair.impl.RepairDAOImpl;
-import it.academy.entities.device.Model_;
 import it.academy.entities.repair.Repair;
 import it.academy.utils.TransactionManger;
 
@@ -16,6 +15,6 @@ public class Test {
     public static void main(String[] args) {
        RepairDAO dao = new RepairDAOImpl(new TransactionManger());
 
-        List<Repair> list = dao.findAllByPageAndSearch(1, LIST_SIZE, Map.of(SERIAL_NUMBER, "RPR050122"));
+        List<Repair> list = dao.findAllByPageAndFilter(1, LIST_SIZE, Map.of(SERIAL_NUMBER, "RPR050122"));
     }
 }

@@ -25,7 +25,7 @@ public class ShowRepairTable implements ActionCommand {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
         List<String> repairFilters = FilterManager.getFiltersForRepair();
-        Map<String, String> userInput = Extractor.extractParameterList(req, repairFilters);
+        Map<String, String> userInput = Extractor.extractParameterMap(req, repairFilters);
         AccountDTO account = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
         RoleEnum role = account.getRole();
 

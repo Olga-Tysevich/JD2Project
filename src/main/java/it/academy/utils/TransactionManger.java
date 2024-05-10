@@ -54,6 +54,7 @@ public class TransactionManger {
     private void commit() {
         if (entityManager().getTransaction().isActive()) {
             entityManager().getTransaction().commit();
+            closeManager();
         }
     }
 

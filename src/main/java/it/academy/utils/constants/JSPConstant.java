@@ -35,8 +35,8 @@ public class JSPConstant {
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
 
     //Device
-    public static final String SALESMAN_NAME = "salesman_name";
-    public static final String BUYER_SURNAME = "buyerSurname";
+    public static final String SALESMAN_NAME_FILTER = "salesman_name";
+    public static final String BUYER_SURNAME_FILTER = "buyer_surname";
 
     //sparePart
     public static final String SPARE_PART = "sparePart";
@@ -72,6 +72,7 @@ public class JSPConstant {
     public static final String REPAIR_FILTERS_PAGE_PATH = "/pages/forms/repairFilters.jsp";
 
     //common
+    public static final String COMPONENT_FILTERS_PAGE_PATH = "/pages/forms/componentFilters.jsp";
     public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d";
     public static final String OPEN_TABLE_PAGE_BY_FILTER = "main?command=%s&&page=%s&&pageNumber=%d";
     public static final String OPEN_NEW_OBJECT_FORM_PAGE = "%s?command=%s";

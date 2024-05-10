@@ -9,7 +9,7 @@ import it.academy.utils.CommandHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.JSPConstant.UPDATE_REPAIR_TYPE_PAGE_PATH;
+import static it.academy.utils.constants.JSPConstant.UPDATE_BRAND_PAGE_PATH;
 
 public class ShowUpdateBrand implements ActionCommand {
     private BrandService brandService = new BrandServiceImpl();
@@ -20,7 +20,7 @@ public class ShowUpdateBrand implements ActionCommand {
         Long brandId = Extractor.extractLongVal(req, OBJECT_ID, null);
         BrandDTO brand = brandService.find(brandId);
         req.setAttribute(BRAND, brand);
-        return new ShowForm(UPDATE_REPAIR_TYPE_PAGE_PATH).execute(req,resp);
+        return new ShowForm(UPDATE_BRAND_PAGE_PATH).execute(req,resp);
     }
 
 }

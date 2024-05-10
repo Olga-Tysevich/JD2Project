@@ -45,7 +45,7 @@ public class Extractor {
                 .build();
     }
 
-    public Map<String, String> extractParameterList(HttpServletRequest request, List<String> parameterNames) {
+    public Map<String, String> extractParameterMap(HttpServletRequest request, List<String> parameterNames) {
         return parameterNames.stream()
                 .filter(filter -> StringUtils.isNotBlank(request.getParameter(filter)))
                 .collect(Collectors.toMap(

@@ -13,9 +13,13 @@
 <%@ page import="it.academy.entities.account.ServiceCenter_" %>
 <%@ page import="it.academy.entities.repair.Repair_" %>
 <%@ page import="it.academy.entities.device.Model_" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    AccountDTO accountDTO = ((AccountDTO) session.getAttribute(ACCOUNT));
+    RoleEnum role = accountDTO.getRole();
     Map<String, String> filters = request.getAttribute(USER_INPUT) != null ?
             (Map<String, String>) request.getAttribute(USER_INPUT)
             : new HashMap<>();
@@ -65,12 +69,16 @@
             </select>
         </div>
 
+        <% if (RoleEnum.ADMIN.equals(role)) {%>
+
         <div class="f-input">
             <input class="search" type="search" name="<%=ServiceCenter_.SERVICE_NAME%>"
                    placeholder="Сервисный центр"
                 <%if (filters.containsKey(ServiceCenter_.SERVICE_NAME)) {%>
                    value="<%=filters.get(ServiceCenter_.SERVICE_NAME)%>"<%}%>>
         </div>
+
+        <%}%>
 
         <div class="f-input">
             <input class="search" type="search" name="<%=Repair_.REPAIR_NUMBER%>"
@@ -87,15 +95,15 @@
         </div>
 
         <div class="f-input">
-            <input class="search" type="search" name="<%=BUYER_SURNAME%>"
-                   placeholder="Фамилия покупателя" <%if (filters.containsKey(BUYER_SURNAME)) {%>
-                   value="<%=filters.get(BUYER_SURNAME)%>"<%}%>>
+            <input class="search" type="search" name="<%=BUYER_SURNAME_FILTER%>"
+                   placeholder="Фамилия покупателя" <%if (filters.containsKey(BUYER_SURNAME_FILTER)) {%>
+                   value="<%=filters.get(BUYER_SURNAME_FILTER)%>"<%}%>>
         </div>
 
         <div class="f-input">
-            <input class="search" type="search" name="<%=SALESMAN_NAME%>"
-                   placeholder="Название продавца" <%if (filters.containsKey(SALESMAN_NAME)) {%>
-                   value="<%=filters.get(SALESMAN_NAME)%>"<%}%>>
+            <input class="search" type="search" name="<%=SALESMAN_NAME_FILTER%>"
+                   placeholder="Название продавца" <%if (filters.containsKey(SALESMAN_NAME_FILTER)) {%>
+                   value="<%=filters.get(SALESMAN_NAME_FILTER)%>"<%}%>>
         </div>
 
 

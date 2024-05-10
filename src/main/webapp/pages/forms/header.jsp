@@ -19,7 +19,7 @@
         String tablePage = StringUtils.defaultIfBlank((String) request.getAttribute(PAGE), StringUtils.EMPTY);
         String command = StringUtils.defaultIfBlank((String) request.getAttribute(COMMAND), SHOW_MAIN_PAGE.name());
         int pageNumber = request.getAttribute(PAGE_NUMBER) == null ? FIRST_PAGE : (int) request.getAttribute(PAGE_NUMBER);
-        if (request.getSession().getAttribute(LAST_PAGE) != null) {
+        if (request.getSession().getAttribute(LAST_PAGE) == null) {
             String currentPage = String.format(OPEN_TABLE_PAGE_BY_FILTER, command, tablePage, pageNumber);
             request.getSession().setAttribute(LAST_PAGE, currentPage);
         }

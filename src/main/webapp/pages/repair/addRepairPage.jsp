@@ -117,7 +117,7 @@
 
         <div class="f-input">
             <label class="form-el" for="buyerSurname">Фамилия владельца:</label>
-            <input class="f-form" required type="text" name="<%=BUYER_SURNAME%>"
+            <input class="f-form" required type="text" name="<%=BUYER_SURNAME_FILTER%>"
                    value="<%=repairDTO.getBuyerSurname()%>" id="buyerSurname">
         </div>
 

@@ -8,7 +8,6 @@
 <%@ page import="static it.academy.servlets.commands.factory.CommandEnum.*" %>
 <%@ page import="it.academy.dto.repair.RepairDTO" %>
 <%@ page import="it.academy.dto.TablePage" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.LAST_PAGE" %>
 <section>
     <div class=" container">
 

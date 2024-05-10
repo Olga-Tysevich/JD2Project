@@ -116,8 +116,10 @@ public class Constants {
     public static final String MODEL_ID = "modelId";
     public static final String DEVICE_ID = "deviceId";
     public static final String SERIAL_NUMBER = "serialNumber";
+    public static final String SALESMAN_NAME = "salesmanName";
     public static final String SALESMAN_PHONE = "salesmanPhone";
     public static final String BUYER_NAME = "buyerName";
+    public static final String BUYER_SURNAME = "buyerSurname";
     public static final String BUYER_PHONE = "buyerPhone";
     public static final String DATE_OF_SALE = "dateOfSale";
     //spare part

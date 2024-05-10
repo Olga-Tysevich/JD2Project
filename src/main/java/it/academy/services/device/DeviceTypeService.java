@@ -3,6 +3,7 @@ package it.academy.services.device;
 import it.academy.dto.TablePage;
 import it.academy.dto.device.DeviceTypeDTO;
 import java.util.List;
+import java.util.Map;
 
 public interface DeviceTypeService {
 
@@ -16,8 +17,6 @@ public interface DeviceTypeService {
 
     List<DeviceTypeDTO> findAll();
 
-    TablePage<DeviceTypeDTO> findForPage(int pageNumber);
-
-    TablePage<DeviceTypeDTO> findForPageByFilter(int pageNumber, String filter, String input);
+    TablePage<DeviceTypeDTO> findForPage(int pageNumber, Map<String, String> userInput);
 
 }

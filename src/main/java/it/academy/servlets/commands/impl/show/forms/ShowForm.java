@@ -18,7 +18,6 @@ public class ShowForm implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        CommandHelper.checkRole(req);
         req.setAttribute(FORM_PAGE, pagePath);
         return Extractor.extractLastPage(req);
     }

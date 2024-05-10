@@ -14,6 +14,7 @@ import it.academy.utils.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.OBJECT_CREATED_PATTERN;
@@ -67,24 +68,13 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     }
 
     @Override
-    public TablePage<DeviceTypeDTO> findForPage(int pageNumber) {
+    public TablePage<DeviceTypeDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<DeviceTypeDTO>> find = () -> {
-            long numberOfEntries = deviceTypeDAO.getNumberOfEntries();
-            List<DeviceType> typeList = deviceTypeDAO.findForPage(pageNumber, LIST_SIZE);
-            List<DeviceTypeDTO> listDTO = DeviceTypeConverter.convertToDTOList(typeList);
-            return new TablePage<>(listDTO, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<DeviceTypeDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage<DeviceTypeDTO>> find = () -> {
-            long numberOfEntries = deviceTypeDAO.getNumberOfEntriesByFilter(filter, input);
+            long numberOfEntries = deviceTypeDAO.getNumberOfEntries(userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<DeviceType> typeList = deviceTypeDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
-            List<DeviceTypeDTO> listDTO = DeviceTypeConverter.convertToDTOList(typeList);
-            return new TablePage<>(listDTO, numberOfEntries);
+            List<DeviceType> repairs = deviceTypeDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<DeviceTypeDTO> dtoList = DeviceTypeConverter.convertToDTOList(repairs);
+            return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

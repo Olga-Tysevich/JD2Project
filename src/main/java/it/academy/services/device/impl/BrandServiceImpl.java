@@ -15,6 +15,7 @@ import it.academy.utils.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.LoggerConstants.*;
@@ -77,24 +78,13 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public TablePage<BrandDTO> findForPage(int pageNumber) {
+    public TablePage<BrandDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<BrandDTO>> find = () -> {
-            long numberOfEntries = brandDAO.getNumberOfEntries();
-            List<Brand> brands = brandDAO.findForPage(pageNumber, LIST_SIZE);
-            List<BrandDTO> listDTO = BrandConverter.convertToDTOList(brands);
-            return new TablePage<>(listDTO, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<BrandDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage<BrandDTO>> find = () -> {
-            long numberOfEntries = brandDAO.getNumberOfEntriesByFilter(filter, input);
+            long numberOfEntries = brandDAO.getNumberOfEntries(userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Brand> brands = brandDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
-            List<BrandDTO> listDTO = BrandConverter.convertToDTOList(brands);
-            return new TablePage<>(listDTO, numberOfEntries);
+            List<Brand> repairs = brandDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<BrandDTO> dtoList = BrandConverter.convertToDTOList(repairs);
+            return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

@@ -121,11 +121,11 @@
 
         <div class="table-container">
 
-            <%if (!StringUtils.isBlank(form)) {
+            <%if (StringUtils.isNotBlank(form)) {
                 pageContext.include(form);
             }%>
 
-            <% if (!StringUtils.isBlank(tablePage)) {
+            <% if (StringUtils.isNotBlank(tablePage)) {
                 pageContext.include(tablePage);
             }%>
 

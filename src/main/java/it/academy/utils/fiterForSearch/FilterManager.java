@@ -2,11 +2,9 @@ package it.academy.utils.fiterForSearch;
 
 import it.academy.entities.account.Account_;
 import it.academy.entities.account.ServiceCenter_;
-import it.academy.entities.account.embeddable.Requisites_;
 import it.academy.entities.device.Device_;
 import it.academy.entities.device.Model_;
 import it.academy.entities.repair.Repair_;
-import it.academy.entities.spare_part.SparePart_;
 import lombok.experimental.UtilityClass;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.Constants.REPAIR_TYPE_DESCRIPTION_FILTER;
 import static it.academy.utils.constants.JSPConstant.*;
-import static it.academy.utils.constants.JSPConstant.BUYER_SURNAME;
+import static it.academy.utils.constants.JSPConstant.BUYER_SURNAME_FILTER;
 
 @UtilityClass
 public class FilterManager {
@@ -24,8 +22,8 @@ public class FilterManager {
             case Device_.SERIAL_NUMBER:
             case Device_.BUYER:
             case Device_.DATE_OF_SALE:
-            case SALESMAN_NAME:
-            case BUYER_SURNAME:
+            case SALESMAN_NAME_FILTER:
+            case BUYER_SURNAME_FILTER:
             case Model_.NAME:
             case Model_.BRAND:
             case Model_.TYPE:
@@ -67,8 +65,8 @@ public class FilterManager {
                 ServiceCenter_.SERVICE_NAME,
                 Repair_.REPAIR_NUMBER,
                 Device_.SERIAL_NUMBER,
-                BUYER_SURNAME,
-                SALESMAN_NAME,
+                BUYER_SURNAME_FILTER,
+                SALESMAN_NAME_FILTER,
                 Device_.DATE_OF_SALE,
                 Repair_.START_DATE,
                 Repair_.END_DATE,

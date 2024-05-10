@@ -23,7 +23,6 @@ public class ShowModelForm implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         CommandHelper.checkRole(req);
         ModelFormDTO modelForm = modelService.getForm();
         req.setAttribute(MODEL_FORM, modelForm);

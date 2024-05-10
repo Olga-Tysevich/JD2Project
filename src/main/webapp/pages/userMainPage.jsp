@@ -76,9 +76,15 @@
 
 
         <div class="table-container">
-            <% if (!StringUtils.isBlank(tablePage)) {
+
+            <%if (StringUtils.isNotBlank(form)) {
+                pageContext.include(form);
+            }%>
+
+            <% if (StringUtils.isNotBlank(tablePage)) {
                 pageContext.include(tablePage);
             }%>
+
             <%@include file="forms/pagination.jsp"%>
         </div>
 

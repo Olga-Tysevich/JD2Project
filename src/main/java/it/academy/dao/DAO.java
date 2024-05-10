@@ -25,7 +25,7 @@ public interface DAO<T, R> {
 
     long getNumberOfEntriesByFilter(String filter, String value);
 
-    List<T> findAllByPageAndSearch(Integer currentPage, Integer itemsPerPage, String searchQuery);
+    List<T> findAllByPageAndFilter(Integer page, Integer listSize, Map<String, String> searchParam);
 
-    Integer getNumberOfRows(String searchQuery);
+    long getNumberOfEntries(Map<String, String> searchParam);
 }
