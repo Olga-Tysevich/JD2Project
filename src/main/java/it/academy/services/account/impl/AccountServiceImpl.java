@@ -120,38 +120,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public TablePage<AccountDTO> findForPage(int pageNumber) {
+    public TablePage<AccountDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<AccountDTO>> find = () -> {
-            long numberOfEntries = accountDAO.getNumberOfEntries();
-            List<Account> accounts = accountDAO.findForPage(pageNumber, LIST_SIZE);
+            long numberOfEntries = accountDAO.getNumberOfEntries(userInput);
+            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<Account> accounts = accountDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
             List<AccountDTO> dtoList = AccountConverter.convertToDTOList(accounts);
             return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<AccountDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage<AccountDTO>> find = () -> {
-            long numberOfEntries = accountDAO.getNumberOfEntriesByFilter(filter, input);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Account> accounts = accountDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, filter, input);
-            List<AccountDTO> dtoList = AccountConverter.convertToDTOList(accounts);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<AccountDTO> findForPageByServiceCenter(int pageNumber, String input) {
-        Supplier<TablePage<AccountDTO>> find = () -> {
-            long numberOfEntries = accountDAO.getNumberOfEntriesByServiceCenter(input);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Account> accounts = accountDAO.findAccountsByServiceCenter(input, pageNumberForSearch, LIST_SIZE);
-            List<AccountDTO> dtoList = AccountConverter.convertToDTOList(accounts);
-            return new TablePage<>(dtoList, numberOfEntries);
-        };
-        return StringUtils.isBlank(input) ? findForPage(pageNumber) : transactionManger.execute(find);
     }
 
     private void encodePassword(Account account) {

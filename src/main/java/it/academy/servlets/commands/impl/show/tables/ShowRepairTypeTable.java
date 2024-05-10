@@ -20,7 +20,6 @@ public class ShowRepairTypeTable implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         Map<String, String> userInput = Extractor.extractParameterMap(req, List.of(OBJECT_NAME));
         TablePageReq reqData = Extractor.extractDataForTable(req);
         reqData.setUserInput(userInput);

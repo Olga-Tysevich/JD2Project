@@ -16,10 +16,6 @@ public interface AccountService {
 
     AccountDTO find(long id);
 
-    TablePage<AccountDTO> findForPage(int pageNumber);
-
-    TablePage<AccountDTO> findForPageByFilter(int pageNumber, String filter, String input);
-
-    TablePage<AccountDTO> findForPageByServiceCenter(int pageNumber, String input);
+    TablePage<AccountDTO> findForPage(int pageNumber, Map<String, String> userInput);
 
 }

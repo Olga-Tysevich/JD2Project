@@ -89,10 +89,10 @@ public class FilterManager {
     }
 
     public List<String> getFiltersForAccount() {
-        return List.of(Account_.EMAIL,
+        return List.of(ServiceCenter_.SERVICE_NAME,
+                Account_.EMAIL,
                 Account_.USER_NAME,
-                Account_.USER_SURNAME,
-                Account_.SERVICE_CENTER);
+                Account_.USER_SURNAME);
     }
 
     public List<String> getFiltersForServiceCenter() {

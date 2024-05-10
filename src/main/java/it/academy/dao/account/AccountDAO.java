@@ -10,8 +10,4 @@ public interface AccountDAO extends DAO<Account, Long> {
 
     List<Account> findServiceCenterAccounts(long serviceCenterId);
 
-    List<Account> findAccountsByServiceCenter(String serviceCenterName, int pageNumber, int listSize);
-
-    long getNumberOfEntriesByServiceCenter(String serviceCenter);
-
 }

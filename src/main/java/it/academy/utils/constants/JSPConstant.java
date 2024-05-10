@@ -17,6 +17,7 @@ public class JSPConstant {
     public static final String ADD_ACCOUNT_PAGE_PATH = "/pages/account/addAccount.jsp";
     public static final String UPDATE_ACCOUNT_PAGE_PATH = "/pages/account/updateAccount.jsp";
     public static final String ACCOUNT_TABLE_PAGE_PATH = "/pages/account/accountTable.jsp";
+    public static final String ACCOUNT_FILTERS_PAGE_PATH = "/pages/forms/filters/accountFilters.jsp";
 
     //brand
     public static final String ADD_BRAND_PAGE_PATH = "/pages/brand/addBrand.jsp";
