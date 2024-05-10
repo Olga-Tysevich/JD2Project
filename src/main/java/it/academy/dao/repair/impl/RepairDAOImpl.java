@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import static it.academy.utils.constants.Constants.*;
+import static it.academy.utils.constants.JSPConstant.REPAIR_TYPE;
 
 @Slf4j
 public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
@@ -41,7 +42,7 @@ public class RepairDAOImpl extends DAOImpl<Repair, Long> implements RepairDAO {
                     addDevicePredicate(root, filter, input, predicates);
                 } else if (FilterManager.isServiceCenterFilter(filter)) {
                     addServiceCenterPredicate(root, filter, input, predicates);
-                } else if (FilterManager.isRepairTypeFilter(filter)) {
+                } else if (REPAIR_TYPE.equals(filter)) {
                     addRepairType(root, filter, input, predicates);
                 } else if (REPAIR_CATEGORY.equals(filter)) {
                     addRepairCategory(root, filter, input, predicates);

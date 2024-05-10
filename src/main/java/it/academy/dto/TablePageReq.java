@@ -17,13 +17,9 @@ public class TablePageReq {
 
     private String page;
 
-    private String filter;
-
     private Map<String, String> userInput;
 
     private String filterPage;
-
-    private String input;
 
     private String command;
 

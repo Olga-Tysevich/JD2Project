@@ -10,11 +10,8 @@ import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import it.academy.utils.enums.RoleEnum;
-import it.academy.utils.fiterForSearch.FilterManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.REPAIR_FILTERS_PAGE_PATH;
 
@@ -24,18 +21,13 @@ public class ShowRepairTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        List<String> repairFilters = FilterManager.getFiltersForRepair();
-        Map<String, String> userInput = Extractor.extractParameterMap(req, repairFilters);
         AccountDTO account = (AccountDTO) req.getSession().getAttribute(ACCOUNT);
         RoleEnum role = account.getRole();
-
-        TablePageReq reqData = Extractor.extractDataForTable(req);
-        reqData.setUserInput(userInput);
-        reqData.setFilterPage(REPAIR_FILTERS_PAGE_PATH);
+        TablePageReq reqData = Extractor.extractDataForTable(req, REPAIR_FILTERS_PAGE_PATH);
 
         TablePage<RepairDTO> table = RoleEnum.ADMIN.equals(role) ?
-                repairService.findForPage(reqData.getPageNumber(), userInput)
-                : repairService.findForPageByUserId(account.getServiceCenterId(), reqData.getPageNumber(), userInput);
+                repairService.findForPage(reqData.getPageNumber(), reqData.getUserInput())
+                : repairService.findForPageByUserId(account.getServiceCenterId(), reqData.getPageNumber(), reqData.getUserInput());
 
         CommandHelper.insertTableData(req, reqData, table);
 

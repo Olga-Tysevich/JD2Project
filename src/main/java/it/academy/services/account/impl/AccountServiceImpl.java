@@ -56,7 +56,6 @@ public class AccountServiceImpl implements AccountService {
             log.info(OBJECT_CREATED_PATTERN, account);
         } catch (ValidationException | EmailAlreadyRegistered | EnteredPasswordsNotMatch e) {
             accountDTO.setErrorMessage(e.getMessage());
-            return accountDTO;
         }
 
         return accountDTO;

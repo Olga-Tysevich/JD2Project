@@ -55,10 +55,6 @@ public class FilterManager {
         }
     }
 
-    public boolean isRepairTypeFilter(String filter) {
-        return REPAIR_TYPE.equals(filter);
-    }
-
     public boolean isRequisitesFilter(String filter) {
         switch (filter) {
             case EMAIL:
@@ -71,6 +67,26 @@ public class FilterManager {
         }
     }
 
+    public List<String> getFiltersForPage(String page) {
+        switch (page) {
+            case ACCOUNT_TABLE_PAGE_PATH:
+                return getFiltersForAccount();
+            case MODEL_TABLE_PAGE_PATH:
+                return getFiltersForModel();
+            case REPAIR_TABLE_PAGE_PATH:
+                return getFiltersForRepair();
+            case SERVICE_CENTER_TABLE_PAGE_PATH:
+                return getFiltersForServiceCenter();
+            case SPARE_PART_TABLE_PAGE_PATH:
+                return getFiltersForSparePart();
+            case SPARE_PART_ORDER_TABLE_PAGE_PATH:
+                return getFiltersForSparePartOrder();
+            case BRAND_TABLE_PAGE_PATH:
+            case DEVICE_TYPE_TABLE_PAGE_PATH:
+            case REPAIR_TYPE_TABLE_PAGE_PATH:
+            default: return List.of(OBJECT_NAME);
+        }
+    }
 
     public List<String> getFiltersForRepair() {
         return List.of(REPAIR_STATUS,
@@ -112,7 +128,8 @@ public class FilterManager {
     }
 
     public List<String> getFiltersForSparePart() {
-        return List.of(SparePart_.NAME, SparePart_.MODELS);
+        return List.of(SparePart_.NAME,
+                SparePart_.MODELS);
     }
 
     public List<String> getFiltersForSparePartOrder() {

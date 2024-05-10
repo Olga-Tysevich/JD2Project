@@ -10,10 +10,6 @@ import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-
-import static it.academy.utils.constants.Constants.OBJECT_NAME;
 import static it.academy.utils.constants.JSPConstant.COMPONENT_FILTERS_PAGE_PATH;
 
 public class ShowDeviceTypeTable implements ActionCommand {
@@ -21,13 +17,8 @@ public class ShowDeviceTypeTable implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        CommandHelper.checkRole(req);
-
-        Map<String, String> userInput = Extractor.extractParameterMap(req, List.of(OBJECT_NAME));
-        TablePageReq reqData = Extractor.extractDataForTable(req);
-        reqData.setUserInput(userInput);
-        reqData.setFilterPage(COMPONENT_FILTERS_PAGE_PATH);
-        TablePage<DeviceTypeDTO> deviceTypes = deviceTypeService.findForPage(reqData.getPageNumber(),userInput);
+        TablePageReq reqData = Extractor.extractDataForTable(req, COMPONENT_FILTERS_PAGE_PATH);
+        TablePage<DeviceTypeDTO> deviceTypes = deviceTypeService.findForPage(reqData.getPageNumber(), reqData.getUserInput());
         CommandHelper.insertTableData(req, reqData, deviceTypes);
         return Extractor.extractMainPagePath(req);
     }

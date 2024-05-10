@@ -8,14 +8,8 @@
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <title>Сервисный центр</title>
-</head>
-<body>
-<section>
 
+<div class="included-container">
     <div class="forms-container lf">
 
         <div class="cancel-button-container">
@@ -140,7 +134,6 @@
             <%}%>
 
         </div>
-
-</section>
+    </div>
+</div>
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>
-</body>

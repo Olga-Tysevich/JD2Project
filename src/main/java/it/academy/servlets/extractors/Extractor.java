@@ -10,11 +10,13 @@ import it.academy.utils.fiterForSearch.FilterManager;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import static it.academy.utils.constants.Constants.*;
 import static it.academy.utils.constants.JSPConstant.*;
 import static it.academy.utils.constants.LoggerConstants.INVALID_NUMBER_FORMAT_ERROR;
@@ -30,29 +32,29 @@ public class Extractor {
         return result;
     }
 
-    public TablePageReq extractDataForTable(HttpServletRequest request) {
+    public TablePageReq extractDataForTable(HttpServletRequest request, String filterPage) {
         String command = extractString(request, COMMAND, StringUtils.EMPTY);
         int pageNumber = extractIntVal(request, PAGE_NUMBER, FIRST_PAGE);
         String page = extractString(request, PAGE, StringUtils.EMPTY);
-        String filters = extractString(request, USER_INPUT, StringUtils.EMPTY);
-        String filter = extractString(request, FILTER_PAGE, StringUtils.EMPTY);
-        return TablePageReq.builder()
+        TablePageReq reqData =  TablePageReq.builder()
                 .command(command)
                 .pageNumber(pageNumber)
                 .page(page)
-                .input(filters)
-                .filter(filter)
+                .filterPage(filterPage)
                 .build();
+        extractParameterMap(request, reqData);
+        return reqData;
     }
 
-    public Map<String, String> extractParameterMap(HttpServletRequest request, List<String> parameterNames) {
-        return parameterNames.stream()
+    public void extractParameterMap(HttpServletRequest request, TablePageReq reqData) {
+        List<String> parameterNames = FilterManager.getFiltersForPage(reqData.getPage());
+        Map<String, String> userInput = parameterNames.stream()
                 .filter(filter -> StringUtils.isNotBlank(request.getParameter(filter)))
                 .collect(Collectors.toMap(
                         filter -> filter,
                         request::getParameter
                 ));
-
+        reqData.setUserInput(userInput);
     }
 
     public String extractString(HttpServletRequest request, String parameterName, String defaultValue) {

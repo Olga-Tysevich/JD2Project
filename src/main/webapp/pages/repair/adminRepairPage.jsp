@@ -35,6 +35,8 @@
             <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
             <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=repairDTO.getServiceCenterId()%>">
 
+            <input class="f-form" type="text" name="<%=SERVICE_CENTER_NAME%>" value="<%=repairDTO.getServiceCenterName()%>">
+
             <div class="f-input">
                 <label class="form-el">Статус ремонта:</label>
                 <select class="f-form " name="<%=REPAIR_STATUS%>" size="1">
