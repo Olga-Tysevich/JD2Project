@@ -82,8 +82,8 @@ public class BrandServiceImpl implements BrandService {
         Supplier<TablePage<BrandDTO>> find = () -> {
             long numberOfEntries = brandDAO.getNumberOfEntries(userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Brand> repairs = brandDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
-            List<BrandDTO> dtoList = BrandConverter.convertToDTOList(repairs);
+            List<Brand> brands = brandDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<BrandDTO> dtoList = BrandConverter.convertToDTOList(brands);
             return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);

@@ -8,30 +8,27 @@ import it.academy.services.account.impl.ServiceCenterServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import org.apache.commons.lang3.StringUtils;
-
+import it.academy.utils.fiterForSearch.FilterManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
-
-import static it.academy.utils.constants.JSPConstant.ADMIN_MAIN_PAGE_PATH;
+import java.util.List;
+import java.util.Map;
+import static it.academy.utils.constants.JSPConstant.SERVICE_CENTER_FILTERS_PAGE_PATH;
 
 public class ShowServiceCenterTable implements ActionCommand {
     private ServiceCenterService serviceCenterService = new ServiceCenterServiceImpl();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        CommandHelper.checkRole(req);
+
+        List<String> modelFilters = FilterManager.getFiltersForServiceCenter();
+        Map<String, String> userInput = Extractor.extractParameterMap(req, modelFilters);
         TablePageReq reqData = Extractor.extractDataForTable(req);
-        String filter = Objects.toString(reqData.getFilter(), StringUtils.EMPTY);
-
-        TablePage<ServiceCenterDTO> serviceCenters = StringUtils.isBlank(filter) ?
-                serviceCenterService.findForPage(reqData.getPageNumber())
-                : serviceCenterService.findForPageByFilter(reqData.getPageNumber(), filter,
-                reqData.getInput());
-
-        CommandHelper.insertTableData(req, reqData, serviceCenters);
-        return ADMIN_MAIN_PAGE_PATH;
+        reqData.setUserInput(userInput);
+        reqData.setFilterPage(SERVICE_CENTER_FILTERS_PAGE_PATH);
+        TablePage<ServiceCenterDTO> brands = serviceCenterService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, brands);
+        return Extractor.extractMainPagePath(req);
 
     }
 

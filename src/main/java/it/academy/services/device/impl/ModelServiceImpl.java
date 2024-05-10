@@ -30,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -111,37 +112,13 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public TablePage<ModelDTO> findForPage(int pageNumber) {
+    public TablePage<ModelDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<ModelDTO>> find = () -> {
-            long numberOfEntries = modelDAO.getNumberOfEntries();
+            long numberOfEntries = modelDAO.getNumberOfEntries(userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Model> models = modelDAO.findForPage(pageNumberForSearch, LIST_SIZE);
-            List<ModelDTO> listDTO = ModelConverter.convertToDTOList(models);
-            return new TablePage<>(listDTO, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<ModelDTO> findByName(int pageNumber, String input) {
-        Supplier<TablePage<ModelDTO>> find = () -> {
-            long numberOfEntries = modelDAO.getNumberOfEntriesByFilter(OBJECT_NAME, input);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Model> models = modelDAO.findForPageByAnyMatch(pageNumberForSearch, LIST_SIZE, OBJECT_NAME, input);
-            List<ModelDTO> listDTO = ModelConverter.convertToDTOList(models);
-            return new TablePage<>(listDTO, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<ModelDTO> findByComponentName(int pageNumber, String filter, String input) {
-        Supplier<TablePage<ModelDTO>> find = () -> {
-            long numberOfEntries = modelDAO.getNumberOfEntriesByComponent(filter, input);
-            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<Model> models = modelDAO.findByComponent(filter, input, pageNumberForSearch, LIST_SIZE);
-            List<ModelDTO> listDTO = ModelConverter.convertToDTOList(models);
-            return new TablePage<>(listDTO, numberOfEntries);
+            List<Model> models = modelDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<ModelDTO> dtoList = ModelConverter.convertToDTOList(models);
+            return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
     }
@@ -168,6 +145,5 @@ public class ModelServiceImpl implements ModelService {
             throw new ObjectAlreadyExist(MODEL_ALREADY_EXIST);
         }
     }
-
 
 }

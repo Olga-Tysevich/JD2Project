@@ -33,6 +33,7 @@ public class JSPConstant {
     public static final String ADD_MODEL_PAGE_PATH = "/pages/model/addModel.jsp";
     public static final String UPDATE_MODEL_PAGE_PATH = "/pages/model/updateModel.jsp";
     public static final String MODEL_TABLE_PAGE_PATH = "/pages/model/modelTable.jsp";
+    public static final String MODEL_FILTERS_PAGE_PATH = "/pages/forms/filters/modelFilters.jsp";
 
     //Device
     public static final String SALESMAN_NAME_FILTER = "salesman_name";
@@ -63,16 +64,17 @@ public class JSPConstant {
     public static final String ADD_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/addServiceCenter.jsp";
     public static final String UPDATE_SERVICE_CENTER_PAGE_PATH = "/pages/service_center/updateServiceCenter.jsp";
     public static final String SERVICE_CENTER_TABLE_PAGE_PATH = "/pages/service_center/serviceCenterTable.jsp";
+    public static final String SERVICE_CENTER_FILTERS_PAGE_PATH = "/pages/forms/filters/serviceCenterFilters.jsp";
 
     //repair
     public static final String ADD_REPAIR_PAGE_PATH = "/pages/repair/addRepairPage.jsp";
     public static final String REPAIR_TABLE_PAGE_PATH = "/pages/repair/repairTable.jsp";
     public static final String ADMIN_REPAIR_PAGE_PATH = "/pages/repair/adminRepairPage.jsp";
     public static final String USER_REPAIR_PAGE_PATH = "/pages/repair/userRepairPage.jsp";
-    public static final String REPAIR_FILTERS_PAGE_PATH = "/pages/forms/repairFilters.jsp";
+    public static final String REPAIR_FILTERS_PAGE_PATH = "/pages/forms/filters/repairFilters.jsp";
 
     //common
-    public static final String COMPONENT_FILTERS_PAGE_PATH = "/pages/forms/componentFilters.jsp";
+    public static final String COMPONENT_FILTERS_PAGE_PATH = "/pages/forms/filters/componentFilters.jsp";
     public static final String OPEN_TABLE_PAGE = "main?command=%s&&page=%s&&pageNumber=%d";
     public static final String OPEN_TABLE_PAGE_BY_FILTER = "main?command=%s&&page=%s&&pageNumber=%d";
     public static final String OPEN_NEW_OBJECT_FORM_PAGE = "%s?command=%s";

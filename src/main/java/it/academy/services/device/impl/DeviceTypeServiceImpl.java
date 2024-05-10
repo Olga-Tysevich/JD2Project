@@ -72,8 +72,8 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
         Supplier<TablePage<DeviceTypeDTO>> find = () -> {
             long numberOfEntries = deviceTypeDAO.getNumberOfEntries(userInput);
             int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<DeviceType> repairs = deviceTypeDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
-            List<DeviceTypeDTO> dtoList = DeviceTypeConverter.convertToDTOList(repairs);
+            List<DeviceType> deviceTypes = deviceTypeDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<DeviceTypeDTO> dtoList = DeviceTypeConverter.convertToDTOList(deviceTypes);
             return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);

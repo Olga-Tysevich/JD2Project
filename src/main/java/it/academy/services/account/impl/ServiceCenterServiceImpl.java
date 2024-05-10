@@ -17,6 +17,7 @@ import it.academy.utils.TransactionManger;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import static it.academy.utils.constants.Constants.*;
@@ -83,26 +84,38 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
         List<ServiceCenter> result = transactionManger.execute(serviceCenterDAO::findAll);
         return ServiceCenterConverter.convertToDTOList(result);
     }
+//
+//    @Override
+//    public TablePage<ServiceCenterDTO> findForPage(int pageNumber) {
+//        Supplier<TablePage<ServiceCenterDTO>> find = () -> {
+//            long numberOfEntries = serviceCenterDAO.getNumberOfEntries();
+//            List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
+//            List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
+//            return new TablePage<>(result, numberOfEntries);
+//        };
+//        return transactionManger.execute(find);
+//    }
+//
+//    @Override
+//    public TablePage<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input) {
+//        Supplier<TablePage<ServiceCenterDTO>> find = () -> {
+//            long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByFilter(filter, input);
+//            int pageForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+//            List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPageByAnyMatch(pageForSearch, LIST_SIZE, filter, input);
+//            List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
+//            return new TablePage<>(result, numberOfEntries);
+//        };
+//        return transactionManger.execute(find);
+//    }
 
     @Override
-    public TablePage<ServiceCenterDTO> findForPage(int pageNumber) {
+    public TablePage<ServiceCenterDTO> findForPage(int pageNumber, Map<String, String> userInput) {
         Supplier<TablePage<ServiceCenterDTO>> find = () -> {
-            long numberOfEntries = serviceCenterDAO.getNumberOfEntries();
-            List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPage(pageNumber, LIST_SIZE);
-            List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
-            return new TablePage<>(result, numberOfEntries);
-        };
-        return transactionManger.execute(find);
-    }
-
-    @Override
-    public TablePage<ServiceCenterDTO> findForPageByFilter(int pageNumber, String filter, String input) {
-        Supplier<TablePage<ServiceCenterDTO>> find = () -> {
-            long numberOfEntries = serviceCenterDAO.getNumberOfEntriesByFilter(filter, input);
-            int pageForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
-            List<ServiceCenter> serviceCenters = serviceCenterDAO.findForPageByAnyMatch(pageForSearch, LIST_SIZE, filter, input);
-            List<ServiceCenterDTO> result = ServiceCenterConverter.convertToDTOList(serviceCenters);
-            return new TablePage<>(result, numberOfEntries);
+            long numberOfEntries = serviceCenterDAO.getNumberOfEntries(userInput);
+            int pageNumberForSearch = PageCounter.countPageNumber(pageNumber, numberOfEntries);
+            List<ServiceCenter> serviceCenters = serviceCenterDAO.findAllByPageAndFilter(pageNumberForSearch, LIST_SIZE, userInput);
+            List<ServiceCenterDTO> dtoList = ServiceCenterConverter.convertToDTOList(serviceCenters);
+            return new TablePage<>(dtoList, numberOfEntries);
         };
         return transactionManger.execute(find);
     }

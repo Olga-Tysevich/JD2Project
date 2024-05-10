@@ -2,12 +2,14 @@ package it.academy.dao.device.impl;
 
 import it.academy.dao.device.ModelDAO;
 import it.academy.dao.impl.DAOImpl;
-import it.academy.entities.device.Model;
+import it.academy.entities.device.*;
 import it.academy.utils.TransactionManger;
+import org.apache.commons.lang3.StringUtils;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static it.academy.utils.constants.Constants.*;
 
@@ -38,27 +40,27 @@ public class ModelDAOImpl extends DAOImpl<Model, Long> implements ModelDAO {
     }
 
     @Override
-    public List<Model> findByComponent(String componentName, String input, int pageNumber, int listSize) {
-        CriteriaQuery<Model> find = criteriaBuilder().createQuery(Model.class);
-        Root<Model> root = find.from(Model.class);
+    protected Predicate[] createPredicate(From<?, ?> root, Map<String, String> searchParam) {
+        List<Predicate> predicates = new ArrayList<>();
+        searchParam.forEach((key, value) -> {
+            if (!StringUtils.isBlank(key) && !StringUtils.isBlank(value)) {
+                String filter = key.trim();
+                String input = value.trim().toLowerCase();
+                if (Model_.BRAND.equals(filter)) {
+                    Join<Model, Brand> brandJoin = root.join(Model_.BRAND);
+                    Class<?> fClass = brandJoin.get(Brand_.NAME).getJavaType();
+                    addSimpleAttributes(predicates, brandJoin, fClass, Brand_.NAME, input);
+                } else if (Model_.TYPE.equals(filter)) {
+                    Join<Model, DeviceType> deviceTypeJoin = root.join(Model_.TYPE);
+                    Class<?> fClass = deviceTypeJoin.get(DeviceType_.NAME).getJavaType();
+                    addSimpleAttributes(predicates, deviceTypeJoin, fClass, DeviceType_.NAME, input);
+                } else {
+                    Class<?> fClass = root.get(filter).getJavaType();
+                    addSimpleAttributes(predicates, root, fClass, filter, input);
+                }
+            }
+        });
 
-        find.select(root)
-                .where(criteriaBuilder()
-                        .like(root.get(componentName)
-                                .get(OBJECT_NAME), String.format(LIKE_QUERY_PATTERN, input)));
-
-        return entityManager().createQuery(find)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
+        return predicates.toArray(new Predicate[0]);
     }
-
-    @Override
-    public long getNumberOfEntriesByComponent(String componentName, String input) {
-        String query = String.format(GET_NUMBER_OF_MODELS_BY_COMPONENT, componentName);
-        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, input));
-        return count.getSingleResult();
-    }
-
 }

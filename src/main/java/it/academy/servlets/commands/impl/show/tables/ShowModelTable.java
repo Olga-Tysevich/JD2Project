@@ -8,11 +8,12 @@ import it.academy.services.device.impl.ModelServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import org.apache.commons.lang3.StringUtils;
+import it.academy.utils.fiterForSearch.FilterManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
-import static it.academy.utils.constants.Constants.*;
+import java.util.List;
+import java.util.Map;
+import static it.academy.utils.constants.JSPConstant.MODEL_FILTERS_PAGE_PATH;
 
 public class ShowModelTable implements ActionCommand {
     private ModelService modelService = new ModelServiceImpl();
@@ -20,22 +21,13 @@ public class ShowModelTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        List<String> modelFilters = FilterManager.getFiltersForModel();
+        Map<String, String> userInput = Extractor.extractParameterMap(req, modelFilters);
         TablePageReq reqData = Extractor.extractDataForTable(req);
-        String filter = Objects.toString(reqData.getFilter(), StringUtils.EMPTY);
-
-        TablePage<ModelDTO> models;
-        switch (filter) {
-            case StringUtils.EMPTY:
-                models = modelService.findForPage(reqData.getPageNumber());
-                break;
-            case OBJECT_NAME:
-                models = modelService.findByName(reqData.getPageNumber(), reqData.getInput());
-                break;
-            default:
-                models = modelService.findByComponentName(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
-        }
-
-        CommandHelper.insertTableData(req, reqData, models);
+        reqData.setUserInput(userInput);
+        reqData.setFilterPage(MODEL_FILTERS_PAGE_PATH);
+        TablePage<ModelDTO> brands = modelService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, brands);
         return Extractor.extractMainPagePath(req);
     }
 

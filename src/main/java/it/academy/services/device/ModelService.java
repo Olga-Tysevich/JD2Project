@@ -3,8 +3,8 @@ package it.academy.services.device;
 import it.academy.dto.TablePage;
 import it.academy.dto.device.ModelDTO;
 import it.academy.dto.device.ModelFormDTO;
-
 import java.util.List;
+import java.util.Map;
 
 public interface ModelService {
 
@@ -20,9 +20,5 @@ public interface ModelService {
 
     List<ModelDTO> findAll();
 
-    TablePage<ModelDTO> findForPage(int pageNumber);
-
-    TablePage<ModelDTO> findByName(int pageNumber, String input);
-
-    TablePage<ModelDTO> findByComponentName(int pageNumber, String filter, String input);
+    TablePage<ModelDTO> findForPage(int pageNumber, Map<String, String> userInput);
 }

@@ -8,10 +8,12 @@ import it.academy.services.repair.impl.RepairTypeServiceImpl;
 import it.academy.servlets.commands.ActionCommand;
 import it.academy.servlets.extractors.Extractor;
 import it.academy.utils.CommandHelper;
-import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
+import java.util.List;
+import java.util.Map;
+import static it.academy.utils.constants.Constants.OBJECT_NAME;
+import static it.academy.utils.constants.JSPConstant.COMPONENT_FILTERS_PAGE_PATH;
 
 public class ShowRepairTypeTable implements ActionCommand {
     private RepairTypeService repairTypeService = new RepairTypeServiceImpl();
@@ -19,15 +21,12 @@ public class ShowRepairTypeTable implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
+        Map<String, String> userInput = Extractor.extractParameterMap(req, List.of(OBJECT_NAME));
         TablePageReq reqData = Extractor.extractDataForTable(req);
-        String filter = Objects.toString(reqData.getFilter(), StringUtils.EMPTY);
-
-        TablePage<RepairTypeDTO> repairTypes = StringUtils.EMPTY.equals(filter) ?
-                repairTypeService.findForPage(reqData.getPageNumber())
-                : repairTypeService.findForPageByFilter(reqData.getPageNumber(), reqData.getFilter(), reqData.getInput());
-
-        CommandHelper.insertTableData(req, reqData, repairTypes);
-
+        reqData.setUserInput(userInput);
+        reqData.setFilterPage(COMPONENT_FILTERS_PAGE_PATH);
+        TablePage<RepairTypeDTO> brands = repairTypeService.findForPage(reqData.getPageNumber(), userInput);
+        CommandHelper.insertTableData(req, reqData, brands);
         return Extractor.extractMainPagePath(req);
     }
 
