@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -130,10 +131,10 @@ public class ModelServiceImpl implements ModelService {
     }
 
     private void checkIfComponentsAdded() {
-        if (brandDAO.getNumberOfEntries() == 0) {
+        if (brandDAO.getNumberOfEntries(new HashMap<>()) == 0) {
             log.warn(LoggerConstants.OBJECTS_NOT_FOUND_PATTERN, Brand.class);
             throw new BrandsNotFound();
-        } else if (deviceTypeDAO.getNumberOfEntries() == 0) {
+        } else if (deviceTypeDAO.getNumberOfEntries(new HashMap<>()) == 0) {
             log.warn(LoggerConstants.OBJECTS_NOT_FOUND_PATTERN, DeviceType.class);
             throw new DeviceTypesNotFound();
         }

@@ -36,7 +36,6 @@ public class AccountDAOImpl extends DAOImpl<Account, Long> implements AccountDAO
     public List<Account> findServiceCenterAccounts(long serviceCenterId) {
         TypedQuery<Account> find = entityManager().createQuery(FIND_ACCOUNTS_BY_SERVICE_CENTER_ID, Account.class);
         find.setParameter(ServiceCenter_.ID, serviceCenterId);
-
         return find.getResultList();
     }
 

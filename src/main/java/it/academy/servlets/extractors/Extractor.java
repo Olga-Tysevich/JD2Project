@@ -86,26 +86,9 @@ public class Extractor {
         return defaultValue;
     }
 
-
-    public Date extractDate(HttpServletRequest request, String parameterName) {
-        try {
-            return Date.valueOf(request.getParameter(parameterName));
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public RepairStatus extractRepairStatus(HttpServletRequest request) {
         try {
             return RepairStatus.valueOf(request.getParameter(REPAIR_STATUS));
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public RepairCategory extractRepairCategory(HttpServletRequest request) {
-        try {
-            return RepairCategory.valueOf(request.getParameter(REPAIR_CATEGORY));
         } catch (Exception e) {
             return null;
         }

@@ -7,16 +7,16 @@
 <%@ page import="it.academy.dto.spare_part_order.CreateOrderDTO" %>
 <%@ page import="it.academy.dto.spare_part_order.OrderItemDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <title>Сервисный центр</title>
-</head>
-<body>
-<section>
+<%--<head>--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">--%>
+<%--    <title>Сервисный центр</title>--%>
+<%--</head>--%>
+<%--<body>--%>
+<%--<section>--%>
 
-    <div class=" container">
-
+<%--    <div class=" container">--%>
+<div class="included-container">
         <div class=" forms-container">
 
             <%
@@ -29,7 +29,7 @@
 
 
             <div class="form-container r-form">
-                <form class="rc-form" action="repair" method="post" id="sparePartOrder">
+                <form class="rc-form" action="repair" method="post" id="sparePartOrder_id">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=ADD_SPARE_PART_ORDER%>">
                     <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>" id="repairId">
                     <input type="hidden" name="<%=MODEL_ID%>" value="<%=modelId%>">
@@ -93,7 +93,7 @@
         </div>
 
     </div>
-</section>
+<%--</section>--%>
 
 <script rel="script" src="${pageContext.request.contextPath}/js/OrderFormBehavior.js"></script>
-</body>
+<%--</body>--%>

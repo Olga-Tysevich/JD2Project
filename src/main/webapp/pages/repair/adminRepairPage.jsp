@@ -11,10 +11,13 @@
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="it.academy.dto.spare_part_order.SparePartOrderDTO" %>
-<%@ page import="static it.academy.utils.constants.JSPConstant.*" %>
+<%@ page import="it.academy.dto.account.AccountDTO" %>
+<%@ page import="it.academy.utils.enums.RoleEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    AccountDTO accountDTO = (AccountDTO) request.getSession().getAttribute(ACCOUNT);
+    RoleEnum role = accountDTO.getRole();
     RepairFormDTO repairForm = (RepairFormDTO) request.getAttribute(REPAIR_FORM);
     List<BrandDTO> brands = repairForm.getBrands();
     List<ModelDTO> models = repairForm.getModels();
@@ -35,7 +38,11 @@
             <input type="hidden" name="<%=DEVICE_ID%>" value="<%=repairDTO.getDeviceId()%>">
             <input type="hidden" name="<%=SERVICE_CENTER_ID%>" value="<%=repairDTO.getServiceCenterId()%>">
 
-            <input class="f-form" type="text" name="<%=SERVICE_CENTER_NAME%>" value="<%=repairDTO.getServiceCenterName()%>">
+            <% if (RoleEnum.ADMIN.equals(role)) {%>
+            <div class="f-input">
+                <label class="form-el">Сервисный центр:</label>
+                <input class="f-form" type="text" name="<%=SERVICE_CENTER_NAME%>" value="<%=repairDTO.getServiceCenterName()%>" disabled>
+            </div>
 
             <div class="f-input">
                 <label class="form-el">Статус ремонта:</label>
@@ -47,6 +54,7 @@
                     <%}%>
                 </select>
             </div>
+            <%}%>
 
             <div class="f-input">
                 <label class="form-el">Категория ремонта:</label>
@@ -138,7 +146,7 @@
                        value="<%=repairDTO.getBuyerPhone()%>" id="buyerPhone">
             </div>
 
-            <%
+            <% if (RoleEnum.ADMIN.equals(role)) {
                 RepairTypeDTO repairType = repairDTO.getRepairType();
             %>
             <div class="f-input">
@@ -149,39 +157,55 @@
             </div>
 
             <div class="f-input">
-                <label class="date-label">Дата завершения: </label>
-                <div class="date-container">
-                    <input class="f-form" type="date" value="<%=repairDTO.getStartDate()%>" disabled/>
-                </div>
-            </div>
-            <div class="f-input">
                 <label class="form-el" >Выполненный ремонт:</label>
-                <div class="f-form">
-                    <br>
-                    Код: <%=repairType != null? repairType.getCode() : StringUtils.EMPTY%>
-                    <br>
-                    Уровень: <%=repairType != null? repairType.getLevel() : StringUtils.EMPTY%>
-                    <br>
-                    Описание: <%=repairType != null? repairType.getName() : StringUtils.EMPTY%>
-                </div>
+                <div></div>
             </div>
+
+            <div class="f-input">
+                <label class="form-el" >Код:</label>
+                    <input class="f-form" type="text" value="<%=repairType != null? repairType.getCode() : StringUtils.EMPTY%>" disabled/>
+            </div>
+
+            <div class="f-input">
+                <label class="form-el" >Уровень:</label>
+                    <input class="f-form" type="text" value="<%=repairType != null? repairType.getLevel() : StringUtils.EMPTY%>" disabled/>
+            </div>
+
+            <div class="f-input">
+                <label class="form-el" >Описание:</label>
+                    <input class="f-form" type="text" value="<%=repairType != null? repairType.getName() : StringUtils.EMPTY%>" disabled/>
+            </div>
+
+            <%}%>
 
             <%@include file="../forms/errorContainer.jsp"%>
         </form>
 
 
+
+        <% if (RoleEnum.ADMIN.equals(role)) {%>
         <%@include file="included/adminRepairTypeList.jsp"%>
+
         <div class="button-container">
             <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
 
             <button class="button" type="button" onclick="showRepairTypes()">Изменить тип ремонта</button>
+
             <button class="button"
                     onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
         </div>
+        <%} else {%>
+            <div class="button-container">
+                <input class="button" type="submit" value="Сохранить" form="form_for_submit"/>
+                <button class="button"
+                        onclick="location.href='<%=request.getSession().getAttribute(LAST_PAGE)%>'">Отмена</button>
+            </div>
+        <%}%>
 
         <% if (orders != null && !orders.isEmpty()) { %>
         <%@include file="included/sparePartOrders.jsp"%>
         <%}%>
+
     </div>
 </div>
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>

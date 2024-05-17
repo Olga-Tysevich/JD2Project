@@ -17,14 +17,6 @@ public interface DAO<T, R> {
 
     List<T> findAll();
 
-    List<T> findForPage(int pageNumber, int listSize);
-
-    List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String input);
-
-    long getNumberOfEntries();
-
-    long getNumberOfEntriesByFilter(String filter, String value);
-
     List<T> findAllByPageAndFilter(Integer page, Integer listSize, Map<String, String> searchParam);
 
     long getNumberOfEntries(Map<String, String> searchParam);

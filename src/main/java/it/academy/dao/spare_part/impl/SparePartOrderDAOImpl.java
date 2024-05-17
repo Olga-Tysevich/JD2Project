@@ -58,9 +58,9 @@ public class SparePartOrderDAOImpl extends DAOImpl<SparePartOrder, Long> impleme
                     addSimpleAttributes(predicates, serviceCenterJoin, fClass, ServiceCenter_.SERVICE_NAME, input);
                 } else if (Repair_.REPAIR_NUMBER.equals(filter)) {
                     Join<SparePartOrder, Repair> repairJoin = root.join(SparePartOrder_.REPAIR);
-                    Class<?> fClass = repairJoin.get(ServiceCenter_.SERVICE_NAME).getJavaType();
-                    addSimpleAttributes(predicates, repairJoin, fClass, ServiceCenter_.SERVICE_NAME, input);
-                } else {
+                    Class<?> fClass = repairJoin.get(Repair_.REPAIR_NUMBER).getJavaType();
+                    addSimpleAttributes(predicates, repairJoin, fClass, Repair_.REPAIR_NUMBER, input);
+                }else {
                     Class<?> fClass = root.get(filter).getJavaType();
                     addSimpleAttributes(predicates, root, fClass, filter, input);
                 }

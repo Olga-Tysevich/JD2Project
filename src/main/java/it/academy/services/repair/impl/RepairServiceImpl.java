@@ -26,6 +26,7 @@ import it.academy.entities.device.Device;
 import it.academy.entities.device.Model;
 import it.academy.entities.repair.Repair;
 import it.academy.entities.repair.RepairType;
+import it.academy.entities.repair.Repair_;
 import it.academy.entities.spare_part.SparePartOrder;
 import it.academy.exceptions.common.ObjectNotFound;
 import it.academy.exceptions.model.BrandsNotFound;
@@ -40,8 +41,10 @@ import it.academy.utils.converters.SparePartOrderConverter;
 import it.academy.utils.TransactionManger;
 import it.academy.utils.enums.RepairStatus;
 import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -64,12 +67,12 @@ public class RepairServiceImpl implements RepairService {
     public RepairFormDTO getRepairForm(long brandId) {
         Supplier<RepairFormDTO> get = () -> {
 
-            if (brandDAO.getNumberOfEntries() == 0) {
+            if (brandDAO.getNumberOfEntries(new HashMap<>()) == 0) {
                 log.warn(OBJECTS_NOT_FOUND_PATTERN, Brand.class);
                 throw new BrandsNotFound();
             }
 
-            if (modelDAO.getNumberOfEntries() == 0) {
+            if (modelDAO.getNumberOfEntries(new HashMap<>()) == 0) {
                 log.warn(OBJECTS_NOT_FOUND_PATTERN, Model.class);
                 throw new ModelNotFound();
             }
@@ -134,6 +137,10 @@ public class RepairServiceImpl implements RepairService {
             Model model = modelDAO.find(repairDTO.getModelId());
             repair.getDevice().setModel(model);
 
+            if (repair.getStatus().isFinishedStatus() && !repair.getStatus().isFinishedStatus()) {
+                repair.setRepairType(null);
+            }
+
             try {
                 repairDAO.update(repair);
                 log.info(OBJECT_CREATED_PATTERN, repair);
@@ -162,10 +169,12 @@ public class RepairServiceImpl implements RepairService {
     public RepairFormDTO findRepair(long id) {
         return transactionManger.execute(() -> {
             Repair repair = repairDAO.find(id);
+            List<SparePartOrderDTO> orderDTOList = findSparePertOrders(repair);
             RepairDTO repairDTO = RepairConverter.convertToDTO(repair);
             long brandId = repair.getDevice().getModel().getBrand().getId();
             RepairFormDTO repairFormDTO = getRepairForm(brandId);
             repairFormDTO.setRepairDTO(repairDTO);
+            repairFormDTO.setOrders(orderDTOList);
             return repairFormDTO;
         });
     }
@@ -176,14 +185,8 @@ public class RepairServiceImpl implements RepairService {
             Repair repair = repairDAO.find(id);
             RepairStatus status = repair.getStatus();
             RepairDTO repairDTO = RepairConverter.convertToDTO(repair);
-            List<SparePartOrderDTO> orderDTOList = null;
+            List<SparePartOrderDTO> orderDTOList = findSparePertOrders(repair);
             List<RepairTypeDTO> repairTypes = null;
-
-            if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())
-                    || status.isFinishedStatus()) {
-                List<SparePartOrder> orders = sparePartOrderDAO.findByRepairId(id);
-                orderDTOList = SparePartOrderConverter.convertToDTOList(orders);
-            }
 
             if (RepairStatus.CURRENT.equals(status)
                     || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(status)) {
@@ -197,6 +200,16 @@ public class RepairServiceImpl implements RepairService {
                     .repairTypes(repairTypes)
                     .build();
         });
+    }
+
+    private List<SparePartOrderDTO> findSparePertOrders(Repair repair) {
+        RepairStatus status = repair.getStatus();
+        if (RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repair.getStatus())
+                || status.isFinishedStatus()) {
+            List<SparePartOrder> orders = sparePartOrderDAO.findByRepairId(repair.getId());
+            return SparePartOrderConverter.convertToDTOList(orders);
+        }
+        return null;
     }
 
     @Override

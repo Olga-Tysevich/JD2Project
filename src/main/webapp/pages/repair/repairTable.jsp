@@ -67,5 +67,6 @@
                 </tr>
                 <% } %>
             </table>
+
     </div>
 </section>

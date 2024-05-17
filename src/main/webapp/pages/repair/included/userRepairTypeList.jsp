@@ -6,13 +6,14 @@
 <%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TYPE_ID" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-    <div class="rt-container" id="repairTypesBlockId">
+<%--    <div class="rt-container" id="repairTypesBlockId">--%>
+    <div id="repairTypesBlockId">
 
         <div class=" forms-container">
 
-            <div class="cancel-button-container">
-                <button class="cancel-button" id="closeRepairTypes" onclick="hideRepairTypes()">X</button>
-            </div>
+<%--            <div class="cancel-button-container">--%>
+<%--                <button class="cancel-button" id="closeRepairTypes" onclick="hideRepairTypes()">X</button>--%>
+<%--            </div>--%>
 
             <%
                 long repairId = repairDTO.getId();

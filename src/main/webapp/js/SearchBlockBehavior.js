@@ -2,7 +2,8 @@ const searchInput = document.getElementById("search_input");
 const searchBlock = document.getElementById("search_container");
 
 searchInput.onclick = function (event) {
-    event.stopPropagation(); // Остановить событие распространения на родительские элементы
+    // Остановить событие распространения на родительские элементы
+    event.stopPropagation();
     searchBlock.style.display = "block";
     searchInput.style.display = "none";
 };

@@ -8,10 +8,7 @@ import it.academy.utils.enums.RoleEnum;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-
 import static it.academy.utils.constants.Constants.*;
-import static it.academy.utils.constants.JSPConstant.LAST_PAGE;
 import static it.academy.utils.constants.LoggerConstants.*;
 
 @UtilityClass

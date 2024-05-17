@@ -31,7 +31,6 @@ public class LoggerConstants {
 
     //info
     public static final String CURRENT_COMMAND = "Current command: {}";
-    public static final String CURRENT_TABLE = "Current table: {}";
     public static final String OBJECT_FOR_SAVE_PATTERN = "Object for save: {}";
     public static final String OBJECT_CREATED_PATTERN = "Object created: {}";
     public static final String OBJECT_DELETED_PATTERN = "Object deleted id: {}, class: {}";
@@ -41,11 +40,6 @@ public class LoggerConstants {
     public static final String OBJECTS_FOUND_PATTERN = "Objects found list size: {}, class: {}";
     public static final String CURRENT_ACCOUNT_PATTERN = "Current account: {}";
     public static final String CURRENT_PAGE_PATTERN = "Current page: {}";
-    public static final String CURRENT_PAGE_NUMBER_PATTERN = "Current page number: {}";
-    public static final String FORM_PAGE_PATTERN = "Current form page path: {}";
-    public static final String DISPLAY_TABLE_PATTERN = "Command for display table: {}";
     public static final String OBJECT_EXTRACTED_PATTERN = "Object extracted : {}";
-    public static final String REPAIR_FORM_LAST_BRAND_ID = "Last brand id : {}";
-    public static final String REPAIR_FORM_CURRENT_BRAND_ID = "Current brand id : {}";
 
 }

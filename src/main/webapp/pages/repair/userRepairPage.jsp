@@ -7,6 +7,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="it.academy.dto.repair.RepairTypeDTO" %>
 <%@ page import="it.academy.utils.enums.RepairStatus" %>
+<%@ page import="static it.academy.utils.constants.JSPConstant.REPAIR_TYPE_ID" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="included-container">
@@ -92,30 +93,55 @@
                 </div>
 
                 <div class="f-input">
-                    Выполненный ремонт:
-                    <div class="f-input">
-                        <label >Код:</label>
-                        <br>
-                        <%=repairType.getCode()%>
-                    </div>
-                    <div class="f-input">
-                        <label>Уровень:</label>
-                        <br>
-                        <%=repairType.getLevel()%>
-                    </div>
-                    <div class="f-input">
-                        <label>Описание:</label>
-                        <br>
-                        <%=repairType.getName()%>
-                    </div>
+                    <label class="form-el" >Выполненный ремонт:</label>
+                    <div></div>
                 </div>
-                <% } %>
 
-            </form>
+                <div class="f-input">
+                    <label class="form-el" >Код:</label>
+                    <input class="f-form" type="text" value="<%=repairType.getCode()%>" disabled/>
+                </div>
+
+                <div class="f-input">
+                    <label class="form-el" >Уровень:</label>
+                    <input class="f-form" type="text" value="<%=repairType.getLevel()%>" disabled/>
+                </div>
+
+                <div class="f-input">
+                    <label class="form-el" >Описание:</label>
+                    <input class="f-form" type="text" value="<%=repairType.getName()%>" disabled/>
+                </div>
+            <% } %>
+        </form>
 
             <%if (RepairStatus.CURRENT.equals(repairDTO.getStatus())
                     || RepairStatus.WAITING_FOR_SPARE_PARTS.equals(repairDTO.getStatus())) {%>
-                <%@include file="included/userRepairTypeList.jsp"%>
+<%--                <%@include file="included/userRepairTypeList.jsp"%>--%>
+
+            <%
+                long repairId = repairDTO.getId();
+                List<RepairTypeDTO> repairTypes = repairFormDTO.getRepairTypes();
+            %>
+
+            <div class="form-container r-form">
+                <form class="rc-form" action="repair" method="get" id="complete_repair">
+                    <input type="hidden" name="<%=COMMAND%>" value="<%=COMPLETE_REPAIR%>">
+                    <input type="hidden" name="<%=OBJECT_ID%>" value="<%=repairId%>">
+                    <div class="f-input">
+                        <label class="form-el">Тип ремонта:</label>
+                        <select class="f-form " name="<%=REPAIR_TYPE_ID%>" size="0">
+                            <%for (RepairTypeDTO repairTypeDTO : repairTypes) {
+                                String repairTypeDescription = String.format(MODEL_DESCRIPTION_PATTERN, repairTypeDTO.getLevel(),
+                                        repairTypeDTO.getName(), repairTypeDTO.getCode());
+                            %>
+                            <option value="<%=repairTypeDTO.getId()%>"><%=repairTypeDescription%></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+
             <div class="lf-button-container">
                 <form action="order" method="get" id="order">
                     <input type="hidden" name="<%=COMMAND%>" value="<%=GET_NEW_SPARE_PART_ORDER%>">
@@ -125,7 +151,7 @@
                     <input class="choose-button lf-button" type="submit" value="Заказать запчасти" form="order"/>
                 </form>
 
-                <button class="choose-button lf-button" type="button" onclick="showRepairTypes()">Сообщить о выполнении</button>
+                <button class="choose-button lf-button" type="submit" form="complete_repair">Сообщить о выполнении</button>
             </div>
             <%}%>
 
@@ -136,4 +162,5 @@
         </div>
     </div>
 </div>
+
 <script rel="script" src="${pageContext.request.contextPath}/js/RepairForm.js"></script>

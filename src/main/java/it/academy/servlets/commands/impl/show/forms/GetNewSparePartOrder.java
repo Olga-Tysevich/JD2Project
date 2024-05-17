@@ -30,8 +30,9 @@ public class GetNewSparePartOrder implements ActionCommand {
         req.setAttribute(OBJECT_ID, repairId);
         req.setAttribute(MODEL_ID, modelId);
         req.setAttribute(REPAIR_NUMBER, repairNumber);
+        req.setAttribute(FORM_PAGE, ADD_SPARE_PART_ORDER_PAGE_PATH);
 
-        return ADD_SPARE_PART_ORDER_PAGE_PATH;
+        return Extractor.extractLastPage(req);
     }
 
 }

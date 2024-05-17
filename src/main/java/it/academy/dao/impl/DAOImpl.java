@@ -5,7 +5,6 @@ import it.academy.entities.repair.Repair_;
 import it.academy.utils.TransactionManger;
 import org.apache.commons.lang3.StringUtils;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.sql.Date;
 import java.text.NumberFormat;
@@ -69,45 +68,6 @@ public abstract class DAOImpl<T, R> implements DAO<T, R> {
         return entityManager().createQuery(query, clazz)
                 .getResultList();
     }
-
-
-    @Override
-    public List<T> findForPage(int pageNumber, int listSize) {
-        String query = String.format(GET_LIST, clazz.getSimpleName());
-        return entityManager()
-                .createQuery(query, clazz)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
-    }
-
-    @Override
-    public List<T> findForPageByAnyMatch(int pageNumber, int listSize, String filter, String input) {
-        String query = String.format(GET_LIST_BY_ANY_MATCH, clazz.getSimpleName(), filter);
-        String parameterVal = String.format(LIKE_QUERY_PATTERN, input);
-        return entityManager()
-                .createQuery(query, clazz)
-                .setParameter(PARAMETER_VALUE, parameterVal)
-                .setFirstResult((pageNumber - 1) * listSize)
-                .setMaxResults(listSize)
-                .getResultList();
-    }
-
-    @Override
-    public long getNumberOfEntries() {
-        String query = String.format(GET_NUMBER_OF_ENTRIES, clazz.getSimpleName());
-        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        return count.getSingleResult();
-    }
-
-
-    public long getNumberOfEntriesByFilter(String filter, String value) {
-        String query = String.format(GET_NUMBER_OF_ENTRIES_BY_ANY_MATCH, clazz.getSimpleName(), filter);
-        TypedQuery<Long> count = entityManager().createQuery(query, Long.class);
-        count.setParameter(PARAMETER_VALUE, String.format(LIKE_QUERY_PATTERN, value).trim());
-        return count.getSingleResult();
-    }
-
 
     protected EntityManager entityManager() {
         return manger.entityManager();

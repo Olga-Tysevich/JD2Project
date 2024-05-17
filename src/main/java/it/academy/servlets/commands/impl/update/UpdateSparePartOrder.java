@@ -13,7 +13,6 @@ public class UpdateSparePartOrder implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
         ChangeSparePartOrderDTO order = Extractor.extractObject(req, new ChangeSparePartOrderDTO());
         sparePartOrderService.update(order);
         return Extractor.extractLastPage(req);
