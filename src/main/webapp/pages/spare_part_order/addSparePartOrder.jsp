@@ -64,8 +64,6 @@
                                 <th>Количество</th>
                                 <th>Управление</th>
                             </tr>
-                            <%  if (createOrderDTO != null && !createOrderDTO.getOrderItems().isEmpty()) {
-                                for (OrderItemDTO orderItem: createOrderDTO.getOrderItems()) {%>
                                 <tr>
                                     <th><%=orderItem.getName()%></th>
                                     <th><%=orderItem.getQuantity()%></th>
